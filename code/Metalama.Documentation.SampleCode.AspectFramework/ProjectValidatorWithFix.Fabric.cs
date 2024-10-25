@@ -22,7 +22,7 @@ internal class MyProjectFabric : ProjectFabric
                 p => p.Types.SelectMany(
                     t => t.Fields.Where(
                         f => f.Accessibility != Accessibility.Private
-                             && f.Type.Is( typeof(TextWriter) ) ) ) )
+                             && f.Type.IsConvertibleTo( typeof(TextWriter) ) ) ) )
             .ReportDiagnostic(
                 f => _warning.WithArguments( f )
                     .WithCodeFixes(

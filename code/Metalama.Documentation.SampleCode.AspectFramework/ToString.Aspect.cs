@@ -17,7 +17,7 @@ internal class ToStringAttribute : TypeAspect
         stringBuilder.AddText( " " );
 
         var fields = meta.Target.Type.FieldsAndProperties
-            .Where( f => !f.IsImplicitlyDeclared && !f.IsStatic )
+            .Where( f => f is { IsImplicitlyDeclared: false, IsStatic: false } )
             .ToList();
 
         var i = meta.CompileTime( 0 );

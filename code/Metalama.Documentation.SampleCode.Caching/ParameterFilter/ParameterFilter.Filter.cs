@@ -9,7 +9,7 @@ namespace Doc.ParameterFilter;
 public class LoggerParameterClassifier : ICacheParameterClassifier
 {
     public CacheParameterClassification GetClassification( IParameter parameter )
-        => parameter.Type.Is( typeof(ILogger) )
+        => parameter.Type.IsConvertibleTo( typeof(ILogger) )
             ? CacheParameterClassification.ExcludeFromCacheKey
             : CacheParameterClassification.Default;
 }

@@ -42,7 +42,7 @@ internal class LogAttribute : OverrideMethodAspect
             builder.Diagnostics.Report( _error1.WithArguments( declaringType ), declaringType );
             builder.SkipAspect();
         }
-        else if ( !loggerField.Type.Is( typeof(TextWriter) ) )
+        else if ( !loggerField.Type.IsConvertibleTo( typeof(TextWriter) ) )
         {
             builder.Diagnostics.Report( _error2.WithArguments( loggerField ), loggerField );
             builder.SkipAspect();

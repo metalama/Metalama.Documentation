@@ -49,14 +49,15 @@ public class ToStringAttribute : TypeAspect
         stringBuilder.AddText( " " );
 
         var fields = meta.Target.Type.FieldsAndProperties
-            .Where( f => !f.IsStatic && !f.IsImplicitlyDeclared )
+            .Where( f => f is { IsStatic: false, IsImplicitlyDeclared: false } )
             .ToList();
 
         var i = meta.CompileTime( 0 );
 
         foreach ( var field in fields )
         {
-            if ( field.Attributes.Any( a => a.Type.Is( typeof(NotToStringAttribute) ) ) )
+            if ( field.Attributes.Any(
+                    a => a.Type.IsConvertibleTo( typeof(NotToStringAttribute) ) ) )
             {
                 continue;
             }

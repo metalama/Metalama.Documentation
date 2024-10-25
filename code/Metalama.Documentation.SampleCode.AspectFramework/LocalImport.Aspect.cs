@@ -38,7 +38,7 @@ internal class ImportAspect : OverrideFieldOrPropertyAspect
 
             return;
         }
-        else if ( !serviceProviderField.Type.Is( typeof(IServiceProvider) ) )
+        else if ( !serviceProviderField.Type.IsConvertibleTo( typeof(IServiceProvider) ) )
         {
             builder.Diagnostics.Report(
                 _serviceProviderFieldTypeMismatch.WithArguments(

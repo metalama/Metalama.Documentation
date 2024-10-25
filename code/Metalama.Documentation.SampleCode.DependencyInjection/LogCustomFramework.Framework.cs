@@ -15,7 +15,7 @@ public class LoggerDependencyInjectionFramework : DefaultDependencyInjectionFram
         DependencyProperties properties,
         in ScopedDiagnosticSink diagnostics )
     {
-        return properties.DependencyType.Is( typeof(ILogger) );
+        return properties.DependencyType.IsConvertibleTo( typeof(ILogger) );
     }
 
     // Return our own customized strategy.

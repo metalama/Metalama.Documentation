@@ -27,7 +27,7 @@ public class LogAttribute : OverrideMethodAspect
             // Display the success message.
             var successMessage = methodName.Clone();
 
-            if ( meta.Target.Method.ReturnType.Is( typeof(void) ) )
+            if ( meta.Target.Method.ReturnType.IsConvertibleTo( typeof(void) ) )
             {
                 successMessage.AddText( " succeeded." );
             }

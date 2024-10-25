@@ -15,7 +15,7 @@ public class StructuralEquatableAttribute : TypeAspect
     public bool EqualsImpl( object? other )
     {
         foreach ( var fieldOrProperty in meta.Target.Type.FieldsAndProperties.Where(
-                     t => t.IsAutoPropertyOrField == true && t.IsImplicitlyDeclared == false ) )
+                     t => t is { IsAutoPropertyOrField: true, IsImplicitlyDeclared: false } ) )
         {
             meta.InvokeTemplate(
                 nameof(this.CompareFieldOrProperty),
@@ -49,7 +49,7 @@ public class StructuralEquatableAttribute : TypeAspect
         var hashCode = new HashCode();
 
         foreach ( var fieldOrProperty in meta.Target.Type.FieldsAndProperties.Where(
-                     t => t.IsAutoPropertyOrField == true && t.IsImplicitlyDeclared == false ) )
+                     t => t is { IsAutoPropertyOrField: true, IsImplicitlyDeclared: false } ) )
         {
             hashCode.Add( fieldOrProperty.Value );
         }

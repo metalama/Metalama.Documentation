@@ -21,9 +21,10 @@ public class ToStringAttribute : TypeAspect
 
         // For each field, suggest a code fix to remove from ToString.
         foreach ( var field in builder.Target.FieldsAndProperties.Where(
-                     f => !f.IsStatic && !f.IsImplicitlyDeclared ) )
+                     f => f is { IsStatic: false, IsImplicitlyDeclared: false } ) )
         {
-            if ( !field.Attributes.Any( a => a.Type.Is( typeof(NotToStringAttribute) ) ) )
+            if ( !field.Attributes.Any(
+                    a => a.Type.IsConvertibleTo( typeof(NotToStringAttribute) ) ) )
             {
                 builder.Diagnostics.Suggest(
                     CodeFixFactory.AddAttribute(
@@ -44,14 +45,15 @@ public class ToStringAttribute : TypeAspect
         stringBuilder.AddText( " " );
 
         var fields = meta.Target.Type.FieldsAndProperties
-            .Where( f => !f.IsImplicitlyDeclared && !f.IsStatic )
+            .Where( f => f is { IsImplicitlyDeclared: false, IsStatic: false } )
             .ToList();
 
         var i = meta.CompileTime( 0 );
 
         foreach ( var field in fields )
         {
-            if ( field.Attributes.Any( a => a.Type.Is( typeof(NotToStringAttribute) ) ) )
+            if ( field.Attributes.Any(
+                    a => a.Type.IsConvertibleTo( typeof(NotToStringAttribute) ) ) )
             {
                 continue;
             }

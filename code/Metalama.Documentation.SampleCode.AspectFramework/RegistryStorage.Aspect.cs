@@ -21,7 +21,7 @@ internal class RegistryStorageAttribute : TypeAspect
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
         foreach ( var property in builder.Target.FieldsAndProperties.Where(
-                     p => !p.IsImplicitlyDeclared && p.IsAutoPropertyOrField == true ) )
+                     p => p is { IsImplicitlyDeclared: false, IsAutoPropertyOrField: true } ) )
         {
             builder.With( property ).Override( nameof(this.OverrideProperty) );
         }

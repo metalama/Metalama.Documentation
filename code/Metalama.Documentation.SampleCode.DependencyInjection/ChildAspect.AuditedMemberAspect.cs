@@ -10,6 +10,7 @@ using System;
 
 namespace Doc.ChildAspect;
 
+[AttributeUsage( AttributeTargets.Method | AttributeTargets.Property )]
 public class AuditedMemberAttribute : Attribute, IAspect<IMethod>, IAspect<IProperty>
 {
     [IntroduceDependency]

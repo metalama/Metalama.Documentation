@@ -11,8 +11,7 @@ internal class PrintFieldValuesAttribute : OverrideMethodAspect
     {
         foreach ( var fieldOrProperty in meta.Target.Type.FieldsAndProperties )
         {
-            if ( !fieldOrProperty.IsImplicitlyDeclared
-                 && fieldOrProperty.IsAutoPropertyOrField == true )
+            if ( fieldOrProperty is { IsImplicitlyDeclared: false, IsAutoPropertyOrField: true } )
             {
                 var value = fieldOrProperty.Value;
                 Console.WriteLine( $"{fieldOrProperty.Name}={value}" );

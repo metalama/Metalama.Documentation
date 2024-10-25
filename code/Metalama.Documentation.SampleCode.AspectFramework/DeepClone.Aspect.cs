@@ -46,13 +46,16 @@ public class DeepCloneAttribute : TypeAspect
         }
 
         // Define a local variable of the same type as the target type.
-        var cloneVariable = meta.DefineLocalVariable( "clone", baseCall.CastTo( meta.Target.Type ) );
+        var cloneVariable = meta.DefineLocalVariable(
+            "clone",
+            baseCall.CastTo( meta.Target.Type ) );
 
         // Select clonable fields.
         var clonableFields =
             meta.Target.Type.FieldsAndProperties.Where(
                 f => f.IsAutoPropertyOrField == true &&
-                     ((f.Type.Is( typeof(ICloneable) ) && f.Type.SpecialType != SpecialType.String)
+                     ((f.Type.IsConvertibleTo( typeof(ICloneable) )
+                       && f.Type.SpecialType != SpecialType.String)
                       ||
                       (f.Type is INamedType { BelongsToCurrentProject: true } fieldNamedType &&
                        fieldNamedType.Enhancements().HasAspect<DeepCloneAttribute>())) );
@@ -77,7 +80,8 @@ public class DeepCloneAttribute : TypeAspect
                 callClone = ExpressionFactory.Capture( ((ICloneable?) field.Value)?.Clone()! );
             }
 
-            if ( cloneMethod == null || !cloneMethod.ReturnType.ToNullable().Is( fieldType ) )
+            if ( cloneMethod == null
+                 || !cloneMethod.ReturnType.ToNullable().IsConvertibleTo( fieldType ) )
             {
                 // If necessary, cast the return value of Clone to the field type.
                 callClone = callClone.CastTo( fieldType );

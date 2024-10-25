@@ -12,8 +12,7 @@ internal class LogAttribute : OverrideMethodAspect
     public override dynamic? OverrideMethod()
     {
         var loggerField = meta.Target.Type.FieldsAndProperties
-            .Where( x => x.Type.Is( typeof(TextWriter) ) )
-            .Single();
+            .Single( x => x.Type.IsConvertibleTo( typeof(TextWriter) ) );
 
         ((TextWriter) loggerField.Value!).WriteLine( $"Executing {meta.Target.Method}." );
 
