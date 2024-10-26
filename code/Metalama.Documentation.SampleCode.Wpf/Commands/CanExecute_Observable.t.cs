@@ -1,9 +1,7 @@
 using System.ComponentModel;
 using System.Windows;
-using System.Windows.Input;
 using Metalama.Patterns.Observability;
 using Metalama.Patterns.Wpf;
-using Metalama.Patterns.Wpf.Implementation;
 namespace Doc.Command.CanExecute_Observable;
 [Observable]
 public class MyWindow : Window, INotifyPropertyChanged
@@ -40,11 +38,11 @@ public class MyWindow : Window, INotifyPropertyChanged
   public bool CanExecuteDecrement => this.Counter > 0;
   public MyWindow()
   {
-    IncrementCommand = new DelegateCommand(_ => Increment(), _ => CanExecuteIncrement, this, "CanExecuteIncrement");
-    DecrementCommand = new DelegateCommand(_ => Decrement(), _ => CanExecuteDecrement, this, "CanExecuteDecrement");
+    IncrementCommand = DelegateCommandFactory.CreateDelegateCommand(Increment, () => CanExecuteIncrement, this, "CanExecuteIncrement");
+    DecrementCommand = DelegateCommandFactory.CreateDelegateCommand(Decrement, () => CanExecuteDecrement, this, "CanExecuteDecrement");
   }
-  public ICommand DecrementCommand { get; }
-  public ICommand IncrementCommand { get; }
+  public DelegateCommand DecrementCommand { get; }
+  public DelegateCommand IncrementCommand { get; }
   protected virtual void OnPropertyChanged(string propertyName)
   {
     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

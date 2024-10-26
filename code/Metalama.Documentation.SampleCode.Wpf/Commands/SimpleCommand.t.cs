@@ -1,7 +1,5 @@
 using System.Windows;
-using System.Windows.Input;
 using Metalama.Patterns.Wpf;
-using Metalama.Patterns.Wpf.Implementation;
 namespace Doc.Command.SimpleCommand;
 public class MyWindow : Window
 {
@@ -18,9 +16,9 @@ public class MyWindow : Window
   }
   public MyWindow()
   {
-    IncrementCommand = new DelegateCommand(_ => Increment(), null);
-    DecrementCommand = new DelegateCommand(_ => Decrement(), null);
+    IncrementCommand = DelegateCommandFactory.CreateDelegateCommand(Increment, null);
+    DecrementCommand = DelegateCommandFactory.CreateDelegateCommand(Decrement, null);
   }
-  public ICommand DecrementCommand { get; }
-  public ICommand IncrementCommand { get; }
+  public DelegateCommand DecrementCommand { get; }
+  public DelegateCommand IncrementCommand { get; }
 }
