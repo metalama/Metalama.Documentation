@@ -6,8 +6,6 @@ using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 using System;
 
-#pragma warning disable CS8618
-
 namespace Doc.ChildAspect;
 
 [AttributeUsage( AttributeTargets.Method | AttributeTargets.Property )]

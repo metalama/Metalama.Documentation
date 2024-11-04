@@ -5,8 +5,6 @@ using Metalama.Framework.Aspects;
 using Metalama.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-#pragma warning disable CS0649, CS8618
-
 [assembly:
     AspectOrder( AspectOrderDirection.RunTime, typeof(LogAttribute), typeof(DependencyAttribute) )]
 

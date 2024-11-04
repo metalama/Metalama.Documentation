@@ -1,3 +1,4 @@
+// Warning CS8618 on `AuditedMemberAttribute`: `Non-nullable field '_auditSink' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the field as nullable.`
 namespace Doc.ChildAspect;
 [AuditedObject]
 public class Invoice

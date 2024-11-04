@@ -4,8 +4,6 @@ using Metalama.Patterns.Wpf;
 using System;
 using System.Windows.Controls;
 
-#pragma warning disable CA1307
-
 namespace Doc.DependencyProperties.Validate;
 
 internal class MyControl : UserControl
