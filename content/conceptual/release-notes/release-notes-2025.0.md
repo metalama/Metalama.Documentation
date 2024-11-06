@@ -21,7 +21,7 @@ We tested and fixed Metalama 2025.0 for all features of C# 13:
 - `ref struct` can implement interfaces
 - Classes can have `ref struct` constraints
 - New escape character in strings
-- <xref:System.Threading.Lock> class
+- Locking on the <xref:System.Threading.Lock> class
 - Implicit indexer access in object initializers
 - Overload resolution priority
 - `partial` properties
