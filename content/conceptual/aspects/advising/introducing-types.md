@@ -9,7 +9,7 @@ keywords: "IntroduceClass, Metalama, nested class, non-nested class, IAdviser, I
 Many patterns require you to create new types. This is the case, for instance, with the Memento, Enum View-Model, or Builder patterns. You can do this by calling the <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceClass*> or <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceInterface*> advice method from your `BuildAspect` implementation.
 
 > [!NOTE]
-> The current version of Metalama allows you to introduce classes and interfaces. Support for structs, delegates and enums will be added in a future release.
+> The current version of Metalama allows you to introduce classes and interfaces. Support for structs, delegates, and enums will be added in a future release.
 
 ## Introducing a nested class
 
@@ -23,7 +23,7 @@ In the following example, the aspect introduces a nested class named `Factory`.
 
 ## Introducing a top-level class
 
-To introduce a non-nested class, you must first get a hold of an `IAdviser<INamespace>`. Here are a few strategies to get a namespace adviser from any <xref:Metalama.Framework.Advising.IAdviser`1> or <xref:Metalama.Framework.Aspects.IAspectBuilder`1>:
+To introduce a non-nested class, you must first get hold of an `IAdviser<INamespace>`. Here are a few strategies to get a namespace adviser from any <xref:Metalama.Framework.Advising.IAdviser`1> or <xref:Metalama.Framework.Aspects.IAspectBuilder`1>:
 
 * If you have an `IAdviser<ICompilation>` or `IAspectBuilder<ICompilation>` and want to add a type to `My.Namespace`, call the `WithNamespace("My.Namespace")` extension method.
 * If you don't have an `IAdviser<ICompilation>`, call `aspectBuilder.With(aspectBuilder.Target.Compilation)`, then call `WithNamespace`.
@@ -44,7 +44,7 @@ By default, the <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceCla
 
 ### Example: setting up the type
 
-In the following aspect, we continue the nested type example, make it `public`, and set its base type to `Builder` nested type of the base class, if any.
+In the following aspect, we continue the nested type example, make it `public`, and set its base type to the `Builder` nested type of the base class, if any.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/IntroduceNestedClass.cs name="Introducing a nested class"]
 
@@ -67,7 +67,7 @@ The following aspect copies the properties of the source object into the introdu
 
 ## Adding implemented interfaces
 
-To add interface implementations to an introduce type, use the <xref:Metalama.Framework.Advising.AdviserExtensions.ImplementInterface*> method as mentioned in <xref:implementing-interfaces>.
+To add interface implementations to an introduced type, use the <xref:Metalama.Framework.Advising.AdviserExtensions.ImplementInterface*> method as mentioned in <xref:implementing-interfaces>.
 
 ### Final example: the Builder pattern
 
@@ -85,7 +85,7 @@ The Builder aspect generates the following artifacts:
 
 Ideally, the aspect should also test that the source type does not have another constructor or any settable property, but this is skipped in this example.
 
-A key element of design in the aspect is the `PropertyMapping` record, which maps a property of the source type to the corresponding property in the `Builder` type, the corresponding constructor parameter in the `Builder` type, and the corresponding parameter in the source type. We build this list in the `BuildAspect` method.
+A key element of the design in the aspect is the `PropertyMapping` record, which maps a property of the source type to the corresponding property in the `Builder` type, the corresponding constructor parameter in the `Builder` type, and the corresponding parameter in the source type. We build this list in the `BuildAspect` method.
 
 We use the `aspectBuilder.Tags` property to share this list with the template implementations, which can then read it from `meta.Tags.Source`.
 

@@ -65,6 +65,3 @@ The refactoring menu is smart enough to recognize which aspect has already been 
 
 > [!div class="see-also"]
 > <xref:video-first-aspect>
-
-
-

@@ -276,7 +276,7 @@ To run aspect tests in Rider, first go to File &#8594; Settings &#8594; Build, E
 
 ![rider_test_runner_settings](../../../images/rider_test_runner_settings.png)
 
-For ReSharper, instead go to Extensions &#8594; ReSharper &#8594; Options &#8594; Tools &#8594; Unit Testing &#8594; Test Frameworks &#8594; xUnit.net and likewise select Test Discovery using Test Runner.
+For ReSharper, instead, go to Extensions &#8594; ReSharper &#8594; Options &#8594; Tools &#8594; Unit Testing &#8594; Test Frameworks &#8594; xUnit.net and likewise select Test Discovery using Test Runner.
 
 If the above is not an option for you, you can alternatively create, in each directory you want, a file named `_Runner.cs`, with the following content (in the namespace of your choice):
 
@@ -286,4 +286,3 @@ The `[CurrentDirectory]` attribute will automatically provide test data for all 
 
 > [!div class="see-also"]
 > <xref:video-testing>
-

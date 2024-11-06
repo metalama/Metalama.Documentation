@@ -10,11 +10,10 @@ modified-date: 2024-11-06
 
 This chapter provides a high-level changelog for all Metalama releases. It does not document individual bug fixes. For detailed changelogs, please refer to this [GitHub forum](https://github.com/orgs/postsharp/discussions/categories/changelog).
 
-
 | Version | Status                | Highlights                                                                                                                                                            | Release Notes               |
 | ------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
 | 2025.0  | Preview               | Support for .NET 9 and C# 13. Improved work with introduced types. Async WPF commands. | <xref:release-notes-2025.0>
-| 2024.2  | Stable and maintained | Type introduction, `Metalama.Patterns.Observability`, `Metalama.Patterns.Wpf`, `Metalama.Patterns.Immutability` and dozens of other improvements.                     | <xref:release-notes-2024.2> |
+| 2024.2  | Stable and maintained | Type introduction, `Metalama.Patterns.Observability`, `Metalama.Patterns.Wpf`, `Metalama.Patterns.Immutability`, and dozens of other improvements.                     | <xref:release-notes-2024.2> |
 | 2024.1  | Deprecated            | Visual Studio tooling, Activation UI, Overriding constructors, performance improvements                                                                               | <xref:release-notes-2024.1> |
 | 2024.0  | Deprecated            | .NET 8 and C# 12                                                                                                                                                                 | <xref:release-notes-2024.0> |
 | 2023.4  | Deprecated            | Configuration framework, `Metalama.Patterns.Contracts`, `Metalama.Patterns.Caching`, `Metalama.Patterns.Memoization`, source-available, minor enhancements, bug fixes | <xref:release-notes-2023.4> |
@@ -24,7 +23,3 @@ This chapter provides a high-level changelog for all Metalama releases. It does 
 | 2023.0  | Deprecated            | Initial release                                                                                                                                                       | <xref:release-notes-2023.0> |
 
 See also: <xref:requirements>.
-
-
-
-

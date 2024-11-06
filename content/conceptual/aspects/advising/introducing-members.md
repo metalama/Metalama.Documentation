@@ -85,7 +85,7 @@ There are two ways to make a member `partial` or `abstract`:
 * Set the `IsPartial` or `IsAbstract` property of the `[Template]` attribute.
 * Set the `IsPartial` or `IsAbstract` property of the <xref:Metalama.Framework.Code.DeclarationBuilders.IMemberBuilder> object.
 
-The implementation body of the template will be ignore if you set the `IsAbstract` or `IsPartial` property, so any implementation will do. However, if you do not want to have _any_ body, you can use the `extern` keyword on the template member. This keyword will be removed during compilation, and dummy implementations will be provided.
+The implementation body of the template will be ignored if you set the `IsAbstract` or `IsPartial` property, so any implementation will do. However, if you do not want to have _any_ body, you can use the `extern` keyword on the template member. This keyword will be removed during compilation, and dummy implementations will be provided.
 
 
 ## Overriding existing implementations
@@ -124,10 +124,10 @@ When you introduce a member to a type, you will often want to access it from tem
 
 ### Option 3. Use the invoker of the builder object
 
-If neither of the approaches above offer you the required flexibility (typically because the name of the introduced member is dynamic), use the invokers exposed on the builder object returned from the advice factory method.
+If neither of the approaches above offers you the required flexibility (typically because the name of the introduced member is dynamic), use the invokers exposed on the builder object returned from the advice factory method.
 
 > [!NOTE]
-> Declarations introduced by an aspect or aspect layer are not visible in the `meta` code model exposed to in the same aspect or aspect layer. To reference builders, you have to reference them differently. For details, see <xref:sharing-state-with-advice>.
+> Declarations introduced by an aspect or aspect layer are not visible in the `meta` code model exposed to the same aspect or aspect layer. To reference builders, you have to reference them differently. For details, see <xref:sharing-state-with-advice>.
 
 For more details, see <xref:Metalama.Framework.Code.Invokers>.
 
@@ -141,5 +141,3 @@ If the user does not add the `partial` keyword, Metalama will report a warning a
 
 > [!NOTE]
 > In __test projects__ built using `Metalama.Testing.AspectTesting`, the Metalama compiler is _not_ activated. Therefore, the source code of test projects cannot reference introduced declarations. Since the present documentation relies on `Metalama.Testing.AspectTesting` for all examples, we cannot include an example here.
-
-

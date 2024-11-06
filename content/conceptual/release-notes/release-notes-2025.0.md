@@ -6,7 +6,7 @@ keywords: "Metalama 2025.0, release notes"
 
 # Metalama 2025.0
 
-We've focused on two areas. First, ensuring Metalama is compatible with the latest .NET stack. Second, completing gaps left in the previous version, particularly in support for type introductions. We've also implemented minor improvements requested by the community.
+We've focused on two areas: first, ensuring Metalama is compatible with the latest .NET stack, and second, completing gaps left in the previous version, particularly in support for type introductions. We've also implemented minor improvements requested by the community.
 
 We published the following preview builds: [2025.0.1-preview](https://github.com/orgs/postsharp/discussions/371), [2025.0.2-preview](https://github.com/orgs/postsharp/discussions/374), [2025.0.3-preview](https://github.com/orgs/postsharp/discussions/376), and [2025.0.4-preview](https://github.com/orgs/postsharp/discussions/378).
 
@@ -16,23 +16,22 @@ We published the following preview builds: [2025.0.1-preview](https://github.com
 
 We tested and fixed Metalama 2025.0 for all features of C# 13:
 
- - `params` collections
-  - `ref`/`unsafe` in iterators and async methods
-  - `ref struct` can implement interfaces
-  - classes can have `ref struct` constraints
-  - new escape character in strings
-  - <xref:System.Threading.Lock> class
-  - Implicit indexer access in object initializers
-  - Overload resolution priority
-  - `partial` properties
-
+- `params` collections
+- `ref`/`unsafe` in iterators and async methods
+- `ref struct` can implement interfaces
+- Classes can have `ref struct` constraints
+- New escape character in strings
+- <xref:System.Threading.Lock> class
+- Implicit indexer access in object initializers
+- Overload resolution priority
+- `partial` properties
 
 ### Platform deprecation
 
-    * The minimal supported Visual Studio version is now 2022 17.6 LTSC.
-    * The minimal supported Roslyn version is now 4.4.0.
+* The minimal supported Visual Studio version is now 2022 17.6 LTSC.
+* The minimal supported Roslyn version is now 4.4.0.
 
-* Third-party package dependencies have been updated.
+Third-party package dependencies have been updated.
 
 ## Consistent support for source generators and interceptors
 
@@ -54,7 +53,6 @@ You can also implement generic interfaces bound to a type parameter of the targe
 
 It's now possible to dynamically define local variables with the new <xref:Metalama.Framework.Aspects.meta.DefineLocalVariable*> method, which offers the following overloads:
 
-
 ```cs
 // Explicitly typed
 meta.DefineLocalVariable( string nameHint, IType type ) : IExpression
@@ -73,35 +71,31 @@ The `nameHint` parameter suggests the desired local variable name, but the actua
 
 For details, see the updated <xref:template-dynamic-code> article.
 
+### Introduction of static virtual, abstract, and partial members
 
-### Introduction of static virtual, abstract and partial members
-
-You can now introduce `static virtual`, `abstract` and `partial` members thanks to the usual <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceMethod*>, <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceProperty*> and <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceEvent*> methods.
+You can now introduce `static virtual`, `abstract`, and `partial` members thanks to the usual <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceMethod*>, <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceProperty*> and <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceEvent*> methods.
 
 The `partial` keyword can be set using the `IMemberBuilder.IsPartial` property.
 
 When introducing a `partial` or `abstract` member, the template's body is ignored. If you don't want to supply a body altogether, you can mark the template member as `extern`, which will make the C# compiler happy about your template being unimplemented.
- 
 
 ### Introduction of interfaces
 
-You can now introduce interface the same way as you can introduce classes, by using the <xref:<xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceInterface*> method.
+You can now introduce an interface in the same way as you can introduce classes, by using the <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceInterface*> method.
 
 ### Introduction of extension methods
 
-You can now introduce an extension method by marking the method as `static` and the first parameter as `this` using either the `[This]` attribute or the `IParameterBuilder.IsThis` property.
-
+You can now introduce an extension method by marking the method as `static` and the first parameter as `this`, using either the `[This]` attribute or the `IParameterBuilder.IsThis` property.
 
 ### Suppression of well-known irrelevant warnings in aspects
 
-In previous versions, the C# compiler and some analyzers could report irrelevant warnings in aspect code, especially in T# templates. For instance, they could complain that a field is uninitialized, suggest to make a method static, because they would not see the context in which these template declarations are used.
+In previous versions, the C# compiler and some analyzers could report irrelevant warnings in aspect code, especially in T# templates. For instance, they could complain that a field is uninitialized or suggest making a method static because they would not see the context in which these template declarations are used.
 
-Metalama 2025.0 now automatically suppresses these warnings, which means that you no longer need to use `#pragma warning disable` in your aspects -- or at least less often.
-
+Metalama 2025.0 now automatically suppresses these warnings, which means that you no longer need to use `#pragma warning disable` in your aspects—or at least less often.
 
 ## Async and background WPF commands
 
-The `[Command]` now aspect now supports asynchronous commands. The following signatures are now supported for the `Execute` method, with or without a data parameter, with or without a `CancellationToken`.
+The `[Command]` aspect now supports asynchronous commands. The following signatures are now supported for the `Execute` method, with or without a data parameter, with or without a `CancellationToken`.
 
 ```csharp
 [Command]
@@ -117,10 +111,9 @@ Task ExecuteAsync( CancellationToken );
 Task ExecuteAsync( T, CancellationToken );
 ```
 
-Asynchronous commands are represented by the <xref:Metalama.Patterns.Wpf.AsyncDelegateCommand> class, which is is similar to `CommunityToolkit.Mvvm.Input.AsyncRelayCommand`. It allows to easily cancel or track the completion of the task.
+Asynchronous commands are represented by the <xref:Metalama.Patterns.Wpf.AsyncDelegateCommand> class, which is similar to `CommunityToolkit.Mvvm.Input.AsyncRelayCommand`. It allows you to easily cancel or track the completion of the task.
 
 You can now force the `Execute` method to run in a background thread (instead of the UI thread) by setting the <xref:Metalama.Patterns.Wpf.CommandAttribute.Background> property. This works for both `void` and `Task` methods:
-
 
 ```csharp
 [Command( Background = true )]
@@ -128,12 +121,9 @@ void Execute();
 
 [Command( Background = true )]
 Task ExecuteAsync();
-
 ```
 
 Background commands are also represented by an <xref:Metalama.Patterns.Wpf.AsyncDelegateCommand>, even non-`Task` ones.
-
-
 
 ## Other small improvements
 
@@ -141,18 +131,16 @@ Background commands are also represented by an <xref:Metalama.Patterns.Wpf.Async
 * Code model: `ToDisplayString` and `ToString` implemented for introduced declarations.
 * Representation of overridden fields has been made more consistent.
 
-
 When you override a field, Metalama turns it into a property. That is, an object of `IField` type _before_ the aspect will be represented as an `IProperty` _after_ the aspect. This usually works well, and most of you likely haven't had to think much about it.
 
 However, the devil is in the details. If you take a reference to a field before the aspect, you will get an `IRef<IField>`. If you resolve the reference after the aspect, you could previously run into a problem because the new `IProperty` could not be cast into an `IField`.
 
 This tricky part of the code model has been redesigned. If you attempt to resolve an `IRef<IField>` reference to an overridden field, you will get an `IField` _shim_ representing what is actually an `IProperty`. However, this object is _not_ navigable through the `INamedType.Fields` properties, but only, as an `IProperty`, through `INamedType.Properties`. You can navigate to the "real" property using the `IField.OverridingProperty` property. The inverse relationship is the `IProperty.OriginalField` property. Also, the `IRef.As<T>()` method is able to convert an overridden `IField` into its overriding `IProperty` and conversely.
 
-
 * Some type predicate methods renamed. The old methods have been marked as obsolete.
-    * IType.Is -> IsConvertibeTo
-    * EligibilityBuilder.MustBe -> MustBeConvertibleTo or MustEqual
-    * EligibilityBuilder.MustBeOfType -> MustBeInstanceOfType
+  * IType.Is -> IsConvertibeTo
+  * EligibilityBuilder.MustBe -> MustBeConvertibleTo or MustEqual
+  * EligibilityBuilder.MustBeOfType -> MustBeInstanceOfType
 
 ## Breaking changes
 
@@ -160,5 +148,5 @@ This tricky part of the code model has been redesigned. If you attempt to resolv
 * Casting a non-dynamic expression to <xref:Metalama.Framework.Code.IExpression> no longer works. A call of <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionFactory.Capture*> is required instead. The previous behavior "tricking" the cast operator was undocumented and confusing.
 * The `IRef.GetTarget` and `IRef.GetTargetOrNull` methods have been moved to extension methods, which could require you to add new `using` directives in your code.
 * In `Metalama.Patterns.Wpf`, there are a few changes with the `[Command]` aspect:
-    * the <xref:Metalama.Patterns.Wpf.DelegateCommand> type has been moved to the `Metalama.Patterns.Wpf` namespace,
-    * the aspect generates properties of type <xref:Metalama.Patterns.Wpf.DelegateCommand>, <xref:Metalama.Patterns.Wpf.DelegateCommand`1>, <xref:Metalama.Patterns.Wpf.AsyncDelegateCommand> or <xref:Metalama.Patterns.Wpf.AsyncDelegateCommand`1> instead of <xref:System.Windows.Input.ICommand>. All these types implement the <xref:System.Windows.Input.ICommand> interface, but the `Execute(object)` method is now implemented privately. It is replaced a strongly-typed method `Execute()` for parameterless commands or `Execute(T)` for commands accepting a parameter.
+  * the <xref:Metalama.Patterns.Wpf.DelegateCommand> type has been moved to the `Metalama.Patterns.Wpf` namespace,
+  * the aspect generates properties of type <xref:Metalama.Patterns.Wpf.DelegateCommand>, <xref:Metalama.Patterns.Wpf.DelegateCommand`1>, <xref:Metalama.Patterns.Wpf.AsyncDelegateCommand> or <xref:Metalama.Patterns.Wpf.AsyncDelegateCommand`1> instead of <xref:System.Windows.Input.ICommand>. All these types implement the <xref:System.Windows.Input.ICommand> interface, but the `Execute(object)` method is now implemented privately. It is replaced by a strongly-typed method `Execute()` for parameterless commands or `Execute(T)` for commands accepting a parameter.

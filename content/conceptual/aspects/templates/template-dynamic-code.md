@@ -1,7 +1,7 @@
 ---
 uid: template-dynamic-code
 level: 200
-summary: "The document provides detailed information on generating run-time code in templates, using dynamic expressions and variables, invoking members, parsing C# expressions and statements, converting run-time expressions to compile-time, and converting compile-time values to run-time values."
+summary: "This document provides detailed information on generating run-time code in templates, using dynamic expressions and variables, invoking members, parsing C# expressions and statements, converting run-time expressions to compile-time, and converting compile-time values to run-time values."
 keywords: "dynamic expressions, generating run-time code, compile-time values, run-time values, dynamic variables, IExpression.Value, ExpressionBuilder, dynamic member, parsing C# expressions"
 created-date: 2023-02-21
 modified-date: 2024-08-04
@@ -9,17 +9,15 @@ modified-date: 2024-08-04
 
 # Generating run-time code
 
-
 ## Dynamic typing
 
-When writing a template, you do not generally know in advance the exact type of the declarations to which it is applied. 
+When writing a template, you do not generally know in advance the exact type of the declarations to which it is applied.
 
 For example, an aspect may not know the return type of the methods that it overrides.
 
 There are two mechanisms to represent unknown types: `dynamic` and generic types. Let's now focus on the first one. The generic approach is covered in <xref:template-parameters>.
 
 If the return type of a method is unknown, the template can use the `dynamic` return type.
-
 
 ```cs
 dynamic? OverrideMethod()
@@ -50,12 +48,11 @@ Here are a few examples of APIs that return a `dynamic`:
   * `meta.Target.Field.Value`, `meta.Target.Property.Value`, or `meta.Target.FieldOrProperty.Value` allow getting or setting the value of the target field or property.
   * `meta.Target.Parameter.Value` allows getting or setting the value of the target parameter.
   * `meta.Target.Method.Parameters[*].Value` allows getting or setting the value of a target method's parameter.
-* _Invokers_, i.e. APIs that, given a compile-time <xref:Metalama.Framework.Code.IMethod>, <xref:Metalama.Framework.Code.IField>, <xref:Metalama.Framework.Code.IProperty>, ... returns a `dynamic` object that generate a call to this object. For instance:
+* _Invokers_, i.e., APIs that, given a compile-time <xref:Metalama.Framework.Code.IMethod>, <xref:Metalama.Framework.Code.IField>, <xref:Metalama.Framework.Code.IProperty>, ... return a `dynamic` object that generates a call to this object. For instance:
     * `method.Invoke( a, b, c )`, or
     * `field.Value`
 
   For details regarding invokers, see below, [Generating calls to the call model](#generating-calls-to-the-code-model).
-  
 
 ### Using dynamic expressions
 
@@ -80,10 +77,8 @@ Dynamic expressions can appear anywhere in an expression. In the following examp
 Console.WriteLine( "p = " + meta.Target.Parameters["p"].Value );
 ```
 
-
 > [!WARNING]
 > Due to the limitations of the C# language, you cannot use extension methods on the right part of a dynamic expression. In this case, you must call the extension method in the traditional way, by specifying its type name on the left and passing the dynamic expression as an argument. An alternative approach is to cast the dynamic expression to a specified type if it is well-known.
-
 
 ### Example: dynamic member
 
@@ -158,13 +153,13 @@ You can use the <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionFactory.W
 
 ## Generating run-time arrays
 
-The first way to generate a run-time array is to declare a variable of array type and to use a statement to set each element, for instance:
+The first way to generate a run-time array is to declare a variable of array type and use a statement to set each element, for instance:
 
 ```cs
 var args = new object[2];
 args[0] = "a";
 args[1] = DateTime.Now;
-MyRunTimeMethod( args );
+MyRunTimeMethod(args);
 ```
 
 To generate an array of variable length, you can use the <xref:Metalama.Framework.Code.SyntaxBuilders.ArrayBuilder> class.
@@ -173,15 +168,15 @@ For instance:
 
 ```cs
 var arrayBuilder = new ArrayBuilder();
-arrayBuilder.Add( "a" );
-arrayBuilder.Add( DateTime.Now );
-MyRunTimeMethod( arrayBuilder.ToValue() );
+arrayBuilder.Add("a");
+arrayBuilder.Add(DateTime.Now);
+MyRunTimeMethod(arrayBuilder.ToValue());
 ```
 
 This will generate the following code:
 
 ```cs
-MyRunTimeMethod( new object[] { "a", DateTime.Now });
+MyRunTimeMethod(new object[] { "a", DateTime.Now });
 ```
 
 ## Generating interpolated strings
@@ -204,29 +199,27 @@ When you are done building the expression, call the <xref:Metalama.Framework.Cod
 > A major benefit of <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionBuilder> is that it can be used in a compile-time method that is not a template.
 
 > [!WARNING]
-> Your aspect must not assume that the target code has any required `using` directives. Make sure to write fully namespace-qualified type names. Metalama will simplify the code and add the relevant `using` directives when asked to produce pretty-formatted code. The best way to ensure type names are fully qualified is to use the <xref:Metalama.Framework.Code.SyntaxBuilders.SyntaxBuilder.AppendTypeName*> method. 
+> Your aspect must not assume that the target code has any required `using` directives. Make sure to write fully namespace-qualified type names. Metalama will simplify the code and add the relevant `using` directives when asked to produce pretty-formatted code. The best way to ensure type names are fully qualified is to use the <xref:Metalama.Framework.Code.SyntaxBuilders.SyntaxBuilder.AppendTypeName*> method.
 
 ### Example: ExpressionBuilder
 
 The following example uses an <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionBuilder> to build a pattern comparing an input value to several forbidden values. Notice the use of <xref:Metalama.Framework.Code.SyntaxBuilders.SyntaxBuilder.AppendLiteral*>, <xref:Metalama.Framework.Code.SyntaxBuilders.SyntaxBuilder.AppendExpression*>, and <xref:Metalama.Framework.Code.SyntaxBuilders.SyntaxBuilder.AppendVerbatim*>.
 
-[!metalama-test  ~/code/Metalama.Documentation.SampleCode.AspectFramework/ExpressionBuilder.cs name="ExpressionBuilder"]
-
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/ExpressionBuilder.cs name="ExpressionBuilder"]
 
 ## Defining local variables
 
-By default, local variables of your T# template represent a run-time local variable, unless they are assigned to a build-time value. For instance `var x = 0;` defines a run-time local variable and `var field = meta.Target.Field;` defines a compile-time one.
+By default, local variables of your T# template represent a run-time local variable unless they are assigned to a build-time value. For instance, `var x = 0;` defines a run-time local variable and `var field = meta.Target.Field;` defines a compile-time one.
 
 If you need to _dynamically_ define a local variable, you can use the <xref:Metalama.Framework.Aspects.meta.DefineLocalVariable*> method. This allows you, for instance, to define local variables in a compile-time `foreach` loop.
 
-When using the <xref:Metalama.Framework.Aspects.meta.DefineLocalVariable*> method, you should not worry about generating unique names. Metalama will append a numerical suffix to the variable name to make sure it is unique in the target lexical scope.
+When using the <xref:Metalama.Framework.Aspects.meta.DefineLocalVariable*> method, you should not worry about generating unique names. Metalama will append a numerical suffix to the variable name to ensure it is unique in the target lexical scope.
 
 ### Example: rollbacking field changes upon exception
 
-The following aspect saves the value of all fields and automatic properties into a local variable before an operation executed, and rolls back these changes upon exception.
+The following aspect saves the value of all fields and automatic properties into a local variable before an operation is executed and rolls back these changes upon exception.
 
-[!metalama-test  ~/code/Metalama.Documentation.SampleCode.AspectFramework/ExpressionBuilder.cs name="ExpressionBuilder"]
-
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/ExpressionBuilder.cs name="ExpressionBuilder"]
 
 ## Generating statements using a StringBuilder-like API
 
@@ -245,7 +238,7 @@ If you already have a string representing an expression or a statement, you can 
 
 The `_logger` field is accessed through a parsed expression in the following example.
 
-[!metalama-test  ~/code/Metalama.Documentation.SampleCode.AspectFramework/ParseExpression.cs name="ParseExpression"]
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/ParseExpression.cs name="ParseExpression"]
 
 ## Generating switch statements
 
@@ -253,9 +246,9 @@ You can use the <xref:Metalama.Framework.Code.SyntaxBuilders.SwitchStatementBuil
 
 ### Example: SwitchStatementBuilder
 
-The following example generates an `Execute` method which has two arguments: a message name and an opaque argument. The aspect must be used on a class with one or many `ProcessFoo` methods, where `Foo` is the message name. The aspect generates a `switch` statement that dispatches the message to the proper method.
+The following example generates an `Execute` method, which has two arguments: a message name and an opaque argument. The aspect must be used on a class with one or many `ProcessFoo` methods, where `Foo` is the message name. The aspect generates a `switch` statement that dispatches the message to the proper method.
 
-[!metalama-test  ~/code/Metalama.Documentation.SampleCode.AspectFramework/SwitchStatementBuilder.cs name="SwitchStatementBuilder"]
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/SwitchStatementBuilder.cs name="SwitchStatementBuilder"]
 
 ## Converting compile-time values to run-time values
 
@@ -276,7 +269,7 @@ You can utilize `meta.RunTime(expression)` to convert the result of a compile-ti
 
 The following aspect converts the subsequent build-time values into a run-time expression: a `List<string>`, a `Guid`, and a `System.Type`.
 
-[!metalama-test  ~/code/Metalama.Documentation.SampleCode.AspectFramework/ConvertToRunTime.cs name="Dynamic"]
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/ConvertToRunTime.cs name="Dynamic"]
 
 ### Converting custom objects
 
@@ -287,5 +280,3 @@ You can have classes that exist both at compile and run time. To allow Metalama 
 ### Example: custom converter
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/CustomSyntaxSerializer.cs name="Custom Syntax Serializer"]
-
-

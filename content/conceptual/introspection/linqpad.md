@@ -24,7 +24,6 @@ With this driver, you can:
 > [!NOTE]
 > The Metalama.LinqPad driver is [open-source](https://github.com/postsharp/Metalama.LinqPad).
 
-
 ## Installing the driver
 
 To install the Metalama driver for LINQPad, follow these steps:
@@ -39,8 +38,8 @@ To install the Metalama driver for LINQPad, follow these steps:
 
 3. In the NuGet LINQPad Manager dialog:
 
-    1. Select _Show all drivers_
-    2. Type _Metalama_
+    1. Select _Show all drivers_.
+    2. Type _Metalama_.
     3. Select `Metalama.LinqPad` and click _Install_.
     4. Accept a few disclaimers and wait. Then click _Close_.
 
@@ -97,7 +96,7 @@ For details, see the <xref:Metalama.Framework.Workspaces> namespace.
 
 Instead of using the driver and a connection, you can use the `Metalama.LinqPad` package from any query.
 
-You should start your query with the M<xref:Metalama.Framework.Workspaces.WorkspaceCollection> class, then get the <xref:Metalama.Framework.Workspaces.WorkspaceCollection.Default>  property and call the <xref:Metalama.Framework.Workspaces.WorkspaceCollection.Load*> method to load your project or solution.
+You should start your query with the <xref:Metalama.Framework.Workspaces.WorkspaceCollection> class, then get the <xref:Metalama.Framework.Workspaces.WorkspaceCollection.Default> property and call the <xref:Metalama.Framework.Workspaces.WorkspaceCollection.Load*> method to load your project or solution.
 
 For instance, the following code defines the `workspace` variable and gives it an identical meaning to if you were using the driver:
 
@@ -132,8 +131,3 @@ If you want to run a Metalama query from a different application, add a referenc
 > [!div class="see-also"]
 > <xref:Metalama.Framework.Workspaces>
 > <xref:Metalama.Framework.Introspection>
-
-
-
-
-

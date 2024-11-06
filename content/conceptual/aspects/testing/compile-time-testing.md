@@ -9,7 +9,7 @@ modified-date: 2024-08-29
 
 # Testing compile-time helper code
 
-When building complex aspects, it's advisable to shift the intricate compile-time logic, for instance, code that queries the code model, to compile-time helper classes that are not aspects. Unlike aspects, these compile-time classes can be subjected to unit tests.
+When building complex aspects, it's advisable to shift the intricate compile-time logic, such as code that queries the code model, to compile-time helper classes that are not aspects. Unlike aspects, these compile-time classes can be subjected to unit tests.
 
 ## Benefits
 
@@ -36,7 +36,7 @@ Failing to follow this step will result in an exception whenever any compile-tim
 
 Proceed to create an Xunit test project as you usually would.
 
-It's strongly recommended to target .NET 6.0 or later as temporary files cannot be automatically cleaned up with lower .NET versions.
+It's strongly recommended to target .NET 6.0 or later, as temporary files cannot be automatically cleaned up with lower .NET versions.
 
 Disable Metalama for the test project by defining the following property:
 
@@ -114,4 +114,3 @@ public class MyTests : UnitTestClass
     }
 }
 ```
-
