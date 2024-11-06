@@ -130,13 +130,6 @@ Background commands are also represented by an <xref:Metalama.Patterns.Wpf.Async
 * Test framework: Added test options `@Repeat(<int>)` and `@RandomSeed(<int>)` to help reproduce random issues.
 * Code model: `ToDisplayString` and `ToString` implemented for introduced declarations.
 * Representation of overridden fields has been made more consistent.
-
-When you override a field, Metalama turns it into a property. That is, an object of `IField` type _before_ the aspect will be represented as an `IProperty` _after_ the aspect. This usually works well, and most of you likely haven't had to think much about it.
-
-However, the devil is in the details. If you take a reference to a field before the aspect, you will get an `IRef<IField>`. If you resolve the reference after the aspect, you could previously run into a problem because the new `IProperty` could not be cast into an `IField`.
-
-This tricky part of the code model has been redesigned. If you attempt to resolve an `IRef<IField>` reference to an overridden field, you will get an `IField` _shim_ representing what is actually an `IProperty`. However, this object is _not_ navigable through the `INamedType.Fields` properties, but only, as an `IProperty`, through `INamedType.Properties`. You can navigate to the "real" property using the `IField.OverridingProperty` property. The inverse relationship is the `IProperty.OriginalField` property. Also, the `IRef.As<T>()` method is able to convert an overridden `IField` into its overriding `IProperty` and conversely.
-
 * Some type predicate methods renamed. The old methods have been marked as obsolete.
   * IType.Is -> IsConvertibeTo
   * EligibilityBuilder.MustBe -> MustBeConvertibleTo or MustEqual

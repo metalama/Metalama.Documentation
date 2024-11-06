@@ -78,3 +78,14 @@ Although it is inspired by Microsoft's `BinaryFormatter`, which has been depreca
 
 > [!WARNING]
 > The <xref:Metalama.Framework.Serialization> namespace is _NOT_ compatible with obfuscation. The serialized binary stream contains full names of declarations in clear text, partially defeating the purpose of serialization. Additionally, serialization will fail if these names are changed after compilation by the obfuscation process.
+
+
+## Accessing a field after it has been overridden
+
+When you override a field, Metalama turns it into a property. That is, _before_ the aspect, the field will be represented by an object of type <xref:Metalama.Framework.Code.IField> type and exposed in the <xref:Metalama.Framework.Code.INamedType.Fields?text=INamedType.Fields> collection. However, _after_ the aspect, the overridden field is represented as an <xref:Metalama.Framework.Code.IProperty> and exposed in the <xref:Metalama.Framework.Code.INamedType.Properties?text=INamedType.Properties> collection. This usually works well, and most of you likely haven't had to think much about it.
+
+However, the devil is in the details. Things get more complex when you are passing a reference to an overridden field to another aspect or to another assembly using transitive aspects.
+
+If you take a reference to a field _before_ the aspect, you will get an `IRef<IField>`. If you resolve the reference _after_ the aspect, you might wonder what happens because the field is now a property.
+
+If you attempt to resolve an `IRef<IField>`, you will always get an <xref:Metalama.Framework.Code.IField>. If the field has been overridden, you will get an  _shim_ representing what is actually an <xref:Metalama.Framework.Code.IProperty>. However, this field is _not_ navigable through the `INamedType.Fields` properties, but only, as an `IProperty`, through `INamedType.Properties`. You can navigate to the "real" property using the <xref:Metalama.Framework.Code.IField.OverridingProperty?text=IField.OverridingProperty> property. The inverse relationship is the <xref:Metalama.Framework.Code.IProperty.OriginalField?text=IProperty.OriginalField> property. Also, the <xref: Metalama.Framework.Code.IRef.As*?text=IRef.As&lt;&gt;()> method is able to convert an overridden an <xref:Metalama.Framework.Code.IField> into its overriding <xref:Metalama.Framework.Code.IProperty> and conversely.
