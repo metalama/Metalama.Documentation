@@ -4,7 +4,7 @@ level: 300
 summary: "This document provides advanced usage scenarios for the Metalama.Framework.Aspects.OverrideFieldOrPropertyAspect class, including accessing metadata, resolving dependencies, overriding multiple fields or properties, and using property and accessor templates."
 keywords: "Overriding fields, OverrideFieldOrPropertyAspect, resolving dependencies, service locator pattern, property template, accessor template, dynamic templates"
 created-date: 2023-02-16
-modified-date: 2024-08-04
+modified-date: 2024-11-06
 ---
 
 # Overriding fields or properties
@@ -82,4 +82,5 @@ The templates must fulfill the following conditions:
 * The setter template must be of signature `void Setter(T value)`, where the name `value` of the first parameter is mandatory.
 
 [comment]: # (TODO: example)
+
 

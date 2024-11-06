@@ -4,7 +4,7 @@ level: 400
 summary: "The document provides a guide on testing compile-time code using unit tests, outlining the benefits and a step-by-step process to create unit tests for compile-time code in a .NET 6.0 project using the Metalama.Testing.UnitTesting package."
 keywords: "compile-time code testing, unit tests compile-time code, .NET 6.0, Metalama.Testing.UnitTesting, compile-time logic, unit-testing compile-time classes, Xunit test project, MetalamaRemoveCompileTimeOnlyCode, disable Metalama, test methods"
 created-date: 2023-03-03
-modified-date: 2024-08-29
+modified-date: 2024-11-06
 ---
 
 # Testing compile-time helper code
@@ -114,3 +114,4 @@ public class MyTests : UnitTestClass
     }
 }
 ```
+

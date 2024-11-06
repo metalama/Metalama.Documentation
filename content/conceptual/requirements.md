@@ -3,7 +3,7 @@ uid: requirements
 summary: "The document provides the requirements for using Metalama, a tool that integrates with Roslyn-based IDEs. It details the build environment, supported IDEs, target frameworks, and guidelines for synchronizing versions of Metalama, Visual Studio and .NET SDK."
 keywords: "Metalama, .NET SDK, Roslyn-based IDEs, Visual Studio, version synchronization, build environment, compatibility issues, C# features, SDK-style projects, target frameworks"
 created-date: 2023-01-26
-modified-date: 2024-08-22
+modified-date: 2024-11-06
 ---
 
 # Requirements
@@ -74,3 +74,4 @@ The rationale behind these suggestions is as follows:
 
 > [!NOTE]
 > The `Metalama.Compiler` package replaces the C# compiler included in Visual Studio or the .NET SDK. Therefore, your code will build against the version of Roslyn that Metalama was built for, regardless of the installed version of your IDE or the .NET SDK. To avoid incompatibilities after updates of the .NET SDK, the `Metalama.Compiler` package also includes a backup copy of all Roslyn analyzers normally included in the .NET SDK. In case of incompatibility, these backup copies will be used instead of the ones provided by your locally installed .NET SDK.
+

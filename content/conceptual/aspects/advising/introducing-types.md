@@ -2,6 +2,8 @@
 uid: introducing-types
 level: 300
 keywords: "IntroduceClass, Metalama, nested class, non-nested class, IAdviser, INamespace, BuildAspect, introduce members, Builder pattern, introduce types"
+created-date: 2024-11-06
+modified-date: 2024-11-06
 ---
 
 # Introducing types
@@ -93,3 +95,4 @@ We use the `aspectBuilder.Tags` property to share this list with the template im
 
 > [!NOTE]
 > For more about the Builder pattern, see <xref:sample-builder>.
+

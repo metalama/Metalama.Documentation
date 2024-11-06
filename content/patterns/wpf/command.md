@@ -2,6 +2,8 @@
 uid: wpf-command
 level: 100
 keywords: "WPF command, ICommand interface, CanExecute method, boilerplate code, Metalama.Patterns.Wpf.CommandAttribute, ICommand.Execute method, INotifyPropertyChanged, CanExecuteChanged event, DelegateCommand class, Metalama"
+created-date: 2024-11-06
+modified-date: 2024-11-06
 ---
 
 # WPF Command
@@ -125,3 +127,4 @@ The default naming convention is evaluated last and cannot be modified.
 The following example illustrates a naming convention for the Czech language. There are two conventions. The first matches the `Vykonat` prefix in the main method, for instance, it will match a method named `VykonatBlb` and return `Blb` as the command name. The second naming convention matches everything and removes the conventional prefixes `_` and `Execute` as described above. The default naming convention is never used in this example.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Wpf/Commands/CanExecute_Czech.cs]
+

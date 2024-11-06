@@ -23,3 +23,4 @@ This chapter provides a high-level changelog for all Metalama releases. It does 
 | 2023.0  | Deprecated            | Initial release                                                                                                                                                       | <xref:release-notes-2023.0> |
 
 See also: <xref:requirements>.
+

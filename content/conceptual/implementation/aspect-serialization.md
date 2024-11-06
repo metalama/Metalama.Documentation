@@ -2,6 +2,8 @@
 uid: aspect-serialization
 level: 400
 keywords: "serialization, cross-project effect, Metalama, IAspect, deserialized, custom serializer, ICompileTimeSerializable, NonCompileTimeSerialized, ValueTypeSerializer, ImportSerializerAttribute"
+created-date: 2024-11-06
+modified-date: 2024-11-06
 ---
 
 # Serialization of aspects and other compile-time classes
