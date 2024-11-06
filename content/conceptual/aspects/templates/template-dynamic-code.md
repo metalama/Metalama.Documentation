@@ -9,7 +9,17 @@ modified-date: 2024-08-04
 
 # Generating run-time code
 
-Templates use the `dynamic` type to represent types unknown to the template developer. For example, an aspect may not know the return type of the methods to which it is applied in advance. The return type is represented by the `dynamic` type.
+
+## Dynamic typing
+
+When writing a template, you do not generally know in advance the exact type of the declarations to which it is applied. 
+
+For example, an aspect may not know the return type of the methods that it overrides.
+
+There are two mechanisms to represent unknown types: `dynamic` and generic types. Let's now focus on the first one. The generic approach is covered in <xref:template-parameters>.
+
+If the return type of a method is unknown, the template can use the `dynamic` return type.
+
 
 ```cs
 dynamic? OverrideMethod()
@@ -20,9 +30,10 @@ dynamic? OverrideMethod()
 
 All `dynamic` compile-time code is transformed into strongly-typed run-time code. That is, we use `dynamic` when the expression type is unknown to the template developer, but the type is always known when the template is applied.
 
-In a template, it is not possible to generate code that employs `dynamic` typing at run time.
+> [!WARNING]
+> In a template, it is not possible to generate code that employs `dynamic` typing at run time.
 
-## Dynamic code
+### APIs returning dynamic objects
 
 The `meta` API exposes some properties of the `dynamic` type and some methods returning `dynamic` values. These members are compile-time, but they produce a _C# expression_ that can be used in the run-time code of the template. Because these members return a `dynamic` value, they can be utilized anywhere in your template. The code will not be validated when the template is compiled but when the template is applied.
 
@@ -39,9 +50,12 @@ Here are a few examples of APIs that return a `dynamic`:
   * `meta.Target.Field.Value`, `meta.Target.Property.Value`, or `meta.Target.FieldOrProperty.Value` allow getting or setting the value of the target field or property.
   * `meta.Target.Parameter.Value` allows getting or setting the value of the target parameter.
   * `meta.Target.Method.Parameters[*].Value` allows getting or setting the value of a target method's parameter.
+* _Invokers_, i.e. APIs that, given a compile-time <xref:Metalama.Framework.Code.IMethod>, <xref:Metalama.Framework.Code.IField>, <xref:Metalama.Framework.Code.IProperty>, ... returns a `dynamic` object that generate a call to this object. For instance:
+    * `method.Invoke( a, b, c )`, or
+    * `field.Value`
 
-> [!WARNING]
-> Due to the limitations of the C# language, you cannot use extension methods on the right part of a dynamic expression. In this case, you must call the extension method in the traditional way, by specifying its type name on the left and passing the dynamic expression as an argument. An alternative approach is to cast the dynamic expression to a specified type if it is well-known.
+  For details regarding invokers, see below, [Generating calls to the call model](#generating-calls-to-the-code-model).
+  
 
 ### Using dynamic expressions
 
@@ -66,6 +80,11 @@ Dynamic expressions can appear anywhere in an expression. In the following examp
 Console.WriteLine( "p = " + meta.Target.Parameters["p"].Value );
 ```
 
+
+> [!WARNING]
+> Due to the limitations of the C# language, you cannot use extension methods on the right part of a dynamic expression. In this case, you must call the extension method in the traditional way, by specifying its type name on the left and passing the dynamic expression as an argument. An alternative approach is to cast the dynamic expression to a specified type if it is well-known.
+
+
 ### Example: dynamic member
 
 In the following aspect, the logging aspect uses `meta.This`, which returns a `dynamic` object, to access the type being enhanced. The aspect assumes that the target type defines a field named `_logger` and that the type of this field has a method named `WriteLine`.
@@ -81,7 +100,7 @@ When the expression is writable, the `dynamic` member can be used on the right h
 meta.Property.Value = 5;
 ```
 
-## Dynamic local variables
+### Dynamic local variables
 
 When the template is expanded, `dynamic` variables are transformed into `var` variables. Therefore, all `dynamic` variables must be initialized.
 
@@ -176,6 +195,7 @@ The following example shows how an <xref:Metalama.Framework.Code.SyntaxBuilders.
 > [!div id="parsing" class="anchor"]
 
 ## Generating expressions using a StringBuilder-like API
+
 It is sometimes easier to generate the run-time code as simple text instead of using a complex meta API. In this situation, you can use the <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionBuilder> class. It offers convenient methods like <xref:Metalama.Framework.Code.SyntaxBuilders.SyntaxBuilder.AppendLiteral*>, <xref:Metalama.Framework.Code.SyntaxBuilders.SyntaxBuilder.AppendTypeName*>, or <xref:Metalama.Framework.Code.SyntaxBuilders.SyntaxBuilder.AppendExpression*>. The <xref:Metalama.Framework.Code.SyntaxBuilders.SyntaxBuilder.AppendVerbatim*> method must be used for anything else, such as keywords or punctuation.
 
 When you are done building the expression, call the <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionBuilder.ToExpression*> method. It will return an <xref:Metalama.Framework.Code.IExpression> object. The <xref:Metalama.Framework.Code.IExpression.Value?text=IExpression.Value> property is `dynamic` and can be used in run-time code.
@@ -183,11 +203,30 @@ When you are done building the expression, call the <xref:Metalama.Framework.Cod
 > [!NOTE]
 > A major benefit of <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionBuilder> is that it can be used in a compile-time method that is not a template.
 
+> [!WARNING]
+> Your aspect must not assume that the target code has any required `using` directives. Make sure to write fully namespace-qualified type names. Metalama will simplify the code and add the relevant `using` directives when asked to produce pretty-formatted code. The best way to ensure type names are fully qualified is to use the <xref:Metalama.Framework.Code.SyntaxBuilders.SyntaxBuilder.AppendTypeName*> method. 
+
 ### Example: ExpressionBuilder
 
 The following example uses an <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionBuilder> to build a pattern comparing an input value to several forbidden values. Notice the use of <xref:Metalama.Framework.Code.SyntaxBuilders.SyntaxBuilder.AppendLiteral*>, <xref:Metalama.Framework.Code.SyntaxBuilders.SyntaxBuilder.AppendExpression*>, and <xref:Metalama.Framework.Code.SyntaxBuilders.SyntaxBuilder.AppendVerbatim*>.
 
 [!metalama-test  ~/code/Metalama.Documentation.SampleCode.AspectFramework/ExpressionBuilder.cs name="ExpressionBuilder"]
+
+
+## Defining local variables
+
+By default, local variables of your T# template represent a run-time local variable, unless they are assigned to a build-time value. For instance `var x = 0;` defines a run-time local variable and `var field = meta.Target.Field;` defines a compile-time one.
+
+If you need to _dynamically_ define a local variable, you can use the <xref:Metalama.Framework.Aspects.meta.DefineLocalVariable*> method. This allows you, for instance, to define local variables in a compile-time `foreach` loop.
+
+When using the <xref:Metalama.Framework.Aspects.meta.DefineLocalVariable*> method, you should not worry about generating unique names. Metalama will append a numerical suffix to the variable name to make sure it is unique in the target lexical scope.
+
+### Example: rollbacking field changes upon exception
+
+The following aspect saves the value of all fields and automatic properties into a local variable before an operation executed, and rolls back these changes upon exception.
+
+[!metalama-test  ~/code/Metalama.Documentation.SampleCode.AspectFramework/ExpressionBuilder.cs name="ExpressionBuilder"]
+
 
 ## Generating statements using a StringBuilder-like API
 
@@ -220,7 +259,7 @@ The following example generates an `Execute` method which has two arguments: a m
 
 ## Converting compile-time values to run-time values
 
-You can utilize `meta.RunTime(expression)` to convert the result of a compile-time expression into a run-time value. The compile-time expression will be evaluated at compile time, and its value will be converted into syntax representing that value. Conversions are possible for the following compile-time types:
+You can utilize `meta.RunTime(expression)` to convert the result of a compile-time expression into a run-time expression. The compile-time expression will be evaluated at compile time, and its value will be converted into syntax representing that value. Conversions are possible for the following compile-time types:
 
 - Literals;
 - Enum values;

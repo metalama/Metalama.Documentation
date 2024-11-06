@@ -17,12 +17,12 @@ modified-date: 2024-08-22
 
 Metalama integrates with Roslyn, so it is theoretically compatible with any Roslyn-based IDE.
 
-| IDE | Design-Time Correctness | Code Fixes | Additional UI Features |
-| --- | ----------------------- | ---------- | ---------------------- |
-| Visual Studio 2022 _with_ Visual Stutio tooling | Yes | Yes | Transformed code diff, info bar, syntax highlighting |
-| Visual Studio 2022 _without_ Visual Stutio tooling | Yes | Yes | |
-| Rider | Yes | Yes | |
-| Visual Studio Code (C# Dev Kit) | Yes | Yes | |
+| IDE                                                | Earliest supported version | Design-Time Correctness | Code Fixes | Additional UI Features                               |
+| -------------------------------------------------- | -------------------------- | ----------------------- | ---------- | ---------------------------------------------------- |
+| Visual Studio 2022 _with_ Visual Stutio tooling    | 17.6                       | Yes                     | Yes        | Transformed code diff, info bar, syntax highlighting |
+| Visual Studio 2022 _without_ Visual Stutio tooling | 17.6                       | Yes                     | Yes        |                                                      |
+| Rider                                              |                            | Yes                     | Yes        |                                                      |
+| Visual Studio Code (C# Dev Kit)                    |                            | Yes                     | Yes        |                                                      |
 
 > [!NOTE]
 > While using Visual Studio, the utilization of Visual Studio Tools for Metalama and PostSharp is not mandatory but is highly recommended.
@@ -33,15 +33,24 @@ Only SDK-style projects are supported.
 
 Your projects can target any framework that supports .NET Standard 2.0, including:
 
-| Framework | Versions |
-|-----------|-----------|
-| .NET and .NET Core	| 2.0 or later |
-| .NET Framework | 4.7.2  or later |
-| Mono |	5.4 or later |
-| Xamarin.iOS	 | 10.14 or later |
-| Xamarin.Mac |	3.8 or later |
-| Xamarin.Android |	8.0 or later |
-| Universal Windows Platform	| 10.0.16299 or later |
+| Framework                  | Versions            | Testing status |
+| -------------------------- | ------------------- | -------------- |
+| .NET Core                  | 2.0 or latet        | Untested       |
+| .NET                       | 5.0                 | Untested       |
+| .NET                       | 6.0 to 9.0          | Tested         |
+| .NET Framework             | 4.7.2 to 4.8.0      | Tested         |
+| Mono                       | 5.4 or later        | Untested       |
+| Xamarin.iOS                | 10.14 or later      | Untested       |
+| Xamarin.Mac                | 3.8 or later        | Untested       |
+| Xamarin.Android            | 8.0 or later        | Untested       |
+| Universal Windows Platform | 10.0.16299 or later | Untested       |
+| MAUI                       |                     | Tested         |
+| MAUI Blazor                |                     | Tested         |
+| Blazor WebAssembly         |                     | Tested         |
+
+
+_Untested_ means that the platform _should_ work because of .NET Standard compatibility, but we are not testing the platform as a part of our continous integration builds.
+
 
 ## Synchronizing versions of Metalama, Visual Studio and .NET SDK
 

@@ -6,14 +6,14 @@ keywords: "IntroduceClass, Metalama, nested class, non-nested class, IAdviser, I
 
 # Introducing types
 
-Many patterns require you to create new types. This is the case, for instance, with the Memento, Enum View-Model, or Builder patterns. You can do this by calling the <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceClass*> advice method from your `BuildAspect` implementation.
+Many patterns require you to create new types. This is the case, for instance, with the Memento, Enum View-Model, or Builder patterns. You can do this by calling the <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceClass*> or <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceInterface*> advice method from your `BuildAspect` implementation.
 
 > [!NOTE]
-> The current version of Metalama allows you to introduce classes. Support for other kinds of types will be added in a future release.
+> The current version of Metalama allows you to introduce classes and interfaces. Support for structs, delegates and enums will be added in a future release.
 
 ## Introducing a nested class
 
-To introduce a nested class, call the <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceClass*> method from an `IAdviser<INamedType>`. For instance, if you have a <xref:Metalama.Framework.Aspects.TypeAspect>, just call `aspectBuilder.IntroduceClass( "Foo" )`.
+To introduce a nested class, call the <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceClass*> or <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceInterface*> method from an `IAdviser<INamedType>`. For instance, if you have a <xref:Metalama.Framework.Aspects.TypeAspect>, just call `aspectBuilder.IntroduceClass( "Foo" )`.
 
 ### Example: nested class
 
@@ -65,6 +65,10 @@ The following aspect copies the properties of the source object into the introdu
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/IntroduceNestedClass_Members.cs name="Introducing a nested class"]
 
+## Adding implemented interfaces
+
+To add interface implementations to an introduce type, use the <xref:Metalama.Framework.Advising.AdviserExtensions.ImplementInterface*> method as mentioned in <xref:implementing-interfaces>.
+
 ### Final example: the Builder pattern
 
 Let's finish this article with a complete implementation of the `Builder` pattern, a few fragments of which were illustrated above.
@@ -87,3 +91,5 @@ We use the `aspectBuilder.Tags` property to share this list with the template im
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/Builder.cs name="The Builder pattern"]
 
+> [!NOTE]
+> For more about the Builder pattern, see <xref:sample-builder>.

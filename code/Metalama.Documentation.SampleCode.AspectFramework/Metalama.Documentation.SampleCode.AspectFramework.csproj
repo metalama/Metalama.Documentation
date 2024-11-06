@@ -20,4 +20,10 @@
         <PackageReference Include="Metalama.Extensions.Architecture" />
         <PackageReference Include="Metalama.Testing.AspectTesting" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="LocalVariableTransaction.Aspect.cs">
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
 </Project>

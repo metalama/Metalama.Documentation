@@ -64,7 +64,7 @@ public class MyTests : UnitTestClass { }
 
 ### Step 5. Create test methods
 
-Each test method _must_ call the <xref:Metalama.Testing.UnitTesting.UnitTestClass.CreateTestContext> and _must_ dispose of the context at the end of the test method.
+Each test method _must_ call the <xref:Metalama.Testing.UnitTesting.UnitTestClass.CreateTestContext*> and _must_ dispose of the context at the end of the test method.
 
 Your test would typically call the <xref:Metalama.Testing.UnitTesting.TestContext.CreateCompilation*?text=context.CreateCompilation> method to obtain an <xref:Metalama.Framework.Code.ICompilation>.
 

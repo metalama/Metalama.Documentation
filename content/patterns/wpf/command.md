@@ -17,8 +17,34 @@ The <xref:Metalama.Patterns.Wpf.CommandAttribute?text=[Command]> aspect generate
 To generate a WPF command property from a method:
 
 1. Add a reference to the `Metalama.Patterns.Wpf` package to your project.
-2. Add the <xref:Metalama.Patterns.Wpf.CommandAttribute?text=[Command]> attribute to the method that must be executed when the command is invoked. This method will become the implementation of the <xref:System.Windows.Input.ICommand.Execute*?text=ICommand.Execute> interface method. It must return `void` and have zero or one parameter.
-3. Make the class `partial` to enable referencing the generated command properties from C# or WPF source code.
+2. Add the <xref:Metalama.Patterns.Wpf.CommandAttribute?text=[Command]> attribute to the method that must be executed when the command is invoked. This method will become the implementation of the <xref:System.Windows.Input.ICommand.Execute*?text=ICommand.Execute> interface method. It must have one of the following signatures, where `T` is an arbitrary type:
+    ```csharp
+    [Command]
+    void Execute();
+
+    [Command( Background = true )]
+    void Execute(CancellationToken);  // Only for background commands. See below.
+
+    [Command]
+    void Execute(T);
+
+    [Command( Background = true )]
+    void Execute(T, CancellationToken);  // Only for background commands. See below.
+
+    [Command]
+    Task ExecuteAsync();
+
+    [Command]
+    Task ExecuteAsync(CancellationToken);
+
+    [Command]
+    Task ExecuteAsync(T);
+
+    [Command]
+    Task ExecuteAsync(T, CancellationToken);
+    
+    ```
+1. Make the class `partial` to enable referencing the generated command properties from C# or WPF source code.
 
 ### Example: Simple commands
 
@@ -55,12 +81,33 @@ The following example demonstrates the code generated when the `[Command]` and `
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Wpf/Commands/CanExecute_Observable.cs]
 
+## Async commands
+
+When the `Execute` method returns a `Task`, the `[Command]` aspect implements an asynchronous command, which means that the <xref:System.Windows.Input.ICommand.Execute*?text=ICommand.Execute> method returns immediately (i.e. after at the first non-syncronous `await`). The aspect generates a property of type <xref:Metalama.Patterns.Wpf.AsyncDelegateCommand>, which implements <xref:System.ComponentModel.INotifyPropertyChanged> and exposes the following members:
+
+- The <xref:Metalama.Patterns.Wpf.BaseAsyncDelegateCommand.ExecutionTask> property is returns the task representing the last execution of the command.
+- The <xref:Metalama.Patterns.Wpf.BaseAsyncDelegateCommand.Cancel*> method allows to cancel the current task.
+- The <xref:Metalama.Patterns.Wpf.BaseAsyncDelegateCommand.CanExecute>, <xref:Metalama.Patterns.Wpf.BaseAsyncDelegateCommand.CanCancel>, <xref:Metalama.Patterns.Wpf.BaseAsyncDelegateCommand.IsCancellationRequested>, <xref:Metalama.Patterns.Wpf.BaseAsyncDelegateCommand.IsRunning> properties expose the state of the command.
+
+
+By default, the <xref:Metalama.Patterns.Wpf.BaseAsyncDelegateCommand.CanExecute> property returns `false` if the previous call of the <xref:Metalama.Patterns.Wpf.BaseAsyncDelegateCommand.Execute*>  method is still running. To allow for concurrent execution, set the <xref:Metalama.Patterns.Wpf.CommandAttribute.SupportsConcurrentExecution?text=CommandAttribute.SupportsConcurrentExecution> property to `true`.
+
+To track and cancel concurrent executions of the command, subscribe to the <xref:Metalama.Patterns.Wpf.BaseAsyncDelegateCommand.Executed> event and use the <xref:Metalama.Patterns.Wpf.DelegateCommandExecution> object.
+
+
+## Background commands
+
+By default, the implementation method of the command is executed in the foreground thread. You can dispatch its execution to a background thread by setting the <xref:Metalama.Patterns.Wpf.CommandAttribute.Background?text=CommandAttribute.Background> property to `true`. This will work for implementation methods returning both `void` or a `Task`. 
+
+In both cases, the `[Command]` aspect generates a property of type <xref:Metalama.Patterns.Wpf.AsyncDelegateCommand>.
+
+
 ## Customizing naming conventions
 
 All examples above relied on the default naming convention, which is based on the following assumptions:
 * The command name is obtained by trimming the `Execute` method name (the one with the `[Command]` aspect) from:
     * prefixes: `_`, `m_` and `Execute`,
-    * suffix: `_` and `Command`.
+    * suffix: `_`, `Command` and `Async`.
 * Given a command name `Foo` determined by the previous step:
     * The command property is named `FooCommand`.
     * The `CanExecute` command or method can be named `CanFoo`, `CanExecuteFoo`, or `IsFooEnabled`.

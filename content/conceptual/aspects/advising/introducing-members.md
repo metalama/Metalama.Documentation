@@ -76,6 +76,18 @@ The following aspect introduces an `Update` method that assigns all writable fie
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/UpdateMethod.cs name="Update method"]
 
+### Introducing a partial or abstract member
+
+You can use any of the `Introduce*` methods to add a `partial` or `abstract` member. However, the _template_ itself can be neither `partial` nor `extern` because that would not be valid C#.
+
+There are two ways to make a member `partial` or `abstract`:
+
+* Set the `IsPartial` or `IsAbstract` property of the `[Template]` attribute.
+* Set the `IsPartial` or `IsAbstract` property of the <xref:Metalama.Framework.Code.DeclarationBuilders.IMemberBuilder> object.
+
+The implementation body of the template will be ignore if you set the `IsAbstract` or `IsPartial` property, so any implementation will do. However, if you do not want to have _any_ body, you can use the `extern` keyword on the template member. This keyword will be removed during compilation, and dummy implementations will be provided.
+
+
 ## Overriding existing implementations
 
 ### Specifying the override strategy
