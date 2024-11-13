@@ -5,7 +5,7 @@
         <Nullable>enable</Nullable>
         <DebugMetalama>False</DebugMetalama>
         <MetalamaWriteHtml>True</MetalamaWriteHtml>
-        <LangVersion>latest</LangVersion>
+        <LangVersion>12</LangVersion>
 
     </PropertyGroup>
 </Project>
