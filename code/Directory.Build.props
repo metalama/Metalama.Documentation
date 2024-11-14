@@ -5,7 +5,9 @@
         <Nullable>enable</Nullable>
         <DebugMetalama>False</DebugMetalama>
         <MetalamaWriteHtml>True</MetalamaWriteHtml>
-        <LangVersion>12</LangVersion>
+
+        <!-- The latest version supported by Metalama Compiler may be higher that the latest version supported by Metalama Framework. -->
+        <LangVersion>$(LangMaxVersion)</LangVersion>
 
     </PropertyGroup>
 </Project>
