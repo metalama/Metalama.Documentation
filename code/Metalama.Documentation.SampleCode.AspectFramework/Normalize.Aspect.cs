@@ -14,7 +14,7 @@ internal class NormalizeAttribute : FieldOrPropertyAspect
     }
 
     [Template]
-    private string OverrideProperty
+    private string? OverrideProperty
     {
         set => meta.Target.FieldOrProperty.Value = value?.Trim().ToLowerInvariant();
     }

@@ -36,7 +36,7 @@ internal static class Program
                     backend =>
                         backend.Memory()
                             .WithAzureSynchronization(
-                                connectionString ) ) ); 
+                                connectionString ) ) );
         // [<endsnippet AddMetalamaCaching>]
 
         // Add other components as usual.
@@ -44,10 +44,10 @@ internal static class Program
         builder.Services.AddSingleton<ProductCatalogue>();
 
         // Build the application.
-        await using var app = builder.Build( new[] { name } );
+        await using var app = builder.Build( [name] );
 
         // [<snippet Initialize>]
-        await app.Services.GetRequiredService<ICachingService>().InitializeAsync(); 
+        await app.Services.GetRequiredService<ICachingService>().InitializeAsync();
         // [<endsnippet Initialize>]
 
         // Run the application.

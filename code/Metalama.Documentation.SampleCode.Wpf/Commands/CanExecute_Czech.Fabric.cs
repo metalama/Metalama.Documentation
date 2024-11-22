@@ -1,8 +1,6 @@
 ﻿// This is public domain Metalama sample code.
 
-using System.Windows;
 using Metalama.Framework.Fabrics;
-using Metalama.Patterns.Wpf;
 using Metalama.Patterns.Wpf.Configuration;
 
 namespace Doc.Command.CanExecute_Czech;

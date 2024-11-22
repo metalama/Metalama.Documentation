@@ -18,7 +18,7 @@ public class GenerateResetMethodsAttribute : TypeAspect
         {
             builder.IntroduceMethod(
                 nameof(this.Reset),
-                args: new { field = field, T = field.Type },
+                args: new { field, T = field.Type },
                 buildMethod: m => m.Name = "Reset" + CamelCase( field.Name ) );
         }
     }

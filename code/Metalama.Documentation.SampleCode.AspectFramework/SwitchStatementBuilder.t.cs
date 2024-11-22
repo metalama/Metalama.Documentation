@@ -1,7 +1,4 @@
-using Metalama.Framework.Aspects;
-using Metalama.Framework.Code.SyntaxBuilders;
 using System;
-using System.Linq;
 namespace Doc.SwitchStatementBuilder_;
 [Dispatch]
 public class FruitProcessor

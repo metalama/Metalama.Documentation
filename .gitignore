@@ -27,4 +27,5 @@ eng/tools
 packages/
 source-dependencies/
 .tools/
+.config/dotnet-tools.json
 */.obsidian/*

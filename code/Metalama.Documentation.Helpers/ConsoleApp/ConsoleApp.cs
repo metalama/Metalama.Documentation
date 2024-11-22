@@ -1,18 +1,12 @@
 // This is public domain Metalama sample code.
 
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace Metalama.Documentation.Helpers.ConsoleApp;
 
-public class ConsoleApp : IDisposable, IAsyncDisposable
+public class ConsoleApp( ServiceProvider serviceProvider ) : IDisposable, IAsyncDisposable
 {
-    public ServiceProvider Services { get; }
-
-    public ConsoleApp( ServiceProvider serviceProvider )
-    {
-        this.Services = serviceProvider;
-    }
+    public ServiceProvider Services { get; } = serviceProvider;
 
     public static ConsoleAppBuilder CreateBuilder() => new();
 

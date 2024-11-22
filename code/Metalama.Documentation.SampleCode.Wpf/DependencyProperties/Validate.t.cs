@@ -19,7 +19,7 @@ internal class MyControl : UserControl
   }
   private void ValidateTitle(string value)
   {
-    if (value.Contains("foo"))
+    if (value.Contains("foo", StringComparison.OrdinalIgnoreCase))
     {
       throw new ArgumentOutOfRangeException(nameof(value));
     }

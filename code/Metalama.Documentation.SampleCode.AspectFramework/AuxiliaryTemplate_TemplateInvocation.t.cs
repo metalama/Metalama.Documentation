@@ -37,7 +37,6 @@ public class SelfCachedClass
       catch (Exception ex)when (i < 10)
       {
         Console.WriteLine(ex.ToString());
-        continue;
       }
     }
     return default;

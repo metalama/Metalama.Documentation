@@ -1,7 +1,5 @@
 ﻿// This is public domain Metalama sample code.
 
-using EmptyFiles;
-
 namespace Doc.Decoupled;
 
 public class C

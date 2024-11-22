@@ -16,7 +16,7 @@ internal static class Program
         // Add the caching service.
         builder.Services.AddMetalamaCaching( 
             caching => caching.WithKeyBuilder(
-                ( formatters, _ ) => new HashingKeyBuilder( formatters ) ) ); 
+                ( formatters, _ ) => new HashingKeyBuilder( formatters ) ) );
         // [<endsnippet Registration>]
 
         // Add other components as usual.

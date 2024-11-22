@@ -1,21 +1,13 @@
 // This is public domain Metalama sample code.
 
-using Microsoft.Extensions.Hosting;
 using System;
 using Metalama.Documentation.Helpers.ConsoleApp;
 using System.Threading.Tasks;
 
 namespace Doc.Locking;
 
-public sealed class ConsoleMain : IConsoleMain
+public sealed class ConsoleMain( CloudService cloudService ) : IConsoleMain
 {
-    private readonly CloudService _cloudService;
-
-    public ConsoleMain( CloudService cloudService )
-    {
-        this._cloudService = cloudService;
-    }
-
     public void Execute()
     {
         void ExecuteParallel( Func<byte[]> func )
@@ -30,9 +22,9 @@ public sealed class ConsoleMain : IConsoleMain
         }
 
         Console.WriteLine( "Without lock" );
-        ExecuteParallel( () => this._cloudService.ReadFileWithoutLock( "TheFile.txt" ) );
+        ExecuteParallel( () => cloudService.ReadFileWithoutLock( "TheFile.txt" ) );
 
         Console.WriteLine( "With locks" );
-        ExecuteParallel( () => this._cloudService.ReadFileWithLock( "TheFile.txt" ) );
+        ExecuteParallel( () => cloudService.ReadFileWithLock( "TheFile.txt" ) );
     }
 }

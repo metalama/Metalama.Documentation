@@ -14,7 +14,6 @@ public static class Program
     {
         var builder = ConsoleApp.CreateBuilder();
 
-
         // [<snippet Registration>]
         // Add the caching service.
         builder.Services.AddMetalamaCaching( 

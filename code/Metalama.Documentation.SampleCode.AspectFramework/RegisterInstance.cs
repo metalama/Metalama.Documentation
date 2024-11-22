@@ -5,7 +5,7 @@ namespace Doc.RegisterInstance;
 [RegisterInstance]
 internal class DemoClass
 {
-    public DemoClass() : base() { }
+    public DemoClass() { }
 
     public DemoClass( int i ) : this() { }
 
