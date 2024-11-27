@@ -84,7 +84,7 @@ The `workspace` object exposes the <xref:Metalama.Framework.Workspaces.IProjectS
     > [!NOTE]
     > If your projects target multiple frameworks, the same declarations will appear multiple times in the queries -- once per target framework.
 
-* The <xref:Metalama.Framework.Workspaces.IProjectSet.TransformedCode?text=workspace.TransformedCode> object represents the code _after_ Metalama is executed, typically with introduced declarations.
+* The <xref:Metalama.Framework.Introspection.IIntrospectionCompilationResult.TransformedCode?text=workspace.TransformedCode> object represents the code _after_ Metalama is executed, typically with introduced declarations.
 
 * The <xref:Metalama.Framework.Introspection.IIntrospectionCompilationDetails.Diagnostics?text=workspace.Diagnostics> collection lists errors, warnings, and other messages reported by the C# compiler, Metalama, or any aspect.
 
@@ -98,7 +98,7 @@ As mentioned above, the `workspace` object gives a unified view of all projects,
 
 ### Querying a single project
 
-If you want to query a _single_ project, the easiest approach is to use the <xref:Metalama.Framework.Workspaces.IProjectSet.GetProject*> method, and pass the project name without extension as a parameter. This method returns an object implementing the same <xref:Metalama.Framework.Workspaces.IProjectSet> interface.
+If you want to query a _single_ project, the easiest approach is to use the <xref:Metalama.Framework.Workspaces.Workspace.GetProject*> method, and pass the project name without extension as a parameter. This method returns an object implementing the same <xref:Metalama.Framework.Workspaces.IProjectSet> interface.
 
 For instance, this gives the set of static fields in the `CodeQualityTalk` project:
 
