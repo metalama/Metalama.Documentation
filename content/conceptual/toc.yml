@@ -236,8 +236,9 @@ items:
           topicUid: troubleshooting-unattended-build
         - name: Telemetry
           topicUid: telemetry
-        - name: Inspecting projects using LINQPad
-          topicUid: linqpad
+
+    - name: Querying code with or without LINQPad
+      topicUid: linqpad
 
     - name: Migrating from PostSharp
       topicUid: migration

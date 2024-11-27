@@ -1,18 +1,18 @@
 ---
 uid: linqpad
 summary: "This document provides a comprehensive guide on using the Metalama driver for LINQPad to inspect and test code queries, list target declarations, inspect the outcome of aspects, and query the resulting code mode. It includes installation instructions, usage examples, and troubleshooting tips."
-keywords: "LINQPad, Metalama driver, inspect code, test code queries, list target declarations, inspect outcome of aspects, query resulting code, installation instructions, usage examples, troubleshooting tips"
+keywords: "LINQPad, Metalama driver, inspect code, test code queries, list target declarations, inspect the outcome of aspects, query resulting code, installation instructions, usage examples, troubleshooting tips"
 created-date: 2023-07-11
 modified-date: 2024-11-06
 ---
 
 # Inspecting a project using LINQPad
 
-LINQPad is a widely used tool for interactively querying databases using Language Integrated Query (LINQ) syntax. It enables you to write and execute LINQ queries against various data sources, including SQL databases, XML documents, and .NET objects. With the Metalama driver for LINQPad, you can also query your source code as though it were a database.
+LINQPad is a widely used tool for interactively querying databases using Language Integrated Query (LINQ) syntax. It enables you to write and execute LINQ queries against various data sources, including SQL databases, XML documents, and .NET objects. With the Metalama driver for LINQPad, you can also query your source code like a database.
 
 ## Benefits
 
-We developed the Metalama driver for LINQPad to assist developers and architects in building and testing their Metalama aspects and fabrics. However, this driver can be utilized even if you are not using Metalama.
+We developed the Metalama drivers for LINQPad to assist developers and architects in building and testing their Metalama aspects and fabrics. However, this driver can be utilized even if you are not using Metalama.
 
 With this driver, you can:
 
@@ -22,9 +22,9 @@ With this driver, you can:
 * Query the resulting code mode.
 
 > [!NOTE]
-> The Metalama.LinqPad driver is [open-source](https://github.com/postsharp/Metalama.LinqPad).
+> The Metalama.LinqPad package is [open-source](https://github.com/postsharp/Metalama.LinqPad).
 
-## Installing the driver
+## Installing the Metalama drivers
 
 To install the Metalama driver for LINQPad, follow these steps:
 
@@ -51,84 +51,148 @@ To install the Metalama driver for LINQPad, follow these steps:
 
     ![Install step 1](install-1.svg)
 
-2. Choose the Metalama driver and click _Next_.
+    As you can see, there are _two_ Metalama drivers:
+
+    * _Metalama Workspace_ is bound to a .NET project or solution, which is accessible through the `workspace` variable.
+    * _Metalama Scratchpad_ is not bound to anything, so you need your project or solution manually.
+
+2. Choose the _Metalama Workspace_ or _Metalama Scratchpad_ driver and click _Next_.
 
     ![Add connection 1](connection-1.svg)
 
-3. Specify the path to the C# project or solution, then click _Ok_.
+3. If you have chosen _Metalama Workspace_, specify the path to the C# project or solution, then click _Ok_.
 
     ![Add connection 2](connection-2.svg)
 
 > [!WARNING]
 > The version of the `Metalama.LinqPad` driver must be __higher or equal__ to the version of the `Metalama.Framework` package used in projects.
 
-## Data structure
+## Querying source code
 
 Upon adding a C# project or solution to LINQPad, you should see the following structure:
 
    ![Structure 1](explorer-1.svg)
 
-The _Workspace_ folder allows you to query the entire workspace in a single query, i.e., _all_ projects for _all_ target frameworks. Conversely, under the _Projects_ folder, you see subfolders for individual projects, and queries will be limited to the selected combination of project and target framework.
+The root object, accessible through the `workspace` variable, allows you to query the entire workspace in a single query, i.e., _all_ projects for _all_ target frameworks.
 
-Under the level of workspaces and projects, you see three subfolders:
+To see all projects loaded in the workspace, use the `workspace.Projects` expression.
 
-* _Source code_ allows you to query the code _before_ any transformation, i.e., literally, your source code.
-* _Transformed code_ exposes the code _after_ all transformations.
-* _Aspects_ lists aspect classes, aspect instances, advice, and transformations.
+The `workspace` object exposes the <xref:Metalama.Framework.Workspaces.IProjectSet> interface. It has the following properties:
 
-For instance, the following query has been created from the _Workspace_ folder. It lists all types in the workspace:
+* The <xref:Metalama.Framework.Workspaces.IProjectSet.SourceCode?text=workspace.SourceCode> expression gives you access to the _source_ code of the workspace, _before_ Metalama is executed. For instance, `workspace.SourceCode.Types` is the list of all types in the workspace.
 
-```cs
-workspace.SourceCode.Types
+    > [!NOTE]
+    > If your projects target multiple frameworks, the same declarations will appear multiple times in the queries -- once per target framework.
+
+* The <xref:Metalama.Framework.Workspaces.IProjectSet.TransformedCode?text=workspace.TransformedCode> object represents the code _after_ Metalama is executed, typically with introduced declarations.
+
+* The <xref:Metalama.Framework.Introspection.IIntrospectionCompilationDetails.Diagnostics?text=workspace.Diagnostics> collection lists errors, warnings, and other messages reported by the C# compiler, Metalama, or any aspect.
+
+* The <xref:Metalama.Framework.Introspection.IIntrospectionCompilationDetails.AspectClasses>, <xref:Metalama.Framework.Introspection.IIntrospectionCompilationDetails.AspectLayers>, <xref:Metalama.Framework.Introspection.IIntrospectionCompilationDetails.AspectInstances>, <xref:Metalama.Framework.Introspection.IIntrospectionCompilationDetails.Advice>, and <xref:Metalama.Framework.Introspection.IIntrospectionCompilationDetails.Transformations> collections expose the different steps of the Metalama pipeline.
+
+For more about the code model, see the <xref:Metalama.Framework.Workspaces> and <xref:Metalama.Framework.Introspection> namespaces.
+
+## Filtering projects
+
+As mentioned above, the `workspace` object gives a unified view of all projects, which can be confusing in multi-targeted solutions. Here are three solutions when you want to focus on fewer projects.
+
+### Querying a single project
+
+If you want to query a _single_ project, the easiest approach is to use the <xref:Metalama.Framework.Workspaces.IProjectSet.GetProject*> method, and pass the project name without extension as a parameter. This method returns an object implementing the same <xref:Metalama.Framework.Workspaces.IProjectSet> interface.
+
+For instance, this gives the set of static fields in the `CodeQualityTalk` project:
+
+```csharp
+workspace
+  .GetProject(@"CodeQualityTalk")
+  .SourceCode
+  .Fields
+  .Where( f => f.IsStatic )
 ```
 
-This query, however, is limited to the `Metalama.Samples.Cache1` project for the target framework `net8.0`.
+### Getting a project subset
 
-```cs
-workspace.GetProject("Metalama.Samples.Cache1", "net8.0").SourceCode.Types
+To work on multiple projects, you can use the <xref:Metalama.Framework.Workspaces.IProjectSet.GetSubset*> method and supply a predicate that filters the projects.
+
+For instance, this selects the static fields in all projects targeting .NET Standard 2.0:
+
+```csharp
+workspace
+  .GetSubset( p => p.TargetFramework == "netstandard2.0" )
+  .SourceCode
+  .Fields
+  .Where( f => f.IsStatic )
 ```
 
-The `workspace` object is of type <xref:Metalama.Framework.Workspaces.Workspace>, which implements the <xref:Metalama.Framework.Workspaces.IProjectSet> interface. The <xref:Metalama.Framework.Workspaces.Project> class represents a combination of project and target framework.
+### Filtering projects in the workspace
 
-For details, see the <xref:Metalama.Framework.Workspaces> namespace.
+Another approach is to apply the filters directly to the `workspace` object, which is mutable. You can use the <xref:Metalama.Framework.Workspaces.Workspace.ApplyFilter*> and <xref:Metalama.Framework.Workspaces.Workspace.ClearFilter*> methods.
 
-## Querying Metalama Projects Without the Driver
+```cs
+workspace.ApplyFilter( p => p.TargetFramework == "netstandard2.0" );
+workspace.SourceCode.Types.Dump();
+```
 
-Instead of using the driver and a connection, you can use the `Metalama.LinqPad` package from any query.
+# Permalinks
 
-You should start your query with the <xref:Metalama.Framework.Workspaces.WorkspaceCollection> class, then get the <xref:Metalama.Framework.Workspaces.WorkspaceCollection.Default> property and call the <xref:Metalama.Framework.Workspaces.WorkspaceCollection.Load*> method to load your project or solution.
+In the data grid view, you will see that all declarations have a _permalink_ column. Clicking on this link will open a new query that directly evaluates to this declaration, using the <xref:Metalama.Framework.Code.SerializableDeclarationId> to uniquely identify declarations.
+
+For instance, this is the permalink for the field `_diagnosticDescriptor` in the `FactoryNameAnalyzer` type of the `CodeQualityTalk.Analyzers` project.
+
+```cs
+workspace.GetDeclaration(
+  "CodeQualityTalk.Analyzers",
+  "netstandard2.0",
+  "F:CodeQualityTalk.Analyzers.FactoryNameAnalyzer._diagnosticDescriptor",
+  false);
+```
+
+## Inspecting code references
+
+You can query _inbound_ and _outbound_ references of any declaration using the <xref:Metalama.Framework.Workspaces.DeclarationExtensions.GetInboundReferences*> and <xref:Metalama.Framework.Workspaces.DeclarationExtensions.GetOutboundReferences*> methods.
+
+* Inbound references are references _to_ the current declaration,
+* Outbound references are references _from_ the current declaration.
+
+For instance, the following snippet gets all methods and constructors referencing the field, identified by its permalink.
+
+```csharp
+var field = workspace.GetDeclaration(
+   "CodeQualityTalk.Analyzers", 
+   "netstandard2.0", 
+   "F:CodeQualityTalk.Analyzers.FactoryNameAnalyzer._diagnosticDescriptor", 
+   false);
+
+field.GetInboundReferences().Dump();
+```
+
+
+## Metalama Scratchpad: specifying the project name in the query
+
+Instead of using the _Metalama Workspace_ driver, which requires you to specify the C# project or solution in the connection configuration, you can use the _Metalama Scratchpad_ driver.
+
+The _Metalama Scratchpad_ driver does not require you to specify any project in the connection. Therefore, you must define the `workspace` variable yourself.
+
+Typically, you will start your query with the <xref:Metalama.Framework.Workspaces.WorkspaceCollection> class, then get the <xref:Metalama.Framework.Workspaces.WorkspaceCollection.Default> property and call the <xref:Metalama.Framework.Workspaces.WorkspaceCollection.Load*> method to load your project or solution.
 
 For instance, the following code defines the `workspace` variable and gives it an identical meaning to if you were using the driver:
 
 ```cs
-var workspace = WorkspaceCollection.Default.Load(@"C:\src\Metalama.Samples\examples\log\log-3\Metalama.Samples.Log3.csproj")
+var workspace = WorkspaceCollection.Default
+       .Load(@"C:\src\Metalama.Samples\examples\log\log-3\Metalama.Samples.Log3.csproj");
 ```
 
-To benefit from optimal rendering, add the following code to `My Extensions`:
+## Querying code _without_ LINQPad
 
-```cs
-public static class MyExtensions
-{
-	// Write custom extension methods here. They will be available to all queries.
- 	public static object? ToDump(object obj) => Metalama.LinqPad.MetalamaDumper.ToDump(obj);
-}
-```
+If you want to run a Metalama query from a different application than LINQPad, you must start by adding a reference to the `Metalama.Framework.Workspaces` package.
 
-## Permalinks to a specific declaration
+Then, you can write code just as if you were coding with the _Metalama Scratchpad_ driver in LINQPad.
 
-When you use the Metalama LinqPad driver or the <xref:Metalama.LinqPad.MetalamaDumper> class, objects that represent a code declaration have a virtual property called _Permalink_. The permalink is a C# expression that you can use to retrieve the declaration from a new query window.
+You can take [this demo project on GitHub](https://github.com/gfraiteur/CodeQualityTalk/tree/main/CodeQualityTalk.Verifier) as an example.
 
-Here is an example of a permalink that represents the `_logger` field of the `LogAttribute` class in the `Metalama.Samples.Log4` project for the target framework `net8.0`.
-
-```cs
-workspace.GetDeclaration("Metalama.Samples.Log4", "net8.0", "F:LogAttribute._logger", false)
-```
-
-## Querying Metalama projects without LinqPad
-
-If you want to run a Metalama query from a different application, add a reference to the `Metalama.Framework.Workspaces` package.
 
 > [!div class="see-also"]
 > <xref:Metalama.Framework.Workspaces>
 > <xref:Metalama.Framework.Introspection>
 
+  

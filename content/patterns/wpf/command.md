@@ -90,9 +90,9 @@ When the `Execute` method returns a `Task`, the `[Command]` aspect implements an
 
 - The <xref:Metalama.Patterns.Wpf.BaseAsyncDelegateCommand.ExecutionTask> property returns the task representing the last execution of the command.
 - The <xref:Metalama.Patterns.Wpf.BaseAsyncDelegateCommand.Cancel*> method allows canceling the current task.
-- The <xref:Metalama.Patterns.Wpf.BaseAsyncDelegateCommand.CanExecute>, <xref:Metalama.Patterns.Wpf.BaseAsyncDelegateCommand.CanCancel>, <xref:Metalama.Patterns.Wpf.BaseAsyncDelegateCommand.IsCancellationRequested>, and <xref:Metalama.Patterns.Wpf.BaseAsyncDelegateCommand.IsRunning> properties expose the state of the command.
+- The <xref:Metalama.Patterns.Wpf.AsyncDelegateCommand.CanExecute>, <xref:Metalama.Patterns.Wpf.BaseAsyncDelegateCommand.CanCancel>, <xref:Metalama.Patterns.Wpf.BaseAsyncDelegateCommand.IsCancellationRequested>, and <xref:Metalama.Patterns.Wpf.BaseAsyncDelegateCommand.IsRunning> properties expose the state of the command.
 
-By default, the <xref:Metalama.Patterns.Wpf.AsyncDelegateCommand.CanExecute> property returns `false` if the previous call of the <xref:Metalama.Patterns.Wpf.BaseAsyncDelegateCommand.Execute*> method is still running. To allow for concurrent execution, set the <xref:Metalama.Patterns.Wpf.CommandAttribute.SupportsConcurrentExecution?text=CommandAttribute.SupportsConcurrentExecution> property to `true`.
+By default, the <xref:Metalama.Patterns.Wpf.AsyncDelegateCommand.CanExecute> property returns `false` if the previous call of the <xref:Metalama.Patterns.Wpf.AsyncDelegateCommand.Execute*> method is still running. To allow for concurrent execution, set the <xref:Metalama.Patterns.Wpf.CommandAttribute.SupportsConcurrentExecution?text=CommandAttribute.SupportsConcurrentExecution> property to `true`.
 
 To track and cancel concurrent executions of the command, subscribe to the <xref:Metalama.Patterns.Wpf.BaseAsyncDelegateCommand.Executed> event and use the <xref:Metalama.Patterns.Wpf.DelegateCommandExecution> object.
 
