@@ -126,7 +126,7 @@ workspace
 
 ### Filtering projects in the workspace
 
-Another approach is to apply the filters directly to the `workspace` object, which is mutable. You can use the <xref:Metalama.Framework.Workspaces.Workspace.ApplyFilter*> and <xref:Metalama.Framework.Workspaces.Workspace.ClearFilter*> methods.
+Another approach is to apply the filters directly to the `workspace` object, which is mutable. You can use the <xref:Metalama.Framework.Workspaces.Workspace.ApplyFilter*> and <xref:Metalama.Framework.Workspaces.Workspace.ClearFilters> methods.
 
 ```cs
 workspace.ApplyFilter( p => p.TargetFramework == "netstandard2.0" );
