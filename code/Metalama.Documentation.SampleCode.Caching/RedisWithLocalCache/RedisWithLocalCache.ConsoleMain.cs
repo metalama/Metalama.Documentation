@@ -6,18 +6,25 @@ using System.Threading.Tasks;
 
 namespace Doc.RedisWithLocalCache;
 
-public sealed class ConsoleMain( CloudCalculator cloudCalculator ) : IAsyncConsoleMain
+public sealed class ConsoleMain : IAsyncConsoleMain
 {
+    private readonly CloudCalculator _cloudCalculator;
+
+    public ConsoleMain( CloudCalculator cloudCalculator )
+    {
+        this._cloudCalculator = cloudCalculator;
+    }
+
     public Task ExecuteAsync()
     {
         for ( var i = 0; i < 3; i++ )
         {
-            var value = cloudCalculator.Add( 1, 1 );
+            var value = this._cloudCalculator.Add( 1, 1 );
             Console.WriteLine( $"CloudCalculator returned {value}." );
         }
 
         Console.WriteLine(
-            $"In total, CloudCalculator performed {cloudCalculator.OperationCount} operation(s)." );
+            $"In total, CloudCalculator performed {this._cloudCalculator.OperationCount} operation(s)." );
 
         return Task.CompletedTask;
     }

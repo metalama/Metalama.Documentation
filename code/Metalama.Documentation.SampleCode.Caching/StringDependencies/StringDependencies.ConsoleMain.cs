@@ -6,15 +6,22 @@ using Xunit;
 
 namespace Doc.StringDependencies;
 
-public sealed class ConsoleMain( ProductCatalogue catalogue ) : IConsoleMain
+public sealed class ConsoleMain : IConsoleMain
 {
+    private readonly ProductCatalogue _catalogue;
+
+    public ConsoleMain( ProductCatalogue catalogue )
+    {
+        this._catalogue = catalogue;
+    }
+
     private void PrintCatalogue()
     {
-        var products = catalogue.GetProducts();
+        var products = this._catalogue.GetProducts();
 
         foreach ( var product in products )
         {
-            var price = catalogue.GetPrice( product );
+            var price = this._catalogue.GetPrice( product );
             Console.WriteLine( $"Price of '{product}' is {price}." );
         }
     }
@@ -27,22 +34,22 @@ public sealed class ConsoleMain( ProductCatalogue catalogue ) : IConsoleMain
         Console.WriteLine(
             "Read the price catalogue a second time time. It should be completely performed from cache." );
 
-        var operationsBefore = catalogue.DbOperationCount;
+        var operationsBefore = this._catalogue.DbOperationCount;
         this.PrintCatalogue();
-        var operationsAfter = catalogue.DbOperationCount;
+        var operationsAfter = this._catalogue.DbOperationCount;
         Assert.Equal( operationsBefore, operationsAfter );
 
         // There should be just one product in the catalogue.
-        Assert.Single( catalogue.GetProducts() );
+        Assert.Single( this._catalogue.GetProducts() );
 
         // Adding a product and updating the price.
         Console.WriteLine( "Updating the catalogue." );
-        catalogue.AddProduct( "wheat", 150 );
-        catalogue.UpdatePrice( "corn", 110 );
+        this._catalogue.AddProduct( "wheat", 150 );
+        this._catalogue.UpdatePrice( "corn", 110 );
 
         // Read the catalogue a third time.
-        Assert.Equal( 2, catalogue.GetProducts().Length );
-        Assert.Equal( 110, catalogue.GetPrice( "corn" ) );
+        Assert.Equal( 2, this._catalogue.GetProducts().Length );
+        Assert.Equal( 110, this._catalogue.GetPrice( "corn" ) );
 
         // Print the catalogue.
         Console.WriteLine( "Catalogue after changes:" );

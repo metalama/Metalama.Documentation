@@ -6,8 +6,15 @@ using System.Threading.Tasks;
 
 namespace Doc.Locking;
 
-public sealed class ConsoleMain( CloudService cloudService ) : IConsoleMain
+public sealed class ConsoleMain : IConsoleMain
 {
+    private readonly CloudService _cloudService;
+
+    public ConsoleMain( CloudService cloudService )
+    {
+        this._cloudService = cloudService;
+    }
+
     public void Execute()
     {
         void ExecuteParallel( Func<byte[]> func )
@@ -22,9 +29,9 @@ public sealed class ConsoleMain( CloudService cloudService ) : IConsoleMain
         }
 
         Console.WriteLine( "Without lock" );
-        ExecuteParallel( () => cloudService.ReadFileWithoutLock( "TheFile.txt" ) );
+        ExecuteParallel( () => this._cloudService.ReadFileWithoutLock( "TheFile.txt" ) );
 
         Console.WriteLine( "With locks" );
-        ExecuteParallel( () => cloudService.ReadFileWithLock( "TheFile.txt" ) );
+        ExecuteParallel( () => this._cloudService.ReadFileWithLock( "TheFile.txt" ) );
     }
 }

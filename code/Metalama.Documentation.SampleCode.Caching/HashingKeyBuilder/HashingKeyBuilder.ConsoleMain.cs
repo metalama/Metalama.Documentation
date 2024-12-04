@@ -3,19 +3,26 @@
 using Metalama.Documentation.Helpers.ConsoleApp;
 using System;
 
-namespace Doc.HashKeyBuilder;
+namespace Doc.HashingKeyBuilder;
 
-public sealed class ConsoleMain( FileSystem fileSystem ) : IConsoleMain
+public sealed class ConsoleMain : IConsoleMain
 {
+    private readonly FileSystem _fileSystem;
+
+    public ConsoleMain( FileSystem fileSystem )
+    {
+        this._fileSystem = fileSystem;
+    }
+
     public void Execute()
     {
         for ( var i = 0; i < 3; i++ )
         {
-            var value = fileSystem.ReadAll( Environment.ProcessPath! );
+            var value = this._fileSystem.ReadAll( Environment.ProcessPath! );
             Console.WriteLine( $"FileSystem returned {value.Length} bytes." );
         }
 
         Console.WriteLine(
-            $"In total, FileSystem performed {fileSystem.OperationCount} operation(s)." );
+            $"In total, FileSystem performed {this._fileSystem.OperationCount} operation(s)." );
     }
 }

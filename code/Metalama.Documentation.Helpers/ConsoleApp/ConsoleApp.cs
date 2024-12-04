@@ -4,9 +4,14 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Metalama.Documentation.Helpers.ConsoleApp;
 
-public class ConsoleApp( ServiceProvider serviceProvider ) : IDisposable, IAsyncDisposable
+public class ConsoleApp : IDisposable, IAsyncDisposable
 {
-    public ServiceProvider Services { get; } = serviceProvider;
+    public ServiceProvider Services { get; }
+
+    public ConsoleApp( ServiceProvider serviceProvider )
+    {
+        this.Services = serviceProvider;
+    }
 
     public static ConsoleAppBuilder CreateBuilder() => new();
 

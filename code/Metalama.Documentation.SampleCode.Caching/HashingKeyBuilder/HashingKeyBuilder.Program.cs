@@ -4,7 +4,7 @@ using Metalama.Documentation.Helpers.ConsoleApp;
 using Metalama.Patterns.Caching.Building;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Doc.HashKeyBuilder;
+namespace Doc.HashingKeyBuilder;
 
 internal static class Program
 {
@@ -17,6 +17,7 @@ internal static class Program
         builder.Services.AddMetalamaCaching( 
             caching => caching.WithKeyBuilder(
                 ( formatters, _ ) => new HashingKeyBuilder( formatters ) ) );
+
         // [<endsnippet Registration>]
 
         // Add other components as usual.

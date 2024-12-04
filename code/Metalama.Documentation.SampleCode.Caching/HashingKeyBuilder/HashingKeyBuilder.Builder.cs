@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO.Hashing;
 
-namespace Doc.HashKeyBuilder;
+namespace Doc.HashingKeyBuilder;
 
 internal sealed class HashingKeyBuilder : ICacheKeyBuilder, IDisposable
 {
