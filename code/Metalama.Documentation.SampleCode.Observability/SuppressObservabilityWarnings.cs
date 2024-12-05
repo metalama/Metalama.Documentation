@@ -20,5 +20,5 @@ public class Vector
 
 public static class VectorHelper
 {
-    public static double ComputeNorm( Vector v ) => Math.Sqrt( v.X * v.X + v.Y * v.Y );
+    public static double ComputeNorm( Vector v ) => Math.Sqrt( (v.X * v.X) + (v.Y * v.Y) );
 }

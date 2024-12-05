@@ -3,11 +3,6 @@
 using Metalama.Documentation.QuickStart;
 using Metalama.Framework.Code;
 using Metalama.Framework.Fabrics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DebugDemo
 {
@@ -15,7 +10,6 @@ namespace DebugDemo
     {
         public override void AmendProject( IProjectAmender amender )
         {
-            
             var allPublicMethods = amender
                 .SelectTypes() // Get all types 
                 .SelectMany( t => t.Methods )  // Get all methods

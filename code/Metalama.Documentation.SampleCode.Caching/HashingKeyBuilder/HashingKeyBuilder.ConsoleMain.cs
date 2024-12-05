@@ -1,10 +1,9 @@
 // This is public domain Metalama sample code.
 
 using Metalama.Documentation.Helpers.ConsoleApp;
-using Microsoft.Extensions.Hosting;
 using System;
 
-namespace Doc.HashKeyBuilder;
+namespace Doc.HashingKeyBuilder;
 
 public sealed class ConsoleMain : IConsoleMain
 {

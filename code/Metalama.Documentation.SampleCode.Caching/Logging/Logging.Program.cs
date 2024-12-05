@@ -1,6 +1,5 @@
 ﻿// This is public domain Metalama sample code.
 
-using Flashtrace;
 using Metalama.Documentation.Helpers.ConsoleApp;
 using Metalama.Patterns.Caching.Building;
 using Microsoft.Extensions.DependencyInjection;

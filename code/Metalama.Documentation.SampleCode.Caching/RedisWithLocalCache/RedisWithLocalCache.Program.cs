@@ -34,7 +34,6 @@ internal static class Program
             } ); 
         // [<endsnippet AddRedis>]
 
-
         // [<snippet AddMetalamaCaching>]
         // Add the caching service.                         
         builder.Services.AddMetalamaCaching( 

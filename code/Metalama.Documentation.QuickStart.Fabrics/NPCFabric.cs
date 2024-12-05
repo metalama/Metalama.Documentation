@@ -2,7 +2,6 @@
 
 using Metalama.Framework.Code;
 using Metalama.Framework.Fabrics;
-using Metalama.Documentation.QuickStart;
 
 namespace Metalama.Documentation.QuickStart.Fabrics
 {

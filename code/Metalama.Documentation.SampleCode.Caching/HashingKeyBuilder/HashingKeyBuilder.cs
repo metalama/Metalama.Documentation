@@ -3,7 +3,7 @@
 using Metalama.Patterns.Caching.Aspects;
 using System;
 
-namespace Doc.HashKeyBuilder;
+namespace Doc.HashingKeyBuilder;
 
 public sealed class FileSystem
 {

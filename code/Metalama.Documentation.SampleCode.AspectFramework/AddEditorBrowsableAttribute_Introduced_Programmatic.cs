@@ -2,7 +2,7 @@
 
 namespace Doc.AddEditorBrowsableAttribute_Introduced_Programmatic;
 
-[AddEditorHiddenFieldAttribute]
+[AddEditorHiddenField]
 public class C
 {
     public int NormalField;

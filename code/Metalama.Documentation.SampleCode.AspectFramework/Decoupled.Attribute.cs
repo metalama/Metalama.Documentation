@@ -6,7 +6,7 @@ using Metalama.Framework.Serialization;
 
 namespace Doc.Decoupled;
 
-[AttributeUsage(AttributeTargets.Method | AttributeTargets.Property)]
+[AttributeUsage( AttributeTargets.Method | AttributeTargets.Property )]
 [RunTimeOrCompileTime]
 public class LogAttribute : Attribute, ICompileTimeSerializable
 {

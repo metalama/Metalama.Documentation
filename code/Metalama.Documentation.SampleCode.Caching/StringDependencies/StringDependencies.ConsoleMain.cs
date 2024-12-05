@@ -2,7 +2,6 @@
 
 using Metalama.Documentation.Helpers.ConsoleApp;
 using System;
-using System.Diagnostics;
 using Xunit;
 
 namespace Doc.StringDependencies;

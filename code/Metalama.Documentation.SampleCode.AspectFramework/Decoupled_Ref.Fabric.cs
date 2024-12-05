@@ -11,7 +11,7 @@ public class Fabric : ProjectFabric
 {
     public override void AmendProject( IProjectAmender amender )
     {
-        var declarations = amender.SelectDeclarationsWithAttribute( typeof(LogAttribute));
+        var declarations = amender.SelectDeclarationsWithAttribute( typeof(LogAttribute) );
 
         declarations
             .OfType<IMethod>()

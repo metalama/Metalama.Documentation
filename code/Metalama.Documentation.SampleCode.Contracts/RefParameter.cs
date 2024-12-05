@@ -10,7 +10,8 @@ public interface IWordCounter
 {
     void CountWords(
         string text,
-        [NonNegative( Direction = ContractDirection.Both )] ref int wordCount );
+        [NonNegative( Direction = ContractDirection.Both )]
+        ref int wordCount );
 }
 
 public class WordCounter : IWordCounter

@@ -27,7 +27,7 @@ namespace Doc.ForTestOnly_Fabric
             private void ValidateReference( ReferenceValidationContext context )
             {
                 if (
-                    context.Origin.Namespace != context.Destination.Declaration &&
+                    !Equals( context.Origin.Namespace, context.Destination.Declaration ) &&
                     !context.Origin.Namespace.FullName.EndsWith(
                         ".Tests",
                         StringComparison.Ordinal ) )

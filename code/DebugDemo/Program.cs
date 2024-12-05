@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace DebugDemo
 {
-    public class Demo
+    public static class Demo
     {
         public static void Main()
         {

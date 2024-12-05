@@ -3,7 +3,7 @@ namespace Doc.RegisterInstance;
 [RegisterInstance]
 internal class DemoClass
 {
-  public DemoClass() : base()
+  public DemoClass()
   {
     _instanceRegistryHandle = InstanceRegistry.Register(this);
   }

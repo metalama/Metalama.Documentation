@@ -1,6 +1,5 @@
 // This is public domain Metalama sample code.
 
-using Microsoft.Extensions.Hosting;
 using System;
 using Metalama.Documentation.Helpers.ConsoleApp;
 using System.Threading.Tasks;
