@@ -11,6 +11,11 @@ namespace BuildMetalamaDocumentation.Markdig.Tabs;
 internal abstract class TabGroup
 {
     private string TabGroupId { get; }
+    
+#pragma warning disable CA1805 // Do not initialize unnecessarily
+    // The sandbox needs to be enabled in HelpBrowser in MetalamaDoc.xslt.
+    public bool IsSandboxEnabled { get; } = false;
+#pragma warning restore CA1805
 
     public List<BaseTab> Tabs { get; } = new();
 
@@ -48,13 +53,17 @@ internal abstract class TabGroup
             // Start the links.
             renderer.WriteLine( $@"<div class=""sample-links {(tabs.Count == 1 ? "" : "tabbed")}"">" );
 
-            // Create the sandbox link.
-            var sandboxPayload = this.GetSandboxPayload( tabs );
-
-            if ( sandboxPayload != null )
+            if ( this.IsSandboxEnabled )
             {
-                renderer.WriteLine( $@"  <a class=""try"" onclick=""openSandbox('{sandboxPayload}');"" role=""button"">Open in sandbox</a>" );
-                renderer.WriteLine( "<span class='separator'>|</span>" );
+                // Create the sandbox link.
+                var sandboxPayload = this.GetSandboxPayload( tabs );
+
+                if ( sandboxPayload != null )
+                {
+                    renderer.WriteLine(
+                        $@"  <a class=""try"" onclick=""openSandbox('{sandboxPayload}');"" role=""button"">Open in sandbox</a>" );
+                    renderer.WriteLine( "<span class='separator'>|</span>" );
+                }
             }
 
             // Git.
@@ -147,7 +156,7 @@ internal abstract class TabGroup
             }
             else if ( tab is CompareTab compareTab )
             {
-                // Try currently requires that the code that is executed is in Program.cs.
+                // Try currently requires that the code that is executed in Program.cs.
                 var fileName = "Program.cs";
 
                 sandboxFiles.Add( new SandboxFile( fileName, compareTab.GetSandboxCode(), SandboxFileKind.TargetCode ) );

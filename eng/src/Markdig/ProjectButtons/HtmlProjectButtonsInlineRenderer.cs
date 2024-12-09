@@ -55,20 +55,27 @@ public class HtmlProjectButtonsInlineRenderer : HtmlObjectRenderer<ProjectButton
                     kind ) );
         }
 
-        var sandboxPayload = tabGroup.GetSandboxPayload( obj );
-
-        if ( sandboxPayload == null )
-        {
-            throw new InvalidOperationException( $"Cannot load '{directory}' into the sandbox." );
-        }
-
+        renderer.WriteLine(
+            @"
+<div class=""project-buttons"">");
+        
         var gitUrl = tabGroup.GetGitUrl();
 
-        renderer.WriteLine(
-            $@"
-<div class=""project-buttons"">
-    <a href=""{gitUrl}"" class=""github"">See on GitHub</a>
-    <a role=""button"" class=""sandbox"" onclick=""openSandbox('{sandboxPayload}')"" target=""github"">Open in sandbox</a>
-</div>" );
+        renderer.WriteLine( $@"    <a href=""{gitUrl}"" class=""github"">See on GitHub</a>" );
+        
+        if ( tabGroup.IsSandboxEnabled )
+        {
+            var sandboxPayload = tabGroup.GetSandboxPayload( obj );
+
+            if ( sandboxPayload == null )
+            {
+                throw new InvalidOperationException( $"Cannot load '{directory}' into the sandbox." );
+            }
+
+            renderer.WriteLine(
+                $@"    <a role=""button"" class=""sandbox"" onclick=""openSandbox('{sandboxPayload}')"" target=""github"">Open in sandbox</a>" );
+        }
+
+        renderer.WriteLine( "</div>" );
     }
 }
