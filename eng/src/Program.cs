@@ -19,7 +19,7 @@ using PostSharp.Engineering.BuildTools.Search;
 using PostSharp.Engineering.DocFx;
 using System.IO;
 using System.IO.Compression;
-using MetalamaDependencies = PostSharp.Engineering.BuildTools.Dependencies.Definitions.MetalamaDependencies.V2025_0;
+using MetalamaDependencies = PostSharp.Engineering.BuildTools.Dependencies.Definitions.MetalamaDependencies.V2025_1;
 
 var docPackageFileName = $"Metalama.Doc.{MetalamaDependencies.Metalama.ProductFamily.Version}.zip";
 
