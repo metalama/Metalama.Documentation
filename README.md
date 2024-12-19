@@ -83,7 +83,7 @@ where:
 
 ### metalama-project-buttons
 
-This markup generates buttons that open the entire directory in GitHub or in the sandbox.
+This markup generates buttons that open the entire directory in GitHub.
 
 ```
 [!metalama-project-buttons <path>]
