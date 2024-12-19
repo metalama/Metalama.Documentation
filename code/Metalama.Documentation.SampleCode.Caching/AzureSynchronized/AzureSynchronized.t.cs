@@ -7,7 +7,7 @@ using Metalama.Patterns.Caching.Aspects.Helpers;
 using System.Reflection;
 namespace Doc.AzureSynchronized;
 public record Product(string Id, decimal Price, string? Remarks = null);
-public sealed class ProductCatalogue
+public sealed partial class ProductCatalogue
 {
   // This instance is intentionally shared between both app instances to simulate
   // a shared database.
