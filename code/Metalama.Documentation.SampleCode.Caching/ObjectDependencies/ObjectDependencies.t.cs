@@ -22,7 +22,7 @@ public record Product(string Name, decimal Price) : ICacheDependency
     GlobalDependencies.ProductCatalogue
   };
 }
-public sealed class ProductCatalogue
+public sealed partial class ProductCatalogue
 {
   private readonly Dictionary<string, Product> _dbSimulator = new()
   {

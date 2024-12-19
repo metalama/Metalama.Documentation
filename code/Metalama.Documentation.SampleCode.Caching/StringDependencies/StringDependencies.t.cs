@@ -7,7 +7,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
 namespace Doc.StringDependencies;
-public sealed class ProductCatalogue
+public sealed partial class ProductCatalogue
 {
   private readonly Dictionary<string, decimal> _dbSimulator = new()
   {
