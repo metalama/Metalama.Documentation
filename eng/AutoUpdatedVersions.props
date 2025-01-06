@@ -2,15 +2,15 @@
 <Project>
 
     <PropertyGroup>
-        <MetalamaBackstageVersion>2025.0.6-rc</MetalamaBackstageVersion>
-        <MetalamaCompilerVersion>2025.0.6-rc</MetalamaCompilerVersion>
-        <MetalamaVersion>2025.0.7-rc</MetalamaVersion>
-        <MetalamaExtensionsVersion>2025.0.7-rc</MetalamaExtensionsVersion>
-        <MetalamaSamplesVersion>2025.0.7-rc</MetalamaSamplesVersion>
-        <MetalamaMigrationVersion>2025.0.7-rc</MetalamaMigrationVersion>
-        <MetalamaLinqPadVersion>2025.0.7-rc</MetalamaLinqPadVersion>
-        <MetalamaPatternsVersion>2025.0.7-rc</MetalamaPatternsVersion>
-        <MetalamaFrameworkRunTimeVersion>2025.0.5-rc</MetalamaFrameworkRunTimeVersion>
+        <MetalamaBackstageVersion>2025.0.7</MetalamaBackstageVersion>
+        <MetalamaCompilerVersion>2025.0.7</MetalamaCompilerVersion>
+        <MetalamaVersion>2025.0.8</MetalamaVersion>
+        <MetalamaExtensionsVersion>2025.0.8</MetalamaExtensionsVersion>
+        <MetalamaSamplesVersion>2025.0.8</MetalamaSamplesVersion>
+        <MetalamaMigrationVersion>2025.0.8</MetalamaMigrationVersion>
+        <MetalamaLinqPadVersion>2025.0.8</MetalamaLinqPadVersion>
+        <MetalamaPatternsVersion>2025.0.8</MetalamaPatternsVersion>
+        <MetalamaFrameworkRunTimeVersion>2025.0.6</MetalamaFrameworkRunTimeVersion>
     </PropertyGroup>
 
 </Project>
