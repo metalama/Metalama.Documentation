@@ -1,10 +1,10 @@
 ﻿// This is public domain Metalama sample code.
 
 using Doc.ValidateAfterAllAspects;
+using Metalama.Extensions.Validation;
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 using Metalama.Framework.Diagnostics;
-using Metalama.Framework.Validation;
 using System.IO;
 using System.Linq;
 
@@ -23,12 +23,14 @@ internal class LogAttribute : OverrideMethodAspect
 
     public override void BuildAspect( IAspectBuilder<IMethod> builder )
     {
-        builder.Outbound.AfterAllAspects()
+        builder.Outbound
             .Select( m => m.DeclaringType )
-            .Validate( this.ValidateDeclaringType );
+            .Validate( 
+                this.ValidateDeclaringType, 
+                new DeclarationValidationOptions() { Time = DeclarationValidationTime.AfterAllAspects } );
     }
 
-    private void ValidateDeclaringType( in DeclarationValidationContext context )
+    private void ValidateDeclaringType( DeclarationValidationContext context )
     {
         var type = (INamedType) context.Declaration;
 

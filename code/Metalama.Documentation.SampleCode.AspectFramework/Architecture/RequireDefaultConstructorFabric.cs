@@ -17,7 +17,7 @@ internal static class ArchitectureExtensions
         Severity.Warning,
         "The type '{0}' must have a public default constructor." );
 
-    public static void MustHaveDefaultConstructor( this IAspectReceiver<INamedType> verifier )
+    public static void MustHaveDefaultConstructor( this IQuery<INamedType> verifier )
     {
         verifier
             .Where(

@@ -1,9 +1,9 @@
 ﻿// This is public domain Metalama sample code.
 
+using Metalama.Extensions.CodeFixes;
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 using Metalama.Framework.Code.SyntaxBuilders;
-using Metalama.Framework.CodeFixes;
 using System;
 using System.Linq;
 

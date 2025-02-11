@@ -15,7 +15,7 @@ public class Fabric : ProjectFabric
 
         declarations
             .OfType<IMethod>()
-            .AddAspectIfEligible<LogAspect>(
+            .AddAspectIfEligible(
                 m =>
                 {
                     var attribute = m.Attributes.OfAttributeType( typeof(LogAttribute) )
@@ -26,7 +26,7 @@ public class Fabric : ProjectFabric
         
         declarations
             .OfType<IProperty>()
-            .AddAspectIfEligible<LogAspect>(
+            .AddAspectIfEligible(
                 p =>
                 {
                     var attribute = p.Attributes.OfAttributeType( typeof(LogAttribute) )

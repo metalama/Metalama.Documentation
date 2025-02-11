@@ -13,7 +13,7 @@ public class Fabric : ProjectFabric
 
         declarations
             .OfType<IMethod>()
-            .AddAspectIfEligible<LogAspect>(
+            .AddAspectIfEligible(
                 m =>
                 {
                     var attribute = m.Attributes.GetConstructedAttributesOfType<LogAttribute>().Single();
@@ -23,7 +23,7 @@ public class Fabric : ProjectFabric
         
         declarations
             .OfType<IProperty>()
-            .AddAspectIfEligible<LogAspect>(
+            .AddAspectIfEligible(
                 m =>
                 {
                     var attribute = m.Attributes.GetConstructedAttributesOfType<LogAttribute>().Single();

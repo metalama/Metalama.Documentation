@@ -18,6 +18,7 @@
         </PackageReference>
 
         <PackageReference Include="Metalama.Extensions.Architecture" />
+        <PackageReference Include="Metalama.Extensions.CodeFixes" />
         <PackageReference Include="Metalama.Testing.AspectTesting" />
     </ItemGroup>
 

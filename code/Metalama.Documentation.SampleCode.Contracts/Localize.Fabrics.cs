@@ -1,6 +1,7 @@
 ﻿// This is public domain Metalama sample code.
 
 using Metalama.Framework.Fabrics;
+using Metalama.Framework.Options;
 using Metalama.Patterns.Contracts;
 
 // ReSharper disable StringLiteralTypo

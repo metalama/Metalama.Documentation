@@ -2,10 +2,10 @@
 
 using Metalama.Extensions.Architecture;
 using Metalama.Extensions.Architecture.Predicates;
+using Metalama.Extensions.Validation;
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 using Metalama.Framework.Fabrics;
-using Metalama.Framework.Validation;
 using System;
 
 namespace Doc.Architecture.Fabric_CustomPredicate;

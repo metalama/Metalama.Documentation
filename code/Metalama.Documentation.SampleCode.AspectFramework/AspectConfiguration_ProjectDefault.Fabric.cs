@@ -1,6 +1,8 @@
 // This is public domain Metalama sample code.
 
+using Metalama.Framework.Aspects;
 using Metalama.Framework.Fabrics;
+using Metalama.Framework.Options;
 using System.Diagnostics;
 using System.Linq;
 

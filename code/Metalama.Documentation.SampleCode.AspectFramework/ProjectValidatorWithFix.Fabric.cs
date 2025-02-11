@@ -1,7 +1,7 @@
 ﻿// This is public domain Metalama sample code.
 
+using Metalama.Extensions.CodeFixes;
 using Metalama.Framework.Code;
-using Metalama.Framework.CodeFixes;
 using Metalama.Framework.Diagnostics;
 using Metalama.Framework.Fabrics;
 using System.IO;

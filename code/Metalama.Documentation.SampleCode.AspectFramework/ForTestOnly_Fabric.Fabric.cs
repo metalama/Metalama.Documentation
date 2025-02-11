@@ -1,9 +1,9 @@
 ﻿// This is public domain Metalama sample code.
 
+using Metalama.Extensions.Validation;
 using Metalama.Framework.Code;
 using Metalama.Framework.Diagnostics;
 using Metalama.Framework.Fabrics;
-using Metalama.Framework.Validation;
 using System;
 
 namespace Doc.ForTestOnly_Fabric

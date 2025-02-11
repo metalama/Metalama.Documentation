@@ -13,27 +13,28 @@
     <PackageVersion Include="Docfx.App" Version="2.77.0" />
     <PackageVersion Include="Metalama.Compiler" Version="$(MetalamaCompilerVersion)" />
     <PackageVersion Include="Metalama.Documentation.QuickStart" Version="$(MetalamaSamplesVersion)" />
-    <PackageVersion Include="Metalama.Extensions.Architecture" Version="$(MetalamaExtensionsVersion)" />
-    <PackageVersion Include="Metalama.Extensions.DependencyInjection" Version="$(MetalamaExtensionsVersion)" />
-    <PackageVersion Include="Metalama.Extensions.DependencyInjection.ServiceLocator" Version="$(MetalamaExtensionsVersion)" />
-    <PackageVersion Include="Metalama.Extensions.Metrics" Version="$(MetalamaExtensionsVersion)" />
-    <PackageVersion Include="Metalama.Extensions.Multicast" Version="$(MetalamaExtensionsVersion)" />
+    <PackageVersion Include="Metalama.Extensions.Architecture" Version="$(MetalamaPremiumVersion)" />
+    <PackageVersion Include="Metalama.Extensions.CodeFixes" Version="$(MetalamaPremiumVersion)" />
+    <PackageVersion Include="Metalama.Extensions.DependencyInjection" Version="$(MetalamaVersion)" />
+    <PackageVersion Include="Metalama.Extensions.DependencyInjection.ServiceLocator" Version="$(MetalamaVersion)" />
+    <PackageVersion Include="Metalama.Extensions.Metrics" Version="$(MetalamaVersion)" />
+    <PackageVersion Include="Metalama.Extensions.Multicast" Version="$(MetalamaVersion)" />
     <PackageVersion Include="Metalama.Framework" Version="$(MetalamaVersion)" />
     <PackageVersion Include="Metalama.Framework.Introspection" Version="$(MetalamaVersion)" />
     <PackageVersion Include="Metalama.Framework.Sdk" Version="$(MetalamaVersion)" />
     <PackageVersion Include="Metalama.Framework.Workspaces" Version="$(MetalamaVersion)" />
-    <PackageVersion Include="Metalama.LinqPad" Version="$(MetalamaLinqPadVersion)" />
-    <PackageVersion Include="Metalama.Migration" Version="$(MetalamaMigrationVersion)" />
-    <PackageVersion Include="Metalama.Patterns.Contracts" Version="$(MetalamaPatternsVersion)" />
-    <PackageVersion Include="Metalama.Patterns.Caching" Version="$(MetalamaPatternsVersion)" />
-    <PackageVersion Include="Metalama.Patterns.Caching.Aspects" Version="$(MetalamaPatternsVersion)" />
-    <PackageVersion Include="Metalama.Patterns.Caching.Backend" Version="$(MetalamaPatternsVersion)" />
-    <PackageVersion Include="Metalama.Patterns.Caching.Backends.Azure" Version="$(MetalamaPatternsVersion)" />
-    <PackageVersion Include="Metalama.Patterns.Caching.Backends.Redis" Version="$(MetalamaPatternsVersion)" />
-    <PackageVersion Include="Metalama.Patterns.Immutability" Version="$(MetalamaPatternsVersion)" />
-    <PackageVersion Include="Metalama.Patterns.Memoization" Version="$(MetalamaPatternsVersion)" />
-    <PackageVersion Include="Metalama.Patterns.Observability" Version="$(MetalamaPatternsVersion)" />
-    <PackageVersion Include="Metalama.Patterns.Wpf" Version="$(MetalamaPatternsVersion)" />
+    <PackageVersion Include="Metalama.LinqPad" Version="$(MetalamaVersion)" />
+    <PackageVersion Include="Metalama.Migration" Version="$(MetalamaVersion)" />
+    <PackageVersion Include="Metalama.Patterns.Contracts" Version="$(MetalamaVersion)" />
+    <PackageVersion Include="Metalama.Patterns.Caching" Version="$(MetalamaVersion)" />
+    <PackageVersion Include="Metalama.Patterns.Caching.Aspects" Version="$(MetalamaVersion)" />
+    <PackageVersion Include="Metalama.Patterns.Caching.Backend" Version="$(MetalamaVersion)" />
+    <PackageVersion Include="Metalama.Patterns.Caching.Backends.Azure" Version="$(MetalamaVersion)" />
+    <PackageVersion Include="Metalama.Patterns.Caching.Backends.Redis" Version="$(MetalamaVersion)" />
+    <PackageVersion Include="Metalama.Patterns.Immutability" Version="$(MetalamaVersion)" />
+    <PackageVersion Include="Metalama.Patterns.Memoization" Version="$(MetalamaVersion)" />
+    <PackageVersion Include="Metalama.Patterns.Observability" Version="$(MetalamaVersion)" />
+    <PackageVersion Include="Metalama.Patterns.Wpf" Version="$(MetalamaVersion)" />
     <PackageVersion Include="Metalama.Testing.AspectTesting" Version="$(MetalamaVersion)" />
     <PackageVersion Include="Metalama.Testing.UnitTesting" Version="$(MetalamaVersion)" />
     <PackageVersion Include="Azure.Identity" Version="1.13.0" />

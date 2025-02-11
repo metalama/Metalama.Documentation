@@ -11,7 +11,7 @@ namespace Doc.Architecture.RequireDefaultConstructorFabric;
 internal static class ArchitectureExtensions
 {
   private static readonly DiagnosticDefinition<INamedType> _warning = new("MY001", Severity.Warning, "The type '{0}' must have a public default constructor.");
-  public static void MustHaveDefaultConstructor(this IAspectReceiver<INamedType> verifier) => throw new System.NotSupportedException("Compile-time-only code cannot be called at run-time.");
+  public static void MustHaveDefaultConstructor(this IQuery<INamedType> verifier) => throw new System.NotSupportedException("Compile-time-only code cannot be called at run-time.");
 }
 #pragma warning restore CS0067, CS8618, CS0162, CS0169, CS0414, CA1822, CA1823, IDE0051, IDE0052
 #pragma warning disable CS0067, CS8618, CS0162, CS0169, CS0414, CA1822, CA1823, IDE0051, IDE0052

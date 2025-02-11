@@ -1,10 +1,10 @@
-// Warning LAMA0905 on `TurnOn`: `The 'CofeeMachine' type cannot be referenced by the 'Bar.OrderCoffee()' method.`
+    // Warning LAMA0905 on `TurnOn`: `The 'CofeeMachine' type cannot be referenced by the 'Bar.OrderCoffee()' method.`
 using Metalama.Extensions.Architecture;
 using Metalama.Extensions.Architecture.Predicates;
+using Metalama.Extensions.Validation;
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 using Metalama.Framework.Fabrics;
-using Metalama.Framework.Validation;
 using System;
 namespace Doc.Architecture.Fabric_CustomPredicate;
 // This class is the actual implementation of the predicate.
