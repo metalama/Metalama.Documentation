@@ -20,9 +20,9 @@ namespace DebugDemo
             this.AddRetryAspect( allPublicMethods );
         }
 
-        public void AddLoggingAspect( IAspectReceiver<IMethod> methods ) => methods.AddAspectIfEligible<LogAttribute>();
+        public void AddLoggingAspect( IQuery<IMethod> methods ) => methods.AddAspectIfEligible<LogAttribute>();
 
-        public void AddRetryAspect( IAspectReceiver<IMethod> methods )
+        public void AddRetryAspect( IQuery<IMethod> methods )
         {
             methods
 
