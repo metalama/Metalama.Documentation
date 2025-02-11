@@ -40,9 +40,7 @@ var product = new Product( MetalamaDependencies.MetalamaDocumentation )
     Dependencies =
     [
         DevelopmentDependencies.PostSharpEngineering,
-        MetalamaDependencies.MetalamaMigration,
-        MetalamaDependencies.MetalamaPatterns,
-        MetalamaDependencies.MetalamaLinqPad,
+        MetalamaDependencies.Metalama,
         MetalamaDependencies.MetalamaSamples
     ],
     SourceDependencies = [MetalamaDependencies.MetalamaSamples, MetalamaDependencies.MetalamaCommunity],
