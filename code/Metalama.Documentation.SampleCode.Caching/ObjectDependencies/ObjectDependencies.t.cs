@@ -15,7 +15,14 @@ internal static class GlobalDependencies
 }
 public record Product(string Name, decimal Price) : ICacheDependency
 {
-  string ICacheDependency.GetCacheKey(ICachingService cachingService) => this.Name;
+  string ICacheDependency.GetCacheKey(ICachingService cachingService)
+  {
+    if (cachingService == null !)
+    {
+      throw new ArgumentNullException("cachingService", "The 'cachingService' parameter must not be null.");
+    }
+    return this.Name;
+  }
   // Means that when we invalidate the current product in cache, we should also invalidate the product catalogue.
   IReadOnlyCollection<ICacheDependency> ICacheDependency.CascadeDependencies { get; } = new[]
   {
