@@ -4,6 +4,7 @@
     <PropertyGroup>
         <MetalamaCompilerVersion></MetalamaCompilerVersion>
         <MetalamaVersion></MetalamaVersion>
+        <MetalamaPremiumVersion></MetalamaPremiumVersion>
         <MetalamaSamplesVersion></MetalamaSamplesVersion>
     </PropertyGroup>
 
