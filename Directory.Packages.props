@@ -29,8 +29,8 @@
     <PackageVersion Include="Metalama.Patterns.Caching" Version="$(MetalamaVersion)" />
     <PackageVersion Include="Metalama.Patterns.Caching.Aspects" Version="$(MetalamaVersion)" />
     <PackageVersion Include="Metalama.Patterns.Caching.Backend" Version="$(MetalamaVersion)" />
-    <PackageVersion Include="Metalama.Patterns.Caching.Backends.Azure" Version="$(MetalamaVersion)" />
-    <PackageVersion Include="Metalama.Patterns.Caching.Backends.Redis" Version="$(MetalamaVersion)" />
+    <PackageVersion Include="Metalama.Patterns.Caching.Backends.Azure" Version="$(MetalamaPremiumVersion)" />
+    <PackageVersion Include="Metalama.Patterns.Caching.Backends.Redis" Version="$(MetalamaPremiumVersion)" />
     <PackageVersion Include="Metalama.Patterns.Immutability" Version="$(MetalamaVersion)" />
     <PackageVersion Include="Metalama.Patterns.Memoization" Version="$(MetalamaVersion)" />
     <PackageVersion Include="Metalama.Patterns.Observability" Version="$(MetalamaVersion)" />
