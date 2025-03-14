@@ -41,6 +41,7 @@ var product = new Product( MetalamaDependencies.MetalamaDocumentation )
     [
         DevelopmentDependencies.PostSharpEngineering,
         MetalamaDependencies.Metalama,
+        MetalamaDependencies.MetalamaPremium,
         MetalamaDependencies.MetalamaSamples
     ],
     SourceDependencies = [MetalamaDependencies.MetalamaSamples, MetalamaDependencies.MetalamaCommunity],

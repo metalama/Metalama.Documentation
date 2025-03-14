@@ -503,6 +503,11 @@ object PublicDeployment : BuildType({
                 artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama.Premium"
             }
         }
+        dependency(AbsoluteId("Metalama_Metalama20251_MetalamaPremium_PublicDeployment")) {
+            snapshot {
+                     onDependencyFailure = FailureAction.FAIL_TO_START
+            }
+        }
         dependency(AbsoluteId("Metalama_Metalama20251_MetalamaSamples_PublicBuild")) {
             snapshot {
                      onDependencyFailure = FailureAction.FAIL_TO_START
