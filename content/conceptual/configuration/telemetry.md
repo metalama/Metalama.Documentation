@@ -52,7 +52,7 @@ It allows you to disable telemetry for all devices in your domain using remote m
    metalama telemetry disable
    ```
 
-### Option 3. Using Visual Studio Tools for Metalama and PostSharp
+### Option 3. Using Visual Studio Tools for Metalama
 
 1. In the top-level menu, choose _Options_.
 2. Select the _Metalama + PostSharp_ category, then the _Privacy_ page.

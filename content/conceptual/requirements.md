@@ -25,7 +25,7 @@ Metalama integrates with Roslyn, so it is theoretically compatible with any Rosl
 | Visual Studio Code (C# Dev Kit)                    |                            | Yes                     | Yes        |                                                      |
 
 > [!NOTE]
-> While using Visual Studio, the utilization of Visual Studio Tools for Metalama and PostSharp is not mandatory but is highly recommended.
+> While using Visual Studio, the utilization of Visual Studio Tools for Metalama is not mandatory but is highly recommended.
 
 ## Target frameworks
 

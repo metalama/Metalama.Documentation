@@ -9,6 +9,9 @@ modified-date: 2024-08-04
 
 # Exposing an aspect as a live template
 
+> [!NOTE]
+> This feature requires a Metalama Professional license. The `Metalama.Extensions.CodeFixes` package must be added to the project defining the aspects.
+
 A _live template_ is a custom Code Action that appears in the code editor menu alongside other code suggestions or refactoring actions offered by the Integrated Development Environment (IDE). For more information on using live templates, please refer to <xref:applying-live-templates>.
 
 Live templates are created using the Metalama Aspect Framework. Unlike traditional aspects that are executed at compile-time by the compiler, live templates are interactively applied by the user within the editor, thereby modifying the source code.

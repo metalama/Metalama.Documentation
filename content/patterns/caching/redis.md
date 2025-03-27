@@ -8,6 +8,9 @@ modified-date: 2024-08-04
 
 # Using Redis as a distributed cache
 
+> [!NOTE]
+> This feature requires a Metalama Professional license.
+
 If you have a distributed application where several instances run in parallel, [Redis](https://redis.io/) is an excellent choice for implementing caching due to the following reasons:
 
 1. **In-Memory Storage**: Redis stores its dataset in memory, allowing for very fast read and write operations, which are significantly faster than disk-based databases.

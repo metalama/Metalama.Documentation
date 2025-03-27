@@ -9,13 +9,16 @@ modified-date: 2024-08-04
 
 # Registering a license
 
-When you use Metalama for the first time, the license registration UI will open, where you can choose between the 45-day evaluation mode, the Metalama Free, or registering a license key.
+> [!INFO]
+> Registering a license only required if you are using a premium component. It is not required if you stick to open-source features.
+
+When you use a premium component of Metalama for the first time, the license registration UI will open, where you can choose between the 45-day evaluation mode, the Metalama Community, or registering a license key.
 
 To change your license after the activation UI has closed, you can choose one of the following approaches.
 
 ## With the Visual Studio tooling
 
-You can manage your Metalama licenses using Visual Studio Tools for Metalama and PostSharp. For instructions on how to install it, see <xref:install-vsx>.
+You can manage your Metalama licenses using Visual Studio Tools for Metalama. For instructions on how to install it, see <xref:install-vsx>.
 
 To access these options:
 
@@ -38,7 +41,7 @@ The following commands are available:
 |-------------|-----------------|
 | `metalama license list` | Shows the current license options. |
 | `metalama license try` | Activate the 45-day evaluation period of Metalama Ultimate. |
-| `metalama license free` | Activate Metalama Free, a free but limited edition of Metalama. |
+| `metalama license community` | Activate Metalama Community, free for non-commercial use, individuals, and companies with up to 3 users. |
 | `metalama license register <LICENSE KEY>` | Register a license key.
 
 
@@ -46,7 +49,7 @@ The following commands are available:
 
 To manually register a license for the current user, do the following:
 
-1. Open the Metalama licensing JSON configuration file `licensing.json`. This file is located in the `%appdata%\\.metalama` directory on Windows, and in the `~/.metalama` directory on Linux and Mac.
+1. Open the Metalama licensing JSON configuration file `licensing.json`. This file is located in the `%appdata%\\Metalama` directory on Windows, and in the `~/.metalama` directory on Linux and Mac.
 2. Set the license key as the `license` value. If the file doesn't exist, it should contain the following content (where `123-ABCDEFGHIJKLMNOPQRSTUVXYZ` is a placeholder for the actual license key):
 
    ```json

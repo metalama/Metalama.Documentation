@@ -7,6 +7,9 @@ modified-date: 2024-08-04
 ---
 # Synchronizing local in-memory caches for multiple servers
 
+> [!NOTE]
+> This feature requires a Metalama Professional license.
+
 Caching in distributed applications can pose a complex problem. When multiple instances of an application are running simultaneously (typically websites or web services deployed in the cloud or web farms), it's crucial to ensure that the cache is appropriately invalidated for all application instances.
 
 A common solution to this issue is the use of a centralized cache server (or a cluster of cache servers), such as a Redis server or a Redis cluster. However, operating a cache server or cluster incurs a cost, which may not always be justified for medium-sized applications, such as a small business website.

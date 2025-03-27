@@ -22,7 +22,7 @@ Let's assume you have a method that fails occasionally.
 Currently, CodeLens displays `No aspect`, indicating that no aspect has been applied to this method.
 
 > [!NOTE]
-> The CodeLens feature is only available in Visual Studio when Visual Studio Tools for Metalama and PostSharp are installed.
+> The CodeLens feature is only available in Visual Studio when Visual Studio Tools for Metalama are installed.
 
 To apply the `Retry` aspect, add it as a standard custom attribute by typing `[Retry]`:
 

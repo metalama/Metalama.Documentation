@@ -9,6 +9,9 @@ modified-date: 2024-08-04
 
 # Validating code from an aspect
 
+> [!NOTE]
+> This feature requires a Metalama Professional license.
+
 Validating source code and providing meaningful error messages is a critical feature of most aspects. Failure to do so can result in confusing error messages for the aspect's user or even invalid behavior at runtime.
 
 The first two techniques for validating code involve defining eligibility (see <xref:eligibility>) and reporting errors from the <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method (see <xref:diagnostics>). In this article, we introduce two additional techniques:

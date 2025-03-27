@@ -9,6 +9,13 @@ modified-date: 2024-08-22
 
 # Understanding your aspect-oriented code
 
+> [!NOTE]
+> These features require a Metalama Community or Metalama Professional license.
+
+> [!NOTE]
+> These features are only available in Visual Studio when Visual Studio Tools for Metalama are installed.
+
+
 Now that you have integrated aspects into your code, you might be curious about its functionality and execution process. Metalama provides several tools to help you understand precisely what happens with your code when you hit the Run button.
 
 These tools include:
@@ -16,9 +23,6 @@ These tools include:
 * CodeLens
 * Metalama Diff
 * Aspect Explorer
-
-> [!NOTE]
-> These features are only available in Visual Studio when Visual Studio Tools for Metalama and PostSharp are installed.
 
 
 ## CodeLens

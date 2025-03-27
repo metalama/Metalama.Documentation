@@ -55,7 +55,7 @@ In the code below, compile-time code is highlighted <span class="metalamaClassif
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/SimpleLogging.cs name="Simple Logging"]
 
 > [!NOTE]
-> To benefit from syntax highlighting in Visual Studio, install the [Visual Studio Tools for Metalama and PostSharp](https://www.postsharp.net/links/download-unified-vsx). Syntax highlighting is not supported in other IDEs.
+> To benefit from syntax highlighting in Visual Studio, install the [Visual Studio Tools for Metalama](https://www.postsharp.net/links/download-unified-vsx). Syntax highlighting is not supported in other IDEs.
 
 The expression `meta.Target.Method` (with an implicit trailing `.ToString()`) is a compile-time expression. At compile time, it is replaced by the name and signature of the method to which the aspect is applied.
 

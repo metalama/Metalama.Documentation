@@ -12,9 +12,9 @@ The primary objective of Metalama 2024.1 is to enhance the user interface, with 
 
 ## User Interface
 
-### Unification of Visual Studio Tools for Metalama and PostSharp
+### Unification of Visual Studio Tools for Metalama
 
-Previously, Metalama and PostSharp each had their own Visual Studio extension, each with a unique set of features and user experiences. In Metalama 2024.1, we have merged these two extensions into one, unifying the development experience. Thus, regardless of whether you are using Metalama, PostSharp, or both, you should now install a _single_ extension named _Visual Studio Tools for Metalama and PostSharp_, or, in short, _Metalama + PostSharp_.
+Previously, Metalama and PostSharp each had their own Visual Studio extension, each with a unique set of features and user experiences. In Metalama 2024.1, we have merged these two extensions into one, unifying the development experience. Thus, regardless of whether you are using Metalama, PostSharp, or both, you should now install a _single_ extension named _Visual Studio Tools for Metalama_, or, in short, _Metalama + PostSharp_.
 
 #### Aspect Explorer
 
@@ -32,7 +32,7 @@ The Learning Hub displays articles and tutorials, prioritizing them based on you
 
 #### ARM64 Support
 
-Visual Studio Tools for Metalama and PostSharp function seamlessly on an ARM64 device.
+Visual Studio Tools for Metalama function seamlessly on an ARM64 device.
 
 ### Licensing UI
 

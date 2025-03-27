@@ -50,7 +50,7 @@ For details, see <xref:sdk>.
 
 * In the error list, with most errors and warnings reported by aspects, you can now see which aspect class and target declaration reported the diagnostic.
 * It is now possible to enable performance profiling of Metalama processes. See <xref:profiling> for details.
-* Visual Studio Tools for Metalama and PostSharp has improved reporting of errors in compile-time code.
+* Visual Studio Tools for Metalama has improved reporting of errors in compile-time code.
 * The debugging experience of templates and compile-time code has been dramatically improved. However, it is still required to use `Debugger.Break()` or `meta.DebugBreak()` to add an initial breakpoint.
 
 ### Object model

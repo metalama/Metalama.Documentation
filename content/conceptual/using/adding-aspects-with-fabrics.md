@@ -50,9 +50,6 @@ There are a few things to note in this example. The first point to consider is t
 
 Inside the `AmendProject` method, we get all the public methods and add _logging_ and _retrying_ aspects to these methods.
 
-> [!WARNING]
-> Sometimes CodeLense misses the aspects to show. For that time, it is required to rebuild the project.
-
 ### AddAspect or AddAspectIfEligible?
 
 The difference between <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspect*> and <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspectIfEligible*> is that <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspect*> will throw an exception if you try adding an aspect to an ineligible target (for instance, a caching aspect to a `void` method), while <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspectIfEligible*> will silently ignore such targets.

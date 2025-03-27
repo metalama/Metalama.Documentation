@@ -12,7 +12,7 @@ This chapter provides a high-level changelog for all Metalama releases. It does 
 
 | Version | Status                | Highlights                                                                                                                                                            | Release Notes               |
 | ------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
-| 2025.1  | Preview               | The first open-source Metalama release. | <xref:release-notes-2025.1>
+| 2025.1  | Preview               | The first open-source Metalama release. There are some breaking changes in packages and namespaces of the new components that remain proprietary. | <xref:release-notes-2025.1>
 | 2025.0  | Stable               | Support for .NET 9 and C# 13. Improved work with introduced types. Async WPF commands. | <xref:release-notes-2025.0>
 | 2024.2  | Deprecated | Type introduction, `Metalama.Patterns.Observability`, `Metalama.Patterns.Wpf`, `Metalama.Patterns.Immutability`, and dozens of other improvements.                     | <xref:release-notes-2024.2> |
 | 2024.1  | Deprecated            | Visual Studio tooling, Activation UI, Overriding constructors, performance improvements                                                                               | <xref:release-notes-2024.1> |
