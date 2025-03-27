@@ -23,14 +23,14 @@ The process to access these configuration APIs is similar to adding aspects in b
 
 3. Call the following methods:
 
-   * To select all types in the project or the namespace, use the <xref:Metalama.Framework.Validation.IValidatorReceiver`1.SelectTypes*?text=amender.SelectTypes> method.
-   * To select type members (methods, fields, nested types, etc.), call the <xref:Metalama.Framework.Aspects.IAspectReceiver`1.SelectMany*> method and provide a lambda expression that selects the relevant type members, e.g. `SelectMany( t => t.Methods )` to select all methods.
-   * To filter types or members, use the <xref:Metalama.Framework.Aspects.IAspectReceiver`1.Where*> method.
+   * To select all types in the project or the namespace, use the <xref:Metalama.Framework.Fabrics.IQuery`1.SelectTypes*?text=amender.SelectTypes> method.
+   * To select type members (methods, fields, nested types, etc.), call the <xref:Metalama.Framework.Fabrics.IQuery`1.SelectMany*> method and provide a lambda expression that selects the relevant type members, e.g. `SelectMany( t => t.Methods )` to select all methods.
+   * To filter types or members, use the <xref:Metalama.Framework.Fabrics.IQuery`1.Where*> method.
 
 4. The next step depends on the kind of configuration API exposed by the aspect library:
 
     * If the aspect library exposes a `Configure` method, such as <xref:Metalama.Patterns.Caching.Aspects.Configuration.CachingConfigurationExtensions.ConfigureCaching*> or <xref:Metalama.Extensions.DependencyInjection.DependencyInjectionExtensions.ConfigureDependencyInjection*>, call this method.
-    * If the aspect library exposes a configuration object that implements the <xref:Metalama.Framework.Options.IHierarchicalOptions> interface, call the <xref:Metalama.Framework.Aspects.IAspectReceiver`1.SetOptions*> and pass an instance of the desired configuration.
+    * If the aspect library exposes a configuration object that implements the <xref:Metalama.Framework.Options.IHierarchicalOptions> interface, call the <xref:Metalama.Framework.Options.OptionQueryExtensions.SetOptions*> and pass an instance of the desired configuration.
 
 
 ## Example: configuring caching
@@ -42,7 +42,7 @@ The following example demonstrates how to configure caching. It sets the absolut
 
 ## About the incremental nature of compile-time configuration
 
-All compile-time configuration APIs are _incremental_. In other words, any call to a `Configure` or <xref:Metalama.Framework.Aspects.IAspectReceiver`1.SetOptions*> method represents a _change_ in the configuration. These changes are merged on a per-property basis.
+All compile-time configuration APIs are _incremental_. In other words, any call to a `Configure` or <xref:Metalama.Framework.Options.OptionQueryExtensions.SetOptions*> method represents a _change_ in the configuration. These changes are merged on a per-property basis.
 
 For instance, let's say you configure caching at the project level, setting an absolute expiration of 30 minutes and a sliding expiration of 10 minutes. However, for a sub-namespace named `ColdNs`, you increase the absolute expiration to 60 minutes and leave the sliding expiration unchanged. As expected, the sliding expiration in `ColdNs` remains 10 minutes.
 

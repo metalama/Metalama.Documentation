@@ -56,7 +56,7 @@ Follow these steps:
 
 ### Example: Test-only constructor
 
-In the following example, the class `Foo` has two constructors, and one of them should only be used in tests. Tests are identified as any code in a namespace ending with the `.Tests` suffix. We define the <xref:Metalama.Extensions.Architecture.Aspects.BaseUsageValidationAttribute.Description> to improve the error message. You can also set the <xref:Metalama.Extensions.Architecture.Aspects.BaseUsageValidationAttribute.ReferenceKinds> to limit the kinds of references that are validated.
+In the following example, the class `Foo` has two constructors, and one of them should only be used in tests. Tests are identified as any code in a namespace ending with the `.Tests` suffix. We define the <xref:Metalama.Extensions.Architecture.Aspects.BaseUsageValidationAttribute.Description> to improve the error message. You can also set the <xref:Metalama.Framework.Code.ReferenceKinds> to limit the kinds of references that are validated.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/Architecture/Attribute_ForTestOnly.cs  tabs="target"]
 
@@ -81,7 +81,7 @@ Follow these steps:
     * To split the logic on a per-namespace basis, create one <xref:Metalama.Framework.Fabrics.NamespaceFabric> in each namespace that you want to validate.
     * To validate specific types, you can use custom attributes or add a nested <xref:Metalama.Framework.Fabrics.TypeFabric> to this type.
 
-3. Import the <xref:Metalama.Extensions.Architecture.Fabrics> and <xref:Metalama.Extensions.Architecture.Predicates> namespaces to benefit from extension methods.
+3. Import the <xref:Metalama.Extensions.Architecture> and <xref:Metalama.Extensions.Architecture.Predicates> namespaces to benefit from extension methods.
 
 4. Edit the  <xref:Metalama.Framework.Fabrics.ProjectFabric.AmendProject*>,  <xref:Metalama.Framework.Fabrics.NamespaceFabric.AmendNamespace*> or  <xref:Metalama.Framework.Fabrics.TypeFabric.AmendType*> of this method.
 
@@ -111,7 +111,7 @@ Follow these steps:
 
     You can create complex conditions thanks to the <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicateExtensions.And*>, <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicateExtensions.Or*> and <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicateExtensions.Not*> methods.
 
-7. Optionally, you can pass a value for the `description` parameter. This text will be appended to the warning message. You can also supply a <xref:Metalama.Framework.Validation.ReferenceKinds> to limit the kinds of references that are validated.
+7. Optionally, you can pass a value for the `description` parameter. This text will be appended to the warning message. You can also supply a <xref:Metalama.Framework.Code.ReferenceKinds> to limit the kinds of references that are validated.
 
 ### Example: Namespace internals reserved for the current namespace
 

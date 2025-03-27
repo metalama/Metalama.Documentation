@@ -56,7 +56,7 @@ Once you introduce the type, the next step is to introduce members: constructors
 
 Introduced types work exactly like source-defined ones.
 
-When you call <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceClass*>, it returns an <xref:Metalama.Framework.Advising.IClassIntroductionAdviceResult>. This interface derives from `IAdviser<INamedType>`, which has familiar extension methods like <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceMethod*>, <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceField*>, <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceProperty*> and so on.
+When you call <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceClass*>, it returns an <xref:Metalama.Framework.Advising.IIntroductionAdviceResult`1>. This interface derives from `IAdviser<INamedType>`, which has familiar extension methods like <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceMethod*>, <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceField*>, <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceProperty*> and so on.
 
 > [!NOTE]
 > All programmatic techniques described in <xref:introducing-members> also work with introduced types through the `IAdviser<INamedType>` interface.

@@ -31,11 +31,11 @@ To add aspects using fabrics:
 
 3. Call one of the following methods from <xref:Metalama.Framework.Fabrics.ProjectFabric.AmendProject*>:
 
-   * To select all types in the project, use the <xref:Metalama.Framework.Validation.IValidatorReceiver`1.SelectTypes*?text=amender.SelectTypes> method.
-   * To select type members (methods, fields, nested types, etc.), call the <xref:Metalama.Framework.Aspects.IAspectReceiver`1.SelectMany*> method and provide a lambda expression that selects the relevant type members, e.g., `SelectMany( t => t.Methods )` to select all methods.
-   * To filter types or members, use the <xref:Metalama.Framework.Aspects.IAspectReceiver`1.Where*> method.
+   * To select all types in the project, use the <xref:Metalama.Framework.Fabrics.IQuery`1.SelectTypes*?text=amender.SelectTypes> method.
+   * To select type members (methods, fields, nested types, etc.), call the <xref:Metalama.Framework.Fabrics.IQuery`1.SelectMany*> method and provide a lambda expression that selects the relevant type members, e.g., `SelectMany( t => t.Methods )` to select all methods.
+   * To filter types or members, use the <xref:Metalama.Framework.Fabrics.IQuery`1.Where*> method.
 
-4. Call the <xref:Metalama.Framework.Aspects.IAspectReceiver`1.AddAspect*> or <xref:Metalama.Framework.Aspects.IAspectReceiver`1.AddAspectIfEligible*> method.
+4. Call the <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspect*> or <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspectIfEligible*> method.
 
 > [!NOTE]
 > The amender object will not only select members declared in source code, but also members introduced by other aspects and therefore unknown when the <xref:Metalama.Framework.Fabrics.TypeFabric.AmendType*> method is executed. This is why these methods do not directly expose the code model.
@@ -55,12 +55,12 @@ Inside the `AmendProject` method, we get all the public methods and add _logging
 
 ### AddAspect or AddAspectIfEligible?
 
-The difference between <xref:Metalama.Framework.Aspects.IAspectReceiver`1.AddAspect*> and <xref:Metalama.Framework.Aspects.IAspectReceiver`1.AddAspectIfEligible*> is that <xref:Metalama.Framework.Aspects.IAspectReceiver`1.AddAspect*> will throw an exception if you try adding an aspect to an ineligible target (for instance, a caching aspect to a `void` method), while <xref:Metalama.Framework.Aspects.IAspectReceiver`1.AddAspectIfEligible*> will silently ignore such targets.
+The difference between <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspect*> and <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspectIfEligible*> is that <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspect*> will throw an exception if you try adding an aspect to an ineligible target (for instance, a caching aspect to a `void` method), while <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspectIfEligible*> will silently ignore such targets.
 
-* If you choose <xref:Metalama.Framework.Aspects.IAspectReceiver`1.AddAspect*>, you may be annoyed by exceptions and may have to add a lot of conditions to your `AmendProject` method. The benefit of this approach is that you will be _aware_ of these conditions.
-* If you choose <xref:Metalama.Framework.Aspects.IAspectReceiver`1.AddAspectIfEligible*>, you may be surprised that some target declarations were silently ignored.
+* If you choose <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspect*>, you may be annoyed by exceptions and may have to add a lot of conditions to your `AmendProject` method. The benefit of this approach is that you will be _aware_ of these conditions.
+* If you choose <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspectIfEligible*>, you may be surprised that some target declarations were silently ignored.
 
-As is often the case, life does not give you a choice to be completely happy, but you can often choose which pain you want to suffer. In most cases, we recommend using <xref:Metalama.Framework.Aspects.IAspectReceiver`1.AddAspectIfEligible*>.
+As is often the case, life does not give you a choice to be completely happy, but you can often choose which pain you want to suffer. In most cases, we recommend using <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspectIfEligible*>.
 
 ### Example 2: Adding more aspects using the same Fabric
 
@@ -76,7 +76,7 @@ To add the Logging aspect (`LogAttribute`) to all the methods that appear in typ
 
 [!metalama-test  ~/code/DebugDemo2/Fabric2.cs tabs="target"]
 
-In this fabric, we use the `GlobalNamespace.GetDescendant` method to retrieve all child namespaces of the given namespace (in this case, `Outer.Inner`). The first `SelectMany` call retrieves all the types in these namespaces, and the subsequent `SelectMany` call retrieves all the methods in these types. This results in an `IAspectReceiver<IMethod>`. The final call to <xref:Metalama.Framework.Aspects.IAspectReceiver`1.AddAspectIfEligible*> adds the `Log` aspect to all eligible methods.
+In this fabric, we use the `GlobalNamespace.GetDescendant` method to retrieve all child namespaces of the given namespace (in this case, `Outer.Inner`). The first `SelectMany` call retrieves all the types in these namespaces, and the subsequent `SelectMany` call retrieves all the methods in these types. This results in an `IQuery<IMethod>`. The final call to <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspectIfEligible*> adds the `Log` aspect to all eligible methods.
 
 ### Example 4: Adding the `Log` aspect only to derived classes of a given class
 

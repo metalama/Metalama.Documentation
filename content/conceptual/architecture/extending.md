@@ -25,7 +25,7 @@ To implement a new predicate, follow these steps:
     > [!NOTE]
     > Predicate objects are serialized. Therefore, all fields must be serializable. Notably, objects of <xref:Metalama.Framework.Code.IDeclaration> type are not serializable. To serialize a declaration, call the <xref:Metalama.Framework.Code.IDeclaration.ToRef*> method and store the returned <xref:Metalama.Framework.Code.IRef`1>. For details, see <xref:aspect-serialization>.
 
-3. Implement the <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicate.IsMatch*> method. This method receives a <xref:Metalama.Framework.Validation.ReferenceValidationContext>. It must return `true` if the predicate matches the given context (i.e., the code reference); otherwise `false`.
+3. Implement the <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicate.IsMatch*> method. This method receives a <xref:Metalama.Extensions.Validation.ReferenceValidationContext>. It must return `true` if the predicate matches the given context (i.e., the code reference); otherwise `false`.
 4. Create an extension method for the <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicateBuilder> type and return a new instance of your predicate class.
 
 ### Example: restricting usage based on calling method name
@@ -80,17 +80,14 @@ Follow this procedure:
 1. Create a `static` class containing your extension methods. Name it, for instance, `ArchitectureExtensions`.
 2. Add the [<xref:Metalama.Framework.Aspects.CompileTimeAttribute?text=CompileTime>] custom attribute to the class.
 3. For each error or warning you plan to report, add a static field of type <xref:Metalama.Framework.Diagnostics.DiagnosticDefinition> to your fabric class, as described in <xref:diagnostics>.
-4. Create a `public static` extension method with a `this` parameter of type <xref:Metalama.Framework.Validation.IValidatorReceiver`1> where `T` is the type of declarations you want to validate. Name it for instance `verifier`.
-5. If you need to apply the rule to _contained_ declarations, select them using the  <xref:Metalama.Framework.Validation.IValidatorReceiver`1.Select*>,  <xref:Metalama.Framework.Validation.IValidatorReceiver`1.SelectMany*> and  <xref:Metalama.Framework.Validation.IValidatorReceiver`1.Where*> methods.
+4. Create a `public static` extension method with a `this` parameter of type <xref:Metalama.Framework.Fabrics.IQuery`1> where `T` is the type of declarations you want to validate. Name it for instance `verifier`.
+5. If you need to apply the rule to _contained_ declarations, select them using the  <xref:Metalama.Framework.Fabrics.IQuery`1.Select*>,  <xref:Metalama.Framework.Fabrics.IQuery`1.SelectMany*> and  <xref:Metalama.Framework.Fabrics.IQuery`1.Where*> methods.
 6. From here, you have several options:
- * If you already know, based on the <xref:Metalama.Framework.Validation.IValidatorReceiver`1.Select*>,  <xref:Metalama.Framework.Validation.IValidatorReceiver`1.SelectMany*> and  <xref:Metalama.Framework.Validation.IValidatorReceiver`1.Where*> methods, that the declaration violates the rule, you can immediately report a warning or error using the <xref:Metalama.Framework.Validation.IValidatorReceiver`1.ReportDiagnostic*> method.
- * To validate references (i.e. dependencies), use <xref:Metalama.Framework.Validation.IValidatorReceiver.ValidateInboundReferences*>.
- * If your validation logic depends on which aspects were applied, or how aspects transformed the code, call <xref:Metalama.Framework.Validation.IValidatorReceiver`1.AfterAllAspects> and then register a validator using  <xref:Metalama.Framework.Validation.IValidatorReceiver.Validate*>.
-
-To learn more, it's best to study the [source code](https://github.com/postsharp/Metalama.Extensions/tree/HEAD/src/Metalama.Extensions.Architecture/Fabrics) of the `Metalama.Extensions.Architecture` namespace.
+ * If you already know, based on the <xref:Metalama.Framework.Fabrics.IQuery`1.Select*>,  <xref:Metalama.Framework.Fabrics.IQuery`1.SelectMany*> and  <xref:Metalama.Framework.Fabrics.IQuery`1.Where*> methods, that the declaration violates the rule, you can immediately report a warning or error using the <xref:Metalama.Framework.Diagnostics.DiagnosticsQueryExtensions.ReportDiagnostic*> method.
+ * To validate references (i.e. dependencies), use <xref:Metalama.Extensions.Validation.ReferenceValidationQueryExtensions.ValidateInboundReferences*>.
+ * To validate the declaration itself, use <xref:Metalama.Extensions.Validation.ValidationQueryExtensions.Validate*>.
 
 > [!div class="see-also"]
 > <xref:video-custom-architecture-rules>
-
 
 

@@ -13,7 +13,7 @@ Metalama relies on _serialization_ to handle situations when an aspect or _cross
 This happens in the following scenarios:
 
 * Inheritable aspects (see <xref:aspect-inheritance>): inheritable instances of <xref:Metalama.Framework.Aspects.IAspect>, but also, if defined, of their respective <xref:Metalama.Framework.Aspects.IAspectState>, are serialized.
-* Reference validators (see <xref:aspect-validating>): implementations of <xref:Metalama.Framework.Validation.BaseReferenceValidator> and, if you're using <xref:Metalama.Extensions.Architecture>, any <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicate> are serialized.
+* Reference validators (see <xref:aspect-validating>): implementations of <xref:Metalama.Extensions.Validation.BaseReferenceValidator> and, if you're using <xref:Metalama.Extensions.Architecture>, any <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicate> are serialized.
 * Hierarchical options of non-sealed declarations (see <xref:Metalama.Framework.Options.IHierarchicalOptions`1> and <xref:exposing-options>).
 * Annotations on non-sealed declarations (see <xref:Metalama.Framework.Code.IAnnotation>).
 
@@ -53,7 +53,7 @@ The following types are serializable by default:
 
 ## Custom serializable types
 
-Metalama automatically generates serializers for any type deriving from the <xref:Metalama.Framework.Serialization.ICompileTimeSerializable> interface. This includes any aspect, fabric, or class implementing <xref:Metalama.Framework.Aspects.IAspectState>, <xref:Metalama.Framework.Code.IAnnotation>, <xref:Metalama.Framework.Options.IHierarchicalOptions>, <xref:Metalama.Framework.Validation.BaseReferenceValidator>, <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicate>.
+Metalama automatically generates serializers for any type deriving from the <xref:Metalama.Framework.Serialization.ICompileTimeSerializable> interface. This includes any aspect, fabric, or class implementing <xref:Metalama.Framework.Aspects.IAspectState>, <xref:Metalama.Framework.Code.IAnnotation>, <xref:Metalama.Framework.Options.IHierarchicalOptions>, <xref:Metalama.Extensions.Validation.BaseReferenceValidator>, <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicate>.
 
 You normally don't need to worry about the serialization process since it should usually work transparently. However, here are a few tricks to cope with corner cases:
 

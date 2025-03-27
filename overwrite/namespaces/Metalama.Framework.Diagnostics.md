@@ -107,11 +107,11 @@ To report a diagnostic, first define a static field of type <xref:Metalama.Frame
 
 To report parametric diagnostics, first call the <xref:Metalama.Framework.Diagnostics.DiagnosticDefinition`1.WithArguments*> method. This step is not necessary for parameterless diagnostics.
 
-To report a diagnostic, call the <xref:Metalama.Framework.Diagnostics.ScopedDiagnosticSink.Report*> method. This object is exposed on the <xref:Metalama.Framework.Aspects.IAspectBuilder.Diagnostics> property of the argument of the <xref:Metalama.Framework.Aspects.IAspectBuilder>.<xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method of your aspect. You can also report a diagnostic from a validator.
+To report a diagnostic, call the <xref:Metalama.Framework.Diagnostics.ScopedDiagnosticSink.Report*> method. This object is exposed on the <xref:Metalama.Framework.Advising.IAdviser.Diagnostics> property of the argument of the <xref:Metalama.Framework.Aspects.IAspectBuilder>.<xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method of your aspect. You can also report a diagnostic from a validator.
 
 When reporting a diagnostic, you can specify the *location* of the diagnostic, i.e., the code element to which it will be reported (which determines the file and line of the error message). If you don't specify the location, the default location for the current context will be used.
 
-You can add code fixes to diagnostics. For details, refer to the <xref:Metalama.Framework.CodeFixes> namespace.
+You can add code fixes to diagnostics. For details, refer to the <xref:Metalama.Extensions.CodeFixes> namespace.
 
 ## Suppressing diagnostics
 
@@ -122,7 +122,7 @@ For more information, refer to <xref:diagnostics>.
 
 ## Suggesting code actions
 
-Refer to <xref:Metalama.Framework.CodeFixes>.
+Refer to <xref:Metalama.Extensions.CodeFixes>.
 
 ## Namespace members
 

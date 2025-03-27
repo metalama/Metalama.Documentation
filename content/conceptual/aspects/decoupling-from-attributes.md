@@ -51,9 +51,9 @@ This step can be performed in a separate project, which must also have a referen
 The last step is to add an aspect for each instance of the custom attribute. This is typically done in a fabric.
 
 1. Create a <xref:Metalama.Framework.Fabrics.ProjectFabric> (or use an existing one).
-2. Use the <xref:Metalama.Framework.Aspects.AspectReceiverExtensions.SelectDeclarationsWithAttribute*> method to find all declarations that have the attribute created in Step 1.
-3. For declaration types supported by your aspect (i.e., all values of `T` in <xref:Metalama.Framework.Aspects.IAspect`1>), use <xref:Metalama.Framework.Aspects.IAspectReceiver`1.OfType*> to select these declarations.
-4. Call the <xref:Metalama.Framework.Aspects.IAspectReceiver`1.AddAspect*> method. Supply a lambda that instantiates the aspect. To get the attribute instance, use the <xref:Metalama.Framework.Code.IDeclaration.Attributes?text=IDeclaration.Attributes> collection and then the <xref:Metalama.Framework.Code.Collections.IAttributeCollection.GetConstructedAttributesOfType*> method. Pass the instance to the aspect constructor.
+2. Use the <xref:Metalama.Framework.Fabrics.QueryExtensions.SelectDeclarationsWithAttribute*> method to find all declarations that have the attribute created in Step 1.
+3. For declaration types supported by your aspect (i.e., all values of `T` in <xref:Metalama.Framework.Aspects.IAspect`1>), use <xref:Metalama.Framework.Fabrics.IQuery`1.OfType*> to select these declarations.
+4. Call the <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspect*> method. Supply a lambda that instantiates the aspect. To get the attribute instance, use the <xref:Metalama.Framework.Code.IDeclaration.Attributes?text=IDeclaration.Attributes> collection and then the <xref:Metalama.Framework.Code.Collections.IAttributeCollection.GetConstructedAttributesOfType*> method. Pass the instance to the aspect constructor.
 
 ### Example: decoupled logging aspect _with_ reference to Metalama.Framework
 
@@ -90,9 +90,9 @@ We now create the aspect itself. The only difference compared to the first appro
 The last step is again to add an aspect for each instance of the custom attribute. The main difference is how we pass the attribute to the aspect.
 
 1. Create a <xref:Metalama.Framework.Fabrics.ProjectFabric> (or use an existing one).
-2. Use the <xref:Metalama.Framework.Aspects.AspectReceiverExtensions.SelectDeclarationsWithAttribute*> method to find all declarations that have the attribute created in Step 1.
-3. For declaration types supported by your aspect (i.e., all values of `T` in <xref:Metalama.Framework.Aspects.IAspect`1>), use <xref:Metalama.Framework.Aspects.IAspectReceiver`1.OfType*> to select these declarations.
-4. Call the <xref:Metalama.Framework.Aspects.IAspectReceiver`1.AddAspect*> method. Supply a lambda that instantiates the aspect. To get the attribute data, use the <xref:Metalama.Framework.Code.IDeclaration.Attributes?text=IDeclaration.Attributes> collection and then the <xref:Metalama.Framework.Code.Collections.IAttributeCollection.OfAttributeType*> method. Use the <xref:Metalama.Framework.Code.IAttribute.ToRef*?text=IAttribute.ToRef()> method to get the reference, and pass it to the aspect constructor.
+2. Use the <xref:Metalama.Framework.Fabrics.QueryExtensions.SelectDeclarationsWithAttribute*> method to find all declarations that have the attribute created in Step 1.
+3. For declaration types supported by your aspect (i.e., all values of `T` in <xref:Metalama.Framework.Aspects.IAspect`1>), use <xref:Metalama.Framework.Fabrics.IQuery`1.OfType*> to select these declarations.
+4. Call the <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspect*> method. Supply a lambda that instantiates the aspect. To get the attribute data, use the <xref:Metalama.Framework.Code.IDeclaration.Attributes?text=IDeclaration.Attributes> collection and then the <xref:Metalama.Framework.Code.Collections.IAttributeCollection.OfAttributeType*> method. Use the <xref:Metalama.Framework.Code.IAttribute.ToRef*?text=IAttribute.ToRef()> method to get the reference, and pass it to the aspect constructor.
 
 ### Example: decoupled logging aspect _without_ any references to Metalama.Framework
 

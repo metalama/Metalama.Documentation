@@ -35,11 +35,11 @@ If you wish to mark several APIs as experimental using a programmatic rule inste
 
 2. Create or reuse a fabric type as described in <xref:fabrics>.
 
-3. Import the <xref:Metalama.Extensions.Architecture.Fabrics> namespace to benefit from extension methods.
+3. Import the <xref:Metalama.Framework.Fabrics> and <xref:Metalama.Extensions.Architecture> namespaces to benefit from extension methods.
 
 4. Edit the  <xref:Metalama.Framework.Fabrics.ProjectFabric.AmendProject*>,  <xref:Metalama.Framework.Fabrics.NamespaceFabric.AmendNamespace*> or  <xref:Metalama.Framework.Fabrics.TypeFabric.AmendType*> of this method. 
 
-5. Select the experimental APIs using the <xref:Metalama.Framework.Aspects.IAspectReceiver`1.Select*>, <xref:Metalama.Framework.Aspects.IAspectReceiver`1.SelectMany*>  and <xref:Metalama.Framework.Aspects.IAspectReceiver`1.Where*> methods.
+5. Select the experimental APIs using the <xref:Metalama.Framework.Fabrics.IQuery`1.Select*>, <xref:Metalama.Framework.Fabrics.IQuery`1.SelectMany*>  and <xref:Metalama.Framework.Fabrics.IQuery`1.Where*> methods.
 
 6. Call the <xref:Metalama.Extensions.Architecture.ArchitectureExtensions.Experimental*> method.
 

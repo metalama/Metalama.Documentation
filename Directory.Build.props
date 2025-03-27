@@ -3,6 +3,9 @@
     <PropertyGroup>
         <RepoDirectory>$(MSBuildThisFileDirectory)</RepoDirectory>
         <RepoKind>GitHub</RepoKind>
+
+        <!-- A namespace-bound license. -->
+        <MetalamaLicense>112819-QURG8QQQXTQEQWYEN4JW7K9FV4JCQ4YDS29ZXNSRF4UKZZ9F249MNBJFY4UE7Y9FV6ZTBUKVU28LS6UFF2LEHSUW9DF5639MKDQNYCL3JFDG4LL3FC2SEKCVWPF54JTAFAB2PSQQ6EQCGQKP</MetalamaLicense>
     </PropertyGroup>
 
     <Import Project="eng\Versions.props"/>

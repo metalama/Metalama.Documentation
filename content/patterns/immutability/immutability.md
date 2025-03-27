@@ -50,7 +50,7 @@ The <xref:Metalama.Patterns.Immutability.ImmutableAttribute?text=[Immutable]> as
 
 Note that the `Immutable` aspect is automatically inherited by derived types.
 
-You can use a fabric method and <xref:Metalama.Framework.Aspects.IAspectReceiver`1.AddAspectIfEligible*> to add this aspect in bulk. See <xref:fabrics-adding-aspects> for details.
+You can use a fabric method and <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspectIfEligible*> to add this aspect in bulk. See <xref:fabrics-adding-aspects> for details.
 
 ### Example: Shallow immutability with warning
 

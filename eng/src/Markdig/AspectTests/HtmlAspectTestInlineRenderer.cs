@@ -23,13 +23,13 @@ internal class HtmlAspectTestInlineRenderer : HtmlObjectRenderer<AspectTestInlin
         "using Metalama.Framework.Fabrics",
         "using Metalama.Framework.Project",
         "using Metalama.Framework.Services",
-        "using Metalama.Framework.Validation",
+        "using Metalama.Extensions.Validation",
         "using Metalama.Framework.Options",
         "using Metalama.Framework.Metrics",
         "using Metalama.Framework.Eligibility",
         "using Metalama.Framework.Advising",
         "using Metalama.Framework.Serialization",
-        "using Metalama.Framework.CodeFixes" );
+        "using Metalama.Extensions.CodeFixes" );
 
     private enum TabOrder
     {

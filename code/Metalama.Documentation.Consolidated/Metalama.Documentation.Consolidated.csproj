@@ -24,6 +24,7 @@
     <PackageReference Include="Metalama.Extensions.DependencyInjection.ServiceLocator" />
     <PackageReference Include="Metalama.Extensions.Metrics" />
     <PackageReference Include="Metalama.Extensions.Architecture" />
+    <PackageReference Include="Metalama.Extensions.CodeFixes" />
     <PackageReference Include="Metalama.Compiler" />
     <PackageReference Include="Metalama.Migration" />
     <PackageReference Include="Metalama.Patterns.Contracts" />

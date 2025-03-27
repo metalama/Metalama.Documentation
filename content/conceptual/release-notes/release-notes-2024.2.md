@@ -58,20 +58,20 @@ For details, see <xref:immutability>.
 
 ## Improvements in fabrics and IAspectReceiver
 
-* The <xref:Metalama.Framework.Fabrics.IAmender`1.Outbound?text=IAmender.Outbound> property is now redundant and has been marked as `[Obsolete]`. The <xref:Metalama.Framework.Fabrics.IAmender`1> interface now directly derives from <xref:Metalama.Framework.Aspects.IAspectReceiver`1> instead of exposing it on the <xref:Metalama.Framework.Fabrics.IAmender`1.Outbound> property. The use of the <xref:Metalama.Framework.Aspects.IAspectBuilder`1.Outbound> property is still required for <xref:Metalama.Framework.Aspects.IAspectBuilder`1>.
-* New method <xref:Metalama.Framework.Aspects.IAspectReceiver`1.Tag*?text=IAspectReceiver.Tag>: adds an arbitrary tag that is carried on and available for all lambdas on the right side of the `Tag` method for new overloads of all (or most) `IAspectReceiver` methods.
-* New method <xref:Metalama.Framework.Aspects.IAspectReceiver`1.SelectTypes*?text=IAspectReceiver.SelectTypes>: gets all types in the current context (typically namespace, compilation, or current type).
-* New method <xref:Metalama.Framework.Aspects.IAspectReceiver`1.SelectTypesDerivedFrom*?text=IAspectReceiver.SelectTypesDerivedFrom>: gets all types in the current context derived from a given type.
+* The <xref:Metalama.Framework.Fabrics.IAmender`1.Outbound?text=IAmender.Outbound> property is now redundant and has been marked as `[Obsolete]`. The <xref:Metalama.Framework.Fabrics.IAmender`1> interface now directly derives from `IAspectReceiver<T>` (now <xref:Metalama.Framework.Fabrics.IQuery`1>) instead of exposing it on the <xref:Metalama.Framework.Fabrics.IAmender`1.Outbound> property. The use of the <xref:Metalama.Framework.Aspects.IAspectBuilder`1.Outbound> property is still required for <xref:Metalama.Framework.Aspects.IAspectBuilder`1>.
+* New method <xref:Metalama.Framework.Fabrics.IQuery`1.Tag*?text=IQuery.Tag>: adds an arbitrary tag that is carried on and available for all lambdas on the right side of the `Tag` method for new overloads of all (or most) `IAspectReceiver` methods.
+* New method <xref:Metalama.Framework.Fabrics.IQuery`1.SelectTypes*?text=IQuery.SelectTypes>: gets all types in the current context (typically namespace, compilation, or current type).
+* New method <xref:Metalama.Framework.Fabrics.IQuery`1.SelectTypesDerivedFrom*?text=IQuery.SelectTypesDerivedFrom>: gets all types in the current context derived from a given type.
 * New extension methods for `IAspectReceiver<ICompilation>`:
-   * <xref:Metalama.Framework.Aspects.AspectReceiverExtensions.SelectReferencedAssembly*> gets a referenced assembly,
-   * <xref:Metalama.Framework.Aspects.AspectReceiverExtensions.SelectReflectionType*> gets a type given by `System.Type`.
+   * <xref:Metalama.Framework.Fabrics.QueryExtensions.SelectReferencedAssembly*> gets a referenced assembly,
+   * <xref:Metalama.Framework.Fabrics.QueryExtensions.SelectReflectionType*> gets a type given by `System.Type`.
 * Performance improvements:
     * The right side of query operators like `IAspectReceiver.SelectMany()`, `IAspectReceiver.SelectTypes` or `IAspectReceiver.SelectTypesDerivedFrom` now executes concurrently.
     * When a part of a query is used several times (typically by storing the query in a local variable), its result is cached.
 
 ## Improvements in Metalama.Extensions.Architecture
 
-* The reference validator feature now has a concept of _validator granularity_ (<xref:Metalama.Framework.Validation.ReferenceGranularity>), which accepts the values `Compilation`, `Namespace`, `Type`, `Member`, or `ParameterOrAttribute`. The idea is that when a validator is invariant within some level of granularity, then its predicate should only be evaluated once within the declaration at this level of granularity. For instance, if a validator granularity is set to `Namespace`, then _all_ references within that namespace will be either valid or invalid at the same time.
+* The reference validator feature now has a concept of _validator granularity_ (<xref:Metalama.Extensions.Validation.ReferenceGranularity>), which accepts the values `Compilation`, `Namespace`, `Type`, `Member`, or `ParameterOrAttribute`. The idea is that when a validator is invariant within some level of granularity, then its predicate should only be evaluated once within the declaration at this level of granularity. For instance, if a validator granularity is set to `Namespace`, then _all_ references within that namespace will be either valid or invalid at the same time.
 
     The _validator granularity_ concept is essential to improve the performance of validators, as references can be validated collectively instead of one by one.
     
@@ -159,7 +159,7 @@ For details, see <xref:creating-logs>.
 ## Breaking Changes
 
 * The <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicate> class has a new abstract property <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicate>. Its constructor now requires a <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicateBuilder>.
-* <xref:Metalama.Framework.Validation.ReferenceValidationContext> no longer reports several <xref:Metalama.Framework.Validation.ReferenceKinds>, but only the deepest one. For instance, in `class A : List<C>;`, the reference to `C` is of kind `GenericArgument` and no longer `BaseType | GenericArgument`. Combined flags added complexity, and we did not see a use case for them.
+* <xref:Metalama.Extensions.Validation.ReferenceValidationContext> no longer reports several <xref:Metalama.Framework.Code.ReferenceKinds>, but only the deepest one. For instance, in `class A : List<C>;`, the reference to `C` is of kind `GenericArgument` and no longer `BaseType | GenericArgument`. Combined flags added complexity, and we did not see a use case for them.
 * Projects that were using transitive reference validators (or architecture constraints), if they were built with a previous version of Metalama, must be rebuilt.
 * Relationships specified with <xref:Metalama.Framework.Aspects.AspectOrderAttribute> are now applied to derived aspect classes by default. To revert to the previous behavior, set the <xref:Metalama.Framework.Aspects.AspectOrderAttribute.ApplyToDerivedTypes> property to `false`.
 * An error will be reported when attempting to use some compile-time methods (for instance, `meta.CompileTime`) from a method that is not a template. In prior versions, these methods had no effect and were only confusing.

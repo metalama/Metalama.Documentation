@@ -19,8 +19,8 @@ By default, options are inherited along several axes (<xref:Metalama.Framework.O
 If multiple sources (such as fabrics, attributes, aspects) set the options for the same declaration, these options are first merged at the level of the node where they have been defined, irrespective of any inheritance. The sources are evaluated in the following order:
 
 1. Options provided by _custom attributes_ implementing <xref:Metalama.Framework.Options.IHierarchicalOptionsProvider>, except aspects. When overriding options provided by competing custom attributes, Metalama uses the axis named <xref:Metalama.Framework.Options.ApplyChangesAxis.SameDeclaration>.
-2. Options set by _fabrics_ using <xref:Metalama.Framework.Aspects.IAspectReceiver`1.SetOptions*?text=amender.Outgoing.SetOptions>. Metalama continues to use the <xref:Metalama.Framework.Options.ApplyChangesAxis.SameDeclaration> axis when applying options originating from <xref:Metalama.Framework.Aspects.IAspectReceiver`1.SetOptions*>.
-3. Options set by _aspects_ using <xref:Metalama.Framework.Aspects.IAspectReceiver`1.SetOptions*?text=aspectBuilder.Outgoing.SetOptions>. The <xref:Metalama.Framework.Options.ApplyChangesAxis.SameDeclaration> axis is still used.
+2. Options set by _fabrics_ using <xref:Metalama.Framework.Options.OptionQueryExtensions.SetOptions*?text=amender.Outgoing.SetOptions>. Metalama continues to use the <xref:Metalama.Framework.Options.ApplyChangesAxis.SameDeclaration> axis when applying options originating from <xref:Metalama.Framework.Options.OptionQueryExtensions.SetOptions*>.
+3. Options set by _aspects_ using <xref:Metalama.Framework.Options.OptionQueryExtensions.SetOptions*?text=aspectBuilder.Outgoing.SetOptions>. The <xref:Metalama.Framework.Options.ApplyChangesAxis.SameDeclaration> axis is still used.
 4. Options provided by _aspects_ implementing <xref:Metalama.Framework.Options.IHierarchicalOptionsProvider>. In this case, the <xref:Metalama.Framework.Options.ApplyChangesAxis.Aspect> axis is used.
 
 ## Merging of inherited options

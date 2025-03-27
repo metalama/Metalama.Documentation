@@ -59,7 +59,7 @@ The following example demonstrates a template that uses <xref:Metalama.Framework
 
 ## Configuring the options from a fabric
 
-If you choose to make the option class public, the users of your aspects can now set the options using the <xref:Metalama.Framework.Aspects.IAspectReceiver`1.SetOptions*?text=amender.Outgoing.SetOptions> method in any fabric. Users can also use methods like <xref:Metalama.Framework.Aspects.IAspectReceiver`1.Select*>, <xref:Metalama.Framework.Aspects.IAspectReceiver`1.SelectMany*> or <xref:Metalama.Framework.Aspects.IAspectReceiver`1.Where*>.
+If you choose to make the option class public, the users of your aspects can now set the options using the <xref:Metalama.Framework.Options.OptionQueryExtensions.SetOptions*?text=amender.Outgoing.SetOptions> method in any fabric. Users can also use methods like <xref:Metalama.Framework.Fabrics.IQuery`1.Select*>, <xref:Metalama.Framework.Fabrics.IQuery`1.SelectMany*> or <xref:Metalama.Framework.Fabrics.IQuery`1.Where*>.
 
 > [!NOTE]
 > This technique not only works from fabrics, but also from any aspect that is applied _before_ the aspect that will consume the option.
