@@ -11,13 +11,21 @@ modified-date: 2024-08-04
 
 ## Attaching code fixes to diagnostics
 
-When an aspect or fabric reports a diagnostic, it can attach a set of code fixes to this diagnostic by invoking the <xref:Metalama.Extensions.CodeFixes.CodeFixExtensions.WithCodeFixes*?text=IDiagnostic.WithCodeFixes> extension method. The <xref:Metalama.Extensions.CodeFixes.CodeFixFactory> class can be used to create single-step code fixes.
+To attach a code fix to a diagnostic:
+
+1. Add the `Metalama.Extensions.CodeFixes` package
+2. After instantiating the diagnostic, use the <xref:Metalama.Extensions.CodeFixes.CodeFixExtensions.WithCodeFixes*?text=IDiagnostic.WithCodeFixes> extension method. 
+3. Use the <xref:Metalama.Extensions.CodeFixes.CodeFixFactory> class to create predefined, single-step code fixes (such as adding or removing a custom attribute). For more complex code fixes, see below.
+
+### Example
+
+TODO
 
 ## Suggesting code refactorings without diagnostics
 
 An aspect or fabric can also suggest a code refactoring without reporting a diagnostic by invoking the <xref:Metalama.Extensions.CodeFixes.CodeFixExtensions.Suggest*> method.
 
-### Example
+### Example: code fix without diagnostic
 
 The example below demonstrates an aspect that implements the `ToString` method. By default, it includes all public properties of the class in the `ToString` result. However, the developer using the aspect can opt-out by adding `[NotToString]` to any property.
 
@@ -25,7 +33,7 @@ The aspect utilizes the <xref:Metalama.Extensions.CodeFixes.CodeFixExtensions.Su
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/ToStringWithSimpleCodeFix.cs name="ToString aspect with simple code fix"]
 
-## Building multi-step code fixes
+## Building custom code fixes
 
 To create a custom code fix, instantiate the <xref:Metalama.Extensions.CodeFixes.CodeFix> class using the constructor instead of the <xref:Metalama.Extensions.CodeFixes.CodeFixFactory> class.
 
@@ -44,7 +52,7 @@ The delegate will typically utilize one of the following methods of the <xref:Me
 | <xref:Metalama.Extensions.CodeFixes.ICodeActionBuilder.RemoveAttributesAsync*> | Removes all custom attributes of a given type from a given declaration and all contained declarations.
 | <xref:Metalama.Extensions.CodeFixes.ICodeActionBuilder.ApplyAspectAsync*> | Transforms the source code using an aspect (as if it were applied as a live template).
 
-### Example
+### Example: custom code fix
 
 The previous example is continued here, but instead of a single-step code fix, we want to offer the user the ability to switch from an aspect-oriented implementation of `ToString` by applying the aspect to the source code itself.
 

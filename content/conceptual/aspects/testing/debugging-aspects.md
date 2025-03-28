@@ -42,9 +42,9 @@ To debug compile-time logic, follow the steps below:
     
 Example:
 
-    ```powershell
-    dotnet build MyProject.csproj -p:MetalamaDebugCompiler=True -p:MetalamaConcurrentBuildEnabled=False
-    ```
+```powershell
+dotnet build MyProject.csproj -p:MetalamaDebugCompiler=True -p:MetalamaConcurrentBuildEnabled=False
+```
 
 ## Debugging the IDE process
 
