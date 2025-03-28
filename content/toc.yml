@@ -4,8 +4,8 @@ items:
 
 - name: Getting started
   topicUid: main-getting-started
-- name: Video tutorials
-  href: videos/toc.yml
+#- name: Video tutorials
+#  href: videos/toc.yml
 - name: Conceptual documentation
   href: conceptual/toc.yml
 - name: Commented examples

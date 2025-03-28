@@ -25,7 +25,6 @@ Each article is assigned a _complexity level_, such as 100, 200, 300, following 
 | Book | Description |
 |------|-------------|
 | <xref:main-getting-started> | A quick _Hello, world_ walkthrough that shows you how to create a logging aspect and apply a simple architecture validation rule. |
-| <xref:videos> | A collection of tutorial videos. |
 | <xref:conceptual> | Comprehensive and precise reference documentation. |
 | <xref:samples> | Commented examples with varying degrees of complexity. |
 | <xref:api> | API documentation generated from the source code. |

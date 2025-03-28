@@ -101,7 +101,6 @@ Congratulations! In this short tutorial, you have discovered two key concepts of
 
 There are three paths you can take from here according to your learning style:
 
-* <xref:videos>
 * <xref:conceptual>
 * <xref:samples>
 
