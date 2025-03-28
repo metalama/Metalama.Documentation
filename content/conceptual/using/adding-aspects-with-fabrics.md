@@ -82,6 +82,5 @@ Sometimes you may not need or want to add aspects to all types, but only to a cl
 [!metalama-test ~/code/Metalama.Documentation.QuickStart.Fabrics.2/AddLoggingToChildrenFabric.cs tabs="target"]
 
 > [!div class="see-also"]
-> <xref:video-fabrics-and-inheritance>
 > <xref:fabrics-adding-aspects>
 

@@ -94,7 +94,6 @@ If you want to go deeper into method overrides, consider reading the following a
 
 > [!div class="see-also"]
 > <xref:simple-override-method>
-> <xref:video-first-aspect>
 
 
 

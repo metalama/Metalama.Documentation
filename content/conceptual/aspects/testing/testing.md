@@ -50,10 +50,6 @@ There are three complementary strategies to test your aspects. The first strateg
 </tr>
 </table>
 
-> [!div class="see-also"]
-> <xref:video-testing>
-
-
 
 
 

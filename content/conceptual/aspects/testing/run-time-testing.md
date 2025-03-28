@@ -43,7 +43,3 @@ class MyTests
 
 > [!WARNING]
 > Run-time unit tests should not replace, but complement, aspect tests (see <xref:aspect-testing>). The problem with run-time unit tests is that the whole project is compiled at once, so it is difficult to debug a specific instance of an aspect in isolation from the other instances. The most convenient way to debug aspects during development is to create aspect tests. When a run-time unit test project fails to build because of an aspect, we suggest creating an aspect test to isolate, diagnose, and fix the issue. For more information, see <xref:debugging-aspects>.
-
-> [!div class="see-also"]
-> <xref:video-testing>
-

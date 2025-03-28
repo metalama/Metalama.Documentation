@@ -67,8 +67,3 @@ public override void BuildEligibility( IEligibilityBuilder<IMethod> builder )
 }
 ```
 
-> [!div class="see-also"]
-> <xref:video-fabrics-and-inheritance>
-
-
-

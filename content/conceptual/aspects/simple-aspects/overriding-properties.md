@@ -76,9 +76,6 @@ If you want to go deeper into field/property overrides, consider exploring the f
 
 * To learn how to override several fields and properties from a single type-level aspect, jump to <xref:overriding-methods>.
 
-> [!div class="see-also"]
-> <xref:video-other-aspect-types>
-
 
 
 

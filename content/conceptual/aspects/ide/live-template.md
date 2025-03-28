@@ -9,9 +9,6 @@ modified-date: 2024-08-04
 
 # Exposing an aspect as a live template
 
-> [!NOTE]
-> This feature requires a Metalama Professional license. The `Metalama.Extensions.CodeFixes` package must be added to the project defining the aspects.
-
 A _live template_ is a custom Code Action that appears in the code editor menu alongside other code suggestions or refactoring actions offered by the Integrated Development Environment (IDE). For more information on using live templates, please refer to <xref:applying-live-templates>.
 
 Live templates are created using the Metalama Aspect Framework. Unlike traditional aspects that are executed at compile-time by the compiler, live templates are interactively applied by the user within the editor, thereby modifying the source code.
@@ -26,12 +23,12 @@ Live templates are created using the Metalama Aspect Framework. Unlike tradition
    - Strive to generate idiomatic C# code.
    - Any diagnostics reported by the aspect will be disregarded.
    - Aspect ordering and requirements will not be considered.
-2. Ensure that the aspect class is equipped with a default constructor.
-3. Annotate the class with `[EditorExperience(SuggestAsLiveTemplate = true)]`.
-4. Properly define the aspect eligibility to ensure that the code refactoring is suggested only for relevant declarations. For more details, refer to <xref:eligibility>.
+2. Add the `Metalama.Extensions.CodeFixes` package to your project.
+3. Ensure that the aspect class is equipped with a default constructor.
+4. Annotate the class with `[EditorExperience(SuggestAsLiveTemplate = true)]`.
+5. Properly define the aspect eligibility to ensure that the code refactoring is suggested only for relevant declarations. For more details, refer to <xref:eligibility>.
 
 > [!div class="see-also"]
-> <xref:video-code-fixes>
 > <xref:code-fixes>
 
 

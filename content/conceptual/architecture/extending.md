@@ -87,7 +87,3 @@ Follow this procedure:
  * To validate references (i.e. dependencies), use <xref:Metalama.Extensions.Validation.ReferenceValidationQueryExtensions.ValidateInboundReferences*>.
  * To validate the declaration itself, use <xref:Metalama.Extensions.Validation.ValidationQueryExtensions.Validate*>.
 
-> [!div class="see-also"]
-> <xref:video-custom-architecture-rules>
-
-

@@ -89,5 +89,4 @@ You can use `Debugger.Break` to forcefully break the program. The following scre
 
 > [!div class="see-also"]
 > <xref:debugging-aspects>
-> <xref:video-debugging>
 

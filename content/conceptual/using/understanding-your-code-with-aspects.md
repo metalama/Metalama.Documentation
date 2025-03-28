@@ -76,5 +76,3 @@ To open the Aspect Explorer tool window, use the top-level menu and select _Exte
 
 ![Aspect Explorer](images/aspect-explorer.png)
 
-> [!div class="see-also"]
-> <xref:video-first-aspect>

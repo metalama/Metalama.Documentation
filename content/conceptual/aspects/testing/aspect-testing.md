@@ -284,6 +284,3 @@ If the above is not an option for you, you can alternatively create, in each dir
 
 The `[CurrentDirectory]` attribute will automatically provide test data for all files under the directory containing the `_Runner.cs` file and any child directory.
 
-> [!div class="see-also"]
-> <xref:video-testing>
-

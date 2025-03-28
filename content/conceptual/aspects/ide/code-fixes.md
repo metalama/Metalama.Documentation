@@ -68,7 +68,6 @@ The custom code fix performs the following actions:
 
 
 > [!div class="see-also"]
-> <xref:video-code-fixes>
 > <xref:live-template>
 
 

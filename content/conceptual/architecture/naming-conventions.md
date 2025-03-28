@@ -55,8 +55,3 @@ Many teams require UI pages to be suffixed with `Page`, controls with `Control`,
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/Architecture/NamingConvention_Fabric.cs tabs="target"]
 
-> [!div class="see-also"]
-> <xref:video-architecture-verification>
-  
-
-

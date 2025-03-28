@@ -126,8 +126,3 @@ Using floating-point arithmetic in operations involving currencies is a common p
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.AspectFramework/Architecture/Fabric_ForbidFloat.cs]
 
 
-> [!div class="see-also"]
-> <xref:video-architecture-verification>
-  
-
-

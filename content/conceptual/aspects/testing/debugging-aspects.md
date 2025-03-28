@@ -81,5 +81,4 @@ To attach a debugger to the design-time compiler process, follow these steps:
 
 > [!div class="see-also"]
 > <xref:debugging-aspect-oriented-code>
-> <xref:video-debugging>
 
