@@ -24,24 +24,19 @@ Telemetry data is collected and processed in accordance with our [Privacy Policy
 
 ### License audit
 
-In addition to telemetry, the software may undergo a _license audit_. This audit is anonymous but mandatory for Metalama Free and the self-generated Metalama Trial. It is used to gather statistics on the number of users. If you are using a license key, license audit reports include the id of your license key. If you disagree with license auditing, please [contact our sales team](mailto:hello@postsharp.net), and we will provide you with a new license key that includes a license audit waiver flag.
+In addition to telemetry, if you are using premium components of Metalama (as opposed to only open-source ones), the software undergoes a _license audit_. This audit is anonymous but mandatory for Metalama Community and trial licenses. It is used to gather statistics on the number of users. If you are using a license key, license audit reports include the id of your license key. If you disagree with license auditing, please [contact our sales team](mailto:hello@postsharp.net), and we will provide you with a new license key that includes a license audit waiver flag.
 
 ## Disabling telemetry
 
-Telemetry is disabled by default. During the license registration process, a checkbox will give you the option to enable telemetry.
-
-> [!NOTE]
-> Prior to Metalama 2024.1, telemetry was enabled by default.
-
-You can disable telemetry using one of the two methods outlined below.
+Telemetry is enabled by default. You can disable telemetry using one of the two methods outlined below.
 
 ### Option 1. Defining an environment variable
 
 You can disable telemetry by defining the `METALAMA_TELEMETRY_OPT_OUT` environment variable to any non-empty value.
 
-This environment variable has priority over any other setting. It does not affect the license audit mechanism.
+This environment variable has priority over any other setting. It allows you to disable telemetry for all devices in your domain using remote management tools such as Azure Endpoint Manager.
 
-It allows you to disable telemetry for all devices in your domain using remote management tools such as Azure Endpoint Manager.
+This approach does not affect the license audit mechanism.
 
 ### Option 2. Using Metalama Command Line Tools
 
