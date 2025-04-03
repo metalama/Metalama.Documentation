@@ -672,7 +672,7 @@ object PublicUpdateSearch : BuildType({
                 path = "Build.ps1"
             }
             noProfile = false
-            scriptArgs = "tools search update https://0fpg9nu41dat6boep.a1.typesense.net metalamadoc https://doc-production.postsharp.net/metalama/sitemap.xml --ignore-tls %UpdateSearchArguments%"
+            scriptArgs = "tools search update https://0fpg9nu41dat6boep.a1.typesense.net metalamadoc https://doc-production.metalama.net/sitemap.xml --ignore-tls %UpdateSearchArguments%"
         }
     }
 
@@ -734,7 +734,7 @@ object PublicUpdateSearchNoDependency : BuildType({
                 path = "Build.ps1"
             }
             noProfile = false
-            scriptArgs = "tools search update https://0fpg9nu41dat6boep.a1.typesense.net metalamadoc https://doc-production.postsharp.net/metalama/sitemap.xml --ignore-tls %UpdateSearchArguments%"
+            scriptArgs = "tools search update https://0fpg9nu41dat6boep.a1.typesense.net metalamadoc https://doc-production.metalama.net/sitemap.xml --ignore-tls %UpdateSearchArguments%"
         }
     }
 

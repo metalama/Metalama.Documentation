@@ -56,7 +56,7 @@ var product = new Product( MetalamaDependencies.MetalamaDocumentation )
                 PublicPublishers =
                 [
                     new DocumentationPublisher(
-                        new S3PublisherConfiguration[] { new( docPackageFileName, RegionEndpoint.EUWest1, "doc.postsharp.net", docPackageFileName ) },
+                        new S3PublisherConfiguration[] { new( docPackageFileName, RegionEndpoint.EUWest1, "doc.metalama.net", docPackageFileName ) },
                         "https://postsharp-helpbrowser.azurewebsites.net/" )
                 ]
             } ),
@@ -66,7 +66,7 @@ var product = new Product( MetalamaDependencies.MetalamaDocumentation )
         new UpdateSearchProductExtension<UpdateMetalamaDocumentationCommand>(
             "https://0fpg9nu41dat6boep.a1.typesense.net",
             "metalamadoc",
-            "https://doc-production.postsharp.net/metalama/sitemap.xml",
+            "https://doc-production.metalama.net/sitemap.xml",
             true )
     ]
 };
