@@ -3,13 +3,13 @@
 
     <PropertyGroup>
         <MetalamaBackstageVersion>2025.0.8</MetalamaBackstageVersion>
-        <MetalamaCompilerVersion>2025.0.8</MetalamaCompilerVersion>
-        <MetalamaVersion>2025.0.9</MetalamaVersion>
-        <MetalamaExtensionsVersion>2025.0.9</MetalamaExtensionsVersion>
-        <MetalamaSamplesVersion>2025.0.9</MetalamaSamplesVersion>
-        <MetalamaMigrationVersion>2025.0.9</MetalamaMigrationVersion>
-        <MetalamaLinqPadVersion>2025.0.9</MetalamaLinqPadVersion>
-        <MetalamaPatternsVersion>2025.0.9</MetalamaPatternsVersion>
+        <MetalamaCompilerVersion>2025.0.9</MetalamaCompilerVersion>
+        <MetalamaVersion>2025.0.10</MetalamaVersion>
+        <MetalamaExtensionsVersion>2025.0.10</MetalamaExtensionsVersion>
+        <MetalamaSamplesVersion>2025.0.10</MetalamaSamplesVersion>
+        <MetalamaMigrationVersion>2025.0.10</MetalamaMigrationVersion>
+        <MetalamaLinqPadVersion>2025.0.10</MetalamaLinqPadVersion>
+        <MetalamaPatternsVersion>2025.0.10</MetalamaPatternsVersion>
         <MetalamaFrameworkRunTimeVersion>2025.0.7</MetalamaFrameworkRunTimeVersion>
     </PropertyGroup>
 
