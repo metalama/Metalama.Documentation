@@ -2,10 +2,10 @@
 <Project>
 
     <PropertyGroup>
-        <MetalamaCompilerVersion>2025.1.2-preview</MetalamaCompilerVersion>
-        <MetalamaVersion>2025.1.2-preview</MetalamaVersion>
-        <MetalamaPremiumVersion>2025.1.2-preview</MetalamaPremiumVersion>
-        <MetalamaSamplesVersion>2025.1.2-preview</MetalamaSamplesVersion>
+        <MetalamaCompilerVersion>2025.1.3-rc</MetalamaCompilerVersion>
+        <MetalamaVersion>2025.1.3-rc</MetalamaVersion>
+        <MetalamaPremiumVersion>2025.1.3-rc</MetalamaPremiumVersion>
+        <MetalamaSamplesVersion>2025.1.3-rc</MetalamaSamplesVersion>
     </PropertyGroup>
 
 </Project>
