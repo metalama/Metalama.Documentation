@@ -56,7 +56,7 @@ var product = new Product( MetalamaDependencies.MetalamaDocumentation )
                 PublicPublishers =
                 [
                     new DocumentationPublisher(
-                        new S3PublisherConfiguration[] { new( docPackageFileName, RegionEndpoint.EUWest1, "doc.metalama.net", docPackageFileName ) },
+                        new S3PublisherConfiguration[] { new( docPackageFileName, RegionEndpoint.EUWest1, "doc.postsharp.net", docPackageFileName ) },
                         "https://postsharp-helpbrowser.azurewebsites.net/" )
                 ]
             } ),
