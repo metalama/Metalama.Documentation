@@ -7,26 +7,20 @@ using System.Linq;
 
 namespace BuildMetalamaDocumentation;
 
-internal class MetalamaDocCrawler : DocFxCrawler
+internal class MetalamaDocCrawler : DocFxDocumentParser
 {
     // This method parses the breadcrumb of an article
     // (eg. Metalama > 🏠 > Conceptual documentation > Creating aspects > Ordering aspects
     // for https://doc.metalama.net/conceptual/aspects/ordering)
     // and calculates all properties required to create a respective instance
     // of the BreadcrumbInfo record.
-    protected override BreadcrumbInfo GetBreadcrumbData( HtmlNode[] breadcrumbLinks )
+    protected override BreadcrumbInfo GetBreadcrumbData( string[] breadcrumbLinks )
     {
-        var isDefaultKind = breadcrumbLinks.Length < 5;
 
-        var kind = isDefaultKind
-            ? "General Information"
-            : NormalizeCategoryName( breadcrumbLinks.Skip( 4 ).First().GetText() );
-
-        var breadcrumbTitlesCountToSkip = 4;
-
+        var kind = NormalizeCategoryName( breadcrumbLinks[0] );
+        
         var relevantBreadCrumbTitles = breadcrumbLinks
-            .Skip( breadcrumbTitlesCountToSkip )
-            .Select( n => n.GetText() )
+            .Skip( 1 )
             .ToArray();
 
         var breadcrumb = string.Join(
@@ -38,23 +32,19 @@ internal class MetalamaDocCrawler : DocFxCrawler
 
         var category = !hasCategory || breadcrumbLinks.Length < 6
             ? null
-            : NormalizeCategoryName( breadcrumbLinks.Skip( 5 ).First().GetText() );
+            : NormalizeCategoryName( breadcrumbLinks.Skip( 5 ).First() );
 
-        int kindRank;
         var isApiDoc = false;
         var isPageIgnored = false;
-
-        if ( isDefaultKind )
+        MetalamaDocFxRank kindRank;
+       
+       if ( isExamplesKind )
         {
-            kindRank = (int) MetalamaDocFxRank.Common;
-        }
-        else if ( isExamplesKind )
-        {
-            kindRank = (int) MetalamaDocFxRank.Examples;
+            kindRank = MetalamaDocFxRank.Examples;
         }
         else if ( kind.Contains( "concept", StringComparison.OrdinalIgnoreCase ) )
         {
-            kindRank = (int) MetalamaDocFxRank.Conceptual;
+            kindRank = MetalamaDocFxRank.Conceptual;
         }
         else if ( kind.Contains( "api", StringComparison.OrdinalIgnoreCase ) )
         {
@@ -62,18 +52,18 @@ internal class MetalamaDocCrawler : DocFxCrawler
             // so it doesn't clutter the search results for Metalama.
             isPageIgnored = category?.Contains( "postsharp", StringComparison.OrdinalIgnoreCase ) ?? false;
             isApiDoc = true;
-            kindRank = (int) MetalamaDocFxRank.Api;
+            kindRank = MetalamaDocFxRank.Api;
         }
         else
         {
-            kindRank = (int) MetalamaDocFxRank.Unknown;
+            kindRank = MetalamaDocFxRank.Common;
         }
 
         return new BreadcrumbInfo(
             breadcrumb,
-            new[] { kind },
-            kindRank,
-            category == null ? Array.Empty<string>() : new[] { category },
+            [kind],
+            (int) kindRank,
+            category == null ? [] : [category],
             relevantBreadCrumbTitles.Length,
             isPageIgnored,
             isApiDoc );
