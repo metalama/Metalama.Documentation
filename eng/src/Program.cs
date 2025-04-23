@@ -68,8 +68,7 @@ var product = new Product( MetalamaDependencies.MetalamaDocumentation )
             "metalamadoc",
             "https://doc-production.metalama.net/sitemap.xml",
             () => new MetalamaDocCrawler(),
-            ["Metalama"],
-            true )
+            ["Metalama"] )
     ]
 };
 
