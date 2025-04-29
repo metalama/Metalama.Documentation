@@ -19,7 +19,6 @@ modified-date: 2024-11-06
 
 Note that all environment variables are imported as MSBuild properties by default.
 
-| Property | Type | Description |
 | Property                                    | Type                     | Description                                                                                                                                                                                                                                                                                                                                                                          |
 |----------------------------------------------|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `MetalamaCompilerTransformerOrder`           | Semicolon-separated list | Specifies the execution order of transformers in the current project. Transformers are identified by their namespace-qualified type name, excluding the assembly name. This property is generally unimportant because the only transformer is typically _Metalama.Framework_.                                                                                                                                               |
