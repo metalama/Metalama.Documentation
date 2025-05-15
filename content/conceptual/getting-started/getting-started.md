@@ -10,7 +10,6 @@ modified-date: 2024-08-22
 > [!NOTE]
 > If you don't plan to create your own aspects but just use existing ones, start with <xref:using-metalama>.
 
-
 ## 1. Add Metalama to Your Project
 
 Add the [Metalama.Framework](https://www.nuget.org/packages/Metalama.Framework) package to your project.
@@ -18,10 +17,11 @@ Add the [Metalama.Framework](https://www.nuget.org/packages/Metalama.Framework) 
 > [!NOTE]
 > If your project targets the .NET Framework or .NET Standard, you may also need to add [PolySharp](https://github.com/Sergio0694/PolySharp), which updates the language version even if it's officially unsupported.
 
-Optionally, install [Visual Studio Tools for Metalama](https://www.postsharp.net/links/download-unified-vsx). This extension offers the following features:
+Optionally, install [Visual Studio Tools for Metalama](https://marketplace.visualstudio.com/items?itemName=PostSharpTechnologies.PostSharp). This extension offers the following features:
 
 * AspectDiff: Displays a side-by-side comparison of source code with the generated code.
 * CodeLens: Displays which aspects are applied to your code.
+* Aspect Explorer: Navigates from aspects to their target declarations.
 * Syntax highlighting of aspects: This is particularly useful when you are getting started.
 
 ## 2. Create an Aspect Class
@@ -39,7 +39,7 @@ Let's examine two `meta` expressions:
 * `meta.Proceed()` is replaced by the code of the target method.
 * `meta.Target.Method` gives you access to the <xref:Metalama.Framework.Code.IMethod> code model. In this case, we are implicitly calling `ToString()`.
 
-## 4. Apply the custom attribute to a method
+## 3. Apply the custom attribute to a method
 
 Remember that an aspect is a template and that it doesn't do anything until it's applied to some target code.
 
@@ -55,7 +55,7 @@ Hello, world.
 Leaving Foo.Method1()
 ```
 
-## 5. See what happened to your code
+## 4. See what happened to your code
 
 You can see that Metalama did not modify anything in your source code. It's still _yours_. Instead, Metalama applied the logging aspect during compilation. So, it's no longer your source code that's being executed, but your source code _enhanced_ by the logging aspect.
 
@@ -65,7 +65,7 @@ It will show you something like this:
 
 [!metalama-compare ~/code/Metalama.Documentation.SampleCode.AspectFramework/GettingStarted/GettingStarted.cs]
 
-## 6. Add aspects in bulk using fabrics
+## 5. Add aspects in bulk using fabrics
 
 With aspects like logging, it's frequently applied to a large number of methods. It would be cumbersome to add a custom attribute to each of them. Instead, let's see how we can add the aspect programmatically using fabrics.
 
@@ -76,6 +76,9 @@ Use the following code:
 This class derives from <xref:Metalama.Framework.Fabrics.ProjectFabric> and acts as a compile-time entry point for the project. As you can see, it adds the logging aspect to all public methods of all public types.
 
 ## 6. Add architecture validation
+
+> [!NOTE]
+> This feature requires a Metalama Professional license.
 
 Now that you know about aspects and fabrics, it's easy to understand how to validate your codebase against some architectural rules. In this example, we will show how to report a warning when internals of a namespace are used outside of this namespace.
 
@@ -97,9 +100,9 @@ In this case, when we try to access any class of `VerifiedNamespace` from a diff
 
 ## Conclusion
 
-Congratulations! In this short tutorial, you have discovered two key concepts of Metalama: aspects and fabrics. You have learned how to transparently add behaviors to your code during compilation, and add validation rules that get enforced in real time in the editor.
+Congratulations! In this short tutorial, you have discovered the key concepts of Metalama: aspects and fabrics. You have learned how to transparently add behaviors to your code during compilation and add validation rules that get enforced in real time in the editor.
 
-There are three paths you can take from here according to your learning style:
+From here, you can explore further based on your learning style:
 
 * <xref:conceptual>
 * <xref:samples>

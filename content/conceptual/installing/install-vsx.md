@@ -12,7 +12,7 @@ modified-date: 2024-08-04
 > [!INFO]
 > Visual Studio Tools for Metalama require a Metalama Community or Metalama Professional license.
 
-The [Visual Studio Tools for Metalama](https://www.postsharp.net/links/download-unified-vsx) is an extension that enhances your development experience by providing features such as:
+The [Visual Studio Tools for Metalama](https://marketplace.visualstudio.com/items?itemName=PostSharpTechnologies.PostSharp) is an extension that enhances your development experience by providing features such as:
 
 * CodeLens additions for quickly viewing the impact of aspects on your code,
 * Aspect Explorer for displaying which aspects are available in the current solution and which code is affected,
@@ -23,7 +23,7 @@ While this extension is optional, it is highly recommended for a more comprehens
 
 ## Downloading the extension
 
-The simplest way to install the extension is to install it from [Visual Studio Marketplace](https://www.postsharp.net/links/download-unified-vsx) and launch the downloaded file.
+The simplest way to install the extension is to install it from [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=PostSharpTechnologies.PostSharp) and launch the downloaded file.
 
 
 ## Installing from Visual Studio
