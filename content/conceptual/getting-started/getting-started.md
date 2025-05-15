@@ -82,7 +82,7 @@ This class derives from <xref:Metalama.Framework.Fabrics.ProjectFabric> and acts
 
 Now that you know about aspects and fabrics, it's easy to understand how to validate your codebase against some architectural rules. In this example, we will show how to report a warning when internals of a namespace are used outside of this namespace.
 
-First, reference the [Metalama](https://www.nuget.org/packages/Metalama.Extensions.Architecture) package from your project.
+First, reference the [Metalama.Extensions.Architecture](https://www.nuget.org/packages/Metalama.Extensions.Architecture) package from your project.
 
 Then, add a fabric with the validation logic. We can use a <xref:Metalama.Framework.Fabrics.ProjectFabric> as above:
 
