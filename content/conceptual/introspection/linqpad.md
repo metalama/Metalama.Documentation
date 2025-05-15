@@ -6,9 +6,11 @@ created-date: 2023-07-11
 modified-date: 2024-11-06
 ---
 
-# Inspecting a project using LINQPad
+# Inspecting source code and dependencies using LINQPad
 
-LINQPad is a widely used tool for interactively querying databases using Language Integrated Query (LINQ) syntax. It enables you to write and execute LINQ queries against various data sources, including SQL databases, XML documents, and .NET objects. With the Metalama driver for LINQPad, you can also query your source code like a database.
+Metalama's LINQPad driver allows you to query your source code as if it were a database, enabling you to interactively inspect declarations, dependencies, errors, and warnings. You don't need to use Metalama in your project to benefit from the driver, but if you do, it also provides tools to inspect aspects, advice, and code transformations. 
+
+For those unfamiliar, LINQPad is a popular tool for writing and executing LINQ queries against various data sources. With Metalama's driver, you can extend this functionality to .NET projects and solutions, making it a powerful tool for exploring and understanding your codebase.
 
 ## Benefits
 
@@ -133,7 +135,7 @@ workspace.ApplyFilter( p => p.TargetFramework == "netstandard2.0" );
 workspace.SourceCode.Types.Dump();
 ```
 
-# Permalinks
+## Permalinks
 
 In the data grid view, you will see that all declarations have a _permalink_ column. Clicking on this link will open a new query that directly evaluates to this declaration, using the <xref:Metalama.Framework.Code.SerializableDeclarationId> to uniquely identify declarations.
 
@@ -195,4 +197,4 @@ You can take [this demo project on GitHub](https://github.com/gfraiteur/CodeQual
 > <xref:Metalama.Framework.Workspaces>
 > <xref:Metalama.Framework.Introspection>
 
-  
+
