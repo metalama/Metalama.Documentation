@@ -5,7 +5,7 @@ internal class Foo
 {
   protected virtual void OnPropertyChanged(string propertyName)
   {
-    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    PropertyChanged?.Invoke((object? )this, new PropertyChangedEventArgs(propertyName));
   }
   public event PropertyChangedEventHandler? PropertyChanged;
 }
