@@ -64,11 +64,12 @@ var product = new Product( MetalamaDependencies.MetalamaDocumentation )
     Extensions =
     [
         // Run `b generate-scripts` after changing these parameters.
-        new UpdateSearchProductExtension<UpdateMetalamaDocumentationCommand>(
-            "https://0fpg9nu41dat6boep.a1.typesense.net",
+        new UpdateSearchProductExtension(
+            "https://typesense.postsharp.net",
             "metalamadoc",
-            "https://doc-production.postsharp.net/metalama/sitemap.xml",
-            true )
+            "https://doc-production.metalama.net/sitemap.xml",
+            () => new MetalamaDocCrawler(),
+            ["Metalama"] )
     ]
 };
 
