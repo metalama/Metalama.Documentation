@@ -3,9 +3,9 @@
 
     <PropertyGroup>
         <MetalamaCompilerVersion>2025.2.1-preview</MetalamaCompilerVersion>
-        <MetalamaVersion>2025.2.1-preview</MetalamaVersion>
-        <MetalamaPremiumVersion>2025.2.1-preview</MetalamaPremiumVersion>
-        <MetalamaSamplesVersion>2025.2.1-preview</MetalamaSamplesVersion>
+        <MetalamaVersion>2025.2.2-preview</MetalamaVersion>
+        <MetalamaPremiumVersion>2025.2.2-preview</MetalamaPremiumVersion>
+        <MetalamaSamplesVersion>2025.2.2-preview</MetalamaSamplesVersion>
     </PropertyGroup>
 
 </Project>
