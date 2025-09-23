@@ -8,9 +8,21 @@ namespace Metalama.Documentation.Helpers.Security;
 
 public static class Secrets
 {
-    private static readonly SecretClient _client = new(
-        new Uri( "https://testserviceskeyvault.vault.azure.net/" ),
-        new DefaultAzureCredential() );
+    static Secrets()
+    {
+        var defaultAzureCredentialOptions = new DefaultAzureCredentialOptions()
+        {
+            TenantId = Environment.GetEnvironmentVariable( "AZURE_TENANT_ID" )
+                       ?? throw new InvalidOperationException(
+                           "The AZURE_TENANT_ID environment variable must be defined for this test." )
+        };
+        
+        _client = new SecretClient(
+            new Uri( "https://testserviceskeyvault.vault.azure.net/" ),
+            new DefaultAzureCredential( defaultAzureCredentialOptions ) );
+    }
+
+    private static readonly SecretClient _client;
 
     private static readonly ConcurrentDictionary<string, string> _secrets = new();
 

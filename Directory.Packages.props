@@ -37,8 +37,8 @@
     <PackageVersion Include="Metalama.Patterns.Wpf" Version="$(MetalamaVersion)" />
     <PackageVersion Include="Metalama.Testing.AspectTesting" Version="$(MetalamaVersion)" />
     <PackageVersion Include="Metalama.Testing.UnitTesting" Version="$(MetalamaVersion)" />
-    <PackageVersion Include="Azure.Identity" Version="1.13.0" />
-    <PackageVersion Include="Azure.Security.KeyVault.Secrets" Version="4.7.0" />
+    <PackageVersion Include="Azure.Identity" Version="1.16.0" />
+    <PackageVersion Include="Azure.Security.KeyVault.Secrets" Version="4.8.0" />
     <PackageVersion Include="coverlet.collector" Version="6.0.2" />
     <PackageVersion Include="HtmlAgilityPack" Version="1.11.67" />
     <PackageVersion Include="JetBrains.Annotations" Version="2024.2.0" />
