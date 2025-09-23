@@ -42,7 +42,7 @@ public class Camera
     catch (Exception e)
     {
       Console.WriteLine(e);
-      FocusChanged -= handler;
+      _focusChanged -= handler;
     }
   }
   private void OnFocusChanged()
@@ -64,15 +64,16 @@ public class Camera
       this._lightingChangedBroker?.RemoveHandler(value);
     }
   }
+  private event EventHandler? LightingChanged_Source { add => this._lightingChanged += value; remove => this._lightingChanged -= value; }
   private event EventHandler? LightingChanged_SafeEvent
   {
     add
     {
-      this._lightingChanged += value;
+      this.LightingChanged_Source += value;
     }
     remove
     {
-      this._lightingChanged -= value;
+      this.LightingChanged_Source -= value;
     }
   }
   private void LightingChanged_Raise_SafeEvent(EventHandler? handler, (object? sender, EventArgs e) args)
@@ -84,7 +85,7 @@ public class Camera
     catch (Exception e)
     {
       Console.WriteLine(e);
-      LightingChanged -= handler;
+      LightingChanged_Source -= handler;
     }
   }
   private void OnLightingChanged()

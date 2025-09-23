@@ -7,16 +7,6 @@ namespace Doc.SafeEvent_;
 
 public class SafeEventAttribute : OverrideEventAspect
 {
-    public override void OverrideAdd( dynamic value )
-    {
-        meta.Proceed();
-    }
-
-    public override void OverrideRemove( dynamic value )
-    {
-        meta.Proceed();
-    }
-
     public override void OverrideRaise( dynamic handler )
     {
         try
@@ -25,8 +15,11 @@ public class SafeEventAttribute : OverrideEventAspect
         }
         catch ( Exception e )
         {
+            // Log the error.
             Console.WriteLine( e );
-            meta.Target.Event.RemoveMethod.Invoke( handler );
+
+            // Remove the faulted event handler.
+            meta.Target.Event.Remove( handler );
         }
     }
 }

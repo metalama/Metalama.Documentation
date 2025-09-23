@@ -29,3 +29,4 @@ source-dependencies/
 .tools/
 .config/dotnet-tools.json
 */.obsidian/*
+*/.idea/copilot.data.*
