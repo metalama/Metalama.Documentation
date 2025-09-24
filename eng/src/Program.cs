@@ -9,12 +9,12 @@ using BuildMetalamaDocumentation.Markdig.ProjectButtons;
 using BuildMetalamaDocumentation.Markdig.SingleFiles;
 using BuildMetalamaDocumentation.Markdig.Vimeo;
 using PostSharp.Engineering.BuildTools;
-using PostSharp.Engineering.BuildTools.S3.Publishers;
 using PostSharp.Engineering.BuildTools.Build.Solutions;
 using PostSharp.Engineering.BuildTools.Build;
 using PostSharp.Engineering.BuildTools.Build.Model;
-using PostSharp.Engineering.BuildTools.Build.Publishers;
+using PostSharp.Engineering.BuildTools.Build.Publishing;
 using PostSharp.Engineering.BuildTools.Dependencies.Definitions;
+using PostSharp.Engineering.BuildTools.Docker;
 using PostSharp.Engineering.BuildTools.Search;
 using PostSharp.Engineering.DocFx;
 using System.IO;
@@ -22,12 +22,22 @@ using System.IO.Compression;
 using MetalamaDependencies = PostSharp.Engineering.BuildTools.Dependencies.Definitions.MetalamaDependencies.V2025_1;
 
 var docPackageFileName = $"Metalama.Doc.{MetalamaDependencies.Metalama.ProductFamily.Version}.zip";
+const string dotNetSdkVersion = "9.0.305";
 
 var product = new Product( MetalamaDependencies.MetalamaDocumentation )
 {
     // Note that we don't build Metalama.Samples ourselves. We expect it to be built from the repo itself.
     // HTML artifacts should be restored from artifacts.
-
+    OverriddenBuildAgentRequirements = new ContainerRequirements( ContainerHostKind.Windows )
+    {
+        Components =
+        [
+            new DotNetComponent( dotNetSdkVersion, DotNetComponentKind.Sdk ),
+        ]
+    },
+    GenerateNuGetConfig = true,
+    DotNetSdkVersion = new DotNetSdkVersion( dotNetSdkVersion ),
+    
     Solutions =
     [
         new DotNetSolution( "code\\Metalama.Documentation.Prerequisites.sln" ) { CanFormatCode = true },

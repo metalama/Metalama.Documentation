@@ -25,9 +25,14 @@ public static class GitHelper
         // Read the output of the command
         var output = process.StandardOutput.ReadToEnd().Trim( ' ', '\n', '\r' );
 
+        if ( output == "" )
+        {
+            throw new InvalidOperationException( $"'{directory}' is not a git repository." );
+        }
+
         if ( !output.EndsWith( ".git", StringComparison.Ordinal ) )
         {
-            throw new InvalidOperationException( $"The git remote url '{output}' does not end with '.git." );
+            throw new InvalidOperationException( $"The git remote url '{output}' does not end with '.git'." );
         }
 
         var gitSshMatch = _gitSshRegex.Match( output );

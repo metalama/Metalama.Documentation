@@ -34,7 +34,7 @@
               "Flashtrace.dll",
               "Flashtrace.Formatters.dll"
               ],
-          "src": "code/Metalama.Documentation.Consolidated/bin/Debug/net8.0-windows/all"
+          "src": "code/Metalama.Documentation.Consolidated/bin/Debug/net9.0-windows/all"
         }
       ],
       "dest": "artifacts/api",
