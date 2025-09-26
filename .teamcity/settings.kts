@@ -30,12 +30,17 @@ object DebugBuild : BuildType({
 
     name = "Build [Debug]"
 
-    artifactRules = "+:artifacts/publish/public/**/*=>artifacts/publish/public\n+:artifacts/publish/private/**/*=>artifacts/publish/private\n+:artifacts/testResults/**/*=>artifacts/testResults\n+:artifacts/logs/**/*=>logs\n"
+    artifactRules = """+:artifacts/publish/public/**/*=>artifacts/publish/public
++:artifacts/publish/private/**/*=>artifacts/publish/private
++:artifacts/testResults/**/*=>artifacts/testResults
++:artifacts/logs/**/*=>logs
++:artifacts/dumps/**/*=>dumps
+"""
 
     params {
-        text("BuildArguments", "", label = "Build Arguments", description = "Arguments to append to the 'Build' build step.", allowEmpty = true)
+        text("Build.Arguments", "", label = "DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Build' build step.", allowEmpty = true)
+        param("Build.Timeout", "30")
         text("DefaultBranch", "develop/2025.1", label = "Default Branch", description = "The default branch of this build configuration.")
-        text("TimeOut", "60", label = "Time-Out", description = "Timeout, in minutes.", regex = """\d+""", validationMessage = "The timeout has to be an integer number.")
     }
 
     vcs {
@@ -61,11 +66,8 @@ object DebugBuild : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-ImageName metalamadocumentation-2025.1 -NoBuildImage test --configuration Debug --buildNumber %build.number% --buildType %system.teamcity.buildType.id% %BuildArguments%"
+            scriptArgs = "-ImageName metalamadocumentation-2025.1 -NoBuildImage test --configuration Debug --buildNumber %build.number% --buildType %system.teamcity.buildType.id% %Build.Arguments% --timeout %Build.Timeout%"
         }
-    }
-    failureConditions {
-         executionTimeoutMin = 60
     }
 
     requirements {
@@ -138,12 +140,17 @@ object ReleaseBuild : BuildType({
 
     name = "Build [Release]"
 
-    artifactRules = "+:artifacts/publish/public/**/*=>artifacts/publish/public\n+:artifacts/publish/private/**/*=>artifacts/publish/private\n+:artifacts/testResults/**/*=>artifacts/testResults\n+:artifacts/logs/**/*=>logs\n"
+    artifactRules = """+:artifacts/publish/public/**/*=>artifacts/publish/public
++:artifacts/publish/private/**/*=>artifacts/publish/private
++:artifacts/testResults/**/*=>artifacts/testResults
++:artifacts/logs/**/*=>logs
++:artifacts/dumps/**/*=>dumps
+"""
 
     params {
-        text("BuildArguments", "", label = "Build Arguments", description = "Arguments to append to the 'Build' build step.", allowEmpty = true)
+        text("Build.Arguments", "", label = "DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Build' build step.", allowEmpty = true)
+        param("Build.Timeout", "30")
         text("DefaultBranch", "develop/2025.1", label = "Default Branch", description = "The default branch of this build configuration.")
-        text("TimeOut", "60", label = "Time-Out", description = "Timeout, in minutes.", regex = """\d+""", validationMessage = "The timeout has to be an integer number.")
     }
 
     vcs {
@@ -169,11 +176,8 @@ object ReleaseBuild : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-ImageName metalamadocumentation-2025.1 -NoBuildImage test --configuration Release --buildNumber %build.number% --buildType %system.teamcity.buildType.id% %BuildArguments%"
+            scriptArgs = "-ImageName metalamadocumentation-2025.1 -NoBuildImage test --configuration Release --buildNumber %build.number% --buildType %system.teamcity.buildType.id% %Build.Arguments% --timeout %Build.Timeout%"
         }
-    }
-    failureConditions {
-         executionTimeoutMin = 60
     }
 
     requirements {
@@ -246,12 +250,17 @@ object PublicBuild : BuildType({
 
     name = "Build [Public]"
 
-    artifactRules = "+:artifacts/publish/public/**/*=>artifacts/publish/public\n+:artifacts/publish/private/**/*=>artifacts/publish/private\n+:artifacts/testResults/**/*=>artifacts/testResults\n+:artifacts/logs/**/*=>logs\n"
+    artifactRules = """+:artifacts/publish/public/**/*=>artifacts/publish/public
++:artifacts/publish/private/**/*=>artifacts/publish/private
++:artifacts/testResults/**/*=>artifacts/testResults
++:artifacts/logs/**/*=>logs
++:artifacts/dumps/**/*=>dumps
+"""
 
     params {
-        text("BuildArguments", "", label = "Build Arguments", description = "Arguments to append to the 'Build' build step.", allowEmpty = true)
+        text("Build.Arguments", "", label = "DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Build' build step.", allowEmpty = true)
+        param("Build.Timeout", "30")
         text("DefaultBranch", "develop/2025.1", label = "Default Branch", description = "The default branch of this build configuration.")
-        text("TimeOut", "60", label = "Time-Out", description = "Timeout, in minutes.", regex = """\d+""", validationMessage = "The timeout has to be an integer number.")
     }
 
     vcs {
@@ -277,11 +286,8 @@ object PublicBuild : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-ImageName metalamadocumentation-2025.1 -NoBuildImage test --configuration Public --buildNumber %build.number% --buildType %system.teamcity.buildType.id% %BuildArguments%"
+            scriptArgs = "-ImageName metalamadocumentation-2025.1 -NoBuildImage test --configuration Public --buildNumber %build.number% --buildType %system.teamcity.buildType.id% %Build.Arguments% --timeout %Build.Timeout%"
         }
-    }
-    failureConditions {
-         executionTimeoutMin = 60
     }
 
     requirements {
@@ -357,9 +363,9 @@ object PublicDeployment : BuildType({
     type = Type.DEPLOYMENT
 
     params {
-        text("PublishArguments", "", label = "Publish Arguments", description = "Arguments to append to the 'Publish' build step.", allowEmpty = true)
+        text("Publish.Arguments", "", label = "DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Publish' build step.", allowEmpty = true)
+        param("Publish.Timeout", "30")
         text("DefaultBranch", "release/2025.1", label = "Default Branch", description = "The default branch of this build configuration.")
-        text("TimeOut", "30", label = "Time-Out", description = "Timeout, in minutes.", regex = """\d+""", validationMessage = "The timeout has to be an integer number.")
     }
 
     vcs {
@@ -383,11 +389,8 @@ object PublicDeployment : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-ImageName metalamadocumentation-2025.1 -NoBuildImage publish --configuration Public %PublishArguments%"
+            scriptArgs = "-ImageName metalamadocumentation-2025.1 -NoBuildImage publish --configuration Public %Publish.Arguments% --timeout %Publish.Timeout%"
         }
-    }
-    failureConditions {
-         executionTimeoutMin = 30
     }
 
     requirements {
@@ -483,9 +486,9 @@ object PublicDeploymentNoDependency : BuildType({
     type = Type.DEPLOYMENT
 
     params {
-        text("PublishArguments", "", label = "Publish Arguments", description = "Arguments to append to the 'Publish' build step.", allowEmpty = true)
+        text("Publish.Arguments", "", label = "DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Publish' build step.", allowEmpty = true)
+        param("Publish.Timeout", "30")
         text("DefaultBranch", "develop/2025.1", label = "Default Branch", description = "The default branch of this build configuration.")
-        text("TimeOut", "30", label = "Time-Out", description = "Timeout, in minutes.", regex = """\d+""", validationMessage = "The timeout has to be an integer number.")
     }
 
     vcs {
@@ -509,11 +512,8 @@ object PublicDeploymentNoDependency : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-ImageName metalamadocumentation-2025.1 -NoBuildImage publish --configuration Public --standalone %PublishArguments%"
+            scriptArgs = "-ImageName metalamadocumentation-2025.1 -NoBuildImage publish --configuration Public --standalone %Publish.Arguments% --timeout %Publish.Timeout%"
         }
-    }
-    failureConditions {
-         executionTimeoutMin = 30
     }
 
     requirements {
@@ -587,9 +587,9 @@ object DownstreamMerge : BuildType({
     name = "Downstream Merge"
 
     params {
-        text("DownstreamMergeArguments", "", label = "Merge downstream Arguments", description = "Arguments to append to the 'Merge downstream' build step.", allowEmpty = true)
+        text("DownstreamMerge.Arguments", "", label = "DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Merge downstream' build step.", allowEmpty = true)
+        param("DownstreamMerge.Timeout", "15")
         text("DefaultBranch", "develop/2025.1", label = "Default Branch", description = "The default branch of this build configuration.")
-        text("TimeOut", "15", label = "Time-Out", description = "Timeout, in minutes.", regex = """\d+""", validationMessage = "The timeout has to be an integer number.")
     }
 
     vcs {
@@ -613,11 +613,8 @@ object DownstreamMerge : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-ImageName metalamadocumentation-2025.1 -NoBuildImage tools git merge-downstream %DownstreamMergeArguments%"
+            scriptArgs = "-ImageName metalamadocumentation-2025.1 -NoBuildImage tools git merge-downstream %DownstreamMerge.Arguments% --timeout %DownstreamMerge.Timeout%"
         }
-    }
-    failureConditions {
-         executionTimeoutMin = 15
     }
 
     requirements {
@@ -657,9 +654,9 @@ object PublicUpdateSearch : BuildType({
     type = Type.DEPLOYMENT
 
     params {
-        text("UpdateSearchArguments", "", label = "Update search Arguments", description = "Arguments to append to the 'Update search' build step.", allowEmpty = true)
+        text("UpdateSearch.Arguments", "", label = "Build.ps1 Arguments", description = "Arguments to append to the 'Update search' build step.", allowEmpty = true)
+        param("UpdateSearch.Timeout", "30")
         text("DefaultBranch", "release/2025.1", label = "Default Branch", description = "The default branch of this build configuration.")
-        text("TimeOut", "30", label = "Time-Out", description = "Timeout, in minutes.", regex = """\d+""", validationMessage = "The timeout has to be an integer number.")
     }
 
     vcs {
@@ -674,11 +671,8 @@ object PublicUpdateSearch : BuildType({
                 path = "Build.ps1"
             }
             noProfile = false
-            scriptArgs = "search update %UpdateSearchArguments%"
+            scriptArgs = "search update %UpdateSearch.Arguments% --timeout %UpdateSearch.Timeout%"
         }
-    }
-    failureConditions {
-         executionTimeoutMin = 30
     }
 
     requirements {
@@ -709,9 +703,9 @@ object PublicUpdateSearchNoDependency : BuildType({
     type = Type.DEPLOYMENT
 
     params {
-        text("UpdateSearchArguments", "", label = "Update search Arguments", description = "Arguments to append to the 'Update search' build step.", allowEmpty = true)
+        text("UpdateSearch.Arguments", "", label = "Build.ps1 Arguments", description = "Arguments to append to the 'Update search' build step.", allowEmpty = true)
+        param("UpdateSearch.Timeout", "30")
         text("DefaultBranch", "develop/2025.1", label = "Default Branch", description = "The default branch of this build configuration.")
-        text("TimeOut", "30", label = "Time-Out", description = "Timeout, in minutes.", regex = """\d+""", validationMessage = "The timeout has to be an integer number.")
     }
 
     vcs {
@@ -726,11 +720,8 @@ object PublicUpdateSearchNoDependency : BuildType({
                 path = "Build.ps1"
             }
             noProfile = false
-            scriptArgs = "search update %UpdateSearchArguments%"
+            scriptArgs = "search update %UpdateSearch.Arguments% --timeout %UpdateSearch.Timeout%"
         }
-    }
-    failureConditions {
-         executionTimeoutMin = 30
     }
 
     requirements {
