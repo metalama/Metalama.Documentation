@@ -16,13 +16,13 @@ project {
     buildType(DebugBuild)
     buildType(ReleaseBuild)
     buildType(PublicBuild)
-    buildType(PublicDeploymentNoDependency)
+    buildType(PublicDeployment)
     buildType(PublicDeploymentNoDependency)
     buildType(DownstreamMerge)
     buildType(PublicUpdateSearch)
     buildType(PublicUpdateSearchNoDependency)
 
-    buildTypesOrder = arrayListOf(DebugBuild,ReleaseBuild,PublicBuild,PublicDeploymentNoDependency,PublicDeploymentNoDependency,DownstreamMerge,PublicUpdateSearch,PublicUpdateSearchNoDependency)
+    buildTypesOrder = arrayListOf(DebugBuild,ReleaseBuild,PublicBuild,PublicDeployment,PublicDeploymentNoDependency,DownstreamMerge,PublicUpdateSearch,PublicUpdateSearchNoDependency)
 
 }
 
@@ -356,9 +356,9 @@ object PublicBuild : BuildType({
 
 })
 
-object PublicDeploymentNoDependency : BuildType({
+object PublicDeployment : BuildType({
 
-    name = "Standalone Deploy [Public]"
+    name = "Deploy [Public]"
 
     type = Type.DEPLOYMENT
 
