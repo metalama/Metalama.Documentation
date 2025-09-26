@@ -16,13 +16,13 @@ project {
     buildType(DebugBuild)
     buildType(ReleaseBuild)
     buildType(PublicBuild)
-    buildType(PublicDeployment)
+    buildType(PublicDeploymentNoDependency)
     buildType(PublicDeploymentNoDependency)
     buildType(DownstreamMerge)
     buildType(PublicUpdateSearch)
     buildType(PublicUpdateSearchNoDependency)
 
-    buildTypesOrder = arrayListOf(DebugBuild,ReleaseBuild,PublicBuild,PublicDeployment,PublicDeploymentNoDependency,DownstreamMerge,PublicUpdateSearch,PublicUpdateSearchNoDependency)
+    buildTypesOrder = arrayListOf(DebugBuild,ReleaseBuild,PublicBuild,PublicDeploymentNoDependency,PublicDeploymentNoDependency,DownstreamMerge,PublicUpdateSearch,PublicUpdateSearchNoDependency)
 
 }
 
@@ -356,16 +356,16 @@ object PublicBuild : BuildType({
 
 })
 
-object PublicDeployment : BuildType({
+object PublicDeploymentNoDependency : BuildType({
 
-    name = "Deploy [Public]"
+    name = "Standalone Deploy [Public]"
 
     type = Type.DEPLOYMENT
 
     params {
         text("Publish.Arguments", "", label = "DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Publish' build step.", allowEmpty = true)
         param("Publish.Timeout", "30")
-        text("DefaultBranch", "release/2025.1", label = "Default Branch", description = "The default branch of this build configuration.")
+        text("DefaultBranch", "develop/2025.1", label = "Default Branch", description = "The default branch of this build configuration.")
     }
 
     vcs {
