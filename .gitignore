@@ -32,3 +32,5 @@ source-dependencies/
 .config/dotnet-tools.json
 */.obsidian/*
 **/.idea/copilot.data.*
+nuget.config
+global.json
