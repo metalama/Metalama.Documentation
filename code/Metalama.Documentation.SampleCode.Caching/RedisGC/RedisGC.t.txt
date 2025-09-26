@@ -3,6 +3,6 @@ info: Microsoft.Hosting.Lifetime[0]
 info: Microsoft.Hosting.Lifetime[0]
       Hosting environment: Production
 info: Microsoft.Hosting.Lifetime[0]
-      Content root path: C:\src\Metalama.Documentation\code\Metalama.Documentation.SampleCode.Caching\bin\Debug\net8.0
+      Content root path: C:\src\Metalama.Documentation\code\Metalama.Documentation.SampleCode.Caching\bin\Debug\net9.0
 info: Microsoft.Hosting.Lifetime[0]
       Application is shutting down...
