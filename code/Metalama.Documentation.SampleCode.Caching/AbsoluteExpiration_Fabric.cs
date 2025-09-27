@@ -11,6 +11,6 @@ public class Fabric : ProjectFabric
     public override void AmendProject( IProjectAmender amender )
     {
         amender.Select( x => x.GlobalNamespace.GetDescendant( "MyProduct.MyNamespace" )! )
-            .ConfigureCaching( caching => caching.AbsoluteExpiration = TimeSpan.FromMinutes( 20 ) );
+            .ConfigureCaching( caching => caching.AbsoluteExpiration = TimeSpan.FromMinutes( 20.0 ) );
     }
 }
