@@ -40,7 +40,6 @@ object DebugBuild : BuildType({
     params {
         text("Build.Arguments", "", label = "DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Build' build step.", allowEmpty = true)
         param("Build.Timeout", "30")
-        text("DefaultBranch", "develop/2025.1", label = "Default Branch", description = "The default branch of this build configuration.")
     }
 
     vcs {
@@ -66,7 +65,7 @@ object DebugBuild : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-ImageName metalamadocumentation-2025.1 -NoBuildImage test --configuration Debug --buildNumber %build.number% --buildType %system.teamcity.buildType.id% %Build.Arguments% --timeout %Build.Timeout%"
+            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2025.1 -NoBuildImage test --configuration Debug --buildNumber %build.number% --buildType %system.teamcity.buildType.id% %Build.Arguments% --timeout %Build.Timeout%"
         }
     }
 
@@ -150,7 +149,6 @@ object ReleaseBuild : BuildType({
     params {
         text("Build.Arguments", "", label = "DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Build' build step.", allowEmpty = true)
         param("Build.Timeout", "30")
-        text("DefaultBranch", "develop/2025.1", label = "Default Branch", description = "The default branch of this build configuration.")
     }
 
     vcs {
@@ -176,7 +174,7 @@ object ReleaseBuild : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-ImageName metalamadocumentation-2025.1 -NoBuildImage test --configuration Release --buildNumber %build.number% --buildType %system.teamcity.buildType.id% %Build.Arguments% --timeout %Build.Timeout%"
+            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2025.1 -NoBuildImage test --configuration Release --buildNumber %build.number% --buildType %system.teamcity.buildType.id% %Build.Arguments% --timeout %Build.Timeout%"
         }
     }
 
@@ -260,7 +258,6 @@ object PublicBuild : BuildType({
     params {
         text("Build.Arguments", "", label = "DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Build' build step.", allowEmpty = true)
         param("Build.Timeout", "30")
-        text("DefaultBranch", "develop/2025.1", label = "Default Branch", description = "The default branch of this build configuration.")
     }
 
     vcs {
@@ -286,7 +283,7 @@ object PublicBuild : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-ImageName metalamadocumentation-2025.1 -NoBuildImage test --configuration Public --buildNumber %build.number% --buildType %system.teamcity.buildType.id% %Build.Arguments% --timeout %Build.Timeout%"
+            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2025.1 -NoBuildImage test --configuration Public --buildNumber %build.number% --buildType %system.teamcity.buildType.id% %Build.Arguments% --timeout %Build.Timeout%"
         }
     }
 
@@ -365,7 +362,6 @@ object PublicDeployment : BuildType({
     params {
         text("Publish.Arguments", "", label = "DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Publish' build step.", allowEmpty = true)
         param("Publish.Timeout", "30")
-        text("DefaultBranch", "develop/2025.1", label = "Default Branch", description = "The default branch of this build configuration.")
     }
 
     vcs {
@@ -389,7 +385,7 @@ object PublicDeployment : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-ImageName metalamadocumentation-2025.1 -NoBuildImage publish --configuration Public %Publish.Arguments% --timeout %Publish.Timeout%"
+            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2025.1 -NoBuildImage publish --configuration Public %Publish.Arguments% --timeout %Publish.Timeout%"
         }
     }
 
@@ -415,11 +411,6 @@ object PublicDeployment : BuildType({
                 artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama"
             }
         }
-        dependency(AbsoluteId("Metalama_Metalama20251_Metalama_PublicDeployment")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
-        }
         dependency(AbsoluteId("Metalama_Metalama20251_MetalamaCommunity_PublicDeployment")) {
             snapshot {
                      onDependencyFailure = FailureAction.FAIL_TO_START
@@ -443,11 +434,6 @@ object PublicDeployment : BuildType({
             artifacts {
                 cleanDestination = true
                 artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama.Premium"
-            }
-        }
-        dependency(AbsoluteId("Metalama_Metalama20251_MetalamaPremium_PublicDeployment")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
             }
         }
         dependency(AbsoluteId("Metalama_Metalama20251_MetalamaSamples_PublicBuild")) {
@@ -488,7 +474,6 @@ object PublicDeploymentNoDependency : BuildType({
     params {
         text("Publish.Arguments", "", label = "DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Publish' build step.", allowEmpty = true)
         param("Publish.Timeout", "30")
-        text("DefaultBranch", "develop/2025.1", label = "Default Branch", description = "The default branch of this build configuration.")
     }
 
     vcs {
@@ -512,7 +497,7 @@ object PublicDeploymentNoDependency : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-ImageName metalamadocumentation-2025.1 -NoBuildImage publish --configuration Public --standalone %Publish.Arguments% --timeout %Publish.Timeout%"
+            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2025.1 -NoBuildImage publish --configuration Public --standalone %Publish.Arguments% --timeout %Publish.Timeout%"
         }
     }
 
@@ -589,7 +574,6 @@ object DownstreamMerge : BuildType({
     params {
         text("DownstreamMerge.Arguments", "", label = "DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Merge downstream' build step.", allowEmpty = true)
         param("DownstreamMerge.Timeout", "15")
-        text("DefaultBranch", "develop/2025.1", label = "Default Branch", description = "The default branch of this build configuration.")
     }
 
     vcs {
@@ -613,7 +597,7 @@ object DownstreamMerge : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-ImageName metalamadocumentation-2025.1 -NoBuildImage tools git merge-downstream %DownstreamMerge.Arguments% --timeout %DownstreamMerge.Timeout%"
+            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2025.1 -NoBuildImage tools git merge-downstream %DownstreamMerge.Arguments% --timeout %DownstreamMerge.Timeout%"
         }
     }
 
@@ -656,7 +640,6 @@ object PublicUpdateSearch : BuildType({
     params {
         text("UpdateSearch.Arguments", "", label = "Build.ps1 Arguments", description = "Arguments to append to the 'Update search' build step.", allowEmpty = true)
         param("UpdateSearch.Timeout", "30")
-        text("DefaultBranch", "release/2025.1", label = "Default Branch", description = "The default branch of this build configuration.")
     }
 
     vcs {
@@ -705,7 +688,6 @@ object PublicUpdateSearchNoDependency : BuildType({
     params {
         text("UpdateSearch.Arguments", "", label = "Build.ps1 Arguments", description = "Arguments to append to the 'Update search' build step.", allowEmpty = true)
         param("UpdateSearch.Timeout", "30")
-        text("DefaultBranch", "develop/2025.1", label = "Default Branch", description = "The default branch of this build configuration.")
     }
 
     vcs {

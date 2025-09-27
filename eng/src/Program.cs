@@ -47,14 +47,6 @@ var product = new Product( MetalamaDependencies.MetalamaDocumentation )
         new DocFxSiteSolution( "docfx.json", docPackageFileName )
     ],
     PublicArtifacts = Pattern.Create( docPackageFileName ),
-    Dependencies =
-    [
-        DevelopmentDependencies.PostSharpEngineering,
-        MetalamaDependencies.Metalama,
-        MetalamaDependencies.MetalamaPremium,
-        MetalamaDependencies.MetalamaSamples
-    ],
-    SourceDependencies = [MetalamaDependencies.MetalamaSamples, MetalamaDependencies.MetalamaCommunity],
     AdditionalDirectoriesToClean = [Path.Combine( "artifacts", "api" ), Path.Combine( "artifacts", "site" )],
     Configurations = Product.DefaultConfigurations
         .WithValue( BuildConfiguration.Debug, c => c with { BuildTriggers = default } )
