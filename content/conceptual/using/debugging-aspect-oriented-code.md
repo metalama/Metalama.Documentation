@@ -65,7 +65,7 @@ To locate the transformed code, click on the `Show all files` button as shown be
 
 ![Show_All_Files](images/show_all_files.png)
 
-Once all files in your solution explorer are displayed, locate the file under `LamaDebug\net8.0\metalama` as shown in the solution explorer screenshot below.
+Once all files in your solution explorer are displayed, locate the file under `LamaDebug\net9.0\metalama` as shown in the solution explorer screenshot below.
 
 ![](images/debug_transformed_code.png)
 
