@@ -12,10 +12,8 @@ using PostSharp.Engineering.BuildTools;
 using PostSharp.Engineering.BuildTools.Build.Solutions;
 using PostSharp.Engineering.BuildTools.Build;
 using PostSharp.Engineering.BuildTools.Build.Model;
-using PostSharp.Engineering.BuildTools.Build.Publishers;
-using PostSharp.Engineering.BuildTools.Dependencies.Definitions;
+using PostSharp.Engineering.BuildTools.Build.Publishing;
 using PostSharp.Engineering.BuildTools.Docker;
-using PostSharp.Engineering.BuildTools.S3.Publishers;
 using PostSharp.Engineering.BuildTools.Search;
 using PostSharp.Engineering.DocFx;
 using System.IO;
@@ -59,7 +57,7 @@ var product = new Product( MetalamaDependencies.MetalamaDocumentation )
                 PublicPublishers =
                 [
                     new DocumentationPublisher(
-                        new S3PublisherConfiguration[] { new( docPackageFileName, RegionEndpoint.EUWest1, "doc.postsharp.net", docPackageFileName ) },
+                        [new( docPackageFileName, RegionEndpoint.EUWest1, "doc.postsharp.net", docPackageFileName )],
                         "https://postsharp-helpbrowser.azurewebsites.net/" )
                 ]
             } ),
