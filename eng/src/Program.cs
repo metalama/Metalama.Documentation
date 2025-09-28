@@ -12,9 +12,10 @@ using PostSharp.Engineering.BuildTools;
 using PostSharp.Engineering.BuildTools.Build.Solutions;
 using PostSharp.Engineering.BuildTools.Build;
 using PostSharp.Engineering.BuildTools.Build.Model;
-using PostSharp.Engineering.BuildTools.Build.Publishing;
+using PostSharp.Engineering.BuildTools.Build.Publishers;
 using PostSharp.Engineering.BuildTools.Dependencies.Definitions;
 using PostSharp.Engineering.BuildTools.Docker;
+using PostSharp.Engineering.BuildTools.S3.Publishers;
 using PostSharp.Engineering.BuildTools.Search;
 using PostSharp.Engineering.DocFx;
 using System.IO;
@@ -47,14 +48,6 @@ var product = new Product( MetalamaDependencies.MetalamaDocumentation )
         new DocFxSiteSolution( "docfx.json", docPackageFileName )
     ],
     PublicArtifacts = Pattern.Create( docPackageFileName ),
-    Dependencies =
-    [
-        DevelopmentDependencies.PostSharpEngineering,
-        MetalamaDependencies.Metalama,
-        MetalamaDependencies.MetalamaPremium,
-        MetalamaDependencies.MetalamaSamples
-    ],
-    SourceDependencies = [MetalamaDependencies.MetalamaSamples, MetalamaDependencies.MetalamaCommunity],
     AdditionalDirectoriesToClean = [Path.Combine( "artifacts", "api" ), Path.Combine( "artifacts", "site" )],
     Configurations = Product.DefaultConfigurations
         .WithValue( BuildConfiguration.Debug, c => c with { BuildTriggers = default } )
