@@ -23,10 +23,14 @@ code/.local
 artifacts/
 /Metalama.Documentation.Import.props
 *.g.props
+*.g.ps1
+*.g.json
 eng/tools
 packages/
 source-dependencies/
 .tools/
 .config/dotnet-tools.json
 */.obsidian/*
-*/.idea/copilot.data.*
+**/.idea/copilot.data.*
+nuget.config
+global.json
