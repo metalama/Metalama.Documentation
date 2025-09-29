@@ -3,8 +3,8 @@ using Metalama.Framework.RunTime;
 namespace Doc.SafeEvent_;
 public class Camera
 {
-  private static readonly ActionEventBrokerDelegateSet<EventHandler?, (object? , EventArgs)> FocusChangedDelegateSet_0 = new ActionEventBrokerDelegateSet<EventHandler?, (object? , EventArgs)>(static (handler, me, args) => ((Camera)me).FocusChanged_Raise_SafeEvent(handler, args), static b => (sender, e) => b.Invoke((sender, e)), static (handler, me) => ((Camera)me).FocusChanged_SafeEvent += handler, static (handler, me) => ((Camera)me).FocusChanged_SafeEvent -= handler);
-  private static readonly ActionEventBrokerDelegateSet<EventHandler?, (object? , EventArgs)> LightingChangedDelegateSet_0 = new ActionEventBrokerDelegateSet<EventHandler?, (object? , EventArgs)>(static (handler, me, args) => ((Camera)me).LightingChanged_Raise_SafeEvent(handler, args), static b => (sender, e) => b.Invoke((sender, e)), static (handler, me) => ((Camera)me).LightingChanged_SafeEvent += handler, static (handler, me) => ((Camera)me).LightingChanged_SafeEvent -= handler);
+  private static readonly ActionEventBrokerCallbacks<EventHandler?, (object? , EventArgs)> FocusChangedBrokerCallbacks_0 = new ActionEventBrokerCallbacks<EventHandler?, (object? , EventArgs)>(static (handler, me, args) => ((Camera)me).FocusChanged_Invoke_SafeEvent(handler, args), static b => (sender, e) => b.Invoke((sender, e)), static (handler, me) => ((Camera)me).FocusChanged_SafeEvent += handler, static (handler, me) => ((Camera)me).FocusChanged_SafeEvent -= handler);
+  private static readonly ActionEventBrokerCallbacks<EventHandler?, (object? , EventArgs)> LightingChangedBrokerCallbacks_0 = new ActionEventBrokerCallbacks<EventHandler?, (object? , EventArgs)>(static (handler, me, args) => ((Camera)me).LightingChanged_Invoke_SafeEvent(handler, args), static b => (sender, e) => b.Invoke((sender, e)), static (handler, me) => ((Camera)me).LightingChanged_SafeEvent += handler, static (handler, me) => ((Camera)me).LightingChanged_SafeEvent -= handler);
   private EventHandler? _lightingChanged;
   private event EventHandler? _focusChanged;
   private volatile ActionEventBroker<EventHandler?, (object? , EventArgs)>? _focusChangedBroker;
@@ -14,7 +14,7 @@ public class Camera
   {
     add
     {
-      ActionEventBroker<EventHandler?, (object? , EventArgs)>.EnsureInitialized(ref this._focusChangedBroker, this, FocusChangedDelegateSet_0);
+      ActionEventBroker<EventHandler?, (object? , EventArgs)>.EnsureInitialized(ref this._focusChangedBroker, this, FocusChangedBrokerCallbacks_0);
       this._focusChangedBroker.AddHandler(value);
     }
     remove
@@ -33,16 +33,18 @@ public class Camera
       this._focusChanged -= value;
     }
   }
-  private void FocusChanged_Raise_SafeEvent(EventHandler? handler, (object? sender, EventArgs e) args)
+  private void FocusChanged_Invoke_SafeEvent(EventHandler? handler, (object? sender, EventArgs e) args)
   {
     try
     {
       handler.Invoke(args.sender, args.e);
+      return;
     }
     catch (Exception e)
     {
       Console.WriteLine(e);
       _focusChanged -= handler;
+      return;
     }
   }
   private void OnFocusChanged()
@@ -56,7 +58,7 @@ public class Camera
   {
     add
     {
-      ActionEventBroker<EventHandler?, (object? , EventArgs)>.EnsureInitialized(ref this._lightingChangedBroker, this, LightingChangedDelegateSet_0);
+      ActionEventBroker<EventHandler?, (object? , EventArgs)>.EnsureInitialized(ref this._lightingChangedBroker, this, LightingChangedBrokerCallbacks_0);
       this._lightingChangedBroker.AddHandler(value);
     }
     remove
@@ -76,16 +78,18 @@ public class Camera
       this.LightingChanged_Source -= value;
     }
   }
-  private void LightingChanged_Raise_SafeEvent(EventHandler? handler, (object? sender, EventArgs e) args)
+  private void LightingChanged_Invoke_SafeEvent(EventHandler? handler, (object? sender, EventArgs e) args)
   {
     try
     {
       handler.Invoke(args.sender, args.e);
+      return;
     }
     catch (Exception e)
     {
       Console.WriteLine(e);
       LightingChanged_Source -= handler;
+      return;
     }
   }
   private void OnLightingChanged()
