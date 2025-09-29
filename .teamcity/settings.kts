@@ -44,7 +44,7 @@ object DebugBuild : BuildType({
 +:Metalama.Documentation/artifacts/testResults/**/* => testResults"""
 
     params {
-        text("Build.Arguments", "", label = "Metalama.Documentation/DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Build' build step.", allowEmpty = true)
+        text("Build.Arguments", "", label = "DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Build' build step.", allowEmpty = true)
         param("Build.Timeout", "30")
     }
 
@@ -59,7 +59,7 @@ object DebugBuild : BuildType({
             name = "Prepare Docker image metalamadocumentation-2025.1"
             id = "PrepareImage"
             scriptMode = file {
-                path = "DockerBuild.ps1"
+                path = "Metalama.Documentation/DockerBuild.ps1"
             }
             noProfile = false
             scriptArgs = "-BuildImage -ImageName metalamadocumentation-2025.1"
@@ -173,7 +173,7 @@ object ReleaseBuild : BuildType({
 +:Metalama.Documentation/artifacts/testResults/**/* => testResults"""
 
     params {
-        text("Build.Arguments", "", label = "Metalama.Documentation/DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Build' build step.", allowEmpty = true)
+        text("Build.Arguments", "", label = "DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Build' build step.", allowEmpty = true)
         param("Build.Timeout", "30")
     }
 
@@ -188,7 +188,7 @@ object ReleaseBuild : BuildType({
             name = "Prepare Docker image metalamadocumentation-2025.1"
             id = "PrepareImage"
             scriptMode = file {
-                path = "DockerBuild.ps1"
+                path = "Metalama.Documentation/DockerBuild.ps1"
             }
             noProfile = false
             scriptArgs = "-BuildImage -ImageName metalamadocumentation-2025.1"
@@ -302,7 +302,7 @@ object PublicBuild : BuildType({
 +:Metalama.Documentation/artifacts/testResults/**/* => testResults"""
 
     params {
-        text("Build.Arguments", "", label = "Metalama.Documentation/DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Build' build step.", allowEmpty = true)
+        text("Build.Arguments", "", label = "DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Build' build step.", allowEmpty = true)
         param("Build.Timeout", "30")
     }
 
@@ -317,7 +317,7 @@ object PublicBuild : BuildType({
             name = "Prepare Docker image metalamadocumentation-2025.1"
             id = "PrepareImage"
             scriptMode = file {
-                path = "DockerBuild.ps1"
+                path = "Metalama.Documentation/DockerBuild.ps1"
             }
             noProfile = false
             scriptArgs = "-BuildImage -ImageName metalamadocumentation-2025.1"
@@ -427,7 +427,7 @@ object PublicDeployment : BuildType({
     type = Type.DEPLOYMENT
 
     params {
-        text("Publish.Arguments", "", label = "Metalama.Documentation/DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Publish' build step.", allowEmpty = true)
+        text("Publish.Arguments", "", label = "DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Publish' build step.", allowEmpty = true)
         param("Publish.Timeout", "30")
     }
 
@@ -440,7 +440,7 @@ object PublicDeployment : BuildType({
             name = "Prepare Docker image metalamadocumentation-2025.1"
             id = "PrepareImage"
             scriptMode = file {
-                path = "DockerBuild.ps1"
+                path = "Metalama.Documentation/DockerBuild.ps1"
             }
             noProfile = false
             scriptArgs = "-BuildImage -ImageName metalamadocumentation-2025.1"
@@ -539,7 +539,7 @@ object PublicDeploymentNoDependency : BuildType({
     type = Type.DEPLOYMENT
 
     params {
-        text("Publish.Arguments", "", label = "Metalama.Documentation/DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Publish' build step.", allowEmpty = true)
+        text("Publish.Arguments", "", label = "DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Publish' build step.", allowEmpty = true)
         param("Publish.Timeout", "30")
     }
 
@@ -552,7 +552,7 @@ object PublicDeploymentNoDependency : BuildType({
             name = "Prepare Docker image metalamadocumentation-2025.1"
             id = "PrepareImage"
             scriptMode = file {
-                path = "DockerBuild.ps1"
+                path = "Metalama.Documentation/DockerBuild.ps1"
             }
             noProfile = false
             scriptArgs = "-BuildImage -ImageName metalamadocumentation-2025.1"
@@ -639,7 +639,7 @@ object DownstreamMerge : BuildType({
     name = "Downstream Merge"
 
     params {
-        text("DownstreamMerge.Arguments", "", label = "Metalama.Documentation/DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Merge downstream' build step.", allowEmpty = true)
+        text("DownstreamMerge.Arguments", "", label = "DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Merge downstream' build step.", allowEmpty = true)
         param("DownstreamMerge.Timeout", "15")
     }
 
@@ -652,7 +652,7 @@ object DownstreamMerge : BuildType({
             name = "Prepare Docker image metalamadocumentation-2025.1"
             id = "PrepareImage"
             scriptMode = file {
-                path = "DockerBuild.ps1"
+                path = "Metalama.Documentation/DockerBuild.ps1"
             }
             noProfile = false
             scriptArgs = "-BuildImage -ImageName metalamadocumentation-2025.1"
@@ -723,7 +723,7 @@ object PublicUpdateSearch : BuildType({
             name = "Update search"
             id = "UpdateSearch"
             scriptMode = file {
-                path = "Build.ps1"
+                path = "Metalama.Documentation/Build.ps1"
             }
             noProfile = false
             scriptArgs = "search update %UpdateSearch.Arguments% --timeout %UpdateSearch.Timeout%"
@@ -771,7 +771,7 @@ object PublicUpdateSearchNoDependency : BuildType({
             name = "Update search"
             id = "UpdateSearch"
             scriptMode = file {
-                path = "Build.ps1"
+                path = "Metalama.Documentation/Build.ps1"
             }
             noProfile = false
             scriptArgs = "search update %UpdateSearch.Arguments% --timeout %UpdateSearch.Timeout%"
