@@ -11,7 +11,7 @@ public class SafeEventAttribute : OverrideEventAspect
     {
         try
         {
-            meta.Proceed();
+            return meta.Proceed();
         }
         catch ( Exception e )
         {
@@ -20,6 +20,8 @@ public class SafeEventAttribute : OverrideEventAspect
 
             // Remove the faulted event handler.
             meta.Target.Event.Remove( handler );
+
+            return null;
         }
     }
 }
