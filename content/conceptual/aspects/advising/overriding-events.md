@@ -13,7 +13,7 @@ Metalama allows you to override the three semantics of events: _add_, _remove_, 
 
 To override an event, you can use one of the following approaches:
 
-- Create an aspect class derived from the <xref:Metalama.Framework.Aspects.OverrideEventAspect> class and override the <xref:Metalama.Framework.Aspects.OverrideEventAspect.OverrideAdd*>, <xref:Metalama.Framework.Aspects.OverrideEventAspect.OverrideRemove*>, and <xref:Metalama.Framework.Aspects.OverrideEventAspect.OverrideRaise*> methods.
+- Create an aspect class derived from the <xref:Metalama.Framework.Aspects.OverrideEventAspect> class and override the <xref:Metalama.Framework.Aspects.OverrideEventAspect.OverrideAdd*>, <xref:Metalama.Framework.Aspects.OverrideEventAspect.OverrideRemove*>, and <xref:Metalama.Framework.Aspects.OverrideEventAspect.OverrideInvoke*> methods.
 - Use the <xref:Metalama.Framework.Advising.AdviserExtensions.OverrideAccessors*> method from the `BuildAspect` method.
 
 ## Overriding the _add_ and _remove_ accessors
@@ -32,10 +32,10 @@ The following example demonstrates overriding the _add_ and _remove_ accessors o
 
 Most of the time, advising an event requires overriding its _raise_ operation. For instance, if you want to swallow exceptions in event handlers or execute events in a background thread, it's best to do so by overriding the _raise_ semantic.
 
-To override the _raise_ semantic, implement the <xref:Metalama.Framework.Aspects.OverrideEventAspect.OverrideRaise*?text=OverrideEventAspect.OverrideRaise> method or supply a `raiseTemplate` argument to the <xref:Metalama.Framework.Advising.AdviserExtensions.OverrideAccessors*> method.
+To override the _raise_ semantic, implement the <xref:Metalama.Framework.Aspects.OverrideEventAspect.OverrideInvoke*?text=OverrideEventAspect.OverrideInvoke> method or supply a `raiseTemplate` argument to the <xref:Metalama.Framework.Advising.AdviserExtensions.OverrideAccessors*> method.
 
 > [!NOTE]
-> The `OverrideRaise` advice is invoked _once per event handler_. If there are 3 event handlers and the event is raised once, the `OverrideRaise` advice will be invoked 3 times (see graph below).
+> The `OverrideInvoke` advice is invoked _once per event handler_. If there are 3 event handlers and the event is raised once, the `OverrideInvoke` advice will be invoked 3 times (see graph below).
 
 ### Adding/removing event handlers from an advice
 
@@ -51,7 +51,7 @@ If you are writing an exception handling aspect, you will want to unregister the
 ### Limitations
 
 - Delegate signatures with a non-`void` return type or with `out` and `ref` parameters are not supported.
-- Using `meta.Target.Event.Raise()` from the `OverrideRaise` template is not supported. You must use `meta.Proceed()`.
+- Using `meta.Target.Event.Raise()` from the `OverrideInvoke` template is not supported. You must use `meta.Proceed()`.
 - Only handlers added through the event's _add_ and _remove_ accessors will be intercepted by the _raise_ advice. Handlers added differently, for instance those added directly to the event backing field, will not be intercepted.
 
 ### Example: safe events
@@ -71,19 +71,19 @@ flowchart TD
     A[Client code invokes event] --> B[Event Implementation]
     B --> D[ActionEventBroker]
 
-    D --> OverrideRaise1[OverrideRaise]
-    D --> OverrideRaise2[OverrideRaise]
-    D --> OverrideRaise3[OverrideRaise]
+    D --> OverrideInvoke1[OverrideInvoke]
+    D --> OverrideInvoke2[OverrideInvoke]
+    D --> OverrideInvoke3[OverrideInvoke]
 
      subgraph "Advice"
-      OverrideRaise1
-      OverrideRaise2
-      OverrideRaise3
+      OverrideInvoke1
+      OverrideInvoke2
+      OverrideInvoke3
     end
 
-    OverrideRaise1 --> E1
-    OverrideRaise2 --> E2
-    OverrideRaise3 --> E3
+    OverrideInvoke1 --> E1
+    OverrideInvoke2 --> E2
+    OverrideInvoke3 --> E3
 
     subgraph "Handlers"
       E1[Handler #1]

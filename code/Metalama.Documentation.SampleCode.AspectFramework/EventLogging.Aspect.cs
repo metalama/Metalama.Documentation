@@ -7,15 +7,15 @@ namespace Doc.EventLogging;
 
 public class LogAttribute : OverrideEventAspect
 {
-    public override void OverrideAdd( dynamic value )
+    public override void OverrideAdd( dynamic handler )
     {
-        Console.WriteLine( $"Adding handler {((Delegate) value).Method}." );
+        Console.WriteLine( $"Adding handler {((Delegate) handler).Method}." );
         meta.Proceed();
     }
 
-    public override void OverrideRemove( dynamic value )
+    public override void OverrideRemove( dynamic handler )
     {
-        Console.WriteLine( $"Removing handler {((Delegate) value).Method}." );
+        Console.WriteLine( $"Removing handler {((Delegate) handler).Method}." );
         meta.Proceed();
     }
 }

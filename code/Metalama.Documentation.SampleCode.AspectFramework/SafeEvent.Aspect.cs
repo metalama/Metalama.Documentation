@@ -7,7 +7,7 @@ namespace Doc.SafeEvent_;
 
 public class SafeEventAttribute : OverrideEventAspect
 {
-    public override void OverrideRaise( dynamic handler )
+    public override dynamic? OverrideInvoke( dynamic handler )
     {
         try
         {
