@@ -37,12 +37,11 @@ object DebugBuild : BuildType({
 
     name = "Build [Debug]"
 
-    artifactRules = """+:artifacts/publish/public/**/*=>artifacts/publish/public
-+:artifacts/publish/private/**/*=>artifacts/publish/private
-+:artifacts/testResults/**/*=>artifacts/testResults
-+:artifacts/logs/**/*=>logs
-+:artifacts/dumps/**/*=>dumps
-"""
+    artifactRules = """+:Metalama.Documentation/artifacts/dumps/**/* => dumps
++:Metalama.Documentation/artifacts/logs/**/* => logs
++:Metalama.Documentation/artifacts/publish/private/**/* => artifacts/publish/private
++:Metalama.Documentation/artifacts/publish/public/**/* => artifacts/publish/public
++:Metalama.Documentation/artifacts/testResults/**/* => testResults"""
 
     params {
         text("Build.Arguments", "", label = "DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Build' build step.", allowEmpty = true)
@@ -50,9 +49,9 @@ object DebugBuild : BuildType({
     }
 
     vcs {
-        root(AbsoluteId("Metalama_Metalama20251_MetalamaDocumentation"))
-        root(AbsoluteId("Metalama_Metalama20251_MetalamaSamples"), "+:. => source-dependencies/Metalama.Samples")
-        root(AbsoluteId("Metalama_Metalama20251_MetalamaCommunity"), "+:. => source-dependencies/Metalama.Community")
+        root(AbsoluteId("Metalama_Metalama20251_MetalamaDocumentation"), "+.=>Metalama.Documentation")
+        root(AbsoluteId("Metalama_Metalama20251_MetalamaSamples"), "+:. => Metalama.Samples")
+        root(AbsoluteId("Metalama_Metalama20251_MetalamaCommunity"), "+:. => Metalama.Community")
     }
 
     steps {
@@ -72,7 +71,7 @@ object DebugBuild : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2025.1 -NoBuildImage test --configuration Debug --buildNumber %build.number% --buildType %system.teamcity.buildType.id% %Build.Arguments% --timeout %Build.Timeout%"
+            scriptArgs = "-Script Metalama.Documentation/Build.ps1 -ImageName metalamadocumentation-2025.1 -NoBuildImage test --configuration Debug --buildNumber %build.number% --buildType %system.teamcity.buildType.id% %Build.Arguments% --timeout %Build.Timeout%"
         }
     }
 
@@ -116,7 +115,7 @@ pullRequests {
 
             artifacts {
                 cleanDestination = true
-                artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama"
+                artifactRules = "+:artifacts/publish/private/**/* => Metalama.Documentation/dependencies/Metalama"
             }
         }
         dependency(AbsoluteId("Metalama_Metalama20251_MetalamaCommunity_DebugBuild")) {
@@ -131,7 +130,7 @@ pullRequests {
 
             artifacts {
                 cleanDestination = true
-                artifactRules = "+:artifacts/packages/Release/Shipping/**/*=>dependencies/Metalama.Compiler"
+                artifactRules = "+:artifacts/packages/Release/Shipping/**/* => Metalama.Documentation/dependencies/Metalama.Compiler"
             }
         }
         dependency(AbsoluteId("Metalama_Metalama20251_MetalamaPremium_DebugBuild")) {
@@ -141,7 +140,7 @@ pullRequests {
 
             artifacts {
                 cleanDestination = true
-                artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama.Premium"
+                artifactRules = "+:artifacts/publish/private/**/* => Metalama.Documentation/dependencies/Metalama.Premium"
             }
         }
         dependency(AbsoluteId("Metalama_Metalama20251_MetalamaSamples_DebugBuild")) {
@@ -151,7 +150,7 @@ pullRequests {
 
             artifacts {
                 cleanDestination = true
-                artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama.Samples"
+                artifactRules = "+:artifacts/publish/private/**/* => Metalama.Documentation/dependencies/Metalama.Samples"
             }
         }
         dependency(AbsoluteId("Metalama_Metalama20251_MetalamaSamples_DebugBuild")) {
@@ -167,12 +166,11 @@ object ReleaseBuild : BuildType({
 
     name = "Build [Release]"
 
-    artifactRules = """+:artifacts/publish/public/**/*=>artifacts/publish/public
-+:artifacts/publish/private/**/*=>artifacts/publish/private
-+:artifacts/testResults/**/*=>artifacts/testResults
-+:artifacts/logs/**/*=>logs
-+:artifacts/dumps/**/*=>dumps
-"""
+    artifactRules = """+:Metalama.Documentation/artifacts/dumps/**/* => dumps
++:Metalama.Documentation/artifacts/logs/**/* => logs
++:Metalama.Documentation/artifacts/publish/private/**/* => artifacts/publish/private
++:Metalama.Documentation/artifacts/publish/public/**/* => artifacts/publish/public
++:Metalama.Documentation/artifacts/testResults/**/* => testResults"""
 
     params {
         text("Build.Arguments", "", label = "DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Build' build step.", allowEmpty = true)
@@ -180,9 +178,9 @@ object ReleaseBuild : BuildType({
     }
 
     vcs {
-        root(AbsoluteId("Metalama_Metalama20251_MetalamaDocumentation"))
-        root(AbsoluteId("Metalama_Metalama20251_MetalamaSamples"), "+:. => source-dependencies/Metalama.Samples")
-        root(AbsoluteId("Metalama_Metalama20251_MetalamaCommunity"), "+:. => source-dependencies/Metalama.Community")
+        root(AbsoluteId("Metalama_Metalama20251_MetalamaDocumentation"), "+.=>Metalama.Documentation")
+        root(AbsoluteId("Metalama_Metalama20251_MetalamaSamples"), "+:. => Metalama.Samples")
+        root(AbsoluteId("Metalama_Metalama20251_MetalamaCommunity"), "+:. => Metalama.Community")
     }
 
     steps {
@@ -202,7 +200,7 @@ object ReleaseBuild : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2025.1 -NoBuildImage test --configuration Release --buildNumber %build.number% --buildType %system.teamcity.buildType.id% %Build.Arguments% --timeout %Build.Timeout%"
+            scriptArgs = "-Script Metalama.Documentation/Build.ps1 -ImageName metalamadocumentation-2025.1 -NoBuildImage test --configuration Release --buildNumber %build.number% --buildType %system.teamcity.buildType.id% %Build.Arguments% --timeout %Build.Timeout%"
         }
     }
 
@@ -246,7 +244,7 @@ pullRequests {
 
             artifacts {
                 cleanDestination = true
-                artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama"
+                artifactRules = "+:artifacts/publish/private/**/* => Metalama.Documentation/dependencies/Metalama"
             }
         }
         dependency(AbsoluteId("Metalama_Metalama20251_MetalamaCommunity_ReleaseBuild")) {
@@ -261,7 +259,7 @@ pullRequests {
 
             artifacts {
                 cleanDestination = true
-                artifactRules = "+:artifacts/packages/Release/Shipping/**/*=>dependencies/Metalama.Compiler"
+                artifactRules = "+:artifacts/packages/Release/Shipping/**/* => Metalama.Documentation/dependencies/Metalama.Compiler"
             }
         }
         dependency(AbsoluteId("Metalama_Metalama20251_MetalamaPremium_ReleaseBuild")) {
@@ -271,7 +269,7 @@ pullRequests {
 
             artifacts {
                 cleanDestination = true
-                artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama.Premium"
+                artifactRules = "+:artifacts/publish/private/**/* => Metalama.Documentation/dependencies/Metalama.Premium"
             }
         }
         dependency(AbsoluteId("Metalama_Metalama20251_MetalamaSamples_ReleaseBuild")) {
@@ -281,7 +279,7 @@ pullRequests {
 
             artifacts {
                 cleanDestination = true
-                artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama.Samples"
+                artifactRules = "+:artifacts/publish/private/**/* => Metalama.Documentation/dependencies/Metalama.Samples"
             }
         }
         dependency(AbsoluteId("Metalama_Metalama20251_MetalamaSamples_ReleaseBuild")) {
@@ -297,12 +295,11 @@ object PublicBuild : BuildType({
 
     name = "Build [Public]"
 
-    artifactRules = """+:artifacts/publish/public/**/*=>artifacts/publish/public
-+:artifacts/publish/private/**/*=>artifacts/publish/private
-+:artifacts/testResults/**/*=>artifacts/testResults
-+:artifacts/logs/**/*=>logs
-+:artifacts/dumps/**/*=>dumps
-"""
+    artifactRules = """+:Metalama.Documentation/artifacts/dumps/**/* => dumps
++:Metalama.Documentation/artifacts/logs/**/* => logs
++:Metalama.Documentation/artifacts/publish/private/**/* => artifacts/publish/private
++:Metalama.Documentation/artifacts/publish/public/**/* => artifacts/publish/public
++:Metalama.Documentation/artifacts/testResults/**/* => testResults"""
 
     params {
         text("Build.Arguments", "", label = "DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Build' build step.", allowEmpty = true)
@@ -310,9 +307,9 @@ object PublicBuild : BuildType({
     }
 
     vcs {
-        root(AbsoluteId("Metalama_Metalama20251_MetalamaDocumentation"))
-        root(AbsoluteId("Metalama_Metalama20251_MetalamaSamples"), "+:. => source-dependencies/Metalama.Samples")
-        root(AbsoluteId("Metalama_Metalama20251_MetalamaCommunity"), "+:. => source-dependencies/Metalama.Community")
+        root(AbsoluteId("Metalama_Metalama20251_MetalamaDocumentation"), "+.=>Metalama.Documentation")
+        root(AbsoluteId("Metalama_Metalama20251_MetalamaSamples"), "+:. => Metalama.Samples")
+        root(AbsoluteId("Metalama_Metalama20251_MetalamaCommunity"), "+:. => Metalama.Community")
     }
 
     steps {
@@ -332,7 +329,7 @@ object PublicBuild : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2025.1 -NoBuildImage test --configuration Public --buildNumber %build.number% --buildType %system.teamcity.buildType.id% %Build.Arguments% --timeout %Build.Timeout%"
+            scriptArgs = "-Script Metalama.Documentation/Build.ps1 -ImageName metalamadocumentation-2025.1 -NoBuildImage test --configuration Public --buildNumber %build.number% --buildType %system.teamcity.buildType.id% %Build.Arguments% --timeout %Build.Timeout%"
         }
     }
 
@@ -376,7 +373,7 @@ pullRequests {
 
             artifacts {
                 cleanDestination = true
-                artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama"
+                artifactRules = "+:artifacts/publish/private/**/* => Metalama.Documentation/dependencies/Metalama"
             }
         }
         dependency(AbsoluteId("Metalama_Metalama20251_MetalamaCommunity_PublicBuild")) {
@@ -391,7 +388,7 @@ pullRequests {
 
             artifacts {
                 cleanDestination = true
-                artifactRules = "+:artifacts/packages/Release/Shipping/**/*=>dependencies/Metalama.Compiler"
+                artifactRules = "+:artifacts/packages/Release/Shipping/**/* => Metalama.Documentation/dependencies/Metalama.Compiler"
             }
         }
         dependency(AbsoluteId("Metalama_Metalama20251_MetalamaPremium_PublicBuild")) {
@@ -401,7 +398,7 @@ pullRequests {
 
             artifacts {
                 cleanDestination = true
-                artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama.Premium"
+                artifactRules = "+:artifacts/publish/private/**/* => Metalama.Documentation/dependencies/Metalama.Premium"
             }
         }
         dependency(AbsoluteId("Metalama_Metalama20251_MetalamaSamples_PublicBuild")) {
@@ -411,7 +408,7 @@ pullRequests {
 
             artifacts {
                 cleanDestination = true
-                artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama.Samples"
+                artifactRules = "+:artifacts/publish/private/**/* => Metalama.Documentation/dependencies/Metalama.Samples"
             }
         }
         dependency(AbsoluteId("Metalama_Metalama20251_MetalamaSamples_PublicBuild")) {
@@ -435,7 +432,7 @@ object PublicDeployment : BuildType({
     }
 
     vcs {
-        root(AbsoluteId("Metalama_Metalama20251_MetalamaDocumentation"))
+        root(AbsoluteId("Metalama_Metalama20251_MetalamaDocumentation"), "+.=>Metalama.Documentation")
     }
 
     steps {
@@ -455,7 +452,7 @@ object PublicDeployment : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2025.1 -NoBuildImage publish --configuration Public %Publish.Arguments% --timeout %Publish.Timeout%"
+            scriptArgs = "-Script Metalama.Documentation/Build.ps1 -ImageName metalamadocumentation-2025.1 -NoBuildImage publish --configuration Public %Publish.Arguments% --timeout %Publish.Timeout%"
         }
     }
 
@@ -478,7 +475,7 @@ object PublicDeployment : BuildType({
 
             artifacts {
                 cleanDestination = true
-                artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama"
+                artifactRules = "+:artifacts/publish/private/**/* => Metalama.Documentation/dependencies/Metalama"
             }
         }
         dependency(AbsoluteId("Metalama_Metalama20251_MetalamaCommunity_PublicDeployment")) {
@@ -493,7 +490,7 @@ object PublicDeployment : BuildType({
 
             artifacts {
                 cleanDestination = true
-                artifactRules = "+:artifacts/packages/Release/Shipping/**/*=>dependencies/Metalama.Compiler"
+                artifactRules = "+:artifacts/packages/Release/Shipping/**/* => Metalama.Documentation/dependencies/Metalama.Compiler"
             }
         }
         dependency(AbsoluteId("Metalama_Metalama20251_MetalamaPremium_PublicBuild")) {
@@ -503,7 +500,7 @@ object PublicDeployment : BuildType({
 
             artifacts {
                 cleanDestination = true
-                artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama.Premium"
+                artifactRules = "+:artifacts/publish/private/**/* => Metalama.Documentation/dependencies/Metalama.Premium"
             }
         }
         dependency(AbsoluteId("Metalama_Metalama20251_MetalamaSamples_PublicBuild")) {
@@ -513,7 +510,7 @@ object PublicDeployment : BuildType({
 
             artifacts {
                 cleanDestination = true
-                artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama.Samples"
+                artifactRules = "+:artifacts/publish/private/**/* => Metalama.Documentation/dependencies/Metalama.Samples"
             }
         }
         dependency(AbsoluteId("Metalama_Metalama20251_MetalamaSamples_PublicDeployment")) {
@@ -528,7 +525,7 @@ object PublicDeployment : BuildType({
 
             artifacts {
                 cleanDestination = true
-                artifactRules = "+:artifacts/publish/public/**/*=>artifacts/publish/public\n+:artifacts/publish/private/**/*=>artifacts/publish/private"
+                artifactRules = "+:artifacts/publish/private/**/* => Metalama.Documentation/artifacts/publish/private\n+:artifacts/publish/public/**/* => Metalama.Documentation/artifacts/publish/public"
             }
         }
      }
@@ -547,7 +544,7 @@ object PublicDeploymentNoDependency : BuildType({
     }
 
     vcs {
-        root(AbsoluteId("Metalama_Metalama20251_MetalamaDocumentation"))
+        root(AbsoluteId("Metalama_Metalama20251_MetalamaDocumentation"), "+.=>Metalama.Documentation")
     }
 
     steps {
@@ -567,7 +564,7 @@ object PublicDeploymentNoDependency : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2025.1 -NoBuildImage publish --configuration Public --standalone %Publish.Arguments% --timeout %Publish.Timeout%"
+            scriptArgs = "-Script Metalama.Documentation/Build.ps1 -ImageName metalamadocumentation-2025.1 -NoBuildImage publish --configuration Public --standalone %Publish.Arguments% --timeout %Publish.Timeout%"
         }
     }
 
@@ -590,7 +587,7 @@ object PublicDeploymentNoDependency : BuildType({
 
             artifacts {
                 cleanDestination = true
-                artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama"
+                artifactRules = "+:artifacts/publish/private/**/* => Metalama.Documentation/dependencies/Metalama"
             }
         }
         dependency(AbsoluteId("Metalama_Metalama20251_MetalamaCompiler_PublicBuild")) {
@@ -600,7 +597,7 @@ object PublicDeploymentNoDependency : BuildType({
 
             artifacts {
                 cleanDestination = true
-                artifactRules = "+:artifacts/packages/Release/Shipping/**/*=>dependencies/Metalama.Compiler"
+                artifactRules = "+:artifacts/packages/Release/Shipping/**/* => Metalama.Documentation/dependencies/Metalama.Compiler"
             }
         }
         dependency(AbsoluteId("Metalama_Metalama20251_MetalamaPremium_PublicBuild")) {
@@ -610,7 +607,7 @@ object PublicDeploymentNoDependency : BuildType({
 
             artifacts {
                 cleanDestination = true
-                artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama.Premium"
+                artifactRules = "+:artifacts/publish/private/**/* => Metalama.Documentation/dependencies/Metalama.Premium"
             }
         }
         dependency(AbsoluteId("Metalama_Metalama20251_MetalamaSamples_PublicBuild")) {
@@ -620,7 +617,7 @@ object PublicDeploymentNoDependency : BuildType({
 
             artifacts {
                 cleanDestination = true
-                artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama.Samples"
+                artifactRules = "+:artifacts/publish/private/**/* => Metalama.Documentation/dependencies/Metalama.Samples"
             }
         }
         dependency(PublicBuild) {
@@ -630,7 +627,7 @@ object PublicDeploymentNoDependency : BuildType({
 
             artifacts {
                 cleanDestination = true
-                artifactRules = "+:artifacts/publish/public/**/*=>artifacts/publish/public\n+:artifacts/publish/private/**/*=>artifacts/publish/private"
+                artifactRules = "+:artifacts/publish/private/**/* => Metalama.Documentation/artifacts/publish/private\n+:artifacts/publish/public/**/* => Metalama.Documentation/artifacts/publish/public"
             }
         }
      }
@@ -647,7 +644,7 @@ object DownstreamMerge : BuildType({
     }
 
     vcs {
-        root(AbsoluteId("Metalama_Metalama20251_MetalamaDocumentation"))
+        root(AbsoluteId("Metalama_Metalama20251_MetalamaDocumentation"), "+.=>Metalama.Documentation")
     }
 
     steps {
@@ -667,7 +664,7 @@ object DownstreamMerge : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2025.1 -NoBuildImage tools git merge-downstream %DownstreamMerge.Arguments% --timeout %DownstreamMerge.Timeout%"
+            scriptArgs = "-Script Metalama.Documentation/Build.ps1 -ImageName metalamadocumentation-2025.1 -NoBuildImage tools git merge-downstream %DownstreamMerge.Arguments% --timeout %DownstreamMerge.Timeout%"
         }
     }
 
@@ -713,12 +710,12 @@ object PublicUpdateSearch : BuildType({
     type = Type.DEPLOYMENT
 
     params {
-        text("UpdateSearch.Arguments", "", label = "Build.ps1 Arguments", description = "Arguments to append to the 'Update search' build step.", allowEmpty = true)
+        text("UpdateSearch.Arguments", "", label = "Metalama.Documentation/Build.ps1 Arguments", description = "Arguments to append to the 'Update search' build step.", allowEmpty = true)
         param("UpdateSearch.Timeout", "30")
     }
 
     vcs {
-        root(AbsoluteId("Metalama_Metalama20251_MetalamaDocumentation"))
+        root(AbsoluteId("Metalama_Metalama20251_MetalamaDocumentation"), "+.=>Metalama.Documentation")
     }
 
     steps {
@@ -726,7 +723,7 @@ object PublicUpdateSearch : BuildType({
             name = "Update search"
             id = "UpdateSearch"
             scriptMode = file {
-                path = "Build.ps1"
+                path = "Metalama.Documentation/Build.ps1"
             }
             noProfile = false
             scriptArgs = "search update %UpdateSearch.Arguments% --timeout %UpdateSearch.Timeout%"
@@ -761,12 +758,12 @@ object PublicUpdateSearchNoDependency : BuildType({
     type = Type.DEPLOYMENT
 
     params {
-        text("UpdateSearch.Arguments", "", label = "Build.ps1 Arguments", description = "Arguments to append to the 'Update search' build step.", allowEmpty = true)
+        text("UpdateSearch.Arguments", "", label = "Metalama.Documentation/Build.ps1 Arguments", description = "Arguments to append to the 'Update search' build step.", allowEmpty = true)
         param("UpdateSearch.Timeout", "30")
     }
 
     vcs {
-        root(AbsoluteId("Metalama_Metalama20251_MetalamaDocumentation"))
+        root(AbsoluteId("Metalama_Metalama20251_MetalamaDocumentation"), "+.=>Metalama.Documentation")
     }
 
     steps {
@@ -774,7 +771,7 @@ object PublicUpdateSearchNoDependency : BuildType({
             name = "Update search"
             id = "UpdateSearch"
             scriptMode = file {
-                path = "Build.ps1"
+                path = "Metalama.Documentation/Build.ps1"
             }
             noProfile = false
             scriptArgs = "search update %UpdateSearch.Arguments% --timeout %UpdateSearch.Timeout%"
