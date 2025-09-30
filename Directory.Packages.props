@@ -5,12 +5,13 @@
   </PropertyGroup>
   <!-- Set versions of dependencies that need special treatment or consist of multiple packages of the same version. -->
   <PropertyGroup>
-    <PostSharpEngineeringVersion Condition="'$(PostSharpEngineeringVersion)'==''">2023.2.178</PostSharpEngineeringVersion>
+    <PostSharpEngineeringVersion Condition="'$(PostSharpEngineeringVersion)'==''">2023.2.246</PostSharpEngineeringVersion>
   </PropertyGroup>
   <ItemGroup>
     <!-- Must match the version defined in PostSharp.Engineering.
          We cannot use $(DocFxVersion) because we reference the repo using a nuget feed dependency, which does not define these properties. -->
     <PackageVersion Include="Docfx.App" Version="2.77.0" />
+    <PackageVersion Include="Docfx.Common" Version="2.77.0" />
     <PackageVersion Include="Metalama.Compiler" Version="$(MetalamaCompilerVersion)" />
     <PackageVersion Include="Metalama.Documentation.QuickStart" Version="$(MetalamaSamplesVersion)" />
     <PackageVersion Include="Metalama.Extensions.Architecture" Version="$(MetalamaPremiumVersion)" />
@@ -37,8 +38,8 @@
     <PackageVersion Include="Metalama.Patterns.Wpf" Version="$(MetalamaVersion)" />
     <PackageVersion Include="Metalama.Testing.AspectTesting" Version="$(MetalamaVersion)" />
     <PackageVersion Include="Metalama.Testing.UnitTesting" Version="$(MetalamaVersion)" />
-    <PackageVersion Include="Azure.Identity" Version="1.13.0" />
-    <PackageVersion Include="Azure.Security.KeyVault.Secrets" Version="4.7.0" />
+    <PackageVersion Include="Azure.Identity" Version="1.16.0" />
+    <PackageVersion Include="Azure.Security.KeyVault.Secrets" Version="4.8.0" />
     <PackageVersion Include="coverlet.collector" Version="6.0.2" />
     <PackageVersion Include="HtmlAgilityPack" Version="1.11.67" />
     <PackageVersion Include="JetBrains.Annotations" Version="2024.2.0" />
