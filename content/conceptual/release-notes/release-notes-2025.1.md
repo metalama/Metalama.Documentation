@@ -2,8 +2,8 @@
 uid: release-notes-2025.1
 summary: ""
 keywords: "Metalama 2025.1, release notes"
-created-date: 2024-11-06
-modified-date: 2024-11-06
+created-date: 2025-05-01
+modified-date: 2025-05-01
 ---
 
 # Metalama 2025.1
