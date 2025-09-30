@@ -51,8 +51,11 @@ object DebugBuild : BuildType({
 
     vcs {
         root(AbsoluteId("Metalama_Metalama20251_MetalamaDocumentation"))
-        root(AbsoluteId("Metalama_Metalama20251_MetalamaSamples"), "+:. => source-dependencies/Metalama.Samples")
-        root(AbsoluteId("Metalama_Metalama20251_MetalamaCommunity"), "+:. => source-dependencies/Metalama.Community")
+        root(AbsoluteId("Metalama_Metalama20251_MetalamaSamples"),
+          """+:. => source-dependencies/Metalama.Samples""")
+        root(AbsoluteId("Metalama_Metalama20251_MetalamaCommunity"),
+          """+:. => source-dependencies/Metalama.Community""")
+     checkoutMode = CheckoutMode.ON_AGENT
     }
 
     steps {
@@ -181,8 +184,11 @@ object ReleaseBuild : BuildType({
 
     vcs {
         root(AbsoluteId("Metalama_Metalama20251_MetalamaDocumentation"))
-        root(AbsoluteId("Metalama_Metalama20251_MetalamaSamples"), "+:. => source-dependencies/Metalama.Samples")
-        root(AbsoluteId("Metalama_Metalama20251_MetalamaCommunity"), "+:. => source-dependencies/Metalama.Community")
+        root(AbsoluteId("Metalama_Metalama20251_MetalamaSamples"),
+          """+:. => source-dependencies/Metalama.Samples""")
+        root(AbsoluteId("Metalama_Metalama20251_MetalamaCommunity"),
+          """+:. => source-dependencies/Metalama.Community""")
+     checkoutMode = CheckoutMode.ON_AGENT
     }
 
     steps {
@@ -311,8 +317,11 @@ object PublicBuild : BuildType({
 
     vcs {
         root(AbsoluteId("Metalama_Metalama20251_MetalamaDocumentation"))
-        root(AbsoluteId("Metalama_Metalama20251_MetalamaSamples"), "+:. => source-dependencies/Metalama.Samples")
-        root(AbsoluteId("Metalama_Metalama20251_MetalamaCommunity"), "+:. => source-dependencies/Metalama.Community")
+        root(AbsoluteId("Metalama_Metalama20251_MetalamaSamples"),
+          """+:. => source-dependencies/Metalama.Samples""")
+        root(AbsoluteId("Metalama_Metalama20251_MetalamaCommunity"),
+          """+:. => source-dependencies/Metalama.Community""")
+     checkoutMode = CheckoutMode.ON_AGENT
     }
 
     steps {
@@ -436,6 +445,7 @@ object PublicDeployment : BuildType({
 
     vcs {
         root(AbsoluteId("Metalama_Metalama20251_MetalamaDocumentation"))
+     checkoutMode = CheckoutMode.ON_AGENT
     }
 
     steps {
@@ -548,6 +558,7 @@ object PublicDeploymentNoDependency : BuildType({
 
     vcs {
         root(AbsoluteId("Metalama_Metalama20251_MetalamaDocumentation"))
+     checkoutMode = CheckoutMode.ON_AGENT
     }
 
     steps {
@@ -648,6 +659,7 @@ object DownstreamMerge : BuildType({
 
     vcs {
         root(AbsoluteId("Metalama_Metalama20251_MetalamaDocumentation"))
+     checkoutMode = CheckoutMode.ON_AGENT
     }
 
     steps {
@@ -719,6 +731,7 @@ object PublicUpdateSearch : BuildType({
 
     vcs {
         root(AbsoluteId("Metalama_Metalama20251_MetalamaDocumentation"))
+     checkoutMode = CheckoutMode.ON_AGENT
     }
 
     steps {
@@ -767,6 +780,7 @@ object PublicUpdateSearchNoDependency : BuildType({
 
     vcs {
         root(AbsoluteId("Metalama_Metalama20251_MetalamaDocumentation"))
+     checkoutMode = CheckoutMode.ON_AGENT
     }
 
     steps {
