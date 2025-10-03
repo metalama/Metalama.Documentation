@@ -1,15 +1,15 @@
 ---
 uid: overriding-events
 level: 300
-summary: "The document discusses how to override events, including overriding their raise operation."
-keywords: "overriding events, .NET, add accessor, remove accessor, event invocation, raise accessor, Metalama Framework, OverrideEventAspect"
+summary: "The document discusses how to override events, including overriding their invoke operation."
+keywords: "overriding events, .NET, add accessor, remove accessor, event invocation, invoke accessor, Metalama Framework, OverrideEventAspect"
 created-date: 2023-02-20
 modified-date: 2025-09-23
 ---
 
 # Overriding events
 
-Metalama allows you to override the three semantics of events: _add_, _remove_, and _raise_.
+Metalama allows you to override the three semantics of events: _add_, _remove_, and _invoke_.
 
 To override an event, you can use one of the following approaches:
 
@@ -24,22 +24,22 @@ If you attempt to override a field-like event, it is transformed into an explici
 
 ### Example: logging
 
-The following example demonstrates overriding the _add_ and _remove_ accessors of events, without overriding the _raise_ operation. The example aspect logs the operation of adding and removing handlers to an event. It is applied to both a field-like and an explicitly-implemented event. You can compare the code transformation pattern.
+The following example demonstrates overriding the _add_ and _remove_ accessors of events, without overriding the _invoie_ operation. The example aspect logs the operation of adding and removing handlers to an event. It is applied to both a field-like and an explicitly-implemented event. You can compare the code transformation pattern.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/EventLogging.cs name="Logging of Events Add/Remove"]
 
-## Overriding the _raise_ operation
+## Overriding the _invoie_ operation
 
-Most of the time, advising an event requires overriding its _raise_ operation. For instance, if you want to swallow exceptions in event handlers or execute events in a background thread, it's best to do so by overriding the _raise_ semantic.
+Most of the time, advising an event requires overriding its _invoie_ operation. For instance, if you want to swallow exceptions in event handlers or execute events in a background thread, it's best to do so by overriding the _invoie_ semantic.
 
-To override the _raise_ semantic, implement the <xref:Metalama.Framework.Aspects.OverrideEventAspect.OverrideInvoke*?text=OverrideEventAspect.OverrideInvoke> method or supply a `raiseTemplate` argument to the <xref:Metalama.Framework.Advising.AdviserExtensions.OverrideAccessors*> method.
+To override the _invoie_ semantic, implement the <xref:Metalama.Framework.Aspects.OverrideEventAspect.OverrideInvoke*?text=OverrideEventAspect.OverrideInvoke> method or supply a `invokeTemplate` argument to the <xref:Metalama.Framework.Advising.AdviserExtensions.OverrideAccessors*> method.
 
 > [!NOTE]
-> The `OverrideInvoke` advice is invoked _once per event handler_. If there are 3 event handlers and the event is raised once, the `OverrideInvoke` advice will be invoked 3 times (see graph below).
+> The `OverrideInvoke` advice is invoked _once per event handler_. If there are 3 event handlers and the event is invoked once, the `OverrideInvoke` advice will be invoked 3 times (see graph below).
 
 ### Adding/removing event handlers from an advice
 
-If you are writing an exception handling aspect, you will want to unregister the event handler from the _raise_ template. You can do this by invoking the <xref:Metalama.Framework.Code.Invokers.IEventInvoker.Remove*?IEvent.Remove> method from the template, for instance:
+If you are writing an exception handling aspect, you will want to unregister the event handler from the _invoke_ template. You can do this by invoking the <xref:Metalama.Framework.Code.Invokers.IEventInvoker.Remove*?IEvent.Remove> method from the template, for instance:
 
 ```csharp
  meta.Target.Event.Remove( handler );
@@ -64,7 +64,7 @@ Metalama's implementation pattern is more complex than usual. We'll explain it b
 
 ### Implementation
 
-Overriding the _raise_ operation requires a complex code transformation from the Metalama framework. Since the C# language has no standard way to raise an event, the only reliable way to intercept an event invocation is to insert a broker between the event implementation and the event handlers. The broker, for `Action`-like delegate types, is implemented by the <xref:Metalama.Framework.RunTime.ActionEventBroker`2> class. Event handlers are added to the broker class, and the <xref:Metalama.Framework.RunTime.ActionEventBroker`2.InvocationDelegate> is added to the event implementation.
+Overriding the _invoke_ operation requires a complex code transformation from the Metalama framework. Since the C# language has no standard way to raise an event, the only reliable way to intercept an event invocation is to insert a broker between the event implementation and the event handlers. The broker, for `Action`-like delegate types, is implemented by the <xref:Metalama.Framework.RunTime.ActionEventBroker`2> class. Event handlers are added to the broker class, and the <xref:Metalama.Framework.RunTime.ActionEventBroker`2.InvocationDelegate> is added to the event implementation.
 
 ```mermaid
 flowchart TD
@@ -95,7 +95,7 @@ flowchart TD
 
 ### Performance considerations
 
-Unlike other advice kinds, advising event raise operations might affect run-time performance:
+Unlike other advice kinds, advising event invoke operations might affect run-time performance:
 
 - additional memory is required by the <xref:Metalama.Framework.RunTime.ActionEventBroker`2> class (one broker instance per event and per instance of the class, unless the event is `static`).
 - raising the event allocates short-term memory because <xref:Metalama.Framework.RunTime.ActionEventBroker`2> relies on <xref:System.MulticastDelegate> and its <xref:System.MulticastDelegate.GetInvocationList> method.
