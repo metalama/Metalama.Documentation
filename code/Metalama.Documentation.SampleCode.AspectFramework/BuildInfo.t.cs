@@ -3,5 +3,5 @@ namespace Doc.BuildInfo;
 internal partial class BuildInfo
 {
   public string? Configuration { get; } = "Debug";
-  public string? TargetFramework { get; } = "net6.0";
+  public string? TargetFramework { get; } = "net8.0";
 }
