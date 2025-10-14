@@ -56,7 +56,7 @@ object DebugBuild : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-BuildImage -ImageName metalamadocumentation-2026.0"
+            scriptArgs = "-BuildImage -ImageName metalamadocumentation-2026.0 "
         }
         powerShell {
             name = "Build"
@@ -65,7 +65,7 @@ object DebugBuild : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2026.0 -NoBuildImage test --configuration Debug --buildNumber %build.number% --buildType %system.teamcity.buildType.id% %Build.Arguments% --timeout %Build.Timeout%"
+            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2026.0 -NoBuildImage test --configuration Debug --buildNumber %build.number% --buildType %system.teamcity.buildType.id% --timeout %Build.Timeout% %Build.Arguments%"
         }
     }
 
@@ -189,7 +189,7 @@ object ReleaseBuild : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-BuildImage -ImageName metalamadocumentation-2026.0"
+            scriptArgs = "-BuildImage -ImageName metalamadocumentation-2026.0 "
         }
         powerShell {
             name = "Build"
@@ -198,7 +198,7 @@ object ReleaseBuild : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2026.0 -NoBuildImage test --configuration Release --buildNumber %build.number% --buildType %system.teamcity.buildType.id% %Build.Arguments% --timeout %Build.Timeout%"
+            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2026.0 -NoBuildImage test --configuration Release --buildNumber %build.number% --buildType %system.teamcity.buildType.id% --timeout %Build.Timeout% %Build.Arguments%"
         }
     }
 
@@ -322,7 +322,7 @@ object PublicBuild : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-BuildImage -ImageName metalamadocumentation-2026.0"
+            scriptArgs = "-BuildImage -ImageName metalamadocumentation-2026.0 "
         }
         powerShell {
             name = "Build"
@@ -331,7 +331,7 @@ object PublicBuild : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2026.0 -NoBuildImage test --configuration Public --buildNumber %build.number% --buildType %system.teamcity.buildType.id% %Build.Arguments% --timeout %Build.Timeout%"
+            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2026.0 -NoBuildImage test --configuration Public --buildNumber %build.number% --buildType %system.teamcity.buildType.id% --timeout %Build.Timeout% %Build.Arguments%"
         }
     }
 
@@ -446,7 +446,7 @@ object PublicDeployment : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-BuildImage -ImageName metalamadocumentation-2026.0"
+            scriptArgs = "-BuildImage -ImageName metalamadocumentation-2026.0 "
         }
         powerShell {
             name = "Publish"
@@ -455,7 +455,7 @@ object PublicDeployment : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2026.0 -NoBuildImage publish --configuration Public %Publish.Arguments% --timeout %Publish.Timeout%"
+            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2026.0 -NoBuildImage publish --configuration Public --timeout %Publish.Timeout% %Publish.Arguments%"
         }
     }
 
@@ -559,7 +559,7 @@ object PublicDeploymentNoDependency : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-BuildImage -ImageName metalamadocumentation-2026.0"
+            scriptArgs = "-BuildImage -ImageName metalamadocumentation-2026.0 "
         }
         powerShell {
             name = "Publish"
@@ -568,7 +568,7 @@ object PublicDeploymentNoDependency : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2026.0 -NoBuildImage publish --configuration Public --standalone %Publish.Arguments% --timeout %Publish.Timeout%"
+            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2026.0 -NoBuildImage publish --configuration Public --standalone --timeout %Publish.Timeout% %Publish.Arguments%"
         }
     }
 
@@ -662,7 +662,7 @@ object PublicUpdateSearch : BuildType({
                 path = "Build.ps1"
             }
             noProfile = false
-            scriptArgs = "search update %UpdateSearch.Arguments% --timeout %UpdateSearch.Timeout%"
+            scriptArgs = "search update --timeout %UpdateSearch.Timeout% %UpdateSearch.Arguments%"
         }
     }
 
@@ -711,7 +711,7 @@ object PublicUpdateSearchNoDependency : BuildType({
                 path = "Build.ps1"
             }
             noProfile = false
-            scriptArgs = "search update %UpdateSearch.Arguments% --timeout %UpdateSearch.Timeout%"
+            scriptArgs = "search update --timeout %UpdateSearch.Timeout% %UpdateSearch.Arguments%"
         }
     }
 
