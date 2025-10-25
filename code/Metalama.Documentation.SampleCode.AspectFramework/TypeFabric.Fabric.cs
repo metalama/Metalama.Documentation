@@ -14,8 +14,8 @@ internal partial class MyClass
         public override void AmendType( ITypeAmender amender )
         {
             // Adds logging aspect to all public methods.
-            amender.SelectMany(
-                    t => t.Methods.Where( m => m.Accessibility == Accessibility.Public ) )
+            amender
+                .SelectMany( t => t.Methods.Where( m => m.Accessibility == Accessibility.Public ) )
                 .AddAspect<LogAttribute>();
         }
     }

@@ -31,7 +31,7 @@ public class LoggerDependencyInjectionFramework : DefaultDependencyInjectionFram
     {
         public InjectionStrategy( DependencyProperties properties ) : base( properties ) { }
 
-        protected override IPullStrategy GetPullStrategy(
+        protected override IDependencyPullStrategy GetDependencyPullStrategy(
             IFieldOrProperty introducedFieldOrProperty )
         {
             return new LoggerPullStrategy( this.Properties, introducedFieldOrProperty );
@@ -39,7 +39,7 @@ public class LoggerDependencyInjectionFramework : DefaultDependencyInjectionFram
     }
 
     // Our customized pull strategy. Decides how to assign the field or property from the constructor.
-    private class LoggerPullStrategy : DefaultPullStrategy
+    private class LoggerPullStrategy : DefaultDependencyPullStrategy
     {
         public LoggerPullStrategy(
             DependencyProperties properties,

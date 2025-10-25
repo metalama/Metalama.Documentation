@@ -20,11 +20,13 @@ public class ToStringAttribute : TypeAspect
         base.BuildAspect( builder );
 
         // For each field, suggest a code fix to remove from ToString.
-        foreach ( var field in builder.Target.FieldsAndProperties.Where(
-                     f => f is { IsStatic: false, IsImplicitlyDeclared: false } ) )
+        foreach ( var field in builder.Target.FieldsAndProperties.Where( f => f is
+                 {
+                     IsStatic: false, IsImplicitlyDeclared: false
+                 } ) )
         {
-            if ( !field.Attributes.Any(
-                    a => a.Type.IsConvertibleTo( typeof(NotToStringAttribute) ) ) )
+            if ( !field.Attributes.Any( a => a.Type.IsConvertibleTo(
+                                            typeof(NotToStringAttribute) ) ) )
             {
                 builder.Diagnostics.Suggest(
                     CodeFixFactory.AddAttribute(
@@ -52,8 +54,8 @@ public class ToStringAttribute : TypeAspect
 
         foreach ( var field in fields )
         {
-            if ( field.Attributes.Any(
-                    a => a.Type.IsConvertibleTo( typeof(NotToStringAttribute) ) ) )
+            if ( field.Attributes.Any( a => a.Type.IsConvertibleTo(
+                                           typeof(NotToStringAttribute) ) ) )
             {
                 continue;
             }

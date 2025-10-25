@@ -19,8 +19,10 @@ public class AuditedObjectAttribute : TypeAspect
 
         builder.Outbound
             .SelectMany( b => b.Properties )
-            .Where(
-                m => m is { Accessibility: Accessibility.Public, Writeability: Writeability.All } )
+            .Where( m => m is
+            {
+                Accessibility: Accessibility.Public, Writeability: Writeability.All
+            } )
             .AddAspectIfEligible<AuditedMemberAttribute>();
     }
 }

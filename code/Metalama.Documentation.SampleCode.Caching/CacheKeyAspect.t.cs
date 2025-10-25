@@ -1,4 +1,5 @@
 using Flashtrace.Formatters;
+using Metalama.Framework.RunTime;
 using Metalama.Patterns.Caching;
 using Metalama.Patterns.Caching.Aspects;
 using Metalama.Patterns.Caching.Aspects.Helpers;
@@ -53,7 +54,7 @@ public class EntityService
   {
     _cacheRegistration_GetRelatedEntities = CachedMethodMetadata.Register(typeof(EntityService).GetMethod("GetRelatedEntities", BindingFlags.Public | BindingFlags.Instance, null, new[] { typeof(Entity) }, null).ThrowIfMissing("EntityService.GetRelatedEntities(Entity)"), new CachedMethodConfiguration() { AbsoluteExpiration = null, AutoReload = null, IgnoreThisParameter = null, Priority = null, ProfileName = (string? )null, SlidingExpiration = null }, true);
   }
-  public EntityService(ICachingService? cachingService = null)
+  public EntityService([AspectGenerated] ICachingService? cachingService = null)
   {
     this._cachingService = cachingService ?? throw new System.ArgumentNullException(nameof(cachingService));
   }

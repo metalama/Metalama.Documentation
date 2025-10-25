@@ -9,7 +9,7 @@ public interface IConsoleMain
 
 public interface IConsoleHost
 {
-    public IReadOnlyList<string> Arguments { get; }
+    IReadOnlyList<string> Arguments { get; }
 }
 
 internal class ConsoleHost : IConsoleHost

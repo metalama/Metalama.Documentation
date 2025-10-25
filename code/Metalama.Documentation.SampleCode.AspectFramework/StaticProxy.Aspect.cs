@@ -72,18 +72,17 @@ public class ProxyAspect : TypeAspect
     [Template]
     private T NonVoidTemplate<[CompileTime] T>( IMethod method, IField interceptedField )
     {
-        return this._interceptor.Invoke(
-            () => (T) method.With( interceptedField ).Invoke( method.Parameters )! );
+        return this._interceptor.Invoke( () => (T) method.WithObject( interceptedField )
+                                             .Invoke( method.Parameters )! );
     }
 
     [Template]
     private void VoidTemplate( IMethod method, IField interceptedField )
     {
-        this._interceptor.Invoke(
-            () =>
-            {
-                method.With( interceptedField ).Invoke( method.Parameters );
-            } );
+        this._interceptor.Invoke( () =>
+        {
+            method.WithObject( interceptedField ).Invoke( method.Parameters );
+        } );
     }
 
     [Template]

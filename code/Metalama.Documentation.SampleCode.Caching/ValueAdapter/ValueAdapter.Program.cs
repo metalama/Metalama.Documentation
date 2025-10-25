@@ -14,8 +14,10 @@ internal static class Program
 
         // Add the caching service and register out ValueAdapter.
         builder.Services.AddMetalamaCaching(
+
             // [<snippet AddMetalamaCaching>]
-            caching => caching.AddValueAdapter( new StringBuilderAdapter() ) 
+            caching => caching.AddValueAdapter( new StringBuilderAdapter() )
+
             // [<endsnippet AddMetalamaCaching>]
         );
 

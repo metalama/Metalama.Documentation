@@ -30,10 +30,11 @@ public class ForTestOnlyAttribute : Attribute, IAspect<IMember>
     {
         if ( !context.Origin.Namespace.FullName.EndsWith( ".Tests", StringComparison.Ordinal ) )
         {
-            context.Diagnostics.Report(
-                r => r.OriginDeclaration.IsContainedIn( context.Destination.Type )
-                    ? null
-                    : _warning.WithArguments( context.Destination.Namespace ) );
+            context.Diagnostics.Report( r => r.OriginDeclaration.IsContainedIn(
+                                            context.Destination.Type )
+                                            ? null
+                                            : _warning.WithArguments(
+                                                context.Destination.Namespace ) );
         }
     }
 }

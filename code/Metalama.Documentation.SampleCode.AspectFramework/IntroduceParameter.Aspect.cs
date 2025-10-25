@@ -15,11 +15,10 @@ internal class RegisterInstanceAttribute : ConstructorAspect
             "instanceRegistry",
             typeof(IInstanceRegistry),
             TypedConstant.Default( typeof(IInstanceRegistry) ),
-            pullAction: ( parameter, constructor ) =>
-                PullAction.IntroduceParameterAndPull(
-                    "instanceRegistry",
-                    TypeFactory.GetType( typeof(IInstanceRegistry) ),
-                    TypedConstant.Default( typeof(IInstanceRegistry) ) ) );
+            pullStrategy: PullStrategy.IntroduceParameterAndPull(
+                "instanceRegistry",
+                TypeFactory.GetType( typeof(IInstanceRegistry) ),
+                TypedConstant.Default( typeof(IInstanceRegistry) ) ) );
 
         builder.AddInitializer( StatementFactory.Parse( "instanceRegistry.Register( this );" ) );
     }

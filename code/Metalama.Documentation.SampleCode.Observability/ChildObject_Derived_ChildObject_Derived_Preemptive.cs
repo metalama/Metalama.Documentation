@@ -35,7 +35,7 @@ public class Fabric : ProjectFabric
 {
     public override void AmendProject( IProjectAmender amender )
     {
-        amender.ConfigureObservability(
-            builder => builder.EnableOnObservablePropertyChangedMethod = false );
+        amender.ConfigureObservability( builder => builder.EnableOnObservablePropertyChangedMethod =
+                                            false );
     }
 }

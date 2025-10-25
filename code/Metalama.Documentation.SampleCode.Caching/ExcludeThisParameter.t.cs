@@ -1,3 +1,4 @@
+using Metalama.Framework.RunTime;
 using Metalama.Patterns.Caching;
 using Metalama.Patterns.Caching.Aspects;
 using Metalama.Patterns.Caching.Aspects.Helpers;
@@ -37,7 +38,7 @@ public class PricingService
     _cacheRegistration_GetProductPrice = CachedMethodMetadata.Register(typeof(PricingService).GetMethod("GetProductPrice", BindingFlags.Public | BindingFlags.Instance, null, new[] { typeof(string) }, null).ThrowIfMissing("PricingService.GetProductPrice(string)"), new CachedMethodConfiguration() { AbsoluteExpiration = null, AutoReload = null, IgnoreThisParameter = true, Priority = null, ProfileName = (string? )null, SlidingExpiration = null }, false);
     _cacheRegistration_GetProducts = CachedMethodMetadata.Register(typeof(PricingService).GetMethod("GetProducts", BindingFlags.Public | BindingFlags.Instance, null, new[] { typeof(string) }, null).ThrowIfMissing("PricingService.GetProducts(string)"), new CachedMethodConfiguration() { AbsoluteExpiration = null, AutoReload = null, IgnoreThisParameter = true, Priority = null, ProfileName = (string? )null, SlidingExpiration = null }, true);
   }
-  public PricingService(ICachingService? cachingService = null)
+  public PricingService([AspectGenerated] ICachingService? cachingService = null)
   {
     this._cachingService = cachingService ?? throw new System.ArgumentNullException(nameof(cachingService));
   }

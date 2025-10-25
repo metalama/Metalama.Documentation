@@ -9,8 +9,9 @@ public class Fabric : ProjectFabric
 {
     public override void AmendProject( IProjectAmender amender )
     {
-        amender.ConfigureDependencyInjection(
-            dependencyInjection
-                => dependencyInjection.RegisterFramework<LoggerDependencyInjectionFramework>() );
+        amender.ConfigureDependencyInjection( dependencyInjection
+                                                  => dependencyInjection
+                                                      .RegisterFramework<
+                                                          LoggerDependencyInjectionFramework>() );
     }
 }

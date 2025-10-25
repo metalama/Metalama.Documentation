@@ -15,10 +15,10 @@ internal class NotNullAttribute : MethodAspect
     {
         base.BuildAspect( builder );
 
-        foreach ( var parameter in builder.Target.Parameters.Where(
-                     p => p.RefKind is RefKind.None or RefKind.In
-                          && p.Type.IsNullable != true
-                          && p.Type.IsReferenceType == true ) )
+        foreach ( var parameter in
+                 builder.Target.Parameters.Where( p => p.RefKind is RefKind.None or RefKind.In
+                                                       && p.Type.IsNullable != true
+                                                       && p.Type.IsReferenceType == true ) )
         {
             builder.With( parameter )
                 .AddContract( nameof(this.Validate), args: new { parameterName = parameter.Name } );
@@ -39,11 +39,10 @@ internal class Fabric : ProjectFabric
 {
     public override void AmendProject( IProjectAmender amender )
     {
-        amender.SelectMany(
-                a => a.Types
-                    .Where( t => t.Accessibility == Accessibility.Public )
-                    .SelectMany( t => t.Methods )
-                    .Where( m => m.Accessibility == Accessibility.Public ) )
+        amender.SelectMany( a => a.Types
+                                .Where( t => t.Accessibility == Accessibility.Public )
+                                .SelectMany( t => t.Methods )
+                                .Where( m => m.Accessibility == Accessibility.Public ) )
             .AddAspect<NotNullAttribute>();
     }
 }

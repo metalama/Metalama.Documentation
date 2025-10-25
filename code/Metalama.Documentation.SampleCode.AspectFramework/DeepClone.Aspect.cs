@@ -52,13 +52,19 @@ public class DeepCloneAttribute : TypeAspect
 
         // Select clonable fields.
         var clonableFields =
-            meta.Target.Type.FieldsAndProperties.Where(
-                f => f.IsAutoPropertyOrField == true &&
-                     ((f.Type.IsConvertibleTo( typeof(ICloneable) )
-                       && f.Type.SpecialType != SpecialType.String)
-                      ||
-                      (f.Type is INamedType { BelongsToCurrentProject: true } fieldNamedType &&
-                       fieldNamedType.Enhancements().HasAspect<DeepCloneAttribute>())) );
+            meta.Target.Type.FieldsAndProperties.Where( f => f.IsAutoPropertyOrField == true &&
+                                                             ((f.Type.IsConvertibleTo(
+                                                                   typeof(ICloneable) )
+                                                               && f.Type.SpecialType
+                                                               != SpecialType.String)
+                                                              ||
+                                                              (f.Type is INamedType
+                                                               {
+                                                                   BelongsToCurrentProject: true
+                                                               } fieldNamedType &&
+                                                               fieldNamedType.Enhancements()
+                                                                   .HasAspect<
+                                                                       DeepCloneAttribute>())) );
 
         foreach ( var field in clonableFields )
         {
@@ -88,7 +94,7 @@ public class DeepCloneAttribute : TypeAspect
             }
 
             // Finally, set the field value.
-            field.With( cloneVariable ).Value = callClone.Value;
+            field.WithObject( cloneVariable ).Value = callClone.Value;
         }
 
         return cloneVariable.Value!;

@@ -7,7 +7,7 @@ namespace Doc.EventLogging;
 public class Camera
 {
     private EventHandler? _lightingChanged;
-    
+
     // Field-like event.
     [Log]
     public event EventHandler? FocusChanged;
@@ -16,7 +16,7 @@ public class Camera
     {
         this.FocusChanged?.Invoke( this, EventArgs.Empty );
     }
-    
+
     // Explicitly-implemented event.
     [Log]
     public event EventHandler? LightingChanged

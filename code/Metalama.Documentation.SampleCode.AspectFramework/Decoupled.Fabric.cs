@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿// This is public domain Metalama sample code.
+
+using System.Linq;
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 using Metalama.Framework.Fabrics;
@@ -13,22 +15,22 @@ public class Fabric : ProjectFabric
 
         declarations
             .OfType<IMethod>()
-            .AddAspectIfEligible(
-                m =>
-                {
-                    var attribute = m.Attributes.GetConstructedAttributesOfType<LogAttribute>().Single();
+            .AddAspectIfEligible( m =>
+            {
+                var attribute = m.Attributes.GetConstructedAttributesOfType<LogAttribute>()
+                    .Single();
 
-                    return new LogAspect( attribute );
-                } );
-        
+                return new LogAspect( attribute );
+            } );
+
         declarations
             .OfType<IProperty>()
-            .AddAspectIfEligible(
-                m =>
-                {
-                    var attribute = m.Attributes.GetConstructedAttributesOfType<LogAttribute>().Single();
+            .AddAspectIfEligible( m =>
+            {
+                var attribute = m.Attributes.GetConstructedAttributesOfType<LogAttribute>()
+                    .Single();
 
-                    return new LogAspect( attribute );
-                } );
+                return new LogAspect( attribute );
+            } );
     }
 }

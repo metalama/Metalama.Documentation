@@ -37,7 +37,7 @@ public class Fabric : ProjectFabric
     public override void AmendProject( IProjectAmender amender )
     {
         amender.SelectReflectionType( typeof(VectorHelper) )
-            .ConfigureObservability(
-                builder => builder.ObservabilityContract = ObservabilityContract.Constant );
+            .ConfigureObservability( builder => builder.ObservabilityContract =
+                                         ObservabilityContract.Constant );
     }
 }

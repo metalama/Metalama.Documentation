@@ -18,8 +18,8 @@ public class BuilderAttribute : TypeAspect
 
         // Introduce properties.
         var properties =
-            builder.Target.Properties.Where(
-                p => p.Writeability != Writeability.None && !p.IsStatic );
+            builder.Target.Properties.Where( p => p.Writeability != Writeability.None
+                                                  && !p.IsStatic );
 
         foreach ( var property in properties )
         {

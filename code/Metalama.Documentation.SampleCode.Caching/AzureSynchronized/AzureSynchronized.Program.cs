@@ -30,13 +30,12 @@ internal static class Program
 
         // [<snippet AddMetalamaCaching>]
         // Add the caching service.
-        builder.Services.AddMetalamaCaching( 
-            caching =>
-                caching.WithBackend(
-                    backend =>
-                        backend.Memory()
-                            .WithAzureSynchronization(
-                                connectionString ) ) );
+        builder.Services.AddMetalamaCaching( caching =>
+                                                 caching.WithBackend( backend =>
+                                                     backend.Memory()
+                                                         .WithAzureSynchronization(
+                                                             connectionString ) ) );
+
         // [<endsnippet AddMetalamaCaching>]
 
         // Add other components as usual.
@@ -48,6 +47,7 @@ internal static class Program
 
         // [<snippet Initialize>]
         await app.Services.GetRequiredService<ICachingService>().InitializeAsync();
+
         // [<endsnippet Initialize>]
 
         // Run the application.

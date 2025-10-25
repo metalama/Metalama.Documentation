@@ -23,21 +23,22 @@ internal static class Program
 
         // [<snippet AddRedis>]
         // Add Redis.                                                          
-        builder.Services.AddSingleton<IConnectionMultiplexer>( 
-            _ =>
-            {
-                var redisConnectionOptions = new ConfigurationOptions();
-                redisConnectionOptions.EndPoints.Add( endpoint.Address, endpoint.Port );
+        builder.Services.AddSingleton<IConnectionMultiplexer>( _ =>
+        {
+            var redisConnectionOptions = new ConfigurationOptions();
+            redisConnectionOptions.EndPoints.Add( endpoint.Address, endpoint.Port );
 
-                return ConnectionMultiplexer.Connect( redisConnectionOptions );
-            } ); 
+            return ConnectionMultiplexer.Connect( redisConnectionOptions );
+        } );
+
         // [<endsnippet AddRedis>]
 
         // [<snippet AddMetalamaCaching>]
         // Add the caching service.                         
-        builder.Services.AddMetalamaCaching( 
-            caching => caching.WithBackend(
-                backend => backend.Redis() ) ); 
+        builder.Services.AddMetalamaCaching( caching
+                                                 => caching
+                                                     .WithBackend( backend => backend.Redis() ) );
+
         // [<endsnippet AddMetalamaCaching>]
 
         // Add other components as usual.
@@ -49,7 +50,8 @@ internal static class Program
 
         // [<snippet Initialize>]
         // Initialize caching.
-        await app.Services.GetRequiredService<ICachingService>().InitializeAsync(); 
+        await app.Services.GetRequiredService<ICachingService>().InitializeAsync();
+
         // [<endsnippet Initialize>]
 
         // Run the host.

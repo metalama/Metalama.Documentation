@@ -21,16 +21,15 @@ public class ConsoleAppBuilder
 
     public ConsoleApp Build( IReadOnlyList<string>? arguments = null )
     {
-        this._serviceCollection.AddLogging(
-            logging =>
-            {
-                logging.AddProvider( new TrivialConsoleLoggerProvider() );
+        this._serviceCollection.AddLogging( logging =>
+        {
+            logging.AddProvider( new TrivialConsoleLoggerProvider() );
 
-                foreach ( var action in this._configureLoggingActions )
-                {
-                    action( logging );
-                }
-            } );
+            foreach ( var action in this._configureLoggingActions )
+            {
+                action( logging );
+            }
+        } );
 
         this._serviceCollection.AddSingleton<IConsoleHost>( _ => new ConsoleHost( arguments ) );
 

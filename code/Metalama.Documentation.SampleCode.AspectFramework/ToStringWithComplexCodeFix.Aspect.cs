@@ -56,8 +56,8 @@ public class ToStringAttribute : TypeAspect
 
         foreach ( var field in fields )
         {
-            if ( field.Attributes.Any(
-                    a => a.Type.IsConvertibleTo( typeof(NotToStringAttribute) ) ) )
+            if ( field.Attributes.Any( a => a.Type.IsConvertibleTo(
+                                           typeof(NotToStringAttribute) ) ) )
             {
                 continue;
             }

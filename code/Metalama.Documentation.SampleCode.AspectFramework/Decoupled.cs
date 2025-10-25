@@ -8,7 +8,7 @@ public class C
 
     [Log( Category = "Foo" )]
     public void MarkedMethod() { }
-    
+
     [Log( Category = "Bar" )]
     public string MarkedProperty { get; set; }
 }

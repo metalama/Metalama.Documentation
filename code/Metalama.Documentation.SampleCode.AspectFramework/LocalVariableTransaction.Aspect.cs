@@ -11,14 +11,13 @@ public class TransactedMethodAttribute : OverrideMethodAspect
 {
     public override dynamic? OverrideMethod()
     {
-        var fieldsAndProperties = meta.Target.Type.FieldsAndProperties.Where(
-                f => f is
-                {
-                    IsAutoPropertyOrField: true,
-                    IsStatic: false,
-                    Writeability: Writeability.All,
-                    IsImplicitlyDeclared: false
-                } )
+        var fieldsAndProperties = meta.Target.Type.FieldsAndProperties.Where( f => f is
+            {
+                IsAutoPropertyOrField: true,
+                IsStatic: false,
+                Writeability: Writeability.All,
+                IsImplicitlyDeclared: false
+            } )
             .OrderBy( f => f.Name );
 
         var variables = new List<(IExpression Variable, IFieldOrProperty FieldOrProperty)>();

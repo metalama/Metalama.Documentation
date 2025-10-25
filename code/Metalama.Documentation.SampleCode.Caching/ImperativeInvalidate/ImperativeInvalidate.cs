@@ -18,9 +18,10 @@ public sealed partial class ProductCatalogue
     public int DbOperationCount { get; private set; }
 
     // [<snippet Cache>]
-    [Cache]                                     
-    public decimal GetPrice( string productId ) 
-    // [<endsnippet Cache>]
+    [Cache]
+    public decimal GetPrice( string productId )
+
+        // [<endsnippet Cache>]
     {
         Console.WriteLine( $"Getting the price of {productId} from database." );
         this.DbOperationCount++;

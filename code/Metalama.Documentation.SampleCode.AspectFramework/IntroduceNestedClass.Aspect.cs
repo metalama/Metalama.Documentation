@@ -15,7 +15,7 @@ public class BuilderAttribute : TypeAspect
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
         base.BuildAspect( builder );
-        
+
         // Find the Builder class of the base class, if any.
         var baseBuilderClass =
             builder.Target.BaseType?.Types.OfName( "Builder" ).SingleOrDefault();

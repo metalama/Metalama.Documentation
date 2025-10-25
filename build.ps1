@@ -61,6 +61,7 @@ if (-not $Interactive -or $BuildArgs)
     }
 }
 
-if ( $Interactive ) {
+if ($Interactive)
+{
     Write-Host "Entering interactive PowerShell." -ForegroundColor Green
 }

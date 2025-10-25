@@ -25,9 +25,12 @@ internal class LogAttribute : OverrideMethodAspect
     {
         builder.Outbound
             .Select( m => m.DeclaringType )
-            .Validate( 
-                this.ValidateDeclaringType, 
-                new DeclarationValidationOptions() { Time = DeclarationValidationTime.AfterAllAspects } );
+            .Validate(
+                this.ValidateDeclaringType,
+                new DeclarationValidationOptions()
+                {
+                    Time = DeclarationValidationTime.AfterAllAspects
+                } );
     }
 
     private void ValidateDeclaringType( DeclarationValidationContext context )

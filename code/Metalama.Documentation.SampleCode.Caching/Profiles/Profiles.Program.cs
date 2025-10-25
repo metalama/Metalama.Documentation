@@ -16,15 +16,20 @@ public static class Program
 
         // [<snippet Registration>]
         // Add the caching service.
-        builder.Services.AddMetalamaCaching( 
-            caching => caching
-                .AddProfile(
-                    new CachingProfile { AbsoluteExpiration = TimeSpan.FromMinutes( 60 ) } )
-                .AddProfile(
-                    new CachingProfile( "Hot" )
-                    {
-                        AbsoluteExpiration = TimeSpan.FromMilliseconds( 100 )
-                    } ) ); 
+        builder.Services.AddMetalamaCaching( caching => caching
+                                                 .AddProfile(
+                                                     new CachingProfile
+                                                     {
+                                                         AbsoluteExpiration =
+                                                             TimeSpan.FromMinutes( 60 )
+                                                     } )
+                                                 .AddProfile(
+                                                     new CachingProfile( "Hot" )
+                                                     {
+                                                         AbsoluteExpiration =
+                                                             TimeSpan.FromMilliseconds( 100 )
+                                                     } ) );
+
         // [<endsnippet Registration>]
 
         // Add other components as usual.

@@ -9,7 +9,7 @@ public interface ICustomerService
     // Returns the name of a given customer or null if it cannot be found,
     // but never returns an empty string.
     [return: NotEmpty]
-    public string? GetCustomerName( int id );
+    string? GetCustomerName( int id );
 }
 
 public class CustomerService : ICustomerService

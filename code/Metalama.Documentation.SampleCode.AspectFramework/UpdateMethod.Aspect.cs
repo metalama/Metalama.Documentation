@@ -18,11 +18,10 @@ internal class UpdateMethodAttribute : TypeAspect
             {
                 var fieldsAndProperties =
                     builder.Target.FieldsAndProperties
-                        .Where(
-                            f => f is
-                            {
-                                IsImplicitlyDeclared: false, Writeability: Writeability.All
-                            } );
+                        .Where( f => f is
+                        {
+                            IsImplicitlyDeclared: false, Writeability: Writeability.All
+                        } );
 
                 foreach ( var field in fieldsAndProperties )
                 {

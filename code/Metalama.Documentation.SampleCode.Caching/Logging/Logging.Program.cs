@@ -15,9 +15,9 @@ internal static class Program
 
         // [<snippet AddLogging>]
         // Add logging.
-        builder.ConfigureLogging( 
-            logging =>
-                logging.SetMinimumLevel( LogLevel.Debug ) ); 
+        builder.ConfigureLogging( logging =>
+                                      logging.SetMinimumLevel( LogLevel.Debug ) );
+
         // [<endsnippet AddLogging>]
 
         // Add the caching service.

@@ -41,13 +41,12 @@ public class BuilderAttribute : TypeAspect
         base.BuildAspect( builder );
 
         // Create a list of PropertyMapping items for all properties that we want to build using the Builder.
-        var properties = builder.Target.Properties.Where(
-                p => p.Writeability != Writeability.None &&
-                     !p.IsStatic )
-            .Select(
-                p => new PropertyMapping(
-                    p,
-                    p.Attributes.OfAttributeType( typeof(RequiredAttribute) ).Any() ) )
+        var properties = builder.Target.Properties.Where( p => p.Writeability != Writeability.None
+                                                               &&
+                                                               !p.IsStatic )
+            .Select( p => new PropertyMapping(
+                         p,
+                         p.Attributes.OfAttributeType( typeof(RequiredAttribute) ).Any() ) )
             .ToList();
 
         // Introduce the Builder nested type.

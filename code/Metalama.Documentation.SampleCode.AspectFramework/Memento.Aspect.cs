@@ -25,12 +25,11 @@ public class MementoAttribute : TypeAspect
         var fields = new List<(IFieldOrProperty Source, IField Snapshot)>();
 
         var sourceFields = builder.Target.FieldsAndProperties
-            .Where(
-                f => f is
-                {
-                    IsAutoPropertyOrField: true, IsImplicitlyDeclared: false,
-                    Writeability: Writeability.All
-                } );
+            .Where( f => f is
+            {
+                IsAutoPropertyOrField: true, IsImplicitlyDeclared: false,
+                Writeability: Writeability.All
+            } );
 
         foreach ( var sourceField in sourceFields )
         {
@@ -76,7 +75,7 @@ public class MementoAttribute : TypeAspect
 
         foreach ( var field in tags.Fields )
         {
-            field.Source.Value = field.Snapshot.With( typedSnapshot ).Value;
+            field.Source.Value = field.Snapshot.WithObject( typedSnapshot ).Value;
         }
     }
 

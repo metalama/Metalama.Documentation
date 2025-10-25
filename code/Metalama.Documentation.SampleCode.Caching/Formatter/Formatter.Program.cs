@@ -14,11 +14,11 @@ internal static class Program
 
         // [<snippet Registration>]
         // Add the caching service.
-        builder.Services.AddMetalamaCaching(
-            caching => caching.ConfigureFormatters( 
-                formatters
-                    => formatters.AddFormatter(
-                        r => new FileInfoFormatter( r ) ) ) ); 
+        builder.Services.AddMetalamaCaching( caching => caching.ConfigureFormatters( formatters
+                                                 => formatters
+                                                     .AddFormatter( r => new FileInfoFormatter(
+                                                         r ) ) ) );
+
         // [<endsnippet Registration>]
 
         // Add other components as usual.

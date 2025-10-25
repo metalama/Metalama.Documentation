@@ -15,24 +15,22 @@ public class Fabric : ProjectFabric
 
         declarations
             .OfType<IMethod>()
-            .AddAspectIfEligible(
-                m =>
-                {
-                    var attribute = m.Attributes.OfAttributeType( typeof(LogAttribute) )
-                        .Single();
+            .AddAspectIfEligible( m =>
+            {
+                var attribute = m.Attributes.OfAttributeType( typeof(LogAttribute) )
+                    .Single();
 
-                    return new LogAspect( attribute.ToRef() );
-                } );
-        
+                return new LogAspect( attribute.ToRef() );
+            } );
+
         declarations
             .OfType<IProperty>()
-            .AddAspectIfEligible(
-                p =>
-                {
-                    var attribute = p.Attributes.OfAttributeType( typeof(LogAttribute) )
-                        .Single();
+            .AddAspectIfEligible( p =>
+            {
+                var attribute = p.Attributes.OfAttributeType( typeof(LogAttribute) )
+                    .Single();
 
-                    return new LogAspect( attribute.ToRef() );
-                } );
+                return new LogAspect( attribute.ToRef() );
+            } );
     }
 }

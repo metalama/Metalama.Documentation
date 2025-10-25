@@ -26,21 +26,20 @@ public sealed class Program
         var endpoint = redis.Endpoint;
 
         // Add the garbage collected service, implemented as IHostedService.
-        appBuilder.Services.AddRedisCacheDependencyGarbageCollector(
-            _ =>
+        appBuilder.Services.AddRedisCacheDependencyGarbageCollector( _ =>
+        {
+            // Build the Redis connection options.
+            var redisConnectionOptions = new ConfigurationOptions();
+            redisConnectionOptions.EndPoints.Add( endpoint.Address, endpoint.Port );
+
+            // The KeyPrefix must match _exactly_ the one used by the caching back-end.
+            var keyPrefix = "TheApp.1.0.0";
+
+            return new RedisCachingBackendConfiguration
             {
-                // Build the Redis connection options.
-                var redisConnectionOptions = new ConfigurationOptions();
-                redisConnectionOptions.EndPoints.Add( endpoint.Address, endpoint.Port );
-
-                // The KeyPrefix must match _exactly_ the one used by the caching back-end.
-                var keyPrefix = "TheApp.1.0.0";
-
-                return new RedisCachingBackendConfiguration
-                {
-                    NewConnectionOptions = redisConnectionOptions, KeyPrefix = keyPrefix
-                };
-            } );
+                NewConnectionOptions = redisConnectionOptions, KeyPrefix = keyPrefix
+            };
+        } );
 
         var host = appBuilder.Build();
 

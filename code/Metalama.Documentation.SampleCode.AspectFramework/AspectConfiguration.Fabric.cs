@@ -17,8 +17,8 @@ public class Fabric : ProjectFabric
             new LoggingOptions { Category = "GeneralCategory", Level = TraceLevel.Info } );
 
         amender
-            .Select(
-                x => x.GlobalNamespace.GetDescendant( "Doc.AspectConfiguration.ChildNamespace" )! )
+            .Select( x => x.GlobalNamespace.GetDescendant(
+                         "Doc.AspectConfiguration.ChildNamespace" )! )
             .SetOptions( new LoggingOptions() { Category = "ChildCategory" } );
 
         // Adds the aspect to all members.

@@ -16,7 +16,7 @@ internal class LogAttribute : OverrideMethodAspect
         builder
             .DeclaringType()
             .MustSatisfy(
-                t => t.TypeKind is not (TypeKind.RecordClass or TypeKind.RecordStruct),
+                t => !t.IsRecord,
                 t => $"{t} must not be a record type" );
     }
 

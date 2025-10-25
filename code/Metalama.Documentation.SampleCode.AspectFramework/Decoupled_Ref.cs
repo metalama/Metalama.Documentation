@@ -1,4 +1,6 @@
-﻿namespace Doc.Decoupled_Ref;
+﻿// This is public domain Metalama sample code.
+
+namespace Doc.Decoupled_Ref;
 
 public class C
 {
@@ -6,7 +8,7 @@ public class C
 
     [Log( Category = "Foo" )]
     public void MarkedMethod() { }
-    
+
     [Log( Category = "Bar" )]
     public string MarkedProperty { get; set; }
 }

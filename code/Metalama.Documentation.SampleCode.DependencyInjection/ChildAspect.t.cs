@@ -1,3 +1,4 @@
+using Metalama.Framework.RunTime;
 namespace Doc.ChildAspect;
 [AuditedObject]
 public class Invoice
@@ -24,7 +25,7 @@ public class Invoice
     }
   }
   private IAuditSink _auditSink;
-  public Invoice(IAuditSink? auditSink = null)
+  public Invoice([AspectGenerated] IAuditSink? auditSink = null)
   {
     this._auditSink = auditSink ?? throw new System.ArgumentNullException(nameof(auditSink));
   }

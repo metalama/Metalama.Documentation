@@ -1,5 +1,6 @@
 using System;
 using Metalama.Extensions.DependencyInjection;
+using Metalama.Framework.RunTime;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 namespace Doc.DependencyInjectionAspect;
@@ -33,7 +34,7 @@ public class DependencyInjectionAspect
   }
   private IHostApplicationLifetime? _lifetimeCache;
   private Func<IHostApplicationLifetime> _lifetimeFunc;
-  public DependencyInjectionAspect(ILogger<DependencyInjectionAspect> logger = null, IHostEnvironment? environment = null, Func<IHostApplicationLifetime>? lifetime = null)
+  public DependencyInjectionAspect([AspectGenerated] ILogger<DependencyInjectionAspect> logger = null, [AspectGenerated] IHostEnvironment? environment = null, [AspectGenerated] Func<IHostApplicationLifetime>? lifetime = null)
   {
     this._logger = logger;
     this._environment = environment ?? throw new System.ArgumentNullException(nameof(environment));

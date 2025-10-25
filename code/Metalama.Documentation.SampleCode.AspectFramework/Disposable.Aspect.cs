@@ -25,9 +25,8 @@ internal class DisposableAttribute : TypeAspect
         meta.Proceed();
 
         var disposableFields = meta.Target.Type.FieldsAndProperties
-            .Where(
-                x => x.Type.IsConvertibleTo( typeof(IDisposable) )
-                     && x.IsAutoPropertyOrField == true );
+            .Where( x => x.Type.IsConvertibleTo( typeof(IDisposable) )
+                         && x.IsAutoPropertyOrField == true );
 
         // Disposes the current field or property.
         foreach ( var field in disposableFields )

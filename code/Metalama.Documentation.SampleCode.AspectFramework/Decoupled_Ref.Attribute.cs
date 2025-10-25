@@ -1,4 +1,6 @@
-﻿using System;
+﻿// This is public domain Metalama sample code.
+
+using System;
 
 namespace Doc.Decoupled_Ref;
 
