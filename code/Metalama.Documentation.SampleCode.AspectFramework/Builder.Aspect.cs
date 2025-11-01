@@ -139,7 +139,7 @@ public class BuilderAttribute : TypeAspect
 
         foreach ( var property in tags.Properties )
         {
-            property.BuilderProperty!.Value =
+            property.SourceProperty!.Value =
                 meta.Target.Parameters[property.SourceConstructorParameterIndex!.Value].Value;
         }
     }
