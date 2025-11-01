@@ -34,11 +34,11 @@ The T# template language can also be used inside analyzers of fields or properti
 
 ### Initialization of programmatic advice
 
-If you use the programmatic advice <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceProperty*>, <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceField*>, or <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceEvent*>, you can set the <xref:Metalama.Framework.Code.DeclarationBuilders.IFieldOrPropertyBuilder.InitializerExpression> in the lambda passed to the `build*` parameter of these advice methods.
+If you use the programmatic advice <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceProperty*>, <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceField*>, or <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceEvent*>, you can set the <xref:Metalama.Framework.Code.DeclarationBuilders.IFieldOrPropertyBuilder.InitializerExpression> in the lambda passed to the `build*` parameter of these advice methods.
 
 #### Example: initializing a programmatically introduced field
 
-In the following example, the aspect introduces a field using the <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceField*> programmatic advice and sets its initializer expression to an array that contains the names of all methods in the target type.
+In the following example, the aspect introduces a field using the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceField*> programmatic advice and sets its initializer expression to an array that contains the names of all methods in the target type.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/ProgrammaticInitializer.cs name="Programmatic Initializer"]
 
@@ -47,7 +47,7 @@ In the following example, the aspect introduces a field using the <xref:Metalama
 To inject some initialization before any user code of the instance constructor is called:
 
 1. Add a method of signature `void BeforeInstanceConstructor()` to your aspect class and annotate it with the `[Template]` custom attribute. The name of this method is arbitrary.
-2. Call the <xref:Metalama.Framework.Advising.AdviserExtensions.AddInitializer*?text=builder.Advice.AddInitializer> method in your aspect (or <xref:Metalama.Framework.Advising.AdviserExtensions.AddInitializer*?text=amender.Advice.AddInitializer> in a fabric). Pass the type that must be initialized, then the name of the method from the previous step, and finally the value `InitializerType.BeforeInstanceConstructor`.
+2. Call the <xref:Metalama.Framework.Aspects.AdviserExtensions.AddInitializer*?text=builder.Advice.AddInitializer> method in your aspect (or <xref:Metalama.Framework.Aspects.AdviserExtensions.AddInitializer*?text=amender.Advice.AddInitializer> in a fabric). Pass the type that must be initialized, then the name of the method from the previous step, and finally the value `InitializerType.BeforeInstanceConstructor`.
 
 The `AddInitializer` advice will _not_ affect the constructors that call a chained `this` constructor. That is, the advice always runs before any constructor of the current class. However, the initialization logic runs _after_ the call to the `base` constructor if the advised constructor calls the base constructor.
 
@@ -61,7 +61,7 @@ The following aspect registers any new instance of the target class in a registr
 
 ## Before a specific object constructor
 
-If you wish to insert logic into a specific constructor, call the <xref:Metalama.Framework.Advising.AdviserExtensions.AddInitializer*> method and pass an <xref:Metalama.Framework.Code.IConstructor>. With this method overload, you can advise the constructors chained to another constructor of the same type through the `this` keyword.
+If you wish to insert logic into a specific constructor, call the <xref:Metalama.Framework.Aspects.AdviserExtensions.AddInitializer*> method and pass an <xref:Metalama.Framework.Code.IConstructor>. With this method overload, you can advise the constructors chained to another constructor of the same type through the `this` keyword.
 
 ## Before the type constructor
 

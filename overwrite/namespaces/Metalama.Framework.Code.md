@@ -4,7 +4,7 @@ summary: *content
 created-date: 2023-01-26
 modified-date: 2023-07-11
 ---
-This namespace encompasses the representation of both the source code and the transformed code.
+This namespace represents the structure of the source code.
 
 ## Simplified class diagram
 
@@ -14,23 +14,31 @@ classDiagram
       IMemberOrNamedType <|-- IMember
       IMemberOrNamedType <|-- INamedType
       IMember <|-- IFieldOrProperty
+      IMember <|-- IFieldOrPropertyOrIndexer
+      IFieldOrPropertyOrIndexer <|-- IFieldOrProperty
       IFieldOrProperty <|-- IField
       IFieldOrProperty <|-- IProperty
+      IPropertyOrIndexer <|-- IProperty
+      IFieldOrPropertyOrIndexer <|-- IPropertyOrIndexer
+      IPropertyOrIndexer <|-- IIndexer
       IMember <|-- IMethodBase
+      IMember <|-- IEvent
       IMethodBase <|-- IMethod
       IMethodBase <|-- IConstructor
       IDeclaration <|-- IParameter
-      IDeclaration <|-- IGenericParameter
+      IDeclaration <|-- ITypeParameter
       IDeclaration <|-- IAttribute
       IDeclaration <|-- INamespace
       IDeclaration <|-- ICompilation
+      INamedType <|-- IExtensionBlock
 
 
       IMethodBase o-- IParameter
-      IProperty o-- IParameter
+      IIndexer o-- IParameter
+      IEvent o-- IParameter
       IDeclaration o-- IAttribute
-      IMethod o-- IGenericParameter
-      INamedType o-- IGenericParameter
+      IMethod o-- ITypeParameter
+      INamedType o-- ITypeParameter
       INamedType o-- IMemberOrNamedType
       ICompilation o-- INamespace
       INamespace o-- INamedType

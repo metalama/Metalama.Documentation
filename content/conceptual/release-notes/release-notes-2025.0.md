@@ -75,7 +75,7 @@ For details, see the updated <xref:template-dynamic-code> article.
 
 ### Introduction of static virtual, abstract, and partial members
 
-You can now introduce `static virtual`, `abstract`, and `partial` members thanks to the usual <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceMethod*>, <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceProperty*> and <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceEvent*> methods.
+You can now introduce `static virtual`, `abstract`, and `partial` members thanks to the usual <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceMethod*>, <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceProperty*> and <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceEvent*> methods.
 
 The `partial` keyword can be set using the `IMemberBuilder.IsPartial` property.
 
@@ -83,7 +83,7 @@ When introducing a `partial` or `abstract` member, the template's body is ignore
 
 ### Introduction of interfaces
 
-You can now introduce an interface in the same way as you can introduce classes, by using the <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceInterface*> method.
+You can now introduce an interface in the same way as you can introduce classes, by using the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceInterface*> method.
 
 ### Introduction of extension methods
 

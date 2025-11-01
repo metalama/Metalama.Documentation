@@ -12,7 +12,7 @@ An aspect can add or remove custom attributes to or from any declaration. There 
 
 ## Adding attributes to an existing declaration
 
-To add a custom attribute to a declaration that exists before the aspect is applied, use the <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceAttribute*?text=> method. This method requires an argument of type <xref:Metalama.Framework.Code.IAttributeData>. This interface is implemented by the <xref:Metalama.Framework.Code.IAttribute> interface, allowing you to introduce any custom attribute that you find in the code model via the <xref:Metalama.Framework.Code.IDeclaration.Attributes?text=IDeclaration.Attributes> property. To create a new custom attribute, use the <xref:Metalama.Framework.Code.DeclarationBuilders.AttributeConstruction.Create*?text=AttributeConstruction.Create> method. This method requires the attribute type or constructor along with two optional sets of arguments: _constructor arguments_ are the arguments of the constructor, and _named arguments_ are the values assigned to fields and properties.
+To add a custom attribute to a declaration that exists before the aspect is applied, use the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceAttribute*?text=> method. This method requires an argument of type <xref:Metalama.Framework.Code.IAttributeData>. This interface is implemented by the <xref:Metalama.Framework.Code.IAttribute> interface, allowing you to introduce any custom attribute that you find in the code model via the <xref:Metalama.Framework.Code.IDeclaration.Attributes?text=IDeclaration.Attributes> property. To create a new custom attribute, use the <xref:Metalama.Framework.Code.DeclarationBuilders.AttributeConstruction.Create*?text=AttributeConstruction.Create> method. This method requires the attribute type or constructor along with two optional sets of arguments: _constructor arguments_ are the arguments of the constructor, and _named arguments_ are the values assigned to fields and properties.
 
 ### Example: adding EditorBrowsableAttribute to fields
 
@@ -22,7 +22,7 @@ The following aspect adds <xref:System.ComponentModel.EditorBrowsableAttribute> 
 
 ## Removing attributes from an existing declaration
 
-To remove all custom attributes of a given type from a declaration, use the <xref:Metalama.Framework.Advising.AdviserExtensions.RemoveAttributes*?text=> method.
+To remove all custom attributes of a given type from a declaration, use the <xref:Metalama.Framework.Aspects.AdviserExtensions.RemoveAttributes*?text=> method.
 
 Note that you cannot edit a custom attribute; instead, you must remove previous instances and add new ones.
 
@@ -38,7 +38,7 @@ The next example demonstrates an aspect that introduces a field hidden from the 
 
 ## Adding attributes to an introduced declaration, programmatically
 
-The second, more advanced method to introduce declarations into a type is to call one of the `Introduce*` methods of the <xref:Metalama.Framework.Advising.AdviserExtensions> class. This technique is described in <xref:introducing-members>. These methods accept an optional delegate that can configure the declaration being introduced. This delegate receives an <xref:Metalama.Framework.Code.DeclarationBuilders.IDeclarationBuilder>, and you can use the <xref:Metalama.Framework.Code.DeclarationBuilders.IDeclarationBuilder.AddAttribute*> and <xref:Metalama.Framework.Code.DeclarationBuilders.IDeclarationBuilder.RemoveAttributes*> methods as described above.
+The second, more advanced method to introduce declarations into a type is to call one of the `Introduce*` methods of the <xref:Metalama.Framework.Aspects.AdviserExtensions> class. This technique is described in <xref:introducing-members>. These methods accept an optional delegate that can configure the declaration being introduced. This delegate receives an <xref:Metalama.Framework.Code.DeclarationBuilders.IDeclarationBuilder>, and you can use the <xref:Metalama.Framework.Code.DeclarationBuilders.IDeclarationBuilder.AddAttribute*> and <xref:Metalama.Framework.Code.DeclarationBuilders.IDeclarationBuilder.RemoveAttributes*> methods as described above.
 
 ### Example: programmatically introducing a field with EditorBrowsableAttribute
 

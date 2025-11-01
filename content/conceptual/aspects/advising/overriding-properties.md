@@ -38,9 +38,9 @@ This example builds on the previous one, but the dependency is stored in the fie
 
 ## Overriding several fields or properties from the same aspect
 
-Similar to methods, to override one or more fields or properties from a single aspect, your aspect needs to implement the <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method exposed on `builder.Advice`. Your implementation must then call the <xref:Metalama.Framework.Advising.AdviserExtensions.Override*?text=builder.Advice.Override> method.
+Similar to methods, to override one or more fields or properties from a single aspect, your aspect needs to implement the <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method exposed on `builder.Advice`. Your implementation must then call the <xref:Metalama.Framework.Aspects.AdviserExtensions.Override*?text=builder.Advice.Override> method.
 
-Alternatively, you can call the <xref:Metalama.Framework.Advising.AdviserExtensions.OverrideAccessors*?text=builder.Advice.OverrideAccessors> method, which accepts one or two _accessor_ templates, i.e., one template _method_ for the getter and/or one other method for the setter.
+Alternatively, you can call the <xref:Metalama.Framework.Aspects.AdviserExtensions.OverrideAccessors*?text=builder.Advice.OverrideAccessors> method, which accepts one or two _accessor_ templates, i.e., one template _method_ for the getter and/or one other method for the setter.
 
 ### Using a property template
 
@@ -73,7 +73,7 @@ Advising fields or properties with the `Override` method has the following limit
 * You cannot choose a template for each accessor separately.
 * You cannot have generic templates.
 
-To alleviate these limitations, you can use the method <xref:Metalama.Framework.Advising.AdviserExtensions.OverrideAccessors*> and provide one or two method templates: a getter template and/or a setter template.
+To alleviate these limitations, you can use the method <xref:Metalama.Framework.Aspects.AdviserExtensions.OverrideAccessors*> and provide one or two method templates: a getter template and/or a setter template.
 
 The templates must fulfill the following conditions:
 

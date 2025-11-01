@@ -60,11 +60,11 @@ Implement the template in your aspect class and annotate it with the <xref:Metal
 
 In your implementation of the <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method, call one of the following methods and store the return value in a variable:
 
-- <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceMethod*> returning an <xref:Metalama.Framework.Code.DeclarationBuilders.IMethodBuilder>
-- <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceProperty*> returning an <xref:Metalama.Framework.Code.DeclarationBuilders.IPropertyBuilder>
-- <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceEvent*> returning an <xref:Metalama.Framework.Code.DeclarationBuilders.IEventBuilder>
-- <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceField*> returning an <xref:Metalama.Framework.Code.DeclarationBuilders.IFieldBuilder>
-- <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceConstructor*> returning an <xref:Metalama.Framework.Code.DeclarationBuilders.IConstructorBuilder>
+- <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceMethod*> returning an <xref:Metalama.Framework.Code.DeclarationBuilders.IMethodBuilder>
+- <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceProperty*> returning an <xref:Metalama.Framework.Code.DeclarationBuilders.IPropertyBuilder>
+- <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceEvent*> returning an <xref:Metalama.Framework.Code.DeclarationBuilders.IEventBuilder>
+- <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceField*> returning an <xref:Metalama.Framework.Code.DeclarationBuilders.IFieldBuilder>
+- <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceConstructor*> returning an <xref:Metalama.Framework.Code.DeclarationBuilders.IConstructorBuilder>
 
 A call to one of these methods creates a member by default that has the same characteristics as the template (name, signature, etc.), taking into account the properties of the <xref:Metalama.Framework.Aspects.TemplateAttribute?text=[Template]> custom attribute.
 

@@ -68,7 +68,7 @@ Objects assigned to <xref:Metalama.Framework.Aspects.IAspectBuilder.AspectState>
 
 A last way to share state with successor aspects is to use annotations. Annotations are arbitrary objects attached to declarations. They are visible from every aspect. However, unlike aspect state, annotations are not serialized and are only visible within the current project.
 
-You can add annotations from the `BuildAspect` method using the <xref:Metalama.Framework.Advising.AdviserExtensions.AddAnnotation*> advice method.
+You can add annotations from the `BuildAspect` method using the <xref:Metalama.Framework.Aspects.AdviserExtensions.AddAnnotation*> advice method.
 
 You can read annotations using `declaration.Enhancements().GetAnnotations<T>` where `T` is the type of your annotation (see <xref:Metalama.Framework.Code.DeclarationEnhancements`1.GetAnnotations*>).
 

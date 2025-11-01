@@ -8,14 +8,14 @@ modified-date: 2024-11-06
 
 # Introducing types
 
-Many patterns require you to create new types. This is the case, for instance, with the Memento, Enum View-Model, or Builder patterns. You can do this by calling the <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceClass*> or <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceInterface*> advice method from your `BuildAspect` implementation.
+Many patterns require you to create new types. This is the case, for instance, with the Memento, Enum View-Model, or Builder patterns. You can do this by calling the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceClass*> or <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceInterface*> advice method from your `BuildAspect` implementation.
 
 > [!NOTE]
 > The current version of Metalama allows you to introduce classes and interfaces. Support for structs, delegates, and enums will be added in a future release.
 
 ## Introducing a nested class
 
-To introduce a nested class, call the <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceClass*> or <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceInterface*> method from an `IAdviser<INamedType>`. For instance, if you have a <xref:Metalama.Framework.Aspects.TypeAspect>, just call `aspectBuilder.IntroduceClass( "Foo" )`.
+To introduce a nested class, call the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceClass*> or <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceInterface*> method from an `IAdviser<INamedType>`. For instance, if you have a <xref:Metalama.Framework.Aspects.TypeAspect>, just call `aspectBuilder.IntroduceClass( "Foo" )`.
 
 ### Example: nested class
 
@@ -25,14 +25,14 @@ In the following example, the aspect introduces a nested class named `Factory`.
 
 ## Introducing a top-level class
 
-To introduce a non-nested class, you must first get hold of an `IAdviser<INamespace>`. Here are a few strategies to get a namespace adviser from any <xref:Metalama.Framework.Advising.IAdviser`1> or <xref:Metalama.Framework.Aspects.IAspectBuilder`1>:
+To introduce a non-nested class, you must first get hold of an `IAdviser<INamespace>`. Here are a few strategies to get a namespace adviser from any <xref:Metalama.Framework.Aspects.IAdviser`1> or <xref:Metalama.Framework.Aspects.IAspectBuilder`1>:
 
 * If you have an `IAdviser<ICompilation>` or `IAspectBuilder<ICompilation>` and want to add a type to `My.Namespace`, call the `WithNamespace("My.Namespace")` extension method.
 * If you don't have an `IAdviser<ICompilation>`, call `aspectBuilder.With(aspectBuilder.Target.Compilation)`, then call `WithNamespace`.
 * To get an adviser for the _current_ namespace, call `aspectBuilder.With(aspectBuilder.Target.GetNamespace())`.
 * To get an adviser for a _child_ of the current namespace, call `aspectBuilder.With(aspectBuilder.Target.GetNamespace()).WithChildNamespace("ChildNs")`.
 
-Once you have an `IAdviser<INamespace>`, call the <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceClass*> advice method.
+Once you have an `IAdviser<INamespace>`, call the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceClass*> advice method.
 
 ### Example: top-level class
 
@@ -42,7 +42,7 @@ In the following example, the aspect introduces a class in the `Builders` child 
 
 ## Adding class modifiers, attributes, base class, and type parameters
 
-By default, the <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceClass*> method introduces a non-generic class with no modifiers or custom attributes, derived from `object`. To add modifiers, custom attributes, a base type, or type parameters, you must supply a delegate of type `Action<INamedTypeBuilder>` to the `buildType` parameter of the <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceClass*> method. This delegate receives an <xref:Metalama.Framework.Code.DeclarationBuilders.INamedTypeBuilder>, which exposes the required APIs.
+By default, the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceClass*> method introduces a non-generic class with no modifiers or custom attributes, derived from `object`. To add modifiers, custom attributes, a base type, or type parameters, you must supply a delegate of type `Action<INamedTypeBuilder>` to the `buildType` parameter of the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceClass*> method. This delegate receives an <xref:Metalama.Framework.Code.DeclarationBuilders.INamedTypeBuilder>, which exposes the required APIs.
 
 ### Example: setting up the type
 
@@ -56,7 +56,7 @@ Once you introduce the type, the next step is to introduce members: constructors
 
 Introduced types work exactly like source-defined ones.
 
-When you call <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceClass*>, it returns an <xref:Metalama.Framework.Advising.IIntroductionAdviceResult`1>. This interface derives from `IAdviser<INamedType>`, which has familiar extension methods like <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceMethod*>, <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceField*>, <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceProperty*> and so on.
+When you call <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceClass*>, it returns an <xref:Metalama.Framework.Advising.IIntroductionAdviceResult`1>. This interface derives from `IAdviser<INamedType>`, which has familiar extension methods like <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceMethod*>, <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceField*>, <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceProperty*> and so on.
 
 > [!NOTE]
 > All programmatic techniques described in <xref:introducing-members> also work with introduced types through the `IAdviser<INamedType>` interface.
@@ -69,7 +69,7 @@ The following aspect copies the properties of the source object into the introdu
 
 ## Adding implemented interfaces
 
-To add interface implementations to an introduced type, use the <xref:Metalama.Framework.Advising.AdviserExtensions.ImplementInterface*> method as mentioned in <xref:implementing-interfaces>.
+To add interface implementations to an introduced type, use the <xref:Metalama.Framework.Aspects.AdviserExtensions.ImplementInterface*> method as mentioned in <xref:implementing-interfaces>.
 
 ### Final example: the Builder pattern
 

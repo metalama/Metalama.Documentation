@@ -47,7 +47,7 @@ We previously encountered this aspect in <xref:simple-contracts>. This example r
 
 ## Adding contract advice programmatically
 
-Like any advice, you can add a contract to a parameter, field, or property from your aspect's `BuildAspect` method using the <xref:Metalama.Framework.Advising.AdviserExtensions.AddContract*> method.
+Like any advice, you can add a contract to a parameter, field, or property from your aspect's `BuildAspect` method using the <xref:Metalama.Framework.Aspects.AdviserExtensions.AddContract*> method.
 
 > [!NOTE]
 > When possible, provide all contracts to the same method from a single aspect. This approach yields better compile-time performance than using several aspects.
@@ -56,7 +56,7 @@ Like any advice, you can add a contract to a parameter, field, or property from 
 
 The following snippet demonstrates how to automatically add precondition checks for all situations in the public API where a non-nullable parameter could receive a null value from a consumer.
 
-The [fabric](xref:fabrics) adds a method-level aspect to all exposed methods. Then, the aspect adds individual contracts using the <xref:Metalama.Framework.Advising.AdviserExtensions.AddContract*> method.
+The [fabric](xref:fabrics) adds a method-level aspect to all exposed methods. Then, the aspect adds individual contracts using the <xref:Metalama.Framework.Aspects.AdviserExtensions.AddContract*> method.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/NotNullFabric.cs name="NotNull Fabric"]
 

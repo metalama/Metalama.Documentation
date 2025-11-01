@@ -62,7 +62,7 @@ We are releasing a preview of our <xref:Metalama.Patterns.Observability.Observab
 * Added a new member <xref:Metalama.Framework.Code.ICompilation.Cache?text=ICompilation.Cache> to cache often-used declarations across aspect instances.
 * Dependency Injection aspect: <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute.IsRequired> default value follows the nullability of the target field.
 * Added an environment variable `METALAMA_TEMP` to customize the location of the Metalama temp directory.
-* Annotations: a facility to add and query custom annotations. See <xref:Metalama.Framework.Code.IAnnotation>, <xref:Metalama.Framework.Advising.AdviserExtensions.AddAnnotation*?text=AdviserExtensions.AddAnnotation> and <xref:Metalama.Framework.Code.DeclarationEnhancements`1.GetAnnotations*?text=declaration.Enhancements().GetAnnotations()`.
+* Annotations: a facility to add and query custom annotations. See <xref:Metalama.Framework.Code.IAnnotation>, <xref:Metalama.Framework.Aspects.AdviserExtensions.AddAnnotation*?text=AdviserExtensions.AddAnnotation> and <xref:Metalama.Framework.Code.DeclarationEnhancements`1.GetAnnotations*?text=declaration.Enhancements().GetAnnotations()`.
 * <xref:Metalama.Framework.Code.GenericExtensions.GetBase*?text=IMemberOrNamedType.GetBase> extension method: gets the base type or overridden member.
 * <xref:Metalama.Framework.Code.AttributeExtensions.TryConstruct*?text=IAttribute.TryConstruct> extension method: creates a CLR instance of a compile-time custom attribute.
 * <xref:Metalama.Framework.Code.ICompilation.GetAllAttributesOfType*?text=ICompilation.GetAllAttributesOfType>: gets all attributes of a given type in a project.
