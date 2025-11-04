@@ -1,25 +1,29 @@
 <map>
     <!-- This file maps API topics under the proper parent. Any node in this file must exist in the TOC. -->
-    <node path="api/aspect-api" default="true"/>   
+    <node path="api/aspect-api" default="true"/>
+    <node path="api/code-api">
+        <rule matchId="^Metalama.Framework.Code" />
+    </node>
     <node path="api/extensions-api">
         <rule matchId="^Metalama.Extensions" />
     </node>
     <node path="api/patterns-api">
         <rule matchId="^Metalama.Patterns" />
-    
     </node>
     <node path="api/flashtrace-api">
         <rule matchId="^Flashtrace" />
     </node>
     <node path="api/advanced-api">
         <rule matchId="^Metalama.Framework.Engine" />
-        <rule matchId="^Metalama.Testing" />
         <rule matchId="^Metalama.Compiler" />
     </node>
     <node path="api/introspection-api">
         <rule matchId="^Metalama.Framework.Introspection" />
         <rule matchId="^Metalama.Framework.Workspaces" />
         <rule matchId="^Metalama.LinqPad" />
+    </node>
+    <node path="api/testing-api">
+        <rule matchId="^Metalama.Testing" />
     </node>
     <node path="api/migration-api">
         <rule matchId="^PostSharp" />

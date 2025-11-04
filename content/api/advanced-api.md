@@ -5,7 +5,7 @@ created-date: 2023-01-26
 modified-date: 2023-12-11
 ---
 
-# Advanced API documentation
+# Advanced Extensibility API (SDK) documentation
 
 This page outlines the namespaces and assemblies that enable you to augment Metalama features using the Roslyn API.
 
@@ -16,7 +16,6 @@ This page outlines the namespaces and assemblies that enable you to augment Meta
 | <xref:Metalama.Framework.Engine.CodeModel>            | This namespace correlates the Metalama code model with the Roslyn API. |
 | <xref:Metalama.Framework.Engine.Collections>          | This namespace contains collection interfaces. |
 | <xref:Metalama.Framework.Engine.Formatting>           | This namespace contains the annotations utilized by the Metalama formatting feature. |
-| <xref:Metalama.Testing.AspectTesting>                 | This namespace contains the Metalama testing framework. Typically, this namespace is not used directly; instead, the high-level features delineated in <xref:aspect-testing> are used. |
 
 
 

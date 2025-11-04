@@ -4,8 +4,6 @@ items:
 
 - name: Getting started
   topicUid: main-getting-started
-#- name: Video tutorials
-#  href: videos/toc.yml
 - name: Conceptual documentation
   href: conceptual/toc.yml
 - name: Commented examples
@@ -13,6 +11,8 @@ items:
 - name: API documentation          
   topicUid: api
   items:
+    - name: Code Model API
+      topicUid: code-api
     - name: Aspect API
       topicUid: aspect-api
     - name: Extensions API
@@ -23,7 +23,9 @@ items:
       topicUid: flashtrace-api      
     - name: Introspection API
       topicUid: introspection-api      
-    - name: Advanced API
+    - name: Testing API
+      topicUid: testing-api            
+    - name: Advanced Extensibility API (SDK)
       topicUid: advanced-api      
     - name: PostSharp API migration
       topicUid: migration-api      
