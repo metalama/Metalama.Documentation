@@ -19,8 +19,8 @@ Metalama integrates with Roslyn, so it is theoretically compatible with any Rosl
 
 | IDE                                                | Earliest supported version | Design-Time Correctness | Code Fixes | Additional UI Features                               |
 | -------------------------------------------------- | -------------------------- | ----------------------- | ---------- | ---------------------------------------------------- |
-| Visual Studio 2022 _with_ Visual Studio tooling    | 17.6                       | Yes                     | Yes        | Transformed code diff, info bar, syntax highlighting |
-| Visual Studio 2022 _without_ Visual Studio tooling | 17.6                       | Yes                     | Yes        |                                                      |
+| Visual Studio 2022 _with_ Visual Studio tooling    | 17.12                      | Yes                     | Yes        | Transformed code diff, info bar, syntax highlighting |
+| Visual Studio 2022 _without_ Visual Studio tooling | 17.12                      | Yes                     | Yes        |                                                      |
 | Rider                                              |                            | Yes                     | Yes        |                                                      |
 | Visual Studio Code (C# Dev Kit)                    |                            | Yes                     | Yes        |                                                      |
 
@@ -36,17 +36,17 @@ Your projects can target any framework that supports .NET Standard 2.0, includin
 | Framework                  | Versions            | Testing status |
 | -------------------------- | ------------------- | -------------- |
 | .NET Core                  | 2.0 or later        | Untested       |
-| .NET                       | 5.0                 | Untested       |
-| .NET                       | 6.0 to 9.0          | Tested         |
+| .NET                       | 5.0, 6.0, 7.0       | Untested       |
+| .NET                       | 8.0, 9.0, 10.0      | Tested         |
 | .NET Framework             | 4.7.2 to 4.8.0      | Tested         |
+| MAUI                       |                     | Tested         |
+| MAUI Blazor                |                     | Tested         |
+| Blazor WebAssembly         |                     | Tested         |
 | Mono                       | 5.4 or later        | Untested       |
 | Xamarin.iOS                | 10.14 or later      | Untested       |
 | Xamarin.Mac                | 3.8 or later        | Untested       |
 | Xamarin.Android            | 8.0 or later        | Untested       |
 | Universal Windows Platform | 10.0.16299 or later | Untested       |
-| MAUI                       |                     | Tested         |
-| MAUI Blazor                |                     | Tested         |
-| Blazor WebAssembly         |                     | Tested         |
 
 _Untested_ means that the platform _should_ work because of .NET Standard compatibility, but we are not testing the platform as a part of our continuous integration builds.
 

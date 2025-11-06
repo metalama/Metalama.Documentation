@@ -3,8 +3,8 @@ using Metalama.Framework.RunTime.Events;
 namespace Doc.SafeEvent_;
 public class Camera
 {
-  private static readonly DelegateEventAdapter<EventHandler?, (object? , EventArgs), Camera> FocusChangedBrokerCallbacks_0 = new(static (handler, ref args, me) => me.FocusChanged_Invoke_SafeEvent(handler, ref args), static b => (sender, e) => b.Invoke((sender, e)), static (handler, me) => me.FocusChanged_SafeEvent += handler, static (handler, me) => me.FocusChanged_SafeEvent -= handler);
-  private static readonly DelegateEventAdapter<EventHandler?, (object? , EventArgs), Camera> LightingChangedBrokerCallbacks_0 = new(static (handler, ref args, me) => me.LightingChanged_Invoke_SafeEvent(handler, ref args), static b => (sender, e) => b.Invoke((sender, e)), static (handler, me) => me.LightingChanged_SafeEvent += handler, static (handler, me) => me.LightingChanged_SafeEvent -= handler);
+  private static readonly DelegateEventAdapter<EventHandler?, (object? , EventArgs), Camera> FocusChangedAdapter_0 = new(static (handler, ref args, me) => me.FocusChanged_Invoke_SafeEvent(handler, ref args), static b => (sender, e) => b.Invoke((sender, e)), static (handler, me) => me.FocusChanged_SafeEvent += handler, static (handler, me) => me.FocusChanged_SafeEvent -= handler);
+  private static readonly DelegateEventAdapter<EventHandler?, (object? , EventArgs), Camera> LightingChangedAdapter_0 = new(static (handler, ref args, me) => me.LightingChanged_Invoke_SafeEvent(handler, ref args), static b => (sender, e) => b.Invoke((sender, e)), static (handler, me) => me.LightingChanged_SafeEvent += handler, static (handler, me) => me.LightingChanged_SafeEvent -= handler);
   private EventHandler? _lightingChanged;
   private event EventHandler? _focusChanged;
   private volatile EventBroker<EventHandler?, (object? , EventArgs), Camera>? _focusChangedBroker;
@@ -14,7 +14,7 @@ public class Camera
   {
     add
     {
-      EventBroker.EnsureInitialized(ref this._focusChangedBroker, FocusChangedBrokerCallbacks_0, this);
+      EventBroker.EnsureInitialized(ref this._focusChangedBroker, FocusChangedAdapter_0, this);
       this._focusChangedBroker.AddHandler(value);
     }
     remove
@@ -58,7 +58,7 @@ public class Camera
   {
     add
     {
-      EventBroker.EnsureInitialized(ref this._lightingChangedBroker, LightingChangedBrokerCallbacks_0, this);
+      EventBroker.EnsureInitialized(ref this._lightingChangedBroker, LightingChangedAdapter_0, this);
       this._lightingChangedBroker.AddHandler(value);
     }
     remove
