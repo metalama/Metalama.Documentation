@@ -8,7 +8,7 @@ modified-date: 2025-11-01
 
 # Metalama 2026.0
 
-Metalama 2026.0 is a major release focused primarily on supporting C# 14, the most significant evolution of the C# language in many years. This version introduces comprehensive support for extension members, partial constructors and events, user-defined compound assignment operators, and other new C# 14 features.
+Metalama 2026.0 is a major release, primarily focused on supporting C# 14, the most significant evolution of the C# language in many years. This version introduces comprehensive support for extension members, partial constructors, and events, as well as user-defined compound assignment operators and other new C# 14 features.
 
 Additionally, this release enhances the code model with first-class support for named tuples, introduces the ability to override event handler invocations, and includes various API improvements and breaking changes.
 
@@ -85,15 +85,13 @@ Extension blocks are modeled using the <xref:Metalama.Framework.Code.IExtensionB
 - For extension members (excluding classic extension methods), <xref:Metalama.Framework.Code.IMember.DeclaringType?text=IMember.DeclaringType> references the <xref:Metalama.Framework.Code.IExtensionBlock>.
 
 > [!WARNING]
-> Althought <xref:Metalama.Framework.Code.IExtensionBlock> implements <xref:Metalama.Framework.Code.INamedType>, an extension block _cannot_ be used as an <xref:Metalama.Framework.Code.IType>.
-
-### Organization in the type hierarchy
+> Althought <xref:Metalama.Framework.Code.IExtensionBlock> implements <xref:Metalama.Framework.Code.INamedType>, an extension block _cannot_ be used as an <xref:Metalama.Framework.Code.IType>. This behavior breaks the Liskov substitution principle, but it is much simpler than changing the type of <xref:Metalama>.Framework.Code.IMember.DeclaringType?text=IMember.DeclaringType> property.
 
 Extension blocks are accessible through <xref:Metalama.Framework.Code.INamedType.ExtensionBlocks?text=INamedType.ExtensionBlocks>, _not_ as nested types in <xref:Metalama.Framework.Code.INamespaceOrNamedType.Types?text=INamedType.Types>.
 
-Extension methods and property accessors appear in <xref:Metalama.Framework.Code.INamedType.Methods?text=INamedType.Methods> as implicitly-implemented methods. These methods exist in IL and are addressable in C#, but cannot be overridden with Metalama.
+Extension methods and property accessors are available in <xref:Metalama>.Framework.Code.INamedType.Methods?text=INamedType.Methods> as implicitly-implemented methods. These methods exist in IL and are addressable in C#, but cannot be overridden with Metalama.
 
-This implementation aligns closely with Roslyn's model and provides a natural experience for C# developers.
+This implementation aligns closely with Roslyn's model, providing a natural experience for C# developers.
 
 ## First-class support for tuple types
 
@@ -123,6 +121,8 @@ Metalama 2026.0 introduces the capability to override event handler invocations.
 
 - <xref:Metalama.Framework.Code.IType.TypeKind?text=INamedType.TypeKind> now returns `Tuple` instead of `NamedType` for tuples.
 - <xref:Metalama.Framework.Aspects.IAspectBuilder.Advice?text=IAspectBuilder.Advice> is now obsolete. Use <xref:Metalama.Framework.Aspects.IAdviser> instead.
-- The <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.With*> method has been split into <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.WithObject*> and <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.WithOptions*> with additional overloads. This applies to all kinds of members.
+- The <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.With*> method has been split into <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.WithObject*> and <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.WithOptions*> with additional overloads. This change applies to all kinds of members.
 - <xref:Metalama.Framework.Aspects.IAdviser> and <xref:Metalama.Framework.Aspects.AdviserExtensions> have been moved to the `Metalama.Framework.Aspects` namespace
 - `TypeKind.RecordClass` and `TypeKind.RecordStruct` have been removed and replaced by <xref:Metalama.Framework.Code.INamedType.IsRecord?text=INamedType.IsRecord>
+
+  
