@@ -3,7 +3,7 @@ uid: release-notes-2026.0
 summary: ""
 keywords: "Metalama 2026.0, release notes"
 created-date: 2025-11-01
-modified-date: 2025-11-01
+modified-date: 2025-11-07
 ---
 
 # Metalama 2026.0
@@ -122,7 +122,12 @@ For comprehensive documentation, see <xref:overriding-events>.
 
 * **Compile-time assembly downloader.** The component that downloads compile-time assembly now properly respects the project's `nuget.config` file for package resolution.
 
-## Breaking Changes
+## Documentation updates
+
+* New article: <xref:type-system>.
+* Improved the chapter: <xref:templates>.
+
+## Breaking changes
 
 - <xref:Metalama.Framework.Code.IType.TypeKind?text=INamedType.TypeKind> now returns `Tuple` instead of `NamedType` for tuples.
 - <xref:Metalama.Framework.Aspects.IAspectBuilder.Advice?text=IAspectBuilder.Advice> is now obsolete. Use <xref:Metalama.Framework.Aspects.IAdviser> instead.

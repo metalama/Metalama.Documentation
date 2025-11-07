@@ -4,7 +4,7 @@ level: 200
 summary: "Learn how to dynamically generate run-time statements in templates using StatementBuilder, parse string-based statements, define local variables programmatically, and build switch statements."
 keywords: "statements, StatementBuilder, meta.InsertStatement, meta.DefineLocalVariable, SwitchStatementBuilder, dynamic code generation, parsing statements"
 created-date: 2023-02-21
-modified-date: 2024-11-06
+modified-date: 2025-11-07
 ---
 
 # Generating run-time statements

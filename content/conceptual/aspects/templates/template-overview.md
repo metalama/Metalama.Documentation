@@ -4,7 +4,7 @@ level: 200
 summary: "This document provides an overview of T#, a template language used by Metalama, which is fully compatible with C#. It details how T# integrates compile-time and run-time expressions and statements, and outlines the different scopes of code: run-time, compile-time, and Run-time-or-compile-time. The document also compares T# to Razor and explains the compilation process."
 keywords: "T#, Metalama, template language, compile-time expressions, run-time expressions, compile-time code, run-time code, Run-time-or-compile-time code, compilation process"
 created-date: 2023-02-17
-modified-date: 2024-08-04
+modified-date: 2025-11-07
 ---
 
 # T# templates: overview

@@ -4,7 +4,7 @@ level: 200
 summary: "The document provides a guide on writing T# templates in Metalama, covering topics like template language introduction, compile-time code, dynamic code generation, and debugging."
 keywords: "T# templates, Metalama, compile-time code, dynamic code generation, debugging, template language, run-time code, System.Reflection, parameters, auxiliary templates"
 created-date: 2023-02-20
-modified-date: 2024-08-04
+modified-date: 2025-11-07
 ---
 
 # Writing T# templates

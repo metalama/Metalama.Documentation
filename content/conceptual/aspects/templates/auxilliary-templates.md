@@ -4,7 +4,7 @@ level: 300
 summary: "The document provides a detailed guide on using auxiliary templates in Metalama, including their creation, invocation, and usage in different scenarios like code reuse, abstraction, return statements, dynamic invocation of generic templates, and delegate-like invocation."
 keywords: "Auxiliary templates, abstraction, Metalama, template invocation, generic templates, delegate-like invocation, statement factory"
 created-date: 2023-12-11
-modified-date: 2024-08-04
+modified-date: 2025-11-07
 ---
 
 # Calling auxiliary templates

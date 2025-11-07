@@ -4,7 +4,7 @@ level: 200
 summary: "This document provides detailed information on generating run-time code in templates, using dynamic expressions and variables, invoking members, parsing C# expressions and statements, converting run-time expressions to compile-time, and converting compile-time values to run-time values."
 keywords: "dynamic expressions, generating run-time code, compile-time values, run-time values, dynamic variables, IExpression.Value, ExpressionBuilder, dynamic member, parsing C# expressions"
 created-date: 2023-02-21
-modified-date: 2024-11-06
+modified-date: 2025-11-07
 ---
 
 # Generating run-time expressions
