@@ -85,11 +85,11 @@ Extension blocks are modeled using the <xref:Metalama.Framework.Code.IExtensionB
 - For extension members (excluding classic extension methods), <xref:Metalama.Framework.Code.IMember.DeclaringType?text=IMember.DeclaringType> references the <xref:Metalama.Framework.Code.IExtensionBlock>.
 
 > [!WARNING]
-> Althought <xref:Metalama.Framework.Code.IExtensionBlock> implements <xref:Metalama.Framework.Code.INamedType>, an extension block _cannot_ be used as an <xref:Metalama.Framework.Code.IType>. This behavior breaks the Liskov substitution principle, but it is much simpler than changing the type of <xref:Metalama>.Framework.Code.IMember.DeclaringType?text=IMember.DeclaringType> property.
+> Althought <xref:Metalama.Framework.Code.IExtensionBlock> implements <xref:Metalama.Framework.Code.INamedType>, an extension block _cannot_ be used as an <xref:Metalama.Framework.Code.IType>. This behavior breaks the Liskov substitution principle, but it is much simpler than changing the type of <xref:Metalama.Framework.Code.IMember.DeclaringType?text=IMember.DeclaringType> property.
 
 Extension blocks are accessible through <xref:Metalama.Framework.Code.INamedType.ExtensionBlocks?text=INamedType.ExtensionBlocks>, _not_ as nested types in <xref:Metalama.Framework.Code.INamespaceOrNamedType.Types?text=INamedType.Types>.
 
-Extension methods and property accessors are available in <xref:Metalama>.Framework.Code.INamedType.Methods?text=INamedType.Methods> as implicitly-implemented methods. These methods exist in IL and are addressable in C#, but cannot be overridden with Metalama.
+Extension methods and property accessors are available in <xref:Metalama.Framework.Code.INamedType.Methods?text=INamedType.Methods> as implicitly-implemented methods. These methods exist in IL and are addressable in C#, but cannot be overridden with Metalama.
 
 This implementation aligns closely with Roslyn's model, providing a natural experience for C# developers.
 
@@ -97,17 +97,22 @@ This implementation aligns closely with Roslyn's model, providing a natural expe
 
 Metalama 2026.0 introduces first-class support for named tuples through the new <xref:Metalama.Framework.Code.ITupleType> interface. Previously, tuples were treated as plain <xref:Metalama.Framework.Code.INamedType> objects without access to element types or names, making scenarios such as argument packing for interceptors cumbersome and inefficient.
 
-The new implementation provides direct access to element names and types through <xref:Metalama.Framework.Code.TypeFactory.CreateTupleType*?text=TypeFactory.CreateTupleType> for creation, <xref:Metalama.Framework.Code.ITupleType.CreateCreateInstanceExpression*?text=ITupleType.CreateCreateInstanceExpression> for instantiation, <xref:Metalama.Framework.Code.ITupleType.CreateCreateInstanceExpression*?text=ITupleType.CreateGetItemExpression> for item access.
+The new implementation provides direct access to element names and types through <xref:Metalama.Framework.Code.TypeFactory.CreateTupleType*?text=TypeFactory.CreateTupleType> for creation, and <xref:Metalama.Framework.Code.ITupleType.CreateCreateInstanceExpression*?text=ITupleType.CreateCreateInstanceExpression> for instantiation.
 
 The implementation supports tuples with any number of elements:
 
 - For tuples with two or more elements: native tuple syntax
 - For degenerate cases (zero or one element): automatic fallback to `ValueTuple.Create(...)`
 
+For details, see <xref:type-system>.
 
 ## Event handler invocation overriding
 
-Metalama 2026.0 introduces the capability to override event handler invocations. This extends the existing functionality that allowed overriding only the add and remove operations of events. For comprehensive documentation, see <xref:overriding-events>.
+Metalama 2026.0 introduces the capability to override event handler invocations. This extends the existing functionality that allowed overriding only the add and remove operations of events.
+
+This new advice kind allows you to implements aspects such as "safe events", where event handlers are isolated one from the other by an exception handler.
+
+For comprehensive documentation, see <xref:overriding-events>.
 
 ## Additional improvements
 

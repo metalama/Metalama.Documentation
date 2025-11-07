@@ -34,12 +34,36 @@ This chapter includes the following articles:
             This article outlines the subset of the C# language that can be used as compile-time code and illustrates how to create templates with rich compile-time logic.
         </td>
     </tr>
-    <tr>
+     <tr>
         <td>
-            <xref:template-dynamic-code>
+            <xref:dynamic-typing>
         </td>
         <td>
-            This article details different techniques for generating run-time code dynamically.
+            This article explains the use of `dynamic` typing in templates.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <xref:run-time-expressions>
+        </td>
+        <td>
+            This article details different techniques for generating expressions dynamically.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <xref:run-time-expressions>
+        </td>
+        <td>
+            This article explains how to generate expressions accessing members once you have their compile-time `IMethod`, `IProperty`, ...
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <xref:run-time-statements>
+        </td>
+        <td>
+            This article lists techniques for generating statements dynamically.
         </td>
     </tr>
     <tr>
@@ -66,7 +90,6 @@ This chapter includes the following articles:
             This article explains how templates can invoke other templates, referred to as auxiliary templates.
         </td>
     </tr>
-
     <tr>
         <td>
             <xref:debugging-aspects>

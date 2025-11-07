@@ -71,7 +71,7 @@ meta.DefineLocalVariable( string nameHint, IExpresson? initializerExpression ) :
 
 The `nameHint` parameter suggests the desired local variable name, but the actual name will be chosen dynamically by appending a numerical suffix in case of lexical conflicts with other symbols in the scope.
 
-For details, see the updated <xref:template-dynamic-code> article.
+For details, see the updated <xref:run-time-expressions> article.
 
 ### Introduction of static virtual, abstract, and partial members
 

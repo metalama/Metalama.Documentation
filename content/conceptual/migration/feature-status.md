@@ -3,7 +3,7 @@ uid: migration-feature-status
 summary: "The document provides an update on the migration of PostSharp features to Metalama, detailing what has been completed and what is still in progress."
 keywords: "migration of PostSharp features, Metalama vs PostSharp, PostSharp vs Metalama, comparison"
 created-date: 2023-01-26
-modified-date: 2024-08-04
+modified-date: 2025-11-17
 ---
 
 # Status of the migration of PostSharp features to Metalama
@@ -14,9 +14,7 @@ The PostSharp Framework has been entirely ported to Metalama, with a few notable
 
 * Methods from an external assembly cannot be intercepted; only those from the current project can be.
 * The event of suspending and resuming an `async` state machine, as in PostSharp, cannot be advised. Specifically, the `await` keyword cannot be advised.
-* The _raise_ semantic of an event cannot be intercepted, only the _add_ and _remove_ semantics can be.
 * Some constructor-related advice types are not yet implemented:
-
     * After the last constructor
     * After MemberwiseClone
 
@@ -32,13 +30,15 @@ See <xref:validation> for details.
 | ---------------------- | ---------------- | ------------------------ | ------------------------------------------------------------------ |
 | Contracts              | Completed        | <xref:contract-patterns> | None                                                               |
 | Caching                | Completed        | <xref:caching>           | None                                                               |
-| INotifyPropertyChanged | Completed        | <xref:observability>     | See <xref:migrating-inpc>        |
-| WPF                   | Completed        | <xref:wpf>              | None                                                               |
-| Undo/Redo              | Not started      |                          |                                                                    |
-| Diagnostics (logging)  | Not started      |                          |                                                                    |
-| Multi-threading        | Not started      |                          |                                                                    |
-| Aggregatable           | Not started      |                          |                                                                    |
-| Weak event             | Not started      |                          |                                                                    |
+| INotifyPropertyChanged | Completed        | <xref:observability>     | See <xref:migrating-inpc>                                          |
+| WPF                   | Completed         | <xref:wpf>               | None                                                               |
+| Undo/Redo              | Not planned      |                          |                                                                    |
+| Diagnostics (logging)  | Not planned      |                          |                                                                    |
+| Multi-threading        | Not planned      |                          |                                                                    |
+| Aggregatable           | Not planned      |                          |                                                                    |
+| Weak event             | Not planned      |                          |                                                                    |
 
 
 
+> [!NOTE]
+> Please contact us if you have an enteprise subscription and rely on a PostSharp feature that we don't plan to migrate to Metalana.

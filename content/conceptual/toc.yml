@@ -83,25 +83,34 @@ items:
             topicUid: simple-override-property
           - name: Validating parameters, fields and properties
             topicUid: simple-contracts
-      
+
+        - name: Understanding the framework design
+          topicUid: aspect-design
+
+        - name: Working with the type system
+          topicUid: type-system
+
         - name: Writing T# templates
           topicUid: templates
           items:
             - name: Overview
               topicUid: template-overview
+            - name: Dynamic typing in templates
+              topicUid: dynamic-typing
             - name: Writing compile-time code
               topicUid: template-compile-time
-            - name:  Generating run-time code
-              topicUid: template-dynamic-code
+            - name: Generating run-time expressions
+              topicUid: run-time-expressions
+            - name: Generating expressions based on the code model
+              topicUid: invokers
+            - name: Generating run-time statements
+              topicUid: run-time-statements
             - name: Template parameters and type parameters
               topicUid: template-parameters
             - name: Calling auxiliary templates
               topicUid: auxiliary-templates
             - name: Generating System.Reflection objects
               topicUid: reflection
-
-        - name: Understanding the framework design
-          topicUid: aspect-design
 
         - name: Advising code
           topicUid: advising-code

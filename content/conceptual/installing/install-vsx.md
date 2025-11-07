@@ -9,7 +9,7 @@ modified-date: 2024-08-04
 
 # Installing Visual Studio Tools for Metalama
 
-> [!INFO]
+> [!NOTE]
 > Visual Studio Tools for Metalama require a Metalama Community or Metalama Professional license.
 
 The [Visual Studio Tools for Metalama](https://marketplace.visualstudio.com/items?itemName=PostSharpTechnologies.PostSharp) is an extension that enhances your development experience by providing features such as:

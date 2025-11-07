@@ -1,8 +1,8 @@
 ---
 uid: template-overview
 level: 200
-summary: "This document provides an overview of T#, a template language used by Metalama, which is fully compatible with C#. It details how T# integrates compile-time and run-time expressions and statements, and outlines the different scopes of code: run-time, compile-time, and scope-neutral. The document also compares T# to Razor and explains the compilation process."
-keywords: "T#, Metalama, template language, compile-time expressions, run-time expressions, compile-time code, run-time code, scope-neutral code, compilation process"
+summary: "This document provides an overview of T#, a template language used by Metalama, which is fully compatible with C#. It details how T# integrates compile-time and run-time expressions and statements, and outlines the different scopes of code: run-time, compile-time, and Run-time-or-compile-time. The document also compares T# to Razor and explains the compilation process."
+keywords: "T#, Metalama, template language, compile-time expressions, run-time expressions, compile-time code, run-time code, Run-time-or-compile-time code, compilation process"
 created-date: 2023-02-17
 modified-date: 2024-08-04
 ---
@@ -13,7 +13,7 @@ T# is the template language used by Metalama. The syntax of T# is 100% compatibl
 
 ## Scopes of code
 
-T# templates integrate _compile-time_ and _run-time_ expressions and statements. Compile-time expressions and statements are evaluated at compile time in the compiler (or at design time in the IDE using the Diff Preview feature) and result in the generation of other run-time expressions.
+T# templates mix _compile-time_ and _run-time_ expressions and statements. Compile-time expressions and statements are evaluated at compile time in the compiler (or at design time in the IDE using the Diff Preview feature) and result in the generation of other run-time expressions.
 
 Metalama analyzes T# and separates the compile-time portion from the run-time portion through the application of inference rules. Compile-time expressions and statements typically initiate with the `meta` pseudo-keyword. <xref:Metalama.Framework.Aspects.meta> is technically a static class, but it's helpful to perceive it as a magic keyword that initiates a compile-time expression or statement.
 
@@ -36,13 +36,13 @@ You can create compile-time classes by annotating them with <xref:Metalama.Frame
 > [!WARNING]
 > All compile-time code _must_ be strictly compatible with .NET Standard 2.0, even if the containing project targets a more advanced platform. Any call to an API that is not strictly .NET Standard 2.0 will be considered run-time code.
 
-### Scope-neutral code
+### Run-time-or-compile-time code
 
-_Scope-neutral code_ can execute either at run time or at compile time.
+_Run-time-or-compile-time code_ can execute either at run time or at compile time.
 
-Scope-neutral code is annotated with the <xref:Metalama.Framework.Aspects.RunTimeOrCompileTimeAttribute> custom attribute.
+Run-time-or-compile-time code is annotated with the <xref:Metalama.Framework.Aspects.RunTimeOrCompileTimeAttribute> custom attribute.
 
-Aspect classes are scope-neutral because aspects are a unique kind of class. Aspects are typically represented as custom attributes, which can be accessed at run time using _System.Reflection_, but they are also instantiated at compile time by Metalama. Therefore, it is crucial that the constructors and public properties of the aspects are both run-time and compile-time.
+Aspect classes are Run-time-or-compile-time because aspects are a unique kind of class. Aspects are typically represented as custom attributes, which can be accessed at run time using _System.Reflection_, but they are also instantiated at compile time by Metalama. Therefore, it is crucial that the constructors and public properties of the aspects are both run-time and compile-time.
 
 However, some methods of aspect classes are purely compile-time. They cannot be executed at run time because they access APIs that exist only at compile time. These methods must be annotated with <xref:Metalama.Framework.Aspects.CompileTimeAttribute>.
 
