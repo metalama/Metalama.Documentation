@@ -30,9 +30,14 @@ Therefore, `IExpression` objects are compile-time objects that represent run-tim
 The simplest way to create an expression in a T# template is to write plain C# code and then capture its syntax. The `ExpressionFactory.Capture` method captures the C# syntax tree of an expression into an `IExpression` object without evaluating it.
 
 ```csharp
-var now = DateTime.Now; // Defines a run-time local variable.
-var expression1 = ExpressionFactory.Capture( now ); // Captures the reference to the local variable "now".
-var expression2 = ExpressionFactory.Capture( DateTime.Now ); // Captures the expression "DateTime.Now".
+// Defines a run-time local variable.
+var now = DateTime.Now; 
+
+// Captures the reference to the local variable "now".
+var expression1 = ExpressionFactory.Capture( now ); 
+
+// Captures the expression "DateTime.Now".
+var expression2 = ExpressionFactory.Capture( DateTime.Now ); 
 ```
 
 ### Capturing a dynamic expression
@@ -43,9 +48,14 @@ var expression2 = ExpressionFactory.Capture( DateTime.Now ); // Captures the exp
 Example:
 
 ```csharp
-IMethod method; // A compile-time object representing a method.
-var result = method.Invoke(); // Invokes the method and stores the result in a run-time local variable.
-var expression = ExpressionFactory.Capture( (IExpression) result ); // Captures the reference to the local variable "result".
+// A compile-time object representing a method.
+IMethod method; 
+
+// Invokes the method and stores the result in a run-time local variable.
+var result = method.Invoke(); 
+
+// Captures the reference to the local variable "result".
+var expression = ExpressionFactory.Capture( (IExpression) result ); 
 ```
 
 ## Generating expressions using a StringBuilder-like API

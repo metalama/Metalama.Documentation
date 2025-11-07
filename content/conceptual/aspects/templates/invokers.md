@@ -15,23 +15,25 @@ When you have a <xref:Metalama.Framework.Code> representation of a declaration, 
 
 _Invokers_ are APIs that allow you to generate run-time code from compile-time declarations. When you write template code (which executes at compile-time), you use invokers to create compile-time expressions (<xref:Metalama.Framework.Code.IExpression>) that represent method calls, property accesses, and other operations. These expressions can then be used anywhere in your template and will be expanded into actual C# code when the template is applied.
 
-The invoker functionality is implemented in the <xref:Metalama.Framework.Code.Invokers> namespace.
+The invoker functionality is implemented in the <xref:Metalama.Framework.Code.Invokers> namespace. The <xref:Metalama.Framework.Code.IMethod>, <xref:Metalama.Framework.Code.IFieldOrProperty>, <xref:Metalama.Framework.Code.IIndexer>, and <xref:Metalama.Framework.Code.IEvent> interfaces derive from <xref:Metalama.Framework.Code.Invokers.IMethodInvoker>, <xref:Metalama.Framework.Code.Invokers.IFieldOrPropertyInvoker>, <xref:Metalama.Framework.Code.Invokers.IIndexerInvoker>, and <xref:Metalama.Framework.Code.Invokers.IEventInvoker> respectively.
 
 For scenarios where members are known at design time (when you write the aspect), you can also use the dynamic typing approach described in <xref:dynamic-typing>. Invokers provide more flexibility and control at compile time.
 
 > [!WARNING]
-> **The invoker API is not type-safe.** Invokers will happily generate code that does not compile or has mismatched types. For example, you can call `method.Invoke("wrong", "types")` even if the method expects integers. The invoker API does not validate argument types or return types. Always verify that the code you generate matches the actual member signatures. The resulting invalid code will only be caught when the transformed code is compiled, confusing the aspect user.
+> **The invoker API is not type-safe.** Invokers will happily generate code that does not compile because of mismatched types. For example, you can call `method.Invoke("wrong", "types")` even if the method expects integers. The invoker API does not validate argument types or return types. Always verify that the code you generate matches the actual member signatures. The resulting invalid code will only be caught when the transformed code is compiled, confusing the aspect user.
 
 ## Calling a method
 
 To generate an expression that represents the invocation of an <xref:Metalama.Framework.Code.IMethod>, use the <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.Invoke*?text=method.Invoke> method.
 
-### Example: invoking members
+### Example: dynamic method invocation
 
-In the following example, an aspect looks for any field of type `TextWriter` in the target type. Since the field's name is determined at compile-time (when analyzing the code model) but needs to be used in the generated run-time code, the aspect uses the <xref:Metalama.Framework.Code.IExpression.Value?text=IExpression.Value> property to generate an expression that accesses the field. This property returns a `dynamic` object, but we cast it to `TextWriter` to enable IntelliSense and compile-time type checking within the template code itself.
+In the following example, the `[CallAfter(methodName)]` aspect overrides the target method and calls a specified method after successful execution. The aspect author does not know which method will be called — this is determined by the aspect user when they apply the attribute. The aspect queries the code model to find the method by name, then uses the `Invoke` method to generate a call to it.
 
-[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/DynamicCodeModel.cs name="Invokers"]
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/CallAfter.cs name="CallAfter"]
 
+> [!NOTE]
+> A production-ready aspect should validate that the method exists in `BuildAspect` and report a diagnostic error if it doesn't, rather than allowing the template to fail at compile time with an exception.
 
 ## Specifying the target object and nullability behavior
 
