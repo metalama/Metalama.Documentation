@@ -25,7 +25,7 @@ Metalama integrates with Roslyn, so it is theoretically compatible with any Rosl
 | Visual Studio Code (C# Dev Kit)                    |                            | Yes                     | Yes        |                                                      |
 
 > [!NOTE]
-> While using Visual Studio, the utilization of Visual Studio Tools for Metalama is not mandatory but is highly recommended.
+> While using Visual Studio, the use of Visual Studio Tools for Metalama is not mandatory but highly recommended.
 
 ## Target frameworks
 
@@ -62,7 +62,6 @@ To avoid versioning issues, consider the following suggestions:
 * You can update your IDE or .NET SDK at any time without impacting Metalama projects, provided you do not start using new C# features in Metalama projects. In other words, merely updating Visual Studio should not cause any issues.
 * Before you begin using new C# features in a Metalama project, ensure you update Metalama to a version that supports the new C# version. If you do not update, your code may fail to compile.
 * Always use a version of Visual Studio that is under active [mainstream support](https://docs.microsoft.com/en-us/lifecycle/policies/fixed#mainstream-support) by Microsoft. When a version of Visual Studio falls out of support, update to a supported version within three months. If you use an unsupported version, you will only be able to use the language features of the last supported C# version _below_ the version that you are using. If you do not use a supported version of Visual Studio, you may be stuck with an unsupported version of Metalama.
-
 As per our policy, we make our best effort to add support for new Roslyn versions no later than three weeks after their stable release and to remove support for obsolete versions no sooner than three months after they fall out of mainstream support by Microsoft.
 
 > [!WARNING]
@@ -73,5 +72,4 @@ For more information on the support policies of Visual Studio, see [Visual Studi
 The rationale behind these suggestions is as follows:
 
 > [!NOTE]
-> The `Metalama.Compiler` package replaces the C# compiler included in Visual Studio or the .NET SDK. Therefore, your code will build against the version of Roslyn that Metalama was built for, regardless of the installed version of your IDE or the .NET SDK. To avoid incompatibilities after updates of the .NET SDK, the `Metalama.Compiler` package also includes a backup copy of all Roslyn analyzers normally included in the .NET SDK. In case of incompatibility, these backup copies will be used instead of the ones provided by your locally installed .NET SDK.
-
+> The `Metalama.Compiler` package replaces the C# compiler included in Visual Studio or the .NET SDK. Therefore, your code will build against the version of Roslyn that Metalama was built for, regardless of the installed version of your IDE or the .NET SDK. To avoid incompatibilities after updates to the .NET SDK, the `Metalama.Compiler` package also includes a backup copy of all Roslyn analyzers normally included in the .NET SDK. In case of incompatibility, these backup copies will be used instead of the ones provided by your locally installed .NET SDK.

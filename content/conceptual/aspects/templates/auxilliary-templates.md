@@ -48,7 +48,7 @@ The behavior of `return` statements in auxiliary templates can sometimes be conf
 
 In a normal non-void C# method, all execution branches must end with a `return <expression>` statement. However, because auxiliary templates often generate snippets instead of complete method bodies, you don't always want every branch of the auxiliary template to end with a `return` statement.
 
-To work around this situation, you can make the subtemplate `void` and call the <xref:Metalama.Framework.Aspects.meta.Return*?text=meta.Return> method, which will generate a `return <expression>` statement while making the C# compiler satisfied with your template.
+To work around this situation, you can make the auxiliary template `void` and call the <xref:Metalama.Framework.Aspects.meta.Return*?text=meta.Return> method, which will generate a `return <expression>` statement while making the C# compiler satisfied with your template.
 
 > [!NOTE]
 > There is no way to explicitly interrupt the template processing other than playing with compile-time `if`, `else` and `switch` statements and ensuring that the control flow continues to the natural end of the template method.
@@ -107,5 +107,10 @@ You can call <xref:Metalama.Framework.Code.SyntaxBuilders.StatementFactory.Unwra
 The following example generates an `Execute` method which has two arguments: a message name and an opaque argument. The aspect must be used on a class with one or many `ProcessFoo` methods, where `Foo` is the message name. The aspect generates a `switch` statement that dispatches the message to the proper method. We use the <xref:Metalama.Framework.Code.SyntaxBuilders.StatementFactory.FromTemplate*?text=StatementFactory.FromTemplate> method to pass templates to the <xref:Metalama.Framework.Code.SyntaxBuilders.SwitchStatementBuilder>.
 
 [!metalama-test  ~/code/Metalama.Documentation.SampleCode.AspectFramework/SwitchStatementBuilder_FullTemplate.cs]
+
+## See Also
+
+<xref:template-overview>
+<xref:template-parameters>
 
 

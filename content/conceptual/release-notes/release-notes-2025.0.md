@@ -145,4 +145,3 @@ Background commands are also represented by an <xref:Metalama.Patterns.Wpf.Async
 * In `Metalama.Patterns.Wpf`, there are a few changes with the `[Command]` aspect:
   * the <xref:Metalama.Patterns.Wpf.DelegateCommand> type has been moved to the `Metalama.Patterns.Wpf` namespace,
   * the aspect generates properties of type <xref:Metalama.Patterns.Wpf.DelegateCommand>, <xref:Metalama.Patterns.Wpf.DelegateCommand`1>, <xref:Metalama.Patterns.Wpf.AsyncDelegateCommand> or <xref:Metalama.Patterns.Wpf.AsyncDelegateCommand`1> instead of <xref:System.Windows.Input.ICommand>. All these types implement the <xref:System.Windows.Input.ICommand> interface, but the `Execute(object)` method is now implemented privately. It is replaced by a strongly-typed method `Execute()` for parameterless commands or `Execute(T)` for commands accepting a parameter.
-

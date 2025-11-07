@@ -95,4 +95,3 @@ We use the `aspectBuilder.Tags` property to share this list with the template im
 
 > [!NOTE]
 > For more about the Builder pattern, see <xref:sample-builder>.
-

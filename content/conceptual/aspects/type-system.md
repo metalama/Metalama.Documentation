@@ -37,7 +37,7 @@ classDiagram
           ToNullable() IType
           ToNonNullable() IType
       }
-      
+
       class INamedType {
           ...
           TypeParameters IReadOnlyList~ITypeParameter~
@@ -88,7 +88,7 @@ classDiagram
     TypeFactory --> IType
     TypeFactory --> INamedType
     TypeFactory --> ITupleType
-    
+
 ```
 
 ## Kinds of types
@@ -96,15 +96,14 @@ classDiagram
 The type system in Metalama distinguishes between:
 
 - **Named types** (<xref:Metalama.Framework.Code.INamedType>) - Classes, structs, interfaces, intrinsics like `string` or `void`, etc.
-- **Tuple types** (<xref:Metalama.Framework.Code.Types.ITupleType>) - Like `(double X, double Y, double Z)`.
+- **Tuple types** (<xref:Metalama.Framework.Code.ITupleType>) - Like `(double X, double Y, double Z)`.
 - **Array types** (<xref:Metalama.Framework.Code.Types.IArrayType>) - Like `int[]` or `string[,]`
 - **Pointer types** (<xref:Metalama.Framework.Code.Types.IPointerType>) - Like `int*`
 - **Type parameters** (<xref:Metalama.Framework.Code.ITypeParameter>) - Generic parameters like `T` in `List<T>`
 - **Tuple types** (<xref:Metalama.Framework.Code.ITupleType>) - Like `(int, string)`
 - **Function pointers**  (<xref:Metalama.Framework.Code.Types.IFunctionPointerType>) are not fully supported in Metalama.
 
-
-## Named types 
+## Named types
 
 A named type in Metalama is represented by the <xref:Metalama.Framework.Code.INamedType> interface and corresponds to any type that has a name in C#: classes, structs, interfaces, enums, delegates, and records.
 
@@ -145,7 +144,7 @@ public delegate void EventHandler();
 public class List<T>;
 
 // Nested types
-public class Customer 
+public class Customer
 {
     public class Builder;
 }
@@ -168,9 +167,9 @@ var stringArrayType = TypeFactory.GetType(typeof(string[]));
 ```
 
 > [!WARNING]
-> Metalama does not support the full `System.Type` API at compile time for types that represent run-time types. `typeof` expressions work with run-time types and returns an opaque implementation of the `System.Type` abstract type, which does not allow you to use other features of the system reflection API.
+> Metalama does not support the full `System.Type` API at compile time for types that represent run-time types. `typeof` expressions work with run-time types and return an opaque implementation of the `System.Type` abstract type, which does not allow you to use other features of the system reflection API.
 
-### From special types (instrinsics and other)
+### From special types (intrinsics and other)
 
 Some types are identified by a member of the `SpecialType` enum. Using the `TypeFactory.GetType(SpecialType)` method is often more convenient and CPU efficient than using `typeof`.
 
@@ -199,18 +198,18 @@ var myType = meta.Target.Compilation
 
 ### Generic types
 
-Generic types in Metalama are represented by types that implement the <xref:Metalama.Framework.Code.IGeneric> interface. Both <xref:Metalama.Framework.Code.INamedType> and <xref:Metalama.Framework.Code.IMethod> implement this interface. 
+Generic types in Metalama are represented by types that implement the <xref:Metalama.Framework.Code.IGeneric> interface. Both <xref:Metalama.Framework.Code.INamedType> and <xref:Metalama.Framework.Code.IMethod> implement this interface.
 
 ### Generic type definitions
 
 Type parameters are represented by <xref:Metalama.Framework.Code.ITypeParameter>. You can access them through the following collections:
 
-- <xref:Metalama.Framework.Code.IGeneric.TypeParameters?text=IGeneric.TypeParameters> expose the type _parameters_, i.e. `T` for an instance `List<int>` of the type definition `List<T>`.
-- <xref:Metalama.Framework.Code.IGeneric.TypeArguments?text=IGeneric.TypeArguments> expose the type _arguments_, i.e. the type bound to the arguments, i.e. `int` for an instance `List<int>` of the type definition `List<T>`.
+- <xref:Metalama.Framework.Code.IGeneric.TypeParameters?text=IGeneric.TypeParameters> expose the type parameters, i.e. `T` for an instance `List<int>` of the type definition `List<T>`.
+- <xref:Metalama.Framework.Code.IGeneric.TypeArguments?text=IGeneric.TypeArguments> expose the type arguments, i.e. the type bound to the arguments, i.e. `int` for an instance `List<int>` of the type definition `List<T>`.
 
-Unlike MSIL, Metalama does not have a concept of "open" generic type, with unbound type parameters. Type parameters are _always_ bound an argument. In generic type definitions, the type parameters are bound to themselves.
+Unlike MSIL, Metalama does not have a concept of "open" generic type with unbound type parameters. Type parameters are always bound to an argument. In generic type definitions, the type parameters are bound to themselves.
 
-Consider the type `List<T>`, where `T` is a type parameter. In the generic type instance `List<int>`, the `T` is the type _parameter_, `int` is the type _argument_, and the `T` parameter is bound to `int`. In the type definition `List<T>`, `T` is both the type parameter and the type argument, because `T` is bound to itself.
+Consider the type `List<T>`, where `T` is a type parameter. In the generic type instance `List<int>`, the `T` is the type parameter; `int` is the type argument, and the `T` parameter is bound to `int`. In the type definition `List<T>`, `T` is both the type parameter and the type argument, because `T` is bound to itself.
 
 The `IGeneric` interface exposes the `IsCanonicalGenericInstance` property, which returns `true` if all type parameters are bound to themselves.
 
@@ -232,21 +231,20 @@ You can also use the following, more compact, syntax:
 
 ```csharp
 var listOfString = TypeFactory.GetNamedType( typeof(List<>) ).MakeGenericInstance( [typeof(string)] );
-```
+``
 
 ## Tuple types
-
-It is often convenient to use tuples when an aspect needs to pack all method arguments into a single object. It is an efficient alternative to `object[]`.
+It is often convenient to use tuples when an aspect needs to pack all method arguments into a single object. They are an efficient alternative to `object[]`.
 
 Tuple types in Metalama are represented by <xref:Metalama.Framework.Code.ITupleType>, which exposes the tuple elements under the `TupleElements` property. Tuple elements have a type and a name.
 
-In C#, tuple types are syntactic sugar above the `System.ValueType` type. In Metalama, the `System.ValueType` is represented by the `INamedType` interface from whichi `ITupleType` is derived.
+In C#, tuple types are syntactic sugar over the `System.ValueType` type. In Metalama, the `System.ValueType` is represented by the `INamedType` interface from which `ITupleType` is derived.
 
 ### Creating tuple types
 
 Use <xref:Metalama.Framework.Code.TypeFactory.CreateTupleType*> to create a tuple type.
 
-The following code snippet creates the tuple type `( decimal Quantity, string ProductCode )`:
+The following code snippet creates the tuple type `(decimal Quantity, string ProductCode)`:
 
 ```csharp
 // Create a tuple type from individual types
@@ -279,9 +277,9 @@ var normalTuple = TypeFactory.CreateTupleType(new[] { intType, stringType });
 
 The following aspect demonstrates how you can pack all method arguments into a tuple, so that they can be passed as a single object to an interceptor. The tuple is then unpacked into an argument list on the other side of the interceptor.
 
-This example is quite convoluted because of the need to implement a basic interception pattern. You can skip it in first reading if you are just here to learn about the type system and don't want to dive into more complex aspects for now.
+This example is quite convoluted because of the need to implement a basic interception pattern. You can skip it on first reading if you are just here to learn about the type system and don't want to dive into more complex aspects for now.
 
-Despite the complexity due to the interception scenario, the aspect demonstrates the simplicity of working with tuples. The aspect code does not need to bother about the number of parameters. All details are taken care of by `ITupleType.
+Despite the complexity due to the interception scenario, the aspect demonstrates the simplicity of working with tuples. The aspect code does not need to bother about the number of parameters. All details are taken care of by `ITupleType`.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/TupleInterceptor.cs name="TupleInterceptor"]
 

@@ -9,7 +9,7 @@ modified-date: 2024-08-14
 
 # Overriding methods
 
-In <xref:simple-override-method>, you learned the basic technique to replace a method's implementation with code defined by the aspect. This was achieved using the <xref:Metalama.Framework.Aspects.OverrideMethodAspect> abstract class, an aspect-oriented implementation of the [decorator design pattern](https://en.wikipedia.org/wiki/Decorator_pattern) for methods.
+In <xref:simple-override-method>, you learned the basic technique for replacing a method's implementation with code defined by the aspect. This was achieved using the <xref:Metalama.Framework.Aspects.OverrideMethodAspect> abstract class, an aspect-oriented implementation of the [decorator design pattern](https://en.wikipedia.org/wiki/Decorator_pattern) for methods.
 
 This article assumes you have read <xref:simple-override-method> and will expose additional techniques related to overriding methods.
 
@@ -17,7 +17,7 @@ This article assumes you have read <xref:simple-override-method> and will expose
 
 The details of the method being overridden are accessible from the template method on the <xref:Metalama.Framework.Aspects.IMetaTarget.Method?text=meta.Target.Method> property. This property provides information about the method's name, type, parameters, and custom attributes. For instance, the metadata of method parameters is exposed on `meta.Target.Method.Parameters`.
 
-To access the parameter _values_, you must access <xref:Metalama.Framework.Aspects.IMetaTarget.Parameters?text=meta.Target.Parameters>. For instance:
+To access the parameter values, you must access <xref:Metalama.Framework.Aspects.IMetaTarget.Parameters?text=meta.Target.Parameters>. For instance:
 
 - `meta.Target.Parameters[0].Value` gives you the value of the first parameter.
 - `meta.Target.Parameters["a"].Value = 5` sets the `a` parameter to `5`.
@@ -186,7 +186,7 @@ The _first argument_ of `Override` is the <xref:Metalama.Framework.Code.IMethod>
 The _second argument_ of `Override` is the name of the template method. This method must exist in the aspect class and, additionally:
 
 * The template method must be annotated with the `[Template]` attribute.
-* The template method must have a compatible return type and only parameters that exist in the target method with a compatible type. When the type is unknown, `dynamic` can be used. For instance, the following template method will match any method because it has no parameter (therefore will check any parameter list) and has the universal `dynamic` return type, which also matches `void`.
+* The template method must have a compatible return type and parameters that exist in the target method with compatible types. When the type is unknown, `dynamic` can be used. For instance, the following template method will match any method because it has no parameters (therefore it will check any parameter list) and has the universal `dynamic` return type, which also matches `void`.
 
     ```cs
     dynamic? Template()
@@ -201,10 +201,8 @@ The following aspect wraps all instance methods with a `lock(this)` statement.
 
 [!metalama-test  ~/code/Metalama.Documentation.SampleCode.AspectFramework/Synchronized.cs name="Synchronized"]
 
-### Specifying Templates for Async and Iterator Methods
+### Specifying templates for async and iterator methods
 
-Instead of providing a single template method, you can give several of them and let the framework choose the most suitable one. The principle of this feature is described above. Instead of passing a string to the second argument of `OverrideMethod`, you can pass a <xref:Metalama.Framework.Advising.MethodTemplateSelector> and initialize it with many templates. See the reference documentation of <xref:Metalama.Framework.Aspects.AdviserExtensions.Override*?displayProperty=nameWithType> and <xref:Metalama.Framework.Advising.MethodTemplateSelector> for details.
+Instead of providing a single template method, you can provide several of them and let the framework choose the most suitable one. The principle of this feature is described above. Instead of passing a string to the second argument of `Override`, you can pass a <xref:Metalama.Framework.Advising.MethodTemplateSelector> and initialize it with many templates. See the reference documentation of <xref:Metalama.Framework.Aspects.AdviserExtensions.Override*?displayProperty=nameWithType> and <xref:Metalama.Framework.Advising.MethodTemplateSelector> for details.
 
 [comment]: # (TODO: example)
-
-

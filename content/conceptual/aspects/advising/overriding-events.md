@@ -24,15 +24,15 @@ If you attempt to override a field-like event, it is transformed into an explici
 
 ### Example: logging
 
-The following example demonstrates overriding the _add_ and _remove_ accessors of events, without overriding the _invoie_ operation. The example aspect logs the operation of adding and removing handlers to an event. It is applied to both a field-like and an explicitly-implemented event. You can compare the code transformation pattern.
+The following example demonstrates overriding the _add_ and _remove_ accessors of events, without overriding the _invoke_ operation. The example aspect logs the operation of adding and removing handlers to an event. It is applied to both a field-like and an explicitly-implemented event. You can compare the code transformation pattern.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/EventLogging.cs name="Logging of Events Add/Remove"]
 
-## Overriding the _invoie_ operation
+## Overriding the _invoke_ operation
 
-Most of the time, advising an event requires overriding its _invoie_ operation. For instance, if you want to swallow exceptions in event handlers or execute events in a background thread, it's best to do so by overriding the _invoie_ semantic.
+Most of the time, advising an event requires overriding its _invoke_ operation. For instance, if you want to swallow exceptions in event handlers or execute events in a background thread, it's best to do so by overriding the _invoke_ semantic.
 
-To override the _invoie_ semantic, implement the <xref:Metalama.Framework.Aspects.OverrideEventAspect.OverrideInvoke*?text=OverrideEventAspect.OverrideInvoke> method or supply a `invokeTemplate` argument to the <xref:Metalama.Framework.Aspects.AdviserExtensions.OverrideAccessors*> method.
+To override the _invoke_ semantic, implement the <xref:Metalama.Framework.Aspects.OverrideEventAspect.OverrideInvoke*?text=OverrideEventAspect.OverrideInvoke> method or supply a `invokeTemplate` argument to the <xref:Metalama.Framework.Aspects.AdviserExtensions.OverrideAccessors*> method.
 
 > [!NOTE]
 > The `OverrideInvoke` advice is invoked _once per event handler_. If there are 3 event handlers and the event is invoked once, the `OverrideInvoke` advice will be invoked 3 times (see graph below).

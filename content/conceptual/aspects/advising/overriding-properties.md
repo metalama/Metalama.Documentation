@@ -9,7 +9,7 @@ modified-date: 2024-11-06
 
 # Overriding fields or properties
 
-In <xref:simple-override-property>, you learned the basics of the <xref:Metalama.Framework.Aspects.OverrideFieldOrPropertyAspect> class. In this section, we will cover more advanced scenarios.
+In <xref:simple-override-property>, you learned the basics of the <xref:Metalama.Framework.Aspects.OverrideFieldOrPropertyAspect> class. In this section, we cover more advanced scenarios.
 
 ## Accessing the metadata of the overridden field or property
 
@@ -17,7 +17,7 @@ The metadata of the overridden field or property can be accessed from the templa
 
 - `meta.Target.FieldOrProperty` exposes the current field or property as an <xref:Metalama.Framework.Code.IFieldOrProperty>, which reveals characteristics common to fields and properties.
 - `meta.Target.Field` exposes the current field as an <xref:Metalama.Framework.Code.IField>, but will throw an exception if the target is not a field.
-- `meta.Target.Property` exposes the current field as an <xref:Metalama.Framework.Code.IProperty>, but will throw an exception if the target is not a property.
+- `meta.Target.Property` exposes the current property as an <xref:Metalama.Framework.Code.IProperty>, but will throw an exception if the target is not a property.
 - `meta.Target.Method` exposes the current accessor method. This works even if the target is a field because Metalama creates pseudo methods to represent field accessors.
 
 To access the _value_ of the field or property, you can use the `meta.Target.FieldOrProperty.Value` expression both in reading and writing. In the setter template, `meta.Target.Parameters[0].Value` gives you the value of the `value` parameter.
@@ -82,5 +82,3 @@ The templates must fulfill the following conditions:
 * The setter template must be of signature `void Setter(T value)`, where the name `value` of the first parameter is mandatory.
 
 [comment]: # (TODO: example)
-
-

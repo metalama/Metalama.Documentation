@@ -7,7 +7,7 @@ modified-date: 2024-08-04
 
 # Overriding constructors
 
-Overriding constructors is an advanced technique with only a few limited use cases. Before opting for this approach, we recommend considering other alternatives.
+Overriding constructors is an advanced technique with only a few limited use cases. Before opting for this approach, consider other alternatives.
 
 ## When to override constructors
 
@@ -31,8 +31,6 @@ To invoke the original implementation, call <xref:Metalama.Framework.Aspects.met
 
 ## Example: logging
 
-The following example illustrates how overriding constructors works. The `LogConstructors` aspect overrides all constructors of a class and encloses their implementation with logging statements. We apply the aspect to a class that has two chained constructors. The program output shows a confusing log where it seems that both constructors have been called in sequence rather than being nested. This paradox is explained because the call to the next constructor happens outside of the code modified by the template.
+The following example illustrates how overriding constructors works. The `LogConstructors` aspect overrides all constructors of a class and encloses their implementation with logging statements. We apply the aspect to a class that has two chained constructors. The program output shows a confusing log, where it seems that both constructors have been called in sequence rather than being nested. This paradox is explained by the fact that the call to the next constructor happens outside of the code modified by the template.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/OverrideConstructor.cs name="Overriding a constructor"]
-
-

@@ -11,7 +11,7 @@ modified-date: 2024-08-04
 Aspects can transform the target code by providing _advice_. Advice refers to a primitive transformation of code. It is safely composable, meaning that several aspects, even without knowledge of each other, can add advice to the same declaration.
 
 > [!NOTE]
-> In English, the word _advice_ is uncountable, i.e., grammatically plural. The grammatically correct singular form of _advice_ is _piece of advice_, but using these words in a software engineering text seems unusual. In aspect-oriented programming, _advice_ is a countable concept. Despite the challenges associated with using uncountable nouns as countable, we sometimes use _an advice_ for the singular form and _advices_ for the plural form, which may be occasionally surprising to some native English speakers. We use other neutral turns of phrases whenever possible unless it would make the phrase much more cumbersome or less understandable.
+> In English, the word _advice_ is uncountable, i.e., grammatically uncountable. The grammatically correct singular form of _advice_ is _piece of advice_, but using these words in a software engineering text seems unusual. In aspect-oriented programming, _advice_ is a countable concept. Despite the challenges associated with using uncountable nouns as countable, we sometimes use _an advice_ for the singular form and _advices_ for the plural form, which may be occasionally surprising to some native English speakers. We use other neutral turns of phrases whenever possible unless it would make the phrase much more cumbersome or less understandable.
 
 There are two methods to add advice: _declaratively_ and _imperatively_.
 
@@ -47,5 +47,3 @@ With most types of advice, you must provide a _template_ of the member you want 
 Templates are written in standard C# code but combine two kinds of code: _compile-time_ and _run-time_. When some target code is advised, the compile-time part of the corresponding template is _executed_. The output of this execution is the run-time code, which is then injected into the source code to form the _transformed code_.
 
 For details, refer to <xref:templates>.
-
-

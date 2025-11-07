@@ -9,7 +9,9 @@ modified-date: 2024-08-04
 
 # Writing T# templates
 
-Code templates in Metalama are written in a dialect of C#, known as T#. The syntax of T# is fully compatible with C#, but T# is compiled differently.
+Code templates are the foundation of how aspects generate and transform code in Metalama. Templates are written in T#, a dialect of C# that combines compile-time logic with run-time code generation. While T# syntax is fully compatible with C#, the compilation process is different: T# code executes at compile-time to generate the C# code that will run in your application.
+
+Templates allow you to write code that analyzes your codebase at compile-time and generates new code or modifies existing code based on that analysis. This powerful mechanism enables you to automate repetitive coding patterns, enforce architectural rules, and implement cross-cutting concerns.
 
 This chapter includes the following articles:
 
@@ -52,10 +54,10 @@ This chapter includes the following articles:
     </tr>
     <tr>
         <td>
-            <xref:run-time-expressions>
+            <xref:invokers>
         </td>
         <td>
-            This article explains how to generate expressions accessing members once you have their compile-time `IMethod`, `IProperty`, ...
+            This article explains how to generate expressions that access members once you have their compile-time `IMethod`, `IProperty`, and similar objects.
         </td>
     </tr>
     <tr>
@@ -100,5 +102,6 @@ This chapter includes the following articles:
     </tr>
 </table>
 
+## Getting started
 
-
+To begin working with templates, start with <xref:template-overview> to understand the fundamentals of T# and how compile-time and run-time code work together. Once you're comfortable with the basics, explore the other articles in this chapter to learn about specific techniques and advanced features.

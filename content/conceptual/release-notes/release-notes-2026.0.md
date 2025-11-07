@@ -18,7 +18,7 @@ Additionally, this release enhances the code model with first-class support for 
 
 Metalama 2026.0 supports the following development environments and SDKs:
 
-- Visual Studio: 
+- Visual Studio:
     - 2022 LTSC 17.12 (latest build), or
     - 2022 17.14 (latest build), or
     - 2026 18.0 (latest build).
@@ -50,7 +50,7 @@ Here is what you can already do in Metalama:
 - [#1108](https://github.com/metalama/Metalama/issues/1108): Use null-conditional assignments when generating syntax from an <xref:Metalama.Framework.Code.IFieldOrPropertyOrIndexer> (when assigning their `Value` property). Use the <xref:Metalama.Framework.Code.Invokers.IFieldOrPropertyInvoker.WithOptions*> and specify `NullConditional`.
 - [#1094](https://github.com/metalama/Metalama/issues/1094): Override a property that uses the `field` keyword.
 - [#1110](https://github.com/metalama/Metalama/issues/1110): Override or introduce to a partial constructor.
-- [#1111](https://github.com/metalama/Metalama/issues/1111): Add an instance initializer to a partia construtor.
+- [#1111](https://github.com/metalama/Metalama/issues/1111): Add an instance initializer to a partial constructor.
 - [#1112](https://github.com/metalama/Metalama/issues/1112): Introduce partial events.
 - [#1113](https://github.com/metalama/Metalama/issues/1113): Override partial events.
 - [#1034](https://github.com/metalama/Metalama/issues/1034): Query extension blocks and extension members from the code model (see below).
@@ -81,11 +81,11 @@ Extension blocks represent the flagship feature of C# 14, enabling the extension
 Extension blocks are modeled using the <xref:Metalama.Framework.Code.IExtensionBlock> interface, which derives from <xref:Metalama.Framework.Code.INamedType> with the following characteristics:
 
 - <xref:Metalama.Framework.Code.ICompilationElement.DeclarationKind> is `Extension` and <xref:Metalama.Framework.Code.IType.TypeKind> is `Extension`.
-- Adds <xref:Metalama.Framework.Code.IExtensionBlock.ReceiverParameter> and <<xref:Metalama.Framework.Code.IExtensionBlock.ReceiverType> properties.
+- Adds <xref:Metalama.Framework.Code.IExtensionBlock.ReceiverParameter> and <xref:Metalama.Framework.Code.IExtensionBlock.ReceiverType> properties.
 - For extension members (excluding classic extension methods), <xref:Metalama.Framework.Code.IMember.DeclaringType?text=IMember.DeclaringType> references the <xref:Metalama.Framework.Code.IExtensionBlock>.
 
 > [!WARNING]
-> Althought <xref:Metalama.Framework.Code.IExtensionBlock> implements <xref:Metalama.Framework.Code.INamedType>, an extension block _cannot_ be used as an <xref:Metalama.Framework.Code.IType>. This behavior breaks the Liskov substitution principle, but it is much simpler than changing the type of <xref:Metalama.Framework.Code.IMember.DeclaringType?text=IMember.DeclaringType> property.
+> Although <xref:Metalama.Framework.Code.IExtensionBlock> implements <xref:Metalama.Framework.Code.INamedType>, an extension block _cannot_ be used as an <xref:Metalama.Framework.Code.IType>. This behavior breaks the Liskov Substitution Principle, but it is much simpler than changing the type of <xref:Metalama.Framework.Code.IMember.DeclaringType?text=IMember.DeclaringType> property.
 
 Extension blocks are accessible through <xref:Metalama.Framework.Code.INamedType.ExtensionBlocks?text=INamedType.ExtensionBlocks>, _not_ as nested types in <xref:Metalama.Framework.Code.INamespaceOrNamedType.Types?text=INamedType.Types>.
 
@@ -110,7 +110,7 @@ For details, see <xref:type-system>.
 
 Metalama 2026.0 introduces the capability to override event handler invocations. This extends the existing functionality that allowed overriding only the add and remove operations of events.
 
-This new advice kind allows you to implements aspects such as "safe events", where event handlers are isolated one from the other by an exception handler.
+This new advice kind allows you to implement aspects such as "safe events", where event handlers are isolated one from the other by an exception handler.
 
 For comprehensive documentation, see <xref:overriding-events>.
 
@@ -127,7 +127,7 @@ For comprehensive documentation, see <xref:overriding-events>.
 - <xref:Metalama.Framework.Code.IType.TypeKind?text=INamedType.TypeKind> now returns `Tuple` instead of `NamedType` for tuples.
 - <xref:Metalama.Framework.Aspects.IAspectBuilder.Advice?text=IAspectBuilder.Advice> is now obsolete. Use <xref:Metalama.Framework.Aspects.IAdviser> instead.
 - The <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.With*> method has been split into <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.WithObject*> and <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.WithOptions*> with additional overloads. This change applies to all kinds of members.
-- <xref:Metalama.Framework.Aspects.IAdviser> and <xref:Metalama.Framework.Aspects.AdviserExtensions> have been moved to the `Metalama.Framework.Aspects` namespace
-- `TypeKind.RecordClass` and `TypeKind.RecordStruct` have been removed and replaced by <xref:Metalama.Framework.Code.INamedType.IsRecord?text=INamedType.IsRecord>
+- <xref:Metalama.Framework.Aspects.IAdviser> and <xref:Metalama.Framework.Aspects.AdviserExtensions> have been moved to the `Metalama.Framework.Aspects` namespace.
+- `TypeKind.RecordClass` and `TypeKind.RecordStruct` have been removed and replaced by <xref:Metalama.Framework.Code.INamedType.IsRecord?text=INamedType.IsRecord>.
 
-  
+

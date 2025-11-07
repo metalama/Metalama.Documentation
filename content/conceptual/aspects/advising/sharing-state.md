@@ -9,7 +9,7 @@ modified-date: 2024-08-04
 
 # Sharing state with advice
 
-When you need to share _compile-time_ state between different pieces of advice or between your implementation of the `BuildAspect` method and the advice, there are several strategies available to you.
+When you need to share _compile-time_ state between different pieces of advice or between your implementation of the `BuildAspect` method and the advice, several strategies are available to you.
 
 > [!NOTE]
 > This article is about sharing _compile-time_ state. If you need to share _run-time_ state with advice, a different strategy must be adopted. For instance, you could introduce a field in the target type and utilize it from several advice methods.
@@ -29,7 +29,7 @@ Compile-time template parameters are not available for event, property, or field
 
 The idea is to set tags in your `BuildAspect` method and to read them from the template implementation.
 
-Tags can be represented as arbitrary objects (including anonymously typed objects) or as `IReadOnlyDictionary<string, object?>` objects. When the tags object does not readily implement the dictionary interface, an accessor implementing the `IReadOnlyDictionary<string, object?>` interface is created, giving access to the object properties through a dictionary.
+Tags can be represented as arbitrary objects (including anonymous objects) or as `IReadOnlyDictionary<string, object?>` objects. When the tags object does not readily implement the dictionary interface, an accessor implementing the `IReadOnlyDictionary<string, object?>` interface is created, giving access to the object properties through a dictionary.
 
 For instance, the anonymous object `new { A = 5, B = "x", C = builder.Target.DeclaringType }` defines three tags arbitrarily named `A`, `B`, and `C`.
 
@@ -71,5 +71,3 @@ A last way to share state with successor aspects is to use annotations. Annotati
 You can add annotations from the `BuildAspect` method using the <xref:Metalama.Framework.Aspects.AdviserExtensions.AddAnnotation*> advice method.
 
 You can read annotations using `declaration.Enhancements().GetAnnotations<T>` where `T` is the type of your annotation (see <xref:Metalama.Framework.Code.DeclarationEnhancements`1.GetAnnotations*>).
-
-

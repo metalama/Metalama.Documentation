@@ -12,9 +12,9 @@ modified-date: 2024-08-04
 > [!NOTE]
 > Visual Studio Tools for Metalama require a Metalama Community or Metalama Professional license.
 
-The [Visual Studio Tools for Metalama](https://marketplace.visualstudio.com/items?itemName=PostSharpTechnologies.PostSharp) is an extension that enhances your development experience by providing features such as:
+The Visual Studio Tools for Metalama is an extension that enhances your development experience by providing features such as:
 
-* CodeLens additions for quickly viewing the impact of aspects on your code,
+* CodeLens additions to quickly view the impact of aspects on your code,
 * Aspect Explorer for displaying which aspects are available in the current solution and which code is affected,
 * Diffing functionality to compare your original source code against the transformed code,
 * Syntax highlighting for aspect code.
@@ -23,7 +23,7 @@ While this extension is optional, it is highly recommended for a more comprehens
 
 ## Downloading the extension
 
-The simplest way to install the extension is to install it from [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=PostSharpTechnologies.PostSharp) and launch the downloaded file.
+The simplest way to install the extension is to install it from Visual Studio Marketplace and launch the downloaded file.
 
 
 ## Installing from Visual Studio
@@ -63,7 +63,7 @@ Alternatively, you can use the following procedure from Visual Studio.
 
     ![wizard_asking_consent](../../images/ext_manage_consent.png)
 
-7. Click "Modify" to finalize the installation.
+7. Click the `Modify` button to finalize the installation.
 
     To proceed with the installation, click the `Modify` button. The wizard will then continue with the installation process.
 
@@ -73,9 +73,6 @@ Alternatively, you can use the following procedure from Visual Studio.
 
     ![metalama_install_done](../../images/metalama_install_done.png)
 
-To verify the successful installation of the extension, navigate to the Extensions Manager. If the installation was successful, a green tick mark will be displayed on the top right corner of the extension icon.
+To verify the successful installation of the extension, navigate to the Extensions Manager. If the installation was successful, a green tick mark will be displayed on the top-right corner of the extension icon.
 
 ![metalama_already_installed](../../images/metalama_already_installed.png)
-
-
-

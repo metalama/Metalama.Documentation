@@ -14,14 +14,14 @@ Certain aspects necessitate modifying the target type to implement a new interfa
 
 Within your implementation of the <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method, invoke the <xref:Metalama.Framework.Aspects.AdviserExtensions.ImplementInterface*> method.
 
-You might need to pass a value to the <xref:Metalama.Framework.Aspects.OverrideStrategy> parameter to cope with the situation where the target type, or any of its ancestors, already implements the interface. The most common behavior is `OverrideStrategy.Ignore`, but the default value is `OverrideStrategy.Fail`, consistent with other advice kinds.
+You might need to pass a value to the <xref:Metalama.Framework.Aspects.OverrideStrategy> parameter to handle the situation where the target type, or any of its ancestors, already implements the interface. The most common behavior is `OverrideStrategy.Ignore`, but the default value is `OverrideStrategy.Fail`, consistent with other advice kinds.
 
 > [!NOTE]
 > Unlike in PostSharp, it is not necessary in Metalama for the aspect class to implement the introduced interface.
 
 ## Step 2, Option A. Add interface members to the aspect class, declaratively
 
-The next step is to ensure that the aspect class generates all interface members. We can do this declaratively or programmatically and add implicit or explicit implementations.
+The next step is to ensure that the aspect class generates all interface members. We can do this declaratively or programmatically, and add implicit or explicit implementations.
 
 > [!NOTE]
 > The <xref:Metalama.Framework.Aspects.AdviserExtensions.ImplementInterface*> method does not verify if the aspect generates all required members. If your aspect fails to introduce a member, the C# compiler will report errors.
@@ -47,7 +47,7 @@ In the subsequent example, the aspect introduces the `IDisposable` interface. Th
 
 ## Step 2, Option B. Add interface members to the aspect class, programmatically
 
-This approach can be used instead or in complement to the declarative one.
+This approach can be used instead or in addition to the declarative one.
 
 It is useful in the following situations:
 
@@ -91,5 +91,3 @@ The following strategies can be employed to access explicit implementations:
     ```
 
 - Introduce a private method with the concrete method implementation, and call this private member both from the interface member and the templates.
-
-

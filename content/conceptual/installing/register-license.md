@@ -10,7 +10,7 @@ modified-date: 2024-08-04
 # Registering a license
 
 > [!NOTE]
-> Registering a license only required if you are using a premium component. It is not required if you stick to open-source features.
+> Registering a license is only required if you are using a premium component. It is not required if you stick to open-source features.
 
 When you use a premium component of Metalama for the first time, the license registration UI will open, where you can choose between the 45-day evaluation mode, the Metalama Community, or registering a license key.
 
@@ -42,7 +42,7 @@ The following commands are available:
 | `metalama license list` | Shows the current license options. |
 | `metalama license try` | Activate the 45-day evaluation period of Metalama Ultimate. |
 | `metalama license community` | Activate Metalama Community, free for non-commercial use, individuals, and companies with up to 3 users. |
-| `metalama license register <LICENSE KEY>` | Register a license key.
+| `metalama license register <LICENSE KEY>` | Register a license key.]
 
 
 ## By editing the configuration file
@@ -65,7 +65,3 @@ The license key can be stored as the value of the `MetalamaLicense` MSBuild prop
 - Storing the license as a value of the `MetalamaLicense` environment variable.
 - Storing the license in the source code repository using the [Directory.Build.props](https://learn.microsoft.com/en-us/visualstudio/msbuild/customize-your-build?view=vs-2022#directorybuildprops-and-directorybuildtargets) file.
 - Storing the license in the `.csproj` project file.
-
-
-
-

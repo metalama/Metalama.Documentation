@@ -43,5 +43,3 @@ The second, more advanced method to introduce declarations into a type is to cal
 ### Example: programmatically introducing a field with EditorBrowsableAttribute
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/AddEditorBrowsableAttribute_Introduced_Programmatic.cs name="Add attributes to introduced field"]
-
-

@@ -7,31 +7,38 @@ created-date: 2025-11-07
 modified-date: 2025-11-07
 ---
 
-
 # Generating code based on the code model
 
-When you have a <xref:Metalama.Framework.Code> representation of a declaration, you will often want to access it from your generated run-time code. For instance, you will often need to generate code that calls an <xref:Metalama.Framework.Code.IMethod>, or accesses an <xref:Metalama.Framework.Code.IProperty>. 
+When you have a <xref:Metalama.Framework.Code> representation of a declaration, you will often want to access it from your generated run-time code. For instance, you will often need to generate code that calls an <xref:Metalama.Framework.Code.IMethod>, or accesses an <xref:Metalama.Framework.Code.IProperty>.
 
-Technically speaking, you will generate compile-time expressions (<xref:Metalama.Framework.Code.IExpression>) that represent the method call, property access, and so on, and you can the use the <xref:Metalama.Framework.Code.IExpression> anywhere in a template. This feature is implemented in the <xref:Metalama.Framework.Code.Invokers> namespace.
+## What are invokers?
 
+_Invokers_ are APIs that allow you to generate run-time code from compile-time declarations. When you write template code (which executes at compile-time), you use invokers to create compile-time expressions (<xref:Metalama.Framework.Code.IExpression>) that represent method calls, property accesses, and other operations. These expressions can then be used anywhere in your template and will be expanded into actual C# code when the template is applied.
+
+The invoker functionality is implemented in the <xref:Metalama.Framework.Code.Invokers> namespace.
+
+For scenarios where members are known at design time (when you write the aspect), you can also use the dynamic typing approach described in <xref:dynamic-typing>. Invokers provide more flexibility and control at compile time.
+
+> [!WARNING]
+> **The invoker API is not type-safe.** Invokers will happily generate code that does not compile or has mismatched types. For example, you can call `method.Invoke("wrong", "types")` even if the method expects integers. The invoker API does not validate argument types or return types. Always verify that the code you generate matches the actual member signatures. The resulting invalid code will only be caught when the transformed code is compiled, confusing the aspect user.
 
 ## Calling a method
 
-To generate an expression that represents the invocation of an <xref:Metalama.Framework.Code.IMethod>, use the <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.Invoke*?text=method.Invoke> method to generate code that invokes a method.
+To generate an expression that represents the invocation of an <xref:Metalama.Framework.Code.IMethod>, use the <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.Invoke*?text=method.Invoke> method.
 
 ### Example: invoking members
 
-The following example is a variation of the previous one. The aspect no longer assumes the logger field is named `_logger`. Instead, it looks for any field of type `TextWriter`. Because it does not know the field's name upfront, the aspect must use the <xref:Metalama.Framework.Code.IExpression.Value?text=IExpression.Value> property to get an expression allowing it to access the field. This property returns a `dynamic` object, but we cast it to `TextWriter` because we know its actual type. When the template is expanded, Metalama recognizes that the cast is redundant and simplifies it. However, the cast is useful in the T# template to get as much strongly-typed code as we can.
+In the following example, an aspect looks for any field of type `TextWriter` in the target type. Since the field's name is determined at compile-time (when analyzing the code model) but needs to be used in the generated run-time code, the aspect uses the <xref:Metalama.Framework.Code.IExpression.Value?text=IExpression.Value> property to generate an expression that accesses the field. This property returns a `dynamic` object, but we cast it to `TextWriter` to enable IntelliSense and compile-time type checking within the template code itself.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/DynamicCodeModel.cs name="Invokers"]
 
 
-## Setting the object and nullabilty access
+## Specifying the target object and nullability behavior
 
-Before we go on with explaining invoker API for other kinds of members, we must discuss a few options.
+Before we go on with explaining the invoker API for other kinds of members, we must discuss a few options.
 
-* **Target object (receiver)**. By default, when used with a non-static member, all the methods and properties above generate calls for the current (`this`) instance. To specify a different instance, use the <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.WithObject*?text=member.WithObject> method.
-* **Nullability behavior**. By default, invokers use the `.` operator to access the member. If the receiver is nullable, you might want to use `?.` instead. You can choose this behavior with the <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.WithOptions*?text=member.WithOptions> method.
+* **Target object (receiver)**. By default, when used with a non-static member, invokers generate calls for the current (`this`) instance. To specify a different instance, use the <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.WithObject*?text=member.WithObject> method.
+* **Nullability behavior**. By default, invokers use the `.` operator to access the member. If the target object is nullable, you might want to use `?.` instead. You can choose this behavior with the <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.WithOptions*?text=member.WithOptions> method.
 
 ### Example
 
@@ -59,7 +66,7 @@ Without <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.WithObject*?text=W
 
 ## Accessing a field or property
 
-Fields and properties inherit the <xref:Metalama.Framework.Code.IExpression> interface. As with any expression, you can use the <xref:Metalama.Framework.Code.IExpression.Value?text=IExpression.Value> property to read or assign the field or property in a template. With fields, you can also reference the `Value` property with `ref`.
+Fields and properties inherit the <xref:Metalama.Framework.Code.IExpression> interface. As with any expression, you can use the <xref:Metalama.Framework.Code.IExpression.Value?text=IExpression.Value> property to read or assign the field or property in a template. For fields, you can also use `ref` when accessing the `Value` property.
 
 For instance:
 
@@ -74,16 +81,16 @@ targetProperty.Value = sourceProperty.Value?.Trim();
 SomeMethod( ref field.Value );
 ```
 
-This will generate the following code
+This will generate the following code:
 
 ```csharp
-Target = Source;
+Target = Source?.Trim();
 SomeMethod( ref TheField );
 ```
 
 ## Accessing an event
 
-Use the <xref:Metalama.Framework.Code.Invokers.IEventInvoker.Add*?text=event.Add>, <xref:Metalama.Framework.Code.Invokers.IEventInvoker.Remove*?text=event.Remove>, or <xref:Metalama.Framework.Code.Invokers.IEventInvoker.Raise*?text=event.Raise> to generate code that interacts with an event.
+Use <xref:Metalama.Framework.Code.Invokers.IEventInvoker.Add*?text=event.Add>, <xref:Metalama.Framework.Code.Invokers.IEventInvoker.Remove*?text=event.Remove>, or <xref:Metalama.Framework.Code.Invokers.IEventInvoker.Raise*?text=event.Raise> to generate code that adds handlers to, removes handlers from, or raises an event.
 
 
 ## Working with indexers
@@ -119,17 +126,20 @@ var tupleInstance = tupleType.CreateCreateInstanceExpression(42, "HAT").Value;
 This will generate the following code:
 
 ```csharp
-var tupleInstance = (Quantity: 42, ProductCode: hat);
+var tupleInstance = (Quantity: 42, ProductCode: "HAT");
 ```
 
 You can also pass an array of <xref:Metalama.Framework.Code.IExpression> to <xref:Metalama.Framework.Code.ITupleType.CreateCreateInstanceExpression*> if the tuple items are known as compile-time expressions instead of C# expressions.
 
 ### Accessing tuple elements
 
-Tuple elements act as fields of the <xref:System.ValueTuple> type. Use the following syntax to access their value:
+Tuple elements are represented as fields in the tuple type. Use the following syntax to access their value:
 
 ```csharp
 // Get the first element of a tuple
 var firstElement = tupleType.TupleElements[0].WithObject( tupleInstance ).Value;
 ```
 
+## See also
+
+For scenarios where members are known at design time, consider using <xref:dynamic-typing>, which has a simpler syntax using compile-time expressions.

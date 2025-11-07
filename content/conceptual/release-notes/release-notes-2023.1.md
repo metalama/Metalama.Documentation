@@ -8,7 +8,7 @@ modified-date: 2024-08-04
 
 # Metalama 2023.1
 
-Metalama 2023.2 focuses on bug fixes and minor enhancements.
+Metalama 2023.1 focuses on bug fixes and minor enhancements.
 
 ## Platform updates
 
@@ -27,5 +27,3 @@ Metalama 2023.2 focuses on bug fixes and minor enhancements.
 - Enhanced error message when referencing a non-existing type in compile-time code.
 - In templates, `foreach` loops are now allowed in run-time-conditional blocks.
 - Better error reporting when the `[Template]` attribute is used on accessors.
-
-

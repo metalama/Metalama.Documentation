@@ -20,7 +20,7 @@ The PostSharp Framework has been entirely ported to Metalama, with a few notable
 
 ## PostSharp Architecture Framework
 
-The equivalent of PostSharp Architecture Framework (e.g. the `PostSharp.Constraints` namespace) is the `Metalama.Extensions.Architecture` package. 
+The equivalent of PostSharp Architecture Framework (e.g. the `PostSharp.Constraints` namespace) is the `Metalama.Extensions.Architecture` package.
 
 See <xref:validation> for details.
 
@@ -31,7 +31,7 @@ See <xref:validation> for details.
 | Contracts              | Completed        | <xref:contract-patterns> | None                                                               |
 | Caching                | Completed        | <xref:caching>           | None                                                               |
 | INotifyPropertyChanged | Completed        | <xref:observability>     | See <xref:migrating-inpc>                                          |
-| WPF                   | Completed         | <xref:wpf>               | None                                                               |
+| WPF                    | Completed         | <xref:wpf>               | None                                                               |
 | Undo/Redo              | Not planned      |                          |                                                                    |
 | Diagnostics (logging)  | Not planned      |                          |                                                                    |
 | Multi-threading        | Not planned      |                          |                                                                    |
@@ -41,4 +41,4 @@ See <xref:validation> for details.
 
 
 > [!NOTE]
-> Please contact us if you have an enteprise subscription and rely on a PostSharp feature that we don't plan to migrate to Metalana.
+> Please contact us if you have an enterprise subscription and rely on a PostSharp feature that we don't plan to migrate to Metalama.

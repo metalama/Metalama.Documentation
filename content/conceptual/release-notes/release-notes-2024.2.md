@@ -12,15 +12,15 @@ We had to make dozens of smaller improvements to the framework to reach these ob
 
 Here is a detailed list.
 
-## Generation of classes 
+## Generation of classes
 
-It is now possible to introduce (i.e. generate) whole classes by using the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceClass*?text=AdviserExtensions.IntroduceClass> method. This method returns an <xref:Metalama.Framework.Aspects.IAdviser`1>`<INamedType>`, which you can then use to add members to the new type.
+It is now possible to introduce (i.e., generate) whole classes by using the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceClass*?text=AdviserExtensions.IntroduceClass> method. This method returns an <xref:Metalama.Framework.Aspects.IAdviser`1>`<INamedType>`, which you can then use to add members to the new type.
 
 For details, see <xref:introducing-types>.
 
 ## Generation and overriding of constructors
 
-You can now introduce a constructor into an existing or new type thanks to the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceConstructor*?text=AdviserExtensions.IntroduceConstructor> method. 
+You can now introduce a constructor into an existing or new type thanks to the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceConstructor*?text=AdviserExtensions.IntroduceConstructor> method.
 
 You can also override any constructor using a new overload of the <xref:Metalama.Framework.Aspects.AdviserExtensions.Override*> method.
 
@@ -41,7 +41,7 @@ Where competing solutions stop at automatic properties, our implementation suppo
 
 For details, see <xref:observability>.
 
-## Metalama.Patterns.Wpf  is Generally Available
+## Metalama.Patterns.Wpf is Generally Available
 
 The `Metalama.Patterns.Wpf` package (formerly named `Metalama.Patterns.Xaml`) is now stable and fully supported.
 
@@ -49,7 +49,7 @@ It contains two aspects: <xref:Metalama.Patterns.Wpf.CommandAttribute?text=[Comm
 
 For details, see <xref:wpf>.
 
-## New package: Metalama.Patterns.Immutability 
+## New package: Metalama.Patterns.Immutability
 
 This new package defines a concept of immutable type. Types can be marked as immutable using the <xref:Metalama.Patterns.Immutability.ImmutableAttribute?text=[Immutable]> aspect or the <xref:Metalama.Patterns.Immutability.Configuration.ImmutabilityConfigurationExtensions.ConfigureImmutability*> fabric method. This information is used by the `Metalama.Patterns.Observability` package to infer the mutability of properties.
 
@@ -74,9 +74,9 @@ For details, see <xref:immutability>.
 * The reference validator feature now has a concept of _validator granularity_ (<xref:Metalama.Extensions.Validation.ReferenceGranularity>), which accepts the values `Compilation`, `Namespace`, `Type`, `Member`, or `ParameterOrAttribute`. The idea is that when a validator is invariant within some level of granularity, then its predicate should only be evaluated once within the declaration at this level of granularity. For instance, if a validator granularity is set to `Namespace`, then _all_ references within that namespace will be either valid or invalid at the same time.
 
     The _validator granularity_ concept is essential to improve the performance of validators, as references can be validated collectively instead of one by one.
-    
+
     Code written against the previous API will get obsolescence warnings. We suggest porting your validators to the new API and choosing the coarsest possible granularity.
-    
+
     Additionally, the new class <xref:Metalama.Extensions.Architecture.Predicates.ReferenceEndPredicate> serves as a base for predicates that depend on a single end of the reference to validate. This class is a preparation for some future feature, allowing the validation of inbound references instead of just outbound references.
 
 * The API has been improved with fluent <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicateExtensions.And*>, <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicateExtensions.Or*> and <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicateExtensions.Not*> methods.
@@ -96,7 +96,7 @@ The following changes improve your ability to generate code with Metalama:
 * Adding <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionFactory.WithType*> and <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionFactory.WithNullability*> extension methods for <xref:Metalama.Framework.Code.IType> to override the inferred type or nullability of a captured expression.
 * Ability to evaluate a T# template into an <xref:Metalama.Framework.Code.SyntaxBuilders.IStatement> thanks to the <xref:Metalama.Framework.Code.SyntaxBuilders.StatementFactory.FromTemplate*?text=StatementFactory.FromTemplate> method.
 * New concept <xref:Metalama.Framework.Code.SyntaxBuilders.IStatementList> to represent an unresolved list of statements. Statement lists can be built from an `IStatement` or `IEnumerable<IStatement>` using the new extension methods <xref:Metalama.Framework.Code.SyntaxBuilders.StatementExtensions.AsList*> and <xref:Metalama.Framework.Code.SyntaxBuilders.StatementExtensions.UnwrapBlock*> or with the new class <xref:Metalama.Framework.Code.SyntaxBuilders.StatementListBuilder>.
-* New class <xref:Metalama.Framework.Code.SyntaxBuilders.SwitchStatementBuilder> to dynamically create a `switch` statement (cases can be added programmatically &mdash; only literal case labels are currently supported).
+* New class <xref:Metalama.Framework.Code.SyntaxBuilders.SwitchStatementBuilder> to dynamically create a `switch` statement (cases can be added programmatically — only literal case labels are currently supported).
 
 * New method <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.CreateInvokeExpression*> generating an <xref:Metalama.Framework.Code.IExpression> that represents a method invocation. Can be called outside of a template context.
 
@@ -131,7 +131,7 @@ Starting from Metalama 2024.2, using any of the <xref:Metalama.Patterns.Contract
    * Non-strict: <xref:Metalama.Patterns.Contracts.NonNegativeAttribute?text=[NonNegative]>, <xref:Metalama.Patterns.Contracts.NonPositiveAttribute?text=[NonPositive]>, <xref:Metalama.Patterns.Contracts.LessThanOrEqualAttribute?text=[LessThanOrEqual]> and <xref:Metalama.Patterns.Contracts.GreaterThanAttribute?text=[GreaterThanOrEqual]>.
 * Or set the <xref:Metalama.Patterns.Contracts.ContractOptions.DefaultInequalityStrictness> contract option using the <xref:Metalama.Patterns.Contracts.ContractConfigurationExtensions.ConfigureContracts*> fabric extension method.
 
-If you don't address the warning, the behavior of the ambiguous contracts will remain backward-compatible, i.e., non-standard.
+If you do not address the warning, the behavior of the ambiguous contracts will remain backward-compatible, i.e., non-standard.
 
 We will change the default behavior and the warning in a future release.
 
@@ -144,27 +144,32 @@ We will change the default behavior and the warning in a future release.
 
 * `CancellationToken` parameters are automatically ignored.
 
-* With the Redis back-end:
-    * By default, Metalama Caching will use the `CommandFlags.PreferReplica` for read operations and `CommandFlags.PreferMaster` for write operations. These default values can be modified thanks to the `ReadCommandFlags` and `WriteCommandFlags` properties of the `RedisCachingBackendConfiguration` class.
+* With the Redis backend:
+    * By default, Metalama Caching will use the `CommandFlags.PreferReplica` for read operations and `CommandFlags.PreferMaster` for write operations. These default values can be modified using the `ReadCommandFlags` and `WriteCommandFlags` properties of the `RedisCachingBackendConfiguration` class.
     * `StackExchange.Redis` was updated to 2.8.
-    * The <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingFactory.Redis*> mehtod now consumes `IConnectionMultiplexer` from the `IServiceProvider` by default.
-
+    * The <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingFactory.Redis*> method now consumes `IConnectionMultiplexer` from the `IServiceProvider` by default.
 
 ## Improvements in supportability
 
-When troubleshooting Metalama, it is now possible to enable tracing and direct it to the standard output just using an environment variable.
+When troubleshooting Metalama, it is now possible to enable tracing and direct it to the standard output simply by using an environment variable.
 
 For details, see <xref:creating-logs>.
 
-## Breaking Changes
+## Breaking changes
 
 * The <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicate> class has a new abstract property <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicate>. Its constructor now requires a <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicateBuilder>.
-* <xref:Metalama.Extensions.Validation.ReferenceValidationContext> no longer reports several <xref:Metalama.Framework.Code.ReferenceKinds>, but only the deepest one. For instance, in `class A : List<C>;`, the reference to `C` is of kind `GenericArgument` and no longer `BaseType | GenericArgument`. Combined flags added complexity, and we did not see a use case for them.
-* Projects that were using transitive reference validators (or architecture constraints), if they were built with a previous version of Metalama, must be rebuilt.
+
+* <xref:Metalama.Extensions.Validation.ReferenceValidationContext> no longer reports several <xref:Metalama.Framework.Code.ReferenceKinds>, but only the deepest one. For instance, in `class A : List<C>;`, the reference to `C` is of kind `GenericArgument` and no longer `BaseType | GenericArgument`. The combined flags added complexity, and we did not see a use case for them.
+
+* Projects that were using transitive reference validators (or architecture constraints) and were built with a previous version of Metalama must be rebuilt.
+
 * Relationships specified with <xref:Metalama.Framework.Aspects.AspectOrderAttribute> are now applied to derived aspect classes by default. To revert to the previous behavior, set the <xref:Metalama.Framework.Aspects.AspectOrderAttribute.ApplyToDerivedTypes> property to `false`.
+
 * An error will be reported when attempting to use some compile-time methods (for instance, `meta.CompileTime`) from a method that is not a template. In prior versions, these methods had no effect and were only confusing.
+
 * `Metalama.Patterns.Contracts`: Some virtual methods of the <xref:Metalama.Patterns.Contracts.RangeAttribute> and <xref:Metalama.Patterns.Contracts.ContractTemplates> classes have changed; overrides must be adapted.
+
 * `Metalama.Patterns.Caching`:
-    * `CachingBackend.Clear()` no longer raises the `ItemRemoved` event.
+    * CachingBackend.Clear() no longer raises the `ItemRemoved` event.
     * The `CacheValue` class has been replaced by the existing `CacheItem` class.
-    * The `ICachingSerializer`interface has been refactored to work with `BinaryReader` and `BinaryWriter`.
+    * The `ICachingSerializer` interface has been refactored to work with `BinaryReader` and `BinaryWriter`.

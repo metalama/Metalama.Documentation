@@ -28,7 +28,7 @@ In the example below, the aspect introduces an `Id` property of type `Guid` and 
 
 #### Example: initializing with a template
 
-The T# template language can also be used inside analyzers of fields or properties. The aspect in the following example introduces a property that is initialized to the build configuration and target framework.
+The T# template language can also be used within initializers for fields or properties. The aspect in the following example introduces a property that is initialized to the build configuration and target framework.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/BuildInfo.cs name="Introduce Build Info"]
 
@@ -66,5 +66,3 @@ If you wish to insert logic into a specific constructor, call the <xref:Metalama
 ## Before the type constructor
 
 The same approach can be used to add logic to the type constructor (i.e., static constructor) instead of the object constructor. In this case, the `InitializerType.BeforeTypeConstructor` value should be used.
-
-

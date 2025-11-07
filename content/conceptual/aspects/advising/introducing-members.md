@@ -9,7 +9,7 @@ modified-date: 2024-11-06
 
 # Introducing members
 
-In previous articles, you learned how to override the implementation of existing type members. This article will teach you how to add new members to an existing type.
+In previous articles, you learned how to override the implementation of existing type members. This article teaches you how to add new members to an existing type.
 
 Currently, you can add the following types of members:
 
@@ -23,7 +23,7 @@ Currently, you can add the following types of members:
 
 ## Introducing members declaratively
 
-The simplest way to introduce a member from an aspect is to implement this member in the aspect and annotate it with the <xref:Metalama.Framework.Aspects.IntroduceAttribute?text=[Introduce]> custom attribute. This custom attribute has the following notable properties:
+The simplest way to introduce a member from an aspect is to implement it in the aspect and annotate it with the <xref:Metalama.Framework.Aspects.IntroduceAttribute?text=[Introduce]> custom attribute. This custom attribute has the following notable properties:
 
 | Property | Description |
 |----------|-------------|
@@ -135,10 +135,9 @@ For more details, see <xref:Metalama.Framework.Code.Invokers>.
 
 ## Referencing introduced members from source code
 
-If you want the _source_ code (not your aspect code) to reference declarations introduced by your aspect, the _user_ of your aspect needs to make the target types `partial`. Without this keyword, the introduced declarations will not be visible at design time in syntax completion, and the IDE will report errors. Note that the _compiler_ will not complain because Metalama replaces the compiler, but the IDE will because it does not know about Metalama, and therefore your aspect has to follow the rules of the C# compiler. However inconvenient it may be, there is nothing you as an aspect author, or us as the authors of Metalama, can do.
+If you want the _source_ code (not your aspect code) to reference declarations introduced by your aspect, the _user_ of your aspect must make the target types `partial`. Without this keyword, the introduced declarations will not be visible at design time in syntax completion, and the IDE will report errors. Note that the compiler will not complain because Metalama replaces the compiler, but the IDE will because it does not know about Metalama, and therefore your aspect has to follow the rules of the C# compiler. However inconvenient this may be, there is nothing you as an aspect author, or us as the authors of Metalama, can do.
 
 If the user does not add the `partial` keyword, Metalama will report a warning and offer a code fix.
 
 > [!NOTE]
-> In __test projects__ built using `Metalama.Testing.AspectTesting`, the Metalama compiler is _not_ activated. Therefore, the source code of test projects cannot reference introduced declarations. Since the present documentation relies on `Metalama.Testing.AspectTesting` for all examples, we cannot include an example here.
-
+> In test projects built using `Metalama.Testing.AspectTesting`, the Metalama compiler is not activated. Therefore, the source code of test projects cannot reference introduced declarations. Since this documentation relies on `Metalama.Testing.AspectTesting` for all examples, we cannot include an example here.

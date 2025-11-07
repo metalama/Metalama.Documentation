@@ -8,7 +8,7 @@ modified-date: 2024-08-04
 
 # Metalama 2024.1
 
-The primary objective of Metalama 2024.1 is to enhance the user interface, with a focus on improving Visual Studio tooling and introducing a new license activation UI. Furthermore, it is now possible to override constructors.
+The primary objective of Metalama 2024.1 is to enhance the user interface, focusing on improving Visual Studio tooling and introducing a new license activation UI. Furthermore, it is now possible to override constructors.
 
 ## User Interface
 
@@ -32,13 +32,13 @@ The Learning Hub displays articles and tutorials, prioritizing them based on you
 
 #### ARM64 Support
 
-Visual Studio Tools for Metalama function seamlessly on an ARM64 device.
+Visual Studio Tools for Metalama function seamlessly on ARM64 devices.
 
 ### Licensing UI
 
 When using Metalama for the first time, a UI will guide you through the process of registering your license key or choosing between the trial and the free edition. You will also have the option to subscribe to a newsletter and the Metalama email course.
 
-We also have added toast notifications for unhandled exceptions.
+We have also added toast notifications for unhandled exceptions.
 
 ## Overriding constructors
 
@@ -61,5 +61,3 @@ For details, see <xref:overriding-constructors>.
 * Contracts are now ineligible on unimplemented partial methods.
 * In <xref:Metalama.Framework.Code.TypeFactory>, the generic methods `public static T ToNullableType<T>( this T type ) where T : IType` and `public static T ToNonNullableType<T>( this T type ) where T : IType` have been replaced by a set of non-generic overloads (see <xref:Metalama.Framework.Code.TypeFactory.ToNullableType*> and <xref:Metalama.Framework.Code.TypeFactory.ToNonNullableType*>), taking into account the fact that the nullable type of an <xref:Metalama.Framework.Code.ITypeParameter> is not an <xref:Metalama.Framework.Code.ITypeParameter> if the type parameter has a `struct` constraint.
 * The <xref:Metalama.Framework.Code.INamedType.UnderlyingType> property, when the <xref:Metalama.Framework.Code.INamedType> represents a `Nullable<T>` (i.e., a nullable value type), no longer returns `T` but `Nullable<T>`. This behavior is now consistent with other generic types but no longer consistent with nullable reference types.
-
-
