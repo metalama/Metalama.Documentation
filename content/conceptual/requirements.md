@@ -35,13 +35,13 @@ Your projects can target any framework that supports .NET Standard 2.0, includin
 
 | Framework                  | Versions            | Testing status |
 | -------------------------- | ------------------- | -------------- |
-| .NET Core                  | 2.0 or later        | Untested       |
-| .NET                       | 5.0, 6.0, 7.0       | Untested       |
 | .NET                       | 8.0, 9.0, 10.0      | Tested         |
 | .NET Framework             | 4.7.2 to 4.8.0      | Tested         |
 | MAUI                       |                     | Tested         |
 | MAUI Blazor                |                     | Tested         |
 | Blazor WebAssembly         |                     | Tested         |
+| .NET Core                  | 2.0 or later        | Untested       |
+| .NET                       | 5.0, 6.0, 7.0       | Untested       |
 | Mono                       | 5.4 or later        | Untested       |
 | Xamarin.iOS                | 10.14 or later      | Untested       |
 | Xamarin.Mac                | 3.8 or later        | Untested       |

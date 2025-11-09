@@ -112,7 +112,6 @@ The template above generates the following code:
 this[0,0] = this[0,1]
 ```
 
-
 ## Working with tuples
 
 ### Creating a tuple instance
@@ -122,6 +121,7 @@ Use <xref:Metalama.Framework.Code.ITupleType.CreateCreateInstanceExpression*> to
 For instance, in a template, you can use the following code:
 
 ```csharp
+var tupleType = TypeFactory.CreateTupleType( (typeof(decimal), "Quantity"), (typeof(string), "ProductCode" ) );
 var tupleInstance = tupleType.CreateCreateInstanceExpression(42, "HAT").Value;
 ```
 

@@ -70,8 +70,9 @@ In this situation, you can use an auxiliary template with a [compile-time type p
 To invoke the template, use the <xref:Metalama.Framework.Aspects.meta.InvokeTemplate*?text=meta.InvokeTemplate> and specify the `args` parameter. For instance:
 
 ```cs
-meta.InvokeTemplate( nameof(CompareFieldOrProperty), args:
-     new { TFieldOrProperty = fieldOrProperty.Type, fieldOrProperty, other = (IExpression) other! } );
+meta.InvokeTemplate( 
+     nameof(CompareFieldOrProperty), 
+     args: new { TFieldOrProperty = fieldOrProperty.Type, fieldOrProperty, other = (IExpression) other! } );
 ```
 
 This is illustrated by the following example:

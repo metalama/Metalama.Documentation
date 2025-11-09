@@ -9,7 +9,7 @@ modified-date: 2025-11-07
 
 # Working with types
 
-The Metalama type system provides a comprehensive representation of C# types through the <xref:Metalama.Framework.Code.IType> interface and its derived types. This representation is closely aligned with the C# type system and the Roslyn implementation, but may differ from the `System.Reflection` type system. The Metalama type system is designed to work seamlessly with compile-time code analysis and transformation, providing a natural and intuitive API for aspect developers.
+The Metalama type system represents C# types through the <xref:Metalama.Framework.Code.IType> interface and its derived types. It's aligned with the C# type system and Roslyn, but differs from `System.Reflection`.
 
 ## Class diagram
 
@@ -110,7 +110,7 @@ A named type in Metalama is represented by the <xref:Metalama.Framework.Code.INa
 Named types are the fundamental building blocks of C# programs. Unlike other types in the type system (such as arrays, pointers, or type parameters), named types:
 
 - Have a fully qualified name (e.g., `System.Collections.Generic.List<T>`).
-- Can contain members (methods, properties, indexers, fields, events, constructors).
+- Can contain members (methods, properties, indexers, fields, events, constructors, extension blocks).
 - Can implement interfaces and inherit from base types.
 - Can have nested types.
 - Can be generic (with type parameters).
@@ -159,7 +159,7 @@ There are several ways to get an IType instance from your compile-time code.
 
 ### From `typeof(.)`
 
-You can use the `TypeFactory.GetType` and `TypeFactory.GetNamedType` methods to map a `System.Type` to the corresponding `IType` or `INamedType`.
+You can use the <xref:Metalama.Framework.Code.TypeFactory.GetType?text=TypeFactory.GetType> and <xref:Metalama.Framework.Code.TypeFactory.GetNamedType?text=TypeFactory.GetNamedType> methods to map a `System.Type` to the corresponding <xref:Metalama.Framework.Code.IType> or <xref:Metalama.Framework.Code.INamedType>.
 
 ```csharp
 var stringType = TypeFactory.GetNamedType(typeof(string));
@@ -171,10 +171,10 @@ var stringArrayType = TypeFactory.GetType(typeof(string[]));
 
 ### From special types (intrinsics and other)
 
-Some types are identified by a member of the `SpecialType` enum. Using the `TypeFactory.GetType(SpecialType)` method is often more convenient and CPU efficient than using `typeof`.
+Some types are identified by a member of the <xref:Metalama.Framework.Code.SpecialType> enum. Using the <xref:Metalama.Framework.Code.TypeFactory.GetType(Metalama.Framework.Code.SpecialType)?text=TypeFactory.GetType(SpecialType)> method is often more compact and efficient than using `typeof`.
 
 ```csharp
-var stringType = TypeFactory.GetType(SpecialType);
+var stringType = TypeFactory.GetType( SpecialType.String );
 ```
 
 ### From the current project
@@ -194,13 +194,9 @@ var myType = meta.Target.Compilation
 ```
 
 
-
-
 ### Generic types
 
 Generic types in Metalama are represented by types that implement the <xref:Metalama.Framework.Code.IGeneric> interface. Both <xref:Metalama.Framework.Code.INamedType> and <xref:Metalama.Framework.Code.IMethod> implement this interface.
-
-### Generic type definitions
 
 Type parameters are represented by <xref:Metalama.Framework.Code.ITypeParameter>. You can access them through the following collections:
 
@@ -231,9 +227,10 @@ You can also use the following, more compact, syntax:
 
 ```csharp
 var listOfString = TypeFactory.GetNamedType( typeof(List<>) ).MakeGenericInstance( [typeof(string)] );
-``
+```
 
 ## Tuple types
+
 It is often convenient to use tuples when an aspect needs to pack all method arguments into a single object. They are an efficient alternative to `object[]`.
 
 Tuple types in Metalama are represented by <xref:Metalama.Framework.Code.ITupleType>, which exposes the tuple elements under the `TupleElements` property. Tuple elements have a type and a name.
@@ -251,26 +248,53 @@ The following code snippet creates the tuple type `(decimal Quantity, string Pro
 var tupleType = TypeFactory.CreateTupleType( (typeof(decimal), "Quantity"), (typeof(string), "ProductCode" ) );
 ```
 
+### Creating and accessing tuple instances
+
+Use <xref:Metalama.Framework.Code.ITupleType.CreateCreateInstanceExpression*> to create a tuple instantiation expression.
+
+For instance, in a template, you can use the following code:
+
+```csharp
+var tupleType = TypeFactory.CreateTupleType( (typeof(decimal), "Quantity"), (typeof(string), "ProductCode" ) );
+var tupleInstance = tupleType.CreateCreateInstanceExpression(42, "HAT").Value;
+```
+
+This will generate the following code:
+
+```csharp
+var tupleInstance = (Quantity: 42, ProductCode: "HAT");
+```
+
+Tuple elements are represented as fields in the tuple type. Use the following syntax to access their value:
+
+```csharp
+// Get the first element of a tuple
+var firstElement = tupleType.TupleElements[0].WithObject( tupleInstance ).Value;
+```
+
 ### Degenerate cases
 
 Metalama handles special cases gracefully:
 
-- **Zero-element tuples**: Returns `ValueTuple.Create()`
-- **One-element tuples**: Returns `ValueTuple.Create(value)`
-- **Two or more elements**: Uses native tuple syntax `(value1, value2, ...)`
+- **Zero-element tuples**: Generates `ValueTuple.Create()`.
+- **One-element tuples**: Generates `ValueTuple<T>`.
+- **Two or more elements**: Generates the native tuple syntax `(T1 Value1, T2 Value2, ...)`.
 
 ```csharp
 // Zero arguments
-var emptyTuple = TypeFactory.CreateTupleType(Array.Empty<IType>());
-// Result: ValueTuple.Create()
+var emptyTupleType = TypeFactory.CreateTupleType();
+var emptyTuple = emptyTupleType.CreateCreateInstanceExpression().Value
+// Result: `var emptyTuple = ValueTuple.Create();`
 
 // One argument
-var singleTuple = TypeFactory.CreateTupleType(new[] { intType });
-// Result: ValueTuple.Create(42)
+var singleTupleType = TypeFactory.CreateTupleType( typeof(int) );
+var singleTuple = singleTupleType.CreateCreateInstanceExpression( 42 ).Value;
+// Result: `var singleTuple = ValueTuple.Create( 42 );`
 
 // Multiple arguments
-var normalTuple = TypeFactory.CreateTupleType(new[] { intType, stringType });
-// Result: (42, "Hello")
+var normalTupleType = TypeFactory.CreateTupleType( (intType, "Quantity"), (stringType, "ProductCode") );
+var normalTuple = normalTuple.CreateCreateInstanceExpression( 42, "HAT" );
+// Result: `var normalTuple = ( Quantity: 42, ProductCode: "HAT" );`
 ```
 
 ### Example: packing and unpacking arguments into a tuple
@@ -279,7 +303,7 @@ The following aspect demonstrates how you can pack all method arguments into a t
 
 This example is quite convoluted because of the need to implement a basic interception pattern. You can skip it on first reading if you are just here to learn about the type system and don't want to dive into more complex aspects for now.
 
-Despite the complexity due to the interception scenario, the aspect demonstrates the simplicity of working with tuples. The aspect code does not need to bother about the number of parameters. All details are taken care of by `ITupleType`.
+Despite the complexity due to the interception scenario, the aspect demonstrates the simplicity of working with tuples. The aspect code does not need to bother about the number of parameters. All details are taken care of by <xref:Metalama.Framework.Code.ITupleType>.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/TupleInterceptor.cs name="TupleInterceptor"]
 

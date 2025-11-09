@@ -15,7 +15,6 @@ Expressions represent C# syntax — not their result. For instance, `1+1` and `2
 
 In this article, we cover different ways to create `IExpression` objects.
 
-
 ## Two-way convertibility between IExpression and `dynamic`
 
 As noted in <xref:dynamic-typing>, all `dynamic` objects in a template actually implement the `IExpression` interface, so it is safe to cast a `dynamic` into an `IExpression` in a template. An expression can be converted back to a `dynamic` either by using a cast or the `Value` property.
@@ -43,7 +42,7 @@ var expression2 = ExpressionFactory.Capture( DateTime.Now );
 ### Capturing a dynamic expression
 
 > [!WARNING]
-> When the expression to capture is of `dynamic` type, it must be explicitly cast to `IExpression` to work around limitations of the C# language.
+> When the compile-time type of the expression to capture is `dynamic`, it must be explicitly cast to `IExpression` to work around limitations of the C# language.
 
 Example:
 
@@ -52,9 +51,11 @@ Example:
 IMethod method; 
 
 // Invokes the method and stores the result in a run-time local variable.
+// At compile time, `result` is dynamic.
 var result = method.Invoke(); 
 
-// Captures the reference to the local variable "result".
+// Captures the reference to the local variable `result`.
+// The `(IExpression)` cast is necessary.
 var expression = ExpressionFactory.Capture( (IExpression) result ); 
 ```
 
@@ -87,7 +88,6 @@ If you already have a string representing an expression or statement, you can co
 The `_logger` field is accessed through a parsed expression in the following example.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/ParseExpression.cs name="ParseExpression"]
-
 
 ## Generating run-time arrays
 
