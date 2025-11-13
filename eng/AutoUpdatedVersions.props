@@ -3,9 +3,9 @@
 
     <PropertyGroup>
         <MetalamaCompilerVersion>2026.0.4-preview</MetalamaCompilerVersion>
-        <MetalamaVersion>2026.0.5-preview</MetalamaVersion>
+        <MetalamaVersion>2026.0.6-preview</MetalamaVersion>
         <MetalamaPremiumVersion>2026.0.5-preview</MetalamaPremiumVersion>
         <MetalamaSamplesVersion>2026.0.5-preview</MetalamaSamplesVersion>
-    <MetalamaDocumentationReleaseVersion>2026.0.1-preview</MetalamaDocumentationReleaseVersion><MetalamaDocumentationReleaseMainVersion>2026.0.1</MetalamaDocumentationReleaseMainVersion></PropertyGroup>
+    <MetalamaDocumentationReleaseVersion>2026.0.2-preview</MetalamaDocumentationReleaseVersion><MetalamaDocumentationReleaseMainVersion>2026.0.2</MetalamaDocumentationReleaseMainVersion></PropertyGroup>
 
 </Project>
