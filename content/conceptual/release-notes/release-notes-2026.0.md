@@ -8,9 +8,16 @@ modified-date: 2025-11-07
 
 # Metalama 2026.0
 
-Metalama 2026.0 is a major release, primarily focused on supporting C# 14, the most significant evolution of the C# language in many years. This version introduces comprehensive support for extension members, partial constructors, and events, as well as user-defined compound assignment operators and other new C# 14 features.
+We are thrilled to announce Metalama 2026.0! This major version brings full support for C# 14—the most significant evolution of the C# language in many years.
 
-Additionally, this release enhances the code model with first-class support for named tuples, introduces the ability to override event handler invocations, and includes various API improvements and breaking changes.
+**Highlights:**
+
+- **C# 14 and .NET 10 SDK support**, including extension blocks, partial constructors and events, and compound assignment operators
+- **First-class tuple types** with direct access to element names and types
+- **Event handler invocation overriding** for implementing patterns like safe events
+- **Faster Visual Studio experience** with significant performance improvements
+
+Metalama 2026.0 ensures you are ready to take full advantage of the latest C# features while keeping your aspects clean, powerful, and maintainable.
 
 ## Requirements
 
@@ -114,6 +121,11 @@ This new advice kind allows you to implement aspects such as "safe events", wher
 
 For comprehensive documentation, see <xref:overriding-events>.
 
+## Visual Studio Tools for Metalama: performance improvements
+
+We have refactored several components of Visual Studio Tools for Metalama to improve its performance, sometimes dramatically. It should now be more stable, consume less CPU, and make better use of your cores.
+
+
 ## Additional improvements
 
 * **User-defined checked operators.** Metalama 2026.0 adds support for introducing user-defined `checked` operators.
@@ -126,6 +138,7 @@ For comprehensive documentation, see <xref:overriding-events>.
 
 * New article: <xref:type-system>.
 * Improved the chapter: <xref:templates>.
+* Improved the API documentation by adding elements from the conceptual documentation where relevant.
 
 ## Breaking changes
 
