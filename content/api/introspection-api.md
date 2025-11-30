@@ -6,15 +6,17 @@ created-date: 2023-01-26
 modified-date: 2024-08-04
 ---
 
-# Introspection API Documentation
+# Introspection API documentation
 
 The following namespaces allow you to query your projects and solutions using the Metalama code model. This includes results and intermediate objects from the Metalama compilation process, such as aspect instances and reported diagnostics.
 
 | Namespace                             | Description                                                                                                                |
 |---------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
 | <xref:Metalama.Framework.Introspection> | This namespace exposes the output of the Metalama compilation process. |
-| <xref:Metalama.Framework.Workspaces> | This namespace enables you to load a C# project or solution in your custom code (or with LinqPad) and inspect the code model. |
-| <xref:Metalama.LinqPad> | This namespace implements a LinqPad driver and custom object dumpers. |
+| <xref:Metalama.Framework.Workspaces> | This namespace enables you to load a C# project or solution in your custom code (or with LINQPad) and inspect the code model. |
+| <xref:Metalama.LinqPad> | This namespace implements a LINQPad driver and custom object dumpers. |
+
+For conceptual documentation, see <xref:introspection>.
 
 
 
