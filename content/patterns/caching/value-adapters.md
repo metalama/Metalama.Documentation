@@ -9,8 +9,8 @@ modified-date: 2024-08-04
 
 In theory, only _immutable_ types should be cached. However, in practice, there are some problematic types that we might still want to cache:
 
-* Stream-like types such as the <xref:System.Collections.Generic.IEnumerator`1> interface or the <xref:System.IO.Stream> class cannot be directly cached because the position of the enumerator or stream can be altered by the caller.
-* Interfaces like <xref:System.Collections.Generic.IEnumerable`1> cannot be cached because the actual value might be a query rather than the _result_ of this query, which would be pointless to cache.
+* Stream-like types such as the <xref:System.Collections.Generic.IEnumerator`1> interface or the <xref:System.IO.Stream> class can't be directly cached because the position of the enumerator or stream can be altered by the caller.
+* Interfaces like <xref:System.Collections.Generic.IEnumerable`1> can't be cached because the actual value might be a query rather than the _result_ of this query, which would be pointless to cache.
 * Some types, like <xref:System.Collections.Generic.List`1> or arrays, are mutable, and the caller may modify the instance stored in the cache.
 
 So, how can we safely cache these problematic types?
@@ -46,7 +46,7 @@ To implement a custom value adapter:
 
 ### Example: Caching a StringBuilder
 
-Let's say you are maintaining a legacy service that implements the unusual practice of returning a `StringBuilder` instead of a `string`. You are responsible for improving the performance of this API, so you want to cache the result of this method. However, you cannot cache mutable objects, as this would mean that if a caller modifies the `StringBuilder`, the next caller would receive the modified copy. Therefore, you decide to cache the `string` instead of the `StringBuilder`, and return a new `StringBuilder` every time the value is fetched from the cache.
+Let's say you are maintaining a legacy service that implements the unusual practice of returning a `StringBuilder` instead of a `string`. You are responsible for improving the performance of this API, so you want to cache the result of this method. However, you can't cache mutable objects, as this would mean that if a caller modifies the `StringBuilder`, the next caller would receive the modified copy. Therefore, you decide to cache the `string` instead of the `StringBuilder`, and return a new `StringBuilder` every time the value is fetched from the cache.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Caching/ValueAdapter/ValueAdapter.cs]
 

@@ -16,14 +16,13 @@ modified-date: 2024-08-22
 > These features are only available in Visual Studio when Visual Studio Tools for Metalama are installed.
 
 
-Now that you have integrated aspects into your code, you might be curious about its functionality and execution process. Metalama provides several tools to help you understand precisely what happens with your code when you hit the Run button.
+Now that you've integrated aspects into your code, you might be curious about its functionality and execution process. Metalama provides several tools to help you understand precisely what happens with your code when you hit the Run button.
 
 These tools include:
 
-* CodeLens
-* Metalama Diff
-* Aspect Explorer
-
+- CodeLens
+- Metalama Diff
+- Aspect Explorer
 
 ## CodeLens
 

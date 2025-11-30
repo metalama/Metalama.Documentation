@@ -39,7 +39,7 @@ To override the _invoke_ semantic, implement the <xref:Metalama.Framework.Aspect
 
 ### Adding/removing event handlers from an advice
 
-If you are writing an exception handling aspect, you will want to unregister the event handler from the _invoke_ template. You can do this by invoking the <xref:Metalama.Framework.Code.Invokers.IEventInvoker.Remove*?IEvent.Remove> method from the template, for instance:
+If you are writing an exception handling aspect, you'll want to unregister the event handler from the _invoke_ template. You can do this by invoking the <xref:Metalama.Framework.Code.Invokers.IEventInvoker.Remove*?IEvent.Remove> method from the template, for instance:
 
 ```csharp
  meta.Target.Event.Remove( handler );
@@ -52,7 +52,7 @@ If you are writing an exception handling aspect, you will want to unregister the
 
 - Delegate signatures with a non-`void` return type or with `out` and `ref` parameters are not supported.
 - Using `meta.Target.Event.Raise()` from the `OverrideInvoke` template is not supported. You must use `meta.Proceed()`.
-- Only handlers added through the event's _add_ and _remove_ accessors will be intercepted by the _raise_ advice. Handlers added differently, for instance those added directly to the event backing field, will not be intercepted.
+- Only handlers added through the event's _add_ and _remove_ accessors will be intercepted by the _raise_ advice. Handlers added differently, for instance those added directly to the event backing field, won't be intercepted.
 
 ### Example: safe events
 

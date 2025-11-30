@@ -38,7 +38,7 @@ Note that this will not waive the enforcement of invariants in methods _called_ 
 
 ## Suspending enforcement of invariants
 
-If you have a code snippet that temporarily breaks invariants, you can suspend invariant enforcement.
+If you've a code snippet that temporarily breaks invariants, you can suspend invariant enforcement.
 
 First, enable the <xref:Metalama.Patterns.Contracts.ContractOptions.IsInvariantSuspensionSupported> option for this type. This option is disabled by default because it generates additional code. You can set this option from a <xref:Metalama.Framework.Fabrics.ProjectFabric> or <xref:Metalama.Framework.Fabrics.NamespaceFabric> as described in <xref:configuring-contracts>.
 

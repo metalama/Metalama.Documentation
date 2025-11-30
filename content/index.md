@@ -17,7 +17,7 @@ There are typically two types of Metalama users:
 * If you intend to _utilize aspects written by others_, begin with <xref:using-metalama> and likely conclude there.
 * If you aspire to _develop your own aspects_, start with <xref:main-getting-started> to get a quick overview, then jump to <xref:using-metalama> and continue to <xref:simple-aspects>.
 
-Each article is assigned a _complexity level_, such as 100, 200, 300, following the U.S. school system. Before advancing to a level 200 article, ensure you have a solid understanding of level 100. We strive to avoid incorporating complex details into basic level articles. Occasionally, you may need to study several articles to gather comprehensive information on a specific topic.
+Each article is assigned a _complexity level_, such as 100, 200, 300, following the U.S. school system. Before advancing to a level 200 article, ensure you've a solid understanding of level 100. We strive to avoid incorporating complex details into basic level articles. Occasionally, you may need to study several articles to gather comprehensive information on a specific topic.
 
 
 ## Documentation structure

@@ -19,10 +19,10 @@ Add the [Metalama.Framework](https://www.nuget.org/packages/Metalama.Framework) 
 
 Optionally, install [Visual Studio Tools for Metalama](https://marketplace.visualstudio.com/items?itemName=PostSharpTechnologies.PostSharp). This extension offers the following features:
 
-* AspectDiff: Displays a side-by-side comparison of source code with the generated code.
-* CodeLens: Displays which aspects are applied to your code.
-* Aspect Explorer: Navigates from aspects to their target declarations.
-* Syntax highlighting of aspects: This is particularly useful when you are getting started.
+- AspectDiff: Displays a side-by-side comparison of source code with the generated code.
+- CodeLens: Displays which aspects are applied to your code.
+- Aspect Explorer: Navigates from aspects to their target declarations.
+- Syntax highlighting of aspects: This is particularly useful when you're getting started.
 
 ## 2. Create an Aspect Class
 
@@ -32,12 +32,12 @@ Type the following code:
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.AspectFramework/GettingStarted/GettingStarted.Aspect.cs]
 
-As you can infer from its name, the `LogAttribute` class is a custom attribute. You can think of an aspect as a _template_. When you apply it to some code (in this case, to a method), it transforms it. Indeed, the code of the target method will be replaced by the implementation of `OverrideMethod`. This method is very special. Some parts execute at run time, while others, which typically start with the `meta` keyword, execute at compile time. If you installed Visual Studio Tools for Metalama, you will notice that compile-part segments are displayed with a different background color.
+As you can infer from its name, the `LogAttribute` class is a custom attribute. You can think of an aspect as a _template_. When you apply it to some code (in this case, to a method), it transforms it. Indeed, the code of the target method will be replaced by the implementation of `OverrideMethod`. This method is very special. Some parts execute at run time, while others, which typically start with the `meta` keyword, execute at compile time. If you installed Visual Studio Tools for Metalama, you'll notice that compile-part segments are displayed with a different background color.
 
 Let's examine two `meta` expressions:
 
-* `meta.Proceed()` is replaced by the code of the target method.
-* `meta.Target.Method` gives you access to the <xref:Metalama.Framework.Code.IMethod> code model. In this case, we are implicitly calling `ToString()`.
+- `meta.Proceed()` is replaced by the code of the target method.
+- `meta.Target.Method` gives you access to the <xref:Metalama.Framework.Code.IMethod> code model. In this case, we're implicitly calling `ToString()`.
 
 ## 3. Apply the custom attribute to a method
 
@@ -57,7 +57,7 @@ Leaving Foo.Method1()
 
 ## 4. See what happened to your code
 
-You can see that Metalama did not modify anything in your source code. It's still _yours_. Instead, Metalama applied the logging aspect during compilation. So, it's no longer your source code that's being executed, but your source code _enhanced_ by the logging aspect.
+You can see that Metalama didn't modify anything in your source code. It's still _yours_. Instead, Metalama applied the logging aspect during compilation. So, it's no longer your source code that's being executed, but your source code _enhanced_ by the logging aspect.
 
 If you installed Visual Studio Tools for Metalama, you can compare your source code with the transformed (executed) code using the "Diff preview" feature accessible from the source file context menu in Visual Studio.
 
@@ -80,7 +80,7 @@ This class derives from <xref:Metalama.Framework.Fabrics.ProjectFabric> and acts
 > [!NOTE]
 > This feature requires a Metalama Professional license.
 
-Now that you know about aspects and fabrics, it's easy to understand how to validate your codebase against some architectural rules. In this example, we will show how to report a warning when internals of a namespace are used outside of this namespace.
+Now that you know about aspects and fabrics, it's easy to understand how to validate your codebase against some architectural rules. In this example, we'll show how to report a warning when internals of a namespace are used outside of this namespace.
 
 First, reference the [Metalama.Extensions.Architecture](https://www.nuget.org/packages/Metalama.Extensions.Architecture) package from your project.
 
@@ -92,7 +92,7 @@ Alternatively, we can achieve the same with a <xref:Metalama.Framework.Fabrics.N
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.AspectFramework/GettingStarted/GettingStarted_Architecture_Ns.Fabric.cs]
 
-Fabrics not only run at compile time, but also at design time within the IDE. After the first build, or after you click on the _I am done with compile-time changes_ link if you have installed Metaslama Tools for Visual Studio, you will see warnings in the IDE if your code violates the rule.
+Fabrics not only run at compile time, but also at design time within the IDE. After the first build, or after you click on the _I am done with compile-time changes_ link if you've installed Metalama Tools for Visual Studio, you'll see warnings in the IDE if your code violates the rule.
 
 In this case, when we try to access any class of `VerifiedNamespace` from a different namespace, we get a warning:
 
@@ -100,11 +100,13 @@ In this case, when we try to access any class of `VerifiedNamespace` from a diff
 
 ## Conclusion
 
-Congratulations! In this short tutorial, you have discovered the key concepts of Metalama: aspects and fabrics. You have learned how to transparently add behaviors to your code during compilation and add validation rules that get enforced in real time in the editor.
+Congratulations! In this short tutorial, you've discovered the key concepts of Metalama: aspects and fabrics. You've learned how to transparently add behaviors to your code during compilation and add validation rules that get enforced in real time in the editor.
 
 From here, you can explore further based on your learning style:
 
-* <xref:conceptual>
-* <xref:samples>
+- <xref:conceptual>
+- <xref:samples>
 
-
+> [!div class="see-also"]
+> <xref:using-metalama>
+> <xref:videos>

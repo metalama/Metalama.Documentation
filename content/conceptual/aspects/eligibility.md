@@ -9,7 +9,7 @@ modified-date: 2024-08-04
 
 # Defining the eligibility of aspects
 
-Most aspects are designed and implemented for specific kinds of target declarations. For instance, you may decide that your caching aspect will not support `void` methods or methods with `out` or `ref` parameters. As the author of the aspect, it is essential to ensure that users of your aspect apply it only to the declarations that you expect. Otherwise, the aspect may cause build errors with confusing messages or even incorrect run-time behavior.
+Most aspects are designed and implemented for specific kinds of target declarations. For instance, you may decide that your caching aspect won't support `void` methods or methods with `out` or `ref` parameters. As the author of the aspect, it is essential to ensure that users of your aspect apply it only to the declarations that you expect. Otherwise, the aspect may cause build errors with confusing messages or even incorrect run-time behavior.
 
 ## Benefits
 
@@ -48,16 +48,16 @@ Notice how informative the error message in the target code is: the use of <xref
 
 ## Defining custom eligibility conditions
 
-The <xref:Metalama.Framework.Eligibility.EligibilityExtensions> class defines the most common eligibility conditions. However, you will often need to express conditions for which no ready-made method exists. In this situation, you can add a custom eligibility condition by calling <xref:Metalama.Framework.Eligibility.EligibilityExtensions.MustSatisfy*> and define your condition using the <xref:Metalama.Framework.Code> namespace. You must supply two lambda expressions:
+The <xref:Metalama.Framework.Eligibility.EligibilityExtensions> class defines the most common eligibility conditions. However, you'll often need to express conditions for which no ready-made method exists. In this situation, you can add a custom eligibility condition by calling <xref:Metalama.Framework.Eligibility.EligibilityExtensions.MustSatisfy*> and define your condition using the <xref:Metalama.Framework.Code> namespace. You must supply two lambda expressions:
 
 1. The first lambda is a predicate that should return `true` if the proposed declaration is a valid target.
-2. The second lambda is only evaluated when the proposed declaration is _not_ a valid target and should return a user-readable string that explains why the declaration is not eligible.
+2. The second lambda is only evaluated when the proposed declaration is _not_ a valid target and should return a user-readable string that explains why the declaration isn't eligible.
 
-    * This lambda must return a _formattable_ string. Attempting to format the string yourself is not recommended as we are using a custom formatter.
+    * This lambda must return a _formattable_ string. Formatting the string yourself isn't recommended as we're using a custom formatter.
     * To include the description of the ineligible declaration in the formattable string, just use the raw input argument. It will be properly formatted.
-    * We adopted the convention that this message says what the declaration _must_ be in order to be eligible instead of saying what it _must not_ be because it generally combines better when there are several eligibility conditions.
+    * We adopted the convention that this message says what the declaration _must_ be to be eligible instead of saying what it _must not_ be because it generally combines better when there are several eligibility conditions.
 
-    For instance, if your aspect does not support `record` types, use `t => $"{t} must not be a record type"`.
+    For instance, if your aspect doesn't support `record` types, use `t => $"{t} must not be a record type"`.
 
 ### Example: forbidding record types
 
@@ -86,15 +86,15 @@ As a rule of thumb, you should use eligibility to define those declarations for 
 
 For instance:
 
-* Adding a caching aspect to a `void` method does not make sense and should be addressed with eligibility. However, the fact that your aspect does not support methods returning a collection is a limitation caused by your particular implementation and should be reported using a custom error.
+* Adding a caching aspect to a `void` method doesn't make sense and should be addressed with eligibility. However, the fact that your aspect doesn't support methods returning a collection is a limitation caused by your particular implementation and should be reported using a custom error.
 
-* Adding a dependency injection aspect to an `int` or `string` field does not make sense, and this condition should be expressed using the eligibility API. However, the fact that your implementation of the aspect requires the field to be non-read-only is a contingency and should be reported as an error.
+* Adding a dependency injection aspect to an `int` or `string` field doesn't make sense, and this condition should be expressed using the eligibility API. However, the fact that your implementation of the aspect requires the field to be non-read-only is a contingency and should be reported as an error.
 
 For details about reporting errors, see <xref:diagnostics>.
 
 ### Example: combining eligibility with diagnostics
 
-The following example expands the previous one, reporting custom errors when the target class does not define a field `logger` of type `TextWriter`.
+The following example expands the previous one, reporting custom errors when the target class doesn't define a field `logger` of type `TextWriter`.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/EligibilityAndValidation.cs name="Eligibility and Validation"]
 

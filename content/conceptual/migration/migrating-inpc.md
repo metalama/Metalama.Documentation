@@ -7,7 +7,7 @@ keywords: "PostSharp Metalama migration, NotifyPropertyChanged, INotifyPropertyC
 
 Metalama's equivalent to PostSharp's `[NotifyPropertyChanged]` aspect is the <xref:Metalama.Patterns.Observability.ObservableAttribute?text=[Observable]>. For details, refer to <xref:observability>.
 
-Metamama's implementation strategy of the pattern is completely different than PostSharp's one. Where PostSharp maintained an in-memory dependency graph at run time, Metalama does most of the work at build time and does not maintain complex data structures at run time. 
+Metamama's implementation strategy of the pattern is completely different than PostSharp's one. Where PostSharp maintained an in-memory dependency graph at run time, Metalama does most of the work at build time and doesn't maintain complex data structures at run time. 
 
 
 ## API mapping
@@ -24,7 +24,7 @@ Most features of PostSharp's `[NotifyPropertyChanged]` aspect are available in M
 
 ## Feature gaps
 
-The following features have not been implemented in Metalama yet:
+The following features haven't been implemented in Metalama yet:
 
 * You cannot implement the `INotifyPropertyChanging` interface.
 * The `PropertyChanged` events cannot be implemented as weak events, i.e. they hold references to its handlers.

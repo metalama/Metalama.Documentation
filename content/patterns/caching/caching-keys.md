@@ -7,7 +7,7 @@ modified-date: 2024-08-15
 ---
 # Customizing cache keys
 
-By default, the cache key of a parameter is built using the `ToString` method. However, the default implementation of the `ToString` method does not return a unique string for custom classes and structs. The default implementation of `ToString` for records is more likely to be correct. Therefore, it is essential to provide a cache key implementation for all parameter types of a cached method. This article explains several approaches.
+By default, the cache key of a parameter is built using the `ToString` method. However, the default implementation of the `ToString` method does not return a unique string for custom classes and structs. The default implementation of `ToString` for records is more likely to be correct. Therefore, it's essential to provide a cache key implementation for all parameter types of a cached method. This article explains several approaches.
 
 ## Using the [CacheKey] aspect
 
@@ -29,7 +29,7 @@ For simple types, consider implementing the <xref:System.Object.ToString*> metho
 
 Since <xref:System.Object.ToString*> always allocates a short-lived `string`, which presents a minor performance overhead, an alternative is to implement the <xref:System.ISpanFormattable> interface. However, the optimization level of Metalama Caching is not so high that using <xref:System.ISpanFormattable> instead of <xref:System.Object.ToString*> would make a significant difference at the moment.
 
-The inconvenience of either of these approaches is that <xref:System.Object.ToString*> and <xref:System.ISpanFormattable> are typically used to create human-readable strings, which may conflict with the goal of creating cache keys. Whenever these goals are conflicting, it is better to take a different approach.
+The inconvenience of either of these approaches is that <xref:System.Object.ToString*> and <xref:System.ISpanFormattable> are typically used to create human-readable strings, which may conflict with the goal of creating cache keys. Whenever these goals are conflicting, it's better to take a different approach.
 
 This approach is mentioned because this is the fallback mechanism: if Metalama Caching finds no other way to generate a cache key from an object, it will first see if <xref:System.ISpanFormattable> is implemented, and, if not, it will use <xref:System.Object.ToString*>.
 
@@ -40,11 +40,11 @@ If none of the above approaches are suitable, you can manually implement the <xr
 For inspiration, see the aspect-generated code of the `[CacheKey]` example above.
 
 > [!WARNING]
-> It is a best practice to include the full type name in all generated strings. Suppose for instance you have a class family representing database entities. The cache key of each entity is the `Id` property. If you don't include the type name in the cache key, you won't be able to differentiate a `Customer` from an `Invoice` that have the same `Id`, which may cause a problem in situations where the objects are passed as parameters of the same method.
+> It's a best practice to include the full type name in all generated strings. Suppose for instance you've a class family representing database entities. The cache key of each entity is the `Id` property. If you don't include the type name in the cache key, you won't be able to differentiate a `Customer` from an `Invoice` that have the same `Id`, which may cause a problem in situations where the objects are passed as parameters of the same method.
 
 ## Implementing a formatter for a third-party type
 
-If you do not own the source code of a type, none of the approaches mentioned above can work. In this situation, follow these steps:
+If you don't own the source code of a type, none of the approaches mentioned above can work. In this situation, follow these steps:
 
 ### Step 1. Implement the Formatter<T> class
 
@@ -109,7 +109,7 @@ To override the default <xref:Metalama.Patterns.Caching.Formatters.ICacheKeyBuil
 
 In this example, we show how to build and register a custom key builder. We chose the `XxHash128` algorithm because it has good performance and very low collision.
 
-Note that we are reusing the string-based <xref:Metalama.Patterns.Caching.Formatters.CacheKeyBuilder> implementation so that we can reuse the infrastructure described in this article. It is theoretically possible to implement a hashing string builder that does not rely on any string, but it would require us to design and implement a new solution, one that would not rely on the string-based <xref:Flashtrace.Formatters.IFormattable`1>.
+Note that we're reusing the string-based <xref:Metalama.Patterns.Caching.Formatters.CacheKeyBuilder> implementation so that we can reuse the infrastructure described in this article. It is theoretically possible to implement a hashing string builder that does not rely on any string, but it would require us to design and implement a new solution, one that would not rely on the string-based <xref:Flashtrace.Formatters.IFormattable`1>.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Caching/HashingKeyBuilder/HashingKeyBuilder.cs]
 

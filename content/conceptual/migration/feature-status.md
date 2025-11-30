@@ -41,4 +41,4 @@ See <xref:validation> for details.
 
 
 > [!NOTE]
-> Please contact us if you have an enterprise subscription and rely on a PostSharp feature that we don't plan to migrate to Metalama.
+> Please contact us if you've an enterprise subscription and rely on a PostSharp feature that we don't plan to migrate to Metalama.

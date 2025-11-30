@@ -10,22 +10,22 @@ modified-date: 2024-08-04
 
 The behavior of the <xref:Metalama.Patterns.Caching.Aspects.CacheAttribute> aspect can be configured in several ways, including:
 
-* Expiration (absolute and sliding)
-* Priority
-* Auto-reload
-* Enabled/disabled
+- Expiration (absolute and sliding)
+- Priority
+- Auto-reload
+- Enabled/disabled
 
 These options can be set in three ways:
 
-* At compile time using the properties of the <xref:Metalama.Patterns.Caching.Aspects.CacheAttribute?text=[Cache]> or <xref:Metalama.Patterns.Caching.Aspects.CachingConfigurationAttribute?text=[CachingConfiguration]> attributes
-* At compile time using the <xref:Metalama.Patterns.Caching.Aspects.Configuration.CachingConfigurationExtensions.ConfigureCaching*> fabric method
-* At run time using the <xref:Metalama.Patterns.Caching.CachingProfile> class
+- At compile time using the properties of the <xref:Metalama.Patterns.Caching.Aspects.CacheAttribute?text=[Cache]> or <xref:Metalama.Patterns.Caching.Aspects.CachingConfigurationAttribute?text=[CachingConfiguration]> attributes
+- At compile time using the <xref:Metalama.Patterns.Caching.Aspects.Configuration.CachingConfigurationExtensions.ConfigureCaching*> fabric method
+- At run time using the <xref:Metalama.Patterns.Caching.CachingProfile> class
 
 This article describes these three approaches.
 
 ## Configuring caching with custom attributes
 
-The <xref:Metalama.Patterns.Caching.Aspects.CacheAttribute> aspect can be configured by setting the properties of the <xref:Metalama.Patterns.Caching.Aspects.CacheAttribute> custom attribute. The downside of this approach is that you have to repeat the configuration for each cached method.
+The <xref:Metalama.Patterns.Caching.Aspects.CacheAttribute> aspect can be configured by setting the properties of the <xref:Metalama.Patterns.Caching.Aspects.CacheAttribute> custom attribute. The downside of this approach is that you must repeat the configuration for each cached method.
 
 To configure several methods with a single line of code, add the <xref:Metalama.Patterns.Caching.Aspects.CachingConfigurationAttribute> custom attribute to the declaring type, the base type of the declaring type, the enclosing type of the declaring type (if it is nested), or the declaring assembly.
 
@@ -52,7 +52,7 @@ The following example sets the absolute expiration to 20 minutes for the namespa
 
 ## Configuring caching at run time with profiles
 
-All compile-time approaches described above have the same drawback: by definition, they cannot be modified at run time. This can be a problem if you want the caching options to be loaded from a configuration file that you can deploy with your application.
+All compile-time approaches described above have the same drawback: by definition, they can't be modified at run time. This can be a problem if you want the caching options to be loaded from a configuration file that you can deploy with your application.
 
 Metalama Caching allows you to change caching options at run time with a concept called _caching profile_. These are sets of options that can be modified at run time and are represented by the <xref:Metalama.Patterns.Caching.CachingProfile> class.
 

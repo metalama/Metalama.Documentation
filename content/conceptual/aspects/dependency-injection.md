@@ -11,7 +11,7 @@ modified-date: 2024-08-04
 
 Many aspects require services injected from a dependency injection container. For example, a caching aspect may depend on the `IMemoryCache` service. If you use the [Microsoft.Extensions.DependencyInjection](https://learn.microsoft.com/dotnet/core/extensions/dependency-injection) framework, your aspect should pull this service from the constructor. If the target type of the aspect does not already accept this service from the constructor, the aspect will need to append this parameter to the constructor.
 
-However, the code pattern that must be implemented to pull any dependency depends on the dependency injection framework used by the project. As we have seen, the default .NET Core framework requires a constructor parameter, but other frameworks may use an `[Import]` or `[Inject]` custom attribute.
+However, the code pattern that must be implemented to pull any dependency depends on the dependency injection framework used by the project. As we've seen, the default .NET Core framework requires a constructor parameter, but other frameworks may use an `[Import]` or `[Inject]` custom attribute.
 
 In some cases, as the author of the aspect, you may not know which dependency injection framework will be used for the classes to which your aspect will be applied.
 

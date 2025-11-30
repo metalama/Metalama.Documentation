@@ -9,7 +9,7 @@ modified-date: 2024-08-04
 
 # Checking all non-nullable fields, properties and parameters
 
-If you're already using the nullability feature introduced in C# 8.0, you're aware that C# only reports a warning when there's an attempt to assign a null value to a non-nullable field, property, or parameter. C# does not generate the code that would throw an exception at runtime if this happens. However, if your API is being consumed by code that isn't under your control, it's still a good idea to check all values for null.
+If you're already using the nullability feature introduced in C# 8.0, you're aware that C# only reports a warning when there's an attempt to assign a null value to a non-nullable field, property, or parameter. C# doesn't generate the code that would throw an exception at runtime if this happens. However, if your API is being consumed by code that isn't under your control, it's still a good idea to check all values for null.
 
 If you find this task repetitive, frustrating, and unworthy of clean code, we share your sentiment.
 

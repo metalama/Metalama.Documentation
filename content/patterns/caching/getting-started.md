@@ -8,7 +8,7 @@ modified-date: 2024-08-16
 
 # Getting started with Metalama Caching
 
-If you have a time-consuming method that consistently returns the same value when called with identical arguments, caching this method can significantly enhance your application's performance. With Metalama Caching, this process can be as straightforward as adding the <xref:Metalama.Patterns.Caching.Aspects.CacheAttribute?text=[Cache]> attribute from the [Metalama.Patterns.Caching.Aspects](https://www.nuget.org/packages/Metalama.Patterns.Caching.Aspects/) package.
+If you've a time-consuming method that consistently returns the same value when called with identical arguments, caching this method can significantly enhance your application's performance. With Metalama Caching, this process can be as straightforward as adding the <xref:Metalama.Patterns.Caching.Aspects.CacheAttribute?text=[Cache]> attribute from the [Metalama.Patterns.Caching.Aspects](https://www.nuget.org/packages/Metalama.Patterns.Caching.Aspects/) package.
 
 Before you can utilize the <xref:Metalama.Patterns.Caching.Aspects.CacheAttribute?text=[Cache]> aspect, your projects require some setup. The approach will depend on your project's architecture: with or without dependency injection.
 
@@ -64,7 +64,7 @@ When dependency injection is disabled, we can also cache `static` methods. Obser
 
 ## What's next
 
-So far, so good. However, if your cached methods have more complex parameters than intrinsic types like `int` or `string` (and a dozen of other well-known types), Metalama Caching will use the `ToString` method to represent the parameter in the caching key. This approach may not always be appropriate. In the next article, we will discuss how to customize the caching key.
+So far, so good. However, if your cached methods have more complex parameters than intrinsic types like `int` or `string` (and a dozen of other well-known types), Metalama Caching will use the `ToString` method to represent the parameter in the caching key. This approach may not always be appropriate. In the next article, we'll discuss how to customize the caching key.
 
 
 

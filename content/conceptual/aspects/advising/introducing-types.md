@@ -15,7 +15,7 @@ Many patterns require you to create new types. This is the case, for instance, w
 
 ## Introducing a nested class
 
-To introduce a nested class, call the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceClass*> or <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceInterface*> method from an `IAdviser<INamedType>`. For instance, if you have a <xref:Metalama.Framework.Aspects.TypeAspect>, just call `aspectBuilder.IntroduceClass( "Foo" )`.
+To introduce a nested class, call the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceClass*> or <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceInterface*> method from an `IAdviser<INamedType>`. For instance, if you've a <xref:Metalama.Framework.Aspects.TypeAspect>, just call `aspectBuilder.IntroduceClass( "Foo" )`.
 
 ### Example: nested class
 
@@ -27,12 +27,12 @@ In the following example, the aspect introduces a nested class named `Factory`.
 
 To introduce a non-nested class, you must first get hold of an `IAdviser<INamespace>`. Here are a few strategies to get a namespace adviser from any <xref:Metalama.Framework.Aspects.IAdviser`1> or <xref:Metalama.Framework.Aspects.IAspectBuilder`1>:
 
-* If you have an `IAdviser<ICompilation>` or `IAspectBuilder<ICompilation>` and want to add a type to `My.Namespace`, call the `WithNamespace("My.Namespace")` extension method.
+* If you've an `IAdviser<ICompilation>` or `IAspectBuilder<ICompilation>` and want to add a type to `My.Namespace`, call the `WithNamespace("My.Namespace")` extension method.
 * If you don't have an `IAdviser<ICompilation>`, call `aspectBuilder.With(aspectBuilder.Target.Compilation)`, then call `WithNamespace`.
 * To get an adviser for the _current_ namespace, call `aspectBuilder.With(aspectBuilder.Target.GetNamespace())`.
 * To get an adviser for a _child_ of the current namespace, call `aspectBuilder.With(aspectBuilder.Target.GetNamespace()).WithChildNamespace("ChildNs")`.
 
-Once you have an `IAdviser<INamespace>`, call the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceClass*> advice method.
+Once you've an `IAdviser<INamespace>`, call the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceClass*> advice method.
 
 ### Example: top-level class
 

@@ -11,11 +11,11 @@ modified-date: 2024-11-06
 
 Aspects are custom attributes that should be applied to a target declaration. Some aspects can target methods, while others can target properties or classes.
 
-In this section, you will learn how to utilize custom attributes to add aspects.
+In this section, you'll learn how to utilize custom attributes to add aspects.
 
 ## Adding aspects as custom attributes
 
-Let's assume you have a method that fails occasionally.
+Let's assume you've a method that fails occasionally.
 
 ![](images/flaky_method_no_aspect.png)
 
@@ -36,7 +36,7 @@ To view the details, click on the text `1 aspect`:
 
 ![Retry_Aspect_Code_Lense](images/showing_retry_aspect_code_lense.png)
 
-The details displayed in this example are trivial. However, this feature can be quite useful when you have several aspects on the same method, or when aspects are implicitly applied rather than explicitly applied using a custom attribute.
+The details displayed in this example are trivial. However, this feature can be quite useful when you've several aspects on the same method, or when aspects are implicitly applied rather than explicitly applied using a custom attribute.
 
 ## Adding more than one attribute
 

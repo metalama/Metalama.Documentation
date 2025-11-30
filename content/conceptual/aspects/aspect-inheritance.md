@@ -58,7 +58,7 @@ To define the eligibility rules that do not apply to the inheritance scenario, u
 
 ### Example
 
-The following implementation of <xref:Metalama.Framework.Eligibility.IEligible`1.BuildEligibility*> specifies that the aspect will be applied abstractly when applied to an abstract method. Its <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method will not be invoked for the abstract method but only for methods implementing the abstract method.
+The following implementation of <xref:Metalama.Framework.Eligibility.IEligible`1.BuildEligibility*> specifies that the aspect will be applied abstractly when applied to an abstract method. Its <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method won't be invoked for the abstract method but only for methods implementing the abstract method.
 
 ```cs
 public override void BuildEligibility( IEligibilityBuilder<IMethod> builder )

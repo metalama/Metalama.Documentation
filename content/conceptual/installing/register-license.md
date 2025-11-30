@@ -10,7 +10,7 @@ modified-date: 2024-08-04
 # Registering a license
 
 > [!NOTE]
-> Registering a license is only required if you are using a premium component. It is not required if you stick to open-source features.
+> Registering a license is only required if you're using a premium component. It isn't required if you stick to open-source features.
 
 When you use a premium component of Metalama for the first time, the license registration UI will open, where you can choose between the 45-day evaluation mode, the Metalama Community, or registering a license key.
 

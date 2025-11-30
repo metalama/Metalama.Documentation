@@ -11,7 +11,7 @@ modified-date: 2024-08-04
 
 Metalama's true strength lies not in its pre-made features but in its ability to let you create custom rules for validating the codebase against your architecture.
 
-In this article, we will demonstrate how to extend the [Metalama.Extensions.Architecture](https://www.nuget.org/packages/Metalama.Extensions.Architecture) package. This package is open source. For a better understanding of the instructions provided in this article, you can study its [source code](https://github.com/postsharp/Metalama.Extensions/tree/master/src/Metalama.Extensions.Architecture).
+In this article, we'll demonstrate how to extend the [Metalama.Extensions.Architecture](https://www.nuget.org/packages/Metalama.Extensions.Architecture) package. This package is open source. For a better understanding of the instructions provided in this article, you can study its [source code](https://github.com/postsharp/Metalama.Extensions/tree/master/src/Metalama.Extensions.Architecture).
 
 ## Extending usage verification with custom predicates
 
@@ -54,7 +54,7 @@ A third question relates to rules that verify classes: should the rule be _inher
 
 ### Creating a custom attribute rule
 
-If it is exposed as a custom attribute, it must be implemented as an aspect, but an aspect that does _not_ transform the code, i.e., does not provide any advice.
+If it is exposed as a custom attribute, it must be implemented as an aspect, but an aspect that does _not_ transform the code, i.e., doesn't provide any advice.
 
 Follow these steps.
 
@@ -66,7 +66,7 @@ Follow these steps.
 
 3. For each error or warning you plan to report, add a static field of type <xref:Metalama.Framework.Diagnostics.DiagnosticDefinition> to your aspect class, as described in  <xref:diagnostics>.
 
-3. Implement the <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method. You have several options:
+3. Implement the <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method. You've several options:
 
     * If you need to validate the target declaration itself, or its members, you can inspect the code model under `builder.Target` and report diagnostics using `builder.Diagnostics.Report`.
     * If you need to validate the _references_ to the target declarations, see <xref:aspect-validating>.
@@ -82,7 +82,7 @@ Follow this procedure:
 3. For each error or warning you plan to report, add a static field of type <xref:Metalama.Framework.Diagnostics.DiagnosticDefinition> to your fabric class, as described in <xref:diagnostics>.
 4. Create a `public static` extension method with a `this` parameter of type <xref:Metalama.Framework.Fabrics.IQuery`1> where `T` is the type of declarations you want to validate. Name it for instance `verifier`.
 5. If you need to apply the rule to _contained_ declarations, select them using the  <xref:Metalama.Framework.Fabrics.IQuery`1.Select*>,  <xref:Metalama.Framework.Fabrics.IQuery`1.SelectMany*> and  <xref:Metalama.Framework.Fabrics.IQuery`1.Where*> methods.
-6. From here, you have several options:
+6. From here, you've several options:
  * If you already know, based on the <xref:Metalama.Framework.Fabrics.IQuery`1.Select*>,  <xref:Metalama.Framework.Fabrics.IQuery`1.SelectMany*> and  <xref:Metalama.Framework.Fabrics.IQuery`1.Where*> methods, that the declaration violates the rule, you can immediately report a warning or error using the <xref:Metalama.Framework.Diagnostics.DiagnosticsQueryExtensions.ReportDiagnostic*> method.
  * To validate references (i.e. dependencies), use <xref:Metalama.Extensions.Validation.ReferenceValidationQueryExtensions.ValidateInboundReferences*>.
  * To validate the declaration itself, use <xref:Metalama.Extensions.Validation.ValidationQueryExtensions.Validate*>.

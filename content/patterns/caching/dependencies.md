@@ -15,7 +15,7 @@ Compared to direct invalidation, the use of dependencies results in lower perfor
 
 All dependencies are eventually represented as strings. Although we recommend using one of the strongly-typed methods mentioned below, it's beneficial to understand how string dependencies operate.
 
-To add or invalidate dependencies, you will typically access the <xref:Metalama.Patterns.Caching.ICachingService> interface. If you are using dependency injection, you should first declare your class as `partial`, and the interface will be available under a field named `_cachingService`. Otherwise, use the <xref:Metalama.Patterns.Caching.CachingService.Default?CachingService.Default> property.
+To add or invalidate dependencies, you'll typically access the <xref:Metalama.Patterns.Caching.ICachingService> interface. If you are using dependency injection, you should first declare your class as `partial`, and the interface will be available under a field named `_cachingService`. Otherwise, use the <xref:Metalama.Patterns.Caching.CachingService.Default?CachingService.Default> property.
 
 Within _read_ methods, use the <xref:Metalama.Patterns.Caching.CachingServiceExtensions.AddDependency*?text=ICachingService.AddDependency*> at any time to add a dependency to the method being executed, for the arguments with which it is executed. You can pass an arbitrary `string` to this method, potentially including the method arguments.
 
@@ -65,11 +65,11 @@ This interface has two members:
 * <xref:Metalama.Patterns.Caching.Dependencies.ICacheDependency.GetCacheKey*> should return the `string` representation of the caching key,
 * <xref:Metalama.Patterns.Caching.Dependencies.ICacheDependency.CascadeDependencies>, an optional property, can return a list of dependencies that should be recursively invalidated when the current dependency is invalidated.
 
-How and where you implement <xref:Metalama.Patterns.Caching.Dependencies.ICacheDependency> is entirely up to you. You have the following options:
+How and where you implement <xref:Metalama.Patterns.Caching.Dependencies.ICacheDependency> is entirely up to you. You've the following options:
 
 1. The most practical option is often to implement the <xref:Metalama.Patterns.Caching.Dependencies.ICacheDependency> in your domain objects.
 2. Alternatively, you can create a parallel object model implementing <xref:Metalama.Patterns.Caching.Dependencies.ICacheDependency> &mdash; just to represent dependencies.
-3. If you have types that can already be used in cache keys, e.g., thanks to the <xref:Metalama.Patterns.Caching.Aspects.CacheKeyAttribute?text=[CacheKey]> aspect or another mechanism (see <xref:caching-keys>), you can turn these objects into dependencies by wrapping them into an <xref:Metalama.Patterns.Caching.Dependencies.ObjectDependency>. You can also use the <xref:Metalama.Patterns.Caching.CachingServiceExtensions.AddObjectDependency*> and <xref:Metalama.Patterns.Caching.CachingServiceExtensions.InvalidateObject*> methods to avoid creating a wrapper.
+3. If you've types that can already be used in cache keys, e.g., thanks to the <xref:Metalama.Patterns.Caching.Aspects.CacheKeyAttribute?text=[CacheKey]> aspect or another mechanism (see <xref:caching-keys>), you can turn these objects into dependencies by wrapping them into an <xref:Metalama.Patterns.Caching.Dependencies.ObjectDependency>. You can also use the <xref:Metalama.Patterns.Caching.CachingServiceExtensions.AddObjectDependency*> and <xref:Metalama.Patterns.Caching.CachingServiceExtensions.InvalidateObject*> methods to avoid creating a wrapper.
 4. To represent singleton dependencies, it can be convenient to assign them a constant string and wrap this string into a <xref:Metalama.Patterns.Caching.Dependencies.StringDependency> object.
 
 ### Example: object-oriented Dependencies

@@ -11,7 +11,7 @@ modified-date: 2024-08-04
 
 ## Validating input values of fields, properties, or parameters (preconditions)
 
-Most often, you will add contracts directly to their target field, property, or parameter using custom attributes.
+Most often, you'll add contracts directly to their target field, property, or parameter using custom attributes.
 
 Follow these simple steps:
 

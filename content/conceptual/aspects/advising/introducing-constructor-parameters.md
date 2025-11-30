@@ -13,7 +13,7 @@ Most of the time, an aspect requires introducing a parameter to a constructor wh
 
 Typically, implementations of dependency injection frameworks introduce parameters using the method outlined here.
 
-To append a parameter to a constructor, the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceParameter*> method is used. This method requires several arguments: the target <xref:Metalama.Framework.Code.IConstructor>, the name, the type of the new parameter, and the default value for this parameter. It's important to note that a parameter cannot be introduced without specifying a default value.
+To append a parameter to a constructor, the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceParameter*> method is used. This method requires several arguments: the target <xref:Metalama.Framework.Code.IConstructor>, the name, the type of the new parameter, and the default value for this parameter. It's important to note that a parameter can't be introduced without specifying a default value.
 
 The `pullAction` parameter of the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceParameter*> method allows you to specify the value passed to this parameter in other constructors that call the specified constructor, using the `: this(...)` or `: base(...)` syntax. The `pullAction` parameter must receive a function that returns a <xref:Metalama.Framework.Advising.PullAction> value. To create a <xref:Metalama.Framework.Advising.PullAction> value, one of three available static members of this type should be used, such as <xref:Metalama.Framework.Advising.PullAction.UseExistingParameter*>, <xref:Metalama.Framework.Advising.PullAction.UseExpression*>, or <xref:Metalama.Framework.Advising.PullAction.IntroduceParameterAndPull*>.
 

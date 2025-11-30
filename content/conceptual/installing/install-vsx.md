@@ -49,7 +49,7 @@ Alternatively, you can use the following procedure from Visual Studio.
 
     ![step4](../../images/ext_manage_4.png)
 
-5. Once the extension is downloaded, it will be ready for installation as soon as all instances of Visual Studio are closed. This requirement is highlighted at the bottom of the screen.
+5. Once the extension is downloaded, it'll be ready for installation as soon as all instances of Visual Studio are closed. This requirement is highlighted at the bottom of the screen.
 
     ![step5](../../images/ext_manage_5.png)
 

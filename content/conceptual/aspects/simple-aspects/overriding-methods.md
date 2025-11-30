@@ -44,7 +44,7 @@ Console.WriteLine($"Simply logging a method..." );
 
 Then, thanks to the call to <xref:Metalama.Framework.Aspects.meta.Proceed?text=meta.Proceed>, the original method code is executed.
 
-Admittedly, this aspect does not do much yet. Let's make it more useful.
+Admittedly, this aspect doesn't do much yet. Let's make it more useful.
 
 ### Example: retrying upon exception
 
@@ -88,14 +88,11 @@ When you need to find out which method call is taking time, the first step is us
 
 If you want to go deeper into method overrides, consider reading the following articles:
 
-* In this article, you have learned how to use `meta.Proceed` and `meta.Target.Method.Name` in your templates. You can create much more complex and powerful templates, even doing compile-time `if` and `foreach` blocks. To learn how, jump directly to <xref:templates>.
-
-* To learn how to have different templates for `async` or iterator methods, or to learn how to override several methods from a single type-level aspect, jump to <xref:overriding-methods>.
+- In this article, you've learned how to use `meta.Proceed` and `meta.Target.Method.Name` in your templates. You can create much more complex and powerful templates, even doing compile-time `if` and `foreach` blocks. To learn how, jump directly to <xref:templates>.
+- To learn how to have different templates for `async` or iterator methods, or to learn how to override several methods from a single type-level aspect, jump to <xref:overriding-methods>.
 
 > [!div class="see-also"]
-> <xref:simple-override-method>
-
-
-
-
+> <xref:templates>
+> <xref:overriding-methods>
+> <xref:simple-override-property>
 

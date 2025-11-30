@@ -13,7 +13,7 @@ modified-date: 2024-08-29
 
 Debugging the compile-time logic of an aspect can be challenging due to the compiler not executing your _source_ code, but a heavily transformed version of your code where T# templates have been compiled into plain C# code. This transformed code is stored under an unpredictable path.
 
-Therefore, regular debugger breakpoints will not work. You must add break statements directly in your source code and remember to remove them after the debugging session is over.
+Therefore, regular debugger breakpoints won't work. You must add break statements directly in your source code and remember to remove them after the debugging session is over.
 
 - In a _non-template_ compile-time method such as `BuildAspect`, invoke <xref:System.Diagnostics.Debugger.Break?text=Debugger.Break()>.
 - In a _template_ compile-time method, invoke <xref:Metalama.Framework.Aspects.meta.DebugBreak?text=meta.DebugBreak()>.

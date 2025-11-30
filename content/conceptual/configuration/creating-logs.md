@@ -11,7 +11,7 @@ modified-date: 2024-08-04
 > [!NOTE]
 > This procedure is suitable for development machines. For build servers
 
-When reporting a Metalama bug, it is often helpful to attach Metalama log files. This document provides instructions on how to generate these logs.
+When reporting a Metalama bug, it's often helpful to attach Metalama log files. This document provides instructions on how to generate these logs.
 
 There are possible approaches: produce log files, or write the logging output to the console.
 
@@ -77,7 +77,7 @@ To restart background compiler processes, run the following command:
 metalama kill
 ```
 
-If you need to alter the logging configuration of the IDE processes, you will need to manually restart your IDE.
+If you need to alter the logging configuration of the IDE processes, you'll need to manually restart your IDE.
 
 ### Step 4. Execute Metalama
 

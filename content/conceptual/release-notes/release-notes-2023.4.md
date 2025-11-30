@@ -8,9 +8,9 @@ modified-date: 2024-08-04
 
 # Metalama 2023.4
 
-## Platform Updates
+## Platform updates
 
-### Visual Studio 17.8 Readiness
+### Visual Studio 17.8 readiness
 
 The new Visual Studio version, which Microsoft is expected to release in a few days, will be based on .NET 8. To avoid incompatibilities with Metalama, we recommend updating your packages now to prevent design-time errors in your code after updating Visual Studio.
 
@@ -55,7 +55,7 @@ Consult <xref:memoization> for detailed information.
 
 We are releasing a preview of our <xref:Metalama.Patterns.Observability.ObservableAttribute?text=[Observable]> aspect implementing `INotifyPropertyChanged`. It will be finalized and documented in Metalama 2024.1.
 
-## Additional Enhancements
+## Additional enhancements
 
 * Added MSBuild properties `MetalamaCompileTimeTargetFrameworks` and `MetalamaRestoreSources` to configure the compile-time target frameworks and to specify the package restore sources, respectively.
 * Added MSBuild property `MetalamaCreateLamaDebugConfiguration` to disable the creation of the LamaDebug build configuration.
@@ -69,7 +69,7 @@ We are releasing a preview of our <xref:Metalama.Patterns.Observability.Observab
 * <xref:Metalama.Framework.Code.IMemberOrNamedType.Definition?text=IMemberOrNamedType.Definition>: navigates to the generic definition.
 * <xref:Metalama.Framework.Engine.Diagnostics.LocationExtensions.ToDiagnosticLocation*?text=Location.ToDiagnosticLocation>: converts a Roslyn `Location` into a Metalama <xref:Metalama.Framework.Diagnostics.IDiagnosticLocation>.
 
-## Breaking Changes
+## Breaking changes
 
 We continue to introduce low-impact breaking changes in the compile-time API, as we believe the platform is too young to enforce a strict forward-compatibility policy.
 

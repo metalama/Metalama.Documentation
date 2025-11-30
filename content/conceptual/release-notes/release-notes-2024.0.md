@@ -10,7 +10,7 @@ modified-date: 2024-08-22
 
 The primary goal of this release was to provide support for C# 12. Additionally, it addresses a few remaining tasks from previous releases when we made the Metalama source code available.
 
-## Platform Update
+## Platform update
 
 * `Metalama.Compiler`: We merged Roslyn 4.8 RTM.
 * Support for C# 12:
@@ -43,7 +43,7 @@ Metalama 2024.0 is the first version to support multiple versions of C#.
 
 In the <xref:Metalama.Framework.Code.RefKind> enum, `In` and `RefReadOnly` are no longer synonymous.
 
-## In Progress
+## In progress
 
 We have been working on the following projects, but they are not yet stable:
 

@@ -18,7 +18,7 @@ Metalama 2023.3 introduces several new features: ready-made aspect implementatio
     - Omnisharp is deprecated and no longer tested.
 * Visual Studio for Mac is deprecated and no longer tested, as Microsoft announced its sunsetting.
 
-## New Features
+## New features
 
 ### Auxiliary templates
 
@@ -30,13 +30,13 @@ For details, see <xref:auxiliary-templates>.
 
 Metalama Contracts y is an [open-source](https://github.com/postsharp/Metalama.Patterns/tree/release/2023.3/src/Metalama.Patterns.Contracts), aspect-oriented implementation of [System.ComponentModel.DataAnnotations](https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations). Unlike Microsoft's annotations, Metalama Contracts works with any C# code, not just ASP.NET MVC or Entity Framework, as it utilizes aspects to inject validation logic during compilation.
 
-In 2023.3, we are releasing `Metalama.Patterns.Contracts` under the _preview_ quality label. Conceptual documentation is not available at the moment. For conceptual documentation, see <xref:Metalama.Patterns.Contracts>.
+In 2023.3, we're releasing `Metalama.Patterns.Contracts` under the _preview_ quality label. Conceptual documentation is not available at the moment. For conceptual documentation, see <xref:Metalama.Patterns.Contracts>.
 
 ### Metalama.Patterns.Caching
 
 We've also ported our PostSharp-based caching framework to Metalama and completely [open-sourced](https://github.com/postsharp/Metalama.Patterns/tree/release/2023.3/src/Metalama.Patterns.Caching) it. We updated the codebase to take full advantage of modern .NET and C#, including the use of `IReadOnlySpan<char>` to further reduce garbage collection load.
 
-As for contracts, we are currently releasing `Metalama.Patterns.Caching` under the _preview_ quality label. Conceptual documentation is not available at the moment. For conceptual documentation, see <xref:Metalama.Patterns.Caching>.
+As for contracts, we're currently releasing `Metalama.Patterns.Caching` under the _preview_ quality label. Conceptual documentation is not available at the moment. For conceptual documentation, see <xref:Metalama.Patterns.Caching>.
 
 ### Metalama.Framework.Sdk
 
@@ -77,7 +77,7 @@ For details, see <xref:sdk>.
 
 ## Breaking changes
 
-There will be a few minor breaking changes in 2023.3. We think that there are still relatively few users and certainly little legacy code to maintain compatibility with, so we are prioritizing usability improvements over backward compatibility.
+There will be a few minor breaking changes in 2023.3. We think that there are still relatively few users and certainly little legacy code to maintain compatibility with, so we're prioritizing usability improvements over backward compatibility.
 
 
 * T#: `foreach` and `while` expressions now give preference to run-time scope. 
@@ -87,7 +87,7 @@ There will be a few minor breaking changes in 2023.3. We think that there are st
     Previously, the way to get a compile-time `for` loop was to do a `foreach ( var in in Enumerable.Range(...) )`. Now, `Enumerable.Range(...)` will be interpreted as run-time by default because it is inside a `foreach`, so you need to specifically mark it as compile-time using  `foreach ( var in in meta.CompileTime( Enumerable.Range(...) ) )`.
     
     
-* In <xref:Metalama.Framework.Eligibility.EligibilityExtensions>, the method overload `void MustSatisfy<T>( this IEligibilityBuilder<T> eligibilityBuilder, Action<IEligibilityBuilder<T>> requirement )` has been renamed to <xref:Metalama.Framework.Eligibility.EligibilityExtensions.AddRules*> in order to avoid ambiguities with the first and principal overload of <xref:Metalama.Framework.Eligibility.EligibilityExtensions.MustSatisfy*>.
+* In <xref:Metalama.Framework.Eligibility.EligibilityExtensions>, the method overload `void MustSatisfy<T>( this IEligibilityBuilder<T> eligibilityBuilder, Action<IEligibilityBuilder<T>> requirement )` has been renamed to <xref:Metalama.Framework.Eligibility.EligibilityExtensions.AddRules*> to avoid ambiguities with the first and principal overload of <xref:Metalama.Framework.Eligibility.EligibilityExtensions.MustSatisfy*>.
 
 * The `IDiagnosticSink` interface is now internal. The <xref:Metalama.Framework.Diagnostics.ScopedDiagnosticSink> type is now used in all public APIs.
 

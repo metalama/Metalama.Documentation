@@ -11,10 +11,10 @@ modified-date: 2024-08-04
 
 One of the most prevalent use cases of aspect-oriented programming is the creation of a custom attribute for the validation of fields, properties, or parameters to which it is applied. Examples include `[NotNull]` or `[NotEmpty]`.
 
-In Metalama, this can be achieved by using a _contract_. With a contract, you have the option to:
+In Metalama, this can be achieved by using a _contract_. With a contract, you've the option to:
 
-* Throw an exception when the value does not meet a condition of your choosing, or
-* Normalize the received value (for instance, by trimming the whitespace of a string).
+- Throw an exception when the value doesn't meet a condition of your choosing, or
+- Normalize the received value (for instance, by trimming the whitespace of a string).
 
 A contract, technically, is a segment of code that is injected after _receiving_ or before _sending_ a value. It can be utilized for more than just throwing exceptions or normalizing values.
 
@@ -52,10 +52,11 @@ A contract can be used for more than just throwing an exception. In the subseque
 
 If you wish to go deeper into contracts, consider referring to the following articles:
 
-* In this article, we have restricted ourselves to very basic contract implementations. To learn how to write more complex code templates, you can directly refer to <xref:templates>.
-* In this article, we have only applied contracts to the _default direction_ of fields, properties, or parameters. To understand the concept of contract direction, refer to <xref:contracts>.
+- In this article, we've restricted ourselves to very basic contract implementations. To learn how to write more complex code templates, refer to <xref:templates>.
+- In this article, we've only applied contracts to the _default direction_ of fields, properties, or parameters. To understand the concept of contract direction, refer to <xref:contracts>.
 
-
-
-
+> [!div class="see-also"]
+> <xref:templates>
+> <xref:contracts>
+> <xref:simple-override-method>
 

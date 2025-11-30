@@ -10,7 +10,7 @@ modified-date: 2025-11-07
 
 # Dynamic typing in templates
 
-When writing a template, you do not generally know in advance the exact type of the declarations to which it is applied.
+When writing a template, you don't generally know in advance the exact type of the declarations to which it is applied.
 
 For example, an aspect may not know the parameter and return types of the methods that it overrides.
 
@@ -39,9 +39,9 @@ All `dynamic` compile-time code is transformed into strongly-typed run-time code
 
 ## APIs returning dynamic objects
 
-The `meta` API exposes some properties of the `dynamic` type and some methods returning `dynamic` values. These members are compile-time, but they produce a _C# expression_ that can be used in the run-time code of the template. Because these members return a `dynamic` value, they can be utilized anywhere in your template. The code will not be validated when the template is compiled but when the template is applied.
+The `meta` API exposes some properties of the `dynamic` type and some methods returning `dynamic` values. These members are compile-time, but they produce a _C# expression_ that can be used in the run-time code of the template. Because these members return a `dynamic` value, they can be utilized anywhere in your template. The code won't be validated when the template is compiled but when the template is applied.
 
-For instance, `meta.This` returns a `dynamic` object that represents the expression `this`. Because `meta.This` is `dynamic`, you can write `meta.This._logger` in your template, which will translate to `this._logger`. This will work even if your template does not contain a member named `_logger`. Since `meta.This` returns a `dynamic` type, any field or method accessed through the `meta.This` expression will not be validated when the template is compiled (or in the IDE) but when the template is _expanded_, in the context of a specific target declaration.
+For instance, `meta.This` returns a `dynamic` object that represents the expression `this`. Because `meta.This` is `dynamic`, you can write `meta.This._logger` in your template, which will translate to `this._logger`. This will work even if your template does not contain a member named `_logger`. Since `meta.This` returns a `dynamic` type, any field or method accessed through the `meta.This` expression won't be validated when the template is compiled (or in the IDE) but when the template is _expanded_, in the context of a specific target declaration.
 
 The following APIs return `dynamic` values, organized by category:
 
@@ -101,7 +101,7 @@ In the following example, an aspect looks for any field of type `TextWriter` in 
 > [!WARNING]
 > Due to the limitations of the C# language, you cannot use extension methods on the right side of a dynamic expression. 
 
-In this case, you have two options:
+In this case, you've two options:
 
 1. Call the extension method in the traditional way by specifying its type name on the left and passing the dynamic expression as an argument:
 
@@ -141,9 +141,9 @@ When the template is expanded, `dynamic` local variables are transformed into st
 
 Under the hood, all `dynamic` values in templates are compile-time objects implementing the <xref:Metalama.Framework.Code.IExpression> interface.
 
-- **Converting dynamic to IExpression.** Whenever you have a `dynamic` expression and need a compile-time <xref:Metalama.Framework.Code.IExpression> object, you can simply cast the `dynamic` into `IExpression`.
+- **Converting dynamic to IExpression.** Whenever you've a `dynamic` expression and need a compile-time <xref:Metalama.Framework.Code.IExpression> object, you can simply cast the `dynamic` into `IExpression`.
 
-- **Converting IExpression to dynamic.** Conversely, when you have an `IExpression` and want a run-time object, use the `IExpression.Value` property to access it as a `dynamic` value.
+- **Converting IExpression to dynamic.** Conversely, when you've an `IExpression` and want a run-time object, use the `IExpression.Value` property to access it as a `dynamic` value.
 
 Instead of using techniques like parsing to generate <xref:Metalama.Framework.Code.IExpression> objects, it can be convenient to write the expression in T#/C# and convert it. This allows you to create expressions that depend on compile-time conditions and control flows.
 
@@ -164,6 +164,5 @@ myMethod.Invoke( thisParameter );
 
 You can use the <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionFactory.WithType*> and <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionFactory.WithNullability*> extension methods to modify the return type of the returned <xref:Metalama.Framework.Code.IExpression>.
 
-## See also
-
-For a more structured approach to accessing members when you have compile-time declarations, see <xref:invokers>, which provides flexible APIs for generating method calls, property accesses, and other member invocations.
+> [!div class="see-also"]
+> <xref:invokers>

@@ -124,7 +124,7 @@ To disable this behavior, set the <xref:Metalama.Framework.Aspects.AspectOrderAt
 
 Under the hood, Metalama performs a [topological sort](https://en.wikipedia.org/wiki/Topological_sorting) on a graph composed of all relationships found in the current project and all its dependencies.
 
-When a pair of aspects do not have any specific ordering relationship, from any source, Metalama falls back to _alphabetical_ ordering to avoid any non-determinism.
+When a pair of aspects don't have any specific ordering relationship, from any source, Metalama falls back to _alphabetical_ ordering to avoid any non-determinism.
 
 
 ### Example

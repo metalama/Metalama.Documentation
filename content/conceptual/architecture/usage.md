@@ -22,7 +22,7 @@ For instance, you might want to enforce rules such as:
 * Requiring a whole namespace only to be used by a friend namespace.
 * Forbidding internal members of a namespace from being accessed outside of their home namespace.
 
-The traditional approach to enforcing such rules is to use code comments and then rely on manual code reviews to enforce the desired design intent. However, this approach has two significant weaknesses: it is prone to human errors and suffers from a lengthy feedback loop. Another approach is to split the codebase into a more fine-grained structure of projects, but this increases the build and deployment complexity and negatively affects the application start-up time.
+The traditional approach to enforcing such rules is to use code comments and then rely on manual code reviews to enforce the desired design intent. However, this approach has two significant weaknesses: it's prone to human errors and suffers from a lengthy feedback loop. Another approach is to split the codebase into a more fine-grained structure of projects, but this increases the build and deployment complexity and negatively affects the application start-up time.
 
 Thanks to Metalama, you can easily fine-tune the intended accessibility of your namespaces, types, or members using custom attributes or a compile-time API.
 
@@ -68,7 +68,7 @@ In the following example, the class `Foo` uses the <xref:Metalama.Extensions.Arc
 
 ## Validating usage programmatically
 
-Custom attributes are adequate when the types or members to validate have to be hand-picked. However, when these types or members can be selected by a _rule_, it is more efficient to do it programmatically, with compile-time code and [fabrics](xref:fabrics).
+Custom attributes are adequate when the types or members to validate have to be hand-picked. However, when these types or members can be selected by a _rule_, it's more efficient to do it programmatically, with compile-time code and [fabrics](xref:fabrics).
 
 Follow these steps:
 

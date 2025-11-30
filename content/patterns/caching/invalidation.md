@@ -15,9 +15,9 @@ Metalama, unfortunately, cannot completely eliminate this problem from the lands
 
 Metalama offers two ways to invalidate the cache:
 
-* _Direct_ invalidation is when the method that _updates_ the application state (such as a database entity) directly invalidates the cache for all _read_ methods that depend on this entity. The benefit of direct invalidation is that it doesn't require a lot of resources on the caching backend. However, this approach has a significant disadvantage: it exhibits an imperfect separation of concerns. Update methods need to have detailed knowledge of all cached read methods, therefore update methods need to be modified whenever a read method is added. This article will only cover direct invalidation.
+- _Direct_ invalidation is when the method that _updates_ the application state (such as a database entity) directly invalidates the cache for all _read_ methods that depend on this entity. The benefit of direct invalidation is that it doesn't require a lot of resources on the caching backend. However, this approach has a significant disadvantage: it exhibits an imperfect separation of concerns. Update methods need to have detailed knowledge of all cached read methods, therefore update methods need to be modified whenever a read method is added. This article will only cover direct invalidation.
 
-* _Indirect_ invalidation adds a layer of abstraction, named _cache dependencies_, between the cached method and the invalidating code. Read methods are responsible for adding the proper dependencies to their context, and update methods are responsible for invalidating the dependencies. Therefore, update methods no longer need to know all read methods. For details about this approach, see <xref:caching-dependencies>.
+- _Indirect_ invalidation adds a layer of abstraction, named _cache dependencies_, between the cached method and the invalidating code. Read methods are responsible for adding the proper dependencies to their context, and update methods are responsible for invalidating the dependencies. Therefore, update methods no longer need to know all read methods. For details about this approach, see <xref:caching-dependencies>.
 
 
 ## Invalidating cache items declaratively using the [InvalidateCache] aspect
@@ -26,7 +26,7 @@ You can add the <xref:Metalama.Patterns.Caching.Aspects.InvalidateCacheAttribute
 
 By default, the <xref:Metalama.Patterns.Caching.Aspects.InvalidateCacheAttribute?text=[InvalidateCache]> aspect looks for the cached method in the current type. You can specify a different type using the alternative constructor of the custom attribute.
 
-For instance, suppose you have the following read method:
+For instance, suppose you've the following read method:
 
 [!metalama-file  ~/code/Metalama.Documentation.SampleCode.Caching/InvalidateAspect/InvalidateAspect.cs marker="Cache"]
 
@@ -62,10 +62,10 @@ One of the most useful features of the <xref:Metalama.Patterns.Caching.Aspects.I
 
 Instead of annotating invalidating methods with a custom attribute, you can make a call to one of the overloads of the <xref:Metalama.Patterns.Caching.CachingServiceExtensions.Invalidate*> or <xref:Metalama.Patterns.Caching.CachingServiceExtensions.InvalidateAsync*> extension method of the <xref:Metalama.Patterns.Caching.ICachingService> interface.
 
-To access this interface, if you are using dependency injection, you should first make your class `partial`. Then, the service is available as a field named `_cachingService`. If you are not using dependency injection in this class, use the <xref:Metalama.Patterns.Caching.CachingService.Default?text=CachingService.Default> property.
-The first argument of the <xref:Metalama.Patterns.Caching.CachingServiceExtensions.Invalidate*> method should be a delegate to the method to invalidate. This argument must be followed by the list of arguments for which the cache should be invalidated. These arguments will be used to construct the key of the item to be removed from the cache. All arguments must be supplied. Even arguments of parameters that are not part of the cache key will be included.
+To access this interface, if you're using dependency injection, you should first make your class `partial`. Then, the service is available as a field named `_cachingService`. If you aren't using dependency injection in this class, use the <xref:Metalama.Patterns.Caching.CachingService.Default?text=CachingService.Default> property.
+The first argument of the <xref:Metalama.Patterns.Caching.CachingServiceExtensions.Invalidate*> method should be a delegate to the method to invalidate. This argument must be followed by the list of arguments for which the cache should be invalidated. These arguments will be used to construct the key of the item to be removed from the cache. All arguments must be supplied. Even arguments of parameters that aren't part of the cache key will be included.
 
-For instance, suppose you have the following read method:
+For instance, suppose you've the following read method:
 
 [!metalama-file  ~/code/Metalama.Documentation.SampleCode.Caching/ImperativeInvalidate/ImperativeInvalidate.cs marker="Cache"]
 

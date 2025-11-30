@@ -44,7 +44,7 @@ When a derived type has a property whose getter references a property of the bas
 
 ### Child objects
 
-In MVVM architectures, it is common for a property of the ViewModel to depend on a property of the Model object, which itself is a field or property of the ViewModel object.
+In MVVM architectures, it's common for a property of the ViewModel to depend on a property of the Model object, which itself is a field or property of the ViewModel object.
 
 When a property getter references a property of an object stored in another field or property (referred to as a child object in this context), the <xref:Metalama.Patterns.Observability.ObservableAttribute?text=[Observable]> aspect generates a `SubscribeTo` method for the property containing the child object. This method subscribes to the <xref:System.ComponentModel.INotifyPropertyChanged.PropertyChanged> event of the child object.
 

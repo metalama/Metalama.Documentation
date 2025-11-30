@@ -11,7 +11,7 @@ modified-date: 2024-08-04
 > [!NOTE]
 > This feature requires a Metalama Professional license.
 
-If you have a distributed application where several instances run in parallel, [Redis](https://redis.io/) is an excellent choice for implementing caching due to the following reasons:
+If you've a distributed application where several instances run in parallel, [Redis](https://redis.io/) is an excellent choice for implementing caching due to the following reasons:
 
 1. **In-Memory Storage**: Redis stores its dataset in memory, allowing for very fast read and write operations, which are significantly faster than disk-based databases.
 2. **Rich Data Structures and Atomic Operations**: Redis is not just a simple key-value store; it supports multiple data structures like strings, hashes, lists, sets, sorted sets, and more. Combined with Redis's support for atomic operations on these complex data types, Metalama Caching can implement support for cache dependencies (see <xref:caching-dependencies>).
@@ -78,7 +78,7 @@ Here is an update of the example used in <xref:caching-getting-started>, modifie
 
 ### Without dependency injection
 
-If you are not using dependency injection:
+If you aren't using dependency injection:
 
 1. Create a [StackExchange.Redis.ConnectionMultiplexer](https://stackexchange.github.io/StackExchange.Redis/Configuration).
 
@@ -114,7 +114,7 @@ If you choose to enable dependencies with Redis, you need to ensure that at leas
 To enable dependencies, set the <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.SupportsDependencies?text=RedisCachingBackendConfiguration.SupportsDependencies> property to `true` when initializing the Redis caching back-end.
 
 > [!WARNING]
-> Caching dependencies cannot be used on a [Redis cluster](https://redis.io/docs/latest/operate/oss_and_stack/management/scaling/). Only the [master-replica](https://redis.io/docs/latest/operate/oss_and_stack/management/replication/) topology is supported with caching dependencies. The cause of this limitation is that a cache operation with depedencies is implemented as a transaction of several operations, which must all reside on the same node.
+> Caching dependencies can't be used on a [Redis cluster](https://redis.io/docs/latest/operate/oss_and_stack/management/scaling/). Only the [master-replica](https://redis.io/docs/latest/operate/oss_and_stack/management/replication/) topology is supported with caching dependencies. The cause of this limitation is that a cache operation with depedencies is implemented as a transaction of several operations, which must all reside on the same node.
 
 ### Running the dependency GC process
 

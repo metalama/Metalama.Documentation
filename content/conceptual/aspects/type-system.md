@@ -167,7 +167,7 @@ var stringArrayType = TypeFactory.GetType(typeof(string[]));
 ```
 
 > [!WARNING]
-> Metalama does not support the full `System.Type` API at compile time for types that represent run-time types. `typeof` expressions work with run-time types and return an opaque implementation of the `System.Type` abstract type, which does not allow you to use other features of the system reflection API.
+> Metalama doesn't support the full `System.Type` API at compile time for types that represent run-time types. `typeof` expressions work with run-time types and return an opaque implementation of the `System.Type` abstract type, which doesn't allow you to use other features of the system reflection API.
 
 ### From special types (intrinsics and other)
 
@@ -203,7 +203,7 @@ Type parameters are represented by <xref:Metalama.Framework.Code.ITypeParameter>
 - <xref:Metalama.Framework.Code.IGeneric.TypeParameters?text=IGeneric.TypeParameters> expose the type parameters, i.e. `T` for an instance `List<int>` of the type definition `List<T>`.
 - <xref:Metalama.Framework.Code.IGeneric.TypeArguments?text=IGeneric.TypeArguments> expose the type arguments, i.e. the type bound to the arguments, i.e. `int` for an instance `List<int>` of the type definition `List<T>`.
 
-Unlike MSIL, Metalama does not have a concept of "open" generic type with unbound type parameters. Type parameters are always bound to an argument. In generic type definitions, the type parameters are bound to themselves.
+Unlike MSIL, Metalama doesn't have a concept of "open" generic type with unbound type parameters. Type parameters are always bound to an argument. In generic type definitions, the type parameters are bound to themselves.
 
 Consider the type `List<T>`, where `T` is a type parameter. In the generic type instance `List<int>`, the `T` is the type parameter; `int` is the type argument, and the `T` parameter is bound to `int`. In the type definition `List<T>`, `T` is both the type parameter and the type argument, because `T` is bound to itself.
 
@@ -301,7 +301,7 @@ var normalTuple = normalTuple.CreateCreateInstanceExpression( 42, "HAT" );
 
 The following aspect demonstrates how you can pack all method arguments into a tuple, so that they can be passed as a single object to an interceptor. The tuple is then unpacked into an argument list on the other side of the interceptor.
 
-This example is quite convoluted because of the need to implement a basic interception pattern. You can skip it on first reading if you are just here to learn about the type system and don't want to dive into more complex aspects for now.
+This example is quite convoluted because of the need to implement a basic interception pattern. You can skip it on first reading if you're just here to learn about the type system and don't want to dive into more complex aspects for now.
 
 Despite the complexity due to the interception scenario, the aspect demonstrates the simplicity of working with tuples. The aspect code does not need to bother about the number of parameters. All details are taken care of by <xref:Metalama.Framework.Code.ITupleType>.
 

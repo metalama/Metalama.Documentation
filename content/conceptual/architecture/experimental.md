@@ -15,7 +15,7 @@ There may be situations where a warning for an experimental API that may be chan
 
 ## Marking a specific API as experimental
 
-To generate warnings when an experimental API is being used, it is best to use the <xref:Metalama.Extensions.Architecture.Aspects.ExperimentalAttribute> attribute. Follow these steps:
+To generate warnings when an experimental API is being used, it's best to use the <xref:Metalama.Extensions.Architecture.Aspects.ExperimentalAttribute> attribute. Follow these steps:
 
 1. Add the `Metalama.Extensions.Architecture` package to your project.
 

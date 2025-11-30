@@ -11,7 +11,7 @@ modified-date: 2024-08-14
 
 In <xref:simple-override-method>, you learned the basic technique for replacing a method's implementation with code defined by the aspect. This was achieved using the <xref:Metalama.Framework.Aspects.OverrideMethodAspect> abstract class, an aspect-oriented implementation of the [decorator design pattern](https://en.wikipedia.org/wiki/Decorator_pattern) for methods.
 
-This article assumes you have read <xref:simple-override-method> and will expose additional techniques related to overriding methods.
+This article assumes you've read <xref:simple-override-method> and will expose additional techniques related to overriding methods.
 
 ## Accessing the method details
 
@@ -172,7 +172,7 @@ or <xref:Metalama.Framework.Aspects.OverrideMethodAspect.UseEnumerableTemplateFo
 
 ## Overriding several methods with the same aspect
 
-In the above sections, we have always derived our aspect class from the <xref:Metalama.Framework.Aspects.OverrideMethodAspect> abstract class. This class exists for simplicity and convenience. It is merely a shortcut that derives from the <xref:System.Attribute> class and implements the `IAspect<IMethod>` interface. The only thing it does is add an `Override` advice to the target of the custom attribute.
+In the above sections, we've always derived our aspect class from the <xref:Metalama.Framework.Aspects.OverrideMethodAspect> abstract class. This class exists for simplicity and convenience. It is merely a shortcut that derives from the <xref:System.Attribute> class and implements the `IAspect<IMethod>` interface. The only thing it does is add an `Override` advice to the target of the custom attribute.
 
 Here is the simplified source code of the <xref:Metalama.Framework.Aspects.OverrideMethodAspect> class:
 

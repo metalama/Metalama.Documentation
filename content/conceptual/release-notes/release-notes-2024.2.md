@@ -112,7 +112,7 @@ The following changes improve your ability to generate code with Metalama:
 ## Improvements in advising and code templates
 
 * Added support for lambda statements and anonymous methods of known scope, i.e., either run-time or compile-time (the scope can be coerced using `meta.RunTime` or `meta.CompileTime` when it is not obvious from the context). Lambda expressions returning `dynamic` are not supported and won't be. Single-statement lambdas (e.g., `() => { return 0; }`) are transparently simplified into expression lambdas (e.g., `() => 0`).
-* New concept of <xref:Metalama.Framework.Utilities.Promise`1> (with its interface <xref:Metalama.Framework.Utilities.IPromise`1>) to represent results that are not available yet. This mechanism allows resolving chicken-or-egg issues when introducing members when a template must receive a reference to a declaration that has not been introduced yet. A `Promise<T>` can be passed as an argument to a template, which receives it on a parameter of type `T`.
+* New concept of <xref:Metalama.Framework.Utilities.Promise`1> (with its interface <xref:Metalama.Framework.Utilities.IPromise`1>) to represent results that are not available yet. This mechanism allows resolving chicken-or-egg issues when introducing members when a template must receive a reference to a declaration that hasn't been introduced yet. A `Promise<T>` can be passed as an argument to a template, which receives it on a parameter of type `T`.
 * An error will be reported when attempting to use some template-only methods from a method that is not a template.
 
 ## Changes in interface implementation
@@ -124,14 +124,14 @@ The following changes improve your ability to generate code with Metalama:
 
 We are finally addressing the problem where the <xref:Metalama.Patterns.Contracts.PositiveAttribute?text=[Positive]>, <xref:Metalama.Patterns.Contracts.NegativeAttribute?text=[Negative]>, <xref:Metalama.Patterns.Contracts.LessThanAttribute?text=[LessThan]> and <xref:Metalama.Patterns.Contracts.GreaterThanAttribute?text=[GreaterThan]> aspects had a non-standard behavior because they behave as if the inequality were _unstrict_ while the standard interpretation is _strict_. This mistake was performed in PostSharp back in 2013 and dragged until now for backward compatibility reasons, but we eventually decided to address it.
 
-Starting from Metalama 2024.2, using any of the <xref:Metalama.Patterns.Contracts.PositiveAttribute?text=[Positive]>, <xref:Metalama.Patterns.Contracts.NegativeAttribute?text=[Negative]>, <xref:Metalama.Patterns.Contracts.LessThanAttribute?text=[LessThan]> or <xref:Metalama.Patterns.Contracts.GreaterThanAttribute?text=[GreaterThan]> attributes will report a warning saying that the strictness of the inequality is ambiguous. You have two options to resolve the warning:
+Starting from Metalama 2024.2, using any of the <xref:Metalama.Patterns.Contracts.PositiveAttribute?text=[Positive]>, <xref:Metalama.Patterns.Contracts.NegativeAttribute?text=[Negative]>, <xref:Metalama.Patterns.Contracts.LessThanAttribute?text=[LessThan]> or <xref:Metalama.Patterns.Contracts.GreaterThanAttribute?text=[GreaterThan]> attributes will report a warning saying that the strictness of the inequality is ambiguous. You've two options to resolve the warning:
 
 * Use one of the variants where the strictness is made explicit:
    * Strict: <xref:Metalama.Patterns.Contracts.StrictlyPositiveAttribute?text=[StrictlyPositive]>, <xref:Metalama.Patterns.Contracts.StrictlyNegativeAttribute?text=[StrictlyNegative]>, <xref:Metalama.Patterns.Contracts.StrictlyLessThanAttribute?text=[StrictlyLessThan]> and <xref:Metalama.Patterns.Contracts.StrictlyGreaterThanAttribute?text=[StrictlyGreaterThan]>
    * Non-strict: <xref:Metalama.Patterns.Contracts.NonNegativeAttribute?text=[NonNegative]>, <xref:Metalama.Patterns.Contracts.NonPositiveAttribute?text=[NonPositive]>, <xref:Metalama.Patterns.Contracts.LessThanOrEqualAttribute?text=[LessThanOrEqual]> and <xref:Metalama.Patterns.Contracts.GreaterThanAttribute?text=[GreaterThanOrEqual]>.
 * Or set the <xref:Metalama.Patterns.Contracts.ContractOptions.DefaultInequalityStrictness> contract option using the <xref:Metalama.Patterns.Contracts.ContractConfigurationExtensions.ConfigureContracts*> fabric extension method.
 
-If you do not address the warning, the behavior of the ambiguous contracts will remain backward-compatible, i.e., non-standard.
+If you don't address the warning, the behavior of the ambiguous contracts will remain backward-compatible, i.e., non-standard.
 
 We will change the default behavior and the warning in a future release.
 
@@ -159,7 +159,7 @@ For details, see <xref:creating-logs>.
 
 * The <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicate> class has a new abstract property <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicate>. Its constructor now requires a <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicateBuilder>.
 
-* <xref:Metalama.Extensions.Validation.ReferenceValidationContext> no longer reports several <xref:Metalama.Framework.Code.ReferenceKinds>, but only the deepest one. For instance, in `class A : List<C>;`, the reference to `C` is of kind `GenericArgument` and no longer `BaseType | GenericArgument`. The combined flags added complexity, and we did not see a use case for them.
+* <xref:Metalama.Extensions.Validation.ReferenceValidationContext> no longer reports several <xref:Metalama.Framework.Code.ReferenceKinds>, but only the deepest one. For instance, in `class A : List<C>;`, the reference to `C` is of kind `GenericArgument` and no longer `BaseType | GenericArgument`. The combined flags added complexity, and we didn't see a use case for them.
 
 * Projects that were using transitive reference validators (or architecture constraints) and were built with a previous version of Metalama must be rebuilt.
 

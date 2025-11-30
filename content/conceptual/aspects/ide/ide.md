@@ -12,9 +12,9 @@ modified-date: 2024-08-04
 > [!NOTE]
 > This features requires a Metalama Professional license.
 
-Likely, you are familiar with the code fixes and refactorings that your IDE offers via the screwdriver or lightbulb icons in the editor. Most of these code actions have been programmed by the manufacturer of your IDE.
+Likely, you're familiar with the code fixes and refactorings that your IDE offers via the screwdriver or lightbulb icons in the editor. Most of these code actions have been programmed by the manufacturer of your IDE.
 
-In this chapter, we will guide you on how to add your own actions to the screwdriver or lightbulb menus and integrate them with the other features of Metalama.
+In this chapter, we'll guide you on how to add your own actions to the screwdriver or lightbulb menus and integrate them with the other features of Metalama.
 
 ## Benefits
 

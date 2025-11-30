@@ -41,7 +41,7 @@ The <xref:Metalama.Patterns.Contracts.ContractOptions> class provides three prop
 * <xref:Metalama.Patterns.Contracts.ContractOptions.ArePostconditionsEnabled>
 * <xref:Metalama.Patterns.Contracts.ContractOptions.AreInvariantsEnabled>
 
-These options are enabled by default. If you disable them, the code supporting these features will not be generated.
+These options are enabled by default. If you disable them, the code supporting these features won't be generated.
 
 #### Example: disabling invariants in a namespace
 

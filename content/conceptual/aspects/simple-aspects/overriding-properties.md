@@ -42,7 +42,7 @@ If you need to get the property value from the setter, or if you need to set the
 
 ### Example: trimming strings
 
-In this aspect, you will see how you can trim whitespace before and after string values before they are assigned to the field or property.
+In this aspect, you'll see how you can trim whitespace before and after string values before they are assigned to the field or property.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.EnhanceProperties/Trimmed.cs name="Trimming string fields and properties"]
 
@@ -72,11 +72,11 @@ Note that in this example, `From` is a public field and `To` is a public propert
 
 If you want to go deeper into field/property overrides, consider exploring the following articles:
 
-* In this article, you learned how to use `meta.Proceed` and `meta.Target.Method.Name` in your templates. You can write much more complex and powerful templates, even performing compile-time `if` and `foreach` blocks. To see how, you can jump directly to <xref:templates>.
+- In this article, you've learned how to use `meta.Proceed` and `meta.Target.Method.Name` in your templates. You can write much more complex and powerful templates, even performing compile-time `if` and `foreach` blocks. To learn how, jump directly to <xref:templates>.
+- To learn how to override several fields and properties from a single type-level aspect, jump to <xref:overriding-methods>.
 
-* To learn how to override several fields and properties from a single type-level aspect, jump to <xref:overriding-methods>.
-
-
-
-
+> [!div class="see-also"]
+> <xref:templates>
+> <xref:overriding-fields-or-properties>
+> <xref:simple-override-method>
 

@@ -51,7 +51,7 @@ To inject some initialization before any user code of the instance constructor i
 
 The `AddInitializer` advice will _not_ affect the constructors that call a chained `this` constructor. That is, the advice always runs before any constructor of the current class. However, the initialization logic runs _after_ the call to the `base` constructor if the advised constructor calls the base constructor.
 
-A default constructor will be created automatically if the type does not contain any constructor.
+A default constructor will be created automatically if the type doesn't contain any constructor.
 
 ### Example: registering live instances
 

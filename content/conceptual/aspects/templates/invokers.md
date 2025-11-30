@@ -9,7 +9,7 @@ modified-date: 2025-11-07
 
 # Generating code based on the code model
 
-When you have a <xref:Metalama.Framework.Code> representation of a declaration, you will often want to access it from your generated run-time code. For instance, you will often need to generate code that calls an <xref:Metalama.Framework.Code.IMethod>, or accesses an <xref:Metalama.Framework.Code.IProperty>.
+When you've a <xref:Metalama.Framework.Code> representation of a declaration, you'll often want to access it from your generated run-time code. For instance, you'll often need to generate code that calls an <xref:Metalama.Framework.Code.IMethod>, or accesses an <xref:Metalama.Framework.Code.IProperty>.
 
 ## What are invokers?
 
@@ -142,6 +142,5 @@ Tuple elements are represented as fields in the tuple type. Use the following sy
 var firstElement = tupleType.TupleElements[0].WithObject( tupleInstance ).Value;
 ```
 
-## See also
-
-For scenarios where members are known at design time, consider using <xref:dynamic-typing>, which has a simpler syntax using compile-time expressions.
+> [!div class="see-also"]
+> <xref:dynamic-typing>

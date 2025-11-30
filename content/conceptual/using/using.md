@@ -17,9 +17,9 @@ By the end of this guide, you should feel confident in using aspects within your
 
 This chapter is recommended for those who:
 
-* Have recently joined a team that is already utilizing Metalama.
-* Plan to use ready-made aspects but do not intend to create their own.
-* Intend to create their own aspects in the future, but prefer to take a gradual approach.
+- Have recently joined a team that's already using Metalama.
+- Plan to use ready-made aspects but don't intend to create their own.
+- Intend to create their own aspects in the future, but prefer a gradual approach.
 
 
 ## In this chapter
@@ -32,7 +32,3 @@ This chapter is recommended for those who:
 |<xref:debugging-aspect-oriented-code> | This article provides guidance on how to debug transformed code using Visual Studio. |
 |<xref:applying-live-templates> | Live templates are unique types of aspects that modify your source code directly in the editor. This article guides you on how to use them. |
 |<xref:fabrics-adding-aspects>| Manually adding aspects or using the refactoring menu may not always be feasible or practical. Sometimes, a programmatic method is required to apply aspects to different targets. This article demonstrates how to use `Fabrics` programmatically to add aspects to various targets. |
-
-
-
-

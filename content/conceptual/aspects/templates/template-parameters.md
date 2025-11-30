@@ -48,7 +48,7 @@ public override void BuildAspect(IAspectBuilder<IMethod> builder)
 
 ### Alternative: tags
 
-If you cannot use compile-time parameters (typically because you have a field, property, or event template instead of a method template), you can substitute them with tags. For details about tags, refer to <xref:sharing-state-with-advice>. The advantage of compile-time parameters over tags is that template parameters enhance code readability, while tags necessitate a more complex syntax.
+If you can't use compile-time parameters (typically because you've a field, property, or event template instead of a method template), you can substitute them with tags. For details about tags, refer to <xref:sharing-state-with-advice>. The advantage of compile-time parameters over tags is that template parameters enhance code readability, while tags necessitate a more complex syntax.
 
 ## Type parameters
 

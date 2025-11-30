@@ -9,9 +9,9 @@ modified-date: 2024-08-04
 # Metalama Overview
 
 > [!WARNING]
-> This chapter has not been written yet.
+> This chapter hasn't been written yet.
 
-The intent of this book, once written, will be to guide you through the evaluation of Metalama. It will not instruct you on how to deploy and use it, but rather why and if it is suitable for you.
+The intent of this book, once written, will be to guide you through the evaluation of Metalama. It won't instruct you on how to deploy and use it, but rather why and if it is suitable for you.
 
 ## Features
 

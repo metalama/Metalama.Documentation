@@ -67,7 +67,7 @@ For more details, see <xref:aspect-testing>.
 
 Using the list you created in step 1, start with the most essential aspects.
 
-Metalama is not just an update of PostSharp; it has a completely different architecture and approach. Consequently, you will need to rewrite each aspect from scratch.
+Metalama is not just an update of PostSharp; it has a completely different architecture and approach. Consequently, you'll need to rewrite each aspect from scratch.
 
 To determine the Metalama equivalent of any PostSharp API, refer to the `[Obsolete]` warnings reported by the `Metalama.Migration` package on your code. We haven't included a tutorial on porting a specific aspect to Metalama here because, if you've completed Step 0 as suggested, you should already be familiar with this process. As mentioned earlier, it is beneficial to learn Metalama _before_ undertaking the actual migration work.
 
@@ -79,11 +79,11 @@ If you identified in Step 1 that the aspect should support multicasting, refer t
 
 The best way to migrate assembly multicasting is to use a project fabric as described in <xref:fabrics-adding-aspects>.
 
-For type-level multicasting, if you have built multicasting into your Metalama aspects as described in <xref:migrating-multicasting>, replacing the namespace `PostSharp.Extensibility` with `Metalama.Extensions.Multicast` using a "Replace in Files" operation should suffice.
+For type-level multicasting, if you've built multicasting into your Metalama aspects as described in <xref:migrating-multicasting>, replacing the namespace `PostSharp.Extensibility` with `Metalama.Extensions.Multicast` using a "Replace in Files" operation should suffice.
 
 ## Step 8. Migrate configuration
 
-If you have configuration or multicasting in a PostSharp file like `postsharp.config` or `MyProject.psproj`, they should be migrated to project fabrics as described in <xref:fabrics-configuration>.
+If you've configuration or multicasting in a PostSharp file like `postsharp.config` or `MyProject.psproj`, they should be migrated to project fabrics as described in <xref:fabrics-configuration>.
 
 For more details, see <xref:migrating-configuration>.
 
@@ -95,7 +95,7 @@ If your Metalama aspects have been correctly implemented, all your tests should 
 
 Once this is the case, replace the reference to the `Metalama.Migration` package with `Metalama.Framework`.
 
-You have now completed the migration.
+You've now completed the migration.
 
 
 

@@ -14,15 +14,15 @@ A _live template_ is a custom Code Action that appears in the code editor menu a
 Live templates are created using the Metalama Aspect Framework. Unlike traditional aspects that are executed at compile-time by the compiler, live templates are interactively applied by the user within the editor, thereby modifying the source code.
 
 > [!NOTE]
-> A key characteristic of an aspect is that it is applied at compile time and does not alter the source code. Consequently, a live template, despite being built with the aspect framework, cannot be referred to as an aspect as it deviates from this fundamental principle. To prevent any confusion, we recommend avoiding the use of the term 'aspects' when discussing live templates.
+> A key characteristic of an aspect is that it is applied at compile time and doesn't alter the source code. Consequently, a live template, despite being built with the aspect framework, cannot be referred to as an aspect as it deviates from this fundamental principle. To prevent any confusion, we recommend avoiding the use of the term 'aspects' when discussing live templates.
 
 ## To write a live template
 
 1. Begin by writing an aspect class as you normally would, but keep in mind the following differences:
-   - The aspect class does not need to inherit from `System.Attribute`.
+   - The aspect class doesn't need to inherit from `System.Attribute`.
    - Strive to generate idiomatic C# code.
    - Any diagnostics reported by the aspect will be disregarded.
-   - Aspect ordering and requirements will not be considered.
+   - Aspect ordering and requirements won't be considered.
 2. Add the `Metalama.Extensions.CodeFixes` package to your project.
 3. Ensure that the aspect class is equipped with a default constructor.
 4. Annotate the class with `[EditorExperience(SuggestAsLiveTemplate = true)]`.

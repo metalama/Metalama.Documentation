@@ -81,7 +81,6 @@ During compilation, Metalama compiles the [T# templates](xref:templates) into st
 > [!WARNING]
 > _Intellectual property alert._ The _source_ of your compile-time code is embedded in clear text, without any obfuscation, in the run-time binary assemblies as a managed resource.
 
-## See Also
-
-<xref:template-compile-time>
-<xref:template-parameters>
+> [!div class="see-also"]
+> <xref:template-compile-time>
+> <xref:template-parameters>

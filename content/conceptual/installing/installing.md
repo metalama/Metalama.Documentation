@@ -11,13 +11,13 @@ modified-date: 2024-08-04
 
 This section provides instructions on how to install Metalama.
 
-The core features of Metalama are implemented through a set of NuGet packages, eliminating the need for a machine-based installation. However, if you are working on a project that uses Metalama, we recommend installing the Visual Studio Tools for Metalama.
+The core features of Metalama are implemented through a set of NuGet packages, eliminating the need for a machine-based installation. However, if you're working on a project that uses Metalama, we recommend installing the Visual Studio Tools for Metalama.
 
 
 | Article  | Description  |
 |---------|---------|
 | <xref:install-vsx>    | This article provides instructions on how to install the Visual Studio Tools for Metalama. We recommend this extension for all users planning to use Metalama.        |
-| <xref:dotnet-tool>    | This article details the process of installing the Metalama Command Line Tool. It is not necessary to read this article during your initial familiarization with the tool.        |
+| <xref:dotnet-tool>    | This article details the process of installing the Metalama Command Line Tool. It isn't necessary to read this article during your initial familiarization with the tool.        |
 | <xref:register-license>     |  This article explains how to transition from trial mode to Metalama Free or how to register a license key. You can skip this article while your trial period is active.        |
 
 

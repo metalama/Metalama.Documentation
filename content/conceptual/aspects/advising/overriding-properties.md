@@ -50,7 +50,7 @@ The _second argument_ of `Override` is the name of the template property. This p
 
 * the template property must be annotated with the `[Template]` attribute,
 * the template property must be of type `dynamic` (_dynamically-typed_ template), or a type compatible with the type of the overridden property (_strongly-typed_ template).
-* the template property can have a setter, a getter, or both. If one accessor is not specified in the template, the corresponding accessor in the target code will not be overridden.
+* the template property can have a setter, a getter, or both. If one accessor isn't specified in the template, the corresponding accessor in the target code won't be overridden.
 
 #### Example: registry-backed class
 

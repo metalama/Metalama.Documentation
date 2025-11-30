@@ -8,7 +8,7 @@ modified-date: 2024-11-06
 
 # Release notes
 
-This chapter provides a high-level changelog for all Metalama releases. It does not document individual bug fixes. For detailed changelogs, please refer to this [GitHub forum](https://github.com/orgs/postsharp/discussions/categories/changelog).
+This chapter provides a high-level changelog for all Metalama releases. It doesn't document individual bug fixes. For detailed changelogs, please refer to this [GitHub forum](https://github.com/orgs/postsharp/discussions/categories/changelog).
 
 | Version | Status                | Highlights                                                                                                                                                            | Release Notes               |
 | ------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |

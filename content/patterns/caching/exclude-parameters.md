@@ -8,7 +8,7 @@ modified-date: 2024-08-04
 
 # Excluding parameters from the cache key
 
-Some methods may have parameters that do not need to be part of the cache. A typical example is the <xref:System.Threading.CancellationToken> type, which is automatically skipped. Another example could be a request correlation ID. Often, the current instance (`this`) represents a service instance and should also be skipped.
+Some methods may have parameters that don't need to be part of the cache. A typical example is the <xref:System.Threading.CancellationToken> type, which is automatically skipped. Another example could be a request correlation ID. Often, the current instance (`this`) represents a service instance and should also be skipped.
 
 This article presents mechanisms to exclude any parameter from the cache key.
 
@@ -41,13 +41,13 @@ In the following example, both methods of the `PricingService` class have a `cor
 ## Excluding parameters by rule using classifiers
 The inconvenience of using the <xref:Metalama.Patterns.Caching.NotCacheKeyAttribute> custom attribute is that it must be added to every single parameter. This can be cumbersome and subject to human errors when many parameters must be excluded according to the same rules.
 
-In this case, it is preferable to implement and register a programmatic parameter classifier.  Follow these steps:
+In this case, it's preferable to implement and register a programmatic parameter classifier.  Follow these steps:
 
 1. Create a class that implements the <xref:Metalama.Patterns.Caching.Aspects.Configuration.ICacheParameterClassifier> interface. It has a single method, <xref:Metalama.Patterns.Caching.Aspects.Configuration.ICacheParameterClassifier.GetClassification*>, which receives a parameter and returns a value indicating whether the parameter should be excluded from the cache key.
 2. Using a fabric for the desired scope (typically the current project, a namespace, or all referencing projects), call the <xref:Metalama.Patterns.Caching.Aspects.Configuration.CachingConfigurationExtensions.ConfigureCaching*?amender.Outgoing.ConfigureCaching> method and supply a delegate that calls the <xref:Metalama.Patterns.Caching.Aspects.Configuration.CachingOptionsBuilder.AddParameterClassifier*> method.
 
 > [!WARNING]
-> It may be tempting to classify parameters based on naming conventions, for instance to exclude all parameters named `correlationId`, but this is dangerous because naming conventions are easily broken. Instead, it is preferable to use a fabric to report a warning when a method is cached and one of its parameter matches a naming pattern but is not annotated with the  <xref:Metalama.Patterns.Caching.NotCacheKeyAttribute> attribute.
+> It may be tempting to classify parameters based on naming conventions, for instance to exclude all parameters named `correlationId`, but this is dangerous because naming conventions are easily broken. Instead, it's preferable to use a fabric to report a warning when a method is cached and one of its parameter matches a naming pattern but is not annotated with the  <xref:Metalama.Patterns.Caching.NotCacheKeyAttribute> attribute.
 
 ### Example: parameter classifier
 

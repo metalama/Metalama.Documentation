@@ -41,23 +41,25 @@
 - Use numbered lists for step-by-step instructions
 - Use bullet points for non-sequential items
 - Use `> [!NOTE]`, `> [!WARNING]`, `> [!IMPORTANT]` for callouts
-- End articles with a "See also" section containing cross-references to related topics
+- End articles with a "See also" section containing cross-references to related topics. This section should start with this code:
+
+    ```text
+    > [!div class="see-also"]
+    ```
+
 - Use tables for comparing options or listing related articles with descriptions
 
 ## Code samples
 
-- Do not use Markdown code samples, use external files.
+- Code samples should be complete and runnable when possible. We give priority to external `.cs` files included with directives, so they can be compiled.
 - Use `[!metalama-test ...]` to include whole examples based on the aspect framework, possibly composed of many files, with pre- and post-Metalama comparison.
 - Use `[!metalama-file ...]` to include code snippets from external files
 - You can find the original source code by substituting ~ with the repo root. To find the modified code, look for files named `Foo.t.cs` (`Foo` being the test name) under `obj/Debug/Metalama`.
+- Examples should be relevant to the context. You should fetch the code to verify the relevance.
 
 
 ## Formatting conventions
 
-- Use `-` for unordered lists (not `*`)
-- Use 4-space indentation for nested list items
-- One blank line between sections, not multiple
-- Code samples should be complete and runnable when possible
 - Fenced code blocks use triple backticks with language identifier (csharp, xml, powershell)
 - Inline code in lists: place the code element first, then explain (e.g., "`nameof(value)` expression will be substituted...")
 
@@ -85,10 +87,33 @@
 - Title format: "Example: [description]" or "### Example: [description]"
 - Brief explanation before the example
 - Use `[!metalama-test ...]` directive to include testable examples
-- Add commentary after example explaining key observations
+- Add commentary after example explaining key observations (expected results)
 
 ## Directory structure
 
 - Each directory should have an index file named after the directory (e.g., `aspects/aspects.md`, not `aspects/index.md`)
 - Index files should include a table describing child pages with columns: Article | Description
 - Articles must be added to `toc.yml` in the appropriate location
+- When adding a new section, also update the parent index file (e.g., `conceptual.md`)
+
+## Sample code projects
+
+- Long code examples should be in their own compilable project under `code/`
+- For aspect tests (with `*.t.cs` expected output files), reuse an existing project in `Metalama.Documentation.Snippets.TestBased.sln`
+- Create standalone projects only when special package references are needed (e.g., Workspaces API)
+- Standalone sample projects go in `Metalama.Documentation.Snippets.ProjectBased.sln`
+- Use `[!metalama-files ~/code/ProjectName]` to include all files from a sample project
+- Use `[!metalama-file ~/code/ProjectName/File.cs]` to include a single file
+
+## Available Markdig directives
+
+- `[!metalama-test ...]` - Include aspect test with source/transformed comparison
+- `[!metalama-file ...]` - Include a single code file
+- `[!metalama-files ...]` - Include multiple files or entire project directory
+- Directive implementations are in `eng/src/Markdig/`
+
+## Building documentation
+
+- Use `Build.ps1 build` when sample code has changed (compiles samples, runs tests, generates HTML)
+- Use `update-html.ps1` for documentation-only changes (faster, skips sample compilation)
+- If errors occur in `source-dependencies/Metalama.Samples`, build that project first with `source-dependencies/Metalama.Samples/Build.ps1 build`

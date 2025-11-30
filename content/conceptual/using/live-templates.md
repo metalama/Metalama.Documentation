@@ -9,7 +9,7 @@ modified-date: 2024-08-04
 
 # Using live templates
 
-Aspects, as you may already know, modify the code during compilation while leaving your source code intact. In contrast, live templates transform your source code within your editor. Once you apply a live template to a declaration, you can edit the generated code. Live templates are a one-time operation. Unlike aspects, if the author of the live template modifies the code generation rules after you have applied the template to your source code, your source code will not be modified.
+Aspects, as you may already know, modify the code during compilation while leaving your source code intact. In contrast, live templates transform your source code within your editor. Once you apply a live template to a declaration, you can edit the generated code. Live templates are a one-time operation. Unlike aspects, if the author of the live template modifies the code generation rules after you've applied the template to your source code, your source code won't be modified.
 
 You can access live templates from the refactoring menu, also known as the _lightbulb_ or _screwdriver_ menu.
 

@@ -24,6 +24,6 @@ You might need to add new packages to your project and to perform a find-and-rep
 * The <xref:Metalama.Extensions.Validation.ValidationQueryExtensions.AfterAllAspects*> and <xref:Metalama.Extensions.Validation.ValidationQueryExtensions.BeforeAnyAspect*> methods are obsolete. They are replaced by an `options` parameter on the <xref:Metalama.Extensions.Validation.ValidationQueryExtensions.Validate*> method.
     
 * The already obsolete `Metalama.Extensions.Architecture.Fabrics` namespace has been removed.
-* _Metalama Free_ licenses are not supported in Metalama 2025.1. If you want to continue using proprietary features, you will have to choose another license.
+* _Metalama Free_ licenses are not supported in Metalama 2025.1. If you want to continue using proprietary features, you'll have to choose another license.
 * The <xref:Metalama.Framework.Code.ReferenceKinds> type has moved to the `Metalama.Framework.Code` namespace.
 * The `IClassIntroductionAdviceResult` interface has been removed and replaced by its ancestor <xref:Metalama.Framework.Advising.IIntroductionAdviceResult`1>.

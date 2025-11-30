@@ -23,7 +23,7 @@ When you need to construct statements programmatically or generate complex state
 
 
 > [!WARNING]
-> Do not forget the trailing semicolon at the end of the statement.
+> Don't forget the trailing semicolon at the end of the statement.
 
 When you are done, call the <xref:Metalama.Framework.Code.SyntaxBuilders.IStatementBuilder.ToStatement*> method. You can inject the returned <xref:Metalama.Framework.Code.SyntaxBuilders.IStatement> in run-time code by calling the <xref:Metalama.Framework.Aspects.meta.InsertStatement*> method in the template.
 
@@ -33,7 +33,7 @@ Just as you can parse C# expressions using <xref:Metalama.Framework.Code.SyntaxB
 
 
 > [!WARNING]
-> Do not forget the trailing semicolon at the end of the statement.
+> Don't forget the trailing semicolon at the end of the statement.
 
 ## Defining local variables
 
@@ -62,6 +62,5 @@ The following example generates an `Execute` method, which has two arguments: a 
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/SwitchStatementBuilder.cs name="SwitchStatementBuilder"]
 
-## See also
-
-For generating expressions (rather than statements), see <xref:run-time-expressions>, which covers expression builders, parsing expressions, and converting compile-time values to run-time values.
+> [!div class="see-also"]
+> <xref:run-time-expressions>

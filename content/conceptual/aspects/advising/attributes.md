@@ -24,7 +24,7 @@ The following aspect adds <xref:System.ComponentModel.EditorBrowsableAttribute> 
 
 To remove all custom attributes of a given type from a declaration, use the <xref:Metalama.Framework.Aspects.AdviserExtensions.RemoveAttributes*?text=> method.
 
-Note that you cannot edit a custom attribute; instead, you must remove previous instances and add new ones.
+Note that you can't edit a custom attribute; instead, you must remove previous instances and add new ones.
 
 ## Adding attributes to an introduced declaration, declaratively
 

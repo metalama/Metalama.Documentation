@@ -8,11 +8,11 @@ modified-date: 2024-08-04
 ---
 # Getting aspects
 
-As previously noted, this chapter will not explore the creation of aspects. We will assume that you already have pre-built aspects available for use in your projects. These aspects may have been provided by your colleagues, our team, or the community.
+As previously noted, this chapter won't explore the creation of aspects. We'll assume that you already have pre-built aspects available for use in your projects. These aspects may have been provided by your colleagues, our team, or the community.
 
 ## Demo aspects
 
-In the examples provided in this chapter, we will utilize the following pre-built aspects:
+In the examples provided in this chapter, we'll utilize the following pre-built aspects:
 
 |Aspect | Purpose |
 |-------|----------|
@@ -25,7 +25,7 @@ The NuGet package that contains these aspects is [Metalama.Documentation.QuickSt
 When applied, these aspects change the behavior of your source code without altering the source level. They transform the source code before it is passed to the compiler.
 
 > [!NOTE]
-> The implementation of these aspects is not the focus of this chapter. Instead, we will focus on how to _use_ them.
+> The implementation of these aspects isn't the focus of this chapter. Instead, we'll focus on how to _use_ them.
 
 ## Metalama Marketplace
 

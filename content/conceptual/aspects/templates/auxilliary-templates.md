@@ -29,7 +29,7 @@ To create an auxiliary template, follow these steps:
     > [!NOTE]
     > This rule applies even if you want to create a helper class that contains only `static` methods. In this case, you cannot mark the class as `static`, but you can add a unique `private` constructor to prevent instantiation of the class.
 
-3. Most of the time, you will want auxiliary templates to be `void`, as explained below.
+3. Most of the time, you'll want auxiliary templates to be `void`, as explained below.
 
 A template can invoke another template just like any other method. You can pass values to its compile-time and run-time [parameters](xref:template-parameters).
 
@@ -51,7 +51,7 @@ In a normal non-void C# method, all execution branches must end with a `return <
 To work around this situation, you can make the auxiliary template `void` and call the <xref:Metalama.Framework.Aspects.meta.Return*?text=meta.Return> method, which will generate a `return <expression>` statement while making the C# compiler satisfied with your template.
 
 > [!NOTE]
-> There is no way to explicitly interrupt the template processing other than playing with compile-time `if`, `else` and `switch` statements and ensuring that the control flow continues to the natural end of the template method.
+> There's no way to explicitly interrupt the template processing other than playing with compile-time `if`, `else` and `switch` statements and ensuring that the control flow continues to the natural end of the template method.
 
 ### Example: meta.Return
 
@@ -99,7 +99,7 @@ This example is contrived in two regards. First, it would make sense in this cas
 
 ## Evaluating a template into an IStatement
 
-If you want to use templates with facilities like <xref:Metalama.Framework.Code.SyntaxBuilders.SwitchStatementBuilder>, you will need an <xref:Metalama.Framework.Code.SyntaxBuilders.IStatement>. To wrap a template invocation into an <xref:Metalama.Framework.Code.SyntaxBuilders.IStatement>, use <xref:Metalama.Framework.Code.SyntaxBuilders.StatementFactory.FromTemplate*?text=StatementFactory.FromTemplate>.
+If you want to use templates with facilities like <xref:Metalama.Framework.Code.SyntaxBuilders.SwitchStatementBuilder>, you'll need an <xref:Metalama.Framework.Code.SyntaxBuilders.IStatement>. To wrap a template invocation into an <xref:Metalama.Framework.Code.SyntaxBuilders.IStatement>, use <xref:Metalama.Framework.Code.SyntaxBuilders.StatementFactory.FromTemplate*?text=StatementFactory.FromTemplate>.
 
 You can call <xref:Metalama.Framework.Code.SyntaxBuilders.StatementFactory.UnwrapBlock*> to remove braces from the template output, which will return an <xref:Metalama.Framework.Code.SyntaxBuilders.IStatementList>.
 
@@ -109,9 +109,6 @@ The following example generates an `Execute` method which has two arguments: a m
 
 [!metalama-test  ~/code/Metalama.Documentation.SampleCode.AspectFramework/SwitchStatementBuilder_FullTemplate.cs]
 
-## See Also
-
-<xref:template-overview>
-<xref:template-parameters>
-
-
+> [!div class="see-also"]
+> <xref:template-overview>
+> <xref:template-parameters>

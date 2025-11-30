@@ -62,7 +62,7 @@ To enable console logging, set the `METALAMA_CONSOLE_TRACE` environment variable
 
 Note that `dotnet build` or `msbuild` process, as well as the Metalama compiler process, reuse background processes by default. These processes may fail to receive the `METALAMA_CONSOLE_TRACE` environment variable. To ensure that the Metalama compiler process receives the environment variable, you must disable build servers using the `--disable-build-servers` flag.
 
-It is also important to enable detailed verbosity in `dotnet build` or `msbuild` because the default verbosity does not pass through the standard output of the compiler process.
+It is also important to enable detailed verbosity in `dotnet build` or `msbuild` because the default verbosity doesn't pass through the standard output of the compiler process.
 
 ### Example: PowerShell
 Combining all these notes, here is how to enable console logging for all categories:

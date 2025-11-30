@@ -10,11 +10,11 @@ modified-date: 2024-08-04
 
 The primary objective of Metalama 2024.1 is to enhance the user interface, focusing on improving Visual Studio tooling and introducing a new license activation UI. Furthermore, it is now possible to override constructors.
 
-## User Interface
+## User interface
 
 ### Unification of Visual Studio Tools for Metalama
 
-Previously, Metalama and PostSharp each had their own Visual Studio extension, each with a unique set of features and user experiences. In Metalama 2024.1, we have merged these two extensions into one, unifying the development experience. Thus, regardless of whether you are using Metalama, PostSharp, or both, you should now install a _single_ extension named _Visual Studio Tools for Metalama_, or, in short, _Metalama + PostSharp_.
+Previously, Metalama and PostSharp each had their own Visual Studio extension, each with a unique set of features and user experiences. In Metalama 2024.1, we've merged these two extensions into one, unifying the development experience. Thus, regardless of whether you are using Metalama, PostSharp, or both, you should now install a _single_ extension named _Visual Studio Tools for Metalama_, or, in short, _Metalama + PostSharp_.
 
 #### Aspect Explorer
 
@@ -28,7 +28,7 @@ You can double-click on any declaration to open it in the code editor.
 
 #### Learning Hub
 
-The Learning Hub displays articles and tutorials, prioritizing them based on your learning objectives. For instance, if you are interested in logging, the Learning Hub will first display tutorials relevant to logging, sorted in increasing order of complexity.
+The Learning Hub displays articles and tutorials, prioritizing them based on your learning objectives. For instance, if you're interested in logging, the Learning Hub will first display tutorials relevant to logging, sorted in increasing order of complexity.
 
 #### ARM64 Support
 
@@ -52,9 +52,9 @@ For details, see <xref:overriding-constructors>.
 ## Other improvements
 
 * Numeric contracts now generate idiomatic code.
-* Metalama 2024.1 now processes aspects approximately 55% faster than 2024.0. However, the fixed cost of using Metalama instead of the vanilla C# compiler has not improved. See [this analysis](https://blog.postsharp.net/metalama-2024-1-performance.html) for details.
+* Metalama 2024.1 now processes aspects approximately 55% faster than 2024.0. However, the fixed cost of using Metalama instead of the vanilla C# compiler hasn't improved. See [this analysis](https://blog.postsharp.net/metalama-2024-1-performance.html) for details.
 
-## Breaking Changes
+## Breaking changes
 
 * Initializers are now all executed before constructor parameter contracts. Previously, initializers and contracts on constructors could be interleaved.
 * The ordering of contracts within the same method has been fixed.

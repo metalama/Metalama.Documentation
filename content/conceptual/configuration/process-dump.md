@@ -9,7 +9,7 @@ modified-date: 2024-08-04
 
 # Creating a process dump
 
-If you are encountering issues with Metalama, our support team might request a process dump of the compiler or IDE process.
+If you're encountering issues with Metalama, our support team might request a process dump of the compiler or IDE process.
 
 > [!WARNING]
 > **Process dumps may contain potentially confidential information**
@@ -78,7 +78,7 @@ Restart the logged processes:
 Perform the actions that cause the issue.
 
 > [!WARNING]
-> Remember to disable the diagnostic setting once you have finished.
+> Remember to disable the diagnostic setting once you've finished.
 
 ## Step 5. Upload the process dump to an online drive
 

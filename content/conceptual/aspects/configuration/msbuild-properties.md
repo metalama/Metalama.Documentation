@@ -20,7 +20,7 @@ Another advantage of accepting MSBuild properties for configuration is that they
 
 By default, MSBuild properties are not visible to Metalama: you must instruct MSBuild to pass them to the compiler using the `CompilerVisibleProperty` item.
 
-If you are shipping your project as a NuGet package, we recommend the following approach to consume a configuration property:
+If you're shipping your project as a NuGet package, we recommend the following approach to consume a configuration property:
 
 1. Create a file named `build/YourProject.props`. 
 
@@ -65,7 +65,7 @@ If you are shipping your project as a NuGet package, we recommend the following 
 
 This approach will make sure that `YourProject.props` is automatically included in any project that references your project using a `PackageReference`.
 
-However, this will not work for projects referencing your project using a `PackageReference`. In this case, you need to manually import the `YourProject.props` file using the following code:
+However, this won't work for projects referencing your project using a `PackageReference`. In this case, you need to manually import the `YourProject.props` file using the following code:
 
 ```xml
 <Import Project="../YourProject/build/YourProject.props"/>
@@ -98,7 +98,7 @@ To configure the aspect, users should set this property using one of the followi
 
 ## Reading MSBuild properties from an aspect or fabric
 
-To read an MSBuild property, use the <xref:Metalama.Framework.Project.IProject.TryGetProperty*?text=IProject.TryGetProperty> method. The <xref:Metalama.Framework.Project.IProject> object is available almost everywhere. If you have an <xref:Metalama.Framework.Code.IDeclaration>, use <xref:Metalama.Framework.Code.ICompilation.Project?text=declaration.Compilation.Project>.
+To read an MSBuild property, use the <xref:Metalama.Framework.Project.IProject.TryGetProperty*?text=IProject.TryGetProperty> method. The <xref:Metalama.Framework.Project.IProject> object is available almost everywhere. If you've an <xref:Metalama.Framework.Code.IDeclaration>, use <xref:Metalama.Framework.Code.ICompilation.Project?text=declaration.Compilation.Project>.
 
 ### Example: reading MSBuild properties from an aspect
 

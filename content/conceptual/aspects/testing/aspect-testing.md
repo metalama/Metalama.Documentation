@@ -29,7 +29,7 @@ Practically, you can follow these steps (detailed below):
 2. Add the `Metalama.Testing.AspectTesting` package (see <xref:packages> for details).
 
 > [!WARNING]
-> Do not add the `Metalama.Testing.AspectTesting` to a project that you do not intend to use _exclusively_ for compile-time tests. This package significantly changes the semantics of the project items.
+> Don't add the `Metalama.Testing.AspectTesting` to a project that you don't intend to use _exclusively_ for compile-time tests. This package significantly changes the semantics of the project items.
 
 Typically, the `csproj` project file of a compile-time test project would have the following content:
 
@@ -95,13 +95,13 @@ Every source file in the project is a standalone test case. It usually contains 
 Every test includes:
 
 - A main test file, named for instance `BlueSky.cs`.
-- A file containing the _expected transformed code_ of the main test file, named with the `.t.cs` extension, for example, `BlueSky.t.cs`. We recommend you do not create this file manually but copy the actual output of the test after you are satisfied with it (see below).
+- A file containing the _expected transformed code_ of the main test file, named with the `.t.cs` extension, for example, `BlueSky.t.cs`. We recommend you don't create this file manually but copy the actual output of the test after you are satisfied with it (see below).
 - Optionally, one or more auxiliary test files whose name starts with the main test file, for example, `BlueSky.*.cs`. Auxiliary files are included in the test compilation, but their transformed code is not appended to the `.t.cs` file.
 
 > [!NOTE]
 > The name of the main file of your test case cannot include a `.` except for the `.cs` extension.
 
-For instance, suppose that we are testing the following aspect. This file would typically be included in a class library project.
+For instance, suppose that we're testing the following aspect. This file would typically be included in a class library project.
 
 [!metalama-test  ~/code/Metalama.Documentation.SampleCode.AspectFramework/Testing.TheAspect.cs name="Main"]
 
@@ -121,7 +121,7 @@ The included file will behave just as an auxiliary file.
 
 ### Including references to introduced members and interfaces
 
-Because Metalama is disabled at compile- and design-time for a test project, you will have difficulties referencing members that do not stem from your source code but have been introduced by an aspect. Since the IDE and the compiler do not know about Metalama, you will get errors complaining that these members do not exist.
+Because Metalama is disabled at compile- and design-time for a test project, you'll have difficulties referencing members that don't stem from your source code but have been introduced by an aspect. Since the IDE and the compiler don't know about Metalama, you'll get errors complaining that these members don't exist.
 
 The solution is to wrap the code accessing introduced members with a `#if METALAMA` directive. Because the `METALAMA` symbol is defined when the test framework is running, this code will be considered during these tests. However, this code will be ignored while editing and compiling because it is not defined at design and compile time.
 
@@ -139,10 +139,10 @@ For details about member introductions, see <xref:introducing-members>.
 
 ## Step 3. Run the test case
 
-When you create a new test file, your IDE does not automatically discover it. To make the new test appear in the Test Explorer, you first need to run all tests in the project. After the first run, the test will appear in the Test Explorer, and it will be possible to execute tests individually.
+When you create a new test file, your IDE doesn't automatically discover it. To make the new test appear in the Test Explorer, you first need to run all tests in the project. After the first run, the test will appear in the Test Explorer, and it'll be possible to execute tests individually.
 
 > [!NOTE]
-> If you are using Rider, you must first configure the xUnit adapter. To achieve this, open settings, go to _Build, Execution, Deployment_ > _Unit Testing_ > _xUnit.net_ and select **Test Runner** instead of metadata for test discovery.
+> If you're using Rider, you must first configure the xUnit adapter. To achieve this, open settings, go to _Build, Execution, Deployment_ > _Unit Testing_ > _xUnit.net_ and select **Test Runner** instead of metadata for test discovery.
 
 You can also run the tests using `dotnet test`.
 
@@ -278,9 +278,10 @@ To run aspect tests in Rider, first go to File &#8594; Settings &#8594; Build, E
 
 For ReSharper, instead, go to Extensions &#8594; ReSharper &#8594; Options &#8594; Tools &#8594; Unit Testing &#8594; Test Frameworks &#8594; xUnit.net and likewise select Test Discovery using Test Runner.
 
-If the above is not an option for you, you can alternatively create, in each directory you want, a file named `_Runner.cs`, with the following content (in the namespace of your choice):
+## Obsolete APIs
 
-[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/_Runner.cs name="Test Runner"]
-
-The `[CurrentDirectory]` attribute will automatically provide test data for all files under the directory containing the `_Runner.cs` file and any child directory.
+> [!WARNING]
+> The `AspectTestClass`, `DefaultAspectTestClass`, `CurrentDirectoryAttribute`, and `CurrentProjectAttribute` classes are obsolete and should not be used. These classes were previously required to manually create test runners, but the `Metalama.Testing.AspectTesting` package now provides automatic test discovery. Simply add the package to your project and place test files in the project directory; no additional test runner code is needed.
+>
+> Legacy code using `_Runner.cs` files with `AspectTestClass` and `[CurrentDirectory]` will continue to work, but is no longer recommended for new projects.
 

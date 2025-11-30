@@ -97,7 +97,7 @@ See <xref:sample-shared-fabric>.
 
 ### Execution order of shared fabrics
 
-When you have multiple project fabrics in the same project, they are ordered by the following criteria:
+When you've multiple project fabrics in the same project, they are ordered by the following criteria:
 
 1. Distance of the source file from the root directory: fabrics closer to the root directory are processed first.
 2. Fabric namespace.

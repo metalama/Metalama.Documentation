@@ -27,28 +27,28 @@ The Configuration Manager will present the following dialog:
 
 ![](images/config_manager_dialog.png)
 
-* Open the `Active solution configuration` dropdown.
+- Open the `Active solution configuration` dropdown.
 
 ![](images/config_manager_new_config.png)
 
-* Click on `<New...>` to create a new debug configuration. This action will open the New dialog as depicted below.
+- Click on `<New...>` to create a new debug configuration. This action will open the New dialog as depicted below.
 
 ![](images/empty_debug_config.png)
 
-* Enter the name **`LamaDebug`** and copy settings from `Debug` as shown below.
+- Enter the name **`LamaDebug`** and copy settings from `Debug` as shown below.
 
 ![](images/lamadebug_config.png)
 
-* Save this configuration by clicking the `OK` button.
-* Change the build configuration to `LamaDebug`.
+- Save this configuration by clicking the `OK` button.
+- Change the build configuration to `LamaDebug`.
 
 You are now prepared to debug your aspect-transformed code.
 
 ## Breakpoints and Step-Into
 
-If you set a breakpoint in your code that is being modified by an aspect, those breakpoints will not be hit. However, you can use `F11` to Step-Into as usual.
+If you set a breakpoint in your code that is being modified by an aspect, those breakpoints won't be hit. However, you can use `F11` to Step-Into as usual.
 
-You can also set breakpoints in the transformed code. In the following sections, we will guide you on how to locate the transformed code and how to debug it.
+You can also set breakpoints in the transformed code. In the following sections, we'll guide you on how to locate the transformed code and how to debug it.
 
 Consider the following code with the logging (`[Log]`) aspect:
 
@@ -76,7 +76,7 @@ As demonstrated, you can set a breakpoint on this transformed code, and it will 
 [!metalama-test ~/code/DebugDemo/Program.cs]
 
 > [!NOTE]
-> When you debug this code by Step-Into, you will observe that the actual code being debugged is the transformed code.
+> When you debug this code by Step-Into, you'll observe that the actual code being debugged is the transformed code.
 
 ## Breaking forcefully using `Debugger.Break`
 

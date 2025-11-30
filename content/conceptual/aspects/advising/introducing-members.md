@@ -85,7 +85,7 @@ There are two ways to make a member `partial` or `abstract`:
 * Set the `IsPartial` or `IsAbstract` property of the `[Template]` attribute.
 * Set the `IsPartial` or `IsAbstract` property of the <xref:Metalama.Framework.Code.DeclarationBuilders.IMemberBuilder> object.
 
-The implementation body of the template will be ignored if you set the `IsAbstract` or `IsPartial` property, so any implementation will do. However, if you do not want to have _any_ body, you can use the `extern` keyword on the template member. This keyword will be removed during compilation, and dummy implementations will be provided.
+The implementation body of the template will be ignored if you set the `IsAbstract` or `IsPartial` property, so any implementation will do. However, if you don't want to have _any_ body, you can use the `extern` keyword on the template member. This keyword will be removed during compilation, and dummy implementations will be provided.
 
 
 ## Overriding existing implementations
@@ -101,7 +101,7 @@ When you want to introduce a member to a type, it may happen that the same membe
 
 ### Accessing the overridden declaration
 
-Most of the time, when you override a method, you will want to invoke the base implementation. The same applies to properties and events. In plain C#, when you override a base-class member in a derived class, you call the member with the `base` prefix. A similar approach exists in Metalama.
+Most of the time, when you override a method, you'll want to invoke the base implementation. The same applies to properties and events. In plain C#, when you override a base-class member in a derived class, you call the member with the `base` prefix. A similar approach exists in Metalama.
 
 - To invoke the base method or accessor with exactly the same arguments, call <xref:Metalama.Framework.Aspects.meta.Proceed?text=meta.Proceed>.
 - To invoke the base method with different arguments, use <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.Invoke*?text=meta.Target.Method.Invoke>.
@@ -112,7 +112,7 @@ Most of the time, when you override a method, you will want to invoke the base i
 
 ## Referencing introduced members in a template
 
-When you introduce a member to a type, you will often want to access it from templates. There are three ways to do it:
+When you introduce a member to a type, you'll often want to access it from templates. There are three ways to do it:
 
 ### Option 1. Access the aspect template member
 
@@ -127,7 +127,7 @@ When you introduce a member to a type, you will often want to access it from tem
 If neither of the approaches above offers you the required flexibility (typically because the name of the introduced member is dynamic), use the invokers exposed on the builder object returned from the advice factory method.
 
 > [!NOTE]
-> Declarations introduced by an aspect or aspect layer are not visible in the `meta` code model exposed to the same aspect or aspect layer. To reference builders, you have to reference them differently. For details, see <xref:sharing-state-with-advice>.
+> Declarations introduced by an aspect or aspect layer aren't visible in the `meta` code model exposed to the same aspect or aspect layer. To reference builders, you must reference them differently. For details, see <xref:sharing-state-with-advice>.
 
 For more details, see <xref:Metalama.Framework.Code.Invokers>.
 
@@ -135,7 +135,7 @@ For more details, see <xref:Metalama.Framework.Code.Invokers>.
 
 ## Referencing introduced members from source code
 
-If you want the _source_ code (not your aspect code) to reference declarations introduced by your aspect, the _user_ of your aspect must make the target types `partial`. Without this keyword, the introduced declarations will not be visible at design time in syntax completion, and the IDE will report errors. Note that the compiler will not complain because Metalama replaces the compiler, but the IDE will because it does not know about Metalama, and therefore your aspect has to follow the rules of the C# compiler. However inconvenient this may be, there is nothing you as an aspect author, or us as the authors of Metalama, can do.
+If you want the _source_ code (not your aspect code) to reference declarations introduced by your aspect, the _user_ of your aspect must make the target types `partial`. Without this keyword, the introduced declarations won't be visible at design time in syntax completion, and the IDE will report errors. Note that the compiler will not complain because Metalama replaces the compiler, but the IDE will because it does not know about Metalama, and therefore your aspect has to follow the rules of the C# compiler. However inconvenient this may be, there is nothing you as an aspect author, or us as the authors of Metalama, can do.
 
 If the user does not add the `partial` keyword, Metalama will report a warning and offer a code fix.
 

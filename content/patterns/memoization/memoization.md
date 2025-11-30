@@ -20,7 +20,7 @@ To memoize a property or a method:
 
 
 > [!WARNING]
-> The current implementation of the <xref:Metalama.Patterns.Memoization.MemoizeAttribute?text=[Memoize]> aspect does not guarantee that the method will be executed only once. However, it does ensure that it always returns the same value or object.
+> The current implementation of the <xref:Metalama.Patterns.Memoization.MemoizeAttribute?text=[Memoize]> aspect doesn't guarantee that the method will be executed only once. However, it does ensure that it always returns the same value or object.
 
 > [!NOTE]
 > For nullable reference types and for value types, the cached value is stored in a <xref:System.Runtime.CompilerServices.StrongBox`1>, adding some memory allocation overhead in cases where many memoized properties or methods are evaluated. Nevertheless, this allows for minimal memory allocation when few or none of them are evaluated.

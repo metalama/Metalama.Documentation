@@ -250,8 +250,15 @@ items:
         - name: Telemetry
           topicUid: telemetry
 
-    - name: Querying code with or without LINQPad
-      topicUid: linqpad
+    - name: Querying and analyzing code
+      topicUid: introspection
+      items:
+        - name: Using the Workspaces API
+          topicUid: workspaces
+        - name: Using LINQPad
+          topicUid: linqpad
+        - name: Consuming code metrics
+          topicUid: metrics
 
     - name: Migrating from PostSharp
       topicUid: migration

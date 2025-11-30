@@ -32,7 +32,7 @@ In the following example, we require all types implementing `IFactory` to have a
 
 ## Enforcing naming conventions using fabrics
 
-If you want to enforce naming conventions for a scenario different from the one above, you cannot use custom attributes. Instead, you need to use fabrics and write compile-time code. Follow these steps:
+If you want to enforce naming conventions for a scenario different from the one above, you can't use custom attributes. Instead, you need to use fabrics and write compile-time code. Follow these steps:
 
 1. Add the `Metalama.Extensions.Architecture` package to your project.
 
@@ -51,7 +51,7 @@ If you want to enforce naming conventions for a scenario different from the one 
 
 ### Example: Enforcing a naming convention on all types derived from a given system type
 
-Many teams require UI pages to be suffixed with `Page`, controls with `Control`, and so on. This cannot be achieved using a custom attribute because you don't own the source code of the base class. In the following example, we show how to implement this requirement: we require all classes derived from `TextReader` to be suffixed with `Reader`. We use the <xref:Metalama.Framework.Fabrics.IQuery`1.SelectTypesDerivedFrom*> method to select the relevant types.
+Many teams require UI pages to be suffixed with `Page`, controls with `Control`, and so on. This can't be achieved using a custom attribute because you don't own the source code of the base class. In the following example, we show how to implement this requirement: we require all classes derived from `TextReader` to be suffixed with `Reader`. We use the <xref:Metalama.Framework.Fabrics.IQuery`1.SelectTypesDerivedFrom*> method to select the relevant types.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/Architecture/NamingConvention_Fabric.cs tabs="target"]
 

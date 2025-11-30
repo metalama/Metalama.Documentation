@@ -9,7 +9,7 @@ modified-date: 2024-08-04
 
 # Restricting who can implement an interface
 
-When designing an interface, it is sometimes preferable to restrict its implementation to prevent others from implementing it. This is because, once an interface is implemented, adding new members is no longer possible without breaking any class that implements it.
+When designing an interface, it's sometimes preferable to restrict its implementation to prevent others from implementing it. This is because, once an interface is implemented, adding new members is no longer possible without breaking any class that implements it.
 
 Metalama offers a solution to protect your interface from being implemented by other assemblies. To achieve this, follow the steps outlined below:
 

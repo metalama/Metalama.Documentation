@@ -9,7 +9,7 @@ modified-date: 2024-08-04
 
 # Capturing performance data
 
-If you are experiencing performance issues with Metalama, our support team might request to profile the Metalama or IDE processes.
+If you're experiencing performance issues with Metalama, our support team might request to profile the Metalama or IDE processes.
 
 > [!WARNING]
 > **Profiling snapshots may contain potentially confidential information**
@@ -17,7 +17,7 @@ If you are experiencing performance issues with Metalama, our support team might
 > Profiling snapshots can include call stacks from your compile-time code. While we treat process dumps as confidential material, your company might not permit you to send us a profiling snapshot without management approval.
 
 > [!NOTE]
-> Metalama uses [JetBrains dotTrace](https://www.jetbrains.com/profiler/) to create performance snapshots. dotTrace will be automatically downloaded upon first use. You do not need a license to collect performance, but you may need to acquire a license if you want to analyze this data.
+> Metalama uses [JetBrains dotTrace](https://www.jetbrains.com/profiler/) to create performance snapshots. dotTrace will be automatically downloaded upon first use. You don't need a license to collect performance, but you may need to acquire a license if you want to analyze this data.
 
 ## Step 1. Install the PostSharp Command-Line Tool
 
@@ -73,11 +73,11 @@ Restart the profiled processes:
 Perform the actions that cause the issue.
 
 > [!WARNING]
-> Remember to disable the diagnostic setting once you have finished.
+> Remember to disable the diagnostic setting once you've finished.
 
 ## Step 4. Stop the profiled processes
 
-Close your IDE. If you are profiling the compiler processes, run `metalama kill`.
+Close your IDE. If you're profiling the compiler processes, run `metalama kill`.
 
 Wait a file with extension `*.dtp` is created under the `%TEMP%\Metalama\Profiling` directory. 
 

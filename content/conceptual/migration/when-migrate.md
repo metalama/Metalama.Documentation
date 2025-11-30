@@ -16,7 +16,7 @@ While it's theoretically possible to use both PostSharp and Metalama in the same
 
 * Both Metalama and PostSharp introduce helper methods and properties—methods without an equivalent in the source code. Since PostSharp operates _after_ Metalama, it will recognize these helper declarations and the aspects will treat them as user code, potentially causing confusion and errors.
 * All Metalama aspects will be applied before any PostSharp aspect, simply because Metalama operates before PostSharp. This constrains the order in which aspects can be applied.
-* We have not tested PostSharp and Metalama together and will not investigate or resolve issues that may arise from their combined use. In other words, this scenario is not _supported_.
+* We haven't tested PostSharp and Metalama together and won't investigate or resolve issues that may arise from their combined use. In other words, this scenario is not _supported_.
 
 ## Migrating is not an all-or-nothing decision
 
@@ -28,7 +28,7 @@ You can continue using PostSharp for one product while migrating to Metalama for
 
 Consider migrating to Metalama if:
 
-* Your project is dependent on a platform that will not support PostSharp (for instance, an ARM64 build environment or WinUI projects), or
+* Your project is dependent on a platform that won't support PostSharp (for instance, an ARM64 build environment or WinUI projects), or
 * The benefits outweigh the effort required for migration. For more details, refer to <xref:benefits-over-postsharp>.
 
 DO NOT migrate to Metalama at this time if:
@@ -40,7 +40,7 @@ DO NOT migrate to Metalama at this time if:
   * .NET Framework 4.6 or earlier
   * Visual Basic (Metalama is available for C# projects only)
 
-* Your project depends on PostSharp features that have not yet been ported to Metalama. For more details, refer to <xref:migration-feature-status>.
+* Your project depends on PostSharp features that haven't yet been ported to Metalama. For more details, refer to <xref:migration-feature-status>.
 * Your company has a large team working on a business-critical project with a tight deadline and prefers the tried-and-tested PostSharp (2008) over the relatively new Metalama (2023).
 
 

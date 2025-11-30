@@ -70,7 +70,7 @@ Here is what you can already do in Metalama:
 
 ### Limitations
 
-The following C# 14 features have not been implemented in Metalama 2026.0:
+The following C# 14 features haven't been implemented in Metalama 2026.0:
 
 - [#1109](https://github.com/metalama/Metalama/issues/1109): Use null-conditional assignments in templates.
 - [#1114](https://github.com/metalama/Metalama/issues/1114): Use the `field` keyword in templates.
