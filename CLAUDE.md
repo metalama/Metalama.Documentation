@@ -40,11 +40,17 @@
 - Use a "Benefits" section when explaining why a feature matters
 - Use numbered lists for step-by-step instructions
 - Use bullet points for non-sequential items
-- Include examples with the `[!metalama-test ...]` directive
-- Use `[!metalama-file ...]` to include code snippets from external files
 - Use `> [!NOTE]`, `> [!WARNING]`, `> [!IMPORTANT]` for callouts
 - End articles with a "See also" section containing cross-references to related topics
 - Use tables for comparing options or listing related articles with descriptions
+
+## Code samples
+
+- Do not use Markdown code samples, use external files.
+- Use `[!metalama-test ...]` to include whole examples based on the aspect framework, possibly composed of many files, with pre- and post-Metalama comparison.
+- Use `[!metalama-file ...]` to include code snippets from external files
+- You can find the original source code by substituting ~ with the repo root. To find the modified code, look for files named `Foo.t.cs` (`Foo` being the test name) under `obj/Debug/Metalama`.
+
 
 ## Formatting conventions
 

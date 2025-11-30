@@ -4,12 +4,12 @@ level: 300
 summary: "The document provides an in-depth understanding of the Metalama aspect framework design, including its class diagram, abilities, and examples of aspects targeting methods, fields, and properties. It also explains how to customize aspect appearance in the IDE."
 keywords: "Metalama aspect framework, aspect design, class diagram, IAspect interface, IAspectBuilder, code transformation, diagnostics reporting, advanced code validations, adding aspects, IDE customization"
 created-date: 2023-02-20
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Understanding the aspect framework design
 
-Until now, you have learned how to create simple aspects using the <xref:Metalama.Framework.Aspects.OverrideMethodAspect> and <xref:Metalama.Framework.Aspects.OverrideFieldOrPropertyAspect>. These classes can be viewed as _API sugar_, designed to simplify the creation of your first aspects. Before going deeper, it is essential to understand the design of the Metalama aspect framework.
+Until now, you've learned how to create simple aspects using the <xref:Metalama.Framework.Aspects.OverrideMethodAspect> and <xref:Metalama.Framework.Aspects.OverrideFieldOrPropertyAspect>. These classes can be viewed as _API sugar_, designed to simplify the creation of your first aspects. Before going deeper, it is essential to understand the design of the Metalama aspect framework.
 
 ## Class diagram
 
@@ -20,26 +20,9 @@ The aspect author can utilize the <xref:Metalama.Framework.Aspects.IAspect`1.Bui
 ```mermaid
 classDiagram
 
-    class IAspect {
-        BuildAspect(IAspectBuilder)
-        BuildEligibility(IEligibilityBuilder)
-    }
-
-    class IAspectBuilder {
-        SkipAspect()
-        TargetDeclaration
-    }
-
     class IAdviser {
         Target
         With(declaration)
-    }
-
-
-    class ScopedDiagnosticSink {
-        Report(...)
-        Suppress(...)
-        Suggest(...)
     }
 
     class AdviserExtensions {
@@ -51,26 +34,85 @@ classDiagram
         AddInitializer(...)
     }
 
-    class IAspectReceiver {
-        Select(...)
-        SelectMany(...)
-        Where(...)
-        AddAspect(...)
-        AddAspectIfEligible(...)
-        Validate(...)
-        ValidateInboundReferences(...)
-        ReportDiagnostic(...)
-        SuppressDiagnostic(...)
-        SuggestCodeFix(...)
+    class IAspect {
+        BuildAspect(IAspectBuilder)
+        BuildEligibility(IEligibilityBuilder)
     }
 
+    class IAspectInstance {
+        Aspect
+        TargetDeclaration
+        AspectState
+    }
+
+    class IAspectState {
+        <<interface>>
+    }
+
+    class IAspectBuilder {
+        SkipAspect()
+        TargetDeclaration
+        AspectState
+    }
+
+    class ScopedDiagnosticSink {
+        Report(...)
+        Suppress(...)
+        Suggest(...)
+    }
+
+    class IQuery {
+        Select(...)
+        SelectMany(...)
+        SelectTypes(...)
+        Where(...)
+    }
+
+    class AspectQueryExtensions {
+        <<static>>
+        AddAspect(...)
+        AddAspectIfEligible(...)
+        RequireAspect(...)
+    }
+
+    AdviserExtensions --> IAdviser : provides extension\nmethods
+    AspectQueryExtensions --> IQuery : provides extension\nmethods
+    IAspect "1" --> "*" IAspectInstance : instantiated as
+    IAspectInstance --> IAspectState : stores
     IAspect --> IAspectBuilder : BuildAspect() receives
     IAspectBuilder --|> IAdviser : inherits
     IAspectBuilder --> ScopedDiagnosticSink : exposes
-    IAspectBuilder --> IAspectReceiver : exposes
-    AdviserExtensions --> IAdviser : provides extension\nmethods
+    IAspectBuilder --> IQuery : exposes
 
 ```
+
+## Design principles
+
+### BuildAspect is the entry point
+
+The <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method is called once for each target declaration to which the aspect is applied. This method receives an <xref:Metalama.Framework.Aspects.IAspectBuilder`1>, which provides access to the target declaration and exposes methods to add advice (code transformations), report or suppress diagnostics, and perform other actions.
+
+### Aspects are both compile-time and run-time objects
+
+Aspects can optionally be custom attributes (by deriving from <xref:System.Attribute>). In this case, aspect classes exist both at compile time (when Metalama executes them) and at run time (as standard .NET attributes accessible via reflection).
+
+This dual nature has important implications:
+- Aspect properties set in source code (e.g., `[Log(Category = "Security")]`) are available both to `BuildAspect` at compile time and to reflection at run time.
+- Run-time code can query aspects using standard reflection APIs like `GetCustomAttributes`.
+
+### Aspects are serializable
+
+All aspects are serializable. However, serialization is only used for inheritable aspects in cross-project scenarios. For details, see <xref:aspect-serialization>.
+
+### Aspects must be immutable
+
+Aspects must be designed as **immutable classes**. Never store state in aspect fields from the `BuildAspect` method if that state depends on the target declaration.
+
+Aspect instances are not necessarily associated with a single target declaration. When aspects are inherited or added through fabrics, **the same <xref:Metalama.Framework.Aspects.IAspect> instance is shared by many target declarations**. The `BuildAspect` method is called many times, once per target. If you store target-specific state in a field, that state will be shared across all targets, leading to incorrect behavior.
+
+Target-specific data is represented by <xref:Metalama.Framework.Aspects.IAspectInstance>, which pairs an `IAspect` with a specific target declaration. If you need to store target-specific state that must be accessible to other aspects or validators, use <xref:Metalama.Framework.Aspects.IAspectState> via the <xref:Metalama.Framework.Aspects.IAspectBuilder.AspectState> property. For details, see <xref:sharing-state-with-advice>.
+
+For strategies to pass state from `BuildAspect` to templates without storing it in aspect fields, see <xref:sharing-state-with-advice>.
 
 ## Abilities of aspects
 
@@ -115,9 +157,9 @@ Refer to <xref:eligibility>.
 
 ### 7. Disabling itself
 
-If an aspect instance decides it cannot be applied to its target, its implementation of the <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method can call the <xref:Metalama.Framework.Aspects.IAspectBuilder.SkipAspect> method. The effect of this method is to prevent the aspect from providing any advice or child aspect and to set the <xref:Metalama.Framework.Aspects.IAspectInstance.IsSkipped> to `true`.
+If an aspect instance decides it can't be applied to its target, its implementation of the <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method can call the <xref:Metalama.Framework.Aspects.IAspectBuilder.SkipAspect> method. The effect of this method is to prevent the aspect from providing any advice or child aspect and to set the <xref:Metalama.Framework.Aspects.IAspectInstance.IsSkipped> to `true`.
 
-The aspect may or may not report a diagnostic before calling <xref:Metalama.Framework.Aspects.IAspectBuilder.SkipAspect>. Calling this method does not report any diagnostic.
+The aspect may or may not report a diagnostic before calling <xref:Metalama.Framework.Aspects.IAspectBuilder.SkipAspect>. Calling this method doesn't report any diagnostic.
 
 ### 8. Customizing its appearance in the IDE
 

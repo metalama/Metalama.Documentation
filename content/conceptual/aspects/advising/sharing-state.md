@@ -11,11 +11,17 @@ modified-date: 2024-08-04
 
 When you need to share _compile-time_ state between different pieces of advice or between your implementation of the `BuildAspect` method and the advice, several strategies are available to you.
 
+> [!IMPORTANT]
+> **Aspects must be designed as immutable classes.** Never store target-specific state in aspect fields.
+>
+> In scenarios involving inherited aspects or cross-project validators, **the same aspect instance is reused across multiple target declarations**. Storing target-specific state in a field will cause incorrect behavior because that state will be shared across all targets.
+>
+> If you need to access target-specific information in a template, prefer computing it directly using `meta.Target`. This approach is not only simpler but also more efficient: templates are not executed at design time (in the IDE), so computations in templates don't add overhead to the design-time experience. If computing in the template is not possible, use one of the strategies described below.
+>
+> For more details, see <xref:aspect-design>.
+
 > [!NOTE]
 > This article is about sharing _compile-time_ state. If you need to share _run-time_ state with advice, a different strategy must be adopted. For instance, you could introduce a field in the target type and utilize it from several advice methods.
-
-> [!WARNING]
-> **DO NOT share state with an aspect field** if that state depends on the target declaration of the aspect. In scenarios involving inherited aspects or cross-project validators, the same instance of the aspect class will be reused across all inherited targets. Always design aspects as immutable classes.
 
 ## Sharing state with compile-time template parameters
 
