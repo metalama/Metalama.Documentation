@@ -8,10 +8,11 @@ namespace Metalama.Documentation.QuickStart.Fabrics
     {
         public override void AmendProject(IProjectAmender amender)
         {
-            amender.Outbound.SelectMany(type => type.Types)
-                            .SelectMany(z => z.FieldsAndProperties.Where(fieldOrProp => fieldOrProp.Accessibility == Accessibility.Public))
-                            .Where(publicPropOrField => publicPropOrField.Type.Is(SpecialType.String))
-                            .AddAspectIfEligible<NoNullStringAttribute>();
+            amender
+            .SelectMany(type => type.Types)
+            .SelectMany(z => z.FieldsAndProperties.Where(fieldOrProp => fieldOrProp.Accessibility == Accessibility.Public))
+            .Where(publicPropOrField => publicPropOrField.Type.Equals(SpecialType.String))
+            .AddAspectIfEligible<NoNullStringAttribute>();
         }
     }
 }

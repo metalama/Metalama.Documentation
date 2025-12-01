@@ -67,13 +67,15 @@ For each project, it's recommended to have only one project fabric. Having sever
 
 [!metalama-test  ~/code/Metalama.Documentation.SampleCode.AspectFramework/ProjectFabric_TwoAspects.cs]
 
-### Example 3: Adding aspects to all methods in a given namespace
+### Example 3: Adding aspects to all methods in a namespace using a NamespaceFabric
 
-To add the Logging aspect (`LogAttribute`) to all the methods that appear in types within namespaces that start with the prefix `Outer.Inner` and all the child types located in any descendant namespace, use the following fabric.
+When you want to add aspects to all methods within a specific namespace, use a <xref:Metalama.Framework.Fabrics.NamespaceFabric>. Unlike a `ProjectFabric`, which operates at the project level, a `NamespaceFabric` is placed directly within the target namespace and automatically scopes its operations to that namespace.
 
-[!metalama-test  ~/code/DebugDemo2/Fabric2.cs tabs="target"]
+[!metalama-test  ~/code/Metalama.Documentation.SampleCode.AspectFramework/NamespaceFabric.cs]
 
-In this fabric, we use the `GlobalNamespace.GetDescendant` method to retrieve all child namespaces of the given namespace (in this case, `Outer.Inner`). The first `SelectMany` call retrieves all the types in these namespaces, and the subsequent `SelectMany` call retrieves all the methods in these types. This results in an `IQuery<IMethod>`. The final call to <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspectIfEligible*> adds the `Log` aspect to all eligible methods.
+In this example, the `Fabric` class inherits from <xref:Metalama.Framework.Fabrics.NamespaceFabric> and is placed inside the `TargetNamespace`. The fabric's `AmendNamespace` method uses `SelectTypes()` to get all types within the namespace, then `SelectMany( t => t.Methods )` to select their methods, and finally adds the `Log` aspect to all eligible methods.
+
+Notice how `TargetMethod` in `TargetNamespace` gets the logging aspect applied (as shown in the transformed code), while `OtherMethod` in `OtherNamespace` remains unchanged because the fabric only affects its containing namespace.
 
 ### Example 4: Adding the `Log` aspect only to derived classes of a given class
 

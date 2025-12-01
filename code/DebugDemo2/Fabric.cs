@@ -25,8 +25,6 @@ namespace DebugDemo
         public void AddRetryAspect( IQuery<IMethod> methods )
         {
             methods
-
-                //Additional filter on the public methods
                 .Where( t => t.Name.StartsWith( "Try", StringComparison.Ordinal ) )
                 .AddAspectIfEligible<RetryAttribute>();
         }
