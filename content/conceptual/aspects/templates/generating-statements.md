@@ -50,7 +50,7 @@ When using <xref:Metalama.Framework.Aspects.meta.DefineLocalVariable*>, you don'
 
 The following aspect saves the value of all fields and automatic properties into a local variable before an operation is executed and rolls back these changes upon exception.
 
-[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/ExpressionBuilder.cs name="ExpressionBuilder"]
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/LocalVariableTransaction.cs name="Local Variable Transaction"]
 
 ## Generating switch statements
 
