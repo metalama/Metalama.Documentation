@@ -15,7 +15,13 @@
       "WebFetch(domain:stackexchange.github.io)",
       "WebFetch(domain:azure.microsoft.com)",
       "WebFetch(domain:blog.postsharp.net)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(dotnet build:*)",
+      "Bash(powershell -ExecutionPolicy Bypass -File Build.ps1 build)",
+      "Bash(powershell -ExecutionPolicy Bypass -File update-html.ps1:*)",
+      "Bash(dotnet restore:*)",
+      "Bash(dotnet test:*)",
+      "Bash(dotnet test)"
     ],
     "deny": [],
     "ask": []

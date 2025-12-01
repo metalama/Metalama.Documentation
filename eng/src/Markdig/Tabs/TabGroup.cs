@@ -1,10 +1,13 @@
 ﻿// Copyright (c) SharpCrafters s.r.o. See the LICENSE.md file in the root directory of this repository root for details.
 
+using BuildMetalamaDocumentation.Markdig.Helpers;
 using BuildMetalamaDocumentation.Markdig.Sandbox;
 using Markdig.Renderers;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text.Json;
 
 namespace BuildMetalamaDocumentation.Markdig.Tabs;
 
@@ -109,8 +112,88 @@ internal abstract class TabGroup
             renderer.WriteLine( "</div>" );
         }
 
+        // Emit JSON-LD block with plain code for AI discoverability.
+        this.RenderJsonLd( renderer, tabs );
+
         // Close the wrapping div.
         renderer.WriteLine( "</div>" );
+    }
+
+    private void RenderJsonLd( HtmlRenderer renderer, List<BaseTab> tabs )
+    {
+        var files = new List<object>();
+
+        foreach ( var tab in tabs )
+        {
+            var plainCode = GetPlainCode( tab );
+
+            if ( plainCode != null )
+            {
+                files.Add( new { name = tab.TabId, description = GetTabDescription( tab ), content = plainCode } );
+            }
+        }
+
+        if ( files.Count == 0 )
+        {
+            return;
+        }
+
+        var jsonLd = new
+        {
+            @context = "https://schema.org",
+            @type = "SoftwareSourceCode",
+            name = this.TabGroupId,
+            programmingLanguage = "C#",
+            codeSampleType = "code snippet",
+            description = "Metalama code example. Files ending with .t.cs show the transformed code after Metalama has executed aspects. Compare the original source with the .t.cs file to see what code Metalama generated.",
+            files
+        };
+
+        var json = JsonSerializer.Serialize( jsonLd, new JsonSerializerOptions { WriteIndented = false } );
+
+        renderer.WriteLine( $"<script type=\"application/ld+json\">{json}</script>" );
+    }
+
+    private static string GetTabDescription( BaseTab tab )
+    {
+        return tab switch
+        {
+            TransformedSingleFileCodeTab => "Transformed code after Metalama has executed aspects",
+            CodeTab codeTab when codeTab.FullPath.EndsWith( ".t.cs", StringComparison.OrdinalIgnoreCase ) => "Transformed code after Metalama has executed aspects",
+            CodeTab codeTab when codeTab.FullPath.Contains( ".Aspect", StringComparison.OrdinalIgnoreCase ) => "Aspect code (compile-time)",
+            CodeTab codeTab when codeTab.FullPath.Contains( ".Fabric", StringComparison.OrdinalIgnoreCase ) => "Fabric code (compile-time)",
+            CompareTab => "Source code before transformation",
+            ProgramOutputTab => "Program output when executed",
+            CodeTab => "Source code",
+            _ => "Code file"
+        };
+    }
+
+    private static string? GetPlainCode( BaseTab tab )
+    {
+        string? filePath = tab switch
+        {
+            CodeTab codeTab when File.Exists( codeTab.FullPath ) => codeTab.FullPath,
+            CompareTab compareTab when File.Exists( compareTab.FullPath ) => compareTab.FullPath,
+            ProgramOutputTab outputTab when File.Exists( outputTab.FullPath ) => outputTab.FullPath,
+            _ => null
+        };
+
+        if ( filePath == null )
+        {
+            return null;
+        }
+
+        // For program output, return as-is.
+        if ( tab is ProgramOutputTab )
+        {
+            return File.ReadAllText( filePath );
+        }
+
+        // For code files, skip leading comments (e.g., copyright headers).
+        var lines = File.ReadAllLines( filePath );
+
+        return CodeContentHelper.ProcessCodeContent( lines );
     }
 
     private List<BaseTab> GetEnabledTabs( TabGroupBaseInline obj )
