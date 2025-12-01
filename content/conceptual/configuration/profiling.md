@@ -4,7 +4,7 @@ level: 200
 summary: "The document provides instructions for profiling Metalama or IDE processes to diagnose performance issues, including capturing and sending performance data, while cautioning about potential confidentiality issues."
 keywords: "performance issues, profiling Metalama, diagnose performance, capturing performance data, profiling snapshots, JetBrains dotTrace, diagnostics.json, command-line tool, profile compiler process, upload snapshots"
 created-date: 2023-12-09
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Capturing performance data
@@ -19,7 +19,7 @@ If you're experiencing performance issues with Metalama, our support team might 
 > [!NOTE]
 > Metalama uses [JetBrains dotTrace](https://www.jetbrains.com/profiler/) to create performance snapshots. dotTrace will be automatically downloaded upon first use. You don't need a license to collect performance, but you may need to acquire a license if you want to analyze this data.
 
-## Step 1. Install the PostSharp Command-Line Tool
+## Step 1. Install the Metalama Command-Line Tool
 
 Install the `metalama` command-line tool following the instructions in <xref:dotnet-tool>.
 
@@ -67,8 +67,8 @@ In the example below, Metalama is set up to profile the compiler process.
 
 Restart the profiled processes:
 
-* If you enabled profiled for the `Compiler` process, restart the Roslyn compiler processes using `metalama kill`.
-* If you enabled profiled for any design-time processes, restart your IDE.
+* If you enabled profiling for the `Compiler` process, restart the Roslyn compiler processes using `metalama kill`.
+* If you enabled profiling for any design-time processes, restart your IDE.
 
 Perform the actions that cause the issue.
 
@@ -79,7 +79,7 @@ Perform the actions that cause the issue.
 
 Close your IDE. If you're profiling the compiler processes, run `metalama kill`.
 
-Wait a file with extension `*.dtp` is created under the `%TEMP%\Metalama\Profiling` directory. 
+Wait until a file with extension `*.dtp` is created under the `%TEMP%\Metalama\Profiling` directory. 
 
 ## Step 5. Upload the snapshots to an online drive
 
@@ -92,5 +92,10 @@ You will find the profiling snapshots in the `%TEMP%\Metalama\Profiling` directo
 
 Instead, kindly send us the link via [email](mailto:hello@postsharp.net) or private message on [Slack](https://www.postsharp.net/slack).
 
+> [!div class="see-also"]
+> <xref:configuration>
+> <xref:dotnet-tool>
+> <xref:creating-logs>
+> <xref:process-dump>
 
 

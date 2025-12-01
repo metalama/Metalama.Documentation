@@ -3,7 +3,7 @@ uid: caching-exclude-parameters
 summary: "The document provides instructions on how to exclude certain parameters from the cache key in Metalama's caching patterns, such as the 'this' parameter, parameters using the [NotCacheKey] attribute, and parameters by rule using classifiers."
 keywords: "exclude parameters, cache key, Metalama, IgnoreThisParameter, NotCacheKeyAttribute, CachingConfigurationAttribute, ICacheParameterClassifier, ConfigureCaching, AddParameterClassifier"
 created-date: 2024-08-04
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Excluding parameters from the cache key
@@ -54,6 +54,11 @@ In this case, it's preferable to implement and register a programmatic parameter
 The following example demonstrates a parameter classifier that prevents any parameter of type `ILogger` from being included in a cache key. The classifier itself is implemented by the `LoggerParameterClassifier` class. It is registered using a project fabric.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Caching/ParameterFilter/ParameterFilter.cs]
+
+> [!div class="see-also"]
+> <xref:caching>
+> <xref:caching-keys>
+> <xref:caching-configuration>
 
 
 

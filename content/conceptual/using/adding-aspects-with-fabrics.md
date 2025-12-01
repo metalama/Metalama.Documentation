@@ -4,7 +4,7 @@ level: 200
 summary: "The document provides a guide on how to use fabrics in the Metalama Framework to programmatically add aspects to targets, with examples and recommendations on when to use fabrics versus custom attributes."
 keywords: "fabrics, Metalama Framework, add aspects, logging, profiling, ProjectFabric, AmendProject method, AddAspectIfEligible"
 created-date: 2023-03-01
-modified-date: 2024-11-06
+modified-date: 2025-11-30
 ---
 
 # Adding many aspects simultaneously
@@ -85,5 +85,12 @@ Sometimes you may not need or want to add aspects to all types, but only to a cl
 > You can use code metrics to filter declarations based on complexity. For example, you can add logging only to methods exceeding a certain number of syntax nodes. For details, see <xref:metrics>.
 
 > [!div class="see-also"]
-> <xref:fabrics-adding-aspects>
+>
+> **See also**
+>
+> <xref:using>
+> <xref:fabrics>
+> <xref:quickstart-adding-aspects>
+> <xref:fabrics-many-projects>
+> <xref:metrics>
 

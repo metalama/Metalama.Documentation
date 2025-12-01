@@ -3,7 +3,7 @@ uid: caching-configuration
 summary: "The document provides instructions on configuring the Metalama caching service, detailing three methods: using custom attributes, using a fabric, and at runtime with caching profiles."
 keywords: "caching configuration, Metalama caching, caching profiles, caching options, configure caching"
 created-date: 2024-04-25
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Configuring the caching service
@@ -75,6 +75,11 @@ To modify run-time caching options with a caching profile:
 In this example, the `ProductCatalogue` class uses two caching profiles: the default one, and the _hot_ one, which should refresh content more frequently. However, we don't want to hard-code these expiration values in the source code. The following code in `Program.cs` configures the logging profiles. While the values are hard-coded here, they could easily be read from a configuration file.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Caching/Profiles/Profiles.cs]
+
+> [!div class="see-also"]
+> <xref:caching>
+> <xref:caching-getting-started>
+> <xref:fabrics-configuration>
 
 
 

@@ -4,7 +4,7 @@ level: 300
 summary: "The document provides a comprehensive guide on how to add new members to an existing type using the Metalama Framework. It covers both declarative and programmatic methods and includes instructions for overriding existing implementations and referencing introduced members."
 keywords: "Metalama Framework, add new members, declarative methods, programmatic methods, overriding implementations, referencing members, IntroduceAttribute, TemplateAttribute, IAspect, AdviserExtensions, introduce member"
 created-date: 2023-02-17
-modified-date: 2024-11-06
+modified-date: 2025-11-30
 ---
 
 # Introducing members
@@ -68,7 +68,7 @@ In your implementation of the <xref:Metalama.Framework.Aspects.IAspect`1.BuildAs
 
 A call to one of these methods creates a member by default that has the same characteristics as the template (name, signature, etc.), taking into account the properties of the <xref:Metalama.Framework.Aspects.TemplateAttribute?text=[Template]> custom attribute.
 
-To modify the name and signature of the introduced declaration, use the `buildMethod`, `buildProperty`, `buildEvent`, or `buildField` parameter of the `Introduce*` method.
+To modify the name and signature of the introduced declaration, use the `buildMethod`, `buildProperty`, `buildEvent`, `buildField`, or `buildConstructor` parameter of the `Introduce*` method.
 
 ### Example: Update method
 
@@ -78,14 +78,14 @@ The following aspect introduces an `Update` method that assigns all writable fie
 
 ### Introducing a partial or abstract member
 
-You can use any of the `Introduce*` methods to add a `partial` or `abstract` member. However, the _template_ itself can be neither `partial` nor `extern` because that would not be valid C#.
+You can use any of the `Introduce*` methods to add a `partial` or `abstract` member. However, the _template_ itself cannot be `partial` or `extern` because that would not be valid C#.
 
 There are two ways to make a member `partial` or `abstract`:
 
 * Set the `IsPartial` or `IsAbstract` property of the `[Template]` attribute.
 * Set the `IsPartial` or `IsAbstract` property of the <xref:Metalama.Framework.Code.DeclarationBuilders.IMemberBuilder> object.
 
-The implementation body of the template will be ignored if you set the `IsAbstract` or `IsPartial` property, so any implementation will do. However, if you don't want to have _any_ body, you can use the `extern` keyword on the template member. This keyword will be removed during compilation, and dummy implementations will be provided.
+The implementation body of the template will be ignored if you set the `IsAbstract` or `IsPartial` property, so any implementation will do. However, if you do not want to have _any_ body, you can use the `extern` keyword on the template member. This keyword will be removed during compilation, and dummy implementations will be provided.
 
 
 ## Overriding existing implementations
@@ -135,9 +135,17 @@ For more details, see <xref:Metalama.Framework.Code.Invokers>.
 
 ## Referencing introduced members from source code
 
-If you want the _source_ code (not your aspect code) to reference declarations introduced by your aspect, the _user_ of your aspect must make the target types `partial`. Without this keyword, the introduced declarations won't be visible at design time in syntax completion, and the IDE will report errors. Note that the compiler will not complain because Metalama replaces the compiler, but the IDE will because it does not know about Metalama, and therefore your aspect has to follow the rules of the C# compiler. However inconvenient this may be, there is nothing you as an aspect author, or us as the authors of Metalama, can do.
+If you want the _source_ code (not your aspect code) to reference declarations introduced by your aspect, the _user_ of your aspect must make the target types `partial`. Without this keyword, the introduced declarations will not be visible at design time in syntax completion, and the IDE will report errors. Note that the compiler will not complain because Metalama replaces the compiler, but the IDE will because it does not know about Metalama, and therefore your aspect has to follow the rules of the C# compiler. However inconvenient this may be, there is nothing you as an aspect author, or us as the authors of Metalama, can do.
 
 If the user does not add the `partial` keyword, Metalama will report a warning and offer a code fix.
 
 > [!NOTE]
 > In test projects built using `Metalama.Testing.AspectTesting`, the Metalama compiler is not activated. Therefore, the source code of test projects cannot reference introduced declarations. Since this documentation relies on `Metalama.Testing.AspectTesting` for all examples, we cannot include an example here.
+
+> [!div class="see-also"]
+> <xref:Metalama.Framework.Aspects.IntroduceAttribute>
+> <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceMethod*>
+> <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceProperty*>
+> <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceField*>
+> <xref:Metalama.Framework.Aspects.OverrideStrategy>
+> <xref:introducing-types>

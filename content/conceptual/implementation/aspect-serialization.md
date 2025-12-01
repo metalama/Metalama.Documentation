@@ -3,12 +3,12 @@ uid: aspect-serialization
 level: 400
 keywords: "serialization, cross-project effect, Metalama, IAspect, deserialized, custom serializer, ICompileTimeSerializable, NonCompileTimeSerialized, ValueTypeSerializer, ImportSerializerAttribute"
 created-date: 2024-11-06
-modified-date: 2024-11-06
+modified-date: 2025-11-30
 ---
 
 # Serialization of aspects and other compile-time classes
 
-Metalama relies on _serialization_ to handle situations when an aspect or _cross-project effect_, i.e., when it affects not only the current project but also, transitively, _referencing_ projects.
+Metalama relies on _serialization_ to handle situations when an aspect has a _cross-project effect_, meaning it affects not only the current project but also, transitively, _referencing_ projects.
 
 This happens in the following scenarios:
 
@@ -40,7 +40,7 @@ These characteristics allow the serialization process to happen almost transpare
 
 The following types are serializable by default:
 
-* Primitive types: `bool`, `byte`, `char`, `short`, `int`, `long`, `ushort`, `sbyte`, `uint`, `ulong`, `float`, `double`, `decimal`, `double`.
+* Primitive types: `bool`, `byte`, `char`, `short`, `int`, `long`, `ushort`, `sbyte`, `uint`, `ulong`, `float`, `double`, `decimal`.
 * All `enum` types.
 * Arrays of any supported type (including `object[]` arrays, as long as items are of a supported type).
 * Common system types: <xref:System.DateTime>, <xref:System.TimeSpan>, <xref:System.Guid>, <xref:System.Globalization.CultureInfo>.
@@ -90,4 +90,12 @@ However, the devil is in the details. Things get more complex when you are passi
 
 If you take a reference to a field _before_ the aspect, you'll get an `IRef<IField>`. If you resolve the reference _after_ the aspect, you might wonder what happens because the field is now a property.
 
-If you attempt to resolve an `IRef<IField>`, you'll always get an <xref:Metalama.Framework.Code.IField>. If the field has been overridden, you'll get a _shim_ representing what is actually an <xref:Metalama.Framework.Code.IProperty>. However, this field is _not_ navigable through the `INamedType.Fields` properties, but only, as an `IProperty`, through `INamedType.Properties`. You can navigate to the "real" property using the <xref:Metalama.Framework.Code.IField.OverridingProperty?text=IField.OverridingProperty> property. The inverse relationship is the <xref:Metalama.Framework.Code.IProperty.OriginalField?text=IProperty.OriginalField> property. Also, the <xref: Metalama.Framework.Code.IRef.As*?text=IRef.As&lt;&gt;()> method is able to convert an overridden an <xref:Metalama.Framework.Code.IField> into its overriding <xref:Metalama.Framework.Code.IProperty> and conversely.
+If you attempt to resolve an `IRef<IField>`, you'll always get an <xref:Metalama.Framework.Code.IField>. If the field has been overridden, you'll get a _shim_ representing what is actually an <xref:Metalama.Framework.Code.IProperty>. However, this field is _not_ navigable through the `INamedType.Fields` properties, but only, as an `IProperty`, through `INamedType.Properties`. You can navigate to the "real" property using the <xref:Metalama.Framework.Code.IField.OverridingProperty?text=IField.OverridingProperty> property. The inverse relationship is the <xref:Metalama.Framework.Code.IProperty.OriginalField?text=IProperty.OriginalField> property. Also, the <xref:Metalama.Framework.Code.IRef.As*?text=IRef.As&lt;&gt;()> method is able to convert an overridden <xref:Metalama.Framework.Code.IField> into its overriding <xref:Metalama.Framework.Code.IProperty> and conversely.
+
+> [!div class="see-also"]
+> <xref:aspect-inheritance>
+> <xref:aspect-validating>
+> <xref:exposing-options>
+> <xref:implementation>
+> <xref:Metalama.Framework.Serialization>
+> <xref:Metalama.Framework.Code.IRef`1>

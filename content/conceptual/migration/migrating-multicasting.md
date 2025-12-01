@@ -3,7 +3,7 @@ uid: migrating-multicasting
 summary: "The document provides instructions on migrating multicasting from PostSharp to Metalama. It details how to enable multicasting for simple and blank aspects, and how to implement eligibility requirements."
 keywords: "multicasting PostSharp, multicasting Metalama"
 created-date: 2023-01-26
-modified-date: 2024-09-04
+modified-date: 2025-11-30
 ---
 
 # Migrating PostSharp attribute multicasting to Metalama
@@ -12,7 +12,7 @@ Multicasting in PostSharp is a feature of all aspects that enables targeting sev
 
 In Metalama, multicasting is not implemented as a core feature but as an extension. This decision was made because the goal of adding an aspect to multiple declarations is better achieved in Metalama using _fabrics_. Therefore, you might eventually decide not to use multicasting. For more details, see <xref:fabrics-adding-aspects>.
 
-Multicasting in Metalama is provided for backward compatibility with PostSharp. The objective is _not_ to require PostSharp users to change their _business code_ when migrating to Metalama, but only their _aspect code_. Multicasting in Metalama is implemented by the <xref:Metalama.Extensions.Multicast> namespace. The implementation of this namespace is [open source](https://github.com/postsharp/Metalama.Extensions/tree/master/src/Metalama.Extensions.Multicast).
+Multicasting in Metalama is provided for backward compatibility with PostSharp. The objective is _not_ to require PostSharp users to change their _business code_ when migrating to Metalama, but only their _aspect code_. Multicasting in Metalama is implemented by the <xref:Metalama.Extensions.Multicast> namespace. The implementation of this namespace is [open source](https://github.com/metalama/Metalama/tree/HEAD/Metalama.Extensions/src/Metalama.Extensions.Multicast).
 
 ## Enabling multicasting for a simple aspect
 
@@ -22,7 +22,7 @@ The process is slightly more complex if your aspect is derived from another base
 
 ## Enabling multicasting for a blank aspect
 
-Below are general instructions to add the multicasting feature to any aspect. You can verify these instructions by examining the [source code](https://github.com/postsharp/Metalama.Extensions/tree/master/src/Metalama.Extensions.Multicast) of <xref:Metalama.Extensions.Multicast.OverrideMethodMulticastAspect> or <xref:Metalama.Extensions.Multicast.OverrideFieldOrPropertyMulticastAspect>.
+Below are general instructions to add the multicasting feature to any aspect. You can verify these instructions by examining the [source code](https://github.com/metalama/Metalama/tree/HEAD/Metalama.Extensions/src/Metalama.Extensions.Multicast) of <xref:Metalama.Extensions.Multicast.OverrideMethodMulticastAspect> or <xref:Metalama.Extensions.Multicast.OverrideFieldOrPropertyMulticastAspect>.
 
 ### Step 1. Derive your class from MulticastAspect and implement IAspect<T> as appropriate
 
@@ -38,7 +38,7 @@ Your aspect must also implement the <xref:Metalama.Framework.Aspects.IAspect`1> 
 * on the _final_ declarations where the aspect is actually applied (i.e., performs some actual work), and
 * on any _intermediate_ declaration where the aspect does no work other than multicasting itself to select child declarations.
 
-The <xref:Metalama.Extensions.Multicast.MulticastAspect> class already implements the `IAspect<ICompilation>` and  `IAspect<INamedType>` interfaces and correctly implements the <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method. For the interfaces you implement yourself, you must implement `BuildAspect`.
+The <xref:Metalama.Extensions.Multicast.MulticastAspect> class already implements the `IAspect<ICompilation>` and `IAspect<INamedType>` interfaces and correctly implements the <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method. For the interfaces you implement yourself, you must implement `BuildAspect`.
 
 ### Step 2. Implement the BuildAspect methods
 
@@ -81,7 +81,12 @@ public void BuildEligibility( IEligibilityBuilder<IMethod> builder )
 }
 ```
 
-
-
-
+> [!div class="see-also"]
+>
+> **See also**
+>
+> <xref:migration>
+> <xref:migrating-aspects>
+> <xref:fabrics-adding-aspects>
+> <xref:eligibility>
 

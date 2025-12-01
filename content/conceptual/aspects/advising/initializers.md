@@ -4,7 +4,7 @@ level: 300
 summary: "The document provides instructions on how to add initializers to fields, properties, object constructors, and type constructors using the Metalama Framework. It includes examples for each case."
 keywords: "initializers, fields, properties, Metalama Framework, initialization, declarative advice, programmatic advice, constructors, object constructors, type constructors"
 created-date: 2023-02-17
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Adding initializers
@@ -13,7 +13,7 @@ modified-date: 2024-08-04
 
 ### Inline initialization of declarative advice
 
-A simple way to initialize a field or property introduced by an aspect is to add an initializer to the template. For instance, if your aspect introduces a field `int f` and you wish to initialize it to `1`, you would write:
+A simple way to initialize a field or property introduced by an aspect is to add an initializer to the template. For instance, if your aspect introduces a field `int f` and you want to initialize it to `1`, you would write:
 
  ```cs
  [Introduce]
@@ -47,7 +47,7 @@ In the following example, the aspect introduces a field using the <xref:Metalama
 To inject some initialization before any user code of the instance constructor is called:
 
 1. Add a method of signature `void BeforeInstanceConstructor()` to your aspect class and annotate it with the `[Template]` custom attribute. The name of this method is arbitrary.
-2. Call the <xref:Metalama.Framework.Aspects.AdviserExtensions.AddInitializer*?text=builder.Advice.AddInitializer> method in your aspect (or <xref:Metalama.Framework.Aspects.AdviserExtensions.AddInitializer*?text=amender.Advice.AddInitializer> in a fabric). Pass the type that must be initialized, then the name of the method from the previous step, and finally the value `InitializerType.BeforeInstanceConstructor`.
+2. Call the <xref:Metalama.Framework.Aspects.AdviserExtensions.AddInitializer*?text=builder.Advice.AddInitializer> method in your aspect (or <xref:Metalama.Framework.Aspects.AdviserExtensions.AddInitializer*?text=amender.Advice.AddInitializer> in a fabric). Pass the type that must be initialized, the name of the method from the previous step, and the value `InitializerType.BeforeInstanceConstructor`.
 
 The `AddInitializer` advice will _not_ affect the constructors that call a chained `this` constructor. That is, the advice always runs before any constructor of the current class. However, the initialization logic runs _after_ the call to the `base` constructor if the advised constructor calls the base constructor.
 
@@ -61,8 +61,13 @@ The following aspect registers any new instance of the target class in a registr
 
 ## Before a specific object constructor
 
-If you wish to insert logic into a specific constructor, call the <xref:Metalama.Framework.Aspects.AdviserExtensions.AddInitializer*> method and pass an <xref:Metalama.Framework.Code.IConstructor>. With this method overload, you can advise the constructors chained to another constructor of the same type through the `this` keyword.
+If you want to insert logic into a specific constructor, call the <xref:Metalama.Framework.Aspects.AdviserExtensions.AddInitializer*> method and pass an <xref:Metalama.Framework.Code.IConstructor>. With this method overload, you can advise the constructors chained to another constructor of the same type through the `this` keyword.
 
 ## Before the type constructor
 
 The same approach can be used to add logic to the type constructor (i.e., static constructor) instead of the object constructor. In this case, the `InitializerType.BeforeTypeConstructor` value should be used.
+
+> [!div class="see-also"]
+> <xref:introducing-members>
+> <xref:Metalama.Framework.Aspects.AdviserExtensions.AddInitializer*>
+> <xref:Metalama.Framework.Aspects.IntroduceAttribute>

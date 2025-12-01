@@ -4,7 +4,7 @@ level: 300
 summary: "The document discusses how to override events, including overriding their invoke operation."
 keywords: "overriding events, .NET, add accessor, remove accessor, event invocation, invoke accessor, Metalama Framework, OverrideEventAspect"
 created-date: 2023-02-20
-modified-date: 2025-09-23
+modified-date: 2025-11-30
 ---
 
 # Overriding events
@@ -32,21 +32,21 @@ The following example demonstrates overriding the _add_ and _remove_ accessors o
 
 Most of the time, advising an event requires overriding its _invoke_ operation. For instance, if you want to swallow exceptions in event handlers or execute events in a background thread, it's best to do so by overriding the _invoke_ semantic.
 
-To override the _invoke_ semantic, implement the <xref:Metalama.Framework.Aspects.OverrideEventAspect.OverrideInvoke*?text=OverrideEventAspect.OverrideInvoke> method or supply a `invokeTemplate` argument to the <xref:Metalama.Framework.Aspects.AdviserExtensions.OverrideAccessors*> method.
+To override the _invoke_ semantic, implement the <xref:Metalama.Framework.Aspects.OverrideEventAspect.OverrideInvoke*?text=OverrideEventAspect.OverrideInvoke> method or supply an `invokeTemplate` argument to the <xref:Metalama.Framework.Aspects.AdviserExtensions.OverrideAccessors*> method.
 
 > [!NOTE]
 > The `OverrideInvoke` advice is invoked _once per event handler_. If there are 3 event handlers and the event is invoked once, the `OverrideInvoke` advice will be invoked 3 times (see graph below).
 
 ### Adding/removing event handlers from an advice
 
-If you are writing an exception handling aspect, you'll want to unregister the event handler from the _invoke_ template. You can do this by invoking the <xref:Metalama.Framework.Code.Invokers.IEventInvoker.Remove*?IEvent.Remove> method from the template, for instance:
+If you are writing an exception handling aspect, you'll want to unregister the event handler from the _invoke_ template. You can do this by invoking the <xref:Metalama.Framework.Code.Invokers.IEventInvoker.Remove*?text=Remove> method from the template, for instance:
 
 ```csharp
  meta.Target.Event.Remove( handler );
 ```
 
 > [!WARNING]
-> The <xref:Metalama.Framework.Code.Invokers.IEventInvoker.Raise*?IEvent.Raise> method is not implemented yet.
+> The <xref:Metalama.Framework.Code.Invokers.IEventInvoker.Raise*?text=Raise> method is not implemented yet.
 
 ### Limitations
 
@@ -56,11 +56,11 @@ If you are writing an exception handling aspect, you'll want to unregister the e
 
 ### Example: safe events
 
-The following aspect implements a "Fool me once, shame on you; fool me twice, shame on me" pattern, which handles exceptions in each event handler individually and unregisters any unreliable handler.
+The following aspect implements a "Fool me once, shame on you; fool me twice, shame on me" pattern that handles exceptions in each event handler individually and unregisters any unreliable handler.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/SafeEvent.cs name="Safe Event"]
 
-Metalama's implementation pattern is more complex than usual. We'll explain it below.
+The implementation pattern for event invoke operations is more complex than for other advice kinds, as explained below.
 
 ### Implementation
 
@@ -102,3 +102,9 @@ Unlike other advice kinds, advising event invoke operations might affect run-tim
 - adding, removing, and raising events require additional type conversions (casts).
 
 This overhead might affect performance for events called at a very high frequency, although high-frequency events are not a frequent use case of .NET events.
+
+> [!div class="see-also"]
+> <xref:Metalama.Framework.Aspects.OverrideEventAspect>
+> <xref:Metalama.Framework.Aspects.AdviserExtensions.OverrideAccessors*>
+> <xref:Metalama.Framework.RunTime.Events.EventBroker`3>
+> <xref:overriding-properties>

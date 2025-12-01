@@ -1,18 +1,29 @@
 ---
 uid: advanced-api
-summary: "The document provides an overview of different namespaces and assemblies for augmenting Metalama features using the Roslyn API."
+summary: "Overview of namespaces and assemblies for extending Metalama with the Roslyn API, including aspect weavers, code model integration, and source transformers."
+keywords: "Metalama SDK, Roslyn API, aspect weavers, source transformers, IPartialCompilation, IAspectWeaver, code model"
 created-date: 2023-01-26
-modified-date: 2023-12-11
+modified-date: 2025-11-30
 ---
 
 # Advanced Extensibility API (SDK) documentation
 
-This page outlines the namespaces and assemblies that enable augmenting Metalama features with the Roslyn API.
+This page documents the namespaces in the `Metalama.Framework.Sdk` package that enable extending Metalama using the Roslyn API. These APIs provide low-level access to compilation transformations and are intended for advanced scenarios where the standard advice API is insufficient.
 
-| Namespace                                             | Description                                                                                                              |
-|--------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
-| <xref:Metalama.Compiler>                              | This namespace facilitates writing source transformers at the most basic level of abstraction, devoid of aspect concepts. |
-| <xref:Metalama.Framework.Engine.AspectWeavers>        | This namespace allows you to implement Metalama aspects at the lowest level of abstraction using the Roslyn APIs. Unlike <xref:Metalama.Compiler>, this namespace integrates with the <xref:Metalama.Framework.Engine.CodeModel> namespace.                                                       |
-| <xref:Metalama.Framework.Engine.CodeModel>            | This namespace correlates the Metalama code model with the Roslyn API. |
-| <xref:Metalama.Framework.Engine.Collections>          | This namespace contains collection interfaces. |
-| <xref:Metalama.Framework.Engine.Formatting>           | This namespace contains the annotations utilized by the Metalama formatting feature. |
+For conceptual guidance on using these APIs, see <xref:sdk>.
+
+## Namespace reference
+
+| Namespace | Description |
+|-----------|-------------|
+| <xref:Metalama.Compiler> | Provides the lowest-level API for writing source transformers. Implementations of <xref:Metalama.Compiler.ISourceTransformer> can modify the Roslyn compilation directly without any aspect concepts. Use this when you need to transform code independently of the Metalama aspect pipeline. |
+| <xref:Metalama.Framework.Engine.AspectWeavers> | Enables implementing Metalama aspects at the Roslyn level using the <xref:Metalama.Framework.Engine.AspectWeavers.IAspectWeaver> interface. Unlike <xref:Metalama.Compiler>, aspect weavers integrate with the Metalama Framework pipeline and have access to aspect instances and the Metalama code model. For step-by-step guidance, see <xref:aspect-weavers>. |
+| <xref:Metalama.Framework.Engine.CodeModel> | Bridges the Metalama code model (<xref:Metalama.Framework.Code.IDeclaration>, <xref:Metalama.Framework.Code.IType>) with Roslyn symbols (<xref:Microsoft.CodeAnalysis.ISymbol>). The <xref:Metalama.Framework.Engine.CodeModel.SymbolExtensions> class provides extension methods such as `GetSymbol` and `GetDeclaration` for converting between the two models. The <xref:Metalama.Framework.Engine.CodeModel.IPartialCompilation> interface represents a compilation that can be transformed by aspect weavers. For usage examples, see <xref:roslyn-api>. |
+| <xref:Metalama.Framework.Engine.Collections> | Contains specialized collection interfaces and types used internally by the SDK, including <xref:Metalama.Framework.Engine.Collections.IReadOnlyMultiValueDictionary`2> and <xref:Metalama.Framework.Engine.Collections.ConcurrentLinkedList`1>. |
+| <xref:Metalama.Framework.Engine.Formatting> | Contains annotations and extension methods for marking generated code in syntax trees. When implementing an <xref:Metalama.Framework.Engine.AspectWeavers.IAspectWeaver>, use the <xref:Metalama.Framework.Engine.Formatting.FormattingAnnotations> class to annotate generated syntax nodes so Metalama can format them correctly. |
+
+> [!div class="see-also"]
+> <xref:sdk>
+> <xref:aspect-weavers>
+> <xref:roslyn-api>
+> <xref:custom-metrics>

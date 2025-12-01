@@ -1,26 +1,29 @@
 ---
 uid: decoupling-aspects-from-attributes
+level: 400
+summary: "This article explains how to separate the aspect implementation from its custom attribute contract, enabling scenarios like using third-party attributes, preparing for migration away from Metalama, or having different implementations per project."
+keywords: "aspect decoupling, custom attribute, IAspect interface, aspect contract, aspect implementation, fabric binding, IRef, IAttribute, Metalama separation"
 created-date: 2024-09-05
-modified-date: 2024-09-05
+modified-date: 2025-11-30
 ---
 
 # Decoupling aspects from attributes
 
-When reading other articles in this documentation, you may have come under the impression that an aspect is necessarily a custom attribute. This isn't the case. Aspects and attributes are different concepts. You can build aspects that don't derive from the <xref:System.Attribute> class.
+When reading other articles in this documentation, you may have gotten the impression that an aspect is necessarily a custom attribute. This is not the case. Aspects and attributes are different concepts. You can build aspects that do not derive from the <xref:System.Attribute> class.
 
-The reason why most aspects are derived from the <xref:System.Attribute> class is convenience and simplicity. Indeed, as you can see from their [source code](https://github.com/postsharp/Metalama.Framework/tree/HEAD/Metalama.Framework/Aspects), classes like <xref:Metalama.Framework.Aspects.ConstructorAspect>, <xref:Metalama.Framework.Aspects.EventAspect>, <xref:Metalama.Framework.Aspects.FieldAspect>, <xref:Metalama.Framework.Aspects.FieldOrPropertyAspect>, <xref:Metalama.Framework.Aspects.MethodAspect>, <xref:Metalama.Framework.Aspects.ParameterAspect>, <xref:Metalama.Framework.Aspects.PropertyAspect>, <xref:Metalama.Framework.Aspects.TypeAspect>, or <xref:Metalama.Framework.Aspects.TypeParameterAspect> are only API sugar. They are all implementations of the <xref:Metalama.Framework.Aspects.IAspect`1> interface that derive from <xref:System.Attribute>.
+The reason why most aspects are derived from the <xref:System.Attribute> class is convenience and simplicity. Indeed, as you can see from their [source code](https://github.com/metalama/Metalama/tree/HEAD/Metalama.Framework/Metalama.Framework/Aspects), classes like <xref:Metalama.Framework.Aspects.ConstructorAspect>, <xref:Metalama.Framework.Aspects.EventAspect>, <xref:Metalama.Framework.Aspects.FieldAspect>, <xref:Metalama.Framework.Aspects.FieldOrPropertyAspect>, <xref:Metalama.Framework.Aspects.MethodAspect>, <xref:Metalama.Framework.Aspects.ParameterAspect>, <xref:Metalama.Framework.Aspects.PropertyAspect>, <xref:Metalama.Framework.Aspects.TypeAspect>, or <xref:Metalama.Framework.Aspects.TypeParameterAspect> are only API sugar. They are all implementations of the <xref:Metalama.Framework.Aspects.IAspect`1> interface that derive from <xref:System.Attribute>.
 
 If you want to build an aspect that must not be represented as an attribute, you can implement a class that implements <xref:Metalama.Framework.Aspects.IAspect`1> but not <xref:System.Attribute>. You can then add this aspect using a fabric (see <xref:fabrics-adding-aspects>) or a child aspect (see <xref:child-aspects>).
 
-However, what if you still want the aspect to be added using a custom attribute, but you don't want the custom attribute to implement the <xref:Metalama.Framework.Aspects.IAspect`1> interface? This is what we'll see in this article.
+However, what if you still want the aspect to be added using a custom attribute, but you do not want the custom attribute to implement the <xref:Metalama.Framework.Aspects.IAspect`1> interface? This is what we will see in this article.
 
 ## Why would you want to decouple aspects from attributes?
 
-Decoupling an aspect from its attribute means that we're decoupling the aspect _implementation_ from its "interface" or _contract_. This aspect contract is the custom attribute. The implementation is any class implementing the <xref:Metalama.Framework.Aspects.IAspect`1> interface.
+Decoupling an aspect from its attribute means that we are decoupling the aspect _implementation_ from its "interface" or _contract_. This aspect contract is the custom attribute. The implementation is any class implementing the <xref:Metalama.Framework.Aspects.IAspect`1> interface.
 
 This has several benefits:
 
-* The custom attribute can reside in a package for which you don't have the source code (for instance, those of the <xref:System.ComponentModel.DataAnnotations> namespace) or where you cannot or don't want to add a reference to Metalama.
+* The custom attribute can reside in a package for which you do not have the source code (for instance, those of the <xref:System.ComponentModel.DataAnnotations> namespace) or where you cannot or do not want to add a reference to Metalama.
 * You can prepare your code for an easier departure from Metalama, either by switching to another code generation or validation technology or by using our `metalama divorce` feature. See <xref:divorcing> for details.
 * You can have different implementations of the aspect in different projects or namespaces.
 
@@ -57,7 +60,7 @@ The last step is to add an aspect for each instance of the custom attribute. Thi
 
 ### Example: decoupled logging aspect _with_ reference to Metalama.Framework
 
-In this example, we show a traditional logging aspect whose API is a custom attribute that doesn't implement the <xref:Metalama.Framework.Aspects.IAspect`1>. However, the attribute uses the Metalama-specific <xref:Metalama.Framework.Aspects.RunTimeOrCompileTimeAttribute?text=[RunTimeOrCompileTime]> attribute, which simplifies the implementation of the aspect.
+In this example, we show a traditional logging aspect whose API is a custom attribute that does not implement the <xref:Metalama.Framework.Aspects.IAspect`1>. However, the contract attribute uses the Metalama-specific <xref:Metalama.Framework.Aspects.RunTimeOrCompileTimeAttribute?text=[RunTimeOrCompileTime]> attribute, which simplifies the implementation of the aspect.
 
 The attribute can be applied to both methods and properties. It has a `Category` property, which the aspect must include in the logged string.
 
@@ -65,7 +68,7 @@ The attribute can be applied to both methods and properties. It has a `Category`
 
 ## Decoupling when the contract project _cannot_ have a reference to Metalama
 
-If you can't or don't want to add a reference to `Metalama.Framework` in the contract project, the process is a bit more difficult. The reason is that the custom attribute is a _run-time only_ class, which means that it _cannot_ be constructed at build time. However, the aspect constructor and its `BuildAspect` method all run at _build time_. That means that you cannot pass the attribute itself to the aspect.
+If you cannot or do not want to add a reference to `Metalama.Framework` in the contract project, the process is a bit more difficult. The reason is that the custom attribute is a _run-time only_ class, which means that it _cannot_ be constructed at build time. However, the aspect constructor and its `BuildAspect` method all run at _build time_. This means that you cannot pass the attribute itself to the aspect.
 
 Instead, your aspect must have a parameter of type `IRef<IAttribute>`. The <xref:Metalama.Framework.Code.IAttribute> interface plays a similar role as the <xref:System.Reflection.CustomAttributeData?text=System.Reflection.CustomAttributeData> class. It exposes attribute data as the <xref:Metalama.Framework.Code.IAttributeData.ConstructorArguments> and <xref:Metalama.Framework.Code.IAttributeData.NamedArguments> properties. However, the <xref:Metalama.Framework.Code.IAttribute> interface is bound to a specific compilation revision. Aspects should generally not store compilation-specific objects but _references_. This is why we will store an <xref:Metalama.Framework.Code.IRef`1>. References, unlike declarations, are serializable and can therefore be used in cross-project scenarios such as aspect inheritance or cross-project validation.
 
@@ -100,3 +103,10 @@ We revise the previous example and remove any references to `Metalama.Framework`
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/Decoupled_Ref.cs name="Decoupled with reference"]
 
+> [!div class="see-also"]
+> <xref:fabrics-adding-aspects>
+> <xref:divorcing>
+> <xref:Metalama.Framework.Aspects.IAspect`1>
+> <xref:Metalama.Framework.Code.IAttribute>
+> <xref:Metalama.Framework.Code.IRef`1>
+> <xref:Metalama.Framework.Serialization.ICompileTimeSerializable>

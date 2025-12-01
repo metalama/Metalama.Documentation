@@ -4,7 +4,7 @@ level: 200
 summary: "The document discusses fabrics in the Metalama framework, which are unique classes that execute at compile time. They can add aspects, configure libraries, and implement architecture rules."
 keywords: "fabrics, Metalama framework, configure libraries, architecture rules, ProjectFabric, Namespace Fabric, Type Fabric, Transitive Project Fabrics"
 created-date: 2024-08-04
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Fabrics
@@ -33,6 +33,11 @@ In addition to <xref:Metalama.Framework.Fabrics.ProjectFabric>, there are three 
 Let's now explore the second use case of fabrics: configuration.
 
 > [!div class="see-also"]
+>
+> **See also**
+>
+> <xref:using>
 > <xref:fabrics-adding-aspects>
 > <xref:fabrics-configuration>
+> <xref:fabrics-many-projects>
 > <xref:validation>

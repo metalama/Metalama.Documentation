@@ -4,7 +4,7 @@ level: 200
 summary: "Learn how to dynamically generate run-time statements in templates using StatementBuilder, parse string-based statements, define local variables programmatically, and build switch statements."
 keywords: "statements, StatementBuilder, meta.InsertStatement, meta.DefineLocalVariable, SwitchStatementBuilder, dynamic code generation, parsing statements"
 created-date: 2023-02-21
-modified-date: 2025-11-07
+modified-date: 2025-11-30
 ---
 
 # Generating run-time statements
@@ -64,3 +64,9 @@ The following example generates an `Execute` method, which has two arguments: a 
 
 > [!div class="see-also"]
 > <xref:run-time-expressions>
+> <xref:templates>
+> <xref:Metalama.Framework.Aspects.meta.InsertStatement*>
+> <xref:Metalama.Framework.Aspects.meta.DefineLocalVariable*>
+> <xref:Metalama.Framework.Code.SyntaxBuilders.StatementBuilder>
+> <xref:Metalama.Framework.Code.SyntaxBuilders.StatementFactory>
+> <xref:Metalama.Framework.Code.SyntaxBuilders.SwitchStatementBuilder>

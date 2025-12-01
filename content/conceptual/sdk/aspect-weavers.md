@@ -4,7 +4,7 @@ level: 400
 summary: "The document provides a detailed guide on creating weaver-based aspects using the Metalama SDK. It covers referencing the SDK, defining the aspect's public interface, creating the weaver, binding the aspect to the weaver, defining eligibility, implementing the TransformAsync method, and writing unit tests."
 keywords: "weaver-based aspects, Metalama SDK, TransformAsync method, Roslyn API, C# code transformations, IAspectWeaver interface, aspect weaver"
 created-date: 2023-02-20
-modified-date: 2024-09-05
+modified-date: 2025-11-30
 ---
 
 # Aspect weavers
@@ -17,7 +17,7 @@ When you assign an aspect weaver to an aspect class, Metalama bypasses the <xref
 
 > [!WARNING]
 > The use of weaver-based aspects is generally discouraged:
-> * They are significantly more complex to implement, are worse integrated with the IDEs
+> * They are significantly more complex to implement and integrate less well with IDEs
 > * They have a significant performance impact, particularly when many are in use.
 
 ## Creating a weaver-based aspect
@@ -113,9 +113,9 @@ A simplified version of `VirtuosityWeaver` could look like this:
 
 [!code-csharp[](~/code/Metalama.Documentation.SampleCode.Sdk/VirtuosityWeaver.cs)]
 
-The actual implementation is available [on the GitHub repo](https://github.com/postsharp/Metalama.Community/blob/master/src/Metalama.Community.Virtuosity/Metalama.Community.Virtuosity.Weaver/VirtuosityWeaver.cs).
+The actual implementation is available [on the GitHub repo](https://github.com/metalama/Metalama.Community/blob/HEAD/src/Metalama.Community.Virtuosity/Metalama.Community.Virtuosity.Weaver/VirtuosityWeaver.cs).
 
-### Step 6. Write unit tests
+### Step 7. Write unit tests
 
 You can test your weaver-based aspect as any other aspect, see <xref:aspect-testing>.
 
@@ -123,9 +123,16 @@ You can test your weaver-based aspect as any other aspect, see <xref:aspect-test
 
 Available examples of Metalama.Framework.Sdk weavers are:
 
-* [Metalama.Community.Virtuosity](https://github.com/postsharp/Metalama.Community/tree/master/src/Metalama.Community.Virtuosity): Makes all possible methods in a type `virtual`.
-* [Metalama.Community.AutoCancellationToken](https://github.com/postsharp/Metalama.Community/tree/master/src/Metalama.Community.AutoCancellationToken): Automatically propagates `CancellationToken` parameter.
-* [Metalama.Community.Costura](https://github.com/postsharp/Metalama.Community/tree/master/src/Metalama.Community.Costura): Bundles .NET Framework applications into a single executable file.
+* [Metalama.Community.Virtuosity](https://github.com/metalama/Metalama.Community/tree/HEAD/src/Metalama.Community.Virtuosity): Makes all possible methods in a type `virtual`.
+* [Metalama.Community.AutoCancellationToken](https://github.com/metalama/Metalama.Community/tree/HEAD/src/Metalama.Community.AutoCancellationToken): Automatically propagates `CancellationToken` parameter.
+* [Metalama.Community.Costura](https://github.com/metalama/Metalama.Community/tree/HEAD/src/Metalama.Community.Costura): Bundles .NET Framework applications into a single executable file.
 
-
+> [!div class="see-also"]
+>
+> **See also**
+>
+> <xref:sdk>
+> <xref:roslyn-api>
+> <xref:aspect-testing>
+> <xref:eligibility>
 

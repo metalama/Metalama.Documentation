@@ -3,7 +3,7 @@ uid: migrating-aspects
 summary: "The document provides a step-by-step guide on migrating custom aspects from PostSharp to Metalama, including learning Metalama, assessing aspects' importance, verifying migration timing and project state, changing package references, creating a separate project for aspect tests, implementing individual aspects, migrating multicasting usages and configurations, and final project cleanup. "
 keywords: "migrating custom aspects, PostSharp to Metalama"
 created-date: 2023-01-26
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Migrating custom aspects to Metalama
@@ -83,7 +83,7 @@ For type-level multicasting, if you've built multicasting into your Metalama asp
 
 ## Step 8. Migrate configuration
 
-If you've configuration or multicasting in a PostSharp file like `postsharp.config` or `MyProject.psproj`, they should be migrated to project fabrics as described in <xref:fabrics-configuration>.
+If you have configuration or multicasting in a PostSharp file like `postsharp.config` or `MyProject.psproj`, they should be migrated to project fabrics as described in <xref:fabrics-configuration>.
 
 For more details, see <xref:migrating-configuration>.
 
@@ -96,6 +96,24 @@ If your Metalama aspects have been correctly implemented, all your tests should 
 Once this is the case, replace the reference to the `Metalama.Migration` package with `Metalama.Framework`.
 
 You've now completed the migration.
+
+> [!div class="see-also"]
+>
+> **Other migration topics**
+>
+> * <xref:benefits-over-postsharp>
+> * <xref:differences-from-postsharp>
+> * <xref:migration-feature-status>
+> * <xref:migrating-configuration>
+> * <xref:migrating-inpc>
+>
+> **Related concepts**
+>
+> * <xref:fabrics>
+> * <xref:fabrics-adding-aspects>
+> * <xref:fabrics-configuration>
+> * <xref:aspect-testing>
+> * <xref:migrating-multicasting>
 
 
 

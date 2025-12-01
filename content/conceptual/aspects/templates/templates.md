@@ -4,7 +4,7 @@ level: 200
 summary: "The document provides a guide on writing T# templates in Metalama, covering topics like template language introduction, compile-time code, dynamic code generation, and debugging."
 keywords: "T# templates, Metalama, compile-time code, dynamic code generation, debugging, template language, run-time code, System.Reflection, parameters, auxiliary templates"
 created-date: 2023-02-20
-modified-date: 2025-11-07
+modified-date: 2025-11-30
 ---
 
 # Writing T# templates
@@ -105,3 +105,9 @@ This chapter includes the following articles:
 ## Getting started
 
 To begin working with templates, start with <xref:template-overview> to understand the fundamentals of T# and how compile-time and run-time code work together. Once you're comfortable with the basics, explore the other articles in this chapter to learn about specific techniques and advanced features.
+
+> [!div class="see-also"]
+> <xref:aspects>
+> <xref:simple-aspects>
+> <xref:Metalama.Framework.Aspects.meta>
+> <xref:Metalama.Framework.Aspects.TemplateAttribute>

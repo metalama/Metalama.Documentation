@@ -4,7 +4,7 @@ level: 200
 summary: "This document provides detailed information on generating run-time code in templates, using dynamic expressions and variables, invoking members, parsing C# expressions and statements, converting run-time expressions to compile-time, and converting compile-time values to run-time values."
 keywords: "dynamic expressions, generating run-time code, compile-time values, run-time values, dynamic variables, IExpression.Value, ExpressionBuilder, dynamic member, parsing C# expressions"
 created-date: 2023-02-21
-modified-date: 2025-11-07
+modified-date: 2025-11-30
 ---
 
 # Generating run-time expressions
@@ -168,3 +168,10 @@ You can have classes that exist both at compile-time and run-time. To allow Meta
 
 > [!div class="see-also"]
 > <xref:run-time-statements>
+> <xref:dynamic-typing>
+> <xref:templates>
+> <xref:Metalama.Framework.Code.IExpression>
+> <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionBuilder>
+> <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionFactory>
+> <xref:Metalama.Framework.Code.SyntaxBuilders.ArrayBuilder>
+> <xref:Metalama.Framework.Code.SyntaxBuilders.InterpolatedStringBuilder>

@@ -1,9 +1,10 @@
 ---
 uid: introducing-types
 level: 300
+summary: "This article explains how to introduce new types (nested or top-level classes and interfaces) using the Metalama Framework, including how to add members, base types, and implemented interfaces."
 keywords: "IntroduceClass, Metalama, nested class, non-nested class, IAdviser, INamespace, BuildAspect, introduce members, Builder pattern, introduce types"
 created-date: 2024-11-06
-modified-date: 2024-11-06
+modified-date: 2025-11-30
 ---
 
 # Introducing types
@@ -15,7 +16,7 @@ Many patterns require you to create new types. This is the case, for instance, w
 
 ## Introducing a nested class
 
-To introduce a nested class, call the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceClass*> or <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceInterface*> method from an `IAdviser<INamedType>`. For instance, if you've a <xref:Metalama.Framework.Aspects.TypeAspect>, just call `aspectBuilder.IntroduceClass( "Foo" )`.
+To introduce a nested class, call the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceClass*> or <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceInterface*> method from an `IAdviser<INamedType>`. For instance, if you have a <xref:Metalama.Framework.Aspects.TypeAspect>, just call `aspectBuilder.IntroduceClass( "Foo" )`.
 
 ### Example: nested class
 
@@ -27,12 +28,12 @@ In the following example, the aspect introduces a nested class named `Factory`.
 
 To introduce a non-nested class, you must first get hold of an `IAdviser<INamespace>`. Here are a few strategies to get a namespace adviser from any <xref:Metalama.Framework.Aspects.IAdviser`1> or <xref:Metalama.Framework.Aspects.IAspectBuilder`1>:
 
-* If you've an `IAdviser<ICompilation>` or `IAspectBuilder<ICompilation>` and want to add a type to `My.Namespace`, call the `WithNamespace("My.Namespace")` extension method.
-* If you don't have an `IAdviser<ICompilation>`, call `aspectBuilder.With(aspectBuilder.Target.Compilation)`, then call `WithNamespace`.
+* If you have an `IAdviser<ICompilation>` or `IAspectBuilder<ICompilation>` and want to add a type to `My.Namespace`, call the `WithNamespace("My.Namespace")` extension method.
+* If you do not have an `IAdviser<ICompilation>`, call `aspectBuilder.With(aspectBuilder.Target.Compilation)`, then call `WithNamespace`.
 * To get an adviser for the _current_ namespace, call `aspectBuilder.With(aspectBuilder.Target.GetNamespace())`.
 * To get an adviser for a _child_ of the current namespace, call `aspectBuilder.With(aspectBuilder.Target.GetNamespace()).WithChildNamespace("ChildNs")`.
 
-Once you've an `IAdviser<INamespace>`, call the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceClass*> advice method.
+Once you have an `IAdviser<INamespace>`, call the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceClass*> advice method.
 
 ### Example: top-level class
 
@@ -80,10 +81,10 @@ The input code for this pattern is an anemic class with get-only automatic prope
 The Builder aspect generates the following artifacts:
 
 * A `Builder` nested class with:
-    * A public constructor accepting all required properties,
-    * Writable properties corresponding to all automatic properties of the source class,
-    * A `Build` method that instantiates the source type,
-* A private constructor in the source class, called by the `Builder.Build` method.
+    * A public constructor accepting all required properties.
+    * Writable properties corresponding to all automatic properties of the source class.
+    * A `Build` method that instantiates the source type.
+* A private constructor in the source class that's called by the `Builder.Build` method.
 
 Ideally, the aspect should also test that the source type does not have another constructor or any settable property, but this is skipped in this example.
 
@@ -95,3 +96,9 @@ We use the `aspectBuilder.Tags` property to share this list with the template im
 
 > [!NOTE]
 > For more about the Builder pattern, see <xref:sample-builder>.
+
+> [!div class="see-also"]
+> <xref:introducing-members>
+> <xref:implementing-interfaces>
+> <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceClass*>
+> <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceInterface*>

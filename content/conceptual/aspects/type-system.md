@@ -4,7 +4,7 @@ level: 300
 summary: "Learn how to work with the Metalama type system, including IType, INamedType, generic types, tuple types, array types, and pointer types. Discover how to obtain type references, access type members, and construct derived types."
 keywords: "IType, INamedType, TypeFactory, generic types, tuple types, array types, pointer types, type system, Metalama types, compile-time types"
 created-date: 2025-11-07
-modified-date: 2025-11-07
+modified-date: 2025-11-30
 ---
 
 # Working with types
@@ -96,11 +96,11 @@ classDiagram
 The type system in Metalama distinguishes between:
 
 - **Named types** (<xref:Metalama.Framework.Code.INamedType>) - Classes, structs, interfaces, intrinsics like `string` or `void`, etc.
-- **Tuple types** (<xref:Metalama.Framework.Code.ITupleType>) - Like `(double X, double Y, double Z)`.
+- **Tuple types** (<xref:Metalama.Framework.Code.ITupleType>) - Like `(double X, double Y, double Z)` or `(int, string)`.
 - **Array types** (<xref:Metalama.Framework.Code.Types.IArrayType>) - Like `int[]` or `string[,]`
 - **Pointer types** (<xref:Metalama.Framework.Code.Types.IPointerType>) - Like `int*`
 - **Type parameters** (<xref:Metalama.Framework.Code.ITypeParameter>) - Generic parameters like `T` in `List<T>`
-- **Tuple types** (<xref:Metalama.Framework.Code.ITupleType>) - Like `(int, string)`
+- **Dynamic type** (<xref:Metalama.Framework.Code.IDynamicType>) - The `dynamic` type.
 - **Function pointers**  (<xref:Metalama.Framework.Code.Types.IFunctionPointerType>) are not fully supported in Metalama.
 
 ## Named types
@@ -115,7 +115,7 @@ Named types are the fundamental building blocks of C# programs. Unlike other typ
 - Can have nested types.
 - Can be generic (with type parameters).
 
-Tuple types, represented by the <xref:Metalama.Framework.Code.INamedType> interface, are also named types.
+Tuple types, represented by the <xref:Metalama.Framework.Code.ITupleType> interface, are also named types because <xref:Metalama.Framework.Code.ITupleType> derives from <xref:Metalama.Framework.Code.INamedType>.
 
 > [!WARNING]
 > Extension blocks (<xref:Metalama.Framework.Code.IExtensionBlock>), despite implementing <xref:Metalama.Framework.Code.INamedType> interface, are not types.
@@ -345,5 +345,16 @@ The resulting <xref:Metalama.Framework.Code.Types.IPointerType> provides access 
 
 ```csharp
 var pointerType = intType.MakePointerType();
-var pointedType = pointerType.PointedType; // IType representing int
+var pointedType = pointerType.PointedAtType; // IType representing int
 ```
+
+> [!div class="see-also"]
+> <xref:aspects>
+> <xref:templates>
+> <xref:invokers>
+> <xref:Metalama.Framework.Code.IType>
+> <xref:Metalama.Framework.Code.INamedType>
+> <xref:Metalama.Framework.Code.ITupleType>
+> <xref:Metalama.Framework.Code.TypeFactory>
+> <xref:Metalama.Framework.Code.IGeneric>
+> <xref:Metalama.Framework.Code.ITypeParameter>

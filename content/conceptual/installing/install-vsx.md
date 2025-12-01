@@ -4,7 +4,7 @@ level: 100
 summary: "This document provides step-by-step instructions on how to install the Metalama Tools extension for Visual Studio 2022, and introduces the Metalama Command-Line Tool."
 keywords: "Visual Studio Tools, Metalama Tools extension, installation,CodeLens additions, Aspect Explorer, syntax highlighting, development experience, extension download."
 created-date: 2023-03-02
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Installing Visual Studio Tools for Metalama
@@ -76,3 +76,8 @@ Alternatively, you can use the following procedure from Visual Studio.
 To verify the successful installation of the extension, navigate to the Extensions Manager. If the installation was successful, a green tick mark will be displayed on the top-right corner of the extension icon.
 
 ![metalama_already_installed](../../images/metalama_already_installed.png)
+
+> [!div class="see-also"]
+> <xref:installing>
+> <xref:register-license>
+> <xref:understanding-your-code-with-aspects>

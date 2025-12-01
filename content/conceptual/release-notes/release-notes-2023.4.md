@@ -80,12 +80,3 @@ We continue to introduce low-impact breaking changes in the compile-time API, as
   * The framework is now configured with the new hierarchical options framework. The `DependencyInjectionOptions` is now internal. The new configuration public API is the <xref:Metalama.Extensions.DependencyInjection.DependencyInjectionExtensions.ConfigureDependencyInjection*> extension method.
 * For external namespaces, the <xref:Metalama.Framework.Code.IDeclaration.ContainingDeclaration> of the namespace now returns the declaring assembly instead of the current compilation.
 
-## Bug fixes
-
-We fixed 39 bugs before the GA of this version. For details, see the pre-release changelogs:
-
-* [2023.4.5-rc](https://github.com/orgs/postsharp/discussions/236)
-* [2023.4.4-preview](https://github.com/orgs/postsharp/discussions/231)
-* [2023.4.3-preview](https://github.com/orgs/postsharp/discussions/227)
-* [2023.4.2-preview](https://github.com/orgs/postsharp/discussions/224)
-* [2024.4.1-preview](https://github.com/orgs/postsharp/discussions/219)

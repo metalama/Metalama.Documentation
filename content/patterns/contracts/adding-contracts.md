@@ -4,7 +4,7 @@ summary: "The document provides a detailed guide on how to validate input and ou
 level: 100
 keywords: "validate input values, Metalama.Patterns.Contracts, contract inheritance, validate return values, validate out parameters, validate ref parameters, validate output values, validate fields, validate properties"
 created-date: 2024-07-22
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Validating field, property, and parameter values
@@ -88,6 +88,11 @@ In the `Item` class, the `Key` property is implemented as an automatic property.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Contracts/Property.cs]
 
+> [!div class="see-also"]
+> <xref:contract-patterns>
+> <xref:contract-types>
+> <xref:configuring-contracts>
+> <xref:invariants>
 
 
 

@@ -3,7 +3,7 @@ uid: introspection-api
 summary: "The document provides information about namespaces in the Metalama code model that allow querying of projects and solutions, including the compilation process output."
 keywords: "Metalama code model, querying projects, querying solutions, compilation process output, aspect instances, reported diagnostics, Metalama Framework, C# project, LinqPad, inspect code model"
 created-date: 2023-01-26
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Introspection API documentation

@@ -3,17 +3,17 @@ uid: creating-logs
 summary: "The document provides instructions on how to generate log files for reporting Metalama bugs, including installing the CLI tool, editing diagnostics.json, restarting processes, executing Metalama, and accessing the log file."
 keywords: "Metalama bugs, generate log files, install Metalama CLI tool, edit diagnostics.json, restart processes, execute Metalama, access log file, .NET tool, logging configuration, IDE processes"
 created-date: 2023-01-11
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Enabling logging
 
 > [!NOTE]
-> This procedure is suitable for development machines. For build servers
+> This procedure is suitable for development machines. For build servers, see <xref:troubleshooting-unattended-build>.
 
 When reporting a Metalama bug, it's often helpful to attach Metalama log files. This document provides instructions on how to generate these logs.
 
-There are possible approaches: produce log files, or write the logging output to the console.
+There are two possible approaches: produce log files, or write the logging output to the console.
 
 ## Producing log files
 
@@ -90,6 +90,11 @@ Perform the sequence of actions that you wish to log.
 
 You can find the log in the `%TEMP%\Metalama\Logs` directory.
 
-
+> [!div class="see-also"]
+> <xref:configuration>
+> <xref:dotnet-tool>
+> <xref:troubleshooting-unattended-build>
+> <xref:profiling>
+> <xref:process-dump>
 
 

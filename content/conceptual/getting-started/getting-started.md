@@ -2,7 +2,7 @@
 uid: main-getting-started
 keywords: "Metalama, getting started"
 created-date: 2024-03-19
-modified-date: 2024-08-22
+modified-date: 2025-11-30
 ---
 
 # Getting started with Metalama
@@ -32,7 +32,7 @@ Type the following code:
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.AspectFramework/GettingStarted/GettingStarted.Aspect.cs]
 
-As you can infer from its name, the `LogAttribute` class is a custom attribute. You can think of an aspect as a _template_. When you apply it to some code (in this case, to a method), it transforms it. Indeed, the code of the target method will be replaced by the implementation of `OverrideMethod`. This method is very special. Some parts execute at run time, while others, which typically start with the `meta` keyword, execute at compile time. If you installed Visual Studio Tools for Metalama, you'll notice that compile-part segments are displayed with a different background color.
+As you can infer from its name, the `LogAttribute` class is a custom attribute. You can think of an aspect as a _template_. When you apply it to some code (in this case, to a method), it transforms it. Indeed, the code of the target method will be replaced by the implementation of `OverrideMethod`. This method is very special. Some parts execute at run time, while others, which typically start with the `meta` keyword, execute at compile time. If you installed Visual Studio Tools for Metalama, you'll notice that compile-time segments are displayed with a different background color.
 
 Let's examine two `meta` expressions:
 
@@ -92,7 +92,7 @@ Alternatively, we can achieve the same with a <xref:Metalama.Framework.Fabrics.N
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.AspectFramework/GettingStarted/GettingStarted_Architecture_Ns.Fabric.cs]
 
-Fabrics not only run at compile time, but also at design time within the IDE. After the first build, or after you click on the _I am done with compile-time changes_ link if you've installed Metalama Tools for Visual Studio, you'll see warnings in the IDE if your code violates the rule.
+Fabrics not only run at compile time but also at design time within the IDE. After the first build (or after you click the _I am done with compile-time changes_ link if you've installed Metalama Tools for Visual Studio), you'll see warnings in the IDE if your code violates the rule.
 
 In this case, when we try to access any class of `VerifiedNamespace` from a different namespace, we get a warning:
 
@@ -105,8 +105,15 @@ Congratulations! In this short tutorial, you've discovered the key concepts of M
 From here, you can explore further based on your learning style:
 
 - <xref:conceptual>
-- <xref:samples>
+- <xref:videos>
 
 > [!div class="see-also"]
 > <xref:using-metalama>
 > <xref:videos>
+> <xref:installing>
+> <xref:aspects>
+> <xref:fabrics>
+> <xref:templates>
+> <xref:Metalama.Framework.Aspects.OverrideMethodAspect>
+> <xref:Metalama.Framework.Fabrics.ProjectFabric>
+> <xref:Metalama.Extensions.Architecture>

@@ -4,7 +4,7 @@ summary: "The document discusses the use of `Microsoft.Extensions.DependencyInje
 level: 100
 keywords: "dependency injection, .NET, Microsoft.Extensions.DependencyInjection, Metalama.Extensions.DependencyInjection, DependencyAttribute, dependency, inject, import"
 created-date: 2024-06-11
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Metalama.Extensions.DependencyInjection
@@ -17,9 +17,9 @@ To alleviate these minor inconveniences, you can employ the <xref:Metalama.Exten
 
 The advantages of this aspect include:
 
-* Reduction of boilerplate code,
-* Simplified migration from attribute-based frameworks to constructor-based ones,
-* Compatibility with multiple dependency injection frameworks (see <xref:dependency-injection>).
+* Reduction of boilerplate code
+* Simplified migration from attribute-based frameworks to constructor-based ones
+* Compatibility with multiple dependency injection frameworks (see <xref:dependency-injection>)
 
 The <xref:Metalama.Extensions.DependencyInjection.DependencyAttribute?text=[Dependency]> aspect provides two properties:
 
@@ -33,6 +33,9 @@ The following example demonstrates the code generation pattern for three types o
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.DependencyInjection/DependencyInjectionAspect.cs]
 
+> [!div class="see-also"]
+> <xref:patterns>
+> <xref:dependency-injection>
 
 
 

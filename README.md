@@ -3,14 +3,14 @@ created-date: 2023-02-02
 modified-date: 2024-04-10
 ---
 <p align="center">
-<img width="450" src="https://github.com/postsharp/Metalama/raw/master/images/metalama-by-postsharp.svg" alt="Metalama logo" />
+<img width="450" src="https://github.com/metalama/Metalama/raw/master/images/metalama-by-postsharp.svg" alt="Metalama logo" />
 </p>
 
 # Metalama.Documentation
 
 This repository contains the documentation for Metalama. It is recommended to read it online at https://doc.metalama.net.
 
-The code snippets in this documentation are located under the `code` subdirectory and are fully unit testable. Other examples are derived from the [Metalama.Samples](https://github.com/postsharp/Metalama.Samples) and [Metalama.Community](https://github.com/postsharp/Metalama.Community) repositories.
+The code snippets in this documentation are located under the `code` subdirectory and are fully unit testable. Other examples are derived from the [Metalama.Samples](https://github.com/metalama/Metalama.Samples) and [Metalama.Community](https://github.com/metalama/Metalama.Community) repositories.
 
 ## Building everything
 

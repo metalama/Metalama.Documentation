@@ -10,8 +10,6 @@ modified-date: 2024-11-06
 
 We've focused on two areas: first, ensuring Metalama is compatible with the latest .NET stack, and second, completing gaps left in the previous version, particularly in support for type introductions. We've also implemented minor improvements requested by the community.
 
-We published the following preview builds: [2025.0.1-preview](https://github.com/orgs/postsharp/discussions/371), [2025.0.2-preview](https://github.com/orgs/postsharp/discussions/374), [2025.0.3-preview](https://github.com/orgs/postsharp/discussions/376), and [2025.0.4-preview](https://github.com/orgs/postsharp/discussions/378).
-
 ## Support for .NET 9.0 and C# 13
 
 ### C# 13 features

@@ -4,7 +4,7 @@ level: 200
 summary: "Metalama automatically activates a 45-day trial upon first use. Users can switch to Metalama Free or register a license key to continue usage beyond the trial period."
 keywords: "Metalama license, license registration, evaluation mode, license key, Visual Studio Tools, Metalama Free"
 created-date: 2023-01-11
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Registering a license
@@ -42,14 +42,14 @@ The following commands are available:
 | `metalama license list` | Shows the current license options. |
 | `metalama license try` | Activate the 45-day evaluation period of Metalama Ultimate. |
 | `metalama license community` | Activate Metalama Community, free for non-commercial use, individuals, and companies with up to 3 users. |
-| `metalama license register <LICENSE KEY>` | Register a license key.]
+| `metalama license register <LICENSE KEY>` | Register a license key. |
 
 
 ## By editing the configuration file
 
 To manually register a license for the current user, do the following:
 
-1. Open the Metalama licensing JSON configuration file `licensing.json`. This file is located in the `%appdata%\\Metalama` directory on Windows, and in the `~/.metalama` directory on Linux and Mac.
+1. Open the Metalama licensing JSON configuration file `licensing.json`. This file is located in the `%appdata%\Metalama` directory on Windows, and in the `~/.metalama` directory on Linux and Mac.
 2. Set the license key as the `license` value. If the file doesn't exist, it should contain the following content (where `123-ABCDEFGHIJKLMNOPQRSTUVXYZ` is a placeholder for the actual license key):
 
    ```json
@@ -65,3 +65,9 @@ The license key can be stored as the value of the `MetalamaLicense` MSBuild prop
 - Storing the license as a value of the `MetalamaLicense` environment variable.
 - Storing the license in the source code repository using the [Directory.Build.props](https://learn.microsoft.com/en-us/visualstudio/msbuild/customize-your-build?view=vs-2022#directorybuildprops-and-directorybuildtargets) file.
 - Storing the license in the `.csproj` project file.
+
+> [!div class="see-also"]
+> <xref:installing>
+> <xref:install-vsx>
+> <xref:dotnet-tool>
+> <xref:msbuild-properties>

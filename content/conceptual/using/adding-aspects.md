@@ -4,7 +4,7 @@ level: 100
 summary: "This document provides a guide on how to add aspects to source code using custom attributes. It covers the process of adding aspects as custom attributes, adding multiple attributes, and using the refactoring menu."
 keywords: "Metalama, getting started"
 created-date: 2023-02-16
-modified-date: 2024-11-06
+modified-date: 2025-11-30
 ---
 
 # Adding aspects to your code
@@ -15,7 +15,7 @@ In this section, you'll learn how to utilize custom attributes to add aspects.
 
 ## Adding aspects as custom attributes
 
-Let's assume you've a method that fails occasionally.
+Let's assume you have a method that fails occasionally.
 
 ![](images/flaky_method_no_aspect.png)
 
@@ -36,7 +36,7 @@ To view the details, click on the text `1 aspect`:
 
 ![Retry_Aspect_Code_Lense](images/showing_retry_aspect_code_lense.png)
 
-The details displayed in this example are trivial. However, this feature can be quite useful when you've several aspects on the same method, or when aspects are implicitly applied rather than explicitly applied using a custom attribute.
+The details displayed in this example are trivial. However, this feature can be quite useful when you have several aspects on the same method, or when aspects are implicitly applied rather than explicitly applied using a custom attribute.
 
 ## Adding more than one attribute
 
@@ -62,3 +62,12 @@ The refactoring menu is smart enough to recognize which aspect has already been 
 
 > [!NOTE]
 > The refactoring menu only displays aspects that are _eligible_ for your code. The eligibility of an aspect is determined by the aspect's author. For example, it wouldn't make sense to add a caching aspect to a method returning `void`, so the author of this aspect might make it eligible for non-void methods only.
+
+> [!div class="see-also"]
+>
+> **See also**
+>
+> <xref:using>
+> <xref:fabrics-adding-aspects>
+> <xref:getting-aspects>
+> <xref:understanding-your-code-with-aspects>

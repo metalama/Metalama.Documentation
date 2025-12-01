@@ -4,7 +4,7 @@ level: 200
 summary: "The document provides a detailed guide on how to verify the usage of a class, member or namespace in C# using Metalama, a tool that allows for fine-tuning accessibility. It covers both attribute-based and programmatically validation methods."
 keywords: "dependencies, Metalama, custom attributes, C# validation, namespace, internal members, programmatic validation, Metalama.Extensions.Architecture"
 created-date: 2023-03-22
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Verifying usage of a class, member, or namespace
@@ -83,7 +83,7 @@ Follow these steps:
 
 3. Import the <xref:Metalama.Extensions.Architecture> and <xref:Metalama.Extensions.Architecture.Predicates> namespaces to benefit from extension methods.
 
-4. Edit the  <xref:Metalama.Framework.Fabrics.ProjectFabric.AmendProject*>,  <xref:Metalama.Framework.Fabrics.NamespaceFabric.AmendNamespace*> or  <xref:Metalama.Framework.Fabrics.TypeFabric.AmendType*> of this method.
+4. Edit the <xref:Metalama.Framework.Fabrics.ProjectFabric.AmendProject*>, <xref:Metalama.Framework.Fabrics.NamespaceFabric.AmendNamespace*>, or <xref:Metalama.Framework.Fabrics.TypeFabric.AmendType*> method.
 
 5. Call one of the following methods:
 
@@ -109,7 +109,7 @@ Follow these steps:
     amender.CanOnlyBeUsedFrom( r => r.CurrentNamespace() );
     ```
 
-    You can create complex conditions thanks to the <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicateExtensions.And*>, <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicateExtensions.Or*> and <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicateExtensions.Not*> methods.
+    You can create complex conditions thanks to the <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicateExtensions.And*>, <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicateExtensions.Or*>, and <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicateExtensions.Not*> methods.
 
 7. Optionally, you can pass a value for the `description` parameter. This text will be appended to the warning message. You can also supply a <xref:Metalama.Framework.Code.ReferenceKinds> to limit the kinds of references that are validated.
 
@@ -124,5 +124,11 @@ In the following example, we use a namespace fabric to restrict the accessibilit
 Using floating-point arithmetic in operations involving currencies is a common pitfall. Instead, `decimal` numbers should be used. In the following example, we use a project fabric to validate all references to the `float` and `double` types. We report a diagnostic when they are used from the `**.Invoicing` namespaces.
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.AspectFramework/Architecture/Fabric_ForbidFloat.cs]
+
+> [!div class="see-also"]
+> <xref:validation>
+> <xref:Metalama.Extensions.Architecture.Aspects.CanOnlyBeUsedFromAttribute>
+> <xref:Metalama.Extensions.Architecture.Aspects.CannotBeUsedFromAttribute>
+> <xref:fabrics>
 
 

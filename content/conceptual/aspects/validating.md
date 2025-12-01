@@ -4,7 +4,7 @@ level: 300
 summary: "The document explains how to validate code from an aspect using Metalama Framework, covering validation before or after aspects and validating code references. It includes examples and steps to follow."
 keywords: "validating code, Metalama Framework, aspect validation, code references, .NET aspects, IAspect BuildAspect, diagnostic reporting, DeclarationValidationContext, ReferenceValidationContext, validator granularity"
 created-date: 2023-03-20
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Validating code from an aspect
@@ -66,4 +66,13 @@ The following example implements a custom attribute `[ForTestOnly]` that enforce
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/ForTestOnly.cs name="For Test Only, Aspect Implementation"]
 
+> [!div class="see-also"]
+> <xref:eligibility>
+> <xref:diagnostics>
+> <xref:aspects>
+> <xref:Metalama.Extensions.Validation>
+> <xref:Metalama.Extensions.Validation.DeclarationValidationContext>
+> <xref:Metalama.Extensions.Validation.ReferenceValidationContext>
+> <xref:Metalama.Extensions.Validation.ValidationQueryExtensions>
+> <xref:Metalama.Extensions.Validation.ReferenceValidationQueryExtensions>
 

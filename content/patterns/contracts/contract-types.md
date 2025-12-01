@@ -4,7 +4,7 @@ summary: "The document describes various contract attributes in the Metalama Pat
 level: 200
 keywords: "Metalama contracts, types, custom attributes"
 created-date: 2024-06-17
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # List of contract attributes
@@ -121,5 +121,9 @@ Note that this contract does not validate the collection object against being nu
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Contracts/NotEmptyCollectionContract.cs]
 
+> [!div class="see-also"]
+> <xref:contract-patterns>
+> <xref:value-contracts>
+> <xref:configuring-contracts>
 
 

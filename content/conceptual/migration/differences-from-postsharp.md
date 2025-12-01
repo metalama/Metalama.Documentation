@@ -3,7 +3,7 @@ uid: differences-from-postsharp
 summary: "The document compares the architectural differences between Metalama and PostSharp, focusing on their operation, aspect execution, and aspect inheritance. It also discusses the implications of these differences."
 keywords: "Metalama vs PostSharp, PostSharp vs Metalama, comparison, differences"
 created-date: 2023-01-26
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Differences between Metalama and PostSharp
@@ -239,6 +239,21 @@ flowchart BT
 ### Implications
 
 * **In Metalama, aspect classes must be written in an immutable style.** Since aspect instances may be reused among several declarations, they cannot store state that is specific to a target declaration. For details, see <xref:sharing-state-with-advice>.
+
+> [!div class="see-also"]
+>
+> **Other migration topics**
+>
+> * <xref:benefits-over-postsharp>
+> * <xref:migration-feature-status>
+> * <xref:migrating-aspects>
+>
+> **Related concepts**
+>
+> * <xref:templates>
+> * <xref:aspect-inheritance>
+> * <xref:sharing-state-with-advice>
+> * <xref:introducing-members>
 
 
 

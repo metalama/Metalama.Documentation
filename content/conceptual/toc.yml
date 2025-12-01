@@ -278,7 +278,7 @@ items:
           topicUid: differences-from-postsharp
         - name: Migrating attribute multicasting
           topicUid: migrating-multicasting
-        - name: Migrating configuraiton
+        - name: Migrating configuration
           topicUid: migrating-configuration
 
 

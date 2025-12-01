@@ -1,7 +1,21 @@
 {
   "permissions": {
     "allow": [
-      "Bash(find:*)"
+      "Bash(findstr:*)",
+      "WebFetch(domain:www.nuget.org)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:docs.microsoft.com)",
+      "WebFetch(domain:en.wikipedia.org)",
+      "WebFetch(domain:marketplace.visualstudio.com)",
+      "WebFetch(domain:doc.postsharp.net)",
+      "WebFetch(domain:www.postsharp.net)",
+      "WebFetch(domain:www.jetbrains.com)",
+      "WebFetch(domain:www.linqpad.net)",
+      "WebFetch(domain:www.karlton.org)",
+      "WebFetch(domain:stackexchange.github.io)",
+      "WebFetch(domain:azure.microsoft.com)",
+      "WebFetch(domain:blog.postsharp.net)",
+      "WebSearch"
     ],
     "deny": [],
     "ask": []

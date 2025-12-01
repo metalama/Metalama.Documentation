@@ -4,7 +4,7 @@ summary: "Metalama Patterns are libraries of design patterns for C#, developed b
 level: 100
 keywords: "design patterns, C#, Metalama Patterns"
 created-date: 2024-06-11
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Metalama Patterns
@@ -14,7 +14,7 @@ Metalama Patterns, housed under the <xref:patterns-api?text=Metalama.Patterns> n
 Constructed by the Metalama team, these patterns uphold the same quality standard as the Metalama framework itself. 
 
 > [!NOTE]
-> Metalama Patterns are released under the open-source MIT license and are available on [GitHub](https://github.com/postsharp/Metalama.Patterns).
+> Metalama Patterns are released under the open-source MIT license and are available on [GitHub](https://github.com/metalama/Metalama.Patterns).
 
 
 The following libraries are currently available:
@@ -28,6 +28,9 @@ The following libraries are currently available:
 | <xref:immutability> | Represents the concept of Immutable Type.
 | <xref:observability> | Contains an aspect that implements the <xref:System.ComponentModel.INotifyPropertyChanged> interface. Supports explicit properties, type inheritance, and child objects. |
 | <xref:wpf> | Two aspects to simplify the work with WPF: Command and Dependency Property. |
+
+> [!div class="see-also"]
+> <xref:conceptual>
 
 
 

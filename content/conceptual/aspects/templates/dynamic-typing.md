@@ -4,7 +4,7 @@ level: 300
 summary: "Learn how to use dynamic typing in Metalama templates to handle unknown types at compile time, including dynamic expressions, member access, and conversion to IExpression."
 keywords: "dynamic typing, templates, meta.This, IExpression, run-time code generation"
 created-date: 2025-11-07
-modified-date: 2025-11-07
+modified-date: 2025-11-30
 ---
 
 
@@ -101,7 +101,7 @@ In the following example, an aspect looks for any field of type `TextWriter` in 
 > [!WARNING]
 > Due to the limitations of the C# language, you cannot use extension methods on the right side of a dynamic expression. 
 
-In this case, you've two options:
+In this case, you have two options:
 
 1. Call the extension method in the traditional way by specifying its type name on the left and passing the dynamic expression as an argument:
 
@@ -141,9 +141,9 @@ When the template is expanded, `dynamic` local variables are transformed into st
 
 Under the hood, all `dynamic` values in templates are compile-time objects implementing the <xref:Metalama.Framework.Code.IExpression> interface.
 
-- **Converting dynamic to IExpression.** Whenever you've a `dynamic` expression and need a compile-time <xref:Metalama.Framework.Code.IExpression> object, you can simply cast the `dynamic` into `IExpression`.
+- **Converting dynamic to IExpression.** Whenever you have a `dynamic` expression and need a compile-time <xref:Metalama.Framework.Code.IExpression> object, you can simply cast the `dynamic` into `IExpression`.
 
-- **Converting IExpression to dynamic.** Conversely, when you've an `IExpression` and want a run-time object, use the `IExpression.Value` property to access it as a `dynamic` value.
+- **Converting IExpression to dynamic.** Conversely, when you have an `IExpression` and want a run-time object, use the `IExpression.Value` property to access it as a `dynamic` value.
 
 Instead of using techniques like parsing to generate <xref:Metalama.Framework.Code.IExpression> objects, it can be convenient to write the expression in T#/C# and convert it. This allows you to create expressions that depend on compile-time conditions and control flows.
 
@@ -166,3 +166,9 @@ You can use the <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionFactory.W
 
 > [!div class="see-also"]
 > <xref:invokers>
+> <xref:template-overview>
+> <xref:template-parameters>
+> <xref:run-time-expressions>
+> <xref:templates>
+> <xref:Metalama.Framework.Aspects.meta>
+> <xref:Metalama.Framework.Code.IExpression>

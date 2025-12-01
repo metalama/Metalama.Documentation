@@ -4,7 +4,7 @@ level: 300
 summary: "The document discusses the approach of applying an aspect to a target code and creating unit tests to verify the resulting code's behavior, using a logging aspect as an example."
 keywords: "unit tests"
 created-date: 2023-02-21
-modified-date: 2024-08-29
+modified-date: 2025-11-30
 ---
 
 # Testing the aspect's run-time behavior
@@ -39,7 +39,13 @@ class MyTests
 ```
 
 > [!TIP]
-> To make your aspects testable, you might benefit from using dependency injection in your aspects. This approach allows you to supply different implementations of your services in test scenarios than in production scenarios. For details, see @dependency-injection.
+> To make your aspects testable, you might benefit from using dependency injection in your aspects. This approach allows you to supply different implementations of your services in test scenarios than in production scenarios. For details, see <xref:dependency-injection>.
 
 > [!WARNING]
 > Run-time unit tests should not replace, but complement, aspect tests (see <xref:aspect-testing>). The problem with run-time unit tests is that the whole project is compiled at once, so it is difficult to debug a specific instance of an aspect in isolation from the other instances. The most convenient way to debug aspects during development is to create aspect tests. When a run-time unit test project fails to build because of an aspect, we suggest creating an aspect test to isolate, diagnose, and fix the issue. For more information, see <xref:debugging-aspects>.
+
+> [!div class="see-also"]
+> <xref:testing>
+> <xref:aspect-testing>
+> <xref:debugging-aspects>
+> <xref:dependency-injection>

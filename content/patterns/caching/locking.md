@@ -3,7 +3,7 @@ uid: cache-locking
 summary: "The document discusses how to prevent concurrent execution of cached methods in Metalama using a lock manager. It covers local and distributed lock strategies, handling lock timeouts, and implementing a distributed lock manager."
 keywords: "concurrent execution, cached methods, lock manager, local lock strategy, distributed lock manager, Metalama, locking strategy, ILockingStrategy interface, CachingProfile, lock timeouts"
 created-date: 2024-04-25
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 # Preventing concurrent execution of cached methods
 
@@ -54,6 +54,11 @@ Two properties of the <xref:Metalama.Patterns.Caching.CachingProfile> class infl
 Implementing a distributed locking algorithm is a complex task, and we at Metalama have chosen not to go deeper into this area (just as we do not provide the implementation of a cache itself). However, Metalama does offer the ability to use any third-party implementation.
 
 To make your lock manager work with the caching aspect, you should implement the <xref:Metalama.Patterns.Caching.Locking.ILockingStrategy> and <xref:Metalama.Patterns.Caching.Locking.ILockHandle> interfaces.
+
+> [!div class="see-also"]
+> <xref:caching>
+> <xref:caching-configuration>
+> <xref:caching-redis>
 
 
 

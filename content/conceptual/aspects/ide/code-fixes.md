@@ -4,7 +4,7 @@ level: 300
 summary: "The document provides detailed instructions on how to offer code fixes and refactorings using the Metalama Framework, including attaching code fixes to diagnostics, suggesting refactorings without diagnostics, and building multi-step code fixes. It also discusses performance considerations."
 keywords: "code fixes, refactorings, Metalama Framework, diagnostics, code fix suggestions, multi-step code fixes, CodeFixFactory, ScopedDiagnosticSink, ICodeActionBuilder, performance considerations"
 created-date: 2023-02-20
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Offering code fixes and refactorings
@@ -13,23 +13,19 @@ modified-date: 2024-08-04
 
 To attach a code fix to a diagnostic:
 
-1. Add the `Metalama.Extensions.CodeFixes` package
-2. After instantiating the diagnostic, use the <xref:Metalama.Extensions.CodeFixes.CodeFixExtensions.WithCodeFixes*?text=IDiagnostic.WithCodeFixes> extension method. 
-3. Use the <xref:Metalama.Extensions.CodeFixes.CodeFixFactory> class to create predefined, single-step code fixes (such as adding or removing a custom attribute). For more complex code fixes, see below.
-
-### Example
-
-TODO
+1. Add the `Metalama.Extensions.CodeFixes` package.
+2. After creating the diagnostic, call the <xref:Metalama.Extensions.CodeFixes.CodeFixExtensions.WithCodeFixes*?text=IDiagnostic.WithCodeFixes> extension method.
+3. Use the <xref:Metalama.Extensions.CodeFixes.CodeFixFactory> class to create predefined, single-step code fixes (such as adding or removing a custom attribute). For more complex code fixes, see <xref:code-fixes#building-custom-code-fixes>.
 
 ## Suggesting code refactorings without diagnostics
 
-An aspect or fabric can also suggest a code refactoring without reporting a diagnostic by invoking the <xref:Metalama.Extensions.CodeFixes.CodeFixExtensions.Suggest*> method.
+An aspect or fabric can also suggest a code refactoring without reporting a diagnostic by calling the <xref:Metalama.Extensions.CodeFixes.CodeFixExtensions.Suggest*> method.
 
 ### Example: code fix without diagnostic
 
 The example below demonstrates an aspect that implements the `ToString` method. By default, it includes all public properties of the class in the `ToString` result. However, the developer using the aspect can opt-out by adding `[NotToString]` to any property.
 
-The aspect utilizes the <xref:Metalama.Extensions.CodeFixes.CodeFixExtensions.Suggest*> method to add a code fix suggestion for all properties not yet annotated with `[NotToString]`.
+The aspect uses the <xref:Metalama.Extensions.CodeFixes.CodeFixExtensions.Suggest*> method to add a code fix suggestion for all properties not yet annotated with `[NotToString]`.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/ToStringWithSimpleCodeFix.cs name="ToString aspect with simple code fix"]
 
@@ -44,7 +40,7 @@ The <xref:Metalama.Extensions.CodeFixes.CodeFix> constructor accepts two argumen
 
 The title must be globally unique for the target declaration. Even two different aspects cannot provide two code fixes with the same title to the same declaration.
 
-The delegate will typically utilize one of the following methods of the <xref:Metalama.Extensions.CodeFixes.ICodeActionBuilder> interface:
+The delegate will typically use one of the following methods of the <xref:Metalama.Extensions.CodeFixes.ICodeActionBuilder> interface:
 
 | Method | Description |
 |------|----|
@@ -74,8 +70,12 @@ The custom code fix performs the following actions:
 
 * At design time, all code fix titles, including those added by the <xref:Metalama.Extensions.CodeFixes.CodeFixExtensions.Suggest*> method, are cached for the complete solution. Therefore, you should avoid adding a large number of suggestions. The current Metalama design is not suited for this scenario.
 
-
 > [!div class="see-also"]
 > <xref:live-template>
-
+> <xref:building-ide-interactions>
+> <xref:diagnostics>
+> <xref:Metalama.Extensions.CodeFixes.CodeFix>
+> <xref:Metalama.Extensions.CodeFixes.CodeFixFactory>
+> <xref:Metalama.Extensions.CodeFixes.ICodeActionBuilder>
+> <xref:Metalama.Extensions.CodeFixes.CodeFixExtensions>
 

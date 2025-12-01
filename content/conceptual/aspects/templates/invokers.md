@@ -4,7 +4,7 @@ level: 300
 summary: "Learn how to generate run-time code that invokes methods, accesses properties and fields, raises events, works with indexers, and creates tuple instances using the invoker API from the code model."
 keywords: "invokers, IMethodInvoker, IExpression, method invocation, property access, field access, event handling, indexers, tuple creation, code generation"
 created-date: 2025-11-07
-modified-date: 2025-11-07
+modified-date: 2025-11-30
 ---
 
 # Generating code based on the code model
@@ -144,3 +144,9 @@ var firstElement = tupleType.TupleElements[0].WithObject( tupleInstance ).Value;
 
 > [!div class="see-also"]
 > <xref:dynamic-typing>
+> <xref:templates>
+> <xref:Metalama.Framework.Code.Invokers>
+> <xref:Metalama.Framework.Code.Invokers.IMethodInvoker>
+> <xref:Metalama.Framework.Code.Invokers.IFieldOrPropertyInvoker>
+> <xref:Metalama.Framework.Code.Invokers.IEventInvoker>
+> <xref:Metalama.Framework.Code.Invokers.IIndexerInvoker>

@@ -1,8 +1,10 @@
 ---
 uid: overriding-constructors
+level: 300
+summary: "This article explains how to override constructors in Metalama, including when to use this approach versus alternatives like initializers or constructor parameters."
 keywords: "overriding constructors, Metalama, BuildAspect, AdviserExtensions.Override, initialization statement, constructor parameters"
 created-date: 2024-06-19
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Overriding constructors
@@ -31,6 +33,12 @@ To invoke the original implementation, call <xref:Metalama.Framework.Aspects.met
 
 ## Example: logging
 
-The following example illustrates how overriding constructors works. The `LogConstructors` aspect overrides all constructors of a class and encloses their implementation with logging statements. We apply the aspect to a class that has two chained constructors. The program output shows a confusing log, where it seems that both constructors have been called in sequence rather than being nested. This paradox is explained by the fact that the call to the next constructor happens outside of the code modified by the template.
+The following example illustrates how overriding constructors works. The `LogConstructors` aspect overrides all constructors of a class and encloses their implementation with logging statements. We apply the aspect to a class that has two chained constructors. The program output shows a confusing log where it seems that both constructors have been called in sequence rather than being nested. This paradox is explained by the fact that the call to the next constructor happens outside of the code modified by the template.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/OverrideConstructor.cs name="Overriding a constructor"]
+
+> [!div class="see-also"]
+> <xref:initializers>
+> <xref:introducing-constructor-parameters>
+> <xref:Metalama.Framework.Aspects.AdviserExtensions.Override*>
+> <xref:overriding-methods>

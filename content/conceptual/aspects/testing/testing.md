@@ -4,7 +4,7 @@ level: 300
 summary: "The document outlines three strategies for testing aspects: compile-time tests, run-time tests, and traditional unit tests, each serving different purposes and scenarios."
 keywords: "aspect testing, compile-time tests, run-time tests, unit tests, code transformation tests, error reporting tests, Xunit, testing framework, Metalama"
 created-date: 2023-01-26
-modified-date: 2024-08-29
+modified-date: 2025-11-30
 ---
 
 # Testing aspects
@@ -29,7 +29,7 @@ There are three complementary strategies to test your aspects. The first strateg
             <xref:run-time-testing>
         </td>
         <td>
-        These tests confirm the run-time behavior of the aspect. In this approach, you apply your aspect to some test target code and evaluate the _behavior_ of the combination of the aspect and the target code by executing the transformed code in a unit test and assessing its run-time behavior. For this approach, you can use a conventional Xunit project or any other testing framework, as there is nothing specific to Metalama.    
+        These tests confirm the run-time behavior of the aspect. In this approach, you apply your aspect to some test target code and evaluate the _behavior_ of the combination of the aspect and the target code by executing the transformed code in a unit test and assessing its run-time behavior. For this approach, you can use a conventional xUnit project or any other testing framework, as there is nothing specific to Metalama.    
         </td>
     </tr>
     <tr>
@@ -50,6 +50,9 @@ There are three complementary strategies to test your aspects. The first strateg
 </tr>
 </table>
 
-
+> [!div class="see-also"]
+> <xref:aspects>
+> <xref:Metalama.Testing.AspectTesting>
+> <xref:Metalama.Testing.UnitTesting>
 
 

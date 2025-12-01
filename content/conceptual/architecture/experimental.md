@@ -4,7 +4,7 @@ level: 200
 summary: "The document explains how to mark APIs as experimental using Metalama's ExperimentalAttribute attribute and Experimental compile-time method, offering step-by-step guides and examples."
 keywords: "experimental API, Metalama, ExperimentalAttribute, Obsolete attribute, warnings, Metalama.Extensions.Architecture"
 created-date: 2023-03-23
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Marking experimental APIs
@@ -37,9 +37,9 @@ If you wish to mark several APIs as experimental using a programmatic rule inste
 
 3. Import the <xref:Metalama.Framework.Fabrics> and <xref:Metalama.Extensions.Architecture> namespaces to benefit from extension methods.
 
-4. Edit the  <xref:Metalama.Framework.Fabrics.ProjectFabric.AmendProject*>,  <xref:Metalama.Framework.Fabrics.NamespaceFabric.AmendNamespace*> or  <xref:Metalama.Framework.Fabrics.TypeFabric.AmendType*> of this method. 
+4. Edit the <xref:Metalama.Framework.Fabrics.ProjectFabric.AmendProject*>, <xref:Metalama.Framework.Fabrics.NamespaceFabric.AmendNamespace*>, or <xref:Metalama.Framework.Fabrics.TypeFabric.AmendType*> method. 
 
-5. Select the experimental APIs using the <xref:Metalama.Framework.Fabrics.IQuery`1.Select*>, <xref:Metalama.Framework.Fabrics.IQuery`1.SelectMany*>  and <xref:Metalama.Framework.Fabrics.IQuery`1.Where*> methods.
+5. Select the experimental APIs using the <xref:Metalama.Framework.Fabrics.IQuery`1.Select*>, <xref:Metalama.Framework.Fabrics.IQuery`1.SelectMany*>, and <xref:Metalama.Framework.Fabrics.IQuery`1.Where*> methods.
 
 6. Call the <xref:Metalama.Extensions.Architecture.ArchitectureExtensions.Experimental*> method.
 
@@ -48,6 +48,11 @@ If you wish to mark several APIs as experimental using a programmatic rule inste
 In the following example, all public members of `ExperimentalNamespace` are programmatically marked as experimental.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/Architecture/Experimental_Fabric.cs tabs="target"]
+
+> [!div class="see-also"]
+> <xref:validation>
+> <xref:Metalama.Extensions.Architecture.Aspects.ExperimentalAttribute>
+> <xref:fabrics>
 
 
 

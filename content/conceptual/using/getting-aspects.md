@@ -4,7 +4,7 @@ level: 100
 summary: "The document provides information about using pre-built aspects in projects, including demo aspects and those from the Metalama community, without altering source code."
 keywords: "pre-built aspects, source code, NuGet package, Metalama.Documentation.QuickStart, Metalama Marketplace, open-source aspects"
 created-date: 2023-03-02
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 # Getting aspects
 
@@ -29,10 +29,14 @@ When applied, these aspects change the behavior of your source code without alte
 
 ## Metalama Marketplace
 
-Don't use the demo aspects in real projects. Instead, [Metalama Marketplace](https://www.postsharp.net/metalama/marketplace) and find dozens of open-source aspects and extensions.
+Don't use the demo aspects in real projects. Instead, visit [Metalama Marketplace](https://www.postsharp.net/metalama/marketplace) and find dozens of open-source aspects and extensions.
 
-
-
-
+> [!div class="see-also"]
+>
+> **See also**
+>
+> <xref:using>
+> <xref:quickstart-adding-aspects>
+> <xref:distributing>
 
 

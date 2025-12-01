@@ -4,7 +4,7 @@ level: 200
 summary: "The document explains the process of separating from the Metalama software framework, using the 'metalama divorce' command. It outlines the potential drawbacks and a seven-step procedure to ensure a smooth transition."
 keywords: "metalama divorce, separating from Metalama, inject generated code, manual maintenance, boilerplate code, .NET, remove references"
 created-date: 2023-03-31
-modified-date: 2024-08-22
+modified-date: 2025-11-30
 ---
 
 # Divorcing from Metalama
@@ -17,7 +17,7 @@ A few years ago, while serenading an Israeli prospect with the sweet melodies of
 
 Enter Metalama, the humble spouse of the software world! Unlike that clingy ex-partner, Metalama gracefully accepts when it's time to part ways and makes the breakup process as smooth as possible. With the `metalama divorce` command, there's no need for a lengthy, handwritten code separation. It's like a considerate partner injecting the generated code right into your source code, preserving your sanity and your time.
 
-Of course, you'll no longer enjoy the benefits of Metalama. You'll have to write your boilerplate code by hand again validate your architecture by manual code review over and over again. But hey, it's your choice! If you don't enjoy the relationship, Metalama won't be the one to force you to stay. It understands that sometimes, you just have to go back to the good ol' fashioned way of doing things.
+Of course, you'll no longer enjoy the benefits of Metalama. You'll have to write your boilerplate code by hand again and validate your architecture through manual code reviews. But hey, it's your choice! If you don't enjoy the relationship, Metalama won't be the one to force you to stay. It understands that sometimes, you just have to go back to the good ol' fashioned way of doing things.
 
 In just a few hours, Metalama will be but a distant memory, allowing you to return to your beloved, plain-Jane Microsoft compiler. So, raise a toast to Metalama, the software that makes digital divorces swift, smooth, and a tiny bit hilarious, while keeping your valuable time intact and demonstrating that not all breakups have to be painful!
 
@@ -124,10 +124,13 @@ dotnet build /t:rebuild
 # Write generated code back to the source code
 metalama divorce
 
-## Format
+# Format
 dotnet format
 ```
 
-
+> [!div class="see-also"]
+> <xref:understanding-your-code-with-aspects>
+> <xref:dotnet-tool>
+> <xref:msbuild-properties>
 
 

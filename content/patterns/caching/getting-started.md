@@ -3,7 +3,7 @@ uid: caching-getting-started
 summary: "The document provides a guide on how to use Metalama Caching to enhance application performance, with instructions for projects with and without dependency injection. It also discusses the importance of customizing the caching key."
 keywords: "caching, Metalama Caching, application performance, CacheAttribute, ICachingService, CachingService, .NET Core, caching key, CachingService.Default"
 created-date: 2024-04-25
-modified-date: 2024-08-16
+modified-date: 2025-11-30
 ---
 
 # Getting started with Metalama Caching
@@ -65,6 +65,12 @@ When dependency injection is disabled, we can also cache `static` methods. Obser
 ## What's next
 
 So far, so good. However, if your cached methods have more complex parameters than intrinsic types like `int` or `string` (and a dozen of other well-known types), Metalama Caching will use the `ToString` method to represent the parameter in the caching key. This approach may not always be appropriate. In the next article, we'll discuss how to customize the caching key.
+
+> [!div class="see-also"]
+> <xref:caching>
+> <xref:caching-keys>
+> <xref:caching-invalidation>
+> <xref:dependency-injection>
 
 
 

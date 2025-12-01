@@ -4,19 +4,19 @@ level: 300
 summary: "The document provides a guide on how to report or suppress diagnostics, including errors, warnings, or info messages, from an aspect in C# programming. It also outlines the benefits and provides examples."
 keywords: "diagnostics, errors, warnings, suppress, C# compiler, report diagnostics, suppress diagnostics, Metalama.Framework.Diagnostics, DiagnosticDefinition, SuppressionDefinition"
 created-date: 2023-01-26
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Reporting and suppressing diagnostics
 
-This article provides guidance on how to report a diagnostic, including errors, warnings, or information messages, from an aspect or suppress a diagnostic reported by the C# compiler or another aspect.
+This article provides guidance on how to report a diagnostic (including errors, warnings, or information messages) from an aspect, or suppress a diagnostic reported by the C# compiler or another aspect.
 
 ## Benefits
 
 * **Prevent non-intuitive compilation errors**: Aspects applied to unexpected or untested kinds of declarations can lead to confusing exceptions or errors during the compilation of the transformed code. This confusion can be mitigated by reporting clear error messages when the target of the aspect fails to meet expectations. Refer to <xref:eligibility> for this use case.
 * **Eliminate confusing warnings**: The C# compiler and other analyzers, unaware of the code transformation by your aspect, may report irrelevant warnings. Suppressing these warnings with your aspect can reduce confusion and save developers from manually suppressing these warnings.
 * **Enhance user productivity**: Overall, reporting and suppressing relevant diagnostics can significantly improve the productivity of those using your aspect.
-* **Diagnostic-only aspects**: You can create aspects that solely report or suppress diagnostics without transforming any source code. Refer to <xref:validation> for additional details and benefits.
+* **Diagnostic-only aspects**: You can create aspects that solely report or suppress diagnostics without transforming any source code. Refer to <xref:aspect-validating> for additional details and benefits.
 
 ## Reporting a diagnostic
 
@@ -45,7 +45,7 @@ The following aspect requires a field named `_logger` to exist in the target typ
 
 ## Suppressing a diagnostic
 
-The C# compiler or other analyzers may report warnings to the target code of your aspects. Since neither the C# compiler nor the analyzers are aware of your aspect, some of these warnings may be irrelevant. As an aspect author, it is good practice to prevent the reporting of irrelevant warnings.
+The C# compiler or other analyzers may report warnings to the target code of your aspects. Since neither the C# compiler nor the analyzers are aware of your aspect, some of these warnings may be irrelevant. As an aspect author, it's good practice to prevent the reporting of irrelevant warnings.
 
 To suppress a diagnostic:
 
@@ -77,7 +77,10 @@ When your aspect's `BuildAspect` method is executed, it views the code model as 
 
 If you need to validate the code after all aspects have been applied, see <xref:aspect-validating>.
 
-
-
-
+> [!div class="see-also"]
+> <xref:eligibility>
+> <xref:aspect-validating>
+> <xref:Metalama.Framework.Diagnostics.DiagnosticDefinition>
+> <xref:Metalama.Framework.Diagnostics.SuppressionDefinition>
+> <xref:Metalama.Framework.Diagnostics.ScopedDiagnosticSink>
 

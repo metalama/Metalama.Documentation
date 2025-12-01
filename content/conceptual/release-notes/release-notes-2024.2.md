@@ -87,7 +87,7 @@ Diagnostic suppressions can now be filtered by argument thanks to the new <xref:
 
 ## Improvements in the test framework
 
-* The default diff interactive tool will now be opened when an aspect test fails (i.e., the expected snapshot is different from the actual one). The feature works with [DiffEngine](https://github.com/VerifyTests/DiffEngine) and integrates with [DiffEngineTray](https://github.com/VerifyTests/DiffEngine/blob/main/docs/tray.md).
+* The default diff interactive tool will now be opened when an aspect test fails (i.e., the expected snapshot is different from the actual one). The feature works with [DiffEngine](https://github.com/VerifyTests/DiffEngine) and integrates with [DiffEngineTray](https://github.com/VerifyTests/DiffEngine/blob/HEAD/docs/tray.md).
 
 ## Improvements in the code model
 

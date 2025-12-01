@@ -77,7 +77,7 @@ workspace
 
 ### Applying workspace filters
 
-Apply filters directly to the mutable `workspace` object using <xref:Metalama.Framework.Workspaces.Workspace.ApplyFilter*>:
+Use <xref:Metalama.Framework.Workspaces.Workspace.ApplyFilter*> to apply filters directly to the `workspace` object:
 
 ```csharp
 workspace.ApplyFilter( p => p.TargetFramework == "net8.0" );

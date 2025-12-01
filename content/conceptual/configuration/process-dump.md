@@ -4,7 +4,7 @@ level: 200
 summary: "The document provides a step-by-step guide on how to create and share a process dump for troubleshooting issues with Metalama, including warnings about potential confidentiality of information."
 keywords: "Metalama issues, troubleshooting, process dump, confidentiality, Metalama command-line tool, dotnet dump tool, diagnostics.json, process crash, process dump collection, upload process dump."
 created-date: 2023-01-11
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Creating a process dump
@@ -16,7 +16,7 @@ If you're encountering issues with Metalama, our support team might request a pr
 >
 > Process dumps could include a copy of your source code. While we treat process dumps as confidential material, your company might not permit you to send us a process dump without management approval.
 
-## Step 1. Install the PostSharp Command-Line Tool
+## Step 1. Install the Metalama Command-Line Tool
 
 Install the `metalama` command-line tool following the instructions in <xref:dotnet-tool>.
 
@@ -92,5 +92,10 @@ Upload this file to an online storage service like OneDrive.
 
 Instead, kindly send us the link via [email](mailto:hello@postsharp.net) or private message on [Slack](https://www.postsharp.net/slack).
 
+> [!div class="see-also"]
+> <xref:configuration>
+> <xref:dotnet-tool>
+> <xref:creating-logs>
+> <xref:profiling>
 
 

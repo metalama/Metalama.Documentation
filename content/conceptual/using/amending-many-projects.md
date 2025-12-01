@@ -4,7 +4,7 @@ level: 300
 summary: "The document provides instructions on how to add aspects to multiple projects in a repository using transitive project fabrics and common project fabrics, including their execution order."
 keywords: "transitive project fabrics, common project fabrics, execution order, repository, multiple projects, central location, aspect libraries, architectural rules, dependency graph, Directory.Build.props"
 created-date: 2023-03-04
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Adding aspects to multiple projects
@@ -134,7 +134,14 @@ Then the projects have the following fabrics:
 | `Project11` | `SharedFabric`, `Project11Fabric` |
 | `Project12` | `SharedFabric` |
 | `Project21` | `SharedFabric` |
-| `Project12` | `SharedFabric`, `Project21Fabric` |
+| `Project22` | `SharedFabric`, `Project21Fabric` |
 
-
+> [!div class="see-also"]
+>
+> **See also**
+>
+> <xref:using>
+> <xref:fabrics>
+> <xref:fabrics-adding-aspects>
+> <xref:distributing>
 

@@ -4,7 +4,7 @@ summary: "Memoization is an optimization technique that caches results of determ
 level: 100
 keywords: "memoization, optimization, caching, Metalama, Memoize aspect, high-performance caching, System.Lazy alternative, .NET"
 created-date: 2024-05-13
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Metalama.Patterns.Memoization
@@ -43,6 +43,10 @@ Memoization can be considered as a simple form of caching. The <xref:Metalama.Pa
 | **Unicity of cache items** | Specific to the current instance or type. | Based on explicit `string` cache keys. |
 | **Complexity & overhead**  | Minimal overhead.                         | Significant overhead related to the generation of cache keys and, in case of distributed caching, serialization.  |
 | **Expiration & invalidation** | No expiration or invalidation.      | Advanced and configurable expiration policies and invalidation APIs.  |
+
+> [!div class="see-also"]
+> <xref:patterns>
+> <xref:caching>
 
 
 

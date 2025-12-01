@@ -4,7 +4,7 @@ level: 200
 summary: "The document provides a guide on how to override fields and properties using the Metalama.Framework package in C#, including examples of trimming strings and normalizing values to uppercase."
 keywords: "override fields, override properties, Metalama.Framework, OverrideFieldOrPropertyAspect, field transformation, property template, trim strings, normalize uppercase"
 created-date: 2023-03-01
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Getting started: overriding fields and properties
@@ -46,9 +46,9 @@ In this aspect, you'll see how you can trim whitespace before and after string v
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.EnhanceProperties/Trimmed.cs name="Trimming string fields and properties"]
 
-The aspect doesn't need to modify the getter, so it only calls `meta.Proceed()`, and Metalama replaces this call with the original implementation of the property. We could have written `get => meta.Target.PropertyOrField.Value` instead, achieving the same effect.
+The aspect doesn't need to modify the getter, so it only calls `meta.Proceed()`, and Metalama replaces this call with the original implementation of the property. We could have written `get => meta.Target.FieldOrProperty.Value` instead, achieving the same effect.
 
-The setter is modified to call the `Trim` method on the input `value`. The most concise and simple code is `set => meta.Target.PropertyOrField.Value = value?.Trim`. Alternatively, we could have written the following code:
+The setter is modified to call the `Trim` method on the input `value`. The most concise and simple code is `set => meta.Target.FieldOrProperty.Value = value?.Trim()`. Alternatively, we could have written the following code:
 
 ```cs
 set
@@ -79,4 +79,9 @@ If you want to go deeper into field/property overrides, consider exploring the f
 > <xref:templates>
 > <xref:overriding-fields-or-properties>
 > <xref:simple-override-method>
+> <xref:simple-aspects>
+> <xref:Metalama.Framework.Aspects.OverrideFieldOrPropertyAspect>
+> <xref:Metalama.Framework.Aspects.GetterTemplateSelector>
+> <xref:Metalama.Framework.Code.IFieldOrProperty>
+> <xref:Metalama.Framework.Code.IProperty>
 

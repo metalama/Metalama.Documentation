@@ -2,6 +2,8 @@
 uid: observability-standard-cases
 level: 200
 keywords: "Metalama.Patterns.Observability, automatic properties, explicitly-implemented properties, field-backed properties, class inheritance, OnPropertyChanged method, ObservableAttribute, INotifyPropertyChanged, child objects, MVVM architectures"
+created-date: 2024-06-11
+modified-date: 2025-11-30
 ---
 
 # Scenarios Supported by the Observable Aspect
@@ -61,4 +63,7 @@ The `OnObservablePropertyChanged` method is called when a property implementing 
 Both methods are annotated with the <xref:Metalama.Patterns.Observability.ObservedExpressionsAttribute?text=[ObservedExpressions]>. They form a contract between the base type and the derived types and inform the derived types about the properties for which the methods will be invoked.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Observability/ChildObject_Derived.cs  tabs="target"]
+
+> [!div class="see-also"]
+> <xref:observability>
 

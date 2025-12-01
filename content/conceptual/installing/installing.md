@@ -4,7 +4,7 @@ level: 100
 summary: "This document provides instructions on how to install Metalama, including the Visual Studio Tools for Metalama, the Metalama Command Line Tool, and the process of registering a license key."
 keywords: "install Metalama, Visual Studio Tools for Metalama, PostSharp, NuGet packages, Metalama Command Line Tool"
 created-date: 2023-03-04
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Installing Metalama
@@ -20,4 +20,9 @@ The core features of Metalama are implemented through a set of NuGet packages, e
 | <xref:dotnet-tool>    | This article details the process of installing the Metalama Command Line Tool. It isn't necessary to read this article during your initial familiarization with the tool.        |
 | <xref:register-license>     |  This article explains how to transition from trial mode to Metalama Free or how to register a license key. You can skip this article while your trial period is active.        |
 
+> [!div class="see-also"]
+> <xref:main-getting-started>
+> <xref:using-metalama>
+> <xref:packages>
+> <xref:configuration>
 

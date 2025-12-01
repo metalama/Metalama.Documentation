@@ -4,7 +4,7 @@ level: 300
 summary: "The document provides a detailed guide on using auxiliary templates in Metalama, including their creation, invocation, and usage in different scenarios like code reuse, abstraction, return statements, dynamic invocation of generic templates, and delegate-like invocation."
 keywords: "Auxiliary templates, abstraction, Metalama, template invocation, generic templates, delegate-like invocation, statement factory"
 created-date: 2023-12-11
-modified-date: 2025-11-07
+modified-date: 2025-11-30
 ---
 
 # Calling auxiliary templates
@@ -112,3 +112,8 @@ The following example generates an `Execute` method which has two arguments: a m
 > [!div class="see-also"]
 > <xref:template-overview>
 > <xref:template-parameters>
+> <xref:templates>
+> <xref:Metalama.Framework.Aspects.TemplateAttribute>
+> <xref:Metalama.Framework.Aspects.TemplateInvocation>
+> <xref:Metalama.Framework.Aspects.meta.InvokeTemplate*>
+> <xref:Metalama.Framework.Code.SyntaxBuilders.StatementFactory>

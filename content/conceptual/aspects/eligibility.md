@@ -4,18 +4,18 @@ level: 300
 summary: "The document explains how to define eligibility for aspects in code, ensuring predictable behavior, standard error messages, and relevant IDE suggestions. It provides examples and discusses benefits, custom eligibility conditions, eligibility builders, and when to emit custom errors."
 keywords: "eligibility, aspect, declarations, build errors, correct run-time behavior, Metalama.Framework.Eligibility, eligibility conditions, IEligibilityBuilder, MustSatisfy, custom errors"
 created-date: 2023-02-20
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Defining the eligibility of aspects
 
-Most aspects are designed and implemented for specific kinds of target declarations. For instance, you may decide that your caching aspect won't support `void` methods or methods with `out` or `ref` parameters. As the author of the aspect, it is essential to ensure that users of your aspect apply it only to the declarations that you expect. Otherwise, the aspect may cause build errors with confusing messages or even incorrect run-time behavior.
+Most aspects are designed and implemented for specific kinds of target declarations. For instance, you may decide that your caching aspect won't support `void` methods or methods with `out` or `ref` parameters. As the aspect author, it's essential to ensure that users of your aspect apply it only to the declarations you expect. Otherwise, the aspect may cause build errors with confusing messages or even incorrect run-time behavior.
 
 ## Benefits
 
 Defining the eligibility of an aspect provides the following benefits:
 
-* **Predictable behavior**: Applying an aspect to a declaration for which the aspect was not designed or tested can be a very confusing experience for your users due to error messages they may not understand. As the author of the aspect, it is your responsibility to ensure that using your aspect is easy and predictable.
+* **Predictable behavior**: Applying an aspect to a declaration for which the aspect was not designed or tested can be a very confusing experience for your users due to error messages they may not understand. As the aspect author, it's your responsibility to ensure that using your aspect is easy and predictable.
 * **Standard error messages**: All eligibility error messages are standard, making them easier to understand for aspect users.
 * **Relevant suggestions in the IDE**: The IDE will only propose code actions in the refactoring menu for eligible declarations.
 
@@ -23,7 +23,7 @@ Defining the eligibility of an aspect provides the following benefits:
 
 To define the eligibility of your aspect, implement or override the <xref:Metalama.Framework.Eligibility.IEligible`1.BuildEligibility*> method of the aspect. Use the `builder` parameter, which is of type <xref:Metalama.Framework.Eligibility.IEligibilityBuilder`1>, to specify the requirements of your aspect. For instance, use <xref:Metalama.Framework.Eligibility.EligibilityExtensions.MustNotBeAbstract*?text=builder.MustNotBeAbstract()> to require a non-abstract method.
 
->[!NOTE]
+> [!NOTE]
 > Your implementation of <xref:Metalama.Framework.Eligibility.IEligible`1.BuildEligibility*> must not reference any instance member of the class. This method is called on an instance obtained using `FormatterServices.GetUninitializedObject`, i.e., _without invoking the class constructor_.
 
 ### Example: allowing instance methods only
@@ -34,7 +34,7 @@ In the following example, we restrict the eligibility of a logging aspect to non
 
 ## Validating the declaring type, parameter type, or return type
 
-The `Must*` methods of the <xref:Metalama.Framework.Eligibility.EligibilityExtensions> class apply to the direct aspect of the aspect. If you want to validate something else, such as the declaring type of the member or the method return type, use methods like <xref:Metalama.Framework.Eligibility.EligibilityExtensions.DeclaringType*>, <xref:Metalama.Framework.Eligibility.EligibilityExtensions.ReturnType*>, or <xref:Metalama.Framework.Eligibility.EligibilityExtensions.Parameter*> before calling the `Must*` method.
+The `Must*` methods of the <xref:Metalama.Framework.Eligibility.EligibilityExtensions> class apply to the direct target of the aspect. If you want to validate something else, such as the declaring type of the member or the method return type, use methods like <xref:Metalama.Framework.Eligibility.EligibilityExtensions.DeclaringType*>, <xref:Metalama.Framework.Eligibility.EligibilityExtensions.ReturnType*>, or <xref:Metalama.Framework.Eligibility.EligibilityExtensions.Parameter*> before calling the `Must*` method.
 
 The benefit of using these methods is that the error message is more informative when the user attempts to add the aspect to an ineligible condition.
 
@@ -98,5 +98,11 @@ The following example expands the previous one, reporting custom errors when the
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/EligibilityAndValidation.cs name="Eligibility and Validation"]
 
+> [!div class="see-also"]
+> <xref:diagnostics>
+> <xref:aspect-inheritance>
+> <xref:Metalama.Framework.Eligibility.IEligible`1>
+> <xref:Metalama.Framework.Eligibility.IEligibilityBuilder`1>
+> <xref:Metalama.Framework.Eligibility.EligibilityExtensions>
 
 

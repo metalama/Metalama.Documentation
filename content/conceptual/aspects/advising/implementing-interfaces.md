@@ -4,7 +4,7 @@ level: 300
 summary: "The document provides a guide on how to implement interfaces using the programmatic advising API in the Metalama Framework, with examples for IDisposable and Deep cloning."
 keywords: "Metalama Framework, implementing interfaces, programmatic advising API, AdviserExtensions.ImplementInterface, OverrideStrategy, InterfaceMemberAttribute"
 created-date: 2023-02-17
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 # Implementing interfaces
 
@@ -51,7 +51,7 @@ This approach can be used instead or in addition to the declarative one.
 
 It is useful in the following situations:
 
-* when the introduced interface is unknown to the aspect's author, e.g., when it can be dynamically specified by the aspect's user;
+* when the introduced interface is unknown to the aspect's author, for example, when it can be dynamically specified by the aspect's user;
 * when introducing a generic interface thanks to the ability to use generic templates (see <xref:template-parameters>).
 
 To programmatically add interface members, use one of the `Introduce` methods of the <xref:Metalama.Framework.Aspects.AdviserExtensions> class, as explained in <xref:introducing-members>. Make sure that these members are public.
@@ -60,7 +60,7 @@ If instead of adding public members you need to add explicit implementations, us
 
 ## Referencing interface members in other templates
 
-When introducing an interface member to the type, you often want to access it from templates. Unless the member is an explicit implementation, you've two options:
+When introducing an interface member to the type, you often want to access it from templates. Unless the member is an explicit implementation, you have two options:
 
 [comment]: # (TODO: better code examples)
 
@@ -91,3 +91,9 @@ The following strategies can be employed to access explicit implementations:
     ```
 
 - Introduce a private method with the concrete method implementation, and call this private member both from the interface member and the templates.
+
+> [!div class="see-also"]
+> <xref:introducing-members>
+> <xref:Metalama.Framework.Aspects.AdviserExtensions.ImplementInterface*>
+> <xref:Metalama.Framework.Aspects.InterfaceMemberAttribute>
+> <xref:Metalama.Framework.Aspects.OverrideStrategy>

@@ -1,9 +1,10 @@
 ---
 uid: advising-concepts
+level: 300
 summary: "The document explains the concept of transforming code using advice in aspect-oriented programming. It discusses two methods of adding advice: declaratively and imperatively. It also covers the use of templates."
 keywords: "aspect-oriented programming, transforming code, advice, declarative advising, imperative advising, IntroduceAttribute, IAspect.BuildAspect, AdviserExtensions, template methods, compile-time"
 created-date: 2023-02-20
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Transforming code: concepts
@@ -28,7 +29,7 @@ The following methods are available:
 * <xref:Metalama.Framework.Aspects.AdviserExtensions.Override*> allows you to replace the implementation of a method, field, property, event, or constructor.
 * <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceMethod*>, <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceProperty*>, <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceField*>, and <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceEvent*> enable your aspect to introduce new members into the target type. Refer to <xref:introducing-members#introducing-members-programmatically> for details.
 * <xref:Metalama.Framework.Aspects.AdviserExtensions.ImplementInterface*> allows the target type to implement an interface. Refer to <xref:implementing-interfaces> for details.
-* <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceAttribute*> and <xref:Metalama.Framework.Aspects.AdviserExtensions.RemoveAttributes*> allow adding and removing custom attributes. See <xref:adding-attributes> for details.
+* <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceAttribute*> and <xref:Metalama.Framework.Aspects.AdviserExtensions.RemoveAttributes*> allow you to add and remove custom attributes. See <xref:adding-attributes> for details.
 * <xref:Metalama.Framework.Aspects.AdviserExtensions.AddContract*> allows you to add a pre-condition or post-condition to a field, property, or parameter. See <xref:contracts> for details.
 * <xref:Metalama.Framework.Aspects.AdviserExtensions.AddInitializer*> allows you to add an initialization statement in the constructor or static constructor. See <xref:initializers> for details.
 * <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceParameter*> allows you to append a parameter to a constructor and pull them from constructors of derived classes. See <xref:introducing-constructor-parameters> for details.
@@ -47,3 +48,10 @@ With most types of advice, you must provide a _template_ of the member you want 
 Templates are written in standard C# code but combine two kinds of code: _compile-time_ and _run-time_. When some target code is advised, the compile-time part of the corresponding template is _executed_. The output of this execution is the run-time code, which is then injected into the source code to form the _transformed code_.
 
 For details, refer to <xref:templates>.
+
+> [!div class="see-also"]
+> <xref:advising-code>
+> <xref:Metalama.Framework.Aspects.IntroduceAttribute>
+> <xref:Metalama.Framework.Aspects.AdviserExtensions>
+> <xref:Metalama.Framework.Aspects.IAdviser`1>
+> <xref:templates>

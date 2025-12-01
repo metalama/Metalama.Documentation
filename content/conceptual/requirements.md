@@ -3,7 +3,7 @@ uid: requirements
 summary: "The document provides the requirements for using Metalama, a tool that integrates with Roslyn-based IDEs. It details the build environment, supported IDEs, target frameworks, and guidelines for synchronizing versions of Metalama, Visual Studio and .NET SDK."
 keywords: "Metalama, .NET SDK, Roslyn-based IDEs, Visual Studio, version synchronization, build environment, compatibility issues, C# features, SDK-style projects, target frameworks"
 created-date: 2023-01-26
-modified-date: 2024-11-06
+modified-date: 2025-11-30
 ---
 
 # Requirements
@@ -61,15 +61,24 @@ To avoid versioning issues, consider the following suggestions:
 
 * You can update your IDE or .NET SDK at any time without impacting Metalama projects, provided you don't start using new C# features in Metalama projects. In other words, merely updating Visual Studio shouldn't cause any issues.
 * Before you begin using new C# features in a Metalama project, ensure you update Metalama to a version that supports the new C# version. If you don't update, your code may fail to compile.
-* Always use a version of Visual Studio that is under active [mainstream support](https://docs.microsoft.com/en-us/lifecycle/policies/fixed#mainstream-support) by Microsoft. When a version of Visual Studio falls out of support, update to a supported version within three months. If you use an unsupported version, you'll only be able to use the language features of the last supported C# version _below_ the version that you are using. If you don't use a supported version of Visual Studio, you may be stuck with an unsupported version of Metalama.
+* Always use a version of Visual Studio that is under active [mainstream support](https://learn.microsoft.com/en-us/lifecycle/policies/fixed#mainstream-support) by Microsoft. When a version of Visual Studio falls out of support, update to a supported version within three months. If you use an unsupported version, you'll only be able to use the language features of the last supported C# version _below_ the version that you are using. If you don't use a supported version of Visual Studio, you may be stuck with an unsupported version of Metalama.
+
 As per our policy, we make our best effort to add support for new Roslyn versions no later than three weeks after their stable release and to remove support for obsolete versions no sooner than three months after they fall out of mainstream support by Microsoft.
 
 > [!WARNING]
 > We're dedicated to keeping Metalama forward-compatible with future .NET SDK and Visual Studio releases. While we actively address compatibility issues, we cannot guarantee that new updates to .NET or Visual Studio won't introduce breaking changes. For a smooth experience, keep your maintenance subscription current and update Metalama alongside your development environment.
 
-For more information on the support policies of Visual Studio, see [Visual Studio Product Lifecycle and Servicing](https://docs.microsoft.com/en-us/visualstudio/productinfo/vs-servicing) and [Visual Studio Channels and Release Rhythm](https://docs.microsoft.com/en-us/visualstudio/productinfo/release-rhythm).
+For more information on the support policies of Visual Studio, see [Visual Studio Product Lifecycle and Servicing](https://learn.microsoft.com/en-us/visualstudio/productinfo/vs-servicing) and [Visual Studio Channels and Release Rhythm](https://learn.microsoft.com/en-us/visualstudio/productinfo/release-rhythm).
 
 The rationale behind these suggestions is as follows:
 
 > [!NOTE]
 > The `Metalama.Compiler` package replaces the C# compiler included in Visual Studio or the .NET SDK. Therefore, your code will build against the version of Roslyn that Metalama was built for, regardless of the installed version of your IDE or the .NET SDK. To avoid incompatibilities after updates to the .NET SDK, the `Metalama.Compiler` package also includes a backup copy of all Roslyn analyzers normally included in the .NET SDK. In case of incompatibility, these backup copies will be used instead of the ones provided by your locally installed .NET SDK.
+
+> [!div class="see-also"]
+>
+> **See also**
+>
+> <xref:conceptual>
+> <xref:installing>
+> <xref:configuration>

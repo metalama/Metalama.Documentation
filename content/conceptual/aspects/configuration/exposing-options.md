@@ -4,7 +4,7 @@ level: 300
 summary: "The document provides a detailed guide on how to expose a configuration API using the Metalama.Framework.Options namespace. It explains how to create an options class, read options, configure options from a fabric, expose options directly on your aspect, and create a configuration custom attribute."
 keywords: "Metalama.Framework.Options, configuration API, options class, read options, configure options, IHierarchicalOptions, IIncrementalObject, ApplyChanges method, IHierarchicalOptionsProvider, custom attribute"
 created-date: 2024-08-04
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Exposing a configuration API
@@ -44,9 +44,7 @@ The following class demonstrates a typical implementation of <xref:Metalama.Fram
 
 ## Reading the options
 
-Reading options that apply to a different context requires some care. There are two APIs. Both are exposed under the expression.
-
-To read the options applying to any declaration, call the <xref:Metalama.Framework.Code.DeclarationExtensions.Enhancements*?text=declaration.Enhancements()> method and then <xref:Metalama.Framework.Code.DeclarationEnhancements`1.GetOptions*> method.
+To read the options applying to any declaration, call the <xref:Metalama.Framework.Code.DeclarationExtensions.Enhancements*?text=declaration.Enhancements()> method and then the <xref:Metalama.Framework.Code.DeclarationEnhancements`1.GetOptions*> method.
 
 > [!WARNING]
 > Options provided by _aspects_ through the <xref:Metalama.Framework.Options.IHierarchicalOptionsProvider> interface (see below) are applied shortly _before_ the aspect's <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method is executed. They won't be available to the <xref:Metalama.Framework.Code.DeclarationEnhancements`1.GetOptions*?text=d.Enhancements().GetOptions()> before that moment.
@@ -76,7 +74,7 @@ Often, you'll want to offer users of your aspect the possibility to specify opti
 
 To achieve this, your aspect must implement the <xref:Metalama.Framework.Options.IHierarchicalOptionsProvider> interface. This interface has a single method <xref:Metalama.Framework.Options.IHierarchicalOptionsProvider.GetOptions*> that returns a list of options objects, typically an instance of your option class wrapped into an array.
 
-Note that custom attributes can't have properties of nullable value types. Therefore, you can't just duplicate the properties of the option class into your aspect. Instead, you must create field-backed properties where every property is backed by a field of nullable field. With this design, the implementation of <xref:Metalama.Framework.Options.IHierarchicalOptionsProvider.GetOptions*> becomes a mapping of the backing fields of the aspects to the properties of the option class.
+Note that custom attributes can't have properties of nullable value types. Therefore, you can't just duplicate the properties of the option class into your aspect. Instead, you must create field-backed properties where every property is backed by a field of a nullable type. With this design, the implementation of <xref:Metalama.Framework.Options.IHierarchicalOptionsProvider.GetOptions*> becomes a mapping of the backing fields of the aspects to the properties of the option class.
 
 ### Example: aspect providing options
 
@@ -90,9 +88,15 @@ In addition to the programmatic API represented by the option class, you may wan
 
 To create a configuration custom attribute, follow these steps:
 
-1. Create a class derived from <xref:System.Attribute?text=System.Attribute>.
-2. Add the <xref:System.Attribute?text=[AttributeUsage]> attribute as required. Typically, you'll want to allow users to apply this attribute to the assembly and the enclosing type.
+1. Create a class derived from `System.Attribute`.
+2. Add the `[AttributeUsage]` attribute as required. Typically, you'll want to allow users to apply this attribute to the assembly and the enclosing type.
 3. Implement the <xref:Metalama.Framework.Options.IHierarchicalOptionsProvider> interface as described above.
 
-
-
+> [!div class="see-also"]
+> <xref:aspect-configuration>
+> <xref:configuration-custom-merge>
+> <xref:reading-msbuild-properties>
+> <xref:Metalama.Framework.Options.IHierarchicalOptions`1>
+> <xref:Metalama.Framework.Options.IIncrementalObject>
+> <xref:Metalama.Framework.Options.IHierarchicalOptionsProvider>
+> <xref:Metalama.Framework.Options.OptionQueryExtensions.SetOptions*>

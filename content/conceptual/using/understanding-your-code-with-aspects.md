@@ -4,7 +4,7 @@ level: 100
 summary: "This document explains how to understand aspect-oriented code using Metalama's tools like CodeLens, Diff Preview, and Debug Transformed Code. It also discusses explicit and implicit aspect applications."
 keywords: "aspect-oriented code, Metalama tools, CodeLens, Metalama Diff, Debug Transformed Code, understand code functionality, aspect explorer"
 created-date: 2023-02-16
-modified-date: 2024-08-22
+modified-date: 2025-11-30
 ---
 
 # Understanding your aspect-oriented code
@@ -74,4 +74,13 @@ Aspect Explorer answers the opposite question. It shows all aspects available in
 To open the Aspect Explorer tool window, use the top-level menu and select _Extension_ > _Metalama + PostSharp_ > _Aspect Explorer_.
 
 ![Aspect Explorer](images/aspect-explorer.png)
+
+> [!div class="see-also"]
+>
+> **See also**
+>
+> <xref:using>
+> <xref:quickstart-adding-aspects>
+> <xref:debugging-aspect-oriented-code>
+> <xref:install-vsx>
 

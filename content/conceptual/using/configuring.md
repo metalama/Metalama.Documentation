@@ -4,7 +4,7 @@ level: 200
 summary: "The document provides a guide on how to configure aspects with fabrics in the Metalama framework, detailing the process steps, example configurations, and information about inheritance of configuration options."
 keywords: "configuration, Metalama framework, IHierarchicalOptions, SetOptions, compile-time configuration"
 created-date: 2024-04-22
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Configuring aspects with fabrics
@@ -95,5 +95,12 @@ So, when you want to set some options for an entire class family, it's sufficien
 
 Options inherited from the base class take precedence over the options that come from the enclosing type (including that of nested types), the enclosing namespace, or the project.
 
-
+> [!div class="see-also"]
+>
+> **See also**
+>
+> <xref:using>
+> <xref:fabrics>
+> <xref:aspect-configuration>
+> <xref:configuration>
 

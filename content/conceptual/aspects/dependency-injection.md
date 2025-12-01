@@ -4,7 +4,7 @@ level: 300
 summary: "The document provides a detailed guide on injecting dependencies into aspects using the Metalama.Extensions.DependencyInjection project. It covers consuming dependencies, selecting a dependency injection framework, and implementing an adaptor for a new dependency injection framework."
 keywords: "dependency injection, Metalama.Extensions.DependencyInjection, .NET Core, constructor parameter, custom attribute, IDependencyInjectionFramework, introduce dependency, ServiceLocator, dependency injection framework, ILogger"
 created-date: 2023-02-20
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Injecting dependencies into aspects
@@ -17,7 +17,7 @@ In some cases, as the author of the aspect, you may not know which dependency in
 
 This is where the <xref:Metalama.Extensions.DependencyInjection> project comes in. Thanks to this namespace, your aspect can consume and pull a dependency with a single custom attribute. The code pattern to pull the dependency is abstracted by the <xref:Metalama.Extensions.DependencyInjection.Implementation.IDependencyInjectionFramework> interface, which is chosen by the user project.
 
-The <xref:Metalama.Extensions.DependencyInjection> namespace is open source and hosted on [GitHub](https://github.com/postsharp/Metalama.Framework.Extensions). It currently has implementations for the following dependency injection frameworks:
+The <xref:Metalama.Extensions.DependencyInjection> namespace is open source and hosted on [GitHub](https://github.com/metalama/Metalama/tree/HEAD/Metalama.Extensions). It currently has implementations for the following dependency injection frameworks:
 
 * <xref:Metalama.Extensions.DependencyInjection.Implementation.DefaultDependencyInjectionFramework> implements the default .NET Core pattern (see [Dependency injection in .NET](https://learn.microsoft.com/dotnet/core/extensions/dependency-injection)).
 * <xref:Metalama.Extensions.DependencyInjection.ServiceLocator.ServiceLocatorDependencyInjectionFramework> can be used by classes or projects that are not instantiated by a dependency injection framework thanks to a simple service locator pattern.
@@ -53,9 +53,9 @@ The following example is similar to the previous one but uses the `ServiceLocato
 
 By default, Metalama generates code for the default .NET dependency injection framework implemented in the ``Microsoft.Extensions.DependencyInjection`` namespace (also called the .NET Core dependency injection framework).
 
-If you want to select a different framework for a project, generally adding a reference to the package implementing this dependency framework is sufficient, e.g., `Metalama.Extensions.DependencyInjection.ServiceLocator`. These packages typically include a <xref:Metalama.Framework.Fabrics.TransitiveProjectFabric> that registers itself. This works well when the project has a single dependency injection framework.
+If you want to select a different framework for a project, generally, adding a reference to the package implementing this dependency framework is sufficient, e.g., `Metalama.Extensions.DependencyInjection.ServiceLocator`. These packages typically include a <xref:Metalama.Framework.Fabrics.TransitiveProjectFabric> that registers itself. This works well when the project has a single dependency injection framework.
 
-When several dependency injection frameworks can handle a specified dependency, Metalama select the one with the lowest priority value among them. This selection strategy can be customized for the whole project or for specified namespaces or types.
+When several dependency injection frameworks can handle a specified dependency, Metalama selects the one with the lowest priority value among them. This selection strategy can be customized for the whole project or for specified namespaces or types.
 
  To customize the selection strategy of the dependency injection framework for a specific aspect and dependency:
 
@@ -69,7 +69,7 @@ When several dependency injection frameworks can handle a specified dependency, 
 
 If you need to support a dependency injection framework or pattern for which no ready-made implementation exists, you can implement an adapter yourself.
 
-See [Metalama.Extensions.DependencyInjection.ServiceLocator on GitHub](https://github.com/postsharp/Metalama.Framework.Extensions/tree/master/src/Metalama.Extensions.DependencyInjection.ServiceLocator) for a working example.
+See [Metalama.Extensions.DependencyInjection.ServiceLocator on GitHub](https://github.com/metalama/Metalama.Framework.Extensions/tree/HEAD/src/Metalama.Extensions.DependencyInjection.ServiceLocator) for a working example.
 
 The steps are as follows:
 
@@ -86,5 +86,8 @@ Our implementation of <xref:Metalama.Extensions.DependencyInjection.Implementati
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.DependencyInjection/LogCustomFramework.cs name="Custom Adapter"]
 
-
-
+> [!div class="see-also"]
+> <xref:Metalama.Extensions.DependencyInjection>
+> <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute>
+> <xref:Metalama.Extensions.DependencyInjection.Implementation.IDependencyInjectionFramework>
+> <xref:Metalama.Extensions.DependencyInjection.Implementation.DefaultDependencyInjectionFramework>

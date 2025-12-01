@@ -4,7 +4,7 @@ level: 400
 summary: "The document provides a guide on how to access the syntax tree in the Roslyn API from aspects using the Metalama SDK. It includes steps to reference the SDK and use the Roslyn API."
 keywords: "Roslyn API, syntax tree, Metalama SDK, Metalama.Framework.Sdk, Metalama.Framework, ISymbol.DeclaringSyntaxReferences, Metalama.Framework.Engine.CodeModel.SymbolExtensions, IDeclaration, GetSymbol, GetDocumentationCommentId"
 created-date: 2023-12-11
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Using the Roslyn API from aspects
@@ -30,7 +30,7 @@ Your aspect generally gets access to Roslyn types by using extension methods fro
 
 As an example, you could use Roslyn API to get the documentation comment ID for a Metalama declaration like this:
 
-```c#
+```csharp
 static string? GetDocumentationCommentId(this IDeclaration metalamaDeclaration)
 {
     var roslynSymbol = metalamaDeclaration.GetSymbol();
@@ -39,4 +39,11 @@ static string? GetDocumentationCommentId(this IDeclaration metalamaDeclaration)
 }
 ```
 
+> [!div class="see-also"]
+>
+> **See also**
+>
+> <xref:sdk>
+> <xref:aspect-weavers>
+> <xref:code-api>
 

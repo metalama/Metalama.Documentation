@@ -4,14 +4,14 @@ level: 300
 summary: "The document provides a guide on how to create custom validation rules in Metalama, including extending usage verification with custom predicates and creating new verification rules."
 keywords: "custom validation rules, Metalama, usage verification, custom predicates, Metalama.Extensions.Architecture, ReferencePredicate, validation rules, codebase validation"
 created-date: 2023-03-22
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Creating your own validation rules
 
 Metalama's true strength lies not in its pre-made features but in its ability to let you create custom rules for validating the codebase against your architecture.
 
-In this article, we'll demonstrate how to extend the [Metalama.Extensions.Architecture](https://www.nuget.org/packages/Metalama.Extensions.Architecture) package. This package is open source. For a better understanding of the instructions provided in this article, you can study its [source code](https://github.com/postsharp/Metalama.Extensions/tree/master/src/Metalama.Extensions.Architecture).
+In this article, we'll demonstrate how to extend the [Metalama.Extensions.Architecture](https://www.nuget.org/packages/Metalama.Extensions.Architecture) package. This package is open source. For a better understanding of the instructions provided in this article, you can study its [source code](https://github.com/metalama/Metalama/tree/HEAD/Metalama.Extensions/src/Metalama.Extensions.Architecture).
 
 ## Extending usage verification with custom predicates
 
@@ -19,7 +19,7 @@ Before creating rules from scratch, it's worth noting that some of the existing 
 
 To implement a new predicate, follow these steps:
 
-1. Create a new class and derive it from <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicate>. We recommend making this class `internal`.
+1. Create a new class and derive it from <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicate>. For convenience, you can also derive from <xref:Metalama.Extensions.Architecture.Predicates.ReferenceEndPredicate>, which simplifies predicates that rely on a single reference end (referencing or referenced). We recommend making this class `internal`.
 2. Add fields for all predicate parameters, and initialize these fields from the constructor.
 
     > [!NOTE]
@@ -38,7 +38,7 @@ In the following example, we create a custom predicate, `MethodNameEndsWith`, wh
 
 Before you build custom validation rules, you should have a basic understanding of the following topics:
 
-* <xref:aspect-design> (it is not necessary to learn about advising the code);
+* <xref:aspect-design> (you do not need to learn about advising the code)
 * <xref:diagnostics>;
 * <xref:eligibility>;
 * <xref:aspect-inheritance>;
@@ -64,9 +64,9 @@ Follow these steps.
 
 2. If your rule must be inherited, add the <xref:Metalama.Framework.Aspects.InheritableAttribute?text=[Inheritable]> attribute to the class. See <xref:aspect-inheritance> for details.
 
-3. For each error or warning you plan to report, add a static field of type <xref:Metalama.Framework.Diagnostics.DiagnosticDefinition> to your aspect class, as described in  <xref:diagnostics>.
+3. For each error or warning you plan to report, add a static field of type <xref:Metalama.Framework.Diagnostics.DiagnosticDefinition> to your aspect class, as described in <xref:diagnostics>.
 
-3. Implement the <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method. You've several options:
+4. Implement the <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method. You have several options:
 
     * If you need to validate the target declaration itself, or its members, you can inspect the code model under `builder.Target` and report diagnostics using `builder.Diagnostics.Report`.
     * If you need to validate the _references_ to the target declarations, see <xref:aspect-validating>.
@@ -81,9 +81,15 @@ Follow this procedure:
 2. Add the [<xref:Metalama.Framework.Aspects.CompileTimeAttribute?text=CompileTime>] custom attribute to the class.
 3. For each error or warning you plan to report, add a static field of type <xref:Metalama.Framework.Diagnostics.DiagnosticDefinition> to your fabric class, as described in <xref:diagnostics>.
 4. Create a `public static` extension method with a `this` parameter of type <xref:Metalama.Framework.Fabrics.IQuery`1> where `T` is the type of declarations you want to validate. Name it for instance `verifier`.
-5. If you need to apply the rule to _contained_ declarations, select them using the  <xref:Metalama.Framework.Fabrics.IQuery`1.Select*>,  <xref:Metalama.Framework.Fabrics.IQuery`1.SelectMany*> and  <xref:Metalama.Framework.Fabrics.IQuery`1.Where*> methods.
-6. From here, you've several options:
- * If you already know, based on the <xref:Metalama.Framework.Fabrics.IQuery`1.Select*>,  <xref:Metalama.Framework.Fabrics.IQuery`1.SelectMany*> and  <xref:Metalama.Framework.Fabrics.IQuery`1.Where*> methods, that the declaration violates the rule, you can immediately report a warning or error using the <xref:Metalama.Framework.Diagnostics.DiagnosticsQueryExtensions.ReportDiagnostic*> method.
+5. If you need to apply the rule to _contained_ declarations, select them using the <xref:Metalama.Framework.Fabrics.IQuery`1.Select*>, <xref:Metalama.Framework.Fabrics.IQuery`1.SelectMany*>, and <xref:Metalama.Framework.Fabrics.IQuery`1.Where*> methods.
+6. From here, you have several options:
+ * If you already know, based on the <xref:Metalama.Framework.Fabrics.IQuery`1.Select*>, <xref:Metalama.Framework.Fabrics.IQuery`1.SelectMany*>, and <xref:Metalama.Framework.Fabrics.IQuery`1.Where*> methods, that the declaration violates the rule, you can immediately report a warning or error using the <xref:Metalama.Framework.Diagnostics.DiagnosticsQueryExtensions.ReportDiagnostic*> method.
  * To validate references (i.e. dependencies), use <xref:Metalama.Extensions.Validation.ReferenceValidationQueryExtensions.ValidateInboundReferences*>.
  * To validate the declaration itself, use <xref:Metalama.Extensions.Validation.ValidationQueryExtensions.Validate*>.
+
+> [!div class="see-also"]
+> <xref:validation>
+> <xref:validating-usage>
+> <xref:aspect-validating>
+> <xref:Metalama.Extensions.Architecture>
 

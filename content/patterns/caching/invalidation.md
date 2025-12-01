@@ -3,7 +3,7 @@ uid: caching-invalidation
 summary: "The document explains how to use Metalama for cache invalidation in software engineering, detailing both declarative and imperative methods, and how to force cache to refresh. It also discusses compile-time validation."
 keywords: "cache invalidation, Metalama, remove from cache, caching keys, InvalidateCache attribute, CachingServiceExtensions"
 created-date: 2024-08-04
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 # Invalidating the cache
 
@@ -84,6 +84,11 @@ The following example is an update of the previous one. The `PriceCatalogue` ser
 If you want to call a method while skipping the cache, instead of calling  <xref:Metalama.Patterns.Caching.CachingServiceExtensions.Invalidate*?text=_cachingService.Invalidate> and then the method, you can simply call the <xref:Metalama.Patterns.Caching.CachingServiceExtensions.Refresh*?text=_cachingService.Refresh> method. The new result of the method will be stored in the cache.
 
 Contrary to <xref:Metalama.Patterns.Caching.CachingServiceExtensions.Invalidate*>, <xref:Metalama.Patterns.Caching.CachingServiceExtensions.Refresh*> will cause methods in the calling context to skip the cache.
+
+> [!div class="see-also"]
+> <xref:caching>
+> <xref:caching-getting-started>
+> <xref:caching-dependencies>
 
 
 

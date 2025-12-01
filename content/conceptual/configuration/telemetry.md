@@ -4,7 +4,7 @@ level: 200
 summary: "The document outlines the data Metalama collects, how to modify its settings, and how to disable telemetry or reset the device id. It also explains the conditions for license auditing."
 keywords: "telemetry, Metalama, disable telemetry, reset device id, license audit, Metalama Command Line Tools, environment variable, Visual Studio Tools, performance degradation, exception report"
 created-date: 2023-01-23
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Telemetry
@@ -64,6 +64,9 @@ Metalama Telemetry uses a randomly generated GUID to uniquely identify your devi
    metalama telemetry reset-device-id
    ```
 
+> [!div class="see-also"]
+> <xref:configuration>
+> <xref:dotnet-tool>
 
 
 

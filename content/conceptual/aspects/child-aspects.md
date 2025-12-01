@@ -4,7 +4,7 @@ level: 300
 summary: "The document explains how to add child aspects in Metalama Framework, the conditions they must follow, and how to access the parent aspect."
 keywords: "child aspects, parent aspect, Metalama Framework, IAspectBuilder, AddAspect method, aspect order, IQuery, RequireAspect method, aspect precedence, auditing aspects"
 created-date: 2023-02-17
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Adding child aspects
@@ -16,7 +16,7 @@ An aspect can introduce other aspects to child declarations. These aspects are k
 
 An aspect can add child aspects from the <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method by using the <xref:Metalama.Framework.Aspects.IAspectBuilder`1.Outbound?text=builder.Outbound> property, followed by calling the <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspect*> method. To introduce child aspects on members of the current declaration, use the <xref:Metalama.Framework.Fabrics.IQuery`1.Select*> or <xref:Metalama.Framework.Fabrics.IQuery`1.SelectMany*> method, and then invoke <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspect*> or <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspectIfEligible*>.
 
-## Overriding a child aspect with an attribute.
+## Overriding a child aspect with an attribute
 
 Note that any aspect added "manually" as a custom attribute takes precedence over aspects added by the parent aspect. In this case, the _primary instance_ of the aspect is the one created by the custom attribute, and the _secondary instance_ is the one added by the parent aspect. Secondary aspect instances are exposed on the <xref:Metalama.Framework.Aspects.IAspectInstance.SecondaryInstances?text=IAspectInstance.SecondaryInstances> property, which you can access from <xref:Metalama.Framework.Aspects.meta.AspectInstance?text=meta.AspectInstance> or <xref:Metalama.Framework.Aspects.IAspectBuilder.AspectInstance?text=builder.AspectInstance>.
 
@@ -41,3 +41,8 @@ Instead of calling <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAsp
 
 If you were using <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspect*> and the aspect was already present, a new aspect instance would be created, a primary aspect instance would be chosen, and the other instances would be made available as secondary instances. With <xref:Metalama.Framework.Aspects.AspectQueryExtensions.RequireAspect*>, there would be no secondary instance, but the parent aspect would be exposed as a _predecessor_ in the <xref:Metalama.Framework.Aspects.IAspectPredecessor.Predecessors> collection.
 
+> [!div class="see-also"]
+> <xref:ordering-aspects>
+> <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspect*>
+> <xref:Metalama.Framework.Aspects.AspectQueryExtensions.RequireAspect*>
+> <xref:Metalama.Framework.Aspects.IAspectPredecessor>

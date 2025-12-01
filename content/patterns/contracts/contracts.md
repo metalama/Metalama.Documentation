@@ -4,7 +4,7 @@ summary: "Metalama Contracts facilitate contract-based programming, enhancing so
 level: 100
 keywords: "contract-based programming, preconditions, postconditions, type invariants, error detection,  Metalama Contracts"
 created-date: 2024-06-11
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Metalama.Patterns.Contracts
@@ -35,6 +35,11 @@ This chapter includes the following articles:
 | <xref:value-contracts> | This article describes how to add preconditions and postconditions to your fields, properties, and parameters. |
 |  <xref:invariants> | This article describes how to add type invariants and execute verification logic after the completion of all public methods. |
 | <xref:configuring-contracts> | This article describes how to configure Metalama Contracts. |
+| <xref:contract-types> | This article lists all available contract attributes. |
+| <xref:enforcing-non-nullability> | This article explains how to automatically enforce non-nullable declarations. |
+
+> [!div class="see-also"]
+> <xref:patterns>
 
 
 

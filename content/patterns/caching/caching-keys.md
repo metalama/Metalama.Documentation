@@ -3,7 +3,7 @@ uid: caching-keys
 summary: "The document provides comprehensive guidelines on customizing cache keys in Metalama Caching, including using the CacheKey aspect, overriding ToString method, implementing IFormattable<T> interface, creating a formatter for third-party types, changing the maximal length of a cache key, and overriding the cache key builder."
 keywords: "customize cache keys, Metalama Caching, CacheKey aspect, overriding ToString, IFormattable<T> interface, cache key builder, caching methods, CacheKeyAttribute, formatter for third-party types"
 created-date: 2024-04-25
-modified-date: 2024-08-15
+modified-date: 2025-11-30
 ---
 # Customizing cache keys
 
@@ -23,7 +23,7 @@ You can observe how the <xref:Metalama.Patterns.Caching.Aspects.CacheKeyAttribut
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Caching/CacheKeyAspect.cs]
 
-## Overriding the ToString method or the ISpanFormattable interface
+## Overriding the ToString method or ISpanFormattable interface
 
 For simple types, consider implementing the <xref:System.Object.ToString*> method to return a distinct value for each distinct instance of the type.
 
@@ -113,6 +113,10 @@ Note that we're reusing the string-based <xref:Metalama.Patterns.Caching.Formatt
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Caching/HashingKeyBuilder/HashingKeyBuilder.cs]
 
+> [!div class="see-also"]
+> <xref:caching>
+> <xref:caching-getting-started>
+> <xref:caching-exclude-parameters>
 
 
 

@@ -4,7 +4,7 @@ level: 300
 summary: "The document provides step-by-step instructions on how to debug compile-time and design-time logic in aspect-oriented programming, emphasizing the importance of inserting breakpoints directly into the source code."
 keywords: "debug compile-time logic, design-time logic, aspect-oriented programming, breakpoints, Debugger.Break(), meta.DebugBreak(), attach debugger, Metalama Command Line Tool, RoslynCodeAnalysisService, MetalamaDebugCompiler"
 created-date: 2023-02-17
-modified-date: 2024-08-29
+modified-date: 2025-11-30
 ---
 
 # Debugging aspects
@@ -20,7 +20,7 @@ Therefore, regular debugger breakpoints won't work. You must add break statement
 
 ## Debugging aspect tests
 
-The most convenient way to debug an aspect is to create an _aspect test_ as described in @aspect-testing. This allows you to perfectly isolate the scenario that you want to debug.
+The most convenient way to debug an aspect is to create an _aspect test_ as described in <xref:aspect-testing>. This allows you to perfectly isolate the scenario that you want to debug.
 
 To debug an aspect test:
 
@@ -81,4 +81,8 @@ To attach a debugger to the design-time compiler process, follow these steps:
 
 > [!div class="see-also"]
 > <xref:debugging-aspect-oriented-code>
+> <xref:testing>
+> <xref:aspect-testing>
+> <xref:templates>
+> <xref:Metalama.Framework.Aspects.meta.DebugBreak*>
 

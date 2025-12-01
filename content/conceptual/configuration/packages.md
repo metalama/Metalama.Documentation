@@ -4,7 +4,7 @@ level: 300
 summary: "The document provides a list of NuGet packages for Metalama, detailing their uses and descriptions. It also includes package diagrams for building, executing, testing, introspection, and SDK."
 keywords: "NuGet packages, Metalama"
 created-date: 2023-01-26
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # List of NuGet packages
@@ -197,7 +197,11 @@ graph BT
 
 ```
 
-
+> [!div class="see-also"]
+> <xref:configuration>
+> <xref:installing>
+> <xref:aspect-testing>
+> <xref:introspection>
 
 
 

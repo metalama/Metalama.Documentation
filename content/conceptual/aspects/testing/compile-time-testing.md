@@ -4,7 +4,7 @@ level: 400
 summary: "The document provides a guide on testing compile-time code using unit tests, outlining the benefits and a step-by-step process to create unit tests for compile-time code in a .NET 6.0 project using the Metalama.Testing.UnitTesting package."
 keywords: "compile-time code testing, unit tests compile-time code, .NET 6.0, Metalama.Testing.UnitTesting, compile-time logic, unit-testing compile-time classes, Xunit test project, MetalamaRemoveCompileTimeOnlyCode, disable Metalama, test methods"
 created-date: 2023-03-03
-modified-date: 2024-11-06
+modified-date: 2025-11-30
 ---
 
 # Testing compile-time helper code
@@ -32,9 +32,9 @@ In the project defining the compile-time code, set the `MetalamaRemoveCompileTim
 
 Failing to follow this step will result in an exception whenever any compile-time code is called from a unit test.
 
-### Step 2. Create an Xunit test project
+### Step 2. Create an xUnit test project
 
-Proceed to create an Xunit test project as you usually would.
+Proceed to create an xUnit test project as you usually would.
 
 It's strongly recommended to target .NET 6.0 or later, as temporary files cannot be automatically cleaned up with lower .NET versions.
 
@@ -114,4 +114,12 @@ public class MyTests : UnitTestClass
     }
 }
 ```
+
+> [!div class="see-also"]
+> <xref:testing>
+> <xref:aspect-testing>
+> <xref:debugging-aspects>
+> <xref:Metalama.Testing.UnitTesting.UnitTestClass>
+> <xref:Metalama.Testing.UnitTesting.TestContext>
+> <xref:Metalama.Framework.Code.ICompilation>
 

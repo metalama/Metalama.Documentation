@@ -4,7 +4,7 @@ level: 200
 summary: "The document explains how to create a live template using the Metalama Aspect Framework, which appears in the code editor menu alongside other code suggestions or refactoring actions."
 keywords: "live template, Metalama Aspect Framework, code editor menu, code suggestions, refactoring actions, EditorExperience, aspect eligibility"
 created-date: 2023-02-17
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Exposing an aspect as a live template
@@ -16,19 +16,23 @@ Live templates are created using the Metalama Aspect Framework. Unlike tradition
 > [!NOTE]
 > A key characteristic of an aspect is that it is applied at compile time and doesn't alter the source code. Consequently, a live template, despite being built with the aspect framework, cannot be referred to as an aspect as it deviates from this fundamental principle. To prevent any confusion, we recommend avoiding the use of the term 'aspects' when discussing live templates.
 
-## To write a live template
+## Writing a live template
 
 1. Begin by writing an aspect class as you normally would, but keep in mind the following differences:
    - The aspect class doesn't need to inherit from `System.Attribute`.
-   - Strive to generate idiomatic C# code.
-   - Any diagnostics reported by the aspect will be disregarded.
-   - Aspect ordering and requirements won't be considered.
+   - Generate idiomatic C# code.
+   - Any diagnostics reported by the aspect are ignored.
+   - Aspect ordering and requirements are not considered.
 2. Add the `Metalama.Extensions.CodeFixes` package to your project.
-3. Ensure that the aspect class is equipped with a default constructor.
+3. Ensure that the aspect class has a default constructor.
 4. Annotate the class with `[EditorExperience(SuggestAsLiveTemplate = true)]`.
 5. Properly define the aspect eligibility to ensure that the code refactoring is suggested only for relevant declarations. For more details, refer to <xref:eligibility>.
 
 > [!div class="see-also"]
 > <xref:code-fixes>
-
+> <xref:building-ide-interactions>
+> <xref:eligibility>
+> <xref:applying-live-templates>
+> <xref:Metalama.Framework.Aspects.EditorExperienceAttribute>
+> <xref:Metalama.Framework.Aspects.IAspect`1>
 

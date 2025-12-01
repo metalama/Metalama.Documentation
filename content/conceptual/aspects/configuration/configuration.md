@@ -4,7 +4,7 @@ summary: "The document discusses the benefits of implementing a configuration fo
 level: 200
 keywords: "aspect configuration, centralized aspect options, configuration API, MSBuild properties,compile-time options, custom attribute"
 created-date: 2024-07-22
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Making aspects configurable
@@ -28,7 +28,8 @@ There are two complementary mechanisms for configuration: the configuration API 
 | <xref:reading-msbuild-properties> | This article describes how your aspect can consume an MSBuild property. |
 | <xref:configuration-custom-merge> | This article explains in detail the options merging process, and how to customize it. |
 
-
-
-
+> [!div class="see-also"]
+> <xref:aspects>
+> <xref:fabrics>
+> <xref:Metalama.Framework.Options>
 

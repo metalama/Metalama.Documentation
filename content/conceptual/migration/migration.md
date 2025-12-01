@@ -3,7 +3,7 @@ uid: migration
 summary: "The document provides guidance on migrating projects from PostSharp to its successor, Metalama, including rewriting aspects, maintaining business code, and various articles to assist the migration process."
 keywords: "migration, PostSharp, Metalama, rewrite aspects"
 created-date: 2023-01-26
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Migrating from PostSharp
@@ -25,10 +25,18 @@ We hope this is a satisfactory compromise.
 
 Article | Description
 -|-
-<xref:migrating-aspects> | This article provides a comprehensive step-by-step guide for your migration project and refers to other articles in this chapter.
-<xref:benefits-over-postsharp> | This article outlines the advantages of Metalama over PostSharp.
-<xref:when-migrate> | This article offers a few points to consider before migrating your aspects to Metalama. Ensure you read this article before making any decisions.
-<xref:migration-feature-status> | This article details the status of PostSharp features in Metalama.
-<xref:differences-from-postsharp> | This article discusses the significant architectural differences between PostSharp and Metalama from a theoretical perspective.
-<xref:migrating-multicasting> | This article guides you on how to migrate PostSharp attribute multicasting to Metalama.
-<xref:migrating-configuration> | This article instructs you on how to migrate PostSharp configuration files like `postsharp.config` to Metalama.
+<xref:migrating-aspects> | Provides step-by-step guidance for your migration project and refers to other articles in this chapter.
+<xref:benefits-over-postsharp> | Describes the advantages of Metalama over PostSharp.
+<xref:when-migrate> | Provides points to consider before migrating your aspects to Metalama. Read this article before making any decisions.
+<xref:migration-feature-status> | Describes the status of PostSharp features in Metalama.
+<xref:differences-from-postsharp> | Discusses the significant architectural differences between PostSharp and Metalama from a theoretical perspective.
+<xref:migrating-multicasting> | Explains how to migrate PostSharp attribute multicasting to Metalama.
+<xref:migrating-configuration> | Explains how to migrate PostSharp configuration files like `postsharp.config` to Metalama.
+
+> [!div class="see-also"]
+>
+> **See also**
+>
+> <xref:conceptual>
+> <xref:aspects>
+> <xref:fabrics-adding-aspects>

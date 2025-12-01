@@ -9,7 +9,7 @@ modified-date: 2025-11-30
 
 # Understanding the aspect framework design
 
-Until now, you've learned how to create simple aspects using the <xref:Metalama.Framework.Aspects.OverrideMethodAspect> and <xref:Metalama.Framework.Aspects.OverrideFieldOrPropertyAspect>. These classes can be viewed as _API sugar_, designed to simplify the creation of your first aspects. Before going deeper, it is essential to understand the design of the Metalama aspect framework.
+Until now, you've learned how to create simple aspects using the <xref:Metalama.Framework.Aspects.OverrideMethodAspect> and <xref:Metalama.Framework.Aspects.OverrideFieldOrPropertyAspect>. These classes can be viewed as _API sugar_, designed to simplify the creation of your first aspects. Before going deeper, it's essential to understand the design of the Metalama aspect framework.
 
 ## Class diagram
 
@@ -155,13 +155,13 @@ Aspects can define which declarations they can be legally applied to.
 
 Refer to <xref:eligibility>.
 
-### 7. Disabling itself
+### 6. Disabling itself
 
 If an aspect instance decides it can't be applied to its target, its implementation of the <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method can call the <xref:Metalama.Framework.Aspects.IAspectBuilder.SkipAspect> method. The effect of this method is to prevent the aspect from providing any advice or child aspect and to set the <xref:Metalama.Framework.Aspects.IAspectInstance.IsSkipped> to `true`.
 
 The aspect may or may not report a diagnostic before calling <xref:Metalama.Framework.Aspects.IAspectBuilder.SkipAspect>. Calling this method doesn't report any diagnostic.
 
-### 8. Customizing its appearance in the IDE
+### 7. Customizing its appearance in the IDE
 
 By default, an aspect class is represented in the IDE by the class name trimmed of its `Attribute` suffix, if any. To override the default name, annotate the aspect class with the <xref:System.ComponentModel.DisplayNameAttribute> annotation.
 
@@ -169,8 +169,15 @@ By default, an aspect class is represented in the IDE by the class name trimmed 
 
 ### Example: an aspect targeting methods, fields, and properties
 
-The following example demonstrates an aspect that targets methods, fields, and properties with a single implementation class.
+The following example demonstrates an aspect that targets methods, fields, and properties with a single implementation class. The aspect implements `IAspect<IMethod>`, `IAspect<IFieldOrProperty>`, and uses the `BuildAspect` method to add logging behavior to each target type.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/LogMethodAndProperty.cs name="Aspect Targeting Methods, Fields and Properties"]
 
-
+> [!div class="see-also"]
+> <xref:aspects>
+> <xref:Metalama.Framework.Aspects.IAspect`1>
+> <xref:Metalama.Framework.Aspects.IAspectBuilder`1>
+> <xref:Metalama.Framework.Aspects.IAspectState>
+> <xref:Metalama.Framework.Aspects.AdviserExtensions>
+> <xref:sharing-state-with-advice>
+> <xref:aspect-serialization>

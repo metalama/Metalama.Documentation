@@ -28,13 +28,13 @@ For details, see <xref:auxiliary-templates>.
 
 ### Metalama.Patterns.Contracts
 
-Metalama Contracts y is an [open-source](https://github.com/postsharp/Metalama.Patterns/tree/release/2023.3/src/Metalama.Patterns.Contracts), aspect-oriented implementation of [System.ComponentModel.DataAnnotations](https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations). Unlike Microsoft's annotations, Metalama Contracts works with any C# code, not just ASP.NET MVC or Entity Framework, as it utilizes aspects to inject validation logic during compilation.
+Metalama Contracts y is an [open-source](https://github.com/metalama/Metalama/tree/HEAD/Metalama.Patterns/src/Metalama.Patterns.Contracts), aspect-oriented implementation of [System.ComponentModel.DataAnnotations](https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations). Unlike Microsoft's annotations, Metalama Contracts works with any C# code, not just ASP.NET MVC or Entity Framework, as it utilizes aspects to inject validation logic during compilation.
 
 In 2023.3, we're releasing `Metalama.Patterns.Contracts` under the _preview_ quality label. Conceptual documentation is not available at the moment. For conceptual documentation, see <xref:Metalama.Patterns.Contracts>.
 
 ### Metalama.Patterns.Caching
 
-We've also ported our PostSharp-based caching framework to Metalama and completely [open-sourced](https://github.com/postsharp/Metalama.Patterns/tree/release/2023.3/src/Metalama.Patterns.Caching) it. We updated the codebase to take full advantage of modern .NET and C#, including the use of `IReadOnlySpan<char>` to further reduce garbage collection load.
+We've also ported our PostSharp-based caching framework to Metalama and completely [open-sourced](https://github.com/metalama/Metalama/tree/HEAD/Metalama.Patterns/src/Metalama.Patterns.Caching) it. We updated the codebase to take full advantage of modern .NET and C#, including the use of `IReadOnlySpan<char>` to further reduce garbage collection load.
 
 As for contracts, we're currently releasing `Metalama.Patterns.Caching` under the _preview_ quality label. Conceptual documentation is not available at the moment. For conceptual documentation, see <xref:Metalama.Patterns.Caching>.
 
@@ -92,20 +92,6 @@ There will be a few minor breaking changes in 2023.3. We think that there are st
 * The `IDiagnosticSink` interface is now internal. The <xref:Metalama.Framework.Diagnostics.ScopedDiagnosticSink> type is now used in all public APIs.
 
 * The type `SyntaxReference` has been renamed <xref:Metalama.Framework.Code.SourceReference>.
-
-
-## Bug fixes & changelogs
-
-For a detailed list of bugs fixed in this release, see the detailed changelogs:
-
-- [2023.3-7-rc](https://github.com/orgs/postsharp/discussions/226)
-- [2023.3.6-rc](https://github.com/orgs/postsharp/discussions/223)
-- [2023.3.5-rc](https://github.com/orgs/postsharp/discussions/218)
-- [2023.3.4-preview](https://github.com/orgs/postsharp/discussions/213)
-- [2023.3.3-preview](https://github.com/orgs/postsharp/discussions/211)
-- [2023.3.2-preview](https://github.com/orgs/postsharp/discussions/200)
-- [2023.3.1-preview](https://github.com/orgs/postsharp/discussions/196)
-
 
 
 

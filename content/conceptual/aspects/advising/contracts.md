@@ -4,7 +4,7 @@ level: 300
 summary: "The document provides advanced information on validating parameter, field, and property values with contracts in Metalama Framework. It covers accessing metadata, contract directions, and adding contract advice programmatically."
 keywords: "validating parameter values, Metalama Framework, contract directions, adding contract advice, .NET, ContractAspect class, input parameters, output parameters, precondition checks"
 created-date: 2023-02-16
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Validating parameter, field, and property values with contracts
@@ -20,7 +20,7 @@ You can access your template code's context using the following meta APIs:
 - `meta.Target.Declaration` returns the target parameter, property, or field.
 - `meta.Target.FieldOrProperty` returns the target property or field. However, it will throw an exception if the contract is applied to a parameter.
 - `meta.Target.Parameter` returns the parameter (including the parameter representing the return value). It will throw an exception if the contract is applied to a field or property.
-- `meta.Target.ContractDirection` returns `Input` or `Output` according to the data flow being validated ([see below](#contract-directions)). Typically, it is `Input` for input parameters and property setters, and `Output` for output parameters and return values.
+- `meta.Target.ContractDirection` returns `Input` or `Output` according to the data flow being validated ([see below](#contract-directions)). Typically, it's `Input` for input parameters and property setters, and `Output` for output parameters and return values.
 
 ## Contract directions
 
@@ -41,7 +41,7 @@ For information on customizing eligibility for different contract directions tha
 
 ### Example: NotNull for output parameters and return values
 
-We previously encountered this aspect in <xref:simple-contracts>. This example refines the behavior: for the _input_ data flow, an `ArgumentNullException` is thrown. However, for the output flow, we throw a `PostConditionFailedException`. Notice how we apply the aspect to 'out' parameters and to return values.
+We previously encountered this aspect in <xref:simple-contracts>. This example refines the behavior: for the _input_ data flow, an `ArgumentNullException` is thrown, but for the output flow, a `PostConditionFailedException` is thrown. Notice how we apply the aspect to 'out' parameters and to return values.
 
 [!metalama-test  ~/code/Metalama.Documentation.SampleCode.AspectFramework/NotNull.cs name="NotNull"]
 
@@ -62,3 +62,9 @@ The [fabric](xref:fabrics) adds a method-level aspect to all exposed methods. Th
 
 > [!NOTE]
 > For a production-ready version of this use case, see <xref:enforcing-non-nullability>.
+
+> [!div class="see-also"]
+> <xref:simple-contracts>
+> <xref:Metalama.Framework.Aspects.ContractAspect>
+> <xref:Metalama.Framework.Aspects.AdviserExtensions.AddContract*>
+> <xref:contract-types>

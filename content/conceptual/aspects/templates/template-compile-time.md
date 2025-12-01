@@ -5,7 +5,7 @@ level: 200
 summary: "The document provides detailed information on writing compile-time code using the Metalama Framework. It explains compile-time expressions, statements, the 'meta' pseudo-keyword, and compile-time language constructs. It also covers aspect properties, compile-time types, methods, and how to call other packages from compile-time code. "
 keywords: "compile-time code, Metalama Framework, compile-time expressions, meta pseudo-keyword, aspect properties, compile-time types, compile-time methods, compile-time variables, compile-time statements, compile-time constructs"
 created-date: 2023-02-20
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Writing compile-time code
@@ -136,5 +136,11 @@ Once this configuration is done, `MyPackage` can be used both in run-time and co
 > [!WARNING]
 > You must also specify `MetalamaCompileTimePackage` in each project that _uses_ the aspects.
 
+> [!div class="see-also"]
+> <xref:template-overview>
+> <xref:templates>
+> <xref:Metalama.Framework.Aspects.meta>
+> <xref:Metalama.Framework.Aspects.CompileTimeAttribute>
+> <xref:Metalama.Framework.Aspects.RunTimeOrCompileTimeAttribute>
 
 

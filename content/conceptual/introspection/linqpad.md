@@ -14,43 +14,43 @@ Metalama's LINQPad driver allows you to interactively query your source code as 
 For those unfamiliar, [LINQPad](https://www.linqpad.net/) is a popular tool for writing and executing LINQ queries against various data sources. With Metalama's driver, you can extend this functionality to .NET projects and solutions.
 
 > [!NOTE]
-> The Metalama.LinqPad package is [open-source](https://github.com/postsharp/Metalama.LinqPad).
+> The Metalama.LinqPad package is [open-source](https://github.com/metalama/Metalama.LinqPad).
 
 ## Installing the Metalama driver
 
-1. In the Explorer tool window, click _Add connection_.
+1. In the Explorer tool window, click **Add connection**.
 
     ![Install step 1](install-1.svg)
 
-2. Click on _View more drivers_.
+2. Click **View more drivers**.
 
      ![Install step 2](install-2.svg)
 
 3. In the NuGet LINQPad Manager dialog:
 
-    1. Select _Show all drivers_.
+    1. Select **Show all drivers**.
     2. Type _Metalama_.
-    3. Select `Metalama.LinqPad` and click _Install_.
-    4. Accept a few disclaimers and wait. Then click _Close_.
+    3. Select `Metalama.LinqPad` and click **Install**.
+    4. Accept a few disclaimers and wait. Then click **Close**.
 
     ![Install step 3](install-3.svg)
 
 ## Opening a project or solution
 
-1. In the Explorer tool window, click _Add connection_.
+1. In the Explorer tool window, click **Add connection**.
 
     ![Install step 1](install-1.svg)
 
     There are _two_ Metalama drivers:
 
-    * _Metalama Workspace_ is bound to a .NET project or solution, accessible through the `workspace` variable.
-    * _Metalama Scratchpad_ isn't bound to anything, so you load projects manually in your query.
+    * **Metalama Workspace** is bound to a .NET project or solution, accessible through the `workspace` variable.
+    * **Metalama Scratchpad** isn't bound to anything, so you load projects manually in your query.
 
-2. Choose the _Metalama Workspace_ or _Metalama Scratchpad_ driver and click _Next_.
+2. Choose the **Metalama Workspace** or **Metalama Scratchpad** driver and click **Next**.
 
     ![Add connection 1](connection-1.svg)
 
-3. If you chose _Metalama Workspace_, specify the path to the C# project or solution, then click _Ok_.
+3. If you chose **Metalama Workspace**, specify the path to the C# project or solution, then click **OK**.
 
     ![Add connection 2](connection-2.svg)
 
@@ -99,7 +99,7 @@ workspace.GetDeclaration(
 
 ## Using the Scratchpad driver
 
-The _Metalama Scratchpad_ driver doesn't require specifying a project in the connection. Instead, load projects in your query using <xref:Metalama.Framework.Workspaces.WorkspaceCollection>:
+The **Metalama Scratchpad** driver doesn't require specifying a project in the connection. Instead, load projects in your query using <xref:Metalama.Framework.Workspaces.WorkspaceCollection>:
 
 ```csharp
 var workspace = WorkspaceCollection.Default

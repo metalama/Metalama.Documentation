@@ -4,7 +4,7 @@ level: 400
 summary: "The document details the process of customizing the change merging process in the Metalama Framework. It outlines how options are merged, the order of merging, disabling inheritance axes, and customizing the merging process."
 keywords: "customizing change merging process, Metalama Framework, options inheritance, ApplyChanges method, ApplyChangesContext, IHierarchicalOptionsProvider, SetOptions method, ApplyChangesAxis, disabling inheritance axes, hand-tuning merging process"
 created-date: 2024-08-04
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Customizing the change merging process
@@ -45,5 +45,9 @@ If you need to further customize the merging process, you can make your <xref:Me
 
 Please note that this should be considered an extreme case and we currently do not see a valid use case at the time of writing this documentation.
 
-
-
+> [!div class="see-also"]
+> <xref:exposing-options>
+> <xref:Metalama.Framework.Options.IIncrementalObject>
+> <xref:Metalama.Framework.Options.ApplyChangesContext>
+> <xref:Metalama.Framework.Options.ApplyChangesAxis>
+> <xref:Metalama.Framework.Options.HierarchicalOptionsAttribute>

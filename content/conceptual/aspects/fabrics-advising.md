@@ -4,7 +4,7 @@ summary: "The document provides a guide on how to advise a type using a type fab
 level: 300
 keywords: "type fabric, Metalama Framework, compile-time nested class, type-level aspect, AmendType method, IAspectBuilder.Advice, advanced aspects, member introductions, helper aspect, target type"
 created-date: 2023-01-26
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Advising a single type with a fabric
@@ -33,7 +33,13 @@ The following example demonstrates how to create a type fabric that introduces t
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/AdvisingTypeFabric.cs name="Type Fabric Adding Advice"]
 
-
+> [!div class="see-also"]
+> <xref:fabrics>
+> <xref:advising-code>
+> <xref:introducing-members>
+> <xref:ordering-aspects>
+> <xref:Metalama.Framework.Fabrics.TypeFabric>
+> <xref:Metalama.Framework.Fabrics.ITypeAmender>
 
 
 

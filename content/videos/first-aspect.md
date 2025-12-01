@@ -3,7 +3,7 @@ uid: video-first-aspect
 level: 101
 summary: "The document is a video tutorial about creating your first aspect, with additional references for simple override methods and adding aspects."
 created-date: 2023-12-11
-modified-date: 2024-08-22
+modified-date: 2025-11-30
 ---
 
 # Video tutorial: your first aspect

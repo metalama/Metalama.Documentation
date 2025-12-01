@@ -3,7 +3,7 @@ uid: caching-value-adapters
 summary: "The document discusses the concept of value adapters in Metalama for caching mutable or stream-like types. It details how to implement a custom value adapter and provides examples."
 keywords: "caching mutable types, stream-like types caching, Metalama value adapter, custom value adapter implementation, .NET caching, immutable types caching, caching problematic types, caching configuration"
 created-date: 2024-04-25
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 # Caching mutable or stream-like types with value adapters
 
@@ -49,6 +49,11 @@ To implement a custom value adapter:
 Let's say you are maintaining a legacy service that implements the unusual practice of returning a `StringBuilder` instead of a `string`. You are responsible for improving the performance of this API, so you want to cache the result of this method. However, you can't cache mutable objects, as this would mean that if a caller modifies the `StringBuilder`, the next caller would receive the modified copy. Therefore, you decide to cache the `string` instead of the `StringBuilder`, and return a new `StringBuilder` every time the value is fetched from the cache.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Caching/ValueAdapter/ValueAdapter.cs]
+
+> [!div class="see-also"]
+> <xref:caching>
+> <xref:caching-getting-started>
+> <xref:immutability>
 
 
 

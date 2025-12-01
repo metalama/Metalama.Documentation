@@ -1,8 +1,10 @@
 ---
 uid: architecture
+level: 300
 summary: "The document describes the architecture of Metalama, showing how aspects, validators, code fixes, advice, source code, fabrics, and diagnostics interact."
+keywords: "Metalama architecture, aspects, validators, code fixes, advice, source code, fabrics, diagnostics, code transformations"
 created-date: 2023-07-11
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 # Metalama architecture
 
@@ -22,7 +24,10 @@ flowchart  TB
     CodeFixes[Code Fixes] -- apply --> Aspects
 ```
 
-
-
-
+> [!div class="see-also"]
+> <xref:aspects>
+> <xref:fabrics>
+> <xref:aspect-design>
+> <xref:advising-code>
+> <xref:diagnostics>
 

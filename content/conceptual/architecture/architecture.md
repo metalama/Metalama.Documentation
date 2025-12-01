@@ -4,7 +4,7 @@ level: 200
 summary: "The document discusses verifying source code against architecture, design patterns, and team conventions, emphasizing the benefits of immediate feedback, smoother code reviews, team alignment, reduced complexity, and architecture erosion prevention."
 keywords: "code verification, architecture validation, design patterns, team conventions, immediate feedback, smoother code reviews, team alignment, reduced complexity, architecture erosion prevention, Metalama"
 created-date: 2023-01-26
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Verifying architecture
@@ -33,10 +33,15 @@ This chapter includes the following articles:
 
 |Article  |Description  |
 |---------|---------|
-|<xref:validating-usage>     |  This article demonstrates how to validate the _usage_ of a set of namespaces, types, or members.       |
-|<xref:naming-conventions> | This article details how to enforce naming conventions in your code. |
-|<xref:experimental> | This article explains how to mark an API as experimental, triggering a warning when the API is used. |
-|<xref:validation-extending>     |  This article demonstrates how to create custom attributes or fabric extension methods to validate your own architectural rules.   |
+|<xref:validating-usage>     |  Validate the _usage_ of namespaces, types, or members, restricting who can access them.       |
+|<xref:naming-conventions> | Enforce naming conventions in your code. |
+|<xref:experimental> | Mark an API as experimental, triggering a warning when the API is used. |
+|<xref:internal-only-implement> | Restrict who can implement an interface. |
+|<xref:validation-extending>     |  Create custom attributes or fabric extension methods to validate your own architectural rules.   |
+
+> [!div class="see-also"]
+> <xref:Metalama.Extensions.Architecture>
+> <xref:fabrics>
 
 
 

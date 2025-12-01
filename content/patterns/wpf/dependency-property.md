@@ -2,6 +2,8 @@
 uid: wpf-dependency-property
 level: 100
 keywords: "dependency property, WPF, Metalama, boilerplate code, automatic property, DependencyPropertyAttribute, validation, PropertyChanged callback, default values, .NET"
+created-date: 2024-11-06
+modified-date: 2025-11-30
 ---
 
 # WPF Dependency Property
@@ -48,7 +50,7 @@ To create a dependency property using the <xref:Metalama.Patterns.Wpf.Dependency
 2. Open a class derived from <xref:System.Windows.DependencyObject>, such as a window or a user control.
 3. Add an automatic property to this class.
 4. Add the <xref:Metalama.Patterns.Wpf.DependencyPropertyAttribute?text=[DependencyProperty]> custom attribute to this automatic property.
-5. Optionally, add any contract from the `Metalama.Patterns.Contracts` details to the automatic property. See <xref:contract-patterns> for details about contracts.
+5. Optionally, add any contract from the `Metalama.Patterns.Contracts` package to the automatic property. See <xref:contract-patterns> for details about contracts.
 
 ### Example: a simple dependency property
 
@@ -64,7 +66,7 @@ In the following example, the automatic property has a private setter. The <xref
 
 ## Adding validation through a contract
 
-The most straightforward way to add validation to a contract is to add an aspect of the `Metalama.Patterns.Contracts` package.
+The most straightforward way to add validation to a dependency property is to add an aspect from the `Metalama.Patterns.Contracts` package.
 
 ### Example: a dependency property with contracts
 
@@ -88,17 +90,17 @@ where `TDeclaringType` is the declaring type of the target property, `Dependency
 
 If you prefer specifying the validation method explicitly instead of relying on a naming convention, you can do it using the <xref:Metalama.Patterns.Wpf.DependencyPropertyAttribute.ValidateMethod?text=DependencyPropertyAttribute.ValidateMethod> property.
 
-These methods must throw an exception in case of invalid value.
+These methods must throw an exception in case of an invalid value.
 
 ### Example: validation callback
 
-The following example implements a profanity filter on a dependency filter. If the value contains the word `foo`, it will throw an exception.
+The following example implements a profanity filter on a dependency property. If the value contains the word `foo`, it will throw an exception.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Wpf/DependencyProperties/Validate.cs]
 
 ## Handling of default values
 
-When an automatic property is initialized with a value, not from the constructor but from the property declaration itself, this expression is used as the _default_ value of the dependency property. The concept of _default value_ of a property in WPF means that if you attempt to set a property to its default value in a `wpf` file, the assignment will be grayed out as redundant.
+When an automatic property is initialized with a value, not from the constructor but from the property declaration itself, this expression is used as the _default_ value of the dependency property. The concept of _default value_ of a property in WPF means that if you attempt to set a property to its default value in a XAML file, the assignment will be grayed out as redundant.
 
 > [!NOTE]
 > When an automatic property is initialized to a value, this value is also assigned to the property from the instance constructor of the object to mimic the behavior of a C# automatic property. Note that there is a slight difference: in standard automatic properties, the initial value is assigned _before_ the base constructor is executed. However, with a dependency property, the value is assigned _after_ the base constructor is invoked.
@@ -107,7 +109,7 @@ The following example demonstrates the code generation pattern when an automatic
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Wpf/DependencyProperties/DefaultValue.cs]
 
-If you don't want the property initial value to be interpreted as the default value of the dependency property, you can disable this behavior by setting the <xref:Metalama.Patterns.Wpf.DependencyPropertyAttribute.InitializerProvidesDefaultValue> property to `false`. This property is available from the <xref:Metalama.Patterns.Wpf.DependencyPropertyAttribute> class from the <xref:Metalama.Patterns.Wpf.Configuration.DependencyPropertyExtensions.ConfigureDependencyProperty*> fabric extension method.
+If you do not want the property initial value to be interpreted as the default value of the dependency property, you can disable this behavior by setting the <xref:Metalama.Patterns.Wpf.DependencyPropertyAttribute.InitializerProvidesDefaultValue> property to `false`. This property is available both as an attribute property on the <xref:Metalama.Patterns.Wpf.DependencyPropertyAttribute> class and through the <xref:Metalama.Patterns.Wpf.Configuration.DependencyPropertyExtensions.ConfigureDependencyProperty*> fabric extension method.
 
 
 ## Adding a PropertyChanged callback
@@ -125,7 +127,7 @@ Whereas the validate method executes _before_ the assignment, you can also add c
 * `void OnFooChanged<T>(T value)`
 * `void OnFooChanged<T>(T oldValue, T newValue)`
 
-As with the validate method, you can explicitly identify the property-changed method instead of relying on a naming convention thanks to the <xref:Metalama.Patterns.Wpf.DependencyPropertyAttribute.ValidateMethod?text=DependencyPropertyAttribute.PropertyChangedMethod> property.
+As with the validate method, you can explicitly identify the property-changed method instead of relying on a naming convention thanks to the <xref:Metalama.Patterns.Wpf.DependencyPropertyAttribute.PropertyChangedMethod?text=DependencyPropertyAttribute.PropertyChangedMethod> property.
 
 ### Example: post-assignment callback
 
@@ -155,4 +157,9 @@ The default naming convention is evaluated last and cannot be modified.
 Here is an illustration of a coding convention for the Czech language.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Wpf/DependencyProperties/NamingConvention.cs]
+
+> [!div class="see-also"]
+> <xref:wpf>
+> <xref:wpf-command>
+> <xref:contract-patterns>
 

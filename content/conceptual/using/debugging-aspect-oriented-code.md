@@ -4,7 +4,7 @@ level: 100
 summary: "The document provides a step-by-step guide on how to debug aspect-oriented code using the Visual Studio debugger, including setting up a debug configuration, using breakpoints and step-into, and forcefully breaking the program."
 keywords: "debug aspect-oriented code, debugger, breakpoints, step-into, transformed code, debug configuration, LamaDebug, Debugger.Break, aspect-transformed code"
 created-date: 2023-02-16
-modified-date: 2024-11-06
+modified-date: 2025-11-30
 ---
 
 # Debugging aspect-oriented code
@@ -88,5 +88,10 @@ You can use `Debugger.Break` to forcefully break the program. The following scre
 > Note that it's the same code you saw before. You can add `Debugger.Break` to forcefully break the debugger at that location.
 
 > [!div class="see-also"]
+>
+> **See also**
+>
+> <xref:using>
 > <xref:debugging-aspects>
+> <xref:understanding-your-code-with-aspects>
 

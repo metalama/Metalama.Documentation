@@ -4,7 +4,7 @@ level: 400
 summary: "The document explains the execution order of fabrics in a project, including project fabrics, transitive project fabrics, namespace fabrics, type fabrics, and aspects, with criteria for each category."
 keywords: "execution order, dependency graph, project configuration"
 created-date: 2023-02-17
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Execution order of fabrics
@@ -32,6 +32,14 @@ Fabrics are executed in the following order:
 
 6. **Aspects**. For information regarding the execution order of explicitly ordered and unordered aspects, please refer to <xref:ordering-aspects>.
 
+> [!div class="see-also"]
+> <xref:fabrics>
+> <xref:ordering-aspects>
+> <xref:implementation>
+> <xref:pipeline>
+> <xref:Metalama.Framework.Fabrics.ProjectFabric>
+> <xref:Metalama.Framework.Fabrics.NamespaceFabric>
+> <xref:Metalama.Framework.Fabrics.TypeFabric>
 
 
 

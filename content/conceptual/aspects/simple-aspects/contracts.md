@@ -4,14 +4,14 @@ level: 200
 summary: "The document provides a guide on how to use contracts in Metalama for aspect-oriented programming, including creating custom attributes for field, property, or parameter validation, and how to implement the ContractAspect class."
 keywords: "aspect-oriented programming, custom attribute, field validation, property validation, parameter validation, Metalama, ContractAspect class, exception handling, value normalization, .NET"
 created-date: 2023-03-01
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Getting started: contracts
 
 One of the most prevalent use cases of aspect-oriented programming is the creation of a custom attribute for the validation of fields, properties, or parameters to which it is applied. Examples include `[NotNull]` or `[NotEmpty]`.
 
-In Metalama, this can be achieved by using a _contract_. With a contract, you've the option to:
+In Metalama, this can be achieved by using a _contract_. With a contract, you have the option to:
 
 - Throw an exception when the value doesn't meet a condition of your choosing, or
 - Normalize the received value (for instance, by trimming the whitespace of a string).
@@ -59,4 +59,8 @@ If you wish to go deeper into contracts, consider referring to the following art
 > <xref:templates>
 > <xref:contracts>
 > <xref:simple-override-method>
+> <xref:simple-aspects>
+> <xref:Metalama.Framework.Aspects.ContractAspect>
+> <xref:Metalama.Framework.Aspects.ContractDirection>
+> <xref:Metalama.Framework.Code.IFieldOrPropertyOrIndexer>
 

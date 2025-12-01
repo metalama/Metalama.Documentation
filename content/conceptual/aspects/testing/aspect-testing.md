@@ -4,7 +4,7 @@ level: 300
 summary: "The document provides a comprehensive guide on how to test aspects using the Metalama.Testing.AspectTesting package. It details the steps to create a test project, add a test case, run the test case, and copy the test output to the expected output. It also includes advanced features and customizations."
 keywords: "compile-time testing, Metalama.Testing.AspectTesting, aspect testing, .NET, create test project, run test case, verify transformed code, expected output, xUnit test project, Metalama framework"
 created-date: 2023-02-20
-modified-date: 2024-11-06
+modified-date: 2025-11-30
 ---
 
 # Testing the aspect's code generation and error reporting
@@ -21,11 +21,11 @@ Practically, you can follow these steps (detailed below):
    4. Copy the test output to a file named with the extension `.t.cs`, for example, `MyTest.t.cs`.
 
 > [!NOTE]
-> For a real-world example, see [the Metalama.Samples repo on GitHub](https://github.com/postsharp/Metalama.Samples). Sample aspects are tested using the approach described here.
+> For a real-world example, see [the Metalama.Samples repo on GitHub](https://github.com/metalama/Metalama.Samples). Sample aspects are tested using the approach described here.
 
 ## Step 1. Create an aspect test project with Metalama.Testing.AspectTesting
 
-1. Create an Xunit test project.
+1. Create an xUnit test project.
 2. Add the `Metalama.Testing.AspectTesting` package (see <xref:packages> for details).
 
 > [!WARNING]
@@ -242,7 +242,7 @@ graph BT
 
 ## Configuring the external diff tool
 
-By default, the test framework will open your visual diff tool when an aspect test fails, i.e., the expected snapshot is different from the actual one. The feature works thanks to the [DiffEngine](https://github.com/VerifyTests/DiffEngine) project. It is most useful when used with [DiffEngineTray](https://github.com/VerifyTests/DiffEngine/blob/main/docs/tray.md). Please refer to the documentation of these projects to learn about how to configure them.
+By default, the test framework will open your visual diff tool when an aspect test fails, i.e., the expected snapshot is different from the actual one. The feature works thanks to the [DiffEngine](https://github.com/VerifyTests/DiffEngine) project. It is most useful when used with [DiffEngineTray](https://github.com/VerifyTests/DiffEngine/blob/HEAD/docs/tray.md). Please refer to the documentation of these projects to learn about how to configure them.
 
 For further configuration settings, use this approach:
 
@@ -284,4 +284,12 @@ For ReSharper, instead, go to Extensions &#8594; ReSharper &#8594; Options &#859
 > The `AspectTestClass`, `DefaultAspectTestClass`, `CurrentDirectoryAttribute`, and `CurrentProjectAttribute` classes are obsolete and should not be used. These classes were previously required to manually create test runners, but the `Metalama.Testing.AspectTesting` package now provides automatic test discovery. Simply add the package to your project and place test files in the project directory; no additional test runner code is needed.
 >
 > Legacy code using `_Runner.cs` files with `AspectTestClass` and `[CurrentDirectory]` will continue to work, but is no longer recommended for new projects.
+
+> [!div class="see-also"]
+> <xref:testing>
+> <xref:compile-time-testing>
+> <xref:run-time-testing>
+> <xref:debugging-aspects>
+> <xref:Metalama.Testing.AspectTesting>
+> <xref:Metalama.Testing.AspectTesting.TestOptions>
 

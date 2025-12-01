@@ -4,7 +4,7 @@ level: 200
 summary: "The document provides a guide on how to read MSBuild properties using the IProject.TryGetProperty method in Metalama. It explains how to expose, set, and read MSBuild properties, and how to combine them with the options API."
 keywords: "MSBuild properties, IProject.TryGetProperty, Metalama, configuration, command line, Directory.Build.props, compiler, NuGet package, csproj file, options API"
 created-date: 2024-08-04
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Reading MSBuild properties
@@ -65,7 +65,7 @@ If you're shipping your project as a NuGet package, we recommend the following a
 
 This approach will make sure that `YourProject.props` is automatically included in any project that references your project using a `PackageReference`.
 
-However, this won't work for projects referencing your project using a `PackageReference`. In this case, you need to manually import the `YourProject.props` file using the following code:
+However, this won't work for projects referencing your project using a `ProjectReference`. In this case, you need to manually import the `YourProject.props` file using the following code:
 
 ```xml
 <Import Project="../YourProject/build/YourProject.props"/>
@@ -119,6 +119,9 @@ In the following example, the options class implements the <xref:Metalama.Framew
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.AspectFramework/AspectConfiguration_ProjectDefault.Options.cs]
 
-
-
+> [!div class="see-also"]
+> <xref:aspect-configuration>
+> <xref:exposing-options>
+> <xref:Metalama.Framework.Project.IProject.TryGetProperty*>
+> <xref:Metalama.Framework.Options.IHierarchicalOptions.GetDefaultOptions*>
 

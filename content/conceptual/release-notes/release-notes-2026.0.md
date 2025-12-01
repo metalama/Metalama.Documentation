@@ -1,6 +1,7 @@
 ---
 uid: release-notes-2026.0
-summary: ""
+level: 200
+summary: "Metalama 2026.0 provides full C# 14 and .NET 10 SDK support, introduces first-class tuple types, and enables event handler invocation overriding."
 keywords: "Metalama 2026.0, release notes"
 created-date: 2025-11-01
 modified-date: 2025-11-07
@@ -8,11 +9,11 @@ modified-date: 2025-11-07
 
 # Metalama 2026.0
 
-We are thrilled to announce Metalama 2026.0! This major version brings full support for C# 14—the most significant evolution of the C# language in many years.
+Metalama 2026.0 brings full support for C# 14—the most significant evolution of the C# language in many years.
 
 **Highlights:**
 
-- **C# 14 and .NET 10 SDK support**, including extension blocks, partial constructors and events, and compound assignment operators
+- **C# 14 and .NET 10 SDK support**, including extension blocks, partial constructors, partial events, and compound assignment operators
 - **First-class tuple types** with direct access to element names and types
 - **Event handler invocation overriding** for implementing patterns like safe events
 - **Faster Visual Studio experience** with significant performance improvements
@@ -26,14 +27,14 @@ Metalama 2026.0 ensures you are ready to take full advantage of the latest C# fe
 Metalama 2026.0 supports the following development environments and SDKs:
 
 - Visual Studio:
-    - 2022 LTSC 17.12 (latest build), or
-    - 2022 17.14 (latest build), or
-    - 2026 18.0 (latest build).
+    - 2022 LTSC 17.12 (latest build)
+    - 2022 17.14 (latest build)
+    - 2026 18.0 (latest build)
 - .NET SDK 8.0, 9.0, or 10.0.
 - C# 12, 13, or 14.
 
 > [!WARNING]
-> .NET 6 SDK has been deprecated in this release.
+> .NET 6 SDK has been deprecated in this release ([#1092](https://github.com/metalama/Metalama/issues/1092)).
 
 ### Target frameworks (runtimes)
 
@@ -46,13 +47,13 @@ Metalama 2026.0 supports the following target frameworks:
 > .NET 6 has been deprecated as a tested runtime.
 
 
-## C# 14 Support
+## C# 14 support
 
 Metalama 2026.0 provides extensive support for C# 14 language features. While most features are fully implemented, some remain on the roadmap for future releases.
 
 ### Implemented in 2026.0
 
-Here is what you can already do in Metalama:
+Metalama 2026.0 supports the following C# 14 features:
 
 - [#1108](https://github.com/metalama/Metalama/issues/1108): Use null-conditional assignments when generating syntax from an <xref:Metalama.Framework.Code.IFieldOrPropertyOrIndexer> (when assigning their `Value` property). Use the <xref:Metalama.Framework.Code.Invokers.IFieldOrPropertyInvoker.WithOptions*> and specify `NullConditional`.
 - [#1094](https://github.com/metalama/Metalama/issues/1094): Override a property that uses the `field` keyword.
@@ -62,8 +63,8 @@ Here is what you can already do in Metalama:
 - [#1113](https://github.com/metalama/Metalama/issues/1113): Override partial events.
 - [#1034](https://github.com/metalama/Metalama/issues/1034): Query extension blocks and extension members from the code model (see below).
 - [#1035](https://github.com/metalama/Metalama/issues/1035): Override members of extension blocks.
-- [#1115](https://github.com/metalama/Metalama/issues/1115): Query compound assignment operators in the code code model.
-- [#1116](https://github.com/metalama/Metalama/issues/1116): Override compount assignment operators.
+- [#1115](https://github.com/metalama/Metalama/issues/1115): Query compound assignment operators in the code model.
+- [#1116](https://github.com/metalama/Metalama/issues/1116): Override compound assignment operators.
 - [#1160](https://github.com/metalama/Metalama/issues/1160): Introduce new extension members into existing extension blocks
 - [#1041](https://github.com/metalama/Metalama/issues/1041): Use simple lambda parameters with modifiers both in compile-time and run-time code.
 - [#1105](https://github.com/metalama/Metalama/issues/1105): When an unsupported feature is used in a template, a understandable error message will be reported.
@@ -115,24 +116,30 @@ For details, see <xref:type-system>.
 
 ## Event handler invocation overriding
 
-Metalama 2026.0 introduces the capability to override event handler invocations. This extends the existing functionality that allowed overriding only the add and remove operations of events.
+Metalama 2026.0 introduces the capability to override event handler invocations ([#549](https://github.com/metalama/Metalama/issues/549)). This extends the existing functionality that allowed overriding only the add and remove operations of events.
 
-This new advice kind allows you to implement aspects such as "safe events", where event handlers are isolated one from the other by an exception handler.
+This advice kind allows you to implement aspects such as "safe events", where event handlers are isolated one from the other by an exception handler.
 
 For comprehensive documentation, see <xref:overriding-events>.
 
 ## Visual Studio Tools for Metalama: performance improvements
 
-We have refactored several components of Visual Studio Tools for Metalama to improve its performance, sometimes dramatically. It should now be more stable, consume less CPU, and make better use of your cores.
+Visual Studio Tools for Metalama includes refactored components that dramatically improve performance. It's now more stable, consumes less CPU, and makes better use of your cores.
 
 
 ## Additional improvements
 
-* **User-defined checked operators.** Metalama 2026.0 adds support for introducing user-defined `checked` operators.
+* **Toast notifications for product news** ([#1161](https://github.com/metalama/Metalama/issues/1161)). Visual Studio Tools for Metalama can now display toast notifications when new blog posts or product briefs are published.
 
-* **Cross-project dependency injection.** Enhanced dependency injection capabilities now allow pulling constructor parameters across project boundaries. See <xref:dependency-injection>.
+* **User-defined checked operators** ([#1133](https://github.com/metalama/Metalama/issues/1133)). Metalama 2026.0 adds support for introducing user-defined `checked` operators.
 
-* **Compile-time assembly downloader.** The component that downloads compile-time assembly now properly respects the project's `nuget.config` file for package resolution.
+* **Cross-project dependency injection** ([#568](https://github.com/metalama/Metalama/issues/568)). Enhanced dependency injection capabilities now allow pulling constructor parameters across project boundaries. See <xref:dependency-injection>.
+
+* **Compile-time assembly resolver** ([#1088](https://github.com/metalama/Metalama/issues/1088)). The component that downloads compile-time assembly now properly respects the project's `nuget.config` file for package resolution.
+
+* **Single-file `dotnet run` support** ([#1107](https://github.com/metalama/Metalama/issues/1107)). Metalama now supports Microsoft's single-file `dotnet run` functionality, allowing aspects to work with modern .NET single-file deployment scenarios.
+
+* **`ExcludeAspect` enhancement** ([#1176](https://github.com/metalama/Metalama/issues/1176)). The `[ExcludeAspect]` attribute, when applied to a field or property, now implicitly applies to its accessors.
 
 ## Documentation updates
 
@@ -147,5 +154,12 @@ We have refactored several components of Visual Studio Tools for Metalama to imp
 - The <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.With*> method has been split into <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.WithObject*> and <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.WithOptions*> with additional overloads. This change applies to all kinds of members.
 - <xref:Metalama.Framework.Aspects.IAdviser> and <xref:Metalama.Framework.Aspects.AdviserExtensions> have been moved to the `Metalama.Framework.Aspects` namespace.
 - `TypeKind.RecordClass` and `TypeKind.RecordStruct` have been removed and replaced by <xref:Metalama.Framework.Code.INamedType.IsRecord?text=INamedType.IsRecord>.
+- The `IntroduceConversionOperator` method now has an additional optional parameter to support `checked` operators ([#1133](https://github.com/metalama/Metalama/issues/1133)).
 
+## See also
 
+- <xref:release-notes>
+- <xref:requirements>
+- <xref:overriding-events>
+- <xref:type-system>
+- <xref:dependency-injection>

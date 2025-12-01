@@ -4,14 +4,14 @@ level: 200
 summary: "The document explains how to enforce naming conventions in codebases using Metalama, either through custom attributes for source-owned classes or interfaces, or fabrics for other scenarios."
 keywords: "naming conventions, Metalama, custom attributes, enforce naming conventions, .NET, Metalama.Extensions.Architecture"
 created-date: 2023-03-22
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Enforcing naming conventions
 
 In any professional team, consistent terminology usage is essential. This is especially true for large codebases maintained by multiple people over extended periods.
 
-To ensure consistency, Metalama provides a straightforward way to enforce naming conventions across lines of inheritance. For instance, you can require any class inheriting the `IFactory` interface to have a name ending with the `Factory` prefix. This ensures everyone uses the same language and understands the same concepts.
+To ensure consistency, Metalama provides a straightforward way to enforce naming conventions across lines of inheritance. For instance, you can require any class inheriting the `IFactory` interface to have a name ending with the `Factory` suffix. This ensures everyone uses the same language and understands the same concepts.
 
 ## Enforcing naming conventions using custom attributes
 
@@ -40,9 +40,9 @@ If you want to enforce naming conventions for a scenario different from the one 
 
 3. Import the <xref:Metalama.Framework.Fabrics> and <xref:Metalama.Extensions.Architecture> namespaces to benefit from extension methods.
 
-4. Edit the  <xref:Metalama.Framework.Fabrics.ProjectFabric.AmendProject*>,  <xref:Metalama.Framework.Fabrics.NamespaceFabric.AmendNamespace*> or  <xref:Metalama.Framework.Fabrics.TypeFabric.AmendType*> method. 
+4. Edit the <xref:Metalama.Framework.Fabrics.ProjectFabric.AmendProject*>, <xref:Metalama.Framework.Fabrics.NamespaceFabric.AmendNamespace*>, or <xref:Metalama.Framework.Fabrics.TypeFabric.AmendType*> method. 
 
-5. Select the APIs using the <xref:Metalama.Framework.Fabrics.IQuery`1.Select*>, <xref:Metalama.Framework.Fabrics.IQuery`1.SelectMany*> and <xref:Metalama.Framework.Fabrics.IQuery`1.Where*> methods. You may also find the <xref:Metalama.Framework.Fabrics.IQuery`1.SelectTypesDerivedFrom*> method useful.
+5. Select the APIs using the <xref:Metalama.Framework.Fabrics.IQuery`1.Select*>, <xref:Metalama.Framework.Fabrics.IQuery`1.SelectMany*>, and <xref:Metalama.Framework.Fabrics.IQuery`1.Where*> methods. You may also find the <xref:Metalama.Framework.Fabrics.IQuery`1.SelectTypesDerivedFrom*> method useful.
 
 6. Call the <xref:Metalama.Extensions.Architecture.ArchitectureExtensions.MustRespectNamingConvention*> method.
 
@@ -54,4 +54,9 @@ If you want to enforce naming conventions for a scenario different from the one 
 Many teams require UI pages to be suffixed with `Page`, controls with `Control`, and so on. This can't be achieved using a custom attribute because you don't own the source code of the base class. In the following example, we show how to implement this requirement: we require all classes derived from `TextReader` to be suffixed with `Reader`. We use the <xref:Metalama.Framework.Fabrics.IQuery`1.SelectTypesDerivedFrom*> method to select the relevant types.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/Architecture/NamingConvention_Fabric.cs tabs="target"]
+
+> [!div class="see-also"]
+> <xref:validation>
+> <xref:Metalama.Extensions.Architecture.Aspects.DerivedTypesMustRespectNamingConventionAttribute>
+> <xref:fabrics>
 

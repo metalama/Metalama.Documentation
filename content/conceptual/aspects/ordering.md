@@ -4,7 +4,7 @@ level: 300
 summary: "The document explains how to define the execution order of aspect classes in Metalama, a concept critical when multiple aspect classes are utilized. The execution order is defined using the AspectOrderAttribute assembly-level custom attribute. The order of aspect application and execution are opposite, and by default, the execution order is alphabetical."
 keywords: "aspect execution order, aspect classes, AspectOrderAttribute, run-time order, build-time order, Metalama, aspect libraries, alphabetical order, AspectOrderDirection, derived aspect classes"
 created-date: 2023-01-26
-modified-date: 2024-08-22
+modified-date: 2025-11-30
 ---
 
 # Ordering aspects
@@ -28,9 +28,9 @@ Metalama adheres to the "matryoshka" model: your source code is the innermost do
 
 ![](matryoshka.png "CC BY-SA 3.0 by Wikipedia user Fanghong")
 
-It's crucial to remember that while Metalama, at _build time_, constructs the matryoshka from the inside out, at _run time_ the code is executed from the outside in; in other words, the source code is executed _last_.
+Remember that while Metalama, at _build time_, constructs the matryoshka from the inside out, at _run time_ the code is executed from the outside in; in other words, the source code is executed _last_.
 
-Therefore, the build-time order of applying aspects order and the run-time order of executing aspects are usually _opposite_. 
+Therefore, the build-time order of applying aspects and the run-time order of executing aspects are usually _opposite_. 
 
 ## Specifying the execution order
 
@@ -129,7 +129,7 @@ When a pair of aspects don't have any specific ordering relationship, from any s
 
 ### Example
 
-The following code snippet demonstrates two aspects that add a method to the target type and display the list of methods defined on the target type before the aspect was applied. The execution order is defined as `Aspect1 < Aspect2`. From this example, you can discern that the order of application of aspects is opposite. `Aspect2` is applied first and sees the source code, then `Aspect1` is applied and sees the method added by `Aspect1`. The modified method body of `SourceMethod` shows that the aspects are executed in this order: `Aspect1`, `Aspect2`, then the original method.
+The following code snippet demonstrates two aspects that add a method to the target type and display the list of methods defined on the target type before the aspect was applied. The execution order is defined as `Aspect1 < Aspect2`. From this example, you can see that the order of application of aspects is opposite. `Aspect2` is applied first and sees the source code, then `Aspect1` is applied and sees the method added by `Aspect2`. The modified method body of `SourceMethod` shows that the aspects are executed in this order: `Aspect1`, `Aspect2`, then the original method.
 
 [!metalama-test  ~/code/Metalama.Documentation.SampleCode.AspectFramework/Ordering.cs name="Ordering"]
 
@@ -147,4 +147,13 @@ The primary aspect instance is the instance that has been applied closest to the
 Within these individual categories, the ordering is currently undefined, meaning the build may be nondeterministic if the aspect implementation relies on that ordering.
 
 [comment]: # (TODO: Example of handling secondary instances)
+
+> [!div class="see-also"]
+> <xref:aspects>
+> <xref:aspect-composition>
+> <xref:fabrics-advising>
+> <xref:Metalama.Framework.Aspects.AspectOrderAttribute>
+> <xref:Metalama.Framework.Aspects.AspectOrderDirection>
+> <xref:Metalama.Framework.Aspects.LayersAttribute>
+> <xref:Metalama.Framework.Aspects.IAspectInstance>
 

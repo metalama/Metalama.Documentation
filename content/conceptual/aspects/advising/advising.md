@@ -4,7 +4,7 @@ level: 300
 summary: "The document provides a list of articles discussing advanced techniques in transforming code, including overriding methods, fields, events, implementing interfaces, and using aspects."
 keywords: "overriding methods, overriding fields, implementing interfaces, advanced techniques, aspects, transforming code, overriding events, introducing members, validating values, initialization logic"
 created-date: 2023-02-20
-modified-date: 2024-08-04
+modified-date: 2025-11-30
 ---
 
 # Transforming code
@@ -25,6 +25,11 @@ In <xref:simple-aspects>, you learned how to build simple aspects composed of a 
 | <xref:introducing-constructor-parameters> | This article explains how to add new parameters to constructors and retrieve their value from constructors of derived classes. |
 | <xref:overriding-constructors> | This article explains how to override constructors. |
 | <xref:adding-attributes> | This article explains how to add or remove custom attributes. |
-| <xref:sharing-state-with-advice> | This article discusses how the `BuildAspect` method can pass parameters or state to the templates.
+| <xref:sharing-state-with-advice> | This article discusses how the `BuildAspect` method can pass parameters or state to the templates. |
+
+> [!div class="see-also"]
+> <xref:simple-aspects>
+> <xref:templates>
+> <xref:Metalama.Framework.Aspects.AdviserExtensions>
 
 
