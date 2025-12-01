@@ -178,6 +178,19 @@
         },
         {
             "source_path": "content/conceptual/aspects/ordering.md",
+            "redirect_url": "/conceptual/aspects/multiple-instances/ordering",
+            "redirect_document_id": false
+        },
+        {
+            "source_path": "content/conceptual/aspects/multiple-instances/multiple-instances.md",
+            "redirect_document_id": false
+        },
+        {
+            "source_path": "content/conceptual/aspects/multiple-instances/ordering.md",
+            "redirect_document_id": false
+        },
+        {
+            "source_path": "content/conceptual/aspects/multiple-instances/same-type.md",
             "redirect_document_id": false
         },
         {

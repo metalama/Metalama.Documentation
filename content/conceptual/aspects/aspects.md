@@ -36,7 +36,7 @@ This chapter includes the following articles:
 | <xref:building-ide-interactions> | This article discusses how to create live templates, code fixes, and refactorings.                                                                    |
 | <xref:child-aspects>         | This section explains how an aspect can add other aspects and how child aspects can become aware of their parents.                                     |
 | <xref:aspect-inheritance>    | This section provides insight into how to automatically apply an aspect to all declarations derived from its direct targets.                           |
-| <xref:ordering-aspects>      | This article describes how to order aspect classes to ensure the correct execution order when multiple aspects are applied to the same declaration.     |
+| <xref:multiple-instances>    | This section explains how to handle multiple aspect instances on the same declaration, including ordering different types and handling multiple instances of the same type. |
 | <xref:configuration> | This article explains how an aspect can expose and consume configuration properties or a configuration API.                                           |
 | <xref:testing>               | This section provides guidance on how to test aspects.                                                                                                 |
 | <xref:debugging-aspects>     | This article explains how to debug aspects.                                                                                                            |

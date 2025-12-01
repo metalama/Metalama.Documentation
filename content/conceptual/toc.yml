@@ -161,8 +161,13 @@ items:
           topicUid: aspect-inheritance
         - name: Validating code
           topicUid: aspect-validating
-        - name: Ordering aspects
-          topicUid: ordering-aspects
+        - name: Handling multiple aspect instances
+          topicUid: multiple-instances
+          items:
+            - name: Ordering aspect types
+              topicUid: ordering-aspects
+            - name: Multiple instances of the same type
+              topicUid: same-type-multiple-instances
         - name: Making aspects configurable
           topicUid: aspect-configuration
           items:

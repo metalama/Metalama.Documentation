@@ -9,7 +9,7 @@ modified-date: 2025-11-30
 
 # Ordering aspects
 
-When multiple aspect classes are defined, the execution order becomes critical.
+When you define multiple aspect classes, execution order becomes critical.
 
 ## Concepts
 
@@ -26,7 +26,7 @@ When a project employs two unrelated aspect libraries or contains aspect classes
 
 Metalama adheres to the "matryoshka" model: your source code is the innermost doll, and aspects are added _around_ it. The fully compiled code, inclusive of all aspects, resembles a fully assembled matryoshka. Executing a method is akin to disassembling the matryoshka: you commence with the outermost shell and progress to the original implementation.
 
-![](matryoshka.png "CC BY-SA 3.0 by Wikipedia user Fanghong")
+![Matryoshka dolls illustrating the layered aspect model](../matryoshka.png "CC BY-SA 3.0 by Wikipedia user Fanghong")
 
 Remember that while Metalama, at _build time_, constructs the matryoshka from the inside out, at _run time_ the code is executed from the outside in; in other words, the source code is executed _last_.
 
@@ -34,9 +34,9 @@ Therefore, the build-time order of applying aspects and the run-time order of ex
 
 ## Specifying the execution order
 
-By default, the run-time execution order of aspects is alphabetical. This order is not intended to be correct but at least it is deterministic.
+By default, aspects execute in alphabetical order at run time. This order is not intended to be correct but at least it is deterministic.
 
-The execution order of aspects must be defined using the <xref:Metalama.Framework.Aspects.AspectOrderAttribute> assembly-level custom attribute. The order of the aspect classes in the attribute corresponds to their execution order. To avoid ambiguities, you must explicitly supply the <xref:Metalama.Framework.Aspects.AspectOrderDirection> value (`RunTime` or `CompileTime`) for which you are specifying the aspect order.
+You must define the execution order using the <xref:Metalama.Framework.Aspects.AspectOrderAttribute> assembly-level custom attribute. The order of the aspect classes in the attribute corresponds to their execution order. To avoid ambiguities, you must explicitly supply the <xref:Metalama.Framework.Aspects.AspectOrderDirection> value (`RunTime` or `CompileTime`) for which you are specifying the aspect order.
 
 The two following snippets are equivalent:
 
@@ -134,22 +134,9 @@ The following code snippet demonstrates two aspects that add a method to the tar
 [!metalama-test  ~/code/Metalama.Documentation.SampleCode.AspectFramework/Ordering.cs name="Ordering"]
 
 
-## Several instances of the same aspect type on the same declaration
-
-When multiple instances of the same aspect type are applied to the same declaration, one instance of the aspect, known as the _primary_ instance, is selected and applied to the target. The other instances, known as _secondary_ instances, are exposed on the <xref:Metalama.Framework.Aspects.IAspectInstance.SecondaryInstances?text=IAspectInstance.SecondaryInstances> property, which you can access from <xref:Metalama.Framework.Aspects.meta.AspectInstance?text=meta.AspectInstance> or <xref:Metalama.Framework.Aspects.IAspectBuilder.AspectInstance?text=builder.AspectInstance>. The aspect implementation is responsible for determining what to do with the secondary aspect instances.
-
-The primary aspect instance is the instance that has been applied closest to the target declaration. The sorting criteria are as follows:
-    1. Aspects defined using a _custom attribute_.
-    2. Aspects added by another aspect (child aspects).
-    3. Aspects inherited from another declaration.
-    4. Aspects added by a fabric.
-
-Within these individual categories, the ordering is currently undefined, meaning the build may be nondeterministic if the aspect implementation relies on that ordering.
-
-[comment]: # (TODO: Example of handling secondary instances)
-
 > [!div class="see-also"]
 > <xref:aspects>
+> <xref:same-type-multiple-instances>
 > <xref:aspect-composition>
 > <xref:fabrics-advising>
 > <xref:Metalama.Framework.Aspects.AspectOrderAttribute>
