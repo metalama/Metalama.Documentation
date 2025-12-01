@@ -157,6 +157,9 @@ For the example above, the test output is the following:
 
 Verify that the output code matches your expectations. If necessary, fix your aspect and rerun the test. Repeat as many times as necessary.
 
+> [!NOTE]
+> To debug your aspect's compile-time logic, you cannot use regular IDE breakpoints. Instead, insert `Debugger.Break()` or `meta.DebugBreak()` directly in your code, then run the test with the debugger attached. For details, see <xref:debugging-aspects>.
+
 ## Step 4. Copy the test output to the expected output
 
 Once the `.t.cs` file is satisfactory, copy the test output to this file. For instance, if your test file is named `MyTest.cs`, copy the test output to the file named `MyTest.t.cs`.
