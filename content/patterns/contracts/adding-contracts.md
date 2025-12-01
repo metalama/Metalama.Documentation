@@ -1,10 +1,10 @@
 ---
 uid: value-contracts
-summary: "The document provides a detailed guide on how to validate input and output values of fields, properties, or parameters using Metalama.Patterns.Contracts package in coding. It covers contract inheritance, return values, out parameters, ref parameters, and fields and properties."
+summary: "The document provides a detailed guide on how to validate input and output values of fields, properties, or parameters using Metalama.Patterns.Contracts package in coding. It covers contract inheritance, primary constructor parameters, return values, out parameters, ref parameters, and fields and properties."
 level: 100
-keywords: "validate input values, Metalama.Patterns.Contracts, contract inheritance, validate return values, validate out parameters, validate ref parameters, validate output values, validate fields, validate properties"
+keywords: "validate input values, Metalama.Patterns.Contracts, contract inheritance, validate return values, validate out parameters, validate ref parameters, validate output values, validate fields, validate properties, primary constructor parameters"
 created-date: 2024-07-22
-modified-date: 2025-11-30
+modified-date: 2025-12-01
 ---
 
 # Validating field, property, and parameter values
@@ -21,6 +21,14 @@ Follow these simple steps:
 ### Example: validating input values
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Contracts/Input.cs]
+
+## Validating primary constructor parameters
+
+Contracts can also be applied to primary constructor parameters. This enables validation of constructor arguments, a feature that cannot be achieved with standard C# alone.
+
+### Example: contracts on primary constructor parameters
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.Contracts/PrimaryConstructor.cs]
 
 ## Using contract inheritance
 
