@@ -15,3 +15,10 @@
 * When samples or the DocFx Markdig extensions have changed, rebuild using `Build.ps1 build`.
 * When just Markdown files have changes, rebuild using `update-html.ps1`.
 * The build output (html files) is under `artifacts/site`.
+
+## Git commits
+
+* Must be very short
+* Must include git issue #number if in the same repo, or full link to issue if another repo.
+- don't use bold and `` code formatting
+- the source code should not be in markdown - use docfx Markdown extensions like [!code-snippet] to include code

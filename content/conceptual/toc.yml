@@ -210,6 +210,8 @@ items:
               topicUid: roslyn-api
             - name: Custom metrics
               topicUid: custom-metrics
+            - name: SDK extension projects
+              topicUid: sdk-extensions
             
         - name: Under the hood
           topicUid: implementation

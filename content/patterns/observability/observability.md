@@ -14,28 +14,28 @@ A second common element of the Observable pattern is the `OnPropertyChanged` met
 
 Metalama provides an open-source implementation of the Observable pattern in the `Metalama.Patterns.Observability` package. The principal artifacts in this package are:
 
-* The <xref:Metalama.Patterns.Observability.ObservableAttribute?text=[Observable]> aspect, which automatically implements the <xref:System.ComponentModel.INotifyPropertyChanged> interface for the target type.
-* The <xref:Metalama.Patterns.Observability.Configuration.ObservabilityExtensions.ConfigureObservability*> extension methods, designed to be called from a fabric.
-* The <xref:Metalama.Patterns.Observability.ConstantAttribute?text=[Constant]> attribute, which ensures that the output of a method is constant for identical parameters.
+- The <xref:Metalama.Patterns.Observability.ObservableAttribute?text=[Observable]> aspect, which automatically implements the <xref:System.ComponentModel.INotifyPropertyChanged> interface for the target type.
+- The <xref:Metalama.Patterns.Observability.Configuration.ObservabilityExtensions.ConfigureObservability*> extension methods, designed to be called from a fabric.
+- The <xref:Metalama.Patterns.Observability.ConstantAttribute?text=[Constant]> attribute, which ensures that the output of a method is constant for identical parameters.
 
 ## Benefits
 
 The primary benefits of using `Metalama.Patterns.Observability` include:
 
-* Dramatic reduction of the boilerplate code linked to <xref:System.ComponentModel.INotifyPropertyChanged>
-* Safety from human errors:
-    * Never forget to raise a notification again
-    * The package reports warnings if a dependency or code construct is not supported
-* Idiomatic source code
-* Almost idiomatic code generation
-* Support for complex code constructs:
-     * Automatic properties
-     * Explicitly-implemented properties
-     * Field-backed properties
-     * Properties that depend on **child objects**, a common scenario in MVVM architectures
-     * Properties that depend on **methods**
-     * Constant methods and immutable objects
-* Compatibility with most MVVM frameworks
+- Dramatic reduction of the boilerplate code linked to <xref:System.ComponentModel.INotifyPropertyChanged>
+- Safety from human errors:
+    - Never forget to raise a notification again
+    - The package reports warnings if a dependency or code construct is not supported
+- Idiomatic source code
+- Almost idiomatic code generation
+- Support for complex code constructs:
+     - Automatic properties
+     - Explicitly-implemented properties
+     - Field-backed properties
+     - Properties that depend on **child objects**, a common scenario in MVVM architectures
+     - Properties that depend on **methods**
+     - Constant methods and immutable objects
+- Compatibility with most MVVM frameworks
 
 ## Implementing INotifyPropertyChanged for a class hierarchy
 
@@ -62,9 +62,9 @@ Here are different ways to cope with these warnings:
 
 ### Ignoring the warning
 
-If you consider the warning to be a false positive, you can ignore it using the classic `#pragma warning disable` syntax.
+If the warning is considered a false positive, ignore it using the classic `#pragma warning disable` syntax.
 
-If you want to disable all warnings in a member, you can also use the <xref:Metalama.Patterns.Observability.SuppressObservabilityWarningsAttribute?text=[SuppressObservabilityWarnings]> attribute, which is provided for find-and-replace-all compatibility with PostSharp.
+To disable all warnings in a member, the <xref:Metalama.Patterns.Observability.SuppressObservabilityWarningsAttribute?text=[SuppressObservabilityWarnings]> attribute can also be used, which is provided for find-and-replace-all compatibility with PostSharp.
 
 > [!WARNING]
 > These warnings indicate that a dependency will _not_ be handled by the generated code. Suppressing the warning, of course, has no effect on the generated code.
@@ -91,9 +91,9 @@ Calls to methods of different types are supported only if they are known to be _
 
 The following methods are considered _constant_:
 
-* Methods where all input parameters (including `this` in case of non-static methods) are of an _immutable_ type. Immutability is handled using the `Metalama.Patterns.Immutability` patterns. For details, see <xref:immutability>.
-* `void` methods without `out` arguments.
-* Methods marked as constants using the <xref:Metalama.Patterns.Observability.ConstantAttribute?text=[Constant]> custom attribute or using a fabric (see below).
+- Methods where all input parameters (including `this` in case of non-static methods) are of an _immutable_ type. Immutability is handled using the `Metalama.Patterns.Immutability` patterns. For details, see <xref:immutability>.
+- `void` methods without `out` arguments.
+- Methods marked as constants using the <xref:Metalama.Patterns.Observability.ConstantAttribute?text=[Constant]> custom attribute or using a fabric (see below).
 
 One way to mark a method as constant is to add the <xref:Metalama.Patterns.Observability.ConstantAttribute?text=[Constant]> custom attribute.
 

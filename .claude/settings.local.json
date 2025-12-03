@@ -21,7 +21,11 @@
       "Bash(powershell -ExecutionPolicy Bypass -File update-html.ps1:*)",
       "Bash(dotnet restore:*)",
       "Bash(dotnet test:*)",
-      "Bash(dotnet test)"
+      "Bash(dotnet test)",
+      "Bash(git add:*)",
+      "Bash(find:*)",
+      "Bash(gh issue list:*)",
+      "Bash(gh issue view:*)",
     ],
     "deny": [],
     "ask": []

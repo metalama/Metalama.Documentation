@@ -156,10 +156,9 @@ Visual Studio Tools for Metalama includes refactored components that dramaticall
 - `TypeKind.RecordClass` and `TypeKind.RecordStruct` have been removed and replaced by <xref:Metalama.Framework.Code.INamedType.IsRecord?text=INamedType.IsRecord>.
 - The `IntroduceConversionOperator` method now has an additional optional parameter to support `checked` operators ([#1133](https://github.com/metalama/Metalama/issues/1133)).
 
-## See also
-
-- <xref:release-notes>
-- <xref:requirements>
-- <xref:overriding-events>
-- <xref:type-system>
-- <xref:dependency-injection>
+> [!div class="see-also"]
+> <xref:release-notes>
+> <xref:requirements>
+> <xref:overriding-events>
+> <xref:type-system>
+> <xref:dependency-injection>

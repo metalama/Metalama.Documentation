@@ -1,0 +1,16 @@
+<Project>
+    <ItemGroup>
+        <!-- Make the AspectContracts assembly available at Metalama compile time. -->
+        <MetalamaCompileTimeAssembly
+            Include="$(MSBuildThisFileDirectory)../lib/netstandard2.0/MyExtension.AspectContracts.dll" />
+
+        <!-- Load the Engine as an extension assembly.
+             net472 is for Visual Studio, net8.0 is for other compiler hosts. -->
+        <MetalamaExtensionAssembly
+            Include="$(MSBuildThisFileDirectory)../metalama/net472/MyExtension.Engine.dll"
+            TargetFramework="net472"/>
+        <MetalamaExtensionAssembly
+            Include="$(MSBuildThisFileDirectory)../metalama/net8.0/MyExtension.Engine.dll"
+            TargetFramework="net8.0"/>
+    </ItemGroup>
+</Project>

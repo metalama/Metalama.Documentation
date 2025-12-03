@@ -70,10 +70,13 @@ In this situation, you can use an auxiliary template with a [compile-time type p
 To invoke the template, use the <xref:Metalama.Framework.Aspects.meta.InvokeTemplate*?text=meta.InvokeTemplate> and specify the `args` parameter. For instance:
 
 ```cs
-meta.InvokeTemplate( 
-     nameof(CompareFieldOrProperty), 
+meta.InvokeTemplate(
+     nameof(CompareFieldOrProperty),
      args: new { TFieldOrProperty = fieldOrProperty.Type, fieldOrProperty, other = (IExpression) other! } );
 ```
+
+> [!TIP]
+> Instead of using `nameof()` to reference a template, you can assign a stable identifier using the <xref:Metalama.Framework.Aspects.TemplateAttribute.Id> property and reference the template by that identifier. This is useful when templates are defined in a separate assembly where `nameof()` is not available.
 
 This is illustrated by the following example:
 

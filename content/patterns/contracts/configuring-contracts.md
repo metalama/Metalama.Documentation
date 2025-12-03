@@ -37,9 +37,9 @@ All other configurable options are compile-time ones, represented by the <xref:M
 Contracts are often only useful during the early phases of development. As the code stabilizes, they can be disabled. However, when a problem arises, it may be beneficial to re-enable them for troubleshooting.
 
 The <xref:Metalama.Patterns.Contracts.ContractOptions> class provides three properties that allow you to enable or disable contracts for the entire project, or more specifically for a given namespace or type:
-* <xref:Metalama.Patterns.Contracts.ContractOptions.ArePreconditionsEnabled>
-* <xref:Metalama.Patterns.Contracts.ContractOptions.ArePostconditionsEnabled>
-* <xref:Metalama.Patterns.Contracts.ContractOptions.AreInvariantsEnabled>
+- <xref:Metalama.Patterns.Contracts.ContractOptions.ArePreconditionsEnabled>
+- <xref:Metalama.Patterns.Contracts.ContractOptions.ArePostconditionsEnabled>
+- <xref:Metalama.Patterns.Contracts.ContractOptions.AreInvariantsEnabled>
 
 These options are enabled by default. If you disable them, the code supporting these features won't be generated.
 
@@ -57,7 +57,7 @@ By default, contract inheritance is enabled and contract direction is set to <xr
 
 The default behavior of Metalama Contracts is to generate code that throws the default .NET exception with a hard-coded error message. This default behavior is implemented by the <xref:Metalama.Patterns.Contracts.ContractTemplates> class.
 
-To customize the type of exceptions thrown or the exception messages (for instance, to localize them), you need to override the <xref:Metalama.Patterns.Contracts.ContractTemplates> class. Follow these steps:
+To customize the type of exceptions thrown or the exception messages (for instance, to localize them), override the <xref:Metalama.Patterns.Contracts.ContractTemplates> class. Follow these steps:
 
 1. Create a class derived from the <xref:Metalama.Patterns.Contracts.ContractTemplates>.
 2. Override any or all templates. You may want to refer to the original source code of the <xref:Metalama.Patterns.Contracts.ContractTemplates> class for inspiration.

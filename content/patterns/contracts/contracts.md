@@ -19,11 +19,11 @@ By adhering to these specified contracts, software transitions towards a modular
 
 Compared to hand-written precondition checks, Metalama Contracts offer the following benefits:
 
-* **More readable**. Metalama Contracts are represented as custom attributes, resulting in less code to read and understand.
+- **More readable**. Metalama Contracts are represented as custom attributes, resulting in less code to read and understand.
 
-* **Inherited**. You can add a Metalama Code Contract attribute to an interface method parameter, and it will automatically be enforced in all implementations of this method.
+- **Inherited**. You can add a Metalama Code Contract attribute to an interface method parameter, and it will automatically be enforced in all implementations of this method.
 
-* **Customizable**. It's easy to change the code generation pattern that throws the exception. For example, you can localize your exception messages as an afterthought, without any impact on your business code.
+- **Customizable**. It's easy to change the code generation pattern that throws the exception. For example, you can localize your exception messages as an afterthought, without any impact on your business code.
 
 
 ## In this chapter

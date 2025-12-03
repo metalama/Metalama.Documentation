@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <PackageId>MyExtension</PackageId>
+        <!-- Don't include the build output in the package. -->
+        <IncludeBuildOutput>false</IncludeBuildOutput>
+        <!-- Hook into the packaging process to add extension assemblies. -->
+        <TargetsForTfmSpecificContentInPackage>
+            $(TargetsForTfmSpecificContentInPackage);_AddAssembliesToOutput
+        </TargetsForTfmSpecificContentInPackage>
+        <!-- Suppress warnings about assemblies not in lib folder (metalama folder is intentional). -->
+        <NoWarn>$(NoWarn);NU5100;NU5128</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <!-- Include the props files in the package. -->
+        <None Update="build/*" Pack="true" PackagePath=""/>
+        <None Update="buildTransitive/*" Pack="true" PackagePath=""/>
+    </ItemGroup>
+
+    <!-- Add assemblies to the package. -->
+    <Target Name="_AddAssembliesToOutput">
+        <!-- Build dependencies first. RemoveProperties clears inherited TargetFramework. -->
+        <MSBuild Projects="../MyExtension.Engine/MyExtension.Engine.csproj"
+                 Properties="Configuration=$(Configuration)" RemoveProperties="TargetFramework" />
+        <MSBuild Projects="../MyExtension/MyExtension.csproj"
+                 Properties="Configuration=$(Configuration)" RemoveProperties="TargetFramework" />
+
+        <ItemGroup>
+            <!-- Add AspectContracts and Main to lib folder for run-time use. -->
+            <TfmSpecificPackageFile
+                Include="../MyExtension.AspectContracts/bin/$(Configuration)/netstandard2.0/MyExtension.AspectContracts.dll"
+                PackagePath="lib/netstandard2.0" />
+            <TfmSpecificPackageFile
+                Include="../MyExtension/bin/$(Configuration)/net8.0/MyExtension.dll"
+                PackagePath="lib/net8.0" />
+
+            <!-- Add Engine to metalama folder for compile-time use.
+                 net472 is for Visual Studio, net8.0 is for other compiler hosts. -->
+            <TfmSpecificPackageFile
+                Include="../MyExtension.Engine/bin/$(Configuration)/netstandard2.0/MyExtension.Engine.dll"
+                PackagePath="metalama/net472" />
+            <TfmSpecificPackageFile
+                Include="../MyExtension.Engine/bin/$(Configuration)/netstandard2.0/MyExtension.Engine.dll"
+                PackagePath="metalama/net8.0" />
+        </ItemGroup>
+    </Target>
+</Project>

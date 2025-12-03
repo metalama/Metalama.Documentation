@@ -10,13 +10,13 @@ modified-date: 2025-11-30
 
 The `Metalama.Patterns.Observability` package supports the following scenarios:
 
-* Automatic properties;
-* Explicitly-implemented properties whose getter references:
+- Automatic properties;
+- Explicitly-implemented properties whose getter references:
     - fields,
     - other properties,
     - non-virtual instance methods;
-* Child objects, i.e., properties whose getter references properties of another object, referred to as a child object, stored in a field or an automatic property of the current type (if this child object is itself observable);
-* Class inheritance.
+- Child objects, i.e., properties whose getter references properties of another object, referred to as a child object, stored in a field or an automatic property of the current type (if this child object is itself observable);
+- Class inheritance.
 
 In this section, we present the code generation patterns for each supported scenario.
 

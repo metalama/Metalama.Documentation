@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Metalama.Framework" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Regular project reference for compile-time type visibility. -->
+    <ProjectReference Include="../MyExtension.AspectContracts/MyExtension.AspectContracts.csproj" />
+
+    <!-- Build dependency only - the extension is not included in run-time output. -->
+    <ProjectReference Include="../MyExtension.Engine/MyExtension.Engine.csproj" OutputItemType="None" />
+
+    <!-- Make the AspectContracts assembly available at Metalama compile time. -->
+    <MetalamaCompileTimeAssembly
+        Include="../MyExtension.AspectContracts/bin/$(Configuration)/netstandard2.0/MyExtension.AspectContracts.dll" />
+
+    <!-- Load the Extension assembly as a Metalama extension. -->
+    <MetalamaExtensionAssembly
+        Include="../MyExtension.Engine/bin/$(Configuration)/netstandard2.0/MyExtension.Engine.dll" />
+  </ItemGroup>
+
+</Project>

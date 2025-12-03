@@ -57,14 +57,14 @@ The following example implements a window with two commands: `Increment` and `De
 
 ## Adding a CanExecute method or property
 
-In addition to the <xref:System.Windows.Input.ICommand.Execute*> method, you can also supply an implementation of <xref:System.Windows.Input.ICommand.CanExecute*?text=ICommand.CanExecute>. This implementation can be either a `bool` property or, when the `Execute` method has a parameter, a method that accepts the same parameter type and returns `bool`.
+In addition to the <xref:System.Windows.Input.ICommand.Execute*> method, an implementation of <xref:System.Windows.Input.ICommand.CanExecute*?text=ICommand.CanExecute> can also be supplied. This implementation can be either a `bool` property or, when the `Execute` method has a parameter, a method that accepts the same parameter type and returns `bool`.
 
 There are two ways to associate a `CanExecute` implementation with the `Execute` member:
 
-* Implicitly, by respecting naming conventions. For a command named `Foo`, the `CanExecute` member can be named `CanFoo`, `CanExecuteFoo`, or `IsFooEnabled`. See below to learn how to customize these naming conventions.
-* Explicitly, by setting the <xref:Metalama.Patterns.Wpf.CommandAttribute.CanExecuteMethod> or <xref:Metalama.Patterns.Wpf.CommandAttribute.CanExecuteProperty> property of the <xref:Metalama.Patterns.Wpf.CommandAttribute>.
+- Implicitly, by respecting naming conventions. For a command named `Foo`, the `CanExecute` member can be named `CanFoo`, `CanExecuteFoo`, or `IsFooEnabled`. See below to learn how to customize these naming conventions.
+- Explicitly, by setting the <xref:Metalama.Patterns.Wpf.CommandAttribute.CanExecuteMethod> or <xref:Metalama.Patterns.Wpf.CommandAttribute.CanExecuteProperty> property of the <xref:Metalama.Patterns.Wpf.CommandAttribute>.
 
-When the `CanExecute` member is a property and the declaring type implements the <xref:System.ComponentModel.INotifyPropertyChanged> interface, the <xref:System.Windows.Input.ICommand.CanExecuteChanged?text=ICommand.CanExecuteChanged> event will be raised whenever the `CanExecute` property changes. You can use the <xref:Metalama.Patterns.Observability.ObservableAttribute?text=[Observable]> aspect to implement <xref:System.ComponentModel.INotifyPropertyChanged>. See <xref:observability> for details.
+When the `CanExecute` member is a property and the declaring type implements the <xref:System.ComponentModel.INotifyPropertyChanged> interface, the <xref:System.Windows.Input.ICommand.CanExecuteChanged?text=ICommand.CanExecuteChanged> event will be raised whenever the `CanExecute` property changes. The <xref:Metalama.Patterns.Observability.ObservableAttribute?text=[Observable]> aspect can be used to implement <xref:System.ComponentModel.INotifyPropertyChanged>. See <xref:observability> for details.
 
 ### Example: Commands with a CanExecute property and _implicit_ association
 
@@ -99,7 +99,7 @@ To track and cancel concurrent executions of the command, subscribe to the <xref
 
 ## Background commands
 
-By default, the implementation method of the command is executed in the foreground thread. You can dispatch its execution to a background thread by setting the <xref:Metalama.Patterns.Wpf.CommandAttribute.Background?text=CommandAttribute.Background> property to `true`. This will work for implementation methods returning both `void` or a `Task`.
+By default, the implementation method of the command is executed in the foreground thread. Its execution can be dispatched to a background thread by setting the <xref:Metalama.Patterns.Wpf.CommandAttribute.Background?text=CommandAttribute.Background> property to `true`. This works for implementation methods returning both `void` or a `Task`.
 
 In both cases, the `[Command]` aspect generates a property of type <xref:Metalama.Patterns.Wpf.AsyncDelegateCommand>.
 
@@ -107,12 +107,12 @@ In both cases, the `[Command]` aspect generates a property of type <xref:Metalam
 ## Customizing naming conventions
 
 All examples above relied on the default naming convention, which is based on the following assumptions:
-* The command name is obtained by trimming the `Execute` method name (the one with the `[Command]` aspect) from:
-    * prefixes: `_`, `m_`, and `Execute`,
-    * suffix: `_`, `Command`, and `Async`.
-* Given a command name `Foo` determined by the previous step:
-    * The command property is named `FooCommand`.
-    * The `CanExecute` command or method can be named `CanFoo`, `CanExecuteFoo`, or `IsFooEnabled`.
+- The command name is obtained by trimming the `Execute` method name (the one with the `[Command]` aspect) from:
+    - prefixes: `_`, `m_`, and `Execute`,
+    - suffix: `_`, `Command`, and `Async`.
+- Given a command name `Foo` determined by the previous step:
+    - The command property is named `FooCommand`.
+    - The `CanExecute` command or method can be named `CanFoo`, `CanExecuteFoo`, or `IsFooEnabled`.
 
 This naming convention can be modified by calling the <xref:Metalama.Patterns.Wpf.Configuration.CommandExtensions.ConfigureCommand*> fabric extension method, then <xref:Metalama.Patterns.Wpf.Configuration.CommandOptionsBuilder.AddNamingConvention*?text=builder.AddNamingConvention>, and supply an instance of the <xref:Metalama.Patterns.Wpf.Configuration.CommandNamingConvention> class.
 
@@ -120,7 +120,7 @@ If specified, the <xref:Metalama.Patterns.Wpf.Configuration.CommandNamingConvent
 
 Naming conventions are evaluated by priority order. The default priority is the order in which the convention has been added. It can be overwritten by supplying a value to the `priority` parameter.
 
-The default naming convention is evaluated last and cannot be modified.
+The default naming convention is evaluated last and can't be modified.
 
 ### Example: Czech Naming Conventions
 

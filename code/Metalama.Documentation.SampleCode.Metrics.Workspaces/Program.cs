@@ -1,7 +1,6 @@
 // This is public domain Metalama sample code.
 
 using Metalama.Extensions.Metrics;
-using Metalama.Framework.Metrics;
 using Metalama.Framework.Workspaces;
 
 if ( args.Length != 1 )
@@ -13,12 +12,7 @@ if ( args.Length != 1 )
 
 #region RegisterMetricProviders
 // Register metric providers before loading the workspace.
-// The ServiceBuilder allows you to add custom services to the workspace.
-WorkspaceCollection.Default.ServiceBuilder.Add<IMetricProvider<SyntaxNodesCount>>(
-    _ => new SyntaxNodesCountMetricProvider() );
-
-WorkspaceCollection.Default.ServiceBuilder.Add<IMetricProvider<StatementsCount>>(
-    _ => new StatementsCountMetricProvider() );
+WorkspaceCollection.Default.ServiceBuilder.AddMetrics();
 #endregion
 
 #region LoadWorkspace
