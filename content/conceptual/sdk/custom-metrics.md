@@ -1,19 +1,21 @@
 ---
 uid: custom-metrics
 level: 400
-summary: "The document provides a detailed guide on how to create and consume custom metrics using the Metalama SDK, including steps on referencing the SDK, creating the metric public API, and implementing the metric."
+summary: "Learn how to create and consume custom metrics using the Metalama SDK."
 keywords: "custom metrics, Metalama SDK, create metric public API, implement metric, .NET, IMetric interface, SyntaxMetricProvider, MetalamaPlugInAttribute"
 created-date: 2023-02-20
-modified-date: 2025-11-30
+modified-date: 2025-12-02
 ---
 
 # Custom metrics
+
+Custom metrics let you measure and report on code characteristics beyond Metalama's built-in metrics. This article explains how to create custom metrics using the Metalama SDK and consume them in aspects, fabrics, or the introspection API.
 
 ## Creating a custom metric
 
 ### Step 1. Reference the Metalama SDK
 
-Start by referencing `Metalama.Framework.Sdk` and `Metalama.Framework`, both privately:
+Reference `Metalama.Framework.Sdk` and `Metalama.Framework`, both privately:
 
 ```xml
 <PackageReference Include="Metalama.Framework.Sdk" Version="$(MetalamaVersion)" PrivateAssets="all" />
@@ -22,16 +24,16 @@ Start by referencing `Metalama.Framework.Sdk` and `Metalama.Framework`, both pri
 
 ### Step 2. Create the metric public API
 
-Create a `struct` that implements the <xref:Metalama.Framework.Metrics.IMetric`1> generic interface. The type parameter should be the type of declaration to which the metric applies (e.g., `IMethod` or `IField`). Note that your metric `struct` can implement several generic instances of the <xref:Metalama.Framework.Metrics.IMetric`1> interface simultaneously.
+Create a `struct` that implements the <xref:Metalama.Framework.Metrics.IMetric`1> generic interface. The type parameter should be the type of declaration to which the metric applies (e.g., `IMemberOrNamedType`, `INamespace`, or `ICompilation`). Your metric `struct` can implement several generic instances of the <xref:Metalama.Framework.Metrics.IMetric`1> interface simultaneously.
 
-Typically, your metric `struct` will have at least one public property. It will also have internal members to update the values, which will be utilized by the metric implementation.
+Typically, your metric `struct` will have at least one public property. It will also have internal members to update the values, which the metric implementation uses.
 
 #### Example
 
 The following example demonstrates a single-value metric.
 
 ```cs
-public struct SyntaxNodesCount : IMetric<IMethodBase>, IMetric<INamedType>, IMetric<INamespace>, IMetric<ICompilation>
+public struct SyntaxNodesCount : IMetric<IMemberOrNamedType>, IMetric<INamespace>, IMetric<ICompilation>
 {
     public int Value { get; internal set; }
 
@@ -81,13 +83,45 @@ public class SyntaxNodesCountMetricProvider : SyntaxMetricProvider<SyntaxNodesCo
 }
 ```
 
+### Step 4. Create an extension method for registration
+
+To use your metric with the Introspection API (see <xref:introspection>), create an extension method on <xref:Metalama.Framework.Engine.Services.ServiceProviderBuilder`1> to register your metric provider. This provides a clean API for consumers:
+
+```csharp
+[CompileTime]
+public static class MyMetricsExtensions
+{
+    public static void AddMyMetrics( this ServiceProviderBuilder<IProjectService> builder )
+    {
+        builder.Add<IMetricProvider<MyCustomMetric>>( _ => new MyCustomMetricProvider() );
+    }
+}
+```
+
+> [!NOTE]
+> The type argument `T` of `Add<T>` must be the _interface_ type (e.g., `IMetricProvider<MyCustomMetric>`), not the concrete implementation type.
+
+
 ## Consuming a custom metric
 
-Custom metrics can be consumed in the usual manner.
+### Using from an aspect or fabric
 
-[comment]: # (TODO: what does "as usual" mean? a link or a short explanation would be useful)
+Use the metric as usual, for example, `declaration.Metrics().Get<MyCustomMetric>()`.
 
-[comment]: # (TODO: Testing a custom metric)
+### Using from the Workspaces API
+
+Consumers register your metrics using your extension method, then query as usual:
+
+```csharp
+// Register metric providers before loading the workspace.
+WorkspaceCollection.Default.ServiceBuilder.AddMyMetrics();
+
+// Load workspace and query metrics.
+var workspace = await WorkspaceCollection.Default.LoadAsync( "MyProject.csproj" );
+var metric = declaration.Metrics().Get<MyCustomMetric>();
+```
+
+See <xref:metrics> for details on using metrics with the Workspaces API.
 
 > [!div class="see-also"]
 >

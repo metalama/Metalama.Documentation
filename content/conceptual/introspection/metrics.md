@@ -2,9 +2,9 @@
 uid: metrics
 level: 300
 summary: "This article explains how to consume code metrics in Metalama to analyze code complexity from aspects, fabrics, or the Workspaces API."
-keywords: "metrics, code metrics, Metalama, code complexity, StatementsCount, SyntaxNodesCount, IMeasurable, IMetric, aspects, fabrics, Workspaces"
+keywords: "metrics, code metrics, Metalama, code complexity, StatementsCount, SyntaxNodesCount, LinesOfCode, IMeasurable, IMetric, aspects, fabrics, Workspaces"
 created-date: 2025-11-30
-modified-date: 2025-11-30
+modified-date: 2025-12-02
 ---
 
 # Consuming code metrics
@@ -16,14 +16,15 @@ Code metrics provide quantitative measures of your source code, such as statemen
 
 ## Built-in metrics
 
-The `Metalama.Extensions.Metrics` package provides two ready-to-use metrics:
+The `Metalama.Extensions.Metrics` package provides three ready-to-use metrics:
 
 | Metric | Description |
 |--------|-------------|
 | <xref:Metalama.Extensions.Metrics.StatementsCount> | Counts the number of statements in a declaration. More relevant than line counts, but less accurate than syntax nodes for modern expression-oriented C#. |
 | <xref:Metalama.Extensions.Metrics.SyntaxNodesCount> | Counts all syntax nodes in a declaration's syntax tree. Provides a more accurate measure of code complexity. |
+| <xref:Metalama.Extensions.Metrics.LinesOfCode> | Counts lines of code with three sub-metrics: `Logical` (excludes braces and comments), `NonBlank` (lines with non-whitespace content), and `Total` (total line span). |
 
-Both metrics can be applied to methods, constructors, types, namespaces, and the entire compilation. When applied to a container (type, namespace, compilation), the metric aggregates values from all contained members.
+You can apply all metrics to methods, constructors, types, namespaces, and the entire compilation. When applied to a container (type, namespace, compilation), the metric aggregates values from all contained members.
 
 ## Using metrics in aspects and fabrics
 
@@ -44,7 +45,7 @@ var syntaxNodeCount = method.Metrics().Get<SyntaxNodesCount>();
 int count = syntaxNodeCount.Value;
 ```
 
-You can use this in:
+Use this in:
 
 - **Aspects**: In `BuildAspect` to conditionally add advice, or in templates to embed metric values in generated code.
 - **Fabrics**: In `AmendProject` or `AmendType` to filter declarations based on complexity.
@@ -70,7 +71,7 @@ Add both the `Metalama.Framework.Workspaces` and `Metalama.Extensions.Metrics` p
 
 ### Step 2. Register metric providers
 
-Before loading the workspace, register the metric providers using <xref:Metalama.Framework.Workspaces.WorkspaceCollection.ServiceBuilder>:
+Before loading the workspace, call the <xref:Metalama.Extensions.Metrics.ServiceBuilderExtensions.AddMetrics*> extension method on <xref:Metalama.Framework.Workspaces.WorkspaceCollection.ServiceBuilder>:
 
 [!code-csharp[](~/code/Metalama.Documentation.SampleCode.Metrics.Workspaces/Program.cs#RegisterMetricProviders)]
 
@@ -90,5 +91,7 @@ The following example demonstrates a standalone tool that analyzes code complexi
 > <xref:Metalama.Framework.Metrics>
 > <xref:Metalama.Extensions.Metrics.StatementsCount>
 > <xref:Metalama.Extensions.Metrics.SyntaxNodesCount>
+> <xref:Metalama.Extensions.Metrics.LinesOfCode>
+> <xref:Metalama.Extensions.Metrics.ServiceBuilderExtensions.AddMetrics*>
 > <xref:custom-metrics>
 > <xref:workspaces>
