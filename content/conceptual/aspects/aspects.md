@@ -43,6 +43,6 @@ This chapter includes the following articles:
 
 > [!div class="see-also"]
 > <xref:simple-aspects>
-> <xref:using>
+> <xref:using-metalama>
 > <xref:Metalama.Framework.Aspects>
 

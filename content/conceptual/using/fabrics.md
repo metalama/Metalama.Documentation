@@ -36,7 +36,7 @@ Let's now explore the second use case of fabrics: configuration.
 >
 > **See also**
 >
-> <xref:using>
+> <xref:using-metalama>
 > <xref:fabrics-adding-aspects>
 > <xref:fabrics-configuration>
 > <xref:fabrics-many-projects>

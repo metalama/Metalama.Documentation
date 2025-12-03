@@ -35,9 +35,14 @@ graph LR
         Package[Package<br/><i>optional</i>]
     end
 
+    subgraph Roslyn
+        Microsoft.CodeAnalysis.*    
+    end
+
     AspectContracts --> Framework
     Engine --> Sdk
     Main --> Framework
+    Sdk --> Microsoft.CodeAnalysis.*
 
     Engine --> AspectContracts
     Main --> AspectContracts
@@ -52,7 +57,7 @@ graph LR
 | **AspectContracts** | Defines the `IProjectService` interface | `Metalama.Framework` |
 | **Engine** | Implements the service and factory | `Metalama.Framework.Sdk` |
 | **Main** | Contains aspects that use the service | `Metalama.Framework` |
-| **Package** | Bundles the extension as a NuGet package (optional) | — |
+| **Package** | Bundles the extension as a NuGet package (optional) | `Metalama.Framework` |
 
 This separation ensures that:
 
@@ -74,7 +79,7 @@ Create a class library targeting `netstandard2.0` with `MetalamaEnabled` set to 
 
 Define your service interface:
 
-[!code-csharp[](~/code/Metalama.Documentation.SampleCode.Sdk/SdkExtension/MyExtension.AspectContracts/IGreetingService.cs)]
+[!code-csharp[](~/code/Metalama.Documentation.SampleCode.Sdk/SdkExtension/MyExtension.AspectContracts/IGreetingService.cs?range=3-999)]
 
 Key points:
 
@@ -89,13 +94,13 @@ Create another class library targeting `netstandard2.0` with `MetalamaEnabled` s
 
 Implement the service:
 
-[!code-csharp[](~/code/Metalama.Documentation.SampleCode.Sdk/SdkExtension/MyExtension.Engine/GreetingService.cs)]
+[!code-csharp[](~/code/Metalama.Documentation.SampleCode.Sdk/SdkExtension/MyExtension.Engine/GreetingService.cs?range=3-999)]
 
 ### Step 3. Create the service factory
 
 In the Engine project, create a factory class that implements <xref:Metalama.Framework.Engine.Services.IProjectServiceFactory> and export it using <xref:Metalama.Framework.Engine.Extensibility.ExportExtensionAttribute>:
 
-[!code-csharp[](~/code/Metalama.Documentation.SampleCode.Sdk/SdkExtension/MyExtension.Engine/GreetingServiceFactory.cs)]
+[!code-csharp[](~/code/Metalama.Documentation.SampleCode.Sdk/SdkExtension/MyExtension.Engine/GreetingServiceFactory.cs?range=3-999)]
 
 Key points:
 
@@ -117,7 +122,7 @@ The Main project needs to:
 
 In the Main project, access the service through <xref:Metalama.Framework.Project.IProject.ServiceProvider>:
 
-[!code-csharp[](~/code/Metalama.Documentation.SampleCode.Sdk/SdkExtension/MyExtension/GreetingAspect.cs)]
+[!code-csharp[](~/code/Metalama.Documentation.SampleCode.Sdk/SdkExtension/MyExtension/GreetingAspect.cs?range=3-999)]
 
 ## Conditional compilation
 
@@ -125,6 +130,7 @@ If you need to target different frameworks or Roslyn versions with different ass
 
 ```xml
 <ItemGroup>
+    <!-- Visual Studio (runs on .NET Framework) -->
     <MetalamaExtensionAssembly
         Include="$(MSBuildThisFileDirectory)../metalama/net472/MyExtension.Engine.4.8.0.dll"
         TargetFramework="net472"
@@ -137,13 +143,27 @@ If you need to target different frameworks or Roslyn versions with different ass
         Include="$(MSBuildThisFileDirectory)../metalama/net472/MyExtension.Engine.5.0.0.dll"
         TargetFramework="net472"
         TargetRoslynVersion="5.0.0"/>
+
+    <!-- dotnet build, Rider, and other modern hosts -->
+    <MetalamaExtensionAssembly
+        Include="$(MSBuildThisFileDirectory)../metalama/net8.0/MyExtension.Engine.4.8.0.dll"
+        TargetFramework="net8.0"
+        TargetRoslynVersion="4.8.0"/>
+    <MetalamaExtensionAssembly
+        Include="$(MSBuildThisFileDirectory)../metalama/net8.0/MyExtension.Engine.4.12.0.dll"
+        TargetFramework="net8.0"
+        TargetRoslynVersion="4.12.0"/>
+    <MetalamaExtensionAssembly
+        Include="$(MSBuildThisFileDirectory)../metalama/net8.0/MyExtension.Engine.5.0.0.dll"
+        TargetFramework="net8.0"
+        TargetRoslynVersion="5.0.0"/>
 </ItemGroup>
 ```
 
 Metalama will load the assembly that matches the Roslyn version used by the compiler or the IDE. If no exact match is found, the assembly won't be loaded.
 
 > [!WARNING]
-> When using `TargetRoslynVersion` metadata, ensure your version numbers align with the Roslyn versions that are supported by the specific Metalama build you are targeting. Metalama currently lacks a robust, forward-compatible selection mechanism for extension assemblies, and mismatched versions will cause build failures.
+> When using `TargetRoslynVersion` metadata, ensure your version numbers _exactly_ matches the Roslyn versions and target frameworks that are supported by the specific Metalama build you are targeting. Metalama currently lacks a robust, forward-compatible selection mechanism for extension assemblies, and mismatched versions will cause build failures.
 
 For details on `MetalamaExtensionAssembly` and `MetalamaCompileTimeAssembly`, see <xref:msbuild-properties>.
 
@@ -167,11 +187,11 @@ MyExtension.nupkg
 │   └── net8.0/
 │       └── MyExtension.dll                  # Main assembly with aspects
 └── metalama/
-    ├── net472/
-    │   └── MyExtension.Engine.dll # Extension assembly for Visual Studio
-    └── net8.0/
-        └── MyExtension.Engine.dll # Extension assembly for other compiler hosts
+    └── MyExtension.Engine.dll     # Extension assembly
 ```
+
+> [!NOTE]
+> The `metalama` folder path is arbitrary. Metalama does not impose a convention on where extension assemblies are stored in the package - only the `MetalamaExtensionAssembly` item path matters.
 
 ### Creating the props file
 

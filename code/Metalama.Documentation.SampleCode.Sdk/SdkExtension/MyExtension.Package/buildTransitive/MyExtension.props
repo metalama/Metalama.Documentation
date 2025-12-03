@@ -1,3 +1,5 @@
 <Project>
+    <!-- This props file is imported by projects that transitively reference the MyExtension package.
+         It ensures the extension is loaded even when not directly referenced. -->
     <Import Project="../build/MyExtension.props"/>
 </Project>

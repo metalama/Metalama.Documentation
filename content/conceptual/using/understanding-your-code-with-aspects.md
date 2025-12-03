@@ -79,7 +79,7 @@ To open the Aspect Explorer tool window, use the top-level menu and select _Exte
 >
 > **See also**
 >
-> <xref:using>
+> <xref:using-metalama>
 > <xref:quickstart-adding-aspects>
 > <xref:debugging-aspect-oriented-code>
 > <xref:install-vsx>

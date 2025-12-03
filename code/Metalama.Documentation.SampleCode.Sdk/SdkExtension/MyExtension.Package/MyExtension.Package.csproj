@@ -1,16 +1,25 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
+        <!-- netstandard2.0 is used for the packaging project itself. This doesn't affect
+             the target frameworks of the packaged assemblies. -->
         <TargetFramework>netstandard2.0</TargetFramework>
+        <!-- The NuGet package ID - consumers will reference this name. -->
         <PackageId>MyExtension</PackageId>
-        <!-- Don't include the build output in the package. -->
+        <!-- Don't include this project's build output in the package.
+             We manually add the required assemblies via TfmSpecificPackageFile. -->
         <IncludeBuildOutput>false</IncludeBuildOutput>
         <!-- Hook into the packaging process to add extension assemblies. -->
         <TargetsForTfmSpecificContentInPackage>
             $(TargetsForTfmSpecificContentInPackage);_AddAssembliesToOutput
         </TargetsForTfmSpecificContentInPackage>
-        <!-- Suppress warnings about assemblies not in lib folder (metalama folder is intentional). -->
-        <NoWarn>$(NoWarn);NU5100;NU5128</NoWarn>
+        <!-- NU5100: Assembly not in lib folder (metalama folder is intentional). -->
+        <NoWarn>$(NoWarn);NU5100</NoWarn>
     </PropertyGroup>
+
+    <ItemGroup>
+        <!-- Reference Metalama.Framework to establish the package dependency. -->
+        <PackageReference Include="Metalama.Framework" />
+    </ItemGroup>
 
     <ItemGroup>
         <!-- Include the props files in the package. -->
@@ -35,14 +44,10 @@
                 Include="../MyExtension/bin/$(Configuration)/net8.0/MyExtension.dll"
                 PackagePath="lib/net8.0" />
 
-            <!-- Add Engine to metalama folder for compile-time use.
-                 net472 is for Visual Studio, net8.0 is for other compiler hosts. -->
+            <!-- Add Engine to metalama folder for compile-time use. -->
             <TfmSpecificPackageFile
                 Include="../MyExtension.Engine/bin/$(Configuration)/netstandard2.0/MyExtension.Engine.dll"
-                PackagePath="metalama/net472" />
-            <TfmSpecificPackageFile
-                Include="../MyExtension.Engine/bin/$(Configuration)/netstandard2.0/MyExtension.Engine.dll"
-                PackagePath="metalama/net8.0" />
+                PackagePath="metalama" />
         </ItemGroup>
     </Target>
 </Project>

@@ -1,8 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <!-- netstandard2.0 ensures compatibility with all compiler hosts. -->
     <TargetFramework>netstandard2.0</TargetFramework>
+    <!-- Disable Metalama processing - this assembly is used at compile time only
+         and should not be transformed by Metalama. -->
     <MetalamaEnabled>false</MetalamaEnabled>
+    <!-- This project is packaged via the Package project, not individually. -->
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 

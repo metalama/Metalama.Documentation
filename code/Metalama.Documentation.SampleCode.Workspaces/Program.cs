@@ -11,7 +11,7 @@ if ( args.Length != 1 )
     return 1;
 }
 
-var workspace = Workspace.Load( args[0] );
+var workspace = WorkspaceCollection.Default.Load( args[0] );
 
 // Types implementing IFactory must be named *Factory
 workspace.SourceCode.Types

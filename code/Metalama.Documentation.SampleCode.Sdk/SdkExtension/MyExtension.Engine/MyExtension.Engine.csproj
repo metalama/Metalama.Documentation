@@ -1,16 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <!-- netstandard2.0 ensures compatibility with both Visual Studio (net472)
+         and other compiler hosts (net8.0+). -->
     <TargetFramework>netstandard2.0</TargetFramework>
+    <!-- Disable Metalama processing - this is a Metalama extension assembly,
+         not a project that should be transformed by Metalama. -->
     <MetalamaEnabled>false</MetalamaEnabled>
+    <!-- This project is packaged via the Package project, not individually. -->
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Metalama.Framework.Sdk" PrivateAssets="all" />
+    <!-- Reference Metalama.Framework.Sdk for IProjectServiceFactory, ExportExtensionAttribute,
+         and access to Roslyn APIs (Microsoft.CodeAnalysis). -->
+    <PackageReference Include="Metalama.Framework.Sdk" />
   </ItemGroup>
 
   <ItemGroup>
+    <!-- Reference AspectContracts to implement the service interface. -->
     <ProjectReference Include="../MyExtension.AspectContracts/MyExtension.AspectContracts.csproj" />
   </ItemGroup>
 

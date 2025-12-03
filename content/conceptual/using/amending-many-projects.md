@@ -140,7 +140,7 @@ Then the projects have the following fabrics:
 >
 > **See also**
 >
-> <xref:using>
+> <xref:using-metalama>
 > <xref:fabrics>
 > <xref:fabrics-adding-aspects>
 > <xref:distributing>

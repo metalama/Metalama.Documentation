@@ -1,16 +1,14 @@
 <Project>
+    <!-- This props file is automatically imported by projects that reference the MyExtension package.
+         It configures Metalama to load the extension assemblies at compile time. -->
     <ItemGroup>
-        <!-- Make the AspectContracts assembly available at Metalama compile time. -->
+        <!-- Make the AspectContracts assembly available to compile-time code (aspects).
+             This allows aspects to reference types like IGreetingService. -->
         <MetalamaCompileTimeAssembly
             Include="$(MSBuildThisFileDirectory)../lib/netstandard2.0/MyExtension.AspectContracts.dll" />
 
-        <!-- Load the Engine as an extension assembly.
-             net472 is for Visual Studio, net8.0 is for other compiler hosts. -->
+        <!-- Load the Engine as a Metalama extension assembly. -->
         <MetalamaExtensionAssembly
-            Include="$(MSBuildThisFileDirectory)../metalama/net472/MyExtension.Engine.dll"
-            TargetFramework="net472"/>
-        <MetalamaExtensionAssembly
-            Include="$(MSBuildThisFileDirectory)../metalama/net8.0/MyExtension.Engine.dll"
-            TargetFramework="net8.0"/>
+            Include="$(MSBuildThisFileDirectory)../metalama/MyExtension.Engine.dll" />
     </ItemGroup>
 </Project>

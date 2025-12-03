@@ -37,7 +37,7 @@ The first step involves adding the aspect library to your project using a `<Proj
 >
 > **See also**
 >
-> <xref:using>
+> <xref:using-metalama>
 > <xref:live-template>
 > <xref:quickstart-adding-aspects>
 

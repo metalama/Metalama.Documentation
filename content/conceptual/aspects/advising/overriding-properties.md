@@ -13,14 +13,14 @@ In <xref:simple-override-property>, you learned the basics of the <xref:Metalama
 
 ## Accessing metadata of the overridden field or property
 
-The metadata of the overridden field or property can be accessed from the template accessors on the <xref:Metalama.Framework.Aspects.IMetaTarget.FieldOrProperty?text=meta.Target.FieldOrProperty> property. This property provides all information about the field or property's name, type, and custom attributes. For instance, the member name is available on <xref:Metalama.Framework.Code.IFieldOrProperty.Name?text=meta.Target.FieldOrProperty.Name> and its type on <xref:Metalama.Framework.Code.IFieldOrProperty.Type?text=meta.Target.FieldOrProperty.Type>.
+The metadata of the overridden field or property can be accessed from the template accessors on the <xref:Metalama.Framework.Aspects.IMetaTarget.FieldOrProperty?text=meta.Target.FieldOrProperty> property. This property provides all information about the field or property's name, type, and custom attributes. For instance, the member name is available on <xref:Metalama.Framework.Code.INamedDeclaration.Name?text=meta.Target.FieldOrProperty.Name> and its type on <xref:Metalama.Framework.Code.IHasType.Type?text=meta.Target.FieldOrProperty.Type>.
 
 - <xref:Metalama.Framework.Aspects.IMetaTarget.FieldOrProperty?text=meta.Target.FieldOrProperty> exposes the current field or property as an <xref:Metalama.Framework.Code.IFieldOrProperty>, which reveals characteristics common to fields and properties.
 - <xref:Metalama.Framework.Aspects.IMetaTarget.Field?text=meta.Target.Field> exposes the current field as an <xref:Metalama.Framework.Code.IField>, but throws an exception if the target is not a field.
 - <xref:Metalama.Framework.Aspects.IMetaTarget.Property?text=meta.Target.Property> exposes the current property as an <xref:Metalama.Framework.Code.IProperty>, but throws an exception if the target is not a property.
 - <xref:Metalama.Framework.Aspects.IMetaTarget.Method?text=meta.Target.Method> exposes the current accessor method. This works even if the target is a field because Metalama creates pseudo methods to represent field accessors.
 
-To access the _value_ of the field or property, use the <xref:Metalama.Framework.Code.Invokers.IFieldOrPropertyInvoker.Value?text=meta.Target.FieldOrProperty.Value> expression for both reading and writing. In the setter template, <xref:Metalama.Framework.Aspects.IMetaTarget.Parameters?text=meta.Target.Parameters[0].Value> gives you the value of the `value` parameter.
+To access the _value_ of the field or property, use the <xref:Metalama.Framework.Code.IExpression.Value?text=meta.Target.FieldOrProperty.Value> expression for both reading and writing. In the setter template, <xref:Metalama.Framework.Aspects.IMetaTarget.Parameters?text=meta.Target.Parameters[0].Value> gives you the value of the `value` parameter.
 
 ### Example: Resolving dependencies on the fly
 
@@ -60,7 +60,7 @@ The following aspect overrides properties so that they are written to and read f
 
 #### Example: string normalization
 
-This example illustrates a strongly-typed property template with a single accessor that uses the <xref:Metalama.Framework.Code.Invokers.IFieldOrPropertyInvoker.Value?text=meta.Target.FieldOrProperty.Value> expression to access the underlying field or property.
+This example illustrates a strongly-typed property template with a single accessor that uses the <xref:Metalama.Framework.Code.IExpression.Value?text=meta.Target.FieldOrProperty.Value> expression to access the underlying field or property.
 
 The following aspect can be applied to fields or properties of type `string`. It overrides the setter to trim and convert to lowercase the assigned value.
 

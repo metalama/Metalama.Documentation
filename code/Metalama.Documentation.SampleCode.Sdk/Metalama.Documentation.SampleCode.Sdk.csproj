@@ -8,4 +8,10 @@
     <PackageReference Include="Metalama.Framework.Sdk" />
   </ItemGroup>
 
+  <!-- Exclude the SdkExtension sample project files -->
+  <ItemGroup>
+    <Compile Remove="SdkExtension\**\*.cs" />
+    <None Remove="SdkExtension\**\*" />
+  </ItemGroup>
+
 </Project>

@@ -1,27 +1,39 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <!-- This sample is an executable for demonstration purposes.
+         In a real library, use Library and target multiple frameworks. -->
     <OutputType>Exe</OutputType>
+    <!-- Target framework for consumer projects. Choose based on your library's requirements.
+         This doesn't affect compile-time extension loading. -->
     <TargetFramework>net8.0</TargetFramework>
+    <!-- This project is packaged via the Package project, not individually. -->
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
+    <!-- Reference Metalama.Framework for aspect development. -->
     <PackageReference Include="Metalama.Framework" />
   </ItemGroup>
 
   <ItemGroup>
-    <!-- Regular project reference for compile-time type visibility. -->
+    <!-- Regular project reference for compile-time type visibility.
+         Aspects can use IGreetingService because this reference is available. -->
     <ProjectReference Include="../MyExtension.AspectContracts/MyExtension.AspectContracts.csproj" />
 
-    <!-- Build dependency only - the extension is not included in run-time output. -->
+    <!-- ProjectReference establishes build order so Engine is built before this project.
+         OutputItemType="None" excludes the Engine from run-time output since it contains
+         SDK dependencies that shouldn't be deployed with the application. -->
     <ProjectReference Include="../MyExtension.Engine/MyExtension.Engine.csproj" OutputItemType="None" />
 
-    <!-- Make the AspectContracts assembly available at Metalama compile time. -->
+    <!-- Make the AspectContracts assembly available to compile-time code (aspects).
+         Without this, aspects couldn't reference types from AspectContracts. -->
     <MetalamaCompileTimeAssembly
         Include="../MyExtension.AspectContracts/bin/$(Configuration)/netstandard2.0/MyExtension.AspectContracts.dll" />
 
-    <!-- Load the Extension assembly as a Metalama extension. -->
+    <!-- Load the Engine assembly as a Metalama extension at compile time.
+         This makes GreetingServiceFactory discoverable so Metalama can instantiate
+         the IGreetingService and make it available via IProject.ServiceProvider. -->
     <MetalamaExtensionAssembly
         Include="../MyExtension.Engine/bin/$(Configuration)/netstandard2.0/MyExtension.Engine.dll" />
   </ItemGroup>

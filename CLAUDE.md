@@ -5,10 +5,11 @@
 
 ## Sample code
 
-* All sample code except trivil one must be in separate C# files, not in Markdown
+* All sample code except trivial one must be in separate C# files, not in Markdown
 * Sample code is under the `code` directory. There are two types of samples:
-    - Most samples demonstrate the Metalama code generatin process. They use `Metalama.Testing.AspectTesting` snapshot-based testings framework. A single project contains many tests. Each test has a main file named `Foo.cs` with the transformed file named `Foo.t.cs` and auxiliary files named `Foo.*.cs`. These projects are in the `Metalama.Documentation.Snippets.TestBased.sln` solution.
-    - Other, project-based tests, do not use the snapshot testing. They are in solution C:\src\Metalama-2026.0\Metalama.Documentation\code\Metalama.Documentation.Snippets.ProjectBased.sln.
+    - Most samples demonstrate the Metalama code generation process. They use `Metalama.Testing.AspectTesting` snapshot-based testing framework. A single project contains many tests. Each test has a main file named `Foo.cs` with the transformed file named `Foo.t.cs` and auxiliary files named `Foo.*.cs`. These projects are in the `Metalama.Documentation.Snippets.TestBased.sln` solution.
+    - Other, project-based tests, do not use the snapshot testing. They are in solution `code\Metalama.Documentation.Snippets.ProjectBased.sln`.
+* To skip copyright headers in code snippets, use `?range=3-999` (e.g., `[!code-csharp[](path?range=3-999)]`)
 
 ## Building
 
@@ -16,9 +17,18 @@
 * When just Markdown files have changes, rebuild using `update-html.ps1`.
 * The build output (html files) is under `artifacts/site`.
 
+## Cross-references (xrefs)
+
+* API xrefs must match UIDs in the yml files under `artifacts/api/`
+* Warnings starting with `@` (like `@sharing-state-with-advice`) are resolved by a different script - do not fix these
+* For inherited members, use the declaring interface UID (e.g., `IHasParameters.Parameters` not `IMethod.Parameters`)
+* For method overload groups, append `*` (e.g., `TypeFactory.GetType*`)
+
 ## Git commits
 
-* Must be very short
-* Must include git issue #number if in the same repo, or full link to issue if another repo.
-- don't use bold and `` code formatting
-- the source code should not be in markdown - use docfx Markdown extensions like [!code-snippet] to include code
+* Must be very short - do not add the complete list of changes
+* Must include git issue #number if in the same repo, or full link to issue if another repo
+* Do not use bold and backtick code formatting in commit messages
+* Do not add the Claude signature
+* The source code should not be in markdown - use docfx Markdown extensions like [!code-csharp] to include code
+* Fix locks with `build.ps1 tools kill`

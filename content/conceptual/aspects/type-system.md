@@ -100,7 +100,7 @@ The type system in Metalama distinguishes between:
 - **Array types** (<xref:Metalama.Framework.Code.Types.IArrayType>) - Like `int[]` or `string[,]`
 - **Pointer types** (<xref:Metalama.Framework.Code.Types.IPointerType>) - Like `int*`
 - **Type parameters** (<xref:Metalama.Framework.Code.ITypeParameter>) - Generic parameters like `T` in `List<T>`
-- **Dynamic type** (<xref:Metalama.Framework.Code.IDynamicType>) - The `dynamic` type.
+- **Dynamic type** (<xref:Metalama.Framework.Code.Types.IDynamicType>) - The `dynamic` type.
 - **Function pointers**  (<xref:Metalama.Framework.Code.Types.IFunctionPointerType>) are not fully supported in Metalama.
 
 ## Named types
@@ -159,7 +159,7 @@ There are several ways to get an IType instance from your compile-time code.
 
 ### From `typeof(.)`
 
-You can use the <xref:Metalama.Framework.Code.TypeFactory.GetType?text=TypeFactory.GetType> and <xref:Metalama.Framework.Code.TypeFactory.GetNamedType?text=TypeFactory.GetNamedType> methods to map a `System.Type` to the corresponding <xref:Metalama.Framework.Code.IType> or <xref:Metalama.Framework.Code.INamedType>.
+You can use the <xref:Metalama.Framework.Code.TypeFactory.GetType*?text=TypeFactory.GetType> and <xref:Metalama.Framework.Code.TypeFactory.GetNamedType*?text=TypeFactory.GetNamedType> methods to map a `System.Type` to the corresponding <xref:Metalama.Framework.Code.IType> or <xref:Metalama.Framework.Code.INamedType>.
 
 ```csharp
 var stringType = TypeFactory.GetNamedType(typeof(string));

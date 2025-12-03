@@ -90,7 +90,7 @@ Sometimes you may not need or want to add aspects to all types, but only to a cl
 >
 > **See also**
 >
-> <xref:using>
+> <xref:using-metalama>
 > <xref:fabrics>
 > <xref:quickstart-adding-aspects>
 > <xref:fabrics-many-projects>

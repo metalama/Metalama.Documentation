@@ -97,7 +97,7 @@ If you want to go deeper into method overrides, consider reading the following a
 > <xref:simple-override-property>
 > <xref:simple-aspects>
 > <xref:Metalama.Framework.Aspects.OverrideMethodAspect>
-> <xref:Metalama.Framework.Aspects.MethodTemplateSelector>
+> <xref:Metalama.Framework.Advising.MethodTemplateSelector>
 > <xref:Metalama.Framework.Aspects.meta>
 > <xref:Metalama.Framework.Code.IMethod>
 

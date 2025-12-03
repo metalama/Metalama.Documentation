@@ -67,7 +67,7 @@ The refactoring menu is smart enough to recognize which aspect has already been 
 >
 > **See also**
 >
-> <xref:using>
+> <xref:using-metalama>
 > <xref:fabrics-adding-aspects>
 > <xref:getting-aspects>
 > <xref:understanding-your-code-with-aspects>

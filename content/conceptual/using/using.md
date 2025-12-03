@@ -38,6 +38,6 @@ This chapter is recommended for those who:
 > **See also**
 >
 > <xref:conceptual>
-> <xref:getting-started>
+> <xref:main-getting-started>
 > <xref:aspects>
 > <xref:fabrics>

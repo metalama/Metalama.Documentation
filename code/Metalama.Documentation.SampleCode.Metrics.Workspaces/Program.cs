@@ -1,6 +1,7 @@
 // This is public domain Metalama sample code.
 
 using Metalama.Extensions.Metrics;
+using Metalama.Framework.Metrics;
 using Metalama.Framework.Workspaces;
 
 if ( args.Length != 1 )

@@ -15,7 +15,7 @@ This article assumes you've read <xref:simple-override-method> and will cover ad
 
 ## Accessing method details
 
-The details of the method being overridden are accessible from the template method on the <xref:Metalama.Framework.Aspects.IMetaTarget.Method?text=meta.Target.Method> property. This property provides information about the method's name, type, parameters, and custom attributes. For instance, the metadata of method parameters is exposed on <xref:Metalama.Framework.Code.IMethod.Parameters?text=meta.Target.Method.Parameters>.
+The details of the method being overridden are accessible from the template method on the <xref:Metalama.Framework.Aspects.IMetaTarget.Method?text=meta.Target.Method> property. This property provides information about the method's name, type, parameters, and custom attributes. For instance, the metadata of method parameters is exposed on <xref:Metalama.Framework.Code.IHasParameters.Parameters?text=meta.Target.Method.Parameters>.
 
 To access parameter values, use <xref:Metalama.Framework.Aspects.IMetaTarget.Parameters?text=meta.Target.Parameters>:
 

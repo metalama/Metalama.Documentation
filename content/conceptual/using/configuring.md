@@ -99,7 +99,7 @@ Options inherited from the base class take precedence over the options that come
 >
 > **See also**
 >
-> <xref:using>
+> <xref:using-metalama>
 > <xref:fabrics>
 > <xref:aspect-configuration>
 > <xref:configuration>

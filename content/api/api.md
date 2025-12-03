@@ -24,4 +24,4 @@ modified-date: 2025-11-30
 
 > [!div class="see-also"]
 > <xref:Metalama.Framework>
-> <xref:Metalama.Framework.Sdk>
+> <xref:advanced-api>

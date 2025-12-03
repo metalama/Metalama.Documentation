@@ -107,4 +107,4 @@ This overhead might affect performance for events called at a very high frequenc
 > <xref:Metalama.Framework.Aspects.OverrideEventAspect>
 > <xref:Metalama.Framework.Aspects.AdviserExtensions.OverrideAccessors*>
 > <xref:Metalama.Framework.RunTime.Events.EventBroker`3>
-> <xref:overriding-properties>
+> <xref:overriding-fields-or-properties>

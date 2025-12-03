@@ -81,7 +81,7 @@ If you want to go deeper into field/property overrides, consider exploring the f
 > <xref:simple-override-method>
 > <xref:simple-aspects>
 > <xref:Metalama.Framework.Aspects.OverrideFieldOrPropertyAspect>
-> <xref:Metalama.Framework.Aspects.GetterTemplateSelector>
+> <xref:Metalama.Framework.Advising.GetterTemplateSelector>
 > <xref:Metalama.Framework.Code.IFieldOrProperty>
 > <xref:Metalama.Framework.Code.IProperty>
 
