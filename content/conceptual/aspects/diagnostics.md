@@ -4,7 +4,7 @@ level: 300
 summary: "The document provides a guide on how to report or suppress diagnostics, including errors, warnings, or info messages, from an aspect in C# programming. It also outlines the benefits and provides examples."
 keywords: "diagnostics, errors, warnings, suppress, C# compiler, report diagnostics, suppress diagnostics, Metalama.Framework.Diagnostics, DiagnosticDefinition, SuppressionDefinition"
 created-date: 2023-01-26
-modified-date: 2025-11-30
+modified-date: 2025-12-04
 ---
 
 # Reporting and suppressing diagnostics
@@ -55,15 +55,25 @@ To suppress a diagnostic:
 
 3. Call the <xref:Metalama.Framework.Diagnostics.ScopedDiagnosticSink.Suppress*> method using `builder.Diagnostics.Suppress(...)` in the `BuildAspect` method and supply the <xref:Metalama.Framework.Diagnostics.SuppressionDefinition> created above. The suppression will apply to the current target of the aspect unless you specify a different scope as an argument.
 
-These steps will suppress _all_ warnings of the specified ID in the scope of the current target of the aspect. If you want to filter the warnings by text or argument, use the <xref:Metalama.Framework.Diagnostics.SuppressionDefinition.WithFilter*?text=SuppressionDefinition.WithFilter> method.
-
-
+These steps will suppress _all_ warnings of the specified ID in the scope of the current target of the aspect.
 
 ### Example
 
 The following logging aspect requires a `_logger` field. This field will be used in generated code but never in user code. Because the IDE doesn't see the generated code, it will report the `CS0169` warning, which is misleading and annoying to the user. The aspect suppresses this warning.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/SuppressWarning.cs name="Suppress Warning"]
+
+### Filtering suppressions by diagnostic arguments
+
+To selectively suppress only specific diagnostics matching certain criteria (such as message text or arguments), use the <xref:Metalama.Framework.Diagnostics.SuppressionDefinition.WithFilter*> method. The filter receives an <xref:Metalama.Framework.Diagnostics.ISuppressibleDiagnostic> that provides access to the diagnostic's ID, message, arguments, and location.
+
+This is useful when you want to suppress warnings for specific symbols without suppressing all warnings of the same ID in the scope.
+
+### Example: filtering by variable name
+
+The following aspect suppresses the `CS0219` warning ("variable is assigned but never used") only for variables named `_initialized`. Other variables with the same warning in the same scope will still report the warning.
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/SuppressWarningWithFilter.cs name="Suppress Warning With Filter"]
 
 ## Advanced example
 
