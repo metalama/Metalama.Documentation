@@ -28,7 +28,13 @@ If multiple transitive project fabrics are active, they are executed in the foll
 
 Transitive dependencies are intentionally executed after compilation dependencies, allowing the latter to configure transitive dependencies before they run.
 
-### Example
+### Example: central logging policy
+
+The following example shows a transitive project fabric that adds logging to all public methods. Any project that references the assembly containing this fabric automatically gets the logging aspect applied.
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/TransitiveFabric.cs name="Transitive Fabric"]
+
+### Dependency graph example
 
 Consider the following dependency graph:
 

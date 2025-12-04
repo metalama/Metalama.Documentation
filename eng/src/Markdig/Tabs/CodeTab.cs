@@ -245,7 +245,27 @@ public class CodeTab : BaseTab
         }
 
         // When the HTML file does not exist, we will rely on run-time formatting.
-        return "<pre><code class=\"lang-csharp\">" + File.ReadAllText( this.FullPath )
+        // Strip leading comments (copyright headers) like GetSandboxCode does.
+        // Also filter out snippet marker lines like "// <Fabric>" or "// </Fabric>".
+        var snippetMarkerRegex = new Regex( @"^\s*//\s*</?[A-Za-z]+>\s*$" );
+
+        var lines = File.ReadAllLines( this.FullPath )
+            .SkipWhile( l => l.TrimStart().StartsWith( "//", StringComparison.Ordinal ) )
+            .Where( l => !snippetMarkerRegex.IsMatch( l ) )
+            .ToList();
+
+        // Trim leading/trailing empty lines.
+        while ( lines.Count > 0 && string.IsNullOrWhiteSpace( lines[0] ) )
+        {
+            lines.RemoveAt( 0 );
+        }
+
+        while ( lines.Count > 0 && string.IsNullOrWhiteSpace( lines[^1] ) )
+        {
+            lines.RemoveAt( lines.Count - 1 );
+        }
+
+        return "<pre><code class=\"lang-csharp\">" + string.Join( Environment.NewLine, lines )
                                                    + "<code></pre>";
     }
 
