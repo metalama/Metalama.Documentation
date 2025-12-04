@@ -36,6 +36,48 @@ If you want to invoke the method with different arguments, you can do so using <
 
 > [!div id="async-iterator-default-template" class="anchor"]
 
+### Querying async and iterator method information
+
+When your aspect needs to inspect whether a method is async, awaitable, or an iterator during compilation (for example, in `BuildAspect`), use these extension methods on <xref:Metalama.Framework.Code.IMethod>:
+
+#### Get async method information with GetAsyncInfo
+
+The <xref:Metalama.Framework.Code.MethodExtensions.GetAsyncInfo*> extension method gets information about async methods. It returns an <xref:Metalama.Framework.Code.AsyncInfo> struct with the following properties:
+
+- <xref:Metalama.Framework.Code.AsyncInfo.IsAwaitable>: Indicates whether the return type can be used with `await`.
+- <xref:Metalama.Framework.Code.AsyncInfo.ResultType>: The unwrapped result type (e.g., `string` for `Task<string>`).
+- <xref:Metalama.Framework.Code.AsyncInfo.IsAsync>: Indicates whether the method has the `async` modifier.
+
+For example, if you need the actual result type instead of the task type:
+
+```csharp
+var asyncInfo = method.GetAsyncInfo();
+if (asyncInfo.IsAwaitable)
+{
+    var resultType = asyncInfo.ResultType; // e.g., string instead of Task<string>
+}
+```
+
+#### Get iterator method information with GetIteratorInfo
+
+The <xref:Metalama.Framework.Code.MethodExtensions.GetIteratorInfo*> extension method gets information about iterator methods. It returns an <xref:Metalama.Framework.Code.IteratorInfo> struct with the following properties:
+
+- <xref:Metalama.Framework.Code.IteratorInfo.IsIteratorMethod>: Indicates whether the method uses `yield return` or `yield break`. Returns `null` for methods not defined in the current project.
+- <xref:Metalama.Framework.Code.IteratorInfo.ItemType>: The type of items being enumerated (e.g., `int` for `IEnumerable<int>`).
+- <xref:Metalama.Framework.Code.IteratorInfo.EnumerableKind>: The kind of enumerable, represented by the <xref:Metalama.Framework.Code.EnumerableKind> enum with values: `None`, `IEnumerable`, `IEnumerator`, `UntypedIEnumerable`, `UntypedIEnumerator`, `IAsyncEnumerable`, or `IAsyncEnumerator`.
+
+For example:
+
+```csharp
+var iteratorInfo = method.GetIteratorInfo();
+if (iteratorInfo.EnumerableKind != EnumerableKind.None)
+{
+    var itemType = iteratorInfo.ItemType; // e.g., int for IEnumerable<int>
+}
+```
+
+### Default template behavior
+
 By default, the <xref:Metalama.Framework.Aspects.OverrideMethodAspect.OverrideMethod> method is selected as a template for all methods, including async and iterator methods.
 
 To make the default template work naturally even for async and iterator methods, calls to `meta.Proceed()` and `return` statements are interpreted differently in each situation to respect the intent of ordinary (non-async, non-iterator) code. The default behavior aims to respect the _decorator_ pattern.

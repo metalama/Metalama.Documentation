@@ -10,6 +10,8 @@ modified-date: 2025-11-30
 
 If you've a time-consuming method that consistently returns the same value when called with identical arguments, caching this method can significantly enhance your application's performance. With Metalama Caching, this process can be as straightforward as adding the <xref:Metalama.Patterns.Caching.Aspects.CacheAttribute?text=[Cache]> attribute from the [Metalama.Patterns.Caching.Aspects](https://www.nuget.org/packages/Metalama.Patterns.Caching.Aspects/) package.
 
+The <xref:Metalama.Patterns.Caching.Aspects.CacheAttribute?text=[Cache]> aspect supports both synchronous and `async` methods. For `async` methods returning `Task<T>` or `ValueTask<T>`, the aspect automatically awaits the result and caches the unwrapped value.
+
 Before you can utilize the <xref:Metalama.Patterns.Caching.Aspects.CacheAttribute?text=[Cache]> aspect, your projects require some setup. The approach will depend on your project's architecture: with or without dependency injection.
 
 > [!WARNING]
