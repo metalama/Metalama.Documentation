@@ -9,7 +9,7 @@ modified-date: 2025-11-30
 
 # Testing aspects
 
-There are three complementary strategies to test your aspects. The first strategy should provide sufficient coverage for the most common scenarios.
+Three complementary strategies are available to test your aspects. Aspect testing should provide sufficient coverage for the most common scenarios.
 
 <table>
     <tr>
@@ -21,7 +21,7 @@ There are three complementary strategies to test your aspects. The first strateg
             <xref:aspect-testing>
         </td>
         <td>
-             These tests verify that the aspect transforms code or reports errors and warnings as expected. In aspect tests, the transformed code is not executed.
+            These tests verify that aspects transform code or report errors and warnings as expected. The transformed code is not executed.
         </td>
     </tr>
     <tr>
@@ -29,7 +29,7 @@ There are three complementary strategies to test your aspects. The first strateg
             <xref:run-time-testing>
         </td>
         <td>
-        These tests confirm the run-time behavior of the aspect. In this approach, you apply your aspect to some test target code and evaluate the _behavior_ of the combination of the aspect and the target code by executing the transformed code in a unit test and assessing its run-time behavior. For this approach, you can use a conventional xUnit project or any other testing framework, as there is nothing specific to Metalama.    
+            These tests verify the run-time behavior of aspects. Apply your aspect to test target code and execute the transformed code in a unit test. Use xUnit or any other testing framework.
         </td>
     </tr>
     <tr>
@@ -37,15 +37,23 @@ There are three complementary strategies to test your aspects. The first strateg
             <xref:compile-time-testing>
         </td>
         <td>
-            These tests are traditional unit tests of the compile-time logic used by the aspects, without executing the aspects themselves.
+            These tests are traditional unit tests of the compile-time logic used by aspects. The aspects themselves are not executed.
         </td>
     </tr>
 <tr>
-    <td>   
+    <td>
         <xref:debugging-aspects>
     </td>
     <td>
         This article describes how to debug the compile-time logic of aspects and templates.
+    </td>
+</tr>
+<tr>
+    <td>
+        <xref:diff-tool>
+    </td>
+    <td>
+        This article explains how to configure the external diff tool used when aspect tests fail.
     </td>
 </tr>
 </table>

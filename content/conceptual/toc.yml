@@ -184,7 +184,9 @@ items:
           topicUid: testing
           items:
           - name: Unit-testing code generation and error reporting
-            topicUid: aspect-testing        
+            topicUid: aspect-testing
+          - name: Configuring the external diff tool
+            topicUid: diff-tool
           - name: Unit-testing run-time behavior
             topicUid: run-time-testing
           - name: Unit-testing compile-time code
