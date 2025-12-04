@@ -47,7 +47,13 @@ These options are enabled by default. If you disable them, the code supporting t
 
 In the example below, we have invariants in two sub-namespaces: `Invoicing` and `Fulfillment`. We use a <xref:Metalama.Framework.Fabrics.ProjectFabric> and the <xref:Metalama.Patterns.Contracts.ContractOptions> to disable invariants for the `Fulfillment` namespace.
 
-[!metalama-test ~/code/Metalama.Documentation.SampleCode.Contracts/Invariants_Suspend.cs]
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.Contracts/Invariants_Disable.cs]
+
+#### Example: disabling preconditions for a type or method
+
+The following example demonstrates granular control over contract generation. The fabric disables preconditions for the entire `DisabledService` class, and also disables them for a specific method (`UnvalidatedMethod`) in `MixedService` while leaving other methods validated.
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.Contracts/DisablePreconditions.cs]
 
 ### Changing the default inheritance or contract direction options
 
