@@ -1,6 +1,7 @@
 ﻿// Copyright (c) SharpCrafters s.r.o. See the LICENSE.md file in the root directory of this repository root for details.
 
 using System;
+using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -10,6 +11,7 @@ namespace BuildMetalamaDocumentation.Markdig.Helpers;
 public static class GitHelper
 {
     private static readonly Regex _gitSshRegex = new( "git@(?<server>[^:]+):" );
+    private static readonly ConcurrentDictionary<string, string> _branchCache = new();
 
     public static string GetRepoUrl( string directory )
     {
@@ -60,14 +62,31 @@ public static class GitHelper
         throw new InvalidOperationException( $"Cannot find the project directory for '{path}'." );
     }
 
+    public static string GetBranch( string directory )
+    {
+        return _branchCache.GetOrAdd( directory, dir =>
+        {
+            var psi = new ProcessStartInfo( "git", "rev-parse --abbrev-ref HEAD" )
+            {
+                RedirectStandardOutput = true, WorkingDirectory = dir, UseShellExecute = false
+            };
+
+            var process = Process.Start( psi )!;
+            process.WaitForExit();
+
+            return process.StandardOutput.ReadToEnd().Trim( ' ', '\n', '\r' );
+        } );
+    }
+
     public static string GetOnlineUrl( string path )
     {
         var gitDirectory = GetGitDirectory( path );
 
         var relativePath = PathHelper.GetRelativePath( gitDirectory, path );
         var gitUrl = GetRepoUrl( gitDirectory );
+        var branch = GetBranch( gitDirectory );
 
-        var fullUrl = gitUrl + "/blob/HEAD/" + relativePath.Replace( "\\", "/", StringComparison.Ordinal );
+        var fullUrl = gitUrl + "/blob/" + branch + "/" + relativePath.Replace( "\\", "/", StringComparison.Ordinal );
 
         return fullUrl;
     }
