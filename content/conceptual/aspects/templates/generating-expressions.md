@@ -78,6 +78,12 @@ The following example uses an <xref:Metalama.Framework.Code.SyntaxBuilders.Expre
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/ExpressionBuilder.cs name="ExpressionBuilder"]
 
+### Example: using ExpressionBuilder in BuildAspect
+
+Since <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionBuilder> works outside of templates, it is essential for generating expressions in contexts like <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*>. The following example introduces two fields: a static counter and an instance ID initialized using `Interlocked.Increment`. The initializer expression must be built programmatically because `BuildAspect` is not a template.
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/ExpressionBuilderToExpression.cs name="ExpressionBuilder in BuildAspect"]
+
 ## Parsing string-based C# expressions
 
 If you already have a string representing an expression or statement, you can convert it into an <xref:Metalama.Framework.Code.IExpression> using <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionFactory.Parse*?text=ExpressionFactory.Parse>.

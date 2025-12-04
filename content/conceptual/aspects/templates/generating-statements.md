@@ -27,6 +27,15 @@ When you need to construct statements programmatically or generate complex state
 
 When you are done, call the <xref:Metalama.Framework.Code.SyntaxBuilders.IStatementBuilder.ToStatement*> method. You can inject the returned <xref:Metalama.Framework.Code.SyntaxBuilders.IStatement> in run-time code by calling the <xref:Metalama.Framework.Aspects.meta.InsertStatement*> method in the template.
 
+> [!NOTE]
+> A major benefit of <xref:Metalama.Framework.Code.SyntaxBuilders.StatementBuilder> is that it can be used in compile-time helper methods that are not templates.
+
+### Example: using StatementBuilder in a compile-time helper
+
+The following example demonstrates a reusable compile-time helper method that builds null-check statements. Since the helper is marked with `[CompileTime]` and is not a template, it must use <xref:Metalama.Framework.Code.SyntaxBuilders.StatementBuilder> to construct the statement. The aspect then calls this helper for each non-nullable reference parameter and inserts the resulting statements using <xref:Metalama.Framework.Aspects.meta.InsertStatement*>.
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/StatementBuilderHelper.cs name="StatementBuilder Helper"]
+
 ## Parsing C# statements
 
 Just as you can parse C# expressions using <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionFactory.Parse*?text=ExpressionFactory.Parse>, you can parse statements from strings using the <xref:Metalama.Framework.Code.SyntaxBuilders.StatementFactory.Parse*?text=StatementFactory.Parse> method.
