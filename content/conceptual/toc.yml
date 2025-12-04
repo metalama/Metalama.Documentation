@@ -44,10 +44,19 @@ items:
 
 
 
-    - name: Using Metalama 
+    - name: Using Metalama
       topicUid: using-metalama
       items:
-        - name: Getting aspects   
+        - name: Configuring your IDE
+          topicUid: ide-configuration
+          items:
+            - name: Visual Studio
+              topicUid: ide-visual-studio
+            - name: VS Code
+              topicUid: ide-vs-code
+            - name: Rider
+              topicUid: ide-rider
+        - name: Getting aspects
           topicUid: getting-aspects
         - name: Adding aspects to code
           topicUid: quickstart-adding-aspects
@@ -65,8 +74,6 @@ items:
           topicUid: fabrics-configuration
         - name: Amending many projects at once
           topicUid: fabrics-many-projects
-
-
 
     - name: Pattern Libraries
       href: ../patterns/toc.yml

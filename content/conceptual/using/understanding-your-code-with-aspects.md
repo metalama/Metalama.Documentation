@@ -13,7 +13,7 @@ modified-date: 2025-11-30
 > These features require a Metalama Community or Metalama Professional license.
 
 > [!NOTE]
-> These features are only available in Visual Studio when Visual Studio Tools for Metalama are installed.
+> These features are only available in Visual Studio when Visual Studio Tools for Metalama are installed. See <xref:ide-configuration> for IDE-specific information.
 
 
 Now that you've integrated aspects into your code, you might be curious about its functionality and execution process. Metalama provides several tools to help you understand precisely what happens with your code when you hit the Run button.

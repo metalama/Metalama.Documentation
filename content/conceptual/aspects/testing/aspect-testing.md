@@ -142,7 +142,7 @@ For details about member introductions, see <xref:introducing-members>.
 When you create a new test file, your IDE doesn't automatically discover it. To make the new test appear in the Test Explorer, you first need to run all tests in the project. After the first run, the test will appear in the Test Explorer, and it'll be possible to execute tests individually.
 
 > [!NOTE]
-> If you're using Rider, you must first configure the xUnit adapter. To achieve this, open settings, go to _Build, Execution, Deployment_ > _Unit Testing_ > _xUnit.net_ and select **Test Runner** instead of metadata for test discovery.
+> If you're using Rider, you must first configure the xUnit adapter for test discovery. See <xref:ide-rider> for details.
 
 You can also run the tests using `dotnet test`.
 
@@ -245,14 +245,7 @@ graph BT
 
 ## Running tests in Rider or ReSharper
 
-> [!NOTE]
-> Running aspect tests in Rider and ReSharper is only supported starting with Metalama 2023.1.
-
-To run aspect tests in Rider, first go to File &#8594; Settings &#8594; Build, Execution, Deployment &#8594; Unit Testing &#8594; xUnit.net and select Test Discovery using Test Runner:
-
-![rider_test_runner_settings](../../../images/rider_test_runner_settings.png)
-
-For ReSharper, instead, go to Extensions &#8594; ReSharper &#8594; Options &#8594; Tools &#8594; Unit Testing &#8594; Test Frameworks &#8594; xUnit.net and likewise select Test Discovery using Test Runner.
+For detailed configuration instructions for Rider and ReSharper, see <xref:ide-rider>.
 
 ## Obsolete APIs
 
