@@ -1,3 +1,4 @@
+// Warning CS0219 on `_other`: `The variable '_other' is assigned but its value is never used`
 using System;
 namespace Doc.SuppressWarningWithFilter;
 internal class MyService

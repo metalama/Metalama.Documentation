@@ -1,7 +1,5 @@
 // This is public domain Metalama sample code.
 
-// TODO: The HTML output for this sample is empty due to bug https://github.com/metalama/Metalama/issues/1226
-
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 using Metalama.Framework.Diagnostics;
