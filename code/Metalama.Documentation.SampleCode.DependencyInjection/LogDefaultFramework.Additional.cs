@@ -1,7 +1,7 @@
 // This is public domain Metalama sample code.
 
-using Doc.LogCustomFramework;
 using Metalama.Documentation.Helpers.ConsoleApp;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 
 namespace Doc.LogDefaultFramework;
@@ -12,7 +12,8 @@ public static class Program
     private static void Main()
     {
         var appBuilder = ConsoleApp.CreateBuilder();
-        appBuilder.Services.AddConsoleMain<ConsoleMain>();
+        appBuilder.Services.AddSingleton<IMessageWriter, MessageWriter>();
+        appBuilder.Services.AddConsoleMain<Worker>();
         using var app = appBuilder.Build();
         app.Run();
     }

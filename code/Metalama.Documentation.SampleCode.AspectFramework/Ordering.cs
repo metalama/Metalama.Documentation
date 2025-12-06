@@ -6,7 +6,7 @@ namespace Doc.Ordering;
 
 [Aspect1]
 [Aspect2]
-internal class Foo
+internal partial class Foo
 {
     public static void SourceMethod()
     {

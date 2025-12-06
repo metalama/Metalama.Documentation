@@ -10,6 +10,7 @@
     - Most samples demonstrate the Metalama code generation process. They use `Metalama.Testing.AspectTesting` snapshot-based testing framework. A single project contains many tests. Each test has a main file named `Foo.cs` with the transformed file named `Foo.t.cs` and auxiliary files named `Foo.*.cs`. These projects are in the `Metalama.Documentation.Snippets.TestBased.sln` solution.
     - Other, project-based tests, do not use the snapshot testing. They are in solution `code\Metalama.Documentation.Snippets.ProjectBased.sln`.
 * To skip copyright headers in code snippets, use `?range=3-999` (e.g., `[!code-csharp[](path?range=3-999)]`)
+* Classes that receive introduced members from aspects should be marked as `partial` so the design-time partial file can merge. Only mark classes with aspects as `partial`, not helper classes like `Program`.
 
 ## Building
 
@@ -41,3 +42,5 @@
 - before opening the brower, check that the url exists
 - HelpServer does not require the .html suffix
 - Metalama.Samples are a part of the documentation
+- https://doc.postsharp.net/metalama is now https://doc.metalama.net
+- in the local https service, README act as index files, i.e. "path/README.md" maps to just "path"

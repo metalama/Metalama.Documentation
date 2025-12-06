@@ -1,5 +1,3 @@
-// Error CS0234 on `LogCustomFramework`: `The type or namespace name 'LogCustomFramework' does not exist in the namespace 'Doc' (are you missing an assembly reference?)`
-// Error CS0246 on `ConsoleMain`: `The type or namespace name 'ConsoleMain' could not be found (are you missing a using directive or an assembly reference?)`
 using Metalama.Documentation.Helpers.ConsoleApp;
 using Metalama.Framework.RunTime;
 using System;

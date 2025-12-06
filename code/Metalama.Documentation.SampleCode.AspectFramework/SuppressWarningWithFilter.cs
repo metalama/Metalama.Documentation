@@ -2,6 +2,10 @@
 
 namespace Doc.SuppressWarningWithFilter;
 
+#if TEST_OPTIONS
+// @ClearIgnoredDiagnostics
+#endif
+
 internal class MyService
 {
     [SuppressUnusedVariable]

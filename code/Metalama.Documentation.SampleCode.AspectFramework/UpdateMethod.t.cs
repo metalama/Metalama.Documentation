@@ -1,7 +1,7 @@
 using System;
 namespace Doc.UpdateMethod;
 [UpdateMethod]
-internal class CityHunter
+internal partial class CityHunter
 {
   private int _x;
   public string? Y { get; private set; }
