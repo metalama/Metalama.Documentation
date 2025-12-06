@@ -65,7 +65,12 @@ The following logging aspect requires a `_logger` field. This field will be used
 
 ### Filtering suppressions by diagnostic arguments
 
-To selectively suppress only specific diagnostics matching certain criteria (such as message text or arguments), use the <xref:Metalama.Framework.Diagnostics.SuppressionDefinition.WithFilter*> method. The filter receives an <xref:Metalama.Framework.Diagnostics.ISuppressibleDiagnostic> that provides access to the diagnostic's ID, message, arguments, and location.
+To selectively suppress only specific diagnostics matching certain criteria, use the <xref:Metalama.Framework.Diagnostics.SuppressionDefinition.WithFilter*> method. The filter receives an <xref:Metalama.Framework.Diagnostics.ISuppressibleDiagnostic> that provides access to:
+
+- <xref:Metalama.Framework.Diagnostics.ISuppressibleDiagnostic.Id>: the diagnostic ID (e.g., `CS0219`).
+- <xref:Metalama.Framework.Diagnostics.ISuppressibleDiagnostic.InvariantMessage>: the formatted message in English. Note that message text may change between Roslyn versions.
+- <xref:Metalama.Framework.Diagnostics.ISuppressibleDiagnostic.Arguments>: the raw arguments passed to the message formatter, often including symbol names.
+- <xref:Metalama.Framework.Diagnostics.ISuppressibleDiagnostic.Span>: the source location.
 
 This is useful when you want to suppress warnings for specific symbols without suppressing all warnings of the same ID in the scope.
 
@@ -92,5 +97,6 @@ If you need to validate the code after all aspects have been applied, see <xref:
 > <xref:aspect-validating>
 > <xref:Metalama.Framework.Diagnostics.DiagnosticDefinition>
 > <xref:Metalama.Framework.Diagnostics.SuppressionDefinition>
+> <xref:Metalama.Framework.Diagnostics.ISuppressibleDiagnostic>
 > <xref:Metalama.Framework.Diagnostics.ScopedDiagnosticSink>
 
