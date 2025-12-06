@@ -2,7 +2,6 @@
 
 using System;
 using Metalama.Documentation.Helpers.ConsoleApp;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Doc.AzureSynchronized;

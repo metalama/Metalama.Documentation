@@ -1,3 +1,4 @@
+using System;
 namespace Doc.LogComplexMethods;
 internal class Calculator
 {
@@ -9,7 +10,7 @@ internal class Calculator
   // Complex method: ~65 syntax nodes - will be logged.
   public int Fibonacci(int n)
   {
-    global::System.Console.WriteLine("Entering Fibonacci (complexity: 62 syntax nodes)");
+    Console.WriteLine("Entering Fibonacci (complexity: 62 syntax nodes)");
     try
     {
       if (n <= 0)
@@ -32,7 +33,7 @@ internal class Calculator
     }
     finally
     {
-      global::System.Console.WriteLine("Leaving Fibonacci");
+      Console.WriteLine("Leaving Fibonacci");
     }
   }
 }

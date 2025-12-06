@@ -1,6 +1,5 @@
 ﻿// This is public domain Metalama sample code.
 
-using Metalama.Framework.Advising;
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 using Metalama.Framework.Eligibility;

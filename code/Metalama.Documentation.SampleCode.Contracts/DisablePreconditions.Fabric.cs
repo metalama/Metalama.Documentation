@@ -1,6 +1,5 @@
 // This is public domain Metalama sample code.
 
-using Metalama.Framework.Code;
 using Metalama.Framework.Fabrics;
 using Metalama.Patterns.Contracts;
 

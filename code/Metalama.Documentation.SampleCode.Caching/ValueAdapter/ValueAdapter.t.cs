@@ -3,7 +3,6 @@ using Metalama.Patterns.Caching.Aspects;
 using Metalama.Patterns.Caching.Aspects.Helpers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 namespace Doc.ValueAdapter;

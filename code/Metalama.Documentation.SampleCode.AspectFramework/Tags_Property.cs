@@ -1,7 +1,5 @@
 ﻿// This is public domain Metalama sample code.
 
-using System;
-
 namespace Doc.Tags_Property;
 
 [TagsAspect]

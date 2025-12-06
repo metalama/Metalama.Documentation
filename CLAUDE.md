@@ -32,3 +32,12 @@
 * Do not add the Claude signature
 * The source code should not be in markdown - use docfx Markdown extensions like [!code-csharp] to include code
 * Fix locks with `build.ps1 tools kill`
+- the codebase of the documented API is in ../Metalama
+- if a warning is the desired output of an example, then it should appear in the output t.cs of the test, and it will appear nicely in the output html
+- if TEST_OPTIONS is standard
+- after `dotnet test` the html can be found under (Project)/obj/html
+- To create small examples of multi-project scenearios, the use aspect tests where Foo.Dependency.cs is the "child/referenced" project and Foo.cs is the referencing project
+- The html files are served by a project called HelpBrowser whose source code is in ../HelpBrowser. When started, it listens to https://localhost:56539. Do not start it since it does not run in the background.
+- before opening the brower, check that the url exists
+- HelpServer does not require the .html suffix
+- Metalama.Samples are a part of the documentation

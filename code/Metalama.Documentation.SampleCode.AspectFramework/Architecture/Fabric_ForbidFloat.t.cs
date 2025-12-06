@@ -1,7 +1,6 @@
 // Warning LAMA0905 on `double`: `The 'double' type cannot be referenced by the 'Doc.Architecture.Fabric_ForbidFloat.Invoicing' namespace. Use decimal numbers instead.`
 using Metalama.Extensions.Architecture;
 using Metalama.Extensions.Architecture.Predicates;
-using Metalama.Framework.Aspects;
 using Metalama.Framework.Fabrics;
 namespace Doc.Architecture.Fabric_ForbidFloat
 {

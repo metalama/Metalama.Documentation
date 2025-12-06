@@ -2,7 +2,7 @@ namespace Doc.IntroduceParameter;
 internal class Foo
 {
   [RegisterInstance]
-  public Foo(IInstanceRegistry instanceRegistry = default)
+  public Foo(IInstanceRegistry? instanceRegistry = default)
   {
     instanceRegistry.Register(this);
   }

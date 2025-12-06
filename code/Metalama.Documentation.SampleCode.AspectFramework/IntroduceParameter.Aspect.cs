@@ -13,7 +13,7 @@ internal class RegisterInstanceAttribute : ConstructorAspect
     {
         builder.IntroduceParameter(
             "instanceRegistry",
-            typeof(IInstanceRegistry),
+            TypeFactory.GetNamedType( typeof(IInstanceRegistry) ).ToNullable(),
             TypedConstant.Default( typeof(IInstanceRegistry) ),
             pullStrategy: PullStrategy.IntroduceParameterAndPull(
                 "instanceRegistry",

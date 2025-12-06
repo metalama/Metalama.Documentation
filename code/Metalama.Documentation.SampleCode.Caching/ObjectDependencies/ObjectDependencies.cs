@@ -1,9 +1,5 @@
 ﻿// This is public domain Metalama sample code.
 
-#if METALAMA
-using Metalama.Patterns.Caching;
-#endif
-
 using Metalama.Patterns.Caching;
 using Metalama.Patterns.Caching.Aspects;
 using Metalama.Patterns.Caching.Dependencies;

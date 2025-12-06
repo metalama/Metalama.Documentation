@@ -1,7 +1,5 @@
 ﻿// This is public domain Metalama sample code.
 
-using Metalama.Patterns.Contracts;
-
 namespace Doc.NotNullFabric;
 
 public class Instrument

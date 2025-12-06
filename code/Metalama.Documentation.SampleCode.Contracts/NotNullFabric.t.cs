@@ -1,5 +1,4 @@
 using System;
-using Metalama.Patterns.Contracts;
 namespace Doc.NotNullFabric;
 public class Instrument
 {

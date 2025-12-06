@@ -1,4 +1,3 @@
-using Metalama.Framework.CompileTimeContracts;
 using System;
 namespace Doc.StaticProxy;
 public interface IPropertyStore

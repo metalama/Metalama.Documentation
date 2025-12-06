@@ -1,5 +1,4 @@
 using Metalama.Patterns.Caching;
-using Metalama.Patterns.Caching;
 using Metalama.Patterns.Caching.Aspects;
 using Metalama.Patterns.Caching.Aspects.Helpers;
 using Metalama.Patterns.Caching.Dependencies;

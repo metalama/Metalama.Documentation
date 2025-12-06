@@ -13,7 +13,7 @@ internal class Foo : IDisposable
   }
   protected virtual void Dispose(bool disposing)
   {
-    _cancellationTokenSource.Dispose();
+    _cancellationTokenSource?.Dispose();
   }
 }
 [Disposable]
@@ -23,6 +23,6 @@ internal class Bar : Foo
   protected override void Dispose(bool disposing)
   {
     base.Dispose(disposing);
-    _stream.Dispose();
+    _stream?.Dispose();
   }
 }

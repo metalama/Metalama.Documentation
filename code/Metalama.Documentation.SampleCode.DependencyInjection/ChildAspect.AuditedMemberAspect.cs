@@ -1,7 +1,6 @@
 ﻿// This is public domain Metalama sample code.
 
 using Metalama.Extensions.DependencyInjection;
-using Metalama.Framework.Advising;
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 using System;

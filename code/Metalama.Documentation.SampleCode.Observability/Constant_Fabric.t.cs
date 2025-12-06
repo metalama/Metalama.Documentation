@@ -1,4 +1,3 @@
-using Metalama.Framework.Aspects;
 using Metalama.Framework.Fabrics;
 using Metalama.Patterns.Observability;
 using Metalama.Patterns.Observability.Configuration;

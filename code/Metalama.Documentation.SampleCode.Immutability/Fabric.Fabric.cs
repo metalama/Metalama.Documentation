@@ -1,6 +1,5 @@
 ﻿// This is public domain Metalama sample code.
 
-using Metalama.Framework.Aspects;
 using Metalama.Framework.Fabrics;
 using Metalama.Patterns.Immutability;
 using Metalama.Patterns.Immutability.Configuration;

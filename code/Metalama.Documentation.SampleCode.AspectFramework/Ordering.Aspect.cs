@@ -1,13 +1,12 @@
 ﻿// This is public domain Metalama sample code.
 
 using Doc.Ordering;
-using Metalama.Framework.Advising;
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 using System;
 using System.Linq;
 
-[assembly: AspectOrder( AspectOrderDirection.RunTime, typeof(Aspect1), typeof(Aspect2) )]
+[assembly: AspectOrder( AspectOrderDirection.RunTime, typeof( Aspect1 ), typeof( Aspect2 ) )]
 
 namespace Doc.Ordering;
 

@@ -2,7 +2,6 @@
 
 using Metalama.Extensions.Architecture;
 using Metalama.Extensions.Architecture.Predicates;
-using Metalama.Framework.Aspects;
 using Metalama.Framework.Fabrics;
 
 namespace Doc.Architecture.Fabric_ForbidFloat

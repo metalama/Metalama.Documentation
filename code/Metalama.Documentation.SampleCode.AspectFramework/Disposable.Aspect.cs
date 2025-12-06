@@ -1,6 +1,5 @@
 ﻿// This is public domain Metalama sample code.
 
-using Metalama.Framework.Advising;
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 using System;
@@ -31,7 +30,14 @@ internal class DisposableAttribute : TypeAspect
         // Disposes the current field or property.
         foreach ( var field in disposableFields )
         {
-            field.Value?.Dispose();
+            if ( field.Type.IsNullable == false )
+            {
+                field.Value?.Dispose();
+            }
+            else
+            {
+                field.Value!.Dispose();
+            }
         }
     }
 

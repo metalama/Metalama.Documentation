@@ -6,7 +6,6 @@ using Metalama.Framework.Code.Invokers;
 using Metalama.Framework.Code.SyntaxBuilders;
 using Metalama.Framework.Eligibility;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Doc.TupleInterceptor;
 

@@ -1,6 +1,5 @@
 ﻿// This is public domain Metalama sample code.
 
-using Metalama.Framework.CompileTimeContracts;
 using System;
 
 namespace Doc.StaticProxy;
