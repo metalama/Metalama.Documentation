@@ -4,7 +4,7 @@ level: 300
 summary: "The document provides advanced information on validating parameter, field, and property values with contracts in Metalama Framework. It covers accessing metadata, contract directions, and adding contract advice programmatically."
 keywords: "validating parameter values, Metalama Framework, contract directions, adding contract advice, .NET, ContractAspect class, input parameters, output parameters, precondition checks"
 created-date: 2023-02-16
-modified-date: 2025-11-30
+modified-date: 2025-12-06
 ---
 
 # Validating parameter, field, and property values with contracts
@@ -17,9 +17,10 @@ This article covers more advanced scenarios.
 
 You can access your template code's context using the following meta APIs:
 
-- `meta.Target.Declaration` returns the target parameter, property, or field.
-- `meta.Target.FieldOrProperty` returns the target property or field. However, it will throw an exception if the contract is applied to a parameter.
-- `meta.Target.Parameter` returns the parameter (including the parameter representing the return value). It will throw an exception if the contract is applied to a field or property.
+- `meta.Target.Declaration` returns the target parameter, field, or property as an <xref:Metalama.Framework.Code.IDeclaration>.
+- `meta.Target.Expression` returns the target parameter, field, or property as an <xref:Metalama.Framework.Code.IExpression>. Use this to access the type of the target via `meta.Target.Expression.Type`.
+- `meta.Target.FieldOrProperty` returns the target field or property. However, it throws an exception if the contract is applied to a parameter.
+- `meta.Target.Parameter` returns the parameter (including the parameter representing the return value). It throws an exception if the contract is applied to a field or property.
 - `meta.Target.ContractDirection` returns `Input` or `Output` according to the data flow being validated ([see below](#contract-directions)). Typically, it's `Input` for input parameters and property setters, and `Output` for output parameters and return values.
 
 ## Contract directions
@@ -32,7 +33,7 @@ The default direction is as follows:
 - For fields and properties: the _assigned_ value (i.e., the `value` parameter of the setter).
 - For `out` parameters and return value parameters: the _output_ value.
 
-To change the filter direction, override the <xref:Metalama.Framework.Aspects.ContractAspect.GetDefinedDirection*> method of the <xref:Metalama.Framework.Aspects.ContractAspect> class.
+To change the contract direction, override the <xref:Metalama.Framework.Aspects.ContractAspect.GetDefinedDirection*> method of the <xref:Metalama.Framework.Aspects.ContractAspect> class.
 
 For information on customizing eligibility for different contract directions than the default one, see the remarks in the documentation of the <xref:Metalama.Framework.Aspects.ContractAspect> class. To learn about eligibility, visit <xref:eligibility>.
 
