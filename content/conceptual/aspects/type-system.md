@@ -1,10 +1,10 @@
 ---
 uid: type-system
 level: 300
-summary: "Learn how to work with the Metalama type system, including IType, INamedType, generic types, tuple types, array types, and pointer types. Discover how to obtain type references, access type members, and construct derived types."
-keywords: "IType, INamedType, TypeFactory, generic types, tuple types, array types, pointer types, type system, Metalama types, compile-time types"
+summary: "Learn how to work with the Metalama type system, including IType, INamedType, generic types, tuple types, array types, pointer types, and nullability handling. Discover how to obtain type references, access type members, construct derived types, and control nullability."
+keywords: "IType, INamedType, TypeFactory, generic types, tuple types, array types, pointer types, type system, Metalama types, compile-time types, nullability, ToNullable, ToNonNullable, nullable reference types"
 created-date: 2025-11-07
-modified-date: 2025-11-30
+modified-date: 2025-12-06
 ---
 
 # Working with types
@@ -348,6 +348,72 @@ var pointerType = intType.MakePointerType();
 var pointedType = pointerType.PointedAtType; // IType representing int
 ```
 
+## Nullability
+
+The Metalama type system handles nullability in a way that simplifies aspect development while ensuring compatibility with C#'s nullable reference types feature.
+
+### Default nullability behavior
+
+Types returned by the Metalama type system API are **non-nullable by default**. This differs from Roslyn, which returns types with unknown/oblivious nullability by default.
+
+For example, when you call <xref:Metalama.Framework.Code.TypeFactory.GetType*> or access a type through the code model, the returned type will have `IsNullable == false` for reference types.
+
+However, when you reflect a type member (for instance, the type of a field or parameter), the <xref:Metalama.Framework.Code.IType.IsNullable> property displays the actual nullability annotation from your code.
+
+### Checking nullability
+
+Use the <xref:Metalama.Framework.Code.IType.IsNullable> property to check the nullability status of a type:
+
+- `true` - The type is nullable (e.g., `string?` or `int?`)
+- `false` - The type is non-nullable (e.g., `string` or `int`)
+- `null` - The nullability is unknown or oblivious (e.g., in legacy code without nullable annotations)
+
+```csharp
+if ( parameter.Type.IsNullable == true )
+{
+    // Handle nullable type
+}
+```
+
+### Converting between nullable and non-nullable
+
+Use the following methods to convert types between nullable and non-nullable forms:
+
+| Method | Description |
+|--------|-------------|
+| <xref:Metalama.Framework.Code.IType.ToNullable> | Makes a type nullable. For reference types, adds the `?` annotation. For value types, returns `Nullable<T>`. |
+| <xref:Metalama.Framework.Code.IType.ToNonNullable> | Makes a type non-nullable. For reference types, removes the `?` annotation. For nullable value types, unwraps `Nullable<T>` to `T`. |
+
+```csharp
+var stringType = TypeFactory.GetType(SpecialType.String); // string (non-nullable)
+var nullableString = stringType.ToNullable();              // string?
+var backToNonNullable = nullableString.ToNonNullable();    // string
+
+var intType = TypeFactory.GetType(SpecialType.Int32);      // int
+var nullableInt = intType.ToNullable();                    // int? (Nullable<int>)
+var backToInt = nullableInt.ToNonNullable();               // int
+```
+
+### Adding the null-forgiving operator to expressions
+
+When working with expressions in templates, use the <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionFactory.WithNullForgivingOperator*> extension method to add the null-forgiving operator (`!`) to an expression:
+
+```csharp
+// In a template
+var expression = someField.Value;
+var nonNullExpression = expression.WithNullForgivingOperator();
+// Generates: someField!
+```
+
+By default, this method adds the operator only when the expression is nullable. Use `force: true` to always add it:
+
+```csharp
+var forcedNonNull = expression.WithNullForgivingOperator(force: true);
+```
+
+> [!NOTE]
+> The null-forgiving operator is never added to non-nullable value types since they cannot be null by definition.
+
 > [!div class="see-also"]
 > <xref:aspects>
 > <xref:templates>
@@ -358,3 +424,4 @@ var pointedType = pointerType.PointedAtType; // IType representing int
 > <xref:Metalama.Framework.Code.TypeFactory>
 > <xref:Metalama.Framework.Code.IGeneric>
 > <xref:Metalama.Framework.Code.ITypeParameter>
+> <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionFactory>
