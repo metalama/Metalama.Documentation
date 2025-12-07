@@ -9,9 +9,9 @@ modified-date: 2025-11-30
 
 # Using the Roslyn API from aspects
 
-Aspects typically do not have access to the underlying Roslyn code model of the current project. The most significant consequence of this limitation is that aspects cannot access the syntax tree of method implementation. Indeed, the <xref:Metalama.Framework.Code> namespace only exposes declarations, not implementation syntax.
+Aspects typically don't have access to the underlying Roslyn code model of the current project. The most significant consequence is that aspects can't access the syntax tree of method implementations. The <xref:Metalama.Framework.Code> namespace only exposes declarations, not implementation syntax.
 
-If your aspect requires access to the syntax tree, it can achieve this by using the Metalama SDK.
+If your aspect requires access to the syntax tree, use the Metalama SDK.
 
 ## Using the Roslyn API
 
@@ -26,9 +26,9 @@ To use the Roslyn API from an aspect, your project needs to reference the `Metal
 
 ### Step 2. Use the Roslyn API
 
-Your aspect generally gets access to Roslyn types by using extension methods from the <xref:Metalama.Framework.Engine.CodeModel.SymbolExtensions> class. To get access to syntax, you can then use [ISymbol.DeclaringSyntaxReferences](https://learn.microsoft.com/en-us/dotnet/api/microsoft.codeanalysis.isymbol.declaringsyntaxreferences).
+Your aspect gets access to Roslyn types by using extension methods from the <xref:Metalama.Framework.Engine.CodeModel.SymbolExtensions> class. To access syntax, use [ISymbol.DeclaringSyntaxReferences](https://learn.microsoft.com/en-us/dotnet/api/microsoft.codeanalysis.isymbol.declaringsyntaxreferences).
 
-As an example, you could use Roslyn API to get the documentation comment ID for a Metalama declaration like this:
+For example, use the Roslyn API to get the documentation comment ID for a Metalama declaration:
 
 ```csharp
 static string? GetDocumentationCommentId(this IDeclaration metalamaDeclaration)
@@ -43,6 +43,6 @@ static string? GetDocumentationCommentId(this IDeclaration metalamaDeclaration)
 >
 > **See also**
 >
-> <xref:sdk>
-> <xref:aspect-weavers>
-> <xref:code-api>
+> * <xref:sdk>
+> * <xref:aspect-weavers>
+> * <xref:code-api>

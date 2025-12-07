@@ -9,11 +9,11 @@ modified-date: 2025-11-30
 
 # Introducing constructor parameters
 
-Most of the time, an aspect requires introducing a parameter to a constructor when it needs to retrieve a dependency from a dependency injection framework. In such situations, it is advisable to utilize the <xref:Metalama.Extensions.DependencyInjection> framework, as detailed in <xref:dependency-injection>.
+Most of the time, an aspect requires introducing a parameter to a constructor when it needs to retrieve a dependency from a dependency injection framework. In such situations, use the <xref:Metalama.Extensions.DependencyInjection> framework, as detailed in <xref:dependency-injection>.
 
 Typically, implementations of dependency injection frameworks introduce parameters using the method outlined here.
 
-To append a parameter to a constructor, the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceParameter*> method is used. This method requires several arguments: the target <xref:Metalama.Framework.Code.IConstructor>, the name, the type of the new parameter, and the default value for this parameter. It's important to note that a parameter can't be introduced without specifying a default value.
+To append a parameter to a constructor, use the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceParameter*> method. This method requires several arguments: the target <xref:Metalama.Framework.Code.IConstructor>, the name, the type of the new parameter, and the default value for this parameter. A parameter can't be introduced without specifying a default value.
 
 The `pullStrategy` parameter of the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceParameter*> method allows you to specify the value passed to this parameter in other constructors that call the specified constructor, using the `: this(...)` or `: base(...)` syntax. This parameter accepts an <xref:Metalama.Framework.Advising.IPullStrategy> implementation. To create a pull strategy, use one of the factory methods of the <xref:Metalama.Framework.Advising.PullStrategy> class, such as <xref:Metalama.Framework.Advising.PullStrategy.UseExpression*> or <xref:Metalama.Framework.Advising.PullStrategy.IntroduceParameterAndPull*>.
 

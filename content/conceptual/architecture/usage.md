@@ -1,7 +1,7 @@
 ---
 uid: validating-usage
 level: 200
-summary: "The document provides a detailed guide on how to verify the usage of a class, member or namespace in C# using Metalama, a tool that allows for fine-tuning accessibility. It covers both attribute-based and programmatically validation methods."
+summary: "Verify the usage of classes, members, or namespaces using Metalama to fine-tune accessibility beyond C#'s built-in access modifiers."
 keywords: "dependencies, Metalama, custom attributes, C# validation, namespace, internal members, programmatic validation, Metalama.Extensions.Architecture"
 created-date: 2023-03-22
 modified-date: 2025-11-30
@@ -9,7 +9,7 @@ modified-date: 2025-11-30
 
 # Verifying usage of a class, member, or namespace
 
-Defining dependencies between components—who can call whom—is a critical aspect of software design. In C#, this concept is called _accessibility_. For optimal design, always grant the least necessary accessibility. This principle minimizes unintended coupling between components and makes future changes easier.
+Defining dependencies between components—who can call whom—is a critical aspect of software design. In C#, this concept is called _accessibility_. For optimal design, always grant the least necessary accessibility. This minimizes unintended coupling between components and makes future changes easier.
 
 In C#, accessibility is defined across two boundaries: _assemblies_ and _types_. `private` members are only accessible from the current type, `protected` members are accessible from the current and any derived type, `public` members are universally visible, and `internal` members are only accessible from the current assembly unless `InternalsVisibleTo` extends accessibility to other assemblies.
 
@@ -22,13 +22,13 @@ For instance, you might want to enforce rules such as:
 * Requiring a whole namespace only to be used by a friend namespace.
 * Forbidding internal members of a namespace from being accessed outside of their home namespace.
 
-The traditional approach is to use code comments and rely on manual code reviews to enforce the desired design intent. However, this approach is prone to human errors and suffers from a lengthy feedback loop. Another approach is to split the codebase into more fine-grained projects, but this increases build and deployment complexity and negatively affects application startup time.
+The traditional approach is to use code comments and rely on manual code reviews to enforce the desired design intent. However, this approach is prone to human error and has a lengthy feedback loop. Another approach is to split the codebase into more fine-grained projects, but this increases build and deployment complexity and negatively affects application startup time.
 
 With Metalama, you can fine-tune the intended accessibility of your namespaces, types, or members using custom attributes or a compile-time API.
 
 ## Validating usage with custom attributes
 
-When you want to fine-tune the accessibility of hand-picked types or members, using custom attributes is the easiest solution.
+To fine-tune the accessibility of hand-picked types or members, use custom attributes.
 
 Follow these steps:
 
@@ -43,7 +43,7 @@ Follow these steps:
     | <xref:Metalama.Extensions.Architecture.Aspects.CannotBeUsedFromAttribute> | Reports a warning when the target declaration is accessed from the given scope.
     | <xref:Metalama.Extensions.Architecture.Aspects.InternalsCannotBeUsedFromAttribute> | Reports a warning when any `internal` member of the type is accessed from the given scope.
 
-3. Set one or many of the following properties of the custom attribute, which control the scope, that is, which declarations can or cannot access the target declaration:
+3. Set one or more of the following properties of the custom attribute, which control the scope (which declarations can or can't access the target declaration):
 
     | Property  | Description  |
     |---------|---------|
@@ -62,13 +62,13 @@ In the following example, the class `Foo` has two constructors, and one of them 
 
 ### Example: Type internals reserved for the current namespace
 
-In the following example, the class `Foo` uses the <xref:Metalama.Extensions.Architecture.Aspects.InternalsCanOnlyBeUsedFromAttribute> constraint to verify that internal members are only accessed from the same namespace. A warning is reported when an internal method of `Foo` is accessed from a different method.
+In the following example, the class `Foo` uses the <xref:Metalama.Extensions.Architecture.Aspects.InternalsCanOnlyBeUsedFromAttribute> constraint to verify that internal members are only accessed from the same namespace. A warning is reported when an internal method of `Foo` is accessed from a different namespace.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/Architecture/Attribute_CurrentNamespace.cs tabs="target"]
 
 ## Validating usage programmatically
 
-Custom attributes are adequate when the types or members to validate have to be hand-picked. However, when these types or members can be selected by a _rule_, it's more efficient to do it programmatically, with compile-time code and [fabrics](xref:fabrics).
+Custom attributes are adequate when the types or members to validate must be hand-picked. However, when these types or members can be selected by a _rule_, it's more efficient to do it programmatically with compile-time code and [fabrics](xref:fabrics).
 
 Follow these steps:
 
@@ -111,17 +111,17 @@ Follow these steps:
 
     You can create complex conditions thanks to the <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicateExtensions.And*>, <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicateExtensions.Or*>, and <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicateExtensions.Not*> methods.
 
-7. Optionally, you can pass a value for the `description` parameter. This text will be appended to the warning message. You can also supply a <xref:Metalama.Framework.Code.ReferenceKinds> to limit the kinds of references that are validated.
+7. Optionally, pass a value for the `description` parameter. This text will be appended to the warning message. You can also supply a <xref:Metalama.Framework.Code.ReferenceKinds> to limit the kinds of references that are validated.
 
 ### Example: Namespace internals reserved for the current namespace
 
-In the following example, we use a namespace fabric to restrict the accessibility of internal members to this namespace. A warning is reported when this rule is violated, like in the `ForbiddenInheritor` class.
+In the following example, we use a namespace fabric to restrict the accessibility of internal members to this namespace. A warning is reported when this rule is violated, as in the `ForbiddenInheritor` class.
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.AspectFramework/Architecture/Fabric_InternalNamespace.cs ]
 
 ### Example: Forbidding the use of floating-point arithmetic from the Invoicing namespace
 
-Using floating-point arithmetic in operations involving currencies is a common pitfall. Instead, `decimal` numbers should be used. In the following example, we use a project fabric to validate all references to the `float` and `double` types. We report a diagnostic when they are used from the `**.Invoicing` namespaces.
+Using floating-point arithmetic in operations involving currencies is a common pitfall. Instead, `decimal` numbers should be used. In the following example, we use a project fabric to validate all references to the `float` and `double` types. We report a diagnostic when they're used from the `**.Invoicing` namespaces.
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.AspectFramework/Architecture/Fabric_ForbidFloat.cs]
 

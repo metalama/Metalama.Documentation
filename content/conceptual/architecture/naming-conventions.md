@@ -1,7 +1,7 @@
 ---
 uid: naming-conventions
 level: 200
-summary: "The document explains how to enforce naming conventions in codebases using Metalama, either through custom attributes for source-owned classes or interfaces, or fabrics for other scenarios."
+summary: "Enforce naming conventions in your codebase using Metalama's custom attributes or fabrics to ensure consistent terminology across your project."
 keywords: "naming conventions, Metalama, custom attributes, enforce naming conventions, .NET, Metalama.Extensions.Architecture"
 created-date: 2023-03-22
 modified-date: 2025-11-30
@@ -9,13 +9,13 @@ modified-date: 2025-11-30
 
 # Enforcing naming conventions
 
-In any professional team, consistent terminology usage is essential. This is especially true for large codebases maintained by multiple people over extended periods.
+In any professional team, consistent terminology is essential. This is especially true for large codebases maintained by multiple people over extended periods.
 
-To ensure consistency, Metalama provides a straightforward way to enforce naming conventions across lines of inheritance. For instance, you can require any class inheriting the `IFactory` interface to have a name ending with the `Factory` suffix. This ensures everyone uses the same language and understands the same concepts.
+To ensure consistency, Metalama provides a straightforward way to enforce naming conventions across lines of inheritance. For instance, you can require any class implementing the `IFactory` interface to have a name ending with the `Factory` suffix. This ensures everyone uses the same language and understands the same concepts.
 
 ## Enforcing naming conventions using custom attributes
 
-If you want to enforce a naming convention for any type that derives from a given class or interface, and you own the source code of this class or interface, the easiest approach is to use a custom attribute. Follow these steps:
+To enforce a naming convention for any type that derives from a given class or interface, and you own the source code of that class or interface, use a custom attribute. Follow these steps:
 
 1. Add the `Metalama.Extensions.Architecture` package to your project.
 
@@ -32,7 +32,7 @@ In the following example, we require all types implementing `IFactory` to have a
 
 ## Enforcing naming conventions using fabrics
 
-If you want to enforce naming conventions for a scenario different from the one above, you can't use custom attributes. Instead, you need to use fabrics and write compile-time code. Follow these steps:
+If you want to enforce naming conventions for a scenario different from the one above, you can't use custom attributes. Instead, use fabrics and write compile-time code. Follow these steps:
 
 1. Add the `Metalama.Extensions.Architecture` package to your project.
 

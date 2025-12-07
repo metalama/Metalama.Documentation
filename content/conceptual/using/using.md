@@ -4,14 +4,14 @@ level: 100
 summary: "The document is a guide on using Metalama, particularly for individuals who want to use aspects without creating new ones. It includes articles on obtaining, applying, and debugging aspects."
 keywords: "Metalama, obtaining aspects, applying aspects, debugging aspects, Code Lens, Code Diff, live templates"
 created-date: 2023-02-16
-modified-date: 2025-11-30
+modified-date: 2025-12-07
 ---
 
 # Using Metalama
 
-This chapter is designed for individuals seeking to understand how to _use_ aspects without the necessity to _create_ new ones. If your goal aligns with this, you may stop reading after this chapter. However, should you aim to create aspects, beginning with this chapter remains advantageous as it introduces the core principles and techniques.
+This chapter is designed for developers who want to _use_ aspects without creating new ones. If that's your goal, you can stop reading after this chapter. However, if you aim to create aspects, starting with this chapter is still beneficial as it introduces core principles and techniques.
 
-By the end of this guide, you should feel confident in using aspects within your codebase.
+By the end of this chapter, you'll feel confident using aspects in your codebase.
 
 ## Who should read this chapter?
 
@@ -25,13 +25,13 @@ This chapter is recommended for those who:
 
 |Article | Description |
 |--------|-------------|
-|<xref:getting-aspects> | This article outlines where to obtain aspects and provides a list of sample aspects used for demonstrations throughout this guide. |
-|<xref:quickstart-adding-aspects> | This article details the process of applying an aspect to a target either manually by adding attributes or through the refactoring menu. |
-|<xref:understanding-your-code-with-aspects>| This article explains how to utilize Code Lens and Code Diff to better understand your code. |
-|<xref:debugging-aspect-oriented-code> | This article provides guidance on how to debug transformed code using Visual Studio. |
-|<xref:applying-live-templates> | Live templates are unique types of aspects that modify your source code directly in the editor. This article guides you on how to use them. |
-|<xref:fabrics-adding-aspects>| Manually adding aspects or using the refactoring menu may not always be feasible or practical. Sometimes, a programmatic method is required to apply aspects to different targets. This article demonstrates how to use `Fabrics` programmatically to add aspects to various targets. |
-|<xref:ide-configuration> | This article explains how to configure Visual Studio, VS Code, and Rider for the best experience with Metalama. |
+|<xref:getting-aspects> | Outlines where to obtain aspects and lists sample aspects used throughout this chapter. |
+|<xref:quickstart-adding-aspects> | Details how to apply aspects manually by adding attributes or through the refactoring menu. |
+|<xref:understanding-your-code-with-aspects>| Explains how to use Code Lens and Code Diff to understand your code. |
+|<xref:debugging-aspect-oriented-code> | Provides guidance on debugging transformed code using Visual Studio. |
+|<xref:applying-live-templates> | Shows how to use live templates, which modify your source code directly in the editor. |
+|<xref:fabrics-adding-aspects>| Demonstrates how to use fabrics to programmatically add aspects to many targets at once. |
+|<xref:ide-configuration> | Explains how to configure Visual Studio, VS Code, and Rider for the best Metalama experience. |
 
 > [!div class="see-also"]
 >

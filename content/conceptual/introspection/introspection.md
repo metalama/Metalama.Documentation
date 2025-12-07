@@ -21,11 +21,13 @@ Metalama provides powerful APIs for querying and analyzing your source code outs
 
 The introspection APIs allow you to:
 
-* Query code using the same <xref:Metalama.Framework.Code> API as aspects and fabrics
-* List target declarations of aspects
-* Inspect aspect outcomes: code transformations, diagnostics, and child aspects
-* Query the transformed code after Metalama executes
-* Analyze code dependencies and references
+* Query code using the same <xref:Metalama.Framework.Code> API as aspects and fabrics.
+* List target declarations of aspects.
+* Inspect aspect outcomes: code transformations, diagnostics, and child aspects.
+* Query the transformed code after Metalama executes.
+* Analyze code dependencies and references.
+
+## See also
 
 > [!div class="see-also"]
 > <xref:Metalama.Framework.Workspaces>

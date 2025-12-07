@@ -1,14 +1,15 @@
 ---
 uid: advanced-api
-summary: "Overview of namespaces and assemblies for extending Metalama with the Roslyn API, including aspect weavers, code model integration, and source transformers."
+summary: "Namespaces and assemblies for extending Metalama with the Roslyn API, including aspect weavers, code model integration, and source transformers."
 keywords: "Metalama SDK, Roslyn API, aspect weavers, source transformers, IPartialCompilation, IAspectWeaver, code model"
 created-date: 2023-01-26
 modified-date: 2025-11-30
+level: 400
 ---
 
-# Advanced Extensibility API (SDK) documentation
+# Advanced extensibility API (SDK)
 
-This page documents the namespaces in the `Metalama.Framework.Sdk` package that enable extending Metalama using the Roslyn API. These APIs provide low-level access to compilation transformations and are intended for advanced scenarios where the standard advice API is insufficient.
+The `Metalama.Framework.Sdk` package enables extending Metalama using the Roslyn API. These APIs provide low-level access to compilation transformations and are intended for advanced scenarios where the standard advice API is insufficient.
 
 For conceptual guidance on using these APIs, see <xref:sdk>.
 

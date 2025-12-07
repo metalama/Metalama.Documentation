@@ -1,5 +1,6 @@
 ---
 uid: observability
+summary: "Implement the Observable pattern and INotifyPropertyChanged interface automatically using the Metalama.Patterns.Observability package."
 level: 100
 keywords: "Observable pattern, INotifyPropertyChanged, MVVM, INotifyPropertyChanged interface, Metalama.Patterns.Observability, ObservableAttribute, ConfigureObservability, ConstantAttribute, ObservabilityExtensions"
 created-date: 2024-06-11
@@ -8,70 +9,68 @@ modified-date: 2025-11-30
 
 # Metalama.Patterns.Observability
 
-The Observable pattern is widely used for binding user interface controls to their underlying data, especially in projects that adhere to the MVVM architecture. In .NET, the standard interface for the Observable pattern is <xref:System.ComponentModel.INotifyPropertyChanged>. Typically, this interface is implemented by the types of the Model and View-Model layers. When a property of a Model object changes, it triggers the <xref:System.ComponentModel.INotifyPropertyChanged.PropertyChanged> event. This Model event is observed by the View-Model layer. If a property of a View-Model object is affected by this change, it subsequently triggers the <xref:System.ComponentModel.INotifyPropertyChanged.PropertyChanged> event. The View-Model event is eventually observed by the View layer, which updates the UI.
+The Observable pattern is widely used for binding user interface controls to their underlying data, especially in projects that follow the MVVM architecture. In .NET, the standard interface for the Observable pattern is <xref:System.ComponentModel.INotifyPropertyChanged>. Typically, this interface is implemented by the types of the Model and View-Model layers. When a property of a Model object changes, it triggers the <xref:System.ComponentModel.INotifyPropertyChanged.PropertyChanged> event. This Model event is observed by the View-Model layer. If a property of a View-Model object is affected by this change, it then triggers the <xref:System.ComponentModel.INotifyPropertyChanged.PropertyChanged> event. The View-Model event is eventually observed by the View layer, which updates the UI.
 
 A second common element of the Observable pattern is the `OnPropertyChanged` method, the name of which can vary across different MVVM frameworks. A third element of this pattern is conventions about how the property setters should be implemented, possibly with some helper methods.
 
 Metalama provides an open-source implementation of the Observable pattern in the `Metalama.Patterns.Observability` package. The principal artifacts in this package are:
 
-- The <xref:Metalama.Patterns.Observability.ObservableAttribute?text=[Observable]> aspect, which automatically implements the <xref:System.ComponentModel.INotifyPropertyChanged> interface for the target type.
-- The <xref:Metalama.Patterns.Observability.Configuration.ObservabilityExtensions.ConfigureObservability*> extension methods, designed to be called from a fabric.
-- The <xref:Metalama.Patterns.Observability.ConstantAttribute?text=[Constant]> attribute, which ensures that the output of a method is constant for identical parameters.
+- The <xref:Metalama.Patterns.Observability.ObservableAttribute?text=[Observable]> aspect, which automatically implements the <xref:System.ComponentModel.INotifyPropertyChanged> interface for the target type
+- The <xref:Metalama.Patterns.Observability.Configuration.ObservabilityExtensions.ConfigureObservability*> extension methods, designed to be called from a fabric
+- The <xref:Metalama.Patterns.Observability.ConstantAttribute?text=[Constant]> attribute, which ensures that the output of a method is constant for identical parameters
 
 ## Benefits
 
 The primary benefits of using `Metalama.Patterns.Observability` include:
 
-- Dramatic reduction of the boilerplate code linked to <xref:System.ComponentModel.INotifyPropertyChanged>
-- Safety from human errors:
-  - Never forget to raise a notification again
-  - The package reports warnings if a dependency or code construct is not supported
-- Idiomatic source code
-- Almost idiomatic code generation
-- Support for complex code constructs:
+- **Dramatic reduction of boilerplate code** linked to <xref:System.ComponentModel.INotifyPropertyChanged>
+- **Safety from human errors**—never forget to raise a notification, and get warnings if a dependency or code construct isn't supported
+- **Idiomatic source code**
+- **Almost idiomatic code generation**
+- **Support for complex code constructs**:
   - Automatic properties
   - Explicitly-implemented properties
   - Field-backed properties
   - Properties that depend on **child objects**, a common scenario in MVVM architectures
   - Properties that depend on **methods**
   - Constant methods and immutable objects
-- Compatibility with most MVVM frameworks
+- **Compatibility with most MVVM frameworks**
 
 ## Implementing INotifyPropertyChanged for a class hierarchy
 
 1. Add a reference to the `Metalama.Patterns.Observability` package.
-2. Add the <xref:Metalama.Patterns.Observability.ObservableAttribute?text=[Observable]> attribute to each class requiring the <xref:System.ComponentModel.INotifyPropertyChanged> interface. Note that the <xref:Metalama.Patterns.Observability.ObservableAttribute?text=Observable> aspect is automatically inherited; you don't need to manually add the attribute to derived classes if the aspect has been applied to a base class.
-3. Consider making these classes `partial` if you need the source code to "see" that these classes now implement the <xref:System.ComponentModel.INotifyPropertyChanged> interface.
-4. Check for `LAMA51**` warnings in your code. They highlight situations that are not supported by the <xref:Metalama.Patterns.Observability.ObservableAttribute?text=Observable> aspect and require manual handling. This is described in the next section.
+2. Add the <xref:Metalama.Patterns.Observability.ObservableAttribute?text=[Observable]> attribute to each class requiring the <xref:System.ComponentModel.INotifyPropertyChanged> interface. Note that the <xref:Metalama.Patterns.Observability.ObservableAttribute?text=Observable> aspect is automatically inherited; you don't need to add the attribute to derived classes if the aspect has been applied to a base class.
+3. Consider making these classes `partial` if you need the source code to see that these classes now implement the <xref:System.ComponentModel.INotifyPropertyChanged> interface.
+4. Check for `LAMA51xx` warnings in your code. They highlight situations that aren't supported by the <xref:Metalama.Patterns.Observability.ObservableAttribute?text=Observable> aspect and require manual handling. This is described in the next section.
 
-Here is an example of the code generated by the <xref:Metalama.Patterns.Observability.ObservableAttribute?text=Observable> aspect for a simple case:
+Here's an example of the code generated by the <xref:Metalama.Patterns.Observability.ObservableAttribute?text=Observable> aspect for a simple case:
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Observability/ComputedProperty.cs]
 
 ## Understanding and working around limitations
 
-Before transforming a type, the <xref:Metalama.Patterns.Observability.ObservableAttribute?text=Observable> aspect analyzes the dependencies between different properties in this type; it builds a dependency graph, and this graph becomes the input of the source generation algorithm.
+Before transforming a type, the <xref:Metalama.Patterns.Observability.ObservableAttribute?text=Observable> aspect analyzes the dependencies between different properties in this type. It builds a dependency graph, and this graph becomes the input of the source generation algorithm.
 
-As stated in the introduction, the graph analysis understands references to fields, properties, properties of child objects (and recursively), and some methods. When a situation is not supported, the Observable aspect reports a warning.
+As stated in the introduction, the graph analysis understands references to fields, properties, properties of child objects (and recursively), and some methods. When a situation isn't supported, the Observable aspect reports a warning.
 
-Here is an example of code where a computed property depends on an unsupported method.
+Here's an example of code where a computed property depends on an unsupported method.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Observability/Warning.cs]
 
-Here are different ways to cope with these warnings:
+Here are different ways to address these warnings:
 
 ### Ignoring the warning
 
-If the warning is considered a false positive, ignore it using the classic `#pragma warning disable` syntax.
+If the warning is a false positive, use the `#pragma warning disable` syntax to ignore it.
 
-To disable all warnings in a member, the <xref:Metalama.Patterns.Observability.SuppressObservabilityWarningsAttribute?text=[SuppressObservabilityWarnings]> attribute can also be used, which is provided for find-and-replace-all compatibility with PostSharp.
+To disable all warnings in a member, use the <xref:Metalama.Patterns.Observability.SuppressObservabilityWarningsAttribute?text=[SuppressObservabilityWarnings]> attribute, which is provided for find-and-replace-all compatibility with PostSharp.
 
 > [!WARNING]
-> These warnings indicate that a dependency will _not_ be handled by the generated code. Suppressing the warning, of course, has no effect on the generated code.
+> These warnings indicate that a dependency won't be handled by the generated code. Suppressing the warning has no effect on the generated code.
 
 #### Example: SuppressObservabilityWarnings
 
-In the following example, we skip the warning using <xref:Metalama.Patterns.Observability.SuppressObservabilityWarningsAttribute?text=[SuppressObservabilityWarnings]> attribute. Note that this makes the code incorrect because the Observable aspect still does not notify a change of the `Norm` property when `X` or `Y` is changed.
+In the following example, we skip the warning using the <xref:Metalama.Patterns.Observability.SuppressObservabilityWarningsAttribute?text=[SuppressObservabilityWarnings]> attribute. Note that this makes the code incorrect because the Observable aspect still doesn't notify a change of the `Norm` property when `X` or `Y` is changed.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Observability/SuppressObservabilityWarnings.cs]
 
@@ -81,23 +80,23 @@ To exclude a property from the change-notification mechanism, use the <xref:Meta
 
 #### Example: NotObservable
 
-In this example, we exclude a property that depends on `DateTime.Now`. Since the value of this property changes every instance, another method of notifying changes should be implemented &mdash; for instance, using a timer.
+In this example, we exclude a property that depends on `DateTime.Now`. Since this property's value changes every instant, you should implement another method of notifying changes—for instance, using a timer.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Observability/Skipping.cs]
 
 ### Marking methods as constant
 
-Calls to methods of different types are supported only if they are known to be _constant_, i.e., if subsequent calls with the exact same arguments are guaranteed to always return the same value.
+Calls to methods of different types are supported only if they're known to be _constant_—if subsequent calls with the exact same arguments are guaranteed to always return the same value.
 
 The following methods are considered _constant_:
 
-- Methods where all input parameters (including `this` in case of non-static methods) are of an _immutable_ type. Immutability is handled using the `Metalama.Patterns.Immutability` patterns. For details, see <xref:immutability>.
+- Methods where all input parameters (including `this` for non-static methods) are of an _immutable_ type. Immutability is handled using the `Metalama.Patterns.Immutability` patterns. For details, see <xref:immutability>.
 - `void` methods without `out` arguments.
 - Methods marked as constants using the <xref:Metalama.Patterns.Observability.ConstantAttribute?text=[Constant]> custom attribute or using a fabric (see below).
 
 One way to mark a method as constant is to add the <xref:Metalama.Patterns.Observability.ConstantAttribute?text=[Constant]> custom attribute.
 
-If you want to mark many methods as constant, it may be more convenient to use the <xref:Metalama.Patterns.Observability.Configuration.ObservabilityExtensions.ConfigureObservability*> fabric method instead of adding the `[Constant]` attribute to each of them, and set the <xref:Metalama.Patterns.Observability.Configuration.ObservabilityTypeOptionsBuilder.ObservabilityContract> property to `ObservabilityContract.Constant`.
+If you want to mark many methods as constant, use the <xref:Metalama.Patterns.Observability.Configuration.ObservabilityExtensions.ConfigureObservability*> fabric method instead of adding the `[Constant]` attribute to each of them, and set the <xref:Metalama.Patterns.Observability.Configuration.ObservabilityTypeOptionsBuilder.ObservabilityContract> property to `ObservabilityContract.Constant`.
 
 #### Example: marking a method as constant using a custom attribute
 
@@ -107,11 +106,11 @@ If you want to mark many methods as constant, it may be more convenient to use t
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Observability/Constant_Fabric.cs]
 
-## Coping with manual implementations of INotifyPropertyChanged
+## Working with manual implementations of INotifyPropertyChanged
 
-The <xref:Metalama.Patterns.Observability.ObservableAttribute?text=Observable> aspect also works when the type already implements the <xref:System.ComponentModel.INotifyPropertyChanged> interface. In this case, the aspect will only instrument the fields and properties.
+The <xref:Metalama.Patterns.Observability.ObservableAttribute?text=Observable> aspect also works when the type already implements the <xref:System.ComponentModel.INotifyPropertyChanged> interface. In this case, the aspect only instruments the fields and properties.
 
-However, if the type already implements the <xref:System.ComponentModel.INotifyPropertyChanged> interface, then the type must contain a method with exactly the following signature:
+However, if the type already implements the <xref:System.ComponentModel.INotifyPropertyChanged> interface, the type must contain a method with exactly the following signature:
 
 ```cs
 protected void OnPropertyChanged( string propertyName );

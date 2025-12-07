@@ -11,8 +11,8 @@ modified-date: 2025-12-02
 
 Code metrics provide quantitative measures of your source code, such as statement counts or syntax node counts. You can consume metrics in two scenarios:
 
-- **Aspects and fabrics**: Make decisions based on code complexity at compile time.
-- **Workspaces API**: Analyze code complexity from standalone applications or tools.
+* **Aspects and fabrics**: Make decisions based on code complexity at compile time.
+* **Workspaces API**: Analyze code complexity from standalone applications or tools.
 
 ## Built-in metrics
 
@@ -20,9 +20,9 @@ The `Metalama.Extensions.Metrics` package provides three ready-to-use metrics:
 
 | Metric | Description |
 |--------|-------------|
-| <xref:Metalama.Extensions.Metrics.StatementsCount> | Counts the number of statements in a declaration. More relevant than line counts, but less accurate than syntax nodes for modern expression-oriented C#. |
+| <xref:Metalama.Extensions.Metrics.StatementsCount> | Counts statements in a declaration. More relevant than line counts, but less accurate than syntax nodes for modern expression-oriented C#. |
 | <xref:Metalama.Extensions.Metrics.SyntaxNodesCount> | Counts all syntax nodes in a declaration's syntax tree. Provides a more accurate measure of code complexity. |
-| <xref:Metalama.Extensions.Metrics.LinesOfCode> | Counts lines of code with three sub-metrics: `Logical` (excludes braces and comments), `NonBlank` (lines with non-whitespace content), and `Total` (total line span). |
+| <xref:Metalama.Extensions.Metrics.LinesOfCode> | Counts lines of code with three sub-metrics: `Logical` (excludes braces and comments), `NonBlank` (non-whitespace content), and `Total` (total line span). |
 
 You can apply all metrics to methods, constructors, types, namespaces, and the entire compilation. When applied to a container (type, namespace, compilation), the metric aggregates values from all contained members.
 
@@ -47,8 +47,8 @@ int count = syntaxNodeCount.Value;
 
 Use this in:
 
-- **Aspects**: In `BuildAspect` to conditionally add advice, or in templates to embed metric values in generated code.
-- **Fabrics**: In `AmendProject` or `AmendType` to filter declarations based on complexity.
+* **Aspects**: In `BuildAspect` to conditionally add advice, or in templates to embed metric values in generated code.
+* **Fabrics**: In `AmendProject` or `AmendType` to filter declarations based on complexity.
 
 ### Example: adding logging to complex methods
 
@@ -86,6 +86,8 @@ After registering the providers, load your workspace and query metrics as usual:
 The following example demonstrates a standalone tool that analyzes code complexity:
 
 [!code-csharp[](~/code/Metalama.Documentation.SampleCode.Metrics.Workspaces/Program.cs)]
+
+## See also
 
 > [!div class="see-also"]
 > <xref:Metalama.Framework.Metrics>

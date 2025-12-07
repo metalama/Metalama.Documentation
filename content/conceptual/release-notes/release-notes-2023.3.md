@@ -8,7 +8,7 @@ modified-date: 2024-08-04
 
 # Metalama 2023.3
 
-Metalama 2023.3 introduces several new features: ready-made aspect implementations for caching and contracts, auxiliary templates, greatly revamped `Metalama.Framework.Sdk`, and several enhancements and bug fixes.
+Metalama 2023.3 introduces several new features: ready-made aspect implementations for caching and contracts, auxiliary templates, a revamped `Metalama.Framework.Sdk`, and several enhancements and bug fixes.
 
 ## Platform updates
 
@@ -22,21 +22,21 @@ Metalama 2023.3 introduces several new features: ready-made aspect implementatio
 
 ### Auxiliary templates
 
-It is now possible to call a template from a template. This allows to remove redundancy in templates and use abstraction and encapsulation thanks to `virtual` templates and delegate-like template invocations.
+You can now call a template from another template. This removes redundancy in templates and enables abstraction and encapsulation through `virtual` templates and delegate-like template invocations.
 
 For details, see <xref:auxiliary-templates>.
 
 ### Metalama.Patterns.Contracts
 
-Metalama Contracts y is an [open-source](https://github.com/metalama/Metalama/tree/HEAD/Metalama.Patterns/src/Metalama.Patterns.Contracts), aspect-oriented implementation of [System.ComponentModel.DataAnnotations](https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations). Unlike Microsoft's annotations, Metalama Contracts works with any C# code, not just ASP.NET MVC or Entity Framework, as it utilizes aspects to inject validation logic during compilation.
+Metalama Contracts is an [open-source](https://github.com/metalama/Metalama/tree/HEAD/Metalama.Patterns/src/Metalama.Patterns.Contracts), aspect-oriented implementation of [System.ComponentModel.DataAnnotations](https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations). Unlike Microsoft's annotations, Metalama Contracts works with any C# code, not just ASP.NET MVC or Entity Framework, because it uses aspects to inject validation logic during compilation.
 
-In 2023.3, we're releasing `Metalama.Patterns.Contracts` under the _preview_ quality label. Conceptual documentation is not available at the moment. For conceptual documentation, see <xref:Metalama.Patterns.Contracts>.
+In 2023.3, we're releasing `Metalama.Patterns.Contracts` under the _preview_ quality label. For conceptual documentation, see <xref:Metalama.Patterns.Contracts>.
 
 ### Metalama.Patterns.Caching
 
 We've also ported our PostSharp-based caching framework to Metalama and completely [open-sourced](https://github.com/metalama/Metalama/tree/HEAD/Metalama.Patterns/src/Metalama.Patterns.Caching) it. We updated the codebase to take full advantage of modern .NET and C#, including the use of `IReadOnlySpan<char>` to further reduce garbage collection load.
 
-As for contracts, we're currently releasing `Metalama.Patterns.Caching` under the _preview_ quality label. Conceptual documentation is not available at the moment. For conceptual documentation, see <xref:Metalama.Patterns.Caching>.
+Like contracts, we're releasing `Metalama.Patterns.Caching` under the _preview_ quality label. For conceptual documentation, see <xref:Metalama.Patterns.Caching>.
 
 ### Metalama.Framework.Sdk
 
@@ -61,7 +61,7 @@ For details, see <xref:sdk>.
 * Any aspect can now reflect on any other <xref:Metalama.Framework.Aspects.IAspectInstance> added before the current aspect thanks to the new API <xref:Metalama.Framework.Code.DeclarationEnhancements`1.GetAspectInstances?text=declaration.Enhancements().GetAspectInstances()> returning an `IEnumerable<IAspectInstance>`. The previous method, <xref:Metalama.Framework.Code.DeclarationEnhancements`1.GetAspects*>, did not return the <xref:Metalama.Framework.Aspects.IAspectInstance> and gave no access to the <xref:Metalama.Framework.Aspects.IAspectState>.
 * <xref:Metalama.Extensions.DependencyInjection>: You can now introduce a dependency programmatically thanks to the <xref:Metalama.Extensions.DependencyInjection.DependencyInjectionExtensions.TryIntroduceDependency*> method.
 * New <xref:Metalama.Framework.Aspects.RunTimeAttribute?text=[RunTime]> attribute that restricts to run-time the scope of a type that derives from a <xref:Metalama.Framework.Aspects.RunTimeOrCompileTimeAttribute?text=[RunTimeOrCompileTime]>  base class or interface.
-* <xref:Metalama.Framework.Advising.IAdviceFactory>: introduction methods like <xref:Metalama.Framework.Advising.AdviceKind.IntroduceMethod> now return the existing member even for <xref:Metalama.Framework.Advising.AdviceOutcome.Ignore?text=AdviceOutcome.Ignore>.
+* <xref:Metalama.Framework.Advising.IAdviceFactory>: Introduction methods like <xref:Metalama.Framework.Advising.AdviceKind.IntroduceMethod> now return the existing member even for <xref:Metalama.Framework.Advising.AdviceOutcome.Ignore?text=AdviceOutcome.Ignore>.
 * <xref:Metalama.Framework.RunTime.AsyncEnumerableList`1.AsyncEnumerator> now has a <xref:Metalama.Framework.RunTime.AsyncEnumerableList`1.AsyncEnumerator.Parent> property which gets the <xref:Metalama.Framework.RunTime.AsyncEnumerableList`1> over which the enumerator enumerates. This allows methods such as <xref:Metalama.Framework.RunTime.RunTimeAspectHelper.BufferToListAsync*> (see below) to avoid creating a new <xref:Metalama.Framework.RunTime.AsyncEnumerableList`1> when an enumerator is already based on an <xref:Metalama.Framework.RunTime.AsyncEnumerableList`1>.
 * The <xref:Metalama.Framework.RunTime.RunTimeAspectHelper.BufferToListAsync*>  method has a new overload accepting an `IAsyncEnumerator<T>` which buffers an async enumerator into an <xref:Metalama.Framework.RunTime.AsyncEnumerableList`1>, and returns the list. This supports scenarios such as caching.
 
@@ -76,7 +76,7 @@ For details, see <xref:sdk>.
 
 ## Breaking changes
 
-There will be a few minor breaking changes in 2023.3. We think that there are still relatively few users and certainly little legacy code to maintain compatibility with, so we're prioritizing usability improvements over backward compatibility.
+There are a few minor breaking changes in 2023.3. We think that there are still relatively few users and certainly little legacy code to maintain compatibility with, so we're prioritizing usability improvements over backward compatibility.
 
 * T#: `foreach` and `while` expressions now give preference to run-time scope.
 
@@ -89,3 +89,6 @@ There will be a few minor breaking changes in 2023.3. We think that there are st
 * The `IDiagnosticSink` interface is now internal. The <xref:Metalama.Framework.Diagnostics.ScopedDiagnosticSink> type is now used in all public APIs.
 
 * The type `SyntaxReference` has been renamed <xref:Metalama.Framework.Code.SourceReference>.
+
+> [!div class="see-also"]
+> <xref:release-notes>

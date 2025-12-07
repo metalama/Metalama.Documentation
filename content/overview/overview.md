@@ -1,27 +1,28 @@
 ---
 uid: overview
-summary: "Metalama is a tool that offers features such as Aspect-Oriented Programming, Code Generation, and Code Validation to improve code readability, generate repetitive code, and ensure code compliance with team rules."
+level: 100
+summary: "Metalama offers Aspect-Oriented Programming, Code Generation, and Code Validation to improve code readability, generate repetitive code, and ensure compliance with team rules."
 keywords: "Metalama, Aspect-Oriented Programming, Code Generation, Code Validation, code readability, repetitive code, team rules, .NET, encapsulate repetitive patterns, generate repetitive code, verify code compliance"
 created-date: 2023-02-16
 modified-date: 2025-11-30
 ---
 
-# Metalama Overview
+# Overview
 
 > [!WARNING]
 > This chapter hasn't been written yet.
 
-The intent of this book, once written, will be to guide you through the evaluation of Metalama. It won't instruct you on how to deploy and use it, but rather why and if it is suitable for you.
+This book will guide you through evaluating Metalama. It won't teach you how to deploy and use it, but rather why and whether it's suitable for you.
 
 ## Features
 
-Metalama possesses the following main features:
+Metalama provides the following main features:
 
 | Feature | Description |
 |---------|-------------|
-| __Aspect-Oriented Programming__ | This feature allows you to encapsulate repetitive patterns of code (such as logging, caching, INotifyPropertyChanged, multi-threading) into executable artifacts named _aspects_. These aspects add behaviors to your code at compile time, ensuring your source code remains clean and succinct - thus, easier to read and maintain.
-| __Code Generation__             | This feature enables you to generate repetitive code, either in the editor or at compile time, instead of manually writing it. With Metalama, you can create your own code actions or refactorings that are readily available in the lightbulb or screwdriver menu.
-| __Code Validation__             | This feature verifies that manually written code complies with team rules and conventions. Metalama allows you to report diagnostics (e.g., warnings or errors) or suppress source code diagnostics with ease.
+| **Aspect-Oriented Programming** | Encapsulate repetitive code patterns (such as logging, caching, `INotifyPropertyChanged`, multi-threading) into executable artifacts called _aspects_. Aspects add behaviors to your code at compile time, keeping your source code clean and concise—easier to read and maintain.
+| **Code Generation**             | Generate repetitive code in the editor or at compile time instead of writing it manually. Create your own code actions or refactorings that appear in the lightbulb or screwdriver menu.
+| **Code Validation**             | Verify that manually written code complies with team rules and conventions. Report diagnostics (warnings or errors) or suppress source code diagnostics.
 
 ```mermaid
 graph TD
@@ -34,8 +35,6 @@ Aspects -- transform<br>at compile time --> TransformedCode[Compiled Code]
 ```
 
 > [!div class="see-also"]
->
-> __See also__
 >
 > <xref:index>
 > <xref:main-getting-started>

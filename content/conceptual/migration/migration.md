@@ -8,18 +8,16 @@ modified-date: 2025-11-30
 
 # Migrating from PostSharp
 
-You may want to migrate some or all of your projects from PostSharp to Metalama. If you decide to proceed, this chapter will assist you.
+You may want to migrate some or all of your projects from PostSharp to Metalama. If you decide to proceed, this chapter will help you.
 
-When we conceptualized Metalama as the successor to PostSharp, we elected to break backward compatibility. After all, the PostSharp Framework was designed during the years of C# 2.0 and .NET Framework 2.0 (2004-2010), and we've maintained backward compatibility since then. We couldn't leverage the new .NET stack (for instance, C# 11, .NET 6, and Roslyn) by adhering strictly to our 2010 API. Thus, we opted for a comprehensive redesign of the concepts and APIs.
+When we conceptualized Metalama as the successor to PostSharp, we chose to break backward compatibility. The PostSharp Framework was designed during the years of C# 2.0 and .NET Framework 2.0 (2004-2010), and we've maintained backward compatibility since then. We couldn't leverage the new .NET stack (C# 11, .NET 6, and Roslyn) while adhering strictly to our 2010 API. We opted for a comprehensive redesign of the concepts and APIs.
 
-However, we understand that many customers have codebases ranging from tens of thousands to millions of lines of code that utilize PostSharp. That's why we ensured that these customers wouldn't need to port these large codebases.
+However, many customers have codebases ranging from tens of thousands to millions of lines of code that use PostSharp. We ensured these customers wouldn't need to port these large codebases.
 
-Consequently, we made the following decisions:
+We made the following decisions:
 
-* You will need to completely rewrite your _aspects_.
-* The _business code_ that merely _uses_ the aspects _should not typically require any changes_, except for find-and-replace-in-files operations and replacements of namespace imports.
-
-We hope this is a satisfactory compromise.
+* You'll need to completely rewrite your _aspects_.
+* The _business code_ that _uses_ the aspects typically doesn't require any changes, except for find-and-replace-in-files operations and namespace import replacements.
 
 ## In this chapter
 
@@ -35,8 +33,6 @@ Article | Description
 
 > [!div class="see-also"]
 >
-> **See also**
->
-> <xref:conceptual>
-> <xref:aspects>
-> <xref:fabrics-adding-aspects>
+> * <xref:conceptual>
+> * <xref:aspects>
+> * <xref:fabrics-adding-aspects>

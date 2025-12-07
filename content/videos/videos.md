@@ -1,11 +1,14 @@
 ---
 uid: videos
-summary: "The document is a list of video tutorials covering topics like introduction, aspects, fabrics, testing, debugging, error reporting, code fixes, and architecture rules."
+summary: "Watch video tutorials covering Metalama topics including aspects, fabrics, testing, debugging, error reporting, code fixes, and architecture rules."
+keywords: "videos, tutorials, learning resources, getting started"
 created-date: 2023-12-11
 modified-date: 2025-11-30
 ---
 
 # Video tutorials
+
+Watch these video tutorials to learn Metalama fundamentals, from creating your first aspect to implementing advanced features like architecture verification.
 
 0. <xref:video-short-introduction>
 1. <xref:video-first-aspect>
@@ -19,4 +22,4 @@ modified-date: 2025-11-30
 9. <xref:video-custom-architecture-rules>
 
 > [!div class="see-also"]
-> <xref:conceptual>
+> * <xref:conceptual>

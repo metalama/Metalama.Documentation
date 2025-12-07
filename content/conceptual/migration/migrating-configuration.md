@@ -8,24 +8,17 @@ modified-date: 2025-11-30
 
 # Migrating PostSharp configuration to Metalama
 
-Metalama doesn't support XML configuration files such as `postsharp.config` or `MyProject.psproj`. Instead, it utilizes _project fabrics_.
+Metalama doesn't support XML configuration files such as `postsharp.config` or `MyProject.psproj`. Instead, it uses _project fabrics_.
 
-Refer to the following article for more details:
-
-* <xref:fabrics>
+For more details, see <xref:fabrics>.
 
 > [!div class="see-also"]
->
-> **Other migration topics**
 >
 > * <xref:benefits-over-postsharp>
 > * <xref:differences-from-postsharp>
 > * <xref:migration-feature-status>
 > * <xref:migrating-aspects>
 > * <xref:migrating-inpc>
->
-> **Related concepts**
->
 > * <xref:fabrics>
 > * <xref:fabrics-configuration>
 > * <xref:fabrics-adding-aspects>

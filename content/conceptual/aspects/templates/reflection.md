@@ -1,7 +1,7 @@
 ---
 uid: reflection
 level: 300
-summary: "The document explains how to generate System.Reflection objects using the Metalama.Framework.Code namespace, and provides a conversion table and a code example."
+summary: "This document explains how to generate System.Reflection objects using the Metalama.Framework.Code namespace and provides a conversion table and a code example."
 keywords: "System.Reflection objects, Metalama.Framework.Code namespace, run-time reflection, eliminating reflection, compile-time code, conversion methods, IType.ToType, IMethod.ToMethodInfo, programming in .NET, obfuscation warning"
 created-date: 2023-02-20
 modified-date: 2025-11-30
@@ -9,7 +9,7 @@ modified-date: 2025-11-30
 
 # Generating System.Reflection objects
 
-The code model is represented by objects from the `Metalama.Framework.Code` namespace at compile time and by objects from the `System.Reflection` namespace at run time. Metalama is designed to eliminate the need for reflection in run-time code. However, there may be situations where you might require a run-time `System.Reflection` object.
+The code model is represented by objects from the `Metalama.Framework.Code` namespace at compile time and by objects from the `System.Reflection` namespace at run time. Metalama is designed to eliminate the need for reflection in run-time code. However, there may be situations where you require a run-time `System.Reflection` object.
 
 To accommodate these situations, the `Metalama.Framework.Code` namespace provides several methods that return `System.Reflection` objects, representing the desired declaration at run time.
 

@@ -10,7 +10,7 @@ modified-date: 2025-11-30
 > [!NOTE]
 > This feature requires a Metalama Professional license.
 
-Caching in distributed applications can pose a complex problem. When multiple instances of an application are running simultaneously (typically websites or web services deployed in the cloud or web farms), it's crucial to ensure that the cache is appropriately invalidated for all application instances.
+Caching in distributed applications can pose a complex problem. When multiple instances of an application are running simultaneously (typically websites or web services deployed in the cloud or web farms), ensure that the cache is appropriately invalidated for all application instances.
 
 A common solution to this issue is the use of a centralized cache server (or a cluster of cache servers), such as a Redis server or a Redis cluster. However, operating a cache server or cluster incurs a cost, which may not always be justified for medium-sized applications, such as a small business website.
 
@@ -50,7 +50,7 @@ The first step is to create a topic. To do this using the Microsoft Azure portal
 > [!WARNING]
 > Ensure that the <xref:Metalama.Patterns.Caching.ICachingService> is properly disposed of before the application exits. Failure to do so may leave some background cache write operations unprocessed, leading to cache inconsistency.
 
-### Example: A Distributed Application Synchronized by Azure Service Bus
+### Example: a distributed application synchronized by Azure Service Bus
 
 The following example simulates a multi-instance application. For ease of testing, both instances live in the same process. Both instances read and write to a shared database simulated by a concurrent dictionary, which sits behind an in-memory cache. These two cache instances are synchronized using <xref:Metalama.Patterns.Caching.Backends.Azure.AzureCachingFactory.WithAzureSynchronization*>.
 
@@ -58,7 +58,7 @@ The following example simulates a multi-instance application. For ease of testin
 
 ## Using Redis Pub/Sub
 
-If you are already using Redis as a storage for Metalama Caching, adding another layer of invalidation is unnecessary as this is already handled by the Redis caching back-end. However, if you already have a Redis cluster but don't want to use it for caching, you can still use it for cache invalidation. An example of this situation is when your Redis server's latency is too high for caching but sufficient for cache invalidation.
+If you're already using Redis as a storage for Metalama Caching, adding another layer of invalidation is unnecessary as this is already handled by the Redis caching back-end. However, if you already have a Redis cluster but don't want to use it for caching, you can still use it for cache invalidation. An example of this situation is when your Redis server's latency is too high for caching but sufficient for cache invalidation.
 
 No configuration on your Redis server is necessary to use it for cache synchronization.
 

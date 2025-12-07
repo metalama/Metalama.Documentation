@@ -8,7 +8,7 @@ modified-date: 2025-11-30
 ---
 # Implementing interfaces
 
-Certain aspects necessitate modifying the target type to implement a new interface. This can only be achieved by using the programmatic advising API.
+Some aspects require modifying the target type to implement a new interface. This can only be achieved by using the programmatic advising API.
 
 ## Step 1. Call AdviserExtensions.ImplementInterface
 
@@ -28,7 +28,7 @@ The next step is to ensure that the aspect class generates all interface members
 
 Let's start with the declarative approach.
 
-Implement all interface members in the aspect and annotate them with the <xref:Metalama.Framework.Aspects.InterfaceMemberAttribute?text=[InterfaceMember]> custom attribute. This attribute instructs Metalama to introduce the member to the target class but _only_ if the <xref:Metalama.Framework.Aspects.AdviserExtensions.ImplementInterface*> succeeds. If the advice is ignored because the type already implements the interface and `OverrideStrategy.Ignore` has been used, the member will _not_ be introduced to the target type.
+Implement all interface members in the aspect and annotate them with the <xref:Metalama.Framework.Aspects.InterfaceMemberAttribute?text=[InterfaceMember]> custom attribute. This attribute instructs Metalama to introduce the member to the target class, but _only_ if the <xref:Metalama.Framework.Aspects.AdviserExtensions.ImplementInterface*> succeeds. If the advice is ignored because the type already implements the interface and `OverrideStrategy.Ignore` has been used, the member will _not_ be introduced to the target type.
 
 By default, an implicit (public) implementation is created. You can use the <xref:Metalama.Framework.Aspects.InterfaceMemberAttribute.IsExplicit> property to specify that an explicit implementation must be created instead of a public method.
 
@@ -51,8 +51,8 @@ This approach can be used instead or in addition to the declarative one.
 
 It is useful in the following situations:
 
-* when the introduced interface is unknown to the aspect's author, for example, when it can be dynamically specified by the aspect's user;
-* when introducing a generic interface thanks to the ability to use generic templates (see <xref:template-parameters>).
+* When the introduced interface is unknown to the aspect's author, for example, when it can be dynamically specified by the aspect's user.
+* When introducing a generic interface thanks to the ability to use generic templates (see <xref:template-parameters>).
 
 To programmatically add interface members, use one of the `Introduce` methods of the <xref:Metalama.Framework.Aspects.AdviserExtensions> class, as explained in <xref:introducing-members>. Make sure that these members are public.
 

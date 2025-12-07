@@ -1,14 +1,15 @@
 ---
 uid: aspect-api
-summary: "This API documentation describes the Metalama Framework, detailing the namespaces and their functionalities for creating and managing aspects or fabrics."
-keywords: "Metalama Framework, API documentation, creating aspects, managing aspects, source code representation, code fixes, diagnostics, eligibility, project model, runtime classes"
+summary: "Namespaces and functionalities for creating and managing aspects or fabrics."
+keywords: "Metalama Framework, API documentation, creating aspects, managing aspects, diagnostics, eligibility, project model, runtime classes"
 created-date: 2023-01-26
 modified-date: 2025-11-30
+level: 200
 ---
 
-# Aspect API documentation
+# Aspect API
 
-These namespaces are used when creating aspects or fabrics.
+Use these namespaces when creating aspects or fabrics.
 
 | Namespace                             | Description                                                                                                                                                     |
 |---------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|

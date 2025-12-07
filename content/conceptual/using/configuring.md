@@ -4,14 +4,14 @@ level: 200
 summary: "The document provides a guide on how to configure aspects with fabrics in the Metalama framework, detailing the process steps, example configurations, and information about inheritance of configuration options."
 keywords: "configuration, Metalama framework, IHierarchicalOptions, SetOptions, compile-time configuration"
 created-date: 2024-04-22
-modified-date: 2025-11-30
+modified-date: 2025-12-07
 ---
 
 # Configuring aspects with fabrics
 
-Certain aspect libraries may expose a compile-time, imperative configuration API that influences the behavior of aspects.
+Some aspect libraries expose a compile-time, imperative configuration API that influences the behavior of aspects.
 
-For instance, the `Metalama.Patterns.Caching` library has a <xref:Metalama.Patterns.Caching.Aspects.Configuration.CachingConfigurationExtensions.ConfigureCaching*> method that allows changing various settings such as the expiration of cache items. Similarly, `Metalama.Extensions.DependencyInjection` provides a <xref:Metalama.Extensions.DependencyInjection.DependencyInjectionExtensions.ConfigureDependencyInjection*> method for registering new frameworks.
+For instance, the `Metalama.Patterns.Caching` library provides a <xref:Metalama.Patterns.Caching.Aspects.Configuration.CachingConfigurationExtensions.ConfigureCaching*> method that lets you change various settings such as cache item expiration. Similarly, `Metalama.Extensions.DependencyInjection` provides a <xref:Metalama.Extensions.DependencyInjection.DependencyInjectionExtensions.ConfigureDependencyInjection*> method for registering new frameworks.
 
 Alternatively, an aspect library may expose its configuration API as a class implementing the <xref:Metalama.Framework.Options.IHierarchicalOptions> interface.
 
@@ -24,7 +24,7 @@ The process to access these configuration APIs is similar to adding aspects in b
 3. Call the following methods:
 
    * To select all types in the project or the namespace, use the <xref:Metalama.Framework.Fabrics.IQuery`1.SelectTypes*?text=amender.SelectTypes> method.
-   * To select type members (methods, fields, nested types, etc.), call the <xref:Metalama.Framework.Fabrics.IQuery`1.SelectMany*> method and provide a lambda expression that selects the relevant type members, e.g. `SelectMany( t => t.Methods )` to select all methods.
+   * To select type members (methods, fields, nested types, etc.), call the <xref:Metalama.Framework.Fabrics.IQuery`1.SelectMany*> method and provide a lambda expression that selects the relevant type members (for example, `SelectMany( t => t.Methods )` to select all methods).
    * To filter types or members, use the <xref:Metalama.Framework.Fabrics.IQuery`1.Where*> method.
 
 4. The next step depends on the kind of configuration API exposed by the aspect library:
@@ -40,11 +40,11 @@ The following example demonstrates how to configure caching. It sets the absolut
 
 ## About the incremental nature of compile-time configuration
 
-All compile-time configuration APIs are _incremental_. In other words, any call to a `Configure` or <xref:Metalama.Framework.Options.OptionQueryExtensions.SetOptions*> method represents a _change_ in the configuration. These changes are merged on a per-property basis.
+All compile-time configuration APIs are _incremental_. Each call to a `Configure` or <xref:Metalama.Framework.Options.OptionQueryExtensions.SetOptions*> method represents a _change_ in the configuration. These changes are merged on a per-property basis.
 
-For instance, let's say you configure caching at the project level, setting an absolute expiration of 30 minutes and a sliding expiration of 10 minutes. However, for a sub-namespace named `ColdNs`, you increase the absolute expiration to 60 minutes and leave the sliding expiration unchanged. As expected, the sliding expiration in `ColdNs` remains 10 minutes.
+For instance, suppose you configure caching at the project level, setting an absolute expiration of 30 minutes and a sliding expiration of 10 minutes. However, for a sub-namespace named `ColdNs`, you increase the absolute expiration to 60 minutes and leave the sliding expiration unchanged. As expected, the sliding expiration in `ColdNs` remains 10 minutes.
 
-Interestingly, the order of configuration operations does _not_ matter when they affect different declarations. Whether you first configure `ColdNs` and then the project, or perform these operations in the reverse order, the result is the same.
+The order of configuration operations doesn't matter when they affect different declarations. Whether you first configure `ColdNs` and then the project, or perform these operations in reverse order, the result is the same.
 
 Therefore, the two following code snippets are equivalent:
 
@@ -82,13 +82,13 @@ The order of operations only matters when they are applied to the same declarati
 
 Some libraries may provide configuration custom attributes in addition to an imperative one.
 
-It's important to note that both mechanisms &mdash; fabrics and custom attributes &mdash; are equivalent. Configuration custom attributes, when they exist, are simply easier ways to call the configuration API. The configuration properties they provide are merged with the ones provided by the fabrics.
+Both mechanisms &mdash; fabrics and custom attributes &mdash; are equivalent. Configuration custom attributes, when they exist, are simply easier ways to call the configuration API. The configuration properties they provide are merged with those provided by fabrics.
 
 ## Inheritance of configuration options
 
 Unless specified otherwise by the aspect library, all configuration options are _inherited_ from the base type or from the overridden member. However, implemented interfaces are not taken into account.
 
-So, when you want to set some options for an entire class family, it's sufficient to set these options for the base class, and they will automatically apply to child classes.
+To set options for an entire class family, set these options for the base class, and they'll automatically apply to child classes.
 
 Options inherited from the base class take precedence over the options that come from the enclosing type (including that of nested types), the enclosing namespace, or the project.
 

@@ -11,7 +11,7 @@ As Phil Karlton once [famously said](https://www.karlton.org/2017/12/naming-thin
 
 This quote humorously captures the deceptive complexity of cache invalidation. It might seem straightforward, but it's notoriously difficult to get right.
 
-Metalama, unfortunately, cannot completely eliminate this problem from the landscape of software engineering challenges. Cache invalidation is and will remain challenging, especially in the context of distributed systems where multiple caches and data stores need to be kept in sync. However, Metalama simplifies the task of requesting the removal of the correct cache item by exposing a rich programmatic and aspect-oriented API, and eliminating the need to generate consistent caching keys between the cached method and the invalidating logic.
+Metalama can't completely eliminate this problem from the landscape of software engineering challenges. Cache invalidation is and will remain challenging, especially in the context of distributed systems where multiple caches and data stores need to be kept in sync. However, Metalama simplifies the task of requesting the removal of the correct cache item by exposing a rich programmatic and aspect-oriented API, and eliminating the need to generate consistent caching keys between the cached method and the invalidating logic.
 
 Metalama offers two ways to invalidate the cache:
 
@@ -43,11 +43,11 @@ The following example demonstrates a service named `PriceCatalogue` with two rea
 
 One of the most useful features of the <xref:Metalama.Patterns.Caching.Aspects.InvalidateCacheAttribute?text=[InvalidateCache]> aspect is that it verifies that the parameters of the invalidated and invalidating methods match:
 
-- When the method cannot be found, a compile-time error is reported.
+- When the method can't be found, a compile-time error is reported.
 
     [!metalama-file ~/code/Metalama.Documentation.SampleCode.Caching/InvalidateCompileTimeErrors/BadMethod.cs]
 
-- If any parameter of the cached method cannot be matched with a parameter of the invalidating method, a build error will be reported (unless the parameter has the <xref:Metalama.Patterns.Caching.NotCacheKeyAttribute> custom attribute). The order of parameters is not considered.
+- If any parameter of the cached method can't be matched with a parameter of the invalidating method, a build error is reported (unless the parameter has the <xref:Metalama.Patterns.Caching.NotCacheKeyAttribute> custom attribute). The order of parameters isn't considered.
 
     [!metalama-file ~/code/Metalama.Documentation.SampleCode.Caching/InvalidateCompileTimeErrors/BadParameter.cs]
 
@@ -59,12 +59,12 @@ One of the most useful features of the <xref:Metalama.Patterns.Caching.Aspects.I
 
 ## Invalidating cache items imperatively
 
-Instead of annotating invalidating methods with a custom attribute, you can make a call to one of the overloads of the <xref:Metalama.Patterns.Caching.CachingServiceExtensions.Invalidate*> or <xref:Metalama.Patterns.Caching.CachingServiceExtensions.InvalidateAsync*> extension method of the <xref:Metalama.Patterns.Caching.ICachingService> interface.
+Instead of annotating invalidating methods with a custom attribute, make a call to one of the overloads of the <xref:Metalama.Patterns.Caching.CachingServiceExtensions.Invalidate*> or <xref:Metalama.Patterns.Caching.CachingServiceExtensions.InvalidateAsync*> extension method of the <xref:Metalama.Patterns.Caching.ICachingService> interface.
 
-To access this interface, if you're using dependency injection, you should first make your class `partial`. Then, the service is available as a field named `_cachingService`. If you aren't using dependency injection in this class, use the <xref:Metalama.Patterns.Caching.CachingService.Default?text=CachingService.Default> property.
-The first argument of the <xref:Metalama.Patterns.Caching.CachingServiceExtensions.Invalidate*> method should be a delegate to the method to invalidate. This argument must be followed by the list of arguments for which the cache should be invalidated. These arguments will be used to construct the key of the item to be removed from the cache. All arguments must be supplied. Even arguments of parameters that aren't part of the cache key will be included.
+To access this interface, if you're using dependency injection, first make your class `partial`. Then, the service is available as a field named `_cachingService`. If you aren't using dependency injection in this class, use the <xref:Metalama.Patterns.Caching.CachingService.Default?text=CachingService.Default> property.
+The first argument of the <xref:Metalama.Patterns.Caching.CachingServiceExtensions.Invalidate*> method should be a delegate to the method to invalidate. This argument must be followed by the list of arguments for which the cache should be invalidated. These arguments are used to construct the key of the item to be removed from the cache. All arguments must be supplied. Even arguments of parameters that aren't part of the cache key are included.
 
-For instance, suppose you've the following read method:
+For instance, suppose you have the following read method:
 
 [!metalama-file  ~/code/Metalama.Documentation.SampleCode.Caching/ImperativeInvalidate/ImperativeInvalidate.cs marker="Cache"]
 
@@ -80,9 +80,9 @@ The following example is an update of the previous one. The `PriceCatalogue` ser
 
 ## Forcing the cache to refresh
 
-If you want to call a method while skipping the cache, instead of calling  <xref:Metalama.Patterns.Caching.CachingServiceExtensions.Invalidate*?text=_cachingService.Invalidate> and then the method, you can simply call the <xref:Metalama.Patterns.Caching.CachingServiceExtensions.Refresh*?text=_cachingService.Refresh> method. The new result of the method will be stored in the cache.
+If you want to call a method while skipping the cache, instead of calling <xref:Metalama.Patterns.Caching.CachingServiceExtensions.Invalidate*?text=_cachingService.Invalidate> and then the method, call the <xref:Metalama.Patterns.Caching.CachingServiceExtensions.Refresh*?text=_cachingService.Refresh> method. The new result of the method is stored in the cache.
 
-Contrary to <xref:Metalama.Patterns.Caching.CachingServiceExtensions.Invalidate*>, <xref:Metalama.Patterns.Caching.CachingServiceExtensions.Refresh*> will cause methods in the calling context to skip the cache.
+Contrary to <xref:Metalama.Patterns.Caching.CachingServiceExtensions.Invalidate*>, <xref:Metalama.Patterns.Caching.CachingServiceExtensions.Refresh*> causes methods in the calling context to skip the cache.
 
 > [!div class="see-also"]
 > <xref:caching>

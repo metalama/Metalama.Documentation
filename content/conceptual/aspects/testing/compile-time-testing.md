@@ -9,14 +9,14 @@ modified-date: 2025-11-30
 
 # Testing compile-time helper code
 
-When building complex aspects, it's advisable to shift the intricate compile-time logic, such as code that queries the code model, to compile-time helper classes that are not aspects. Unlike aspects, these compile-time classes can be subjected to unit tests.
+When building complex aspects, shift intricate compile-time logic, such as code that queries the code model, to compile-time helper classes that aren't aspects. Unlike aspects, these compile-time classes can be subjected to unit tests.
 
 ## Benefits
 
-Unit-testing compile-time classes offers the following advantages:
+Unit-testing compile-time classes offers these advantages:
 
-* It's generally simpler to achieve comprehensive test coverage with unit tests than with aspect tests (see <xref:aspect-testing>).
-* Debugging unit tests is easier than debugging aspect tests.
+* Comprehensive test coverage is simpler with unit tests than aspect tests (see <xref:aspect-testing>).
+* Unit tests are easier to debug than aspect tests.
 
 ## Creating unit tests for your compile-time code
 
@@ -34,11 +34,11 @@ Failing to follow this step will result in an exception whenever any compile-tim
 
 ### Step 2. Create an xUnit test project
 
-Proceed to create an xUnit test project as you usually would.
+Create an xUnit test project as you normally would.
 
-It's strongly recommended to target .NET 6.0 or later, as temporary files cannot be automatically cleaned up with lower .NET versions.
+Target .NET 6.0 or later, as temporary files can't be automatically cleaned up with lower .NET versions.
 
-Disable Metalama for the test project by defining the following property:
+Disable Metalama for the test project by defining this property:
 
 ```xml
 <PropertyGroup>

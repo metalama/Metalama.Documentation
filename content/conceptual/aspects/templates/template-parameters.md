@@ -1,8 +1,8 @@
 ---
 uid: template-parameters
 level: 300
-summary: "The document describes how to use compile-time parameters and type parameters in the BuildAspect method in Metalama. It provides examples and alternatives for using these parameters."
-keywords: "compile-time parameters, type parameters, BuildAspect method, Metalama, template method, compile-time-only, tags,"
+summary: "This document describes how to use compile-time parameters and type parameters in the BuildAspect method in Metalama and provides examples and alternatives for using these parameters."
+keywords: "compile-time parameters, type parameters, BuildAspect method, Metalama, template method, compile-time-only, tags"
 created-date: 2023-02-17
 modified-date: 2025-11-30
 ---
@@ -14,11 +14,11 @@ Compile-time parameters enable your `BuildAspect` implementation to pass argumen
 In contrast to run-time parameters:
 
 * Compile-time parameters must receive a value at compile time from the `BuildAspect` method.
-* Compile-time parameters are not visible in the generated code, implying they are removed from the parameter list when the template is expanded.
+* Compile-time parameters aren't visible in the generated code, meaning they're removed from the parameter list when the template is expanded.
 
 ## Regular parameters
 
-Compile-time parameters are particularly advantageous when the same template is utilized multiple times by the aspect. For example, when introducing a method for each field of a type, the method needs to know which field it should handle.
+Compile-time parameters are particularly advantageous when the same template is used multiple times by the aspect. For example, when introducing a method for each field of a type, the method needs to know which field it should handle.
 
 To define and use a compile-time parameter in a template method:
 
@@ -41,14 +41,14 @@ private dynamic? LogMethod([CompileTime] string methodName)
 public override void BuildAspect(IAspectBuilder<IMethod> builder)
 {
     builder.Override(
-        nameof(LogMethod), 
+        nameof(LogMethod),
         args: new { methodName = builder.Target.Name } );
 }
 ```
 
 ### Alternative: tags
 
-If you can't use compile-time parameters (typically because you've a field, property, or event template instead of a method template), you can substitute them with tags. For details about tags, refer to <xref:sharing-state-with-advice>. The advantage of compile-time parameters over tags is that template parameters enhance code readability, while tags necessitate a more complex syntax.
+If you can't use compile-time parameters (typically because you have a field, property, or event template instead of a method template), substitute them with tags. For details about tags, refer to <xref:sharing-state-with-advice>. The advantage of compile-time parameters over tags is that template parameters enhance code readability, while tags require a more complex syntax.
 
 ## Type parameters
 
@@ -73,8 +73,8 @@ private T GetDefault<[CompileTime] T>()
 // BuildAspect passes the type parameter value
 public override void BuildAspect(IAspectBuilder<IProperty> builder)
 {
-    builder.WithDeclaringType().IntroduceMethod( 
-        nameof(GetDefault), 
+    builder.WithDeclaringType().IntroduceMethod(
+        nameof(GetDefault),
         args: new { T = builder.Target.Type }, // Assign the property type.
         buildMethod: m => m.Name = $"GetDefaultFor{builder.Target.Name}" );
 }

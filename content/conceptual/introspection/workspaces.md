@@ -39,13 +39,13 @@ var workspace = Workspace.Load( @"C:\src\MySolution.sln" );
 
 The <xref:Metalama.Framework.Workspaces.Workspace> object exposes the <xref:Metalama.Framework.Workspaces.IProjectSet> interface with the following properties:
 
-* <xref:Metalama.Framework.Workspaces.IProjectSet.SourceCode> gives you access to the _source_ code _before_ Metalama executes. For instance, `workspace.SourceCode.Types` lists all types in the workspace.
+* <xref:Metalama.Framework.Workspaces.IProjectSet.SourceCode>: Access source code **before** Metalama executes. For instance, `workspace.SourceCode.Types` lists all types in the workspace.
 
-* <xref:Metalama.Framework.Introspection.IIntrospectionCompilationResult.TransformedCode> represents the code _after_ Metalama executes, including introduced declarations.
+* <xref:Metalama.Framework.Introspection.IIntrospectionCompilationResult.TransformedCode>: Code **after** Metalama executes, including introduced declarations.
 
-* <xref:Metalama.Framework.Introspection.IIntrospectionCompilationDetails.Diagnostics> lists errors, warnings, and messages reported by the C# compiler, Metalama, or aspects.
+* <xref:Metalama.Framework.Introspection.IIntrospectionCompilationDetails.Diagnostics>: Errors, warnings, and messages reported by the C# compiler, Metalama, or aspects.
 
-* <xref:Metalama.Framework.Introspection.IIntrospectionCompilationDetails.AspectClasses>, <xref:Metalama.Framework.Introspection.IIntrospectionCompilationDetails.AspectLayers>, <xref:Metalama.Framework.Introspection.IIntrospectionCompilationDetails.AspectInstances>, <xref:Metalama.Framework.Introspection.IIntrospectionCompilationDetails.Advice>, and <xref:Metalama.Framework.Introspection.IIntrospectionCompilationDetails.Transformations> expose different steps of the Metalama pipeline.
+* <xref:Metalama.Framework.Introspection.IIntrospectionCompilationDetails.AspectClasses>, <xref:Metalama.Framework.Introspection.IIntrospectionCompilationDetails.AspectLayers>, <xref:Metalama.Framework.Introspection.IIntrospectionCompilationDetails.AspectInstances>, <xref:Metalama.Framework.Introspection.IIntrospectionCompilationDetails.Advice>, and <xref:Metalama.Framework.Introspection.IIntrospectionCompilationDetails.Transformations>: Different steps of the Metalama pipeline.
 
 > [!NOTE]
 > If your projects target multiple frameworks, declarations appear multiple times in queries—once per target framework.
@@ -93,8 +93,8 @@ workspace.ClearFilters();
 
 Query inbound and outbound references using <xref:Metalama.Framework.Workspaces.DeclarationExtensions.GetInboundReferences*> and <xref:Metalama.Framework.Workspaces.DeclarationExtensions.GetOutboundReferences*>:
 
-* **Inbound references** are references _to_ the declaration
-* **Outbound references** are references _from_ the declaration
+* **Inbound references**: References to the declaration.
+* **Outbound references**: References from the declaration.
 
 ```csharp
 var field = workspace.SourceCode.Types
@@ -135,6 +135,8 @@ Console.WriteLine( $"Found {DiagnosticReporter.ReportedWarnings} warnings." );
 The following example demonstrates an architecture verification tool that checks naming conventions and namespace dependencies:
 
 [!code-csharp[](~/code/Metalama.Documentation.SampleCode.Workspaces/Program.cs)]
+
+## See also
 
 > [!div class="see-also"]
 > <xref:Metalama.Framework.Workspaces>

@@ -9,7 +9,7 @@ modified-date: 2025-12-02
 
 # Custom metrics
 
-Custom metrics let you measure and report on code characteristics beyond Metalama's built-in metrics. This article explains how to create custom metrics using the Metalama SDK and consume them in aspects, fabrics, or the introspection API.
+Custom metrics let you measure and report on code characteristics beyond Metalama's built-in metrics. This article explains how to create custom metrics using the Metalama SDK and how to consume them in aspects, fabrics, or the introspection API.
 
 ## Creating a custom metric
 
@@ -26,7 +26,7 @@ Reference `Metalama.Framework.Sdk` and `Metalama.Framework`, both privately:
 
 Create a `struct` that implements the <xref:Metalama.Framework.Metrics.IMetric`1> generic interface. The type parameter should be the type of declaration to which the metric applies (e.g., `IMemberOrNamedType`, `INamespace`, or `ICompilation`). Your metric `struct` can implement several generic instances of the <xref:Metalama.Framework.Metrics.IMetric`1> interface simultaneously.
 
-Typically, your metric `struct` will have at least one public property. It will also have internal members to update the values, which the metric implementation uses.
+Typically, your metric `struct` has at least one public property and an internal method to update the values, which the metric implementation uses.
 
 #### Example
 
@@ -47,9 +47,9 @@ A metric requires several implementation classes:
 
 1. Create a public class that derives from <xref:Metalama.Framework.Engine.Metrics.SyntaxMetricProvider`1>, where `T` is the metric type created above. In the constructor, pass an instance of the visitor created in the next step.
 
-2. Inside the metric provider class, create a nested visitor class that derives from <xref:Metalama.Framework.Engine.Metrics.SyntaxMetricProvider`1.BaseVisitor>. Override the relevant `Visit` methods in this class. This class forms the actual implementation of the metric. The visitor should recursively compute the metric for each syntax node in the syntax tree. The visitor is invoked by the metric provider (described below) for each _member_. The visitor should not implement aggregation at the type or namespace level.
+2. Inside the metric provider class, create a nested visitor class that derives from <xref:Metalama.Framework.Engine.Metrics.SyntaxMetricProvider`1.BaseVisitor>. Override the relevant `Visit` methods in this class. This class is the actual metric implementation. The visitor should recursively compute the metric for each syntax node in the syntax tree. The metric provider invokes the visitor for each member. The visitor shouldn't implement aggregation at the type or namespace level.
 
-3. Implement the <xref:Metalama.Framework.Engine.Metrics.MetricProvider`1.Aggregate*> method. This method is used to aggregate the metric from the level of members to the level of types, namespaces, or the whole project.
+3. Implement the <xref:Metalama.Framework.Engine.Metrics.MetricProvider`1.Aggregate*> method. This method aggregates the metric from the level of members to the level of types, namespaces, or the whole project.
 
 4. Annotate this class with the <xref:Metalama.Framework.Engine.MetalamaPlugInAttribute> custom attribute.
 
@@ -103,11 +103,11 @@ public static class MyMetricsExtensions
 
 ## Consuming a custom metric
 
-### Using from an aspect or fabric
+### From an aspect or fabric
 
 Use the metric as usual, for example, `declaration.Metrics().Get<MyCustomMetric>()`.
 
-### Using from the Workspaces API
+### From the Workspaces API
 
 Consumers register your metrics using your extension method, then query as usual:
 
@@ -126,6 +126,6 @@ See <xref:metrics> for details on using metrics with the Workspaces API.
 >
 > **See also**
 >
-> <xref:sdk>
-> <xref:metrics>
-> <xref:introspection>
+> * <xref:sdk>
+> * <xref:metrics>
+> * <xref:introspection>

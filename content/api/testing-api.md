@@ -1,9 +1,10 @@
 ---
 uid: testing-api
-summary: "This document describes the Metalama testing frameworks for unit testing compile-time logic and snapshot-based aspect testing."
+summary: "Metalama testing frameworks for unit testing compile-time logic and snapshot-based aspect testing."
 keywords: "Metalama testing, unit testing, aspect testing, snapshot testing, xUnit, compile-time testing"
 created-date: 2023-11-01
 modified-date: 2025-11-30
+level: 300
 ---
 
 # Testing API

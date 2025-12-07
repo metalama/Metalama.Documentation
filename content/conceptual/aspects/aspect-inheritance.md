@@ -9,7 +9,7 @@ modified-date: 2025-11-30
 
 # Applying aspects to derived types
 
-Many aspects, such as the `INotifyPropertyChanged` implementation or thread synchronization aspects, must be _inherited_ from the base class to which the aspect is applied, extending to all derived classes. This means that if a base class has a `[NotifyPropertyChanged]` aspect that adds calls to `OnPropertyChanged` to all property setters, it is logical for the aspect to also affect the property setters of the _derived_ classes.
+Many aspects, such as the `INotifyPropertyChanged` implementation or thread synchronization aspects, must be _inherited_ from the base class to which the aspect is applied, extending to all derived classes. This means that if a base class has a `[NotifyPropertyChanged]` aspect that adds calls to `OnPropertyChanged` to all property setters, it's logical for the aspect to also affect the property setters of the _derived_ classes.
 
 This feature is referred to as _aspect inheritance_. It is activated by adding the <xref:Metalama.Framework.Aspects.InheritableAttribute?text=[Inheritable]> custom attribute to the aspect class. When an aspect is marked as _inheritable_, its <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method is invoked not only for the direct target declaration of the aspect but also for all derived declarations.
 
@@ -33,7 +33,7 @@ The following type-level aspect is applied to a base class and is implicitly inh
 
 The <xref:Metalama.Framework.Aspects.InheritableAttribute?text=[Inheritable]> custom attribute causes _all_ instances of the aspect class to be inheritable, irrespective of their fields or properties. If you wish to base the inheritance decision on fields or properties of the aspect, your aspect must implement the <xref:Metalama.Framework.Aspects.IConditionallyInheritableAspect>.
 
-Note that when the <xref:Metalama.Framework.Aspects.IConditionallyInheritableAspect> interface is implemented, the refactoring menu will always suggest adding the aspect to a declaration, even if the aspect is eligible for inheritance only on the target declaration.
+When the <xref:Metalama.Framework.Aspects.IConditionallyInheritableAspect> interface is implemented, the refactoring menu will always suggest adding the aspect to a declaration, even if the aspect is eligible for inheritance only on the target declaration.
 
 ## Cross-project inheritance
 
@@ -58,7 +58,7 @@ To define the eligibility rules that do not apply to the inheritance scenario, u
 
 ### Example
 
-The following implementation of <xref:Metalama.Framework.Eligibility.IEligible`1.BuildEligibility*> specifies that the aspect will be applied abstractly when applied to an abstract method. Its <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method won't be invoked for the abstract method but only for methods implementing the abstract method.
+The following implementation of <xref:Metalama.Framework.Eligibility.IEligible`1.BuildEligibility*> specifies that the aspect will be applied abstractly when applied to an abstract method. Its <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method won't be invoked for the abstract method but only for methods implementing it.
 
 ```cs
 public override void BuildEligibility( IEligibilityBuilder<IMethod> builder )

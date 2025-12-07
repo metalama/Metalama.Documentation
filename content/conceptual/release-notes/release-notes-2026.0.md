@@ -9,7 +9,7 @@ modified-date: 2025-11-07
 
 # Metalama 2026.0
 
-Metalama 2026.0 brings full support for C# 14—the most significant evolution of the C# language in many years.
+Metalama 2026.0 brings full support for C# 14, the most significant evolution of the C# language in many years.
 
 **Highlights:**
 
@@ -18,7 +18,7 @@ Metalama 2026.0 brings full support for C# 14—the most significant evolution o
 - **Event handler invocation overriding** for implementing patterns like safe events
 - **Faster Visual Studio experience** with significant performance improvements
 
-Metalama 2026.0 ensures you are ready to take full advantage of the latest C# features while keeping your aspects clean, powerful, and maintainable.
+Metalama 2026.0 ensures you're ready to take full advantage of the latest C# features while keeping your aspects clean, powerful, and maintainable.
 
 ## Requirements
 
@@ -64,9 +64,9 @@ Metalama 2026.0 supports the following C# 14 features:
 - [#1035](https://github.com/metalama/Metalama/issues/1035): Override members of extension blocks.
 - [#1115](https://github.com/metalama/Metalama/issues/1115): Query compound assignment operators in the code model.
 - [#1116](https://github.com/metalama/Metalama/issues/1116): Override compound assignment operators.
-- [#1160](https://github.com/metalama/Metalama/issues/1160): Introduce new extension members into existing extension blocks
+- [#1160](https://github.com/metalama/Metalama/issues/1160): Introduce new extension members into existing extension blocks.
 - [#1041](https://github.com/metalama/Metalama/issues/1041): Use simple lambda parameters with modifiers both in compile-time and run-time code.
-- [#1105](https://github.com/metalama/Metalama/issues/1105): When an unsupported feature is used in a template, a understandable error message will be reported.
+- [#1105](https://github.com/metalama/Metalama/issues/1105): When an unsupported feature is used in a template, an understandable error message is reported.
 
 ### Limitations
 
@@ -116,7 +116,7 @@ For details, see <xref:type-system>.
 
 Metalama 2026.0 introduces the capability to override event handler invocations ([#549](https://github.com/metalama/Metalama/issues/549)). This extends the existing functionality that allowed overriding only the add and remove operations of events.
 
-This advice kind allows you to implement aspects such as "safe events", where event handlers are isolated one from the other by an exception handler.
+This advice kind allows you to implement aspects such as "safe events", where event handlers are isolated from each other by an exception handler.
 
 For comprehensive documentation, see <xref:overriding-events>.
 
@@ -134,9 +134,9 @@ Visual Studio Tools for Metalama includes refactored components that dramaticall
 
 - **Compile-time assembly resolver** ([#1088](https://github.com/metalama/Metalama/issues/1088)). The component that downloads compile-time assembly now properly respects the project's `nuget.config` file for package resolution.
 
-- **Single-file `dotnet run` support** ([#1107](https://github.com/metalama/Metalama/issues/1107)). Metalama now supports Microsoft's single-file `dotnet run` functionality, allowing aspects to work with modern .NET single-file deployment scenarios.
+- **Single-file dotnet run support** ([#1107](https://github.com/metalama/Metalama/issues/1107)). Metalama now supports Microsoft's single-file `dotnet run` functionality, allowing aspects to work with modern .NET single-file deployment scenarios.
 
-- **`ExcludeAspect` enhancement** ([#1176](https://github.com/metalama/Metalama/issues/1176)). The `[ExcludeAspect]` attribute, when applied to a field or property, now implicitly applies to its accessors.
+- **ExcludeAspect enhancement** ([#1176](https://github.com/metalama/Metalama/issues/1176)). The `[ExcludeAspect]` attribute, when applied to a field or property, now implicitly applies to its accessors.
 
 ## Documentation updates
 

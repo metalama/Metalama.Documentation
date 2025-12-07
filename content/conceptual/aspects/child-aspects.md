@@ -18,7 +18,7 @@ An aspect can add child aspects from the <xref:Metalama.Framework.Aspects.IAspec
 
 ## Overriding a child aspect with an attribute
 
-Note that any aspect added "manually" as a custom attribute takes precedence over aspects added by the parent aspect. In this case, the _primary instance_ of the aspect is the one created by the custom attribute, and the _secondary instance_ is the one added by the parent aspect. Secondary aspect instances are exposed on the <xref:Metalama.Framework.Aspects.IAspectInstance.SecondaryInstances?text=IAspectInstance.SecondaryInstances> property, which you can access from <xref:Metalama.Framework.Aspects.meta.AspectInstance?text=meta.AspectInstance> or <xref:Metalama.Framework.Aspects.IAspectBuilder.AspectInstance?text=builder.AspectInstance>.
+Any aspect added "manually" as a custom attribute takes precedence over aspects added by the parent aspect. In this case, the _primary instance_ of the aspect is the one created by the custom attribute, and the _secondary instance_ is the one added by the parent aspect. Secondary aspect instances are exposed on the <xref:Metalama.Framework.Aspects.IAspectInstance.SecondaryInstances?text=IAspectInstance.SecondaryInstances> property, which you can access from <xref:Metalama.Framework.Aspects.meta.AspectInstance?text=meta.AspectInstance> or <xref:Metalama.Framework.Aspects.IAspectBuilder.AspectInstance?text=builder.AspectInstance>.
 
 ## Example: audited object and audited member
 

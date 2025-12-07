@@ -20,13 +20,13 @@ A simple way to initialize a field or property introduced by an aspect is to add
  int f = 1;
  ```
 
-#### Example: introducing a Guid property
+#### Example: Introducing a Guid property
 
 In the example below, the aspect introduces an `Id` property of type `Guid` and initializes it to a new unique value.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/IntroduceId.cs name="Introduce Id"]
 
-#### Example: initializing with a template
+#### Example: Initializing with a template
 
 The T# template language can also be used within initializers for fields or properties. The aspect in the following example introduces a property that is initialized to the build configuration and target framework.
 
@@ -36,7 +36,7 @@ The T# template language can also be used within initializers for fields or prop
 
 If you use the programmatic advice <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceProperty*>, <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceField*>, or <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceEvent*>, you can set the <xref:Metalama.Framework.Code.DeclarationBuilders.IFieldOrPropertyBuilder.InitializerExpression> in the lambda passed to the `build*` parameter of these advice methods.
 
-#### Example: initializing a programmatically introduced field
+#### Example: Initializing a programmatically introduced field
 
 In the following example, the aspect introduces a field using the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceField*> programmatic advice and sets its initializer expression to an array that contains the names of all methods in the target type.
 
@@ -53,7 +53,7 @@ The `AddInitializer` advice will _not_ affect the constructors that call a chain
 
 A default constructor will be created automatically if the type doesn't contain any constructor.
 
-### Example: registering live instances
+### Example: Registering live instances
 
 The following aspect registers any new instance of the target class in a registry of live instances. After an instance has been garbage-collected, it is automatically removed from the registry. The aspect injects the registration logic into the constructor of the target class.
 

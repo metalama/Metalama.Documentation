@@ -11,16 +11,16 @@ modified-date: 2025-11-30
 
 ## Adding breakpoints to templates and compile-time code
 
-Debugging the compile-time logic of an aspect can be challenging due to the compiler not executing your _source_ code, but a heavily transformed version of your code where T# templates have been compiled into plain C# code. This transformed code is stored under an unpredictable path.
+Debugging the compile-time logic of an aspect can be challenging because the compiler doesn't execute your _source_ code, but a heavily transformed version where T# templates have been compiled into plain C#. This transformed code is stored under an unpredictable path.
 
-Therefore, regular debugger breakpoints won't work. You must add break statements directly in your source code and remember to remove them after the debugging session is over.
+Regular debugger breakpoints won't work. You must add break statements directly in your source code and remember to remove them after the debugging session.
 
 - In a _non-template_ compile-time method such as `BuildAspect`, invoke <xref:System.Diagnostics.Debugger.Break?text=Debugger.Break()>.
 - In a _template_ compile-time method, invoke <xref:Metalama.Framework.Aspects.meta.DebugBreak?text=meta.DebugBreak()>.
 
 ## Debugging aspect tests
 
-The most convenient way to debug an aspect is to create an _aspect test_ as described in <xref:aspect-testing>. This allows you to perfectly isolate the scenario that you want to debug.
+The most convenient way to debug an aspect is to create an _aspect test_ as described in <xref:aspect-testing>. This allows you to isolate the scenario you want to debug.
 
 To debug an aspect test:
 
@@ -29,11 +29,11 @@ To debug an aspect test:
 
 ## Debugging the compiler process
 
-To debug compile-time logic, follow the steps below:
+To debug compile-time logic:
 
 1. Insert breakpoints directly into your source code as described above.
 
-2. Execute the compiler with the following options:
+2. Execute the compiler with these options:
 
     - `-p:MetalamaDebugCompiler=True` to cause the compiler to display the JIT debugger dialog, allowing you to attach a debugger to the compiler process.
     - `-p:MetalamaConcurrentBuildEnabled=False` to force Metalama to run in a single thread, saving you from the chaos of multi-threaded debugging.

@@ -1,7 +1,7 @@
 ---
 uid: experimental
 level: 200
-summary: "The document explains how to mark APIs as experimental using Metalama's ExperimentalAttribute attribute and Experimental compile-time method, offering step-by-step guides and examples."
+summary: "Mark APIs as experimental using Metalama's ExperimentalAttribute attribute or Experimental compile-time method to warn users about potential future changes."
 keywords: "experimental API, Metalama, ExperimentalAttribute, Obsolete attribute, warnings, Metalama.Extensions.Architecture"
 created-date: 2023-03-23
 modified-date: 2025-11-30
@@ -9,13 +9,13 @@ modified-date: 2025-11-30
 
 # Marking experimental APIs
 
-The [[Obsolete]](xref:System.ObsoleteAttribute) attribute is a familiar custom attribute that generates a warning when the marked declaration is used, unless the referencing declaration is also marked as `[Obsolete]`.
+The [[Obsolete]](xref:System.ObsoleteAttribute) attribute generates a warning when the marked declaration is used, unless the referencing declaration is also marked as `[Obsolete]`.
 
-Sometimes you need a warning for an experimental API that may change or be removed later. The `[Obsolete]` attribute isn't ideal for this because its error message could mislead users. Instead, Metalama provides the <xref:Metalama.Extensions.Architecture.Aspects.ExperimentalAttribute> attribute and the <xref:Metalama.Extensions.Architecture.ArchitectureExtensions.Experimental*> compile-time method, which are better suited for this purpose.
+Sometimes you need a warning for an experimental API that may change or be removed later. The `[Obsolete]` attribute isn't ideal because its error message could mislead users. Instead, Metalama provides the <xref:Metalama.Extensions.Architecture.Aspects.ExperimentalAttribute> attribute and the <xref:Metalama.Extensions.Architecture.ArchitectureExtensions.Experimental*> compile-time method for this purpose.
 
 ## Marking a specific API as experimental
 
-To generate warnings when an experimental API is being used, it's best to use the <xref:Metalama.Extensions.Architecture.Aspects.ExperimentalAttribute> attribute. Follow these steps:
+To generate warnings when an experimental API is used, it's best to use the <xref:Metalama.Extensions.Architecture.Aspects.ExperimentalAttribute> attribute. Follow these steps:
 
 1. Add the `Metalama.Extensions.Architecture` package to your project.
 

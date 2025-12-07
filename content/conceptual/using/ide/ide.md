@@ -9,7 +9,7 @@ modified-date: 2025-12-04
 
 # Configuring your IDE
 
-Metalama works with any text editor or IDE since the core transformation happens during compilation. However, for the best design-time experience—including real-time warnings, code fixes, and syntax highlighting—you may need to configure your IDE. This section covers Visual Studio, VS Code (with DevKit), and Rider. Other editors are not tested.
+Metalama works with any text editor or IDE since the core transformation happens during compilation. For the best design-time experience—including real-time warnings, code fixes, and syntax highlighting—you'll need to configure your IDE. This section covers Visual Studio, VS Code (with C# Dev Kit), and Rider. Other editors aren't tested.
 
 ## In this section
 

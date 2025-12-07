@@ -4,16 +4,16 @@ level: 200
 summary: "The document discusses fabrics in the Metalama framework, which are unique classes that execute at compile time. They can add aspects, configure libraries, and implement architecture rules."
 keywords: "fabrics, Metalama framework, configure libraries, architecture rules, ProjectFabric, Namespace Fabric, Type Fabric, Transitive Project Fabrics"
 created-date: 2024-08-04
-modified-date: 2025-12-04
+modified-date: 2025-12-07
 ---
 
 # Fabrics
 
-In the previous article, we discussed how to add multiple aspects at once using compile-time imperative code instead of declarative custom attributes. We introduced a single type of fabric: <xref:Metalama.Framework.Fabrics.ProjectFabric>. However, there are several other types of fabrics and numerous use cases for them.
+The previous article discussed how to add multiple aspects at once using compile-time imperative code instead of declarative custom attributes. It introduced a single type of fabric: <xref:Metalama.Framework.Fabrics.ProjectFabric>. However, there are several other types of fabrics and many use cases for them.
 
-Even if you currently have no plans to create your own aspects, understanding fabrics will enhance your proficiency with Metalama.
+Even if you don't plan to create your own aspects, understanding fabrics enhances your proficiency with Metalama.
 
-_Fabrics_ are unique classes in your code that execute at compile time within the compiler and at design time within your IDE. Unlike aspects, fabrics don't need to be _applied_ to any declaration or _called_ from anywhere. Their primary method will be invoked at the appropriate time simply because it exists in your code. Therefore, you can think of fabrics as _compile-time entry points_.
+_Fabrics_ are special classes in your code that execute at compile time within the compiler and at design time within your IDE. Unlike aspects, fabrics don't need to be _applied_ to any declaration or _called_ from anywhere. Their primary method is invoked at the appropriate time simply because it exists in your code. Think of fabrics as _compile-time entry points_.
 
 With fabrics, you can:
 
@@ -34,13 +34,13 @@ In addition to <xref:Metalama.Framework.Fabrics.ProjectFabric>, there are three 
 
 ### 1. Adding aspects programmatically
 
-All fabric types can add aspects to declarations using LINQ-like queries. This is the most common use of fabrics.
+All fabric types can add aspects to declarations using LINQ-like queries. This is the most common use case for fabrics.
 
 For details, see <xref:fabrics-adding-aspects>.
 
 ### 2. Configuring aspect libraries
 
-All fabric types can set options that configure how aspect libraries behave. This allows you to customize logging formats, caching policies, and other aspect-specific settings. The scope of the configuration depends on the fabric type.
+All fabric types can set options that configure how aspect libraries behave. This lets you customize logging formats, caching policies, and other aspect-specific settings. Configuration scope depends on the fabric type.
 
 For details, see <xref:fabrics-configuration>.
 
@@ -58,7 +58,7 @@ For details, see <xref:validation>.
 
 ### 5. Adding advice to a type (Type Fabric only)
 
-Type fabrics have a unique ability: they can directly add advice (such as method overrides or member introductions) to their containing type, without requiring a separate aspect. This makes type fabrics function like embedded aspects.
+Type fabrics have a unique ability: they can directly add advice (such as method overrides or member introductions) to their containing type without requiring a separate aspect. This makes type fabrics function like embedded aspects.
 
 For details, see <xref:fabrics-advising>.
 
@@ -68,9 +68,9 @@ Aspects and fabrics serve different purposes:
 
 - **Aspects** are reusable APIs that must be applied to target declarations. They encapsulate behavior that can be applied to many declarations, shared across projects, and distributed as NuGet packages. Aspects are the building blocks of aspect-oriented programming.
 
-- **Fabrics** are compile-time entry points that are automatically called by the framework. They don't need to be applied to anything. Fabrics are consumers, not APIs: they are project-specific entry points that use aspects and configure them. Fabrics are not reusable across projects in the same way aspects are.
+- **Fabrics** are compile-time entry points automatically called by the framework. They don't need to be applied to anything. Fabrics are consumers, not APIs: they're project-specific entry points that use aspects and configure them. Fabrics aren't reusable across projects in the same way aspects are.
 
-If you need to create reusable logic for fabrics, define extension methods operating on <xref:Metalama.Framework.Fabrics.IAmender`1> or one of its derived interfaces. These extension methods can then be called from any fabric.
+To create reusable logic for fabrics, define extension methods operating on <xref:Metalama.Framework.Fabrics.IAmender`1> or one of its derived interfaces. These extension methods can then be called from any fabric.
 
 | Use Case | Recommended Approach |
 |----------|---------------------|

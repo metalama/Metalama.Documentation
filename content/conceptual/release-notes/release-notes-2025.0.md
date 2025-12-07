@@ -1,6 +1,6 @@
 ---
 uid: release-notes-2025.0
-summary: ""
+summary: "Metalama 2025.0 introduces support for .NET 9 and C# 13, improved work with introduced types, T# enhancements, and async WPF commands."
 keywords: "Metalama 2025.0, release notes"
 created-date: 2024-11-06
 modified-date: 2024-11-06
@@ -8,13 +8,13 @@ modified-date: 2024-11-06
 
 # Metalama 2025.0
 
-We've focused on two areas: first, ensuring Metalama is compatible with the latest .NET stack, and second, completing gaps left in the previous version, particularly in support for type introductions. We've also implemented minor improvements requested by the community.
+Metalama 2025.0 focuses on two areas: ensuring compatibility with the latest .NET stack and completing gaps left in the previous version, particularly in support for type introductions. We've also implemented minor improvements requested by the community.
 
 ## Support for .NET 9.0 and C# 13
 
 ### C# 13 features
 
-We tested and fixed Metalama 2025.0 for all features of C# 13:
+Metalama 2025.0 supports all features of C# 13:
 
 - `params` collections
 - `ref`/`unsafe` in iterators and async methods
@@ -35,23 +35,23 @@ Third-party package dependencies have been updated.
 
 ## Consistent support for source generators and interceptors
 
-We now consistently execute source generators _after_ any Metalama transformation. Previously, code generators were executed _before_ Metalama at build time, causing inconsistencies with the design-time experience, as Metalama would not "see" the output of source generators.
+Source generators now execute _after_ any Metalama transformation. Previously, code generators executed _before_ Metalama at build time, causing inconsistencies with the design-time experience because Metalama wouldn't "see" the output of source generators.
 
-The benefit for you is that aspects can introduce code that relies on the [GeneratedRegex](https://learn.microsoft.com/en-us/dotnet/standard/base-types/regular-expression-source-generators) attribute to use build-time-generated regular expressions.
+Aspects can now introduce code that relies on the [GeneratedRegex](https://learn.microsoft.com/en-us/dotnet/standard/base-types/regular-expression-source-generators) attribute to use build-time-generated regular expressions.
 
-The second benefit is that you can now use Roslyn interceptors side-by-side with Metalama since they no longer conflict with our code transformations.
+You can also use Roslyn interceptors side-by-side with Metalama since they no longer conflict with code transformations.
 
 ## Improved work with introduced types
 
 You can now use introduced types in any type construction. For instance, if `Foo` is your introduced type, you can create a field or parameter of type `Foo<int>`, `Foo[]`, `List<Foo>`, or `Foo*`. This required a major refactoring of our code model.
 
-You can also implement generic interfaces bound to a type parameter of the target type. For instance, you can now build an `Equatable` aspect that generates code for the `IEquatable<T>` interface, even for introduced types.
+You can implement generic interfaces bound to a type parameter of the target type. For instance, you can build an `Equatable` aspect that generates code for the `IEquatable<T>` interface, even for introduced types.
 
 ## T# improvements
 
 ### Dynamic definition of local variables
 
-It's now possible to dynamically define local variables with the new <xref:Metalama.Framework.Aspects.meta.DefineLocalVariable*> method, which offers the following overloads:
+You can now dynamically define local variables with the new <xref:Metalama.Framework.Aspects.meta.DefineLocalVariable*> method, which offers the following overloads:
 
 ```cs
 // Explicitly typed
@@ -75,9 +75,9 @@ For details, see the updated <xref:run-time-expressions> article.
 
 You can now introduce `static virtual`, `abstract`, and `partial` members thanks to the usual <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceMethod*>, <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceProperty*> and <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceEvent*> methods.
 
-The `partial` keyword can be set using the `IMemberBuilder.IsPartial` property.
+Set the `partial` keyword using the `IMemberBuilder.IsPartial` property.
 
-When introducing a `partial` or `abstract` member, the template's body is ignored. If you don't want to supply a body altogether, you can mark the template member as `extern`, which will make the C# compiler happy about your template being unimplemented.
+When introducing a `partial` or `abstract` member, the template's body is ignored. If you don't want to supply a body, mark the template member as `extern` to satisfy the C# compiler.
 
 ### Introduction of interfaces
 
@@ -141,5 +141,8 @@ Background commands are also represented by an <xref:Metalama.Patterns.Wpf.Async
 - Casting a non-dynamic expression to <xref:Metalama.Framework.Code.IExpression> no longer works. A call of <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionFactory.Capture*> is required instead. The previous behavior "tricking" the cast operator was undocumented and confusing.
 - The `IRef.GetTarget` and `IRef.GetTargetOrNull` methods have been moved to extension methods, which could require you to add new `using` directives in your code.
 - In `Metalama.Patterns.Wpf`, there are a few changes with the `[Command]` aspect:
-  - the <xref:Metalama.Patterns.Wpf.DelegateCommand> type has been moved to the `Metalama.Patterns.Wpf` namespace,
-  - the aspect generates properties of type <xref:Metalama.Patterns.Wpf.DelegateCommand>, <xref:Metalama.Patterns.Wpf.DelegateCommand`1>, <xref:Metalama.Patterns.Wpf.AsyncDelegateCommand> or <xref:Metalama.Patterns.Wpf.AsyncDelegateCommand`1> instead of <xref:System.Windows.Input.ICommand>. All these types implement the <xref:System.Windows.Input.ICommand> interface, but the `Execute(object)` method is now implemented privately. It is replaced by a strongly-typed method `Execute()` for parameterless commands or `Execute(T)` for commands accepting a parameter.
+  - The <xref:Metalama.Patterns.Wpf.DelegateCommand> type has been moved to the `Metalama.Patterns.Wpf` namespace.
+  - The aspect generates properties of type <xref:Metalama.Patterns.Wpf.DelegateCommand>, <xref:Metalama.Patterns.Wpf.DelegateCommand`1>, <xref:Metalama.Patterns.Wpf.AsyncDelegateCommand>, or <xref:Metalama.Patterns.Wpf.AsyncDelegateCommand`1> instead of <xref:System.Windows.Input.ICommand>. All these types implement the <xref:System.Windows.Input.ICommand> interface, but the `Execute(object)` method is now implemented privately. It's replaced by a strongly-typed method `Execute()` for parameterless commands or `Execute(T)` for commands accepting a parameter.
+
+> [!div class="see-also"]
+> <xref:release-notes>

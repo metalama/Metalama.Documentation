@@ -1,11 +1,15 @@
 ---
 uid: main-getting-started
-keywords: "Metalama, getting started"
+summary: "Learn how to install Metalama, create your first aspect, apply it to code, add aspects in bulk with fabrics, and validate architecture."
+keywords: "Metalama, getting started, tutorial, first aspect, logging"
+level: 200
 created-date: 2024-03-19
 modified-date: 2025-11-30
 ---
 
 # Getting started with Metalama
+
+This tutorial guides you through creating your first aspect, applying it to code, adding aspects in bulk with fabrics, and validating architecture.
 
 > [!NOTE]
 > If you don't plan to create your own aspects but just use existing ones, start with <xref:using-metalama>.
@@ -30,26 +34,26 @@ For the best design-time experience, configure your IDE. See <xref:ide-configura
 
 Let's start with logging, the traditional _Hello, world_ example of aspect-oriented programming.
 
-Type the following code:
+Type the following code.
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.AspectFramework/GettingStarted/GettingStarted.Aspect.cs]
 
-As you can infer from its name, the `LogAttribute` class is a custom attribute. You can think of an aspect as a _template_. When you apply it to some code (in this case, to a method), it transforms it. Indeed, the code of the target method will be replaced by the implementation of `OverrideMethod`. This method is very special. Some parts execute at run time, while others, which typically start with the `meta` keyword, execute at compile time. If you installed Visual Studio Tools for Metalama, you'll notice that compile-time segments are displayed with a different background color.
+As you can infer from its name, `LogAttribute` is a custom attribute. Think of an aspect as a _template_. When you apply it to code (in this case, to a method), it transforms it. The code of the target method will be replaced by the implementation of `OverrideMethod`. This method is special: some parts execute at run time, while others (which typically start with the `meta` keyword) execute at compile time. If you installed Visual Studio Tools for Metalama, you'll notice that compile-time segments are displayed with a different background color.
 
-Let's examine two `meta` expressions:
+Let's examine two `meta` expressions.
 
 - `meta.Proceed()` is replaced by the code of the target method.
 - `meta.Target.Method` gives you access to the <xref:Metalama.Framework.Code.IMethod> code model. In this case, we're implicitly calling `ToString()`.
 
 ## 4. Apply the custom attribute to a method
 
-Remember that an aspect is a template and that it doesn't do anything until it's applied to some target code.
+An aspect is a template that doesn't do anything until it's applied to target code.
 
-So, let's add the `[Log]` attribute to some method:
+Add the `[Log]` attribute to a method.
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.AspectFramework/GettingStarted/GettingStarted.cs]
 
-Now, if you execute the method, the following output is printed:
+When you execute the method, the following output is printed.
 
 ```text
 Entering Foo.Method1()
@@ -59,19 +63,19 @@ Leaving Foo.Method1()
 
 ## 5. See what happened to your code
 
-You can see that Metalama didn't modify anything in your source code. It's still _yours_. Instead, Metalama applied the logging aspect during compilation. So, it's no longer your source code that's being executed, but your source code _enhanced_ by the logging aspect.
+Metalama doesn't modify anything in your source code—it's still _yours_. Instead, Metalama applies the logging aspect during compilation. Your source code _enhanced_ by the logging aspect is what executes.
 
-If you installed Visual Studio Tools for Metalama, you can compare your source code with the transformed (executed) code using the "Diff preview" feature accessible from the source file context menu in Visual Studio.
+If you installed Visual Studio Tools for Metalama, compare your source code with the transformed (executed) code using the **Diff preview** feature accessible from the source file context menu in Visual Studio.
 
-It will show you something like this:
+It shows something like this.
 
 [!metalama-compare ~/code/Metalama.Documentation.SampleCode.AspectFramework/GettingStarted/GettingStarted.cs]
 
 ## 6. Add aspects in bulk using fabrics
 
-With aspects like logging, it's frequently applied to a large number of methods. It would be cumbersome to add a custom attribute to each of them. Instead, let's see how we can add the aspect programmatically using fabrics.
+You'll often apply aspects like logging to many methods. Adding a custom attribute to each would be cumbersome. Instead, add the aspect programmatically using fabrics.
 
-Use the following code:
+Add the following code.
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.AspectFramework/GettingStarted/GettingStarted_Fabric.Fabric.cs]
 
@@ -82,40 +86,49 @@ This class derives from <xref:Metalama.Framework.Fabrics.ProjectFabric> and acts
 > [!NOTE]
 > This feature requires a Metalama Professional license.
 
-Now that you know about aspects and fabrics, it's easy to understand how to validate your codebase against some architectural rules. In this example, we'll show how to report a warning when internals of a namespace are used outside of this namespace.
+Now that you know about aspects and fabrics, you can validate your codebase against architectural rules. This example shows how to report a warning when internals of a namespace are used outside of that namespace.
 
-First, reference the [Metalama.Extensions.Architecture](https://www.nuget.org/packages/Metalama.Extensions.Architecture) package from your project.
+Reference the [Metalama.Extensions.Architecture](https://www.nuget.org/packages/Metalama.Extensions.Architecture) package from your project.
 
-Then, add a fabric with the validation logic. We can use a <xref:Metalama.Framework.Fabrics.ProjectFabric> as above:
+Add a fabric with the validation logic. You can use a <xref:Metalama.Framework.Fabrics.ProjectFabric> as above.
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.AspectFramework/GettingStarted/GettingStarted_Architecture.Fabric.cs]
 
-Alternatively, we can achieve the same with a <xref:Metalama.Framework.Fabrics.NamespaceFabric>, which acts within the scope of their namespace instead of their project:
+Alternatively, you can achieve the same with a <xref:Metalama.Framework.Fabrics.NamespaceFabric>, which acts within the scope of its namespace instead of the project.
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.AspectFramework/GettingStarted/GettingStarted_Architecture_Ns.Fabric.cs]
 
-Fabrics not only run at compile time but also at design time within the IDE. After the first build (or after you click the _I am done with compile-time changes_ link if you've installed Metalama Tools for Visual Studio), you'll see warnings in the IDE if your code violates the rule.
+Fabrics run at compile time and at design time within the IDE. After the first build (or after you click the **I am done with compile-time changes** link if you've installed Metalama Tools for Visual Studio), you'll see warnings in the IDE if your code violates the rule.
 
-In this case, when we try to access any class of `VerifiedNamespace` from a different namespace, we get a warning:
+When you try to access any class of `VerifiedNamespace` from a different namespace, you get a warning.
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.AspectFramework/GettingStarted/GettingStarted_Architecture.cs]
 
-## Conclusion
+## Next steps
 
-Congratulations! In this short tutorial, you've discovered the key concepts of Metalama: aspects and fabrics. You've learned how to transparently add behaviors to your code during compilation and add validation rules that get enforced in real time in the editor.
+Congratulations! You've discovered the key concepts of Metalama: aspects and fabrics. You've learned how to transparently add behaviors to your code during compilation and add validation rules that are enforced in real time in the editor.
 
-From here, you can explore further based on your learning style:
+Explore further based on your learning style.
 
 - <xref:conceptual>
 - <xref:videos>
 
 > [!div class="see-also"]
+>
 > <xref:using-metalama>
+>
 > <xref:videos>
+>
 > <xref:installing>
+>
 > <xref:aspects>
+>
 > <xref:fabrics>
+>
 > <xref:templates>
+>
 > <xref:Metalama.Framework.Aspects.OverrideMethodAspect>
+>
 > <xref:Metalama.Framework.Fabrics.ProjectFabric>
+>
 > <xref:Metalama.Extensions.Architecture>

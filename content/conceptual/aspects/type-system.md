@@ -9,7 +9,7 @@ modified-date: 2025-12-06
 
 # Working with types
 
-The Metalama type system represents C# types through the <xref:Metalama.Framework.Code.IType> interface and its derived types. It's aligned with the C# type system and Roslyn, but differs from `System.Reflection`.
+The Metalama type system represents C# types through the <xref:Metalama.Framework.Code.IType> interface and its derived types. It's aligned with the C# type system and Roslyn but differs from `System.Reflection`.
 
 ## Class diagram
 
@@ -155,7 +155,7 @@ public class Customer
 
 ## Getting an IType object
 
-There are several ways to get an IType instance from your compile-time code.
+There are several ways to get an `IType` instance from your compile-time code.
 
 ### From `typeof(.)`
 
@@ -204,7 +204,7 @@ Type parameters are represented by <xref:Metalama.Framework.Code.ITypeParameter>
 
 Unlike MSIL, Metalama doesn't have a concept of "open" generic type with unbound type parameters. Type parameters are always bound to an argument. In generic type definitions, the type parameters are bound to themselves.
 
-Consider the type `List<T>`, where `T` is a type parameter. In the generic type instance `List<int>`, the `T` is the type parameter; `int` is the type argument, and the `T` parameter is bound to `int`. In the type definition `List<T>`, `T` is both the type parameter and the type argument, because `T` is bound to itself.
+Consider the type `List<T>`, where `T` is a type parameter. In the generic type instance `List<int>`, `T` is the type parameter, `int` is the type argument, and the `T` parameter is bound to `int`. In the type definition `List<T>`, `T` is both the type parameter and the type argument because `T` is bound to itself.
 
 The `IGeneric` interface exposes the `IsCanonicalGenericInstance` property, which returns `true` if all type parameters are bound to themselves.
 
@@ -297,11 +297,11 @@ var normalTuple = normalTuple.CreateCreateInstanceExpression( 42, "HAT" );
 
 ### Example: packing and unpacking arguments into a tuple
 
-The following aspect demonstrates how you can pack all method arguments into a tuple, so that they can be passed as a single object to an interceptor. The tuple is then unpacked into an argument list on the other side of the interceptor.
+The following aspect demonstrates how you can pack all method arguments into a tuple so that they can be passed as a single object to an interceptor. The tuple is then unpacked into an argument list on the other side of the interceptor.
 
 This example is quite convoluted because of the need to implement a basic interception pattern. You can skip it on first reading if you're just here to learn about the type system and don't want to dive into more complex aspects for now.
 
-Despite the complexity due to the interception scenario, the aspect demonstrates the simplicity of working with tuples. The aspect code does not need to bother about the number of parameters. All details are taken care of by <xref:Metalama.Framework.Code.ITupleType>.
+Despite the complexity due to the interception scenario, the aspect demonstrates the simplicity of working with tuples. The aspect code doesn't need to bother about the number of parameters. All details are taken care of by <xref:Metalama.Framework.Code.ITupleType>.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/TupleInterceptor.cs name="TupleInterceptor"]
 

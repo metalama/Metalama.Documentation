@@ -9,7 +9,7 @@ modified-date: 2025-11-30
 
 # Testing aspects
 
-Three complementary strategies are available to test your aspects. Aspect testing should provide sufficient coverage for the most common scenarios.
+Three complementary strategies are available for testing aspects. Aspect testing should provide sufficient coverage for most scenarios.
 
 <table>
     <tr>
@@ -21,7 +21,7 @@ Three complementary strategies are available to test your aspects. Aspect testin
             <xref:aspect-testing>
         </td>
         <td>
-            These tests verify that aspects transform code or report errors and warnings as expected. The transformed code is not executed.
+            These tests verify that aspects transform code or report errors and warnings as expected. The transformed code isn't executed.
         </td>
     </tr>
     <tr>
@@ -29,7 +29,7 @@ Three complementary strategies are available to test your aspects. Aspect testin
             <xref:run-time-testing>
         </td>
         <td>
-            These tests verify the run-time behavior of aspects. Apply your aspect to test target code and execute the transformed code in a unit test. Use xUnit or any other testing framework.
+            These tests verify the run-time behavior of aspects. Apply an aspect to test target code and execute the transformed code in a unit test. Use xUnit or any other testing framework.
         </td>
     </tr>
     <tr>
@@ -37,7 +37,7 @@ Three complementary strategies are available to test your aspects. Aspect testin
             <xref:compile-time-testing>
         </td>
         <td>
-            These tests are traditional unit tests of the compile-time logic used by aspects. The aspects themselves are not executed.
+            These tests are traditional unit tests of the compile-time logic used by aspects. The aspects themselves aren't executed.
         </td>
     </tr>
 <tr>

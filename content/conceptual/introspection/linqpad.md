@@ -9,12 +9,12 @@ modified-date: 2025-11-30
 
 # Using LINQPad
 
-Metalama's LINQPad driver allows you to interactively query your source code as if it were a database. You can inspect declarations, dependencies, errors, warnings, and—if you use Metalama—aspect outcomes and code transformations.
+Metalama's LINQPad driver allows you to interactively query your source code as if it were a database. You can inspect declarations, dependencies, errors, warnings, aspect outcomes, and code transformations.
 
-For those unfamiliar, [LINQPad](https://www.linqpad.net/) is a popular tool for writing and executing LINQ queries against various data sources. With Metalama's driver, you can extend this functionality to .NET projects and solutions.
+[LINQPad](https://www.linqpad.net/) is a popular tool for writing and executing LINQ queries against various data sources. With Metalama's driver, you extend this functionality to .NET projects and solutions.
 
 > [!NOTE]
-> The Metalama.LinqPad package is [open-source](https://github.com/metalama/Metalama.LinqPad).
+> The Metalama.LinqPad package is [open-source](https://github.com/metalama/Metalama/tree/HEAD/Metalama.LinqPad).
 
 ## Installing the Metalama driver
 
@@ -31,7 +31,7 @@ For those unfamiliar, [LINQPad](https://www.linqpad.net/) is a popular tool for 
     1. Select **Show all drivers**.
     2. Type _Metalama_.
     3. Select `Metalama.LinqPad` and click **Install**.
-    4. Accept a few disclaimers and wait. Then click **Close**.
+    4. Accept the disclaimers and wait, then click **Close**.
 
     ![Install step 3](install-3.svg)
 
@@ -41,10 +41,10 @@ For those unfamiliar, [LINQPad](https://www.linqpad.net/) is a popular tool for 
 
     ![Install step 1](install-1.svg)
 
-    There are _two_ Metalama drivers:
+    There are two Metalama drivers:
 
-    * **Metalama Workspace** is bound to a .NET project or solution, accessible through the `workspace` variable.
-    * **Metalama Scratchpad** isn't bound to anything, so you load projects manually in your query.
+    * **Metalama Workspace**: Bound to a .NET project or solution, accessible through the `workspace` variable.
+    * **Metalama Scratchpad**: Not bound to anything, so you load projects manually in your query.
 
 2. Choose the **Metalama Workspace** or **Metalama Scratchpad** driver and click **Next**.
 
@@ -63,7 +63,7 @@ After adding a C# project or solution to LINQPad, you'll see this structure in t
 
    ![Structure 1](explorer-1.svg)
 
-The `workspace` variable allows you to query the entire workspace—_all_ projects for _all_ target frameworks.
+The `workspace` variable allows you to query the entire workspace for all projects for all target frameworks.
 
 For details on the workspace API, see <xref:workspaces>.
 
@@ -107,6 +107,8 @@ var workspace = WorkspaceCollection.Default
 ```
 
 This gives you the same `workspace` variable as the bound driver.
+
+## See also
 
 > [!div class="see-also"]
 > <xref:workspaces>

@@ -12,7 +12,7 @@ modified-date: 2025-11-30
 > [!NOTE]
 > This feature requires a Metalama Professional license.
 
-Validating source code and providing meaningful error messages is a critical feature of most aspects. Failure to do so can result in confusing error messages for the aspect's user or even invalid behavior at runtime.
+Validating source code and providing meaningful error messages is a critical feature of most aspects. Failure to do so can result in confusing error messages for the aspect's user or even invalid behavior at run time.
 
 The first two techniques for validating code involve defining eligibility (see <xref:eligibility>) and reporting errors from the <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method (see <xref:diagnostics>). In this article, we introduce two additional techniques:
 
@@ -21,7 +21,7 @@ The first two techniques for validating code involve defining eligibility (see <
 
 ## Validating code before or after aspects
 
-By default, the <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> receives the version of the code model _before_ applying the current aspect. However, there may be instances where you need to validate a different version of the code model. Metalama allows you to validate three versions:
+By default, the <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> receives the version of the code model _before_ applying the current aspect. However, you may need to validate a different version of the code model. Metalama allows you to validate three versions:
 
 * Before the current aspect has been applied,
 * _Before any_ aspect has been applied, or
@@ -46,7 +46,7 @@ The following example demonstrates how to validate that the target type of the `
 
 Aspects can validate not only the declaration to which they are applied but also how this target declaration is used. In other words, aspects can validate _code references_.
 
-To optimize performance, Metalama tries to avoid validating every single code reference. Instead, it has a concept of _validator granularity_ (<xref:Metalama.Extensions.Validation.ReferenceGranularity>), which accepts the values `Compilation`, `Namespace`, `Type`, `Member`, or `ParameterOrAttribute`. When a validator is invariant within some level of granularity, then its predicate should only be evaluated once within the declaration at this level of granularity. For instance, if a validator granularity is set to `Namespace`, then _all_ references within that namespace will be either valid or invalid at the same time. Therefore, Metalama will only make a single call for this whole namespace. The validator method will be prevented from accessing details of a finer granularity level than the declared one. Warnings will be reported on all code references.
+To optimize performance, Metalama tries to avoid validating every single code reference. Instead, it has a concept of _validator granularity_ (<xref:Metalama.Extensions.Validation.ReferenceGranularity>), which accepts the values `Compilation`, `Namespace`, `Type`, `Member`, or `ParameterOrAttribute`. When a validator is invariant within some level of granularity, its predicate should only be evaluated once within the declaration at this level of granularity. For instance, if a validator granularity is set to `Namespace`, then _all_ references within that namespace will be either valid or invalid at the same time. Therefore, Metalama will only make a single call for this whole namespace. The validator method will be prevented from accessing details of a finer granularity level than the declared one. Warnings will be reported on all code references.
 
 To create an aspect that validates references:
 

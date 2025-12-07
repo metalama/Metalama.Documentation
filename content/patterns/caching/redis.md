@@ -11,7 +11,7 @@ modified-date: 2025-11-30
 > [!NOTE]
 > This feature requires a Metalama Professional license.
 
-If you've a distributed application where several instances run in parallel, [Redis](https://redis.io/) is an excellent choice for implementing caching due to the following reasons:
+If you have a distributed application where several instances run in parallel, [Redis](https://redis.io/) is an excellent choice for implementing caching due to the following reasons:
 
 1. **In-Memory Storage**: Redis stores its dataset in memory, allowing for very fast read and write operations, which are significantly faster than disk-based databases.
 2. **Rich Data Structures and Atomic Operations**: Redis is not just a simple key-value store; it supports multiple data structures like strings, hashes, lists, sets, sorted sets, and more. Combined with Redis's support for atomic operations on these complex data types, Metalama Caching can implement support for cache dependencies (see <xref:caching-dependencies>).
@@ -67,9 +67,9 @@ Follow these steps:
 
     [!metalama-file ~/code/Metalama.Documentation.SampleCode.Caching/Redis/Redis.Program.cs marker="Initialize"]
 
-### Example: Caching Using Redis
+### Example: caching using Redis
 
-Here is an update of the example used in <xref:caching-getting-started>, modified to use Redis instead of `MemoryCache` as the caching back-end.
+Here's an update of the example used in <xref:caching-getting-started>, modified to use Redis instead of `MemoryCache` as the caching back-end.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Caching/Redis/Redis.cs]
 
@@ -79,7 +79,7 @@ If you aren't using dependency injection:
 
 1. Create a [StackExchange.Redis.ConnectionMultiplexer](https://stackexchange.github.io/StackExchange.Redis/Configuration).
 
-2. Call <xref:Metalama.Patterns.Caching.CachingService.Create*?text=CachingService.Create>, then <xref:Metalama.Patterns.Caching.Building.ICachingServiceBuilder.WithBackend*> method, supply a delegate that calls the <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingFactory.Redis*> method. Pass a <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration> and set the <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.Connection> property to your `ConnectionMultiplexer`.
+2. Call <xref:Metalama.Patterns.Caching.CachingService.Create*?text=CachingService.Create>, then the <xref:Metalama.Patterns.Caching.Building.ICachingServiceBuilder.WithBackend*> method, and supply a delegate that calls the <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingFactory.Redis*> method. Pass a <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration> and set the <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.Connection> property to your `ConnectionMultiplexer`.
 
 ## Adding a local in-memory cache in front of your Redis cache
 
@@ -103,14 +103,14 @@ When you run several nodes of your applications with the same Redis server and t
 Metalama Caching's Redis back-end supports dependencies (see <xref:caching-dependencies>), but this feature is disabled by default with the Redis caching backend due to its significant performance and deployment impact:
 
 * From a performance perspective, the cache dependencies need to be stored in Redis (therefore consuming memory) and handled in a transactional way (therefore consuming processing power).
-* From a deployment perspective, the server requires a garbage collection service to run continuously, even when the app is not running. This service cleans up dependencies when cache items are expired from the cache.
+* From a deployment perspective, the server requires a garbage collection service to run continuously, even when the app isn't running. This service cleans up dependencies when cache items are expired from the cache.
 
-If you choose to enable dependencies with Redis, you need to ensure that at least one instance of the cache GC process is running. It is legal to have several instances of this process running, but since all instances will compete to process the same messages, it is better to ensure that only a small number of instances (ideally one) is running.
+If you choose to enable dependencies with Redis, ensure that at least one instance of the cache GC process is running. It's legal to have several instances of this process running, but since all instances compete to process the same messages, it's better to ensure that only a small number of instances (ideally one) is running.
 
 To enable dependencies, set the <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.SupportsDependencies?text=RedisCachingBackendConfiguration.SupportsDependencies> property to `true` when initializing the Redis caching back-end.
 
 > [!WARNING]
-> Caching dependencies can't be used on a [Redis cluster](https://redis.io/docs/latest/operate/oss_and_stack/management/scaling/). Only the [master-replica](https://redis.io/docs/latest/operate/oss_and_stack/management/replication/) topology is supported with caching dependencies. The cause of this limitation is that a cache operation with depedencies is implemented as a transaction of several operations, which must all reside on the same node.
+> Caching dependencies can't be used on a [Redis cluster](https://redis.io/docs/latest/operate/oss_and_stack/management/scaling/). Only the [master-replica](https://redis.io/docs/latest/operate/oss_and_stack/management/replication/) topology is supported with caching dependencies. This limitation exists because a cache operation with dependencies is implemented as a transaction of several operations, which must all reside on the same node.
 
 ### Running the dependency GC process
 

@@ -1,7 +1,8 @@
 ---
 uid: implementation
 level: 400
-summary: "The document discusses the implementation, pipeline, fabrics execution order, and aspect composition of a certain system or process."
+summary: This section covers Metalama's internal implementation details, including the compilation pipeline, aspect composition, serialization, and execution order.
+keywords: "Metalama implementation, compilation pipeline, aspect composition, serialization, execution order, fabrics"
 created-date: 2023-12-11
 modified-date: 2025-11-30
 ---

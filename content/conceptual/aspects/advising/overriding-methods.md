@@ -174,7 +174,7 @@ yield break;</pre>
 
 As you can see, the buffering of iterators is performed by the <xref:Metalama.Framework.RunTime.RunTimeAspectHelper.Buffer*> and <xref:Metalama.Framework.RunTime.RunTimeAspectHelper.BufferAsync*> methods.
 
-### Example: the default template applied to all kinds of methods
+### Example: The default template applied to all kinds of methods
 
 The following example demonstrates the behavior of the default template when applied to different kinds of methods. Note that the output of iterator methods is buffered. This is visible in the program output.
 
@@ -201,7 +201,7 @@ To overcome these limitations, you can implement different variants of the `Over
 
 Note that there is no obligation to implement these methods as `async` methods or `yield`-based iterators.
 
-### Example: specific templates for all kinds of methods
+### Example: Specific templates for all kinds of methods
 
 The following example derives from the previous one and implements all specific template methods instead of just the default ones. Note that now the output of iterators is no longer buffered because this new aspect version supports iterator streaming.
 
@@ -220,8 +220,7 @@ Here is the simplified source code of the <xref:Metalama.Framework.Aspects.Overr
 
 [!metalama-test  ~/code/Metalama.Documentation.SampleCode.AspectFramework/OverrideMethodAspect.cs name="Main"]
 
-You'll often want your aspect to override _many_ methods. For instance, a _synchronized object_ aspect has to override all public instance methods and wrap them with a `lock` statement.
-To override one or more methods, your aspect must implement the <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method and invoke the <xref:Metalama.Framework.Aspects.AdviserExtensions.Override*?text=builder.Override> method.
+You'll often want your aspect to override _many_ methods. For instance, a _synchronized object_ aspect has to override all public instance methods and wrap them with a `lock` statement. To override one or more methods, your aspect must implement the <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method and invoke the <xref:Metalama.Framework.Aspects.AdviserExtensions.Override*?text=builder.Override> method.
 
 The _first argument_ of `Override` is the <xref:Metalama.Framework.Code.IMethod> that you want to override. This method must be in the type targeted by the current aspect instance.
 
@@ -234,7 +233,7 @@ The _second argument_ of `Override` is the name of the template method. This met
     dynamic? Template()
     ```
 
-### Example: synchronized object
+### Example: Synchronized object
 
 The following aspect wraps all instance methods with a `lock(this)` statement.
 

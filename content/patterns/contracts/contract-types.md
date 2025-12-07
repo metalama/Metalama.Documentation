@@ -9,7 +9,7 @@ modified-date: 2025-11-30
 
 # List of contract attributes
 
-Below is a list of available contract attributes for your selection:
+The following contract attributes are available:
 
 ## Nullability contracts
 
@@ -23,7 +23,7 @@ The <xref:Metalama.Patterns.Contracts.NotNullAttribute> contract verifies that t
 
 ### [Required]
 
-Similar to the <xref:Metalama.Patterns.Contracts.NotNullAttribute> contract, the <xref:Metalama.Patterns.Contracts.RequiredAttribute> contract verifies that the value is not `null`. Additionally, it requires the string to be non-empty.
+The <xref:Metalama.Patterns.Contracts.RequiredAttribute> contract verifies that the value isn't `null`, similar to <xref:Metalama.Patterns.Contracts.NotNullAttribute>. Additionally, it requires the string to be non-empty.
 
 #### Example: [Required]
 
@@ -36,7 +36,7 @@ Similar to the <xref:Metalama.Patterns.Contracts.NotNullAttribute> contract, the
 
 ### [NotEmpty]
 
-The <xref:Metalama.Patterns.Contracts.NotEmptyAttribute> contract requires the string to be non-empty. Please note that this contract does not validate the string against being null. If you want to prohibit both null and empty strings, use the <xref:Metalama.Patterns.Contracts.RequiredAttribute> constraint.
+The <xref:Metalama.Patterns.Contracts.NotEmptyAttribute> contract requires the string to be non-empty. Note that this contract doesn't validate the string against being `null`. If you want to prohibit both `null` and empty strings, use the <xref:Metalama.Patterns.Contracts.RequiredAttribute> constraint.
 
 #### Example: [NotEmpty] vs [NotNull] vs [Required]
 
@@ -46,7 +46,7 @@ The <xref:Metalama.Patterns.Contracts.NotEmptyAttribute> contract requires the s
 
 The <xref:Metalama.Patterns.Contracts.CreditCardAttribute> contract validates that the string is a valid credit card number.
 
-It utilizes the delegate exposed by the <xref:Metalama.Patterns.Contracts.ContractHelpers.IsValidCreditCardNumber?text=ContractHelpers.IsValidCreditCardNumber> property. You can replace this delegate with your own implementation.
+It uses the delegate exposed by the <xref:Metalama.Patterns.Contracts.ContractHelpers.IsValidCreditCardNumber?text=ContractHelpers.IsValidCreditCardNumber> property. You can replace this delegate with your own implementation.
 
 #### Example: [CreditCard]
 
@@ -64,7 +64,7 @@ These regular expressions can be customized by setting the <xref:Metalama.Patter
 
 ### Custom regular expressions
 
-The <xref:Metalama.Patterns.Contracts.RegularExpressionAttribute> contract validates a string against a custom regular expression. If the same regular expression is to be used multiple times, it may be preferable to create a derived class instead of using the <xref:Metalama.Patterns.Contracts.RegularExpressionAttribute> class directly.
+The <xref:Metalama.Patterns.Contracts.RegularExpressionAttribute> contract validates a string against a custom regular expression. If you use the same regular expression multiple times, consider creating a derived class instead of using the <xref:Metalama.Patterns.Contracts.RegularExpressionAttribute> class directly.
 
 #### Example: custom regular expression
 
@@ -80,7 +80,7 @@ The <xref:Metalama.Patterns.Contracts.StringLengthAttribute> contract validates 
 
 ## Enum contracts
 
-The <xref:Metalama.Patterns.Contracts.EnumDataTypeAttribute> contract can validate values of type `string`, `object`, or of any integer type. It throws an exception if the value is not valid for the given `enum` type.
+The <xref:Metalama.Patterns.Contracts.EnumDataTypeAttribute> contract can validate values of type `string`, `object`, or any integer type. It throws an exception if the value isn't valid for the given `enum` type.
 
 ### Example: [EnumDataType]
 
@@ -92,16 +92,16 @@ The following contracts can be used to verify that a value falls within a specif
 
 | Attribute                                                 | Description |
 |-----------------------------------------------------------|-------------|
-| <xref:Metalama.Patterns.Contracts.LessThanOrEqualAttribute>     | Verifies that the value is less than or equal to the specified maximum.
-| <xref:Metalama.Patterns.Contracts.GreaterThanOrEqualAttribute>  |  Verifies that the value is greater than or equal to the specified minimum.
-| <xref:Metalama.Patterns.Contracts.NonNegativeAttribute>     | Verifies that the value is greater than or equal to zero.
-| <xref:Metalama.Patterns.Contracts.NonPositiveAttribute>     | Verifies that the value is less than or equal to zero.
-| <xref:Metalama.Patterns.Contracts.StrictlyLessThanAttribute>     | Verifies that the value is strictly less than the specified maximum.
-| <xref:Metalama.Patterns.Contracts.StrictlyGreaterThanAttribute>  |  Verifies that the value is strictly greater than the specified minimum.
-| <xref:Metalama.Patterns.Contracts.StrictlyNegativeAttribute>     | Verifies that the value is strictly less than zero.
-| <xref:Metalama.Patterns.Contracts.StrictlyPositiveAttribute>     | Verifies that the value is strictly greater than zero.
-| <xref:Metalama.Patterns.Contracts.StrictRangeAttribute>     | Verifies that the value is strictly greater than a specified minimum and strictly less than a specified maximum.
-| <xref:Metalama.Patterns.Contracts.RangeAttribute>     | Verifies that the value is greater than or equal to a specified minimum and less than or equal to a specified maximum.
+| <xref:Metalama.Patterns.Contracts.LessThanOrEqualAttribute> | Verifies that the value is less than or equal to the specified maximum. |
+| <xref:Metalama.Patterns.Contracts.GreaterThanOrEqualAttribute> | Verifies that the value is greater than or equal to the specified minimum. |
+| <xref:Metalama.Patterns.Contracts.NonNegativeAttribute> | Verifies that the value is greater than or equal to zero. |
+| <xref:Metalama.Patterns.Contracts.NonPositiveAttribute> | Verifies that the value is less than or equal to zero. |
+| <xref:Metalama.Patterns.Contracts.StrictlyLessThanAttribute> | Verifies that the value is strictly less than the specified maximum. |
+| <xref:Metalama.Patterns.Contracts.StrictlyGreaterThanAttribute> | Verifies that the value is strictly greater than the specified minimum. |
+| <xref:Metalama.Patterns.Contracts.StrictlyNegativeAttribute> | Verifies that the value is strictly less than zero. |
+| <xref:Metalama.Patterns.Contracts.StrictlyPositiveAttribute> | Verifies that the value is strictly greater than zero. |
+| <xref:Metalama.Patterns.Contracts.StrictRangeAttribute> | Verifies that the value is strictly greater than a specified minimum and strictly less than a specified maximum. |
+| <xref:Metalama.Patterns.Contracts.RangeAttribute> | Verifies that the value is greater than or equal to a specified minimum and less than or equal to a specified maximum. |
 
 > [!WARNING]
 > The library also contains the contracts <xref:Metalama.Patterns.Contracts.PositiveAttribute?text=[Positive]>, <xref:Metalama.Patterns.Contracts.NegativeAttribute?text=[Negative]>, <xref:Metalama.Patterns.Contracts.LessThanAttribute?text=[LessThan]> and <xref:Metalama.Patterns.Contracts.GreaterThanAttribute?text=[GreaterThan]> for backward compatibility. These contracts are oddly named; they enforce a non-strict inequality while the English convention mandates to enforce strict inequalities. Using any of these contracts will result in a warning requesting you to specify the strictness by using one of the contracts listed above or by setting the <xref:Metalama.Patterns.Contracts.ContractOptions.DefaultInequalityStrictness> contract option is set using the <xref:Metalama.Patterns.Contracts.ContractConfigurationExtensions.ConfigureContracts*> fabric extension method.
@@ -112,9 +112,9 @@ The following contracts can be used to verify that a value falls within a specif
 
 ## Collections contracts
 
-The <xref:Metalama.Patterns.Contracts.NotEmptyAttribute> contract can be used on any collection, including arrays or immutable arrays. It requires the collection or the array to contain at least one element.
+The <xref:Metalama.Patterns.Contracts.NotEmptyAttribute> contract can be used on any collection, including arrays or immutable arrays. It requires the collection or array to contain at least one element.
 
-Note that this contract does not validate the collection object against being null (or, in the case of immutable arrays, default ones). If you want to prohibit both null and empty collections, consider adding the <xref:Metalama.Patterns.Contracts.NotNullAttribute> constraint.
+Note that this contract doesn't validate the collection object against being `null` (or, in the case of immutable arrays, default ones). If you want to prohibit both `null` and empty collections, consider adding the <xref:Metalama.Patterns.Contracts.NotNullAttribute> constraint.
 
 ### Example: [NotEmpty] on collection
 

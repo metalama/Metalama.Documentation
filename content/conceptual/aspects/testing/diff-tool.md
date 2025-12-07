@@ -9,7 +9,7 @@ modified-date: 2025-12-04
 
 # Configuring the external diff tool
 
-By default, the test framework opens your visual diff tool when an aspect test fails—when the expected snapshot differs from the actual output. This feature uses the open-source [DiffEngine](https://github.com/VerifyTests/DiffEngine) library, which automatically detects and launches installed diff tools.
+By default, the test framework opens a visual diff tool when an aspect test fails—when the expected snapshot differs from the actual output. This feature uses the open-source [DiffEngine](https://github.com/VerifyTests/DiffEngine) library, which automatically detects and launches installed diff tools.
 
 ## Metalama test runner settings
 

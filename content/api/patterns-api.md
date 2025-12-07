@@ -1,14 +1,15 @@
 ---
 uid: patterns-api
-summary: "This document provides information and guidelines on how to use the Patterns API for caching, contracts, observability, immutability, memoization, and WPF."
+summary: "Common design patterns for caching, contracts, observability, immutability, memoization, and WPF."
 keywords: "Metalama patterns, caching, contracts, observability, INotifyPropertyChanged, immutability, memoization, WPF, dependency property, command"
 created-date: 2023-12-11
 modified-date: 2025-11-30
+level: 200
 ---
 
-# Patterns API documentation
+# Patterns API
 
-These namespaces implement common design patterns that you can apply to your code using Metalama aspects.
+These namespaces implement common design patterns you can apply to your code using Metalama aspects.
 
 | Namespace                             | Description                                                                                                                |
 |---------------------------------------|----------------------------------------------------------------------------------------------------------------------------|

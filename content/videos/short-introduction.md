@@ -1,13 +1,16 @@
 ---
 uid: video-short-introduction
-summary: "This document introduces a video tutorial, hosted on Vimeo, but does not provide specific details about its content."
+summary: "Get a quick introduction to Metalama through this short video tutorial."
+keywords: "video, tutorial, introduction, getting started"
 created-date: 2023-12-11
 modified-date: 2025-11-30
 ---
 
-# Video tutorial: a short introduction
+# Video tutorial: A short introduction
+
+This video provides a quick introduction to Metalama and its key features.
 
 [!metalama-vimeo 842166595]
 
 > [!div class="see-also"]
-> <xref:videos>
+> * <xref:videos>

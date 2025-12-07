@@ -8,7 +8,7 @@ modified-date: 2025-11-30
 
 # Excluding parameters from the cache key
 
-Some methods may have parameters that don't need to be part of the cache. A typical example is the <xref:System.Threading.CancellationToken> type, which is automatically skipped. Another example could be a request correlation ID. Often, the current instance (`this`) represents a service instance and should also be skipped.
+Some methods may have parameters that don't need to be part of the cache key. A typical example is the <xref:System.Threading.CancellationToken> type, which is automatically skipped. Another example could be a request correlation ID. Often, the current instance (`this`) represents a service instance and should also be skipped.
 
 This article presents mechanisms to exclude any parameter from the cache key.
 
@@ -24,7 +24,7 @@ For more details on configuration, see <xref:caching-configuration>.
 
 ### Example: ignoring the `this` parameter
 
-In the following example, the `PricingService` class exposes two instance methods. Both methods are cached. The `PricingService` class has a unique `id` field, and its `ToString` implementation includes this field because it is useful for troubleshooting. However, we want several instances of the `PricingService` to reuse the cached results. Therefore, we exclude the `this` instance from the cache key. Since this decision must apply to all cached methods of this type, we apply the <xref:Metalama.Patterns.Caching.Aspects.CachingConfigurationAttribute?text=[CacheConfiguration]> to the type.
+In the following example, the `PricingService` class exposes two instance methods. Both methods are cached. The `PricingService` class has a unique `id` field, and its `ToString` implementation includes this field because it's useful for troubleshooting. However, we want several instances of the `PricingService` to reuse the cached results. Therefore, we exclude the `this` instance from the cache key. Since this decision must apply to all cached methods of this type, we apply the <xref:Metalama.Patterns.Caching.Aspects.CachingConfigurationAttribute?text=[CacheConfiguration]> to the type.
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.Caching/ExcludeThisParameter.cs]
 
@@ -32,23 +32,23 @@ In the following example, the `PricingService` class exposes two instance method
 
 To exclude a parameter other than the current instance (`this`), simply add the <xref:Metalama.Patterns.Caching.NotCacheKeyAttribute> custom attribute to this parameter.
 
-### Example: Using [NotCacheKey]
+### Example: using [NotCacheKey]
 
-In the following example, both methods of the `PricingService` class have a `correlationId` field. This field is used for troubleshooting; it has a unique value for each web API request and therefore must be excluded from the cache.
+In the following example, both methods of the `PricingService` class have a `correlationId` field. This field is used for troubleshooting; it has a unique value for each web API request and therefore must be excluded from the cache key.
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.Caching/NotCacheKey.cs]
 
 ## Excluding parameters by rule using classifiers
 
-The inconvenience of using the <xref:Metalama.Patterns.Caching.NotCacheKeyAttribute> custom attribute is that it must be added to every single parameter. This can be cumbersome and subject to human errors when many parameters must be excluded according to the same rules.
+The inconvenience of using the <xref:Metalama.Patterns.Caching.NotCacheKeyAttribute> custom attribute is that it must be added to every single parameter. This can be cumbersome and subject to human error when many parameters must be excluded according to the same rules.
 
-In this case, it's preferable to implement and register a programmatic parameter classifier.  Follow these steps:
+In this case, implement and register a programmatic parameter classifier. Follow these steps:
 
 1. Create a class that implements the <xref:Metalama.Patterns.Caching.Aspects.Configuration.ICacheParameterClassifier> interface. It has a single method, <xref:Metalama.Patterns.Caching.Aspects.Configuration.ICacheParameterClassifier.GetClassification*>, which receives a parameter and returns a value indicating whether the parameter should be excluded from the cache key.
 2. Using a fabric for the desired scope (typically the current project, a namespace, or all referencing projects), call the <xref:Metalama.Patterns.Caching.Aspects.Configuration.CachingConfigurationExtensions.ConfigureCaching*?amender.Outgoing.ConfigureCaching> method and supply a delegate that calls the <xref:Metalama.Patterns.Caching.Aspects.Configuration.CachingOptionsBuilder.AddParameterClassifier*> method.
 
 > [!WARNING]
-> It may be tempting to classify parameters based on naming conventions, for instance to exclude all parameters named `correlationId`, but this is dangerous because naming conventions are easily broken. Instead, it's preferable to use a fabric to report a warning when a method is cached and one of its parameter matches a naming pattern but is not annotated with the  <xref:Metalama.Patterns.Caching.NotCacheKeyAttribute> attribute.
+> It may be tempting to classify parameters based on naming conventions, for instance to exclude all parameters named `correlationId`, but this is dangerous because naming conventions are easily broken. Instead, use a fabric to report a warning when a method is cached and one of its parameters matches a naming pattern but isn't annotated with the <xref:Metalama.Patterns.Caching.NotCacheKeyAttribute> attribute.
 
 ### Example: parameter classifier
 

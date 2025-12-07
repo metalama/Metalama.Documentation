@@ -25,7 +25,7 @@ This article describes these three approaches.
 
 ## Configuring caching with custom attributes
 
-The <xref:Metalama.Patterns.Caching.Aspects.CacheAttribute> aspect can be configured by setting the properties of the <xref:Metalama.Patterns.Caching.Aspects.CacheAttribute> custom attribute. The downside of this approach is that you must repeat the configuration for each cached method.
+Configure the <xref:Metalama.Patterns.Caching.Aspects.CacheAttribute> aspect by setting the properties of the <xref:Metalama.Patterns.Caching.Aspects.CacheAttribute> custom attribute. The downside of this approach is that you must repeat the configuration for each cached method.
 
 To configure several methods with a single line of code, add the <xref:Metalama.Patterns.Caching.Aspects.CachingConfigurationAttribute> custom attribute to the declaring type, the base type of the declaring type, the enclosing type of the declaring type (if it is nested), or the declaring assembly.
 
@@ -49,7 +49,7 @@ The following example sets the absolute expiration to 20 minutes for the namespa
 
 ## Configuring caching at run time with profiles
 
-All compile-time approaches described above have the same drawback: by definition, they can't be modified at run time. This can be a problem if you want the caching options to be loaded from a configuration file that you can deploy with your application.
+All compile-time approaches described above have the same drawback: by definition, they can't be modified at run time. This can be a problem if you want caching options to be loaded from a configuration file that you can deploy with your application.
 
 Metalama Caching allows you to change caching options at run time with a concept called _caching profile_. These are sets of options that can be modified at run time and are represented by the <xref:Metalama.Patterns.Caching.CachingProfile> class.
 
@@ -65,9 +65,9 @@ To modify run-time caching options with a caching profile:
 > [!WARNING]
 > Any configuration property specified through a compile-time mechanism takes precedence over the configuration of the <xref:Metalama.Patterns.Caching.CachingProfile>.
 
-### Example: Configuring expiration with a fabric
+### Example: Configuring expiration with a profile
 
-In this example, the `ProductCatalogue` class uses two caching profiles: the default one, and the _hot_ one, which should refresh content more frequently. However, we don't want to hard-code these expiration values in the source code. The following code in `Program.cs` configures the logging profiles. While the values are hard-coded here, they could easily be read from a configuration file.
+In this example, the `ProductCatalogue` class uses two caching profiles: the default one, and the _hot_ one, which should refresh content more frequently. However, we don't want to hard-code these expiration values in the source code. The following code in `Program.cs` configures the caching profiles. While the values are hard-coded here, they could easily be read from a configuration file.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Caching/Profiles/Profiles.cs]
 

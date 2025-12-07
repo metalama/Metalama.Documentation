@@ -15,23 +15,23 @@ Most of the time, you can write statements directly in your template, and Metala
 
 To dynamically add statements to the generated code, use <xref:Metalama.Framework.Aspects.meta.InsertStatement*>, which accepts an `IStatement` or `IExpression` object (since most C# expressions can also be used as statements).
 
-In this article, we'll see how to dynamically add statements to the generated code.
+This article shows how to dynamically add statements to the generated code.
 
 ## Generating statements using a StringBuilder-like API
 
-When you need to construct statements programmatically or generate complex statements dynamically, use the <xref:Metalama.Framework.Code.SyntaxBuilders.StatementBuilder> class. This is the statement equivalent of <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionBuilder>. It allows you to generate both individual statements and _blocks_ of statements using its <xref:Metalama.Framework.Code.SyntaxBuilders.StatementBuilder.BeginBlock*> and <xref:Metalama.Framework.Code.SyntaxBuilders.StatementBuilder.EndBlock*> methods.
+When you need to construct statements programmatically or generate complex statements dynamically, use the <xref:Metalama.Framework.Code.SyntaxBuilders.StatementBuilder> class. This is the statement equivalent of <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionBuilder>. It lets you generate both individual statements and _blocks_ of statements using its <xref:Metalama.Framework.Code.SyntaxBuilders.StatementBuilder.BeginBlock*> and <xref:Metalama.Framework.Code.SyntaxBuilders.StatementBuilder.EndBlock*> methods.
 
 > [!WARNING]
 > Don't forget the trailing semicolon at the end of the statement.
 
-When you are done, call the <xref:Metalama.Framework.Code.SyntaxBuilders.IStatementBuilder.ToStatement*> method. You can inject the returned <xref:Metalama.Framework.Code.SyntaxBuilders.IStatement> in run-time code by calling the <xref:Metalama.Framework.Aspects.meta.InsertStatement*> method in the template.
+When you're done, call the <xref:Metalama.Framework.Code.SyntaxBuilders.IStatementBuilder.ToStatement*> method. You can inject the returned <xref:Metalama.Framework.Code.SyntaxBuilders.IStatement> in run-time code by calling the <xref:Metalama.Framework.Aspects.meta.InsertStatement*> method in the template.
 
 > [!NOTE]
-> A major benefit of <xref:Metalama.Framework.Code.SyntaxBuilders.StatementBuilder> is that it can be used in compile-time helper methods that are not templates.
+> A major benefit of <xref:Metalama.Framework.Code.SyntaxBuilders.StatementBuilder> is that it can be used in compile-time helper methods that aren't templates.
 
 ### Example: using StatementBuilder in a compile-time helper
 
-The following example demonstrates a reusable compile-time helper method that builds null-check statements. Since the helper is marked with `[CompileTime]` and is not a template, it must use <xref:Metalama.Framework.Code.SyntaxBuilders.StatementBuilder> to construct the statement. The aspect then calls this helper for each non-nullable reference parameter and inserts the resulting statements using <xref:Metalama.Framework.Aspects.meta.InsertStatement*>.
+The following example demonstrates a reusable compile-time helper method that builds null-check statements. Since the helper is marked with `[CompileTime]` and isn't a template, it must use <xref:Metalama.Framework.Code.SyntaxBuilders.StatementBuilder> to construct the statement. The aspect then calls this helper for each non-nullable reference parameter and inserts the resulting statements using <xref:Metalama.Framework.Aspects.meta.InsertStatement*>.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/StatementBuilderHelper.cs name="StatementBuilder Helper"]
 
@@ -44,7 +44,7 @@ Just as you can parse C# expressions using <xref:Metalama.Framework.Code.SyntaxB
 
 ## Defining local variables
 
-In T# templates, local variable declarations are automatically classified as either compile-time or run-time according to the value they are assigned:
+In T# templates, local variable declarations are automatically classified as either compile-time or run-time according to the value they're assigned:
 
 - Variables assigned to compile-time values (like `var field = meta.Target.Field;`) are compile-time variables.
 - Variables assigned to run-time expressions (like `var x = 0;`) become run-time local variables in the generated code.
@@ -61,11 +61,11 @@ The following aspect saves the value of all fields and automatic properties into
 
 ## Generating switch statements
 
-You can use the <xref:Metalama.Framework.Code.SyntaxBuilders.SwitchStatementBuilder> class to generate `switch` statements. Note that it is limited to _constant_ and _default_ labels, i.e., patterns are not supported. Tuple matching is supported.
+Use the <xref:Metalama.Framework.Code.SyntaxBuilders.SwitchStatementBuilder> class to generate `switch` statements. Note that it's limited to _constant_ and _default_ labels; patterns aren't supported. Tuple matching is supported.
 
 ### Example: SwitchStatementBuilder
 
-The following example generates an `Execute` method, which has two arguments: a message name and an opaque argument. The aspect must be used on a class with one or more `ProcessFoo` methods, where `Foo` is the message name. The aspect generates a `switch` statement that dispatches the message to the proper method.
+The following example generates an `Execute` method with two arguments: a message name and an opaque argument. The aspect must be used on a class with one or more `ProcessFoo` methods, where `Foo` is the message name. The aspect generates a `switch` statement that dispatches the message to the proper method.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/SwitchStatementBuilder.cs name="SwitchStatementBuilder"]
 

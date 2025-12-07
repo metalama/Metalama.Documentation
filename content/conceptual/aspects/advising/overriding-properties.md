@@ -52,13 +52,13 @@ The _second argument_ of `Override` is the name of the template property. This p
 - The template property must be of type `dynamic` (_dynamically-typed_ template), or a type compatible with the type of the overridden property (_strongly-typed_ template).
 - The template property can have a setter, a getter, or both. If one accessor isn't specified in the template, the corresponding accessor in the target code won't be overridden.
 
-#### Example: registry-backed class
+#### Example: Registry-backed class
 
 The following aspect overrides properties so that they are written to and read from the Windows registry.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/RegistryStorage.cs name="Registry Storage"]
 
-#### Example: string normalization
+#### Example: String normalization
 
 This example illustrates a strongly-typed property template with a single accessor that uses the <xref:Metalama.Framework.Code.IExpression.Value?text=meta.Target.FieldOrProperty.Value> expression to access the underlying field or property.
 

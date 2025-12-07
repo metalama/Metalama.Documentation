@@ -8,14 +8,14 @@ modified-date: 2025-11-30
 
 # Getting started with Metalama Caching
 
-If you've a time-consuming method that consistently returns the same value when called with identical arguments, caching this method can significantly enhance your application's performance. With Metalama Caching, this process can be as straightforward as adding the <xref:Metalama.Patterns.Caching.Aspects.CacheAttribute?text=[Cache]> attribute from the [Metalama.Patterns.Caching.Aspects](https://www.nuget.org/packages/Metalama.Patterns.Caching.Aspects/) package.
+If you have a time-consuming method that consistently returns the same value when called with identical arguments, caching this method can significantly enhance your application's performance. With Metalama Caching, this process can be as straightforward as adding the <xref:Metalama.Patterns.Caching.Aspects.CacheAttribute?text=[Cache]> attribute from the [Metalama.Patterns.Caching.Aspects](https://www.nuget.org/packages/Metalama.Patterns.Caching.Aspects/) package.
 
 The <xref:Metalama.Patterns.Caching.Aspects.CacheAttribute?text=[Cache]> aspect supports both synchronous and `async` methods. For `async` methods returning `Task<T>` or `ValueTask<T>`, the aspect automatically awaits the result and caches the unwrapped value.
 
-Before you can utilize the <xref:Metalama.Patterns.Caching.Aspects.CacheAttribute?text=[Cache]> aspect, your projects require some setup. The approach will depend on your project's architecture: with or without dependency injection.
+Before you can use the <xref:Metalama.Patterns.Caching.Aspects.CacheAttribute?text=[Cache]> aspect, your projects require some setup. The approach depends on your project's architecture: with or without dependency injection.
 
 > [!WARNING]
-> The fallback strategy to generate the cache key of a parameter is to use the `ToString` method. However, the default implementation of the `ToString` method does not return a unique string for custom classes and structs (the default implementation of `ToString` for records is more likely to be correct). After completing the initial steps of this _getting started_ guide, it is crucial to provide a cache key implementation for all parameter types of a cached method. For details, see <xref:caching-keys>.
+> The fallback strategy to generate the cache key of a parameter is to use the `ToString` method. However, the default implementation of the `ToString` method doesn't return a unique string for custom classes and structs (the default implementation of `ToString` for records is more likely to be correct). After completing the initial steps of this _getting started_ guide, provide a cache key implementation for all parameter types of a cached method. For details, see <xref:caching-keys>.
 
 ## With dependency injection
 
@@ -31,9 +31,9 @@ The <xref:Metalama.Patterns.Caching.Aspects.CacheAttribute?text=[Cache]> aspect 
 > [!NOTE]
 > If your project uses a different dependency injection framework, you may need to create an adapter for this framework. Then create an instance of the <xref:Metalama.Patterns.Caching.ICachingService> interface using the <xref:Metalama.Patterns.Caching.CachingService.Create*?text=CachingService.Create> method.  For details about DI adapters, see <xref:dependency-injection>.
 
-### Example: setting up caching _with_ dependency injection
+### Example: setting up caching with dependency injection
 
-In this example, we demonstrate how to add logging to a self-hosted .NET Core application. This application consists of two services, the primary service called `MainService` and a hypothetical `CloudCalculator`, which performs complex and slow computations.
+In this example, we demonstrate how to add caching to a self-hosted .NET Core application. This application consists of two services, the primary service called `MainService` and a hypothetical `CloudCalculator`, which performs complex and slow computations.
 
 `Program.Main` calls the <xref:Metalama.Patterns.Caching.Building.CachingServiceFactory.AddMetalamaCaching*> extension method. This action makes <xref:Metalama.Patterns.Caching.ICachingService> available to `CloudCalculator`, which can use the <xref:Metalama.Patterns.Caching.Aspects.CacheAttribute?text=[Cache]> aspect. Note how the <xref:Metalama.Patterns.Caching.ICachingService> interface is automatically pulled into the `CloudCalculator` class.
 
@@ -43,7 +43,7 @@ Finally, `MainService` calls `CloudCalculator` as usual. It calls the `CloudCalc
 
 ## Without dependency injection
 
-If your project does not use dependency injection, the global default instance of the <xref:Metalama.Patterns.Caching.ICachingService> will be used. It is exposed as the <xref:Metalama.Patterns.Caching.CachingService.Default?text=CachingService.Default> property.
+If your project doesn't use dependency injection, the global default instance of the <xref:Metalama.Patterns.Caching.ICachingService> is used. It's exposed as the <xref:Metalama.Patterns.Caching.CachingService.Default?text=CachingService.Default> property.
 
 Follow these steps to configure your project:
 
@@ -65,7 +65,7 @@ When dependency injection is disabled, we can also cache `static` methods. Obser
 
 ## What's next
 
-So far, so good. However, if your cached methods have more complex parameters than intrinsic types like `int` or `string` (and a dozen of other well-known types), Metalama Caching will use the `ToString` method to represent the parameter in the caching key. This approach may not always be appropriate. In the next article, we'll discuss how to customize the caching key.
+So far, so good. However, if your cached methods have more complex parameters than intrinsic types like `int` or `string` (and a dozen other well-known types), Metalama Caching uses the `ToString` method to represent the parameter in the caching key. This approach may not always be appropriate. In the next article, we'll discuss how to customize the caching key.
 
 > [!div class="see-also"]
 > <xref:caching>

@@ -12,9 +12,9 @@ modified-date: 2024-08-04
 
 ### Visual Studio 17.8 readiness
 
-The new Visual Studio version, which Microsoft is expected to release in a few days, will be based on .NET 8. To avoid incompatibilities with Metalama, we recommend updating your packages now to prevent design-time errors in your code after updating Visual Studio.
+The new Visual Studio version is based on .NET 8. To avoid incompatibilities with Metalama, update your packages to prevent design-time errors in your code after updating Visual Studio.
 
-Please note that Metalama 2023.4 does not aim to provide complete support for .NET 8 and C# 12, only to avoid issues. Supporting the next version of the .NET stack will be the focus of Metalama 2024.0 and PostSharp 2024.0, which we expect to be generally available at the end of this month.
+Metalama 2023.4 doesn't provide complete support for .NET 8 and C# 12, only issue avoidance. Supporting the next version of the .NET stack is the focus of Metalama 2024.0 and PostSharp 2024.0.
 
 ## New features
 
@@ -22,11 +22,11 @@ Please note that Metalama 2023.4 does not aim to provide complete support for .N
 
 Complex and widely-used aspects often require a centralized, project-wide method for configuring compile-time behavior.
 
-To address this need, we've built a new configuration framework within the <xref:Metalama.Framework.Options> namespace. This framework enables aspect authors to design APIs that allow for the entire project, specific namespaces, or class families to be configured from a single line of code. The framework facilitates both programmatic configuration using fabric extension methods and declarative configuration via custom attributes. It also supports configuration inheritance from base types, extending even across project borders.
+To address this need, we built a new configuration framework within the <xref:Metalama.Framework.Options> namespace. This framework enables aspect authors to design APIs that configure the entire project, specific namespaces, or class families from a single line of code. The framework supports both programmatic configuration using fabric extension methods and declarative configuration via custom attributes. It also supports configuration inheritance from base types, even across project borders.
 
 This new options framework is pivotal to Metalama Contracts, Metalama Caching, and other ready-made aspects currently in development.
 
-Explore <xref:aspect-configuration> for an in-depth guide.
+For details, see <xref:aspect-configuration>.
 
 ### Metalama Contracts
 
@@ -42,13 +42,13 @@ Another highlight in v2023.4 is the stabilization of Metalama Caching, an open-s
 
 Metalama Caching, a port of the battle-tested PostSharp Caching, has been overhauled to align with contemporary coding practices, including dependency injection, an immutability-centric approach for initialization, and the latest C# 11 features.
 
-Dive into <xref:caching> for further insights.
+For details, see <xref:caching>.
 
 ### Memoization
 
 Memoization is a simple yet highly efficient form of caching applicable to computed properties and parameterless methods. Unlike the key-value store approach of Metalama Caching, memoization stores values directly within the object itself and has no concept of a caching key whatsoever.
 
-Consult <xref:memoization> for detailed information.
+For details, see <xref:memoization>.
 
 ### Observability (preview)
 
@@ -70,7 +70,7 @@ We are releasing a preview of our <xref:Metalama.Patterns.Observability.Observab
 
 ## Breaking changes
 
-We continue to introduce low-impact breaking changes in the compile-time API, as we believe the platform is too young to enforce a strict forward-compatibility policy.
+We continue to introduce low-impact breaking changes in the compile-time API because the platform is too young to enforce a strict forward-compatibility policy.
 
 * The `ContractAspect.Direction` property has become the <xref:Metalama.Framework.Aspects.ContractAspect.GetDefinedDirection*> method.
 * The `IConditionallyInheritableAspect.IsInheritable` property has become the <xref:Metalama.Framework.Aspects.IConditionallyInheritableAspect.IsInheritable*> method.
@@ -78,3 +78,6 @@ We continue to introduce low-impact breaking changes in the compile-time API, as
   * The <xref:Metalama.Extensions.DependencyInjection.DependencyProperties> record constructor has changed.
   * The framework is now configured with the new hierarchical options framework. The `DependencyInjectionOptions` is now internal. The new configuration public API is the <xref:Metalama.Extensions.DependencyInjection.DependencyInjectionExtensions.ConfigureDependencyInjection*> extension method.
 * For external namespaces, the <xref:Metalama.Framework.Code.IDeclaration.ContainingDeclaration> of the namespace now returns the declaring assembly instead of the current compilation.
+
+> [!div class="see-also"]
+> <xref:release-notes>

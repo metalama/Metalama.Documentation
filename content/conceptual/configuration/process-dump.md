@@ -1,8 +1,8 @@
 ---
 uid: process-dump
 level: 200
-summary: "The document provides a step-by-step guide on how to create and share a process dump for troubleshooting issues with Metalama, including warnings about potential confidentiality of information."
-keywords: "Metalama issues, troubleshooting, process dump, confidentiality, Metalama command-line tool, dotnet dump tool, diagnostics.json, process crash, process dump collection, upload process dump."
+summary: "This article explains how to create and share a process dump for troubleshooting Metalama issues, including warnings about potential confidentiality of information."
+keywords: "Metalama issues, troubleshooting, process dump, confidentiality, Metalama command-line tool, dotnet dump tool, diagnostics.json, process crash, process dump collection, upload process dump"
 created-date: 2023-01-11
 modified-date: 2025-11-30
 ---
@@ -16,7 +16,7 @@ If you're encountering issues with Metalama, our support team might request a pr
 >
 > Process dumps could include a copy of your source code. While we treat process dumps as confidential material, your company might not permit you to send us a process dump without management approval.
 
-## Step 1. Install the Metalama Command-Line Tool
+## Step 1. Install the Metalama command-line tool
 
 Install the `metalama` command-line tool following the instructions in <xref:dotnet-tool>.
 
@@ -36,16 +36,16 @@ Run the command:
 metalama config edit diagnostics
 ```
 
-This command should open a `diagnostics.json` file in your default editor.
+This command opens a `diagnostics.json` file in your default editor.
 
-The `miniDump/processes` section lists processes for which process dumps need to be collected. The values are `false` by default. Set the values to `true` if you wish to collect the process dumps of the following processes if they crash:
+The `miniDump/processes` section lists processes for which process dumps need to be collected. The values are `false` by default. Set the values to `true` to collect process dumps of these processes if they crash:
 
-* `Compiler`: the compile-time process.
-* `Rider`: the design-time Roslyn process running under Rider.
-* `DevEnv`: the UI process of Visual Studio (note that there is no aspect code running in this process).
-* `RoslynCodeAnalysisService`: the design-time Roslyn process running under Visual Studio (this is where the aspect code runs).
+* `Compiler`: The compile-time process.
+* `Rider`: The design-time Roslyn process running under Rider.
+* `DevEnv`: The UI process of Visual Studio. No aspect code runs in this process.
+* `RoslynCodeAnalysisService`: The design-time Roslyn process running under Visual Studio, where aspect code runs.
 
-In the example below, Metalama is set up to capture a process dump for the compiler process.
+In this example, Metalama is set up to capture a process dump for the compiler process.
 
 ```json
 {
@@ -82,8 +82,7 @@ Perform the actions that cause the issue.
 
 ## Step 5. Upload the process dump to an online drive
 
-You will find process dumps in the `%TEMP%\Metalama\CrashReports` directory with the extension `*.dmp.gz`.
-Upload this file to an online storage service like OneDrive.
+Find process dumps in the `%TEMP%\Metalama\CrashReports` directory with the extension `*.dmp.gz`. Upload this file to an online storage service like OneDrive.
 
 ## Step 6. Send us the URL through a private channel
 

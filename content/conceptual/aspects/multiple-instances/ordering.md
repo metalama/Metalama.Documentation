@@ -18,27 +18,27 @@ When you define multiple aspect classes, execution order becomes critical.
 > [!NOTE]
 > Defining the execution order is the primary responsibility of the aspect library author, not the users of the aspect library. Aspect libraries that know about each other should set their execution order properly to avoid user confusion.
 
-Each aspect library should define the execution order of the aspects it introduces. This order should consider not only other aspects within the same library but also aspects defined in referenced aspect libraries.
+Each aspect library should define the execution order of the aspects it introduces. This order should consider not only aspects within the same library but also aspects defined in referenced aspect libraries.
 
 When a project employs two unrelated aspect libraries or contains aspect classes, it must define the ordering within the project itself.
 
 ### Order of application versus order of execution
 
-Metalama adheres to the "matryoshka" model: your source code is the innermost doll, and aspects are added _around_ it. The fully compiled code, inclusive of all aspects, resembles a fully assembled matryoshka. Executing a method is akin to disassembling the matryoshka: you commence with the outermost shell and progress to the original implementation.
+Metalama adheres to the "matryoshka" model: your source code is the innermost doll, and aspects are added _around_ it. The fully compiled code, including all aspects, resembles a fully assembled matryoshka. Executing a method is like disassembling the matryoshka: you start with the outermost shell and progress to the original implementation.
 
 ![Matryoshka dolls illustrating the layered aspect model](../matryoshka.png "CC BY-SA 3.0 by Wikipedia user Fanghong")
 
-Remember that while Metalama, at _build time_, constructs the matryoshka from the inside out, at _run time_ the code is executed from the outside in; in other words, the source code is executed _last_.
+Remember that while Metalama, at _build time_, constructs the matryoshka from the inside out, at _run time_, the code is executed from the outside in—in other words, the source code is executed _last_.
 
 Therefore, the build-time order of applying aspects and the run-time order of executing aspects are usually _opposite_.
 
 ## Specifying the execution order
 
-By default, aspects execute in alphabetical order at run time. This order is not intended to be correct but at least it is deterministic.
+By default, aspects execute in alphabetical order at run time. This order isn't intended to be correct, but at least it's deterministic.
 
-You must define the execution order using the <xref:Metalama.Framework.Aspects.AspectOrderAttribute> assembly-level custom attribute. The order of the aspect classes in the attribute corresponds to their execution order. To avoid ambiguities, you must explicitly supply the <xref:Metalama.Framework.Aspects.AspectOrderDirection> value (`RunTime` or `CompileTime`) for which you are specifying the aspect order.
+Define the execution order using the <xref:Metalama.Framework.Aspects.AspectOrderAttribute> assembly-level custom attribute. The order of the aspect classes in the attribute corresponds to their execution order. To avoid ambiguities, you must explicitly supply the <xref:Metalama.Framework.Aspects.AspectOrderDirection> value (`RunTime` or `CompileTime`) for which you're specifying the aspect order.
 
-The two following snippets are equivalent:
+The following two snippets are equivalent:
 
 ```cs
 using Metalama.Framework.Aspects;
@@ -50,7 +50,7 @@ using Metalama.Framework.Aspects;
 [assembly: AspectOrder( AspectOrderDirection.CompileTime, typeof(Aspect3), typeof(Aspect2), typeof(Aspect1))]
 ```
 
-This custom attribute defines the run-time execution order:
+These custom attributes define the run-time execution order:
 
 ```mermaid
 flowchart LR
@@ -74,12 +74,12 @@ using Metalama.Framework.Aspects;
 
 These two attributes define the following relationships:
 
-This is akin to mathematics: if we have `a < b` and `b < c`, then we have `a < c`, and the ordered sequence is `{a, b, c}`.
+This is like mathematics: if we have `a < b` and `b < c`, then we have `a < c`, and the ordered sequence is `{a, b, c}`.
 
-If you specify conflicting relationships or import an aspect library that defines a conflicting order, Metalama will emit a compilation error.
+If you specify conflicting relationships or import an aspect library that defines a conflicting order, Metalama emits a compilation error.
 
 > [!NOTE]
-> Metalama will merge all `[assembly: AspectOrder(...)]` attributes that it finds not only in the current project but also in all referenced projects or libraries. Therefore, you don't need to repeat the `[assembly: AspectOrder(...)]` attributes in all projects that use aspects. It is sufficient to define them in projects that define aspects.
+> Metalama merges all `[assembly: AspectOrder(...)]` attributes that it finds not only in the current project but also in all referenced projects or libraries. Therefore, you don't need to repeat the `[assembly: AspectOrder(...)]` attributes in all projects that use aspects. It's sufficient to define them in projects that define aspects.
 
 ### Inherited aspects
 
@@ -104,9 +104,9 @@ using Metalama.Framework.Aspects;
 [assembly: AspectOrder( AspectOrderDirection.RunTime, typeof(CacheAspect), typeof(ExceptionHandlingAspect))]
 ```
 
-We don't explicitly order concrete aspect classes, so alphabetical ordering will automatically apply.
+We don't explicitly order concrete aspect classes, so alphabetical ordering automatically applies.
 
-The resulting run-time aspect order will be the following:
+The resulting run-time aspect order is as follows:
 
 ```mermaid
 flowchart LR
@@ -120,7 +120,7 @@ To disable this behavior, set the <xref:Metalama.Framework.Aspects.AspectOrderAt
 
 Under the hood, Metalama performs a [topological sort](https://en.wikipedia.org/wiki/Topological_sorting) on a graph composed of all relationships found in the current project and all its dependencies.
 
-When a pair of aspects don't have any specific ordering relationship, from any source, Metalama falls back to _alphabetical_ ordering to avoid any non-determinism.
+When a pair of aspects don't have any specific ordering relationship from any source, Metalama falls back to _alphabetical_ ordering to avoid non-determinism.
 
 ### Example
 

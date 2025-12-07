@@ -1,8 +1,8 @@
 ---
 uid: aspect-configuration
-summary: "The document discusses the benefits of implementing a configuration for aspects in a project, such as centralized aspect options and improved run-time performance. It also mentions two mechanisms for configuration: the configuration API and MSBuild properties."
+summary: "Making aspects configurable allows centralized aspect options and improved run-time performance through the configuration API and MSBuild properties."
 level: 200
-keywords: "aspect configuration, centralized aspect options, configuration API, MSBuild properties,compile-time options, custom attribute"
+keywords: "aspect configuration, centralized aspect options, configuration API, MSBuild properties, compile-time options, custom attribute"
 created-date: 2024-07-22
 modified-date: 2025-11-30
 ---
@@ -13,12 +13,12 @@ Complex and widely-used aspects often require a centralized, project-wide method
 
 * **Centralized aspect options**: A configuration API allows the entire project, namespaces, or class families to be configured from a single location. Without a configuration API, users must supply the configuration each time a custom attribute is used.
 
-* **Run-time performance**: Considering compile-time options, your aspect can generate optimal run-time code, resulting in higher run-time performance of your application.
+* **Run-time performance**: When you consider compile-time options, your aspect can generate optimal run-time code for higher run-time performance.
 
-There are two complementary mechanisms for configuration: the configuration API and MSBuild properties.
+Metalama provides two complementary mechanisms for configuration: the configuration API and MSBuild properties.
 
 > [!NOTE]
-> Compile-time configuration has significantly changed with Metalama 2023.4. If you are looking for the previous configuration API, see <xref:exposing-configuration-before-2023-4>
+> Compile-time configuration has significantly changed with Metalama 2023.4. If you're looking for the previous configuration API, see <xref:exposing-configuration-before-2023-4>.
 
 ## In this chapter
 

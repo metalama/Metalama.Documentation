@@ -1,14 +1,15 @@
 ---
 uid: extensions-api
-summary: "The source code for the Extensions API is available on GitHub under the MIT license."
+summary: "Additional features built on the Metalama.Framework public API, including architecture validation, code fixes, and dependency injection."
 keywords: "Metalama extensions, architecture validation, code fixes, dependency injection, metrics, multicast"
 created-date: 2023-01-26
 modified-date: 2025-11-30
+level: 200
 ---
 
 # Extensions API
 
-Extensions are additional features built on the <xref:Metalama.Framework> public API. These extensions provide reusable functionality not specific to individual aspects.
+These extensions provide additional features built on the <xref:Metalama.Framework> public API, offering reusable functionality not specific to individual aspects.
 
 | Namespace                             | Description                                                                                                                                                     |
 |---------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|

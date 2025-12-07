@@ -15,11 +15,11 @@ When multiple instances of the same aspect type are applied to the same declarat
 
 Multiple instances of the same aspect type can be applied to a declaration through various sources:
 
-1. Custom attribute: an aspect applied directly via an attribute like `[MyAspect]`. Multiple custom attributes appear as different aspect instances.
-2. Fabrics: an aspect added programmatically by a fabric.
-3. Child aspects: an aspect added by another aspect using the <xref:Metalama.Framework.Aspects.IAspectBuilder`1.Outbound> property.
-4. Required aspects: an aspect added by another aspect using the `builder.RequireAspect` method.
-5. Inherited aspects: an aspect inherited from a base class or interface when marked with <xref:Metalama.Framework.Aspects.InheritableAttribute>.
+1. Custom attribute: An aspect applied directly via an attribute like `[MyAspect]`. Multiple custom attributes appear as different aspect instances.
+2. Fabrics: An aspect added programmatically by a fabric.
+3. Child aspects: An aspect added by another aspect using the <xref:Metalama.Framework.Aspects.IAspectBuilder`1.Outbound> property.
+4. Required aspects: An aspect added by another aspect using the `builder.RequireAspect` method.
+5. Inherited aspects: An aspect inherited from a base class or interface when marked with <xref:Metalama.Framework.Aspects.InheritableAttribute>.
 
 When the same aspect type is applied from multiple sources, or multiple times from the same source, Metalama must determine which instance to execute.
 
@@ -59,7 +59,7 @@ The following example demonstrates a logging aspect that merges categories from 
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/MultipleInstances.cs tabs="aspect,fabric,target,transformed"]
 
-In this example, the `PlaceOrder` method has two `[Log]` instances: one from the custom attribute with Category="Orders" and one from the fabric with Category="Monitoring". The aspect merges both categories, resulting in "[Monitoring, Orders]" in the log output. The `GetOrderStatus` method has only one instance from the fabric, showing just "[Monitoring]".
+In this example, the `PlaceOrder` method has two `[Log]` instances: one from the custom attribute with `Category="Orders"`, and one from the fabric with `Category="Monitoring"`. The aspect merges both categories, resulting in `[Monitoring, Orders]` in the log output. The `GetOrderStatus` method has only one instance from the fabric, showing just `[Monitoring]`.
 
 ### Reporting warnings on duplicates
 
@@ -71,14 +71,14 @@ You can warn users when they've applied the same aspect multiple times unintenti
 
 Don't confuse <xref:Metalama.Framework.Aspects.IAspectInstance.SecondaryInstances> with <xref:Metalama.Framework.Aspects.IAspectPredecessor.Predecessors>:
 
-- SecondaryInstances are other instances of the _same_ aspect type on the _same_ target. These are "siblings."
-- Predecessors are the artifacts (attributes, fabrics, parent aspects) that _created_ this aspect instance. These are "parents."
+- `SecondaryInstances` are other instances of the _same_ aspect type on the _same_ target. These are "siblings."
+- `Predecessors` are the artifacts (attributes, fabrics, parent aspects) that _created_ this aspect instance. These are "parents."
 
 For example, if `[ParentAspect]` adds a child `[ChildAspect]` to a method, and you also apply `[ChildAspect]` via a custom attribute:
 
-- The custom attribute instance is the _primary_ (higher priority).
-- The child aspect instance is a _secondary instance_.
-- The _predecessor_ of the child aspect instance is `[ParentAspect]`.
+- The custom attribute instance is the _primary_ (higher priority)
+- The child aspect instance is a _secondary instance_
+- The _predecessor_ of the child aspect instance is `[ParentAspect]`
 
 > [!div class="see-also"]
 > <xref:ordering-aspects>
@@ -89,7 +89,7 @@ For example, if `[ParentAspect]` adds a child `[ChildAspect]` to a method, and y
 
 ## Excluding aspects from specific targets
 
-In some cases, you may want to prevent an aspect from being applied entirely rather than handling multiple instances.
+In some cases, you may want to prevent an aspect from being applied entirely, rather than handling multiple instances.
 
 To completely prevent an aspect from being applied to a specific declaration (regardless of fabrics or other sources), use the built-in <xref:Metalama.Framework.Aspects.ExcludeAspectAttribute> attribute:
 

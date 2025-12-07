@@ -1,14 +1,15 @@
 ---
 uid: code-api
-summary: "This namespace defines the compile-time representation of the code model."
-keywords: "Metalama Framework, API documentation, creating aspects, managing aspects, source code representation, code fixes, diagnostics, eligibility, project model, runtime classes"
+summary: "Compile-time representation of the code model, providing access to declarations, types, and code structure during aspect execution."
+keywords: "Metalama Framework, code model, declarations, types, IDeclaration, IType, IMethod, type system, syntax builders, invokers"
 created-date: 2023-01-26
 modified-date: 2025-11-30
+level: 200
 ---
 
-# Code Model API documentation
+# Code model API
 
-These namespaces define the compile-time representation of the code model, providing access to declarations, types, and code structure during aspect execution.
+These namespaces define the compile-time code model, providing access to declarations, types, and code structure during aspect execution.
 
 | Namespace                             | Description                                                                                                                                                     |
 |---------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|

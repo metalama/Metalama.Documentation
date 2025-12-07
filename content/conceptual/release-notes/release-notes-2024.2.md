@@ -1,20 +1,18 @@
 ---
 uid: release-notes-2024.2
-summary: ""
+summary: "Metalama 2024.2 introduces type introduction, finalizes Metalama.Patterns.Observability and Metalama.Patterns.Wpf packages, and includes dozens of improvements to the framework."
 keywords: "Metalama 2024.2, release notes"
 ---
 
 # Metalama 2024.2
 
-Metalama 2024.2 has two focal points. The first is the ability to introduce classes, which closes the biggest gap with Roslyn source generators and finally makes it possible to implement patterns like memento or enum view-model. The second priority is to finalize and document the `Metalama.Patterns.Observability` and `Metalama.Patterns.Wpf` packages.
+Metalama 2024.2 has two focal points: the ability to introduce classes and the finalization of the `Metalama.Patterns.Observability` and `Metalama.Patterns.Wpf` packages.
 
-We had to make dozens of smaller improvements to the framework to reach these objectives, and they will benefit everyone.
-
-Here is a detailed list.
+Introducing classes closes the biggest gap with Roslyn source generators and makes it possible to implement patterns like memento or enum view-model. Reaching these objectives required dozens of smaller framework improvements that benefit everyone.
 
 ## Generation of classes
 
-It is now possible to introduce (i.e., generate) whole classes by using the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceClass*?text=AdviserExtensions.IntroduceClass> method. This method returns an <xref:Metalama.Framework.Aspects.IAdviser`1>`<INamedType>`, which you can then use to add members to the new type.
+You can now introduce (generate) whole classes using the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceClass*?text=AdviserExtensions.IntroduceClass> method. This method returns an <xref:Metalama.Framework.Aspects.IAdviser`1>`<INamedType>`, which you can use to add members to the new type.
 
 For details, see <xref:introducing-types>.
 
@@ -22,9 +20,9 @@ For details, see <xref:introducing-types>.
 
 You can now introduce a constructor into an existing or new type thanks to the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceConstructor*?text=AdviserExtensions.IntroduceConstructor> method.
 
-You can also override any constructor using a new overload of the <xref:Metalama.Framework.Aspects.AdviserExtensions.Override*> method.
+You can override any constructor using a new overload of the <xref:Metalama.Framework.Aspects.AdviserExtensions.Override*> method.
 
-## Metalama.Patterns.Observability is Generally Available
+## Metalama.Patterns.Observability is generally available
 
 The `Metalama.Patterns.Observability` package is now stable and fully supported.
 
@@ -41,7 +39,7 @@ Where competing solutions stop at automatic properties, our implementation suppo
 
 For details, see <xref:observability>.
 
-## Metalama.Patterns.Wpf is Generally Available
+## Metalama.Patterns.Wpf is generally available
 
 The `Metalama.Patterns.Wpf` package (formerly named `Metalama.Patterns.Xaml`) is now stable and fully supported.
 
@@ -57,7 +55,7 @@ For details, see <xref:immutability>.
 
 ## Improvements in fabrics and IAspectReceiver
 
-* The <xref:Metalama.Framework.Fabrics.IAmender`1.Outbound?text=IAmender.Outbound> property is now redundant and has been marked as `[Obsolete]`. The <xref:Metalama.Framework.Fabrics.IAmender`1> interface now directly derives from `IAspectReceiver<T>` (now <xref:Metalama.Framework.Fabrics.IQuery`1>) instead of exposing it on the <xref:Metalama.Framework.Fabrics.IAmender`1.Outbound> property. The use of the <xref:Metalama.Framework.Aspects.IAspectBuilder`1.Outbound> property is still required for <xref:Metalama.Framework.Aspects.IAspectBuilder`1>.
+* The <xref:Metalama.Framework.Fabrics.IAmender`1.Outbound?text=IAmender.Outbound> property is now redundant and has been marked as `[Obsolete]`. The <xref:Metalama.Framework.Fabrics.IAmender`1> interface now derives directly from `IAspectReceiver<T>` (now <xref:Metalama.Framework.Fabrics.IQuery`1>) instead of exposing it on the <xref:Metalama.Framework.Fabrics.IAmender`1.Outbound> property. The <xref:Metalama.Framework.Aspects.IAspectBuilder`1.Outbound> property is still required for <xref:Metalama.Framework.Aspects.IAspectBuilder`1>.
 * New method <xref:Metalama.Framework.Fabrics.IQuery`1.Tag*?text=IQuery.Tag>: adds an arbitrary tag that is carried on and available for all lambdas on the right side of the `Tag` method for new overloads of all (or most) `IAspectReceiver` methods.
 * New method <xref:Metalama.Framework.Fabrics.IQuery`1.SelectTypes*?text=IQuery.SelectTypes>: gets all types in the current context (typically namespace, compilation, or current type).
 * New method <xref:Metalama.Framework.Fabrics.IQuery`1.SelectTypesDerivedFrom*?text=IQuery.SelectTypesDerivedFrom>: gets all types in the current context derived from a given type.
@@ -123,7 +121,7 @@ The following changes improve your ability to generate code with Metalama:
 
 We are finally addressing the problem where the <xref:Metalama.Patterns.Contracts.PositiveAttribute?text=[Positive]>, <xref:Metalama.Patterns.Contracts.NegativeAttribute?text=[Negative]>, <xref:Metalama.Patterns.Contracts.LessThanAttribute?text=[LessThan]> and <xref:Metalama.Patterns.Contracts.GreaterThanAttribute?text=[GreaterThan]> aspects had a non-standard behavior because they behave as if the inequality were _unstrict_ while the standard interpretation is _strict_. This mistake was performed in PostSharp back in 2013 and dragged until now for backward compatibility reasons, but we eventually decided to address it.
 
-Starting from Metalama 2024.2, using any of the <xref:Metalama.Patterns.Contracts.PositiveAttribute?text=[Positive]>, <xref:Metalama.Patterns.Contracts.NegativeAttribute?text=[Negative]>, <xref:Metalama.Patterns.Contracts.LessThanAttribute?text=[LessThan]> or <xref:Metalama.Patterns.Contracts.GreaterThanAttribute?text=[GreaterThan]> attributes will report a warning saying that the strictness of the inequality is ambiguous. You've two options to resolve the warning:
+Starting from Metalama 2024.2, using any of the <xref:Metalama.Patterns.Contracts.PositiveAttribute?text=[Positive]>, <xref:Metalama.Patterns.Contracts.NegativeAttribute?text=[Negative]>, <xref:Metalama.Patterns.Contracts.LessThanAttribute?text=[LessThan]>, or <xref:Metalama.Patterns.Contracts.GreaterThanAttribute?text=[GreaterThan]> attributes reports a warning that the strictness of the inequality is ambiguous. You have two options to resolve the warning:
 
 * Use one of the variants where the strictness is made explicit:
   * Strict: <xref:Metalama.Patterns.Contracts.StrictlyPositiveAttribute?text=[StrictlyPositive]>, <xref:Metalama.Patterns.Contracts.StrictlyNegativeAttribute?text=[StrictlyNegative]>, <xref:Metalama.Patterns.Contracts.StrictlyLessThanAttribute?text=[StrictlyLessThan]> and <xref:Metalama.Patterns.Contracts.StrictlyGreaterThanAttribute?text=[StrictlyGreaterThan]>
@@ -168,6 +166,9 @@ For details, see <xref:creating-logs>.
 * `Metalama.Patterns.Contracts`: Some virtual methods of the <xref:Metalama.Patterns.Contracts.RangeAttribute> and <xref:Metalama.Patterns.Contracts.ContractTemplates> classes have changed; overrides must be adapted.
 
 * `Metalama.Patterns.Caching`:
-  * CachingBackend.Clear() no longer raises the `ItemRemoved` event.
+  * `CachingBackend.Clear()` no longer raises the `ItemRemoved` event.
   * The `CacheValue` class has been replaced by the existing `CacheItem` class.
   * The `ICachingSerializer` interface has been refactored to work with `BinaryReader` and `BinaryWriter`.
+
+> [!div class="see-also"]
+> <xref:release-notes>

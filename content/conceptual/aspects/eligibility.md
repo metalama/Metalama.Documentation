@@ -9,13 +9,13 @@ modified-date: 2025-11-30
 
 # Defining the eligibility of aspects
 
-Most aspects are designed and implemented for specific kinds of target declarations. For instance, you may decide that your caching aspect won't support `void` methods or methods with `out` or `ref` parameters. As the aspect author, it's essential to ensure that users of your aspect apply it only to the declarations you expect. Otherwise, the aspect may cause build errors with confusing messages or even incorrect run-time behavior.
+Most aspects are designed and implemented for specific kinds of target declarations. For instance, you may decide that your caching aspect won't support `void` methods or methods with `out` or `ref` parameters. As the aspect author, ensure that users of your aspect apply it only to the declarations you expect. Otherwise, the aspect may cause build errors with confusing messages or even incorrect run-time behavior.
 
 ## Benefits
 
 Defining the eligibility of an aspect provides the following benefits:
 
-* **Predictable behavior**: Applying an aspect to a declaration for which the aspect was not designed or tested can be a very confusing experience for your users due to error messages they may not understand. As the aspect author, it's your responsibility to ensure that using your aspect is easy and predictable.
+* **Predictable behavior**: Applying an aspect to a declaration for which the aspect wasn't designed or tested can be confusing for your users due to error messages they may not understand. As the aspect author, ensure that using your aspect is easy and predictable.
 * **Standard error messages**: All eligibility error messages are standard, making them easier to understand for aspect users.
 * **Relevant suggestions in the IDE**: The IDE will only propose code actions in the refactoring menu for eligible declarations.
 
@@ -75,11 +75,11 @@ To convert an <xref:Metalama.Framework.Eligibility.IEligibilityBuilder`1> of one
 
 Alternatively, when you don't want this implicit condition, you can use `builder.Convert().When<T>()`. This is equivalent to using an <xref:Metalama.Framework.Eligibility.EligibilityExtensions.If*> followed by a `Convert().To<T>()`.
 
-## When to emit custom errors instead?
+## When to emit custom errors instead
 
 It may be tempting to add an eligibility condition for every requirement of your aspect instead of emitting a custom error message. However, this may be confusing for the user.
 
-As a rule of thumb, you should use eligibility to define those declarations for which it makes sense to apply the aspect or not and use error messages when the aspect makes sense on the declaration, but some contingency may prevent the aspect from being used. This is where you should report errors.
+As a rule of thumb, use eligibility to define those declarations for which it makes sense to apply the aspect or not and use error messages when the aspect makes sense on the declaration, but some contingency may prevent the aspect from being used. This is where you should report errors.
 
 For instance:
 

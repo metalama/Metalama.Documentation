@@ -9,15 +9,15 @@ modified-date: 2025-11-30
 
 # Creating simple aspects
 
-In <xref:using-metalama>, you learned how to utilize pre-built aspects in your project. This section introduces you to writing your first aspect. Initially, we'll concentrate on simple tasks and features. Subsequent sections in this chapter will go into more intricate details.
+In <xref:using-metalama>, you learned how to use pre-built aspects in your project. This section shows you how to write your first aspect. We'll focus on simple tasks and features. Later sections cover more advanced details.
 
 ## In this section
 
 | Article | Description |
 |---------|-------------|
-| <xref:simple-override-method> | This article demonstrates how to override a method's implementation with an aspect.
-| <xref:simple-override-property> | This article illustrates how to override a property's implementation or encapsulate a field with a property using an aspect.
-| <xref:simple-contracts> | This article elucidates how to validate the value of fields, properties, or parameters.
+| <xref:simple-override-method> | Override a method's implementation with an aspect.
+| <xref:simple-override-property> | Override a property's implementation or encapsulate a field with a property.
+| <xref:simple-contracts> | Validate the value of fields, properties, or parameters.
 
 > [!div class="see-also"]
 > <xref:aspects>

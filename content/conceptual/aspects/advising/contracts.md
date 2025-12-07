@@ -15,7 +15,7 @@ This article covers more advanced scenarios.
 
 ## Accessing the metadata of the field, property, or parameter being validated
 
-You can access your template code's context using the following meta APIs:
+You can access the context of your template code using the following meta APIs:
 
 - `meta.Target.Declaration` returns the target parameter, field, or property as an <xref:Metalama.Framework.Code.IDeclaration>.
 - `meta.Target.Expression` returns the target parameter, field, or property as an <xref:Metalama.Framework.Code.IExpression>. Use this to access the type of the target via `meta.Target.Expression.Type`.
@@ -42,7 +42,7 @@ For information on customizing eligibility for different contract directions tha
 
 ### Example: NotNull for output parameters and return values
 
-We previously encountered this aspect in <xref:simple-contracts>. This example refines the behavior: for the _input_ data flow, an `ArgumentNullException` is thrown, but for the output flow, a `PostConditionFailedException` is thrown. Notice how we apply the aspect to 'out' parameters and to return values.
+We previously encountered this aspect in <xref:simple-contracts>. This example refines the behavior: for the _input_ data flow, an `ArgumentNullException` is thrown, but for the output flow, a `PostConditionFailedException` is thrown. Notice how we apply the aspect to `out` parameters and to return values.
 
 [!metalama-test  ~/code/Metalama.Documentation.SampleCode.AspectFramework/NotNull.cs name="NotNull"]
 
@@ -53,7 +53,7 @@ Like any advice, you can add a contract to a parameter, field, or property from 
 > [!NOTE]
 > When possible, provide all contracts to the same method from a single aspect. This approach yields better compile-time performance than using several aspects.
 
-### Example: automatic NotNull
+### Example: Automatic NotNull
 
 The following snippet demonstrates how to automatically add precondition checks for all situations in the public API where a non-nullable parameter could receive a null value from a consumer.
 

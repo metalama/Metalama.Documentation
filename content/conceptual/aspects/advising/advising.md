@@ -9,23 +9,23 @@ modified-date: 2025-11-30
 
 # Transforming code
 
-In <xref:simple-aspects>, you learned how to build simple aspects composed of a single transformation (or advice). This section introduces more advanced scenarios and explains how to create aspects composed of multiple pieces of advice. However, before we go deeper into these topics, we need to familiarize you with a few additional concepts.
+In <xref:simple-aspects>, you learned how to build simple aspects composed of a single transformation (or advice). This section introduces more advanced scenarios and explains how to create aspects composed of multiple pieces of advice. Before diving deeper into these topics, familiarize yourself with a few additional concepts.
 
 | Article | Description |
 |----|----|
-| <xref:advising-concepts> | This article elucidates essential concepts. We recommend reading this article first before proceeding to the article that covers the advice you need. |
-| <xref:overriding-methods> | This article introduces advanced techniques for overriding methods. It is the continuation of <xref:simple-override-method>. |
-| <xref:overriding-fields-or-properties> | This article offers advanced techniques for overriding fields and properties. It is the continuation of <xref:simple-override-property>. |
-| <xref:overriding-events> | This article demonstrates techniques for overriding events. |
-| <xref:contracts> | This article introduces advanced techniques for validating the values of fields, properties, or parameters using contracts. It is the continuation of <xref:simple-contracts>. |
-| <xref:introducing-members> | This article explains how to introduce new members to an existing type using aspects. |
-| <xref:implementing-interfaces> | This article details how to make an existing type implement a new interface using aspects. |
-| <xref:introducing-types> | This article explains how to introduce new types (both top-level types or nested types). |
-| <xref:initializers> | This article describes how to add initialization logic to constructors. |
-| <xref:introducing-constructor-parameters> | This article explains how to add new parameters to constructors and retrieve their value from constructors of derived classes. |
-| <xref:overriding-constructors> | This article explains how to override constructors. |
-| <xref:adding-attributes> | This article explains how to add or remove custom attributes. |
-| <xref:sharing-state-with-advice> | This article discusses how the `BuildAspect` method can pass parameters or state to the templates. |
+| <xref:advising-concepts> | Explains essential concepts. We recommend reading this article first. |
+| <xref:overriding-methods> | Advanced techniques for overriding methods. Continuation of <xref:simple-override-method>. |
+| <xref:overriding-fields-or-properties> | Advanced techniques for overriding fields and properties. Continuation of <xref:simple-override-property>. |
+| <xref:overriding-events> | Techniques for overriding events. |
+| <xref:contracts> | Advanced techniques for validating field, property, or parameter values using contracts. Continuation of <xref:simple-contracts>. |
+| <xref:introducing-members> | Explains how to introduce new members to an existing type using aspects. |
+| <xref:implementing-interfaces> | Details how to make an existing type implement a new interface using aspects. |
+| <xref:introducing-types> | Explains how to introduce new types (both top-level and nested types). |
+| <xref:initializers> | Describes how to add initialization logic to constructors. |
+| <xref:introducing-constructor-parameters> | Explains how to add new parameters to constructors and retrieve their value from constructors of derived classes. |
+| <xref:overriding-constructors> | Explains how to override constructors. |
+| <xref:adding-attributes> | Explains how to add or remove custom attributes. |
+| <xref:sharing-state-with-advice> | Discusses how the `BuildAspect` method can pass parameters or state to templates. |
 
 > [!div class="see-also"]
 > <xref:simple-aspects>

@@ -11,11 +11,11 @@ modified-date: 2025-11-30
 
 There are two types of configuration options: compile-time and run-time. Compile-time options affect code generation and must be configured using a fabric. Run-time settings, on the other hand, must be configured during application startup.
 
-Let's begin with run-time settings.
+Begin with run-time settings.
 
 ## Changing the validation logic
 
-Some contracts utilize flexible run-time settings for their validation. These settings are modifiable properties of the <xref:Metalama.Patterns.Contracts.ContractHelpers> class.
+Some contracts use flexible run-time settings for their validation. These settings are modifiable properties of the <xref:Metalama.Patterns.Contracts.ContractHelpers> class.
 
 | Aspect | Property | Description |
 |-----|----|-----|
@@ -26,7 +26,7 @@ Some contracts utilize flexible run-time settings for their validation. These se
 
 These properties can be set during the initialization sequence of your application, and any changes will affect the entire application.
 
-Currently, there is no method to modify these settings for a specific namespace or type within your application.
+There's currently no way to modify these settings for a specific namespace or type within your application.
 
 ## Changing compile-time options
 
@@ -34,7 +34,7 @@ All other configurable options are compile-time ones, represented by the <xref:M
 
 ### Enabling and disabling contracts
 
-Contracts are often only useful during the early phases of development. As the code stabilizes, they can be disabled. However, when a problem arises, it may be beneficial to re-enable them for troubleshooting.
+Contracts are often useful during the early phases of development. As the code stabilizes, you can disable them. However, when a problem arises, it may be beneficial to re-enable them for troubleshooting.
 
 The <xref:Metalama.Patterns.Contracts.ContractOptions> class provides three properties that allow you to enable or disable contracts for the entire project, or more specifically for a given namespace or type:
 
@@ -42,7 +42,7 @@ The <xref:Metalama.Patterns.Contracts.ContractOptions> class provides three prop
 - <xref:Metalama.Patterns.Contracts.ContractOptions.ArePostconditionsEnabled>
 - <xref:Metalama.Patterns.Contracts.ContractOptions.AreInvariantsEnabled>
 
-These options are enabled by default. If you disable them, the code supporting these features won't be generated.
+These options are enabled by default. When you disable them, the code supporting these features won't be generated.
 
 #### Example: disabling invariants in a namespace
 
@@ -52,7 +52,7 @@ In the example below, we have invariants in two sub-namespaces: `Invoicing` and 
 
 #### Example: disabling preconditions for a type or method
 
-The following example demonstrates granular control over contract generation. The fabric disables preconditions for the entire `DisabledService` class, and also disables them for a specific method (`UnvalidatedMethod`) in `MixedService` while leaving other methods validated.
+The following example demonstrates granular control over contract generation. The fabric disables preconditions for the entire `DisabledService` class and also disables them for a specific method (`UnvalidatedMethod`) in `MixedService` while leaving other methods validated.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Contracts/DisablePreconditions.cs]
 
@@ -64,7 +64,7 @@ By default, contract inheritance is enabled and contract direction is set to <xr
 
 The default behavior of Metalama Contracts is to generate code that throws the default .NET exception with a hard-coded error message. This default behavior is implemented by the <xref:Metalama.Patterns.Contracts.ContractTemplates> class.
 
-To customize the type of exceptions thrown or the exception messages (for instance, to localize them), override the <xref:Metalama.Patterns.Contracts.ContractTemplates> class. Follow these steps:
+To customize the type of exceptions thrown or the exception messages (for example, to localize them), override the <xref:Metalama.Patterns.Contracts.ContractTemplates> class. Follow these steps:
 
 1. Create a class derived from the <xref:Metalama.Patterns.Contracts.ContractTemplates>.
 2. Override any or all templates. You may want to refer to the original source code of the <xref:Metalama.Patterns.Contracts.ContractTemplates> class for inspiration.

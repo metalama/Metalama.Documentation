@@ -1,7 +1,7 @@
 ---
 uid: templates
 level: 200
-summary: "The document provides a guide on writing T# templates in Metalama, covering topics like template language introduction, compile-time code, dynamic code generation, and debugging."
+summary: "This document provides a guide on writing T# templates in Metalama, covering topics like template language introduction, compile-time code, dynamic code generation, and debugging."
 keywords: "T# templates, Metalama, compile-time code, dynamic code generation, debugging, template language, run-time code, System.Reflection, parameters, auxiliary templates"
 created-date: 2023-02-20
 modified-date: 2025-11-30
@@ -11,7 +11,7 @@ modified-date: 2025-11-30
 
 Code templates are the foundation of how aspects generate and transform code in Metalama. Templates are written in T#, a dialect of C# that combines compile-time logic with run-time code generation. While T# syntax is fully compatible with C#, the compilation process is different: T# code executes at compile-time to generate the C# code that will run in your application.
 
-Templates allow you to write code that analyzes your codebase at compile-time and generates new code or modifies existing code based on that analysis. This powerful mechanism enables you to automate repetitive coding patterns, enforce architectural rules, and implement cross-cutting concerns.
+Templates let you write code that analyzes your codebase at compile-time and generates new code or modifies existing code based on that analysis. This powerful mechanism enables you to automate repetitive coding patterns, enforce architectural rules, and implement cross-cutting concerns.
 
 This chapter includes the following articles:
 
@@ -97,7 +97,7 @@ This chapter includes the following articles:
             <xref:debugging-aspects>
         </td>
         <td>
-            This article provides guidance on how to debug templates.
+            This article provides guidance on debugging templates.
         </td>
     </tr>
 </table>

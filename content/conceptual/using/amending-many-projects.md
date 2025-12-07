@@ -4,12 +4,12 @@ level: 300
 summary: "The document provides instructions on how to add aspects to multiple projects in a repository using transitive project fabrics and common project fabrics, including their execution order."
 keywords: "transitive project fabrics, common project fabrics, execution order, repository, multiple projects, central location, aspect libraries, architectural rules, dependency graph, Directory.Build.props"
 created-date: 2023-03-04
-modified-date: 2025-11-30
+modified-date: 2025-12-07
 ---
 
 # Adding aspects to multiple projects
 
-If you manage a repository or a solution composed of multiple projects, you may find it beneficial to add aspects from a central location. This article outlines several methods to achieve this.
+If you manage a repository or solution with multiple projects, you may want to add aspects from a central location. This article outlines several methods to achieve this.
 
 These approaches are also applicable when configuring aspect libraries or adding architectural rules.
 
@@ -28,7 +28,7 @@ If multiple transitive project fabrics are active, they are executed in the foll
 
 Transitive dependencies are intentionally executed after compilation dependencies, allowing the latter to configure transitive dependencies before they run.
 
-### Example: central logging policy
+### Example: Central logging policy
 
 The following example shows a transitive project fabric that adds logging to all public methods. Any project that references the assembly containing this fabric automatically gets the logging aspect applied.
 
@@ -73,7 +73,7 @@ In `MySolution`, the following transitive project fabrics will be active:
 
 Another approach is to rely on the directory structure instead of the dependency graph.
 
-The concept is to write a project fabric, store it in the root directory of the repository, and automatically include this file in each project using [Directory.Build.props](https://learn.microsoft.com/en-us/visualstudio/msbuild/customize-your-build).
+The concept is to write a project fabric, store it in the root directory of the repository, and automatically include this file in each project using [Directory.Build.props](https://learn.microsoft.com/visualstudio/msbuild/customize-your-build).
 
 ### Step 1. Create a project fabric
 
@@ -102,7 +102,7 @@ See <xref:sample-shared-fabric>.
 
 ### Execution order of shared fabrics
 
-When you've multiple project fabrics in the same project, they are ordered by the following criteria:
+When you have multiple project fabrics in the same project, they're ordered by these criteria:
 
 1. Distance of the source file from the root directory: fabrics closer to the root directory are processed first.
 2. Fabric namespace.

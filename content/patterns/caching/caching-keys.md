@@ -7,7 +7,7 @@ modified-date: 2025-11-30
 ---
 # Customizing cache keys
 
-By default, the cache key of a parameter is built using the `ToString` method. However, the default implementation of the `ToString` method does not return a unique string for custom classes and structs. The default implementation of `ToString` for records is more likely to be correct. Therefore, it's essential to provide a cache key implementation for all parameter types of a cached method. This article explains several approaches.
+By default, the cache key of a parameter is built using the `ToString` method. However, the default implementation of the `ToString` method doesn't return a unique string for custom classes and structs. The default implementation of `ToString` for records is more likely to be correct. Therefore, provide a cache key implementation for all parameter types of a cached method. This article explains several approaches.
 
 ## Using the [CacheKey] aspect
 
@@ -17,7 +17,7 @@ This aspect automatically implements the <xref:Flashtrace.Formatters.IFormattabl
 
 ### Example: [CacheKey] aspect
 
-The following example demonstrates a service class `EntityService` and an entity class `Entity`. The method `EntityService.GetRelatedEntities` retrieves all entities related to a given `Entity` and is cached using the <xref:Metalama.Patterns.Caching.Aspects.CacheAttribute?text=[Cache]> aspect. Therefore, the `Entity` class is a part of the cache key. Any `Entity` is uniquely distinguished by its `Id` and `Kind` properties. We use the <xref:Metalama.Patterns.Caching.Aspects.CacheKeyAttribute?text=[CacheKey]> aspect on these properties to add these properties to the cache key. However, the `Description` property is not a part of the entity identity and does not require the aspect.
+The following example demonstrates a service class `EntityService` and an entity class `Entity`. The method `EntityService.GetRelatedEntities` retrieves all entities related to a given `Entity` and is cached using the <xref:Metalama.Patterns.Caching.Aspects.CacheAttribute?text=[Cache]> aspect. Therefore, the `Entity` class is a part of the cache key. Any `Entity` is uniquely distinguished by its `Id` and `Kind` properties. We use the <xref:Metalama.Patterns.Caching.Aspects.CacheKeyAttribute?text=[CacheKey]> aspect on these properties to add these properties to the cache key. However, the `Description` property isn't a part of the entity identity and doesn't require the aspect.
 
 You can observe how the <xref:Metalama.Patterns.Caching.Aspects.CacheKeyAttribute?text=[CacheKey]> aspect implements the <xref:Flashtrace.Formatters.IFormattable`1> interface.
 
@@ -29,7 +29,7 @@ For simple types, consider implementing the <xref:System.Object.ToString*> metho
 
 Since <xref:System.Object.ToString*> always allocates a short-lived `string`, which presents a minor performance overhead, an alternative is to implement the <xref:System.ISpanFormattable> interface. However, the optimization level of Metalama Caching is not so high that using <xref:System.ISpanFormattable> instead of <xref:System.Object.ToString*> would make a significant difference at the moment.
 
-The inconvenience of either of these approaches is that <xref:System.Object.ToString*> and <xref:System.ISpanFormattable> are typically used to create human-readable strings, which may conflict with the goal of creating cache keys. Whenever these goals are conflicting, it's better to take a different approach.
+The inconvenience of either of these approaches is that <xref:System.Object.ToString*> and <xref:System.ISpanFormattable> are typically used to create human-readable strings, which may conflict with the goal of creating cache keys. Whenever these goals conflict, take a different approach.
 
 This approach is mentioned because this is the fallback mechanism: if Metalama Caching finds no other way to generate a cache key from an object, it will first see if <xref:System.ISpanFormattable> is implemented, and, if not, it will use <xref:System.Object.ToString*>.
 
@@ -40,7 +40,7 @@ If none of the above approaches are suitable, you can manually implement the <xr
 For inspiration, see the aspect-generated code of the `[CacheKey]` example above.
 
 > [!WARNING]
-> It's a best practice to include the full type name in all generated strings. Suppose for instance you've a class family representing database entities. The cache key of each entity is the `Id` property. If you don't include the type name in the cache key, you won't be able to differentiate a `Customer` from an `Invoice` that have the same `Id`, which may cause a problem in situations where the objects are passed as parameters of the same method.
+> It's a best practice to include the full type name in all generated strings. Suppose for instance you have a class family representing database entities. The cache key of each entity is the `Id` property. If you don't include the type name in the cache key, you won't be able to differentiate a `Customer` from an `Invoice` that have the same `Id`, which may cause a problem in situations where the objects are passed as parameters of the same method.
 
 ## Implementing a formatter for a third-party type
 
@@ -63,7 +63,7 @@ Return to the code that initialized Metalama Caching by calling <xref:Metalama.P
 
 ### Example: custom formatter for FileInfo
 
-In this example, we demonstrate how to build a custom cache key formatter for the `System.IO.FileInfo` class, whose `ToString` implementation returns the file name instead of the full path and is therefore unsuitable for use in a cache key. The formatter is implemented by the `FileInfoFormatter` class, which is registered during the app initialization. Thanks to this, the `FileSystem` service can safely use `System.IO.FileInfo` in cached methods.
+In this example, we demonstrate how to build a custom cache key formatter for the `System.IO.FileInfo` class, whose `ToString` implementation returns the file name instead of the full path and is therefore unsuitable for use in a cache key. The formatter is implemented by the `FileInfoFormatter` class, which is registered during app initialization. With this, the `FileSystem` service can safely use `System.IO.FileInfo` in cached methods.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Caching/Formatter/Formatter.cs]
 
@@ -80,21 +80,21 @@ Go to the code that initialized Metalama Caching by calling <xref:Metalama.Patte
 
 ## Overriding the cache key builder
 
-The ultimate and hopefully least necessary solution to customize the cache key is to provide your own implementation of the <xref:Metalama.Patterns.Caching.Formatters.ICacheKeyBuilder> interface.
+The ultimate and least necessary solution to customize the cache key is to provide your own implementation of the <xref:Metalama.Patterns.Caching.Formatters.ICacheKeyBuilder> interface.
 
 The default implementation is the <xref:Metalama.Patterns.Caching.Formatters.CacheKeyBuilder> class. It has many `virtual` methods that you can override. It generates the cache key by appending the following items:
 
-* in case that the backend supports it, a global prefix that allows using the same caching server with several applications (see e.g. <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.KeyPrefix>).
+* In case the backend supports it, a global prefix that allows using the same caching server with several applications (see e.g. <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.KeyPrefix>)
 
-* the full name of the declaring type (including generic parameters, if any),
+* The full name of the declaring type (including generic parameters, if any)
 
-* the method name,
+* The method name
 
-* the method generic parameters, if any,
+* The method generic parameters, if any
 
-* the `this` object (unless the method is static),
+* The `this` object (unless the method is static)
 
-* a comma-separated list of all method arguments including the full type of the parameter and the formatted parameter value,
+* A comma-separated list of all method arguments including the full type of the parameter and the formatted parameter value
 
 To override the default <xref:Metalama.Patterns.Caching.Formatters.ICacheKeyBuilder> implementation:
 
@@ -108,7 +108,7 @@ To override the default <xref:Metalama.Patterns.Caching.Formatters.ICacheKeyBuil
 
 In this example, we show how to build and register a custom key builder. We chose the `XxHash128` algorithm because it has good performance and very low collision.
 
-Note that we're reusing the string-based <xref:Metalama.Patterns.Caching.Formatters.CacheKeyBuilder> implementation so that we can reuse the infrastructure described in this article. It is theoretically possible to implement a hashing string builder that does not rely on any string, but it would require us to design and implement a new solution, one that would not rely on the string-based <xref:Flashtrace.Formatters.IFormattable`1>.
+Note that we're reusing the string-based <xref:Metalama.Patterns.Caching.Formatters.CacheKeyBuilder> implementation so we can reuse the infrastructure described in this article. It's theoretically possible to implement a hashing string builder that doesn't rely on any string, but it would require us to design and implement a new solution, one that wouldn't rely on the string-based <xref:Flashtrace.Formatters.IFormattable`1>.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Caching/HashingKeyBuilder/HashingKeyBuilder.cs]
 

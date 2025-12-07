@@ -44,3 +44,4 @@
 - Metalama.Samples are a part of the documentation
 - https://doc.postsharp.net/metalama is now https://doc.metalama.net
 - in the local https service, README act as index files, i.e. "path/README.md" maps to just "path"
+- use `runtime` to mean the CLR and `run-time` to means that it executes when the program executes not during compilation

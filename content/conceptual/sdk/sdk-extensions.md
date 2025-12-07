@@ -9,12 +9,12 @@ modified-date: 2025-12-03
 
 # SDK extension projects
 
-Previous articles showed how to use `Metalama.Framework.Sdk` directly from your aspect projects. This approach is simple but has two caveats:
+Previous articles showed how to use `Metalama.Framework.Sdk` directly from your aspect projects. This approach is simple but has two drawbacks:
 
-- It exposes the `Microsoft.CodeAnalysis` package references to your project/package consumers, which are large dependencies you might want to avoid flowing to your users.
-- You can't have conditional compilation or conditional package references according to the target framework or Roslyn version.
+- It exposes the `Microsoft.CodeAnalysis` package references to your project or package consumers. These are large dependencies you might want to avoid flowing to your users.
+- You can't have conditional compilation or conditional package references based on the target framework or Roslyn version.
 
-For these situations, you can create extension assemblies.
+For these situations, create extension assemblies.
 
 ## Project structure
 
@@ -60,12 +60,12 @@ graph LR
 | **Main** | Contains aspects that use the service | `Metalama.Framework` |
 | **Package** | Bundles the extension as a NuGet package (optional) | `Metalama.Framework` |
 
-This separation ensures that:
+This separation ensures the following:
 
-- The AspectContracts project can be referenced by both the Engine and Main projects
-- The Engine project can use SDK APIs without affecting the Main project
-- The Main project loads the Engine as a Metalama extension
-- The Package project bundles everything for distribution without exposing SDK dependencies
+- The AspectContracts project can be referenced by both the Engine and Main projects.
+- The Engine project can use SDK APIs without affecting the Main project.
+- The Main project loads the Engine as a Metalama extension.
+- The Package project bundles everything for distribution without exposing SDK dependencies.
 
 > [!NOTE]
 > The AspectContracts and Engine projects must have `<MetalamaEnabled>false</MetalamaEnabled>` in their project files because they are compile-time-only projects that shouldn't be processed by Metalama.
@@ -84,8 +84,8 @@ Define your service interface:
 
 Key points:
 
-- The interface must inherit from <xref:Metalama.Framework.Services.IProjectService>
-- Mark the entire assembly with `[assembly: CompileTime]` since it will be used at compile time
+- The interface must inherit from <xref:Metalama.Framework.Services.IProjectService>.
+- Mark the entire assembly with `[assembly: CompileTime]` since it's used at compile time.
 
 ### Step 2. Create the Engine project
 
@@ -105,17 +105,17 @@ In the Engine project, create a factory class that implements <xref:Metalama.Fra
 
 Key points:
 
-- The `[assembly: ExportExtension(...)]` attribute registers the factory with Metalama
-- Use <xref:Metalama.Framework.Engine.Extensibility.ExtensionKinds.ServiceFactory> to indicate this is a service factory
-- The factory's <xref:Metalama.Framework.Engine.Services.IProjectServiceFactory.CreateServices*> method returns the service instances
+- The `[assembly: ExportExtension(...)]` attribute registers the factory with Metalama.
+- Use <xref:Metalama.Framework.Engine.Extensibility.ExtensionKinds.ServiceFactory> to indicate this is a service factory.
+- The factory's <xref:Metalama.Framework.Engine.Services.IProjectServiceFactory.CreateServices*> method returns the service instances.
 
 ### Step 4. Configure the Main project
 
-The Main project needs to:
+The Main project must:
 
-1. Reference the AspectContracts project normally (for type visibility)
-2. Load the Engine assembly as a Metalama extension
-3. Make the AspectContracts assembly available at compile time
+1. Reference the AspectContracts project normally (for type visibility).
+2. Load the Engine assembly as a Metalama extension.
+3. Make the AspectContracts assembly available at compile time.
 
 [!code-xml[](~/code/Metalama.Documentation.SampleCode.Sdk/SdkExtension/MyExtension/MyExtension.csproj)]
 
@@ -127,7 +127,7 @@ In the Main project, access the service through <xref:Metalama.Framework.Project
 
 ## Conditional compilation
 
-If you need to target different frameworks or Roslyn versions with different assemblies, include several assemblies in the package and use the `TargetFramework` and `TargetRoslynVersion` metadata on `MetalamaExtensionAssembly` to specify which build of the extension to load. This approach supports conditional compilation or different package reference sets.
+To target different frameworks or Roslyn versions with different assemblies, include several assemblies in the package and use the `TargetFramework` and `TargetRoslynVersion` metadata on `MetalamaExtensionAssembly` to specify which build of the extension to load. This approach supports conditional compilation or different package reference sets.
 
 ```xml
 <ItemGroup>
@@ -161,10 +161,10 @@ If you need to target different frameworks or Roslyn versions with different ass
 </ItemGroup>
 ```
 
-Metalama will load the assembly that matches the Roslyn version used by the compiler or the IDE. If no exact match is found, the assembly won't be loaded.
+Metalama loads the assembly that matches the Roslyn version used by the compiler or IDE. If no exact match is found, the assembly won't load.
 
 > [!WARNING]
-> When using `TargetRoslynVersion` metadata, ensure your version numbers _exactly_ matches the Roslyn versions and target frameworks that are supported by the specific Metalama build you are targeting. Metalama currently lacks a robust, forward-compatible selection mechanism for extension assemblies, and mismatched versions will cause build failures.
+> When using `TargetRoslynVersion` metadata, ensure your version numbers exactly match the Roslyn versions and target frameworks that the specific Metalama build you're targeting supports. Metalama currently lacks a robust, forward-compatible selection mechanism for extension assemblies, and mismatched versions will cause build failures.
 
 For details on `MetalamaExtensionAssembly` and `MetalamaCompileTimeAssembly`, see <xref:msbuild-properties>.
 
@@ -192,7 +192,7 @@ MyExtension.nupkg
 > [!NOTE]
 > The `metalama` folder path is arbitrary. Metalama does not impose a convention on where extension assemblies are stored in the package - only the `MetalamaExtensionAssembly` item path matters.
 
-### Creating the props file
+### Create the props file
 
 Create a `.props` file in the `build` folder that defines the `MetalamaCompileTimeAssembly` and `MetalamaExtensionAssembly` items:
 
@@ -210,21 +210,18 @@ Create a separate packaging project that includes the extension assemblies in th
 
 ## ExportExtensionAttribute vs. MetalamaPlugInAttribute
 
-The <xref:Metalama.Framework.Engine.MetalamaPlugInAttribute> attribute registers types that Metalama discovers automatically, such as aspect weavers and metric providers. This attribute only works in projects where `MetalamaEnabled=true`, meaning the project is compiled by Metalama.
+The <xref:Metalama.Framework.Engine.MetalamaPlugInAttribute> attribute registers types that Metalama discovers automatically, such as aspect weavers and metric providers. This attribute only works in projects where `MetalamaEnabled=true`, which means Metalama compiles the project.
 
-In contrast, <xref:Metalama.Framework.Engine.Extensibility.ExportExtensionAttribute> works with extension assemblies that are _not_ compiled by Metalama (i.e., `MetalamaEnabled=false`). Use this attribute when you need to export extension types such as service factories from these assemblies.
+In contrast, <xref:Metalama.Framework.Engine.Extensibility.ExportExtensionAttribute> works with extension assemblies that Metalama doesn't compile (`MetalamaEnabled=false`). Use this attribute to export extension types such as service factories from these assemblies.
 
 > [!div class="see-also"]
 >
-> **Related articles**
+> **See also**
 >
-> - <xref:sdk>
-> - <xref:aspect-weavers>
-> - <xref:custom-metrics>
-> - <xref:msbuild-properties>
->
-> **Reference**
->
-> - <xref:Metalama.Framework.Engine.Services.IProjectServiceFactory>
-> - <xref:Metalama.Framework.Engine.Extensibility.ExportExtensionAttribute>
-> - <xref:Metalama.Framework.Engine.Extensibility.ExtensionKinds>
+> * <xref:sdk>
+> * <xref:aspect-weavers>
+> * <xref:custom-metrics>
+> * <xref:msbuild-properties>
+> * <xref:Metalama.Framework.Engine.Services.IProjectServiceFactory>
+> * <xref:Metalama.Framework.Engine.Extensibility.ExportExtensionAttribute>
+> * <xref:Metalama.Framework.Engine.Extensibility.ExtensionKinds>

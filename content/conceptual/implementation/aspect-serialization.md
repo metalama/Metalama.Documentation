@@ -1,6 +1,7 @@
 ---
 uid: aspect-serialization
 level: 400
+summary: Metalama uses serialization to handle situations where an aspect has cross-project effects, affecting not only the current project but also referencing projects transitively.
 keywords: "serialization, cross-project effect, Metalama, IAspect, deserialized, custom serializer, ICompileTimeSerializable, NonCompileTimeSerialized, ValueTypeSerializer, ImportSerializerAttribute"
 created-date: 2024-11-06
 modified-date: 2025-11-30
@@ -8,7 +9,7 @@ modified-date: 2025-11-30
 
 # Serialization of aspects and other compile-time classes
 
-Metalama relies on _serialization_ to handle situations when an aspect has a _cross-project effect_, meaning it affects not only the current project but also, transitively, _referencing_ projects.
+Metalama uses _serialization_ when an aspect has a _cross-project effect_, meaning it affects not only the current project but also, transitively, _referencing_ projects.
 
 This happens in the following scenarios:
 
@@ -29,10 +30,10 @@ When any aspect or fabric has some cross-project effect, the following process i
 
 Metalama uses a custom serializer, which is implemented in the <xref:Metalama.Framework.Serialization> namespace and has a similar behavior as Microsoft's legacy `BinaryFormatter` serializer.
 
-Unlike more familiar JSON or XML serializers, Metalama's serializer:
+Unlike JSON or XML serializers, Metalama's serializer:
 
 * supports cyclic graphs instead of just trees,
-* serializes the inner object structure, i.e., private fields, instead of the public interface.
+* serializes the inner object structure (private fields) instead of the public interface.
 
 These characteristics allow the serialization process to happen almost transparently.
 
@@ -55,11 +56,11 @@ The following types are serializable by default:
 
 Metalama automatically generates serializers for any type deriving from the <xref:Metalama.Framework.Serialization.ICompileTimeSerializable> interface. This includes any aspect, fabric, or class implementing <xref:Metalama.Framework.Aspects.IAspectState>, <xref:Metalama.Framework.Code.IAnnotation>, <xref:Metalama.Framework.Options.IHierarchicalOptions>, <xref:Metalama.Extensions.Validation.BaseReferenceValidator>, <xref:Metalama.Extensions.Architecture.Predicates.ReferencePredicate>.
 
-You normally don't need to worry about the serialization process since it should usually work transparently. However, here are a few tricks to cope with corner cases:
+The serialization process usually works transparently. However, here are a few techniques to handle corner cases:
 
 ### Skipping a field or property
 
-To waive a field or automatic property from being serialized, annotate it with the <xref:Metalama.Framework.Serialization.NonCompileTimeSerializedAttribute?text=[NonCompileTimeSerialized]> attribute.
+To exclude a field or automatic property from being serialized, annotate it with the <xref:Metalama.Framework.Serialization.NonCompileTimeSerializedAttribute?text=[NonCompileTimeSerialized]> attribute.
 
 ### Overriding the serializer when you own the type
 
@@ -67,7 +68,7 @@ If you can edit the source code of the class, you can override the default seria
 
 ### Implementing a serializer for a third-party type
 
-If you must implement serialization for a class whose source code you don't own (or to which you don't want to add a package reference to Metalama), follow these steps:
+To implement serialization for a class whose source code you don't own (or to which you don't want to add a package reference to Metalama), follow these steps:
 
 1. Create a class derived from <xref:Metalama.Framework.Serialization.ValueTypeSerializer`1> or <xref:Metalama.Framework.Serialization.ReferenceTypeSerializer`1> class. The class must have a default public constructor.
 2. Register the serializer by using the assembly-level <xref:Metalama.Framework.Serialization.ImportSerializerAttribute>.
@@ -76,20 +77,20 @@ For generic types, the serializer type must have the same type arguments as the 
 
 ## Security and obfuscation
 
-Although it is inspired by Microsoft's `BinaryFormatter`, which has been deprecated for security reasons, using the <xref:Metalama.Framework.Serialization> namespace does _not_ present any security risk. Although the serializer might, in theory, allow for arbitrary code execution, it is only designed to deserialize binary data stored in a binary library. Since this library also, in essence, allows for arbitrary code execution, the use of the serializer does not increase the risk. Developers should not use untrusted libraries in the first place.
+Metalama's serializer is inspired by Microsoft's `BinaryFormatter`, which has been deprecated for security reasons. However, using the <xref:Metalama.Framework.Serialization> namespace doesn't present any security risk. The serializer is only designed to deserialize binary data stored in a binary library. Since this library also allows for arbitrary code execution, using the serializer doesn't increase the risk. 
 
 > [!WARNING]
-> The <xref:Metalama.Framework.Serialization> namespace is _NOT_ compatible with obfuscation. The serialized binary stream contains full names of declarations in clear text, partially defeating the purpose of serialization. Additionally, serialization will fail if these names are changed after compilation by the obfuscation process.
+> The <xref:Metalama.Framework.Serialization> namespace is NOT compatible with obfuscation. The serialized binary stream contains full names of declarations in clear text, partially defeating the purpose of serialization. Additionally, serialization will fail if these names are changed after compilation by the obfuscation process.
 
 ## Accessing a field after it has been overridden
 
-When you override a field, Metalama turns it into a property. That is, _before_ the aspect, the field will be represented by an object of type <xref:Metalama.Framework.Code.IField> type and exposed in the <xref:Metalama.Framework.Code.INamedType.Fields?text=INamedType.Fields> collection. However, _after_ the aspect, the overridden field is represented as an <xref:Metalama.Framework.Code.IProperty> and exposed in the <xref:Metalama.Framework.Code.INamedType.Properties?text=INamedType.Properties> collection. This usually works well, and most of you likely haven't had to think much about it.
+When you override a field, Metalama turns it into a property. _Before_ the aspect, the field is represented by an object of type <xref:Metalama.Framework.Code.IField> and exposed in the <xref:Metalama.Framework.Code.INamedType.Fields?text=INamedType.Fields> collection. However, _after_ the aspect, the overridden field is represented as an <xref:Metalama.Framework.Code.IProperty> and exposed in the <xref:Metalama.Framework.Code.INamedType.Properties?text=INamedType.Properties> collection.
 
-However, the devil is in the details. Things get more complex when you are passing a reference to an overridden field to another aspect or to another assembly using transitive aspects.
+Things get more complex when passing a reference to an overridden field to another aspect or to another assembly using transitive aspects.
 
 If you take a reference to a field _before_ the aspect, you'll get an `IRef<IField>`. If you resolve the reference _after_ the aspect, you might wonder what happens because the field is now a property.
 
-If you attempt to resolve an `IRef<IField>`, you'll always get an <xref:Metalama.Framework.Code.IField>. If the field has been overridden, you'll get a _shim_ representing what is actually an <xref:Metalama.Framework.Code.IProperty>. However, this field is _not_ navigable through the `INamedType.Fields` properties, but only, as an `IProperty`, through `INamedType.Properties`. You can navigate to the "real" property using the <xref:Metalama.Framework.Code.IField.OverridingProperty?text=IField.OverridingProperty> property. The inverse relationship is the <xref:Metalama.Framework.Code.IProperty.OriginalField?text=IProperty.OriginalField> property. Also, the <xref:Metalama.Framework.Code.IRef.As*?text=IRef.As&lt;&gt;()> method is able to convert an overridden <xref:Metalama.Framework.Code.IField> into its overriding <xref:Metalama.Framework.Code.IProperty> and conversely.
+When you resolve an `IRef<IField>`, you'll always get an <xref:Metalama.Framework.Code.IField>. If the field has been overridden, you'll get a _shim_ representing what is actually an <xref:Metalama.Framework.Code.IProperty>. However, this field isn't navigable through the `INamedType.Fields` properties, but only, as an `IProperty`, through `INamedType.Properties`. Navigate to the "real" property using the <xref:Metalama.Framework.Code.IField.OverridingProperty?text=IField.OverridingProperty> property. The inverse relationship is the <xref:Metalama.Framework.Code.IProperty.OriginalField?text=IProperty.OriginalField> property. The <xref:Metalama.Framework.Code.IRef.As*?text=IRef.As&lt;&gt;()> method can convert an overridden <xref:Metalama.Framework.Code.IField> into its overriding <xref:Metalama.Framework.Code.IProperty> and conversely.
 
 > [!div class="see-also"]
 > <xref:aspect-inheritance>

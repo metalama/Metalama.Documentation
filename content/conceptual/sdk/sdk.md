@@ -11,7 +11,7 @@ modified-date: 2025-11-30
 
 The `Metalama.Framework.Sdk` NuGet package provides direct, low-level access to Metalama using [Roslyn-based APIs](https://learn.microsoft.com/dotnet/csharp/roslyn-sdk/compiler-api-model).
 
-`Metalama.Framework.Sdk` is more complex and less secure than `Metalama.Framework`. Use it exclusively when creating one-off coding aids. For conventional development, use `Metalama.Framework`.
+`Metalama.Framework.Sdk` is more complex and less secure than `Metalama.Framework`. Use it only for creating specialized coding aids. For conventional development, use `Metalama.Framework`.
 
 | Article | Description |
 |---------|-------------|
@@ -24,6 +24,6 @@ The `Metalama.Framework.Sdk` NuGet package provides direct, low-level access to 
 >
 > **See also**
 >
-> <xref:conceptual>
-> <xref:aspects>
-> <xref:advanced-api>
+> * <xref:conceptual>
+> * <xref:aspects>
+> * <xref:advanced-api>

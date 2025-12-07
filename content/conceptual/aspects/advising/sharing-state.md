@@ -9,7 +9,7 @@ modified-date: 2025-11-30
 
 # Sharing state with advice
 
-When you need to share _compile-time_ state between different pieces of advice or between your implementation of the `BuildAspect` method and the advice, several strategies are available to you.
+When you need to share _compile-time_ state between different pieces of advice or between your implementation of the `BuildAspect` method and the advice, several strategies are available.
 
 > [!IMPORTANT]
 > **Aspects must be designed as immutable classes.** Never store target-specific state in aspect fields.
@@ -27,7 +27,7 @@ When you need to share _compile-time_ state between different pieces of advice o
 
 This is the most direct approach for passing values from your `BuildAspect` method to a template method. However, it is only applicable to method, constructor, or accessor templates.
 
-For more details, refer to <xref:template-parameters>.
+For more details, see <xref:template-parameters>.
 
 ## Sharing state with tags
 
@@ -66,7 +66,7 @@ In the following example, the tags are set by setting the <xref:Metalama.Framewo
 
 When you want to share state not from templates inside the current aspect instance, but with other aspect instances, you set the <xref:Metalama.Framework.Aspects.IAspectBuilder.AspectState?text=IAspectBuilder.AspectState> property. Its value is exposed for read-only access on the <xref:Metalama.Framework.Aspects.IAspectInstance.AspectState?text=IAspectInstance.AspectState> property. It is therefore visible to child aspects and aspects that inherit from them (i.e., successors) through the <xref:Metalama.Framework.Aspects.IAspectPredecessor.Predecessors> property.
 
-This property is opaque to the Metalama framework. You can use it for any purpose but at your own risk. You are responsible for thread safety if you choose to have any mutable state in your aspect state.
+This property is opaque to the Metalama framework. You can use it for any purpose, but at your own risk. You're responsible for thread safety if you choose to have any mutable state in your aspect state.
 
 Objects assigned to <xref:Metalama.Framework.Aspects.IAspectBuilder.AspectState> must implement the <xref:Metalama.Framework.Aspects.IAspectState> interface, which makes them automatically serializable. This mechanism ensures that the aspect state is available in cross-project scenarios. For details, see <xref:aspect-serialization>.
 

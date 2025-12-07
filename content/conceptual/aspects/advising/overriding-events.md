@@ -22,7 +22,7 @@ Overriding the _add_ and _remove_ accessors of events follows a similar process 
 
 If you attempt to override a field-like event, it is transformed into an explicitly implemented event and its backing field — just as happens with automatic properties.
 
-### Example: logging
+### Example: Logging
 
 The following example demonstrates overriding the _add_ and _remove_ accessors of events, without overriding the _invoke_ operation. The example aspect logs the operation of adding and removing handlers to an event. It is applied to both a field-like and an explicitly-implemented event. You can compare the code transformation pattern.
 
@@ -54,7 +54,7 @@ If you are writing an exception handling aspect, you'll want to unregister the e
 - Using `meta.Target.Event.Raise()` from the `OverrideInvoke` template is not supported. You must use `meta.Proceed()`.
 - Only handlers added through the event's _add_ and _remove_ accessors will be intercepted by the _raise_ advice. Handlers added differently, for instance those added directly to the event backing field, won't be intercepted.
 
-### Example: safe events
+### Example: Safe events
 
 The following aspect implements a "Fool me once, shame on you; fool me twice, shame on me" pattern that handles exceptions in each event handler individually and unregisters any unreliable handler.
 
