@@ -2,14 +2,25 @@
 uid: introducing-members
 level: 300
 summary: "The document provides a comprehensive guide on how to add new members to an existing type using the Metalama Framework. It covers both declarative and programmatic methods and includes instructions for overriding existing implementations and referencing introduced members."
-keywords: "Metalama Framework, add new members, declarative methods, programmatic methods, overriding implementations, referencing members, IntroduceAttribute, TemplateAttribute, IAspect, AdviserExtensions, introduce member"
+keywords:
+  - Metalama Framework
+  - add new members
+  - declarative methods
+  - programmatic methods
+  - overriding implementations
+  - referencing members
+  - IntroduceAttribute
+  - TemplateAttribute
+  - IAspect
+  - AdviserExtensions
+  - introduce member
 created-date: 2023-02-17
 modified-date: 2025-11-30
 ---
 
 # Introducing members
 
-In previous articles, you learned how to override the implementation of existing type members. This article teaches you how to add new members to an existing type.
+In previous articles, you learned how to override existing type members. This article explains how to add new members to a type.
 
 You can add the following types of members:
 
@@ -23,36 +34,36 @@ You can add the following types of members:
 
 ## Introducing members declaratively
 
-The simplest way to introduce a member from an aspect is to implement it in the aspect and annotate it with the <xref:Metalama.Framework.Aspects.IntroduceAttribute?text=[Introduce]> custom attribute. This custom attribute has the following notable properties:
+The simplest way to introduce a member from an aspect is to implement it in the aspect and annotate it with the <xref:Metalama.Framework.Aspects.IntroduceAttribute?text=[Introduce]> custom attribute, which has these notable properties:
 
 | Property | Description |
 |----------|-------------|
 | <xref:Metalama.Framework.Aspects.TemplateAttribute.Name> | Sets the name of the introduced member. If not specified, the name of the introduced member is the name of the template itself. |
-| <xref:Metalama.Framework.Aspects.IntroduceAttribute.Scope> | Determines whether the introduced member will be `static` or not. See <xref:Metalama.Framework.Aspects.IntroductionScope> for possible strategies. By default, it is copied from the template, except when the aspect is applied to a static member, in which case the introduced member is always `static`. |
-| <xref:Metalama.Framework.Aspects.TemplateAttribute.Accessibility> | Determines whether the member will be `private`, `protected`, `public`, etc. By default, the accessibility of the template is copied. |
-| <xref:Metalama.Framework.Aspects.TemplateAttribute.IsVirtual> | Determines whether the member will be `virtual`. By default, the characteristic of the template is copied. |
-| <xref:Metalama.Framework.Aspects.TemplateAttribute.IsSealed> | Determines whether the member will be `sealed`. By default, the characteristic of the template is copied. |
+| <xref:Metalama.Framework.Aspects.IntroduceAttribute.Scope> | Determines whether the introduced member will be `static`. See <xref:Metalama.Framework.Aspects.IntroductionScope> for possible strategies. By default, copies from the template, except when you apply the aspect to a static member, which always makes the introduced member `static`. |
+| <xref:Metalama.Framework.Aspects.TemplateAttribute.Accessibility> | Determines the member's accessibility (`private`, `protected`, `public`, etc.). By default, copies the template's accessibility. |
+| <xref:Metalama.Framework.Aspects.TemplateAttribute.IsVirtual> | Determines whether the member will be `virtual`. By default, copies the template's characteristic. |
+| <xref:Metalama.Framework.Aspects.TemplateAttribute.IsSealed> | Determines whether the member will be `sealed`. By default, copies the template's characteristic. |
 
 > [!NOTE]
-> Constructors cannot be introduced declaratively.
+> Constructors can't be introduced declaratively.
 
 ### Example: ToString
 
-The following example demonstrates an aspect that implements the `ToString` method. It will return a string that includes the object type and a reasonably unique identifier for that object.
+This example shows an aspect that implements the `ToString` method, returning a string with the object type and a unique identifier.
 
-This aspect will replace any hand-written implementation of `ToString`, which is not desirable. Currently, this can only be avoided by introducing the method programmatically and conditionally.
+This aspect replaces any hand-written implementation of `ToString`, which isn't desirable. To avoid this, introduce the method programmatically and conditionally.
 
 [!metalama-test  ~/code/Metalama.Documentation.SampleCode.AspectFramework/IntroduceMethod.cs name="ToString"]
 
 ## Introducing members programmatically
 
-The main limitation of declarative introductions is that the name, type, and signature of the introduced member must be known upfront. They cannot depend on the aspect target. The programmatic approach allows your aspect to fully customize the declaration based on the target code.
+The main limitation of declarative introductions is that you must know the name, type, and signature of the introduced member upfront—they can't depend on the aspect target. The programmatic approach lets your aspect fully customize the declaration based on the target code.
 
 There are two steps to introduce a member programmatically:
 
 ### Step 1. Implement the template
 
-Implement the template in your aspect class and annotate it with the <xref:Metalama.Framework.Aspects.TemplateAttribute?text=[Template]> custom attribute. The template does not need to have the final signature.
+Implement the template in your aspect class and annotate it with the <xref:Metalama.Framework.Aspects.TemplateAttribute?text=[Template]> custom attribute. The template doesn't need the final signature.
 
 ### Step 2. Invoke AdviserExtensions.Introduce*
 
@@ -64,7 +75,7 @@ In your implementation of the <xref:Metalama.Framework.Aspects.IAspect`1.BuildAs
 - <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceField*> returning an <xref:Metalama.Framework.Code.DeclarationBuilders.IFieldBuilder>
 - <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceConstructor*> returning an <xref:Metalama.Framework.Code.DeclarationBuilders.IConstructorBuilder>
 
-A call to one of these methods creates a member by default that has the same characteristics as the template (name, signature, etc.), taking into account the properties of the <xref:Metalama.Framework.Aspects.TemplateAttribute?text=[Template]> custom attribute.
+These methods create a member with the same characteristics as the template (name, signature, etc.), accounting for the <xref:Metalama.Framework.Aspects.TemplateAttribute?text=[Template]> custom attribute properties.
 
 To modify the name and signature of the introduced declaration, use the `buildMethod`, `buildProperty`, `buildEvent`, `buildField`, or `buildConstructor` parameter of the `Introduce*` method.
 
@@ -76,7 +87,7 @@ The following aspect introduces an `Update` method that assigns all writable fie
 
 ### Introducing a partial or abstract member
 
-You can use any of the `Introduce*` methods to add a `partial` or `abstract` member. However, the _template_ itself cannot be `partial` or `extern` because that wouldn't be valid C#.
+You can use any `Introduce*` method to add a `partial` or `abstract` member. However, the _template_ itself can't be `partial` or `extern` because that wouldn't be valid C#.
 
 There are two ways to make a member `partial` or `abstract`:
 
@@ -89,14 +100,14 @@ The implementation body of the template will be ignored if you set the `IsAbstra
 
 ### Specifying the override strategy
 
-When you want to introduce a member to a type, it may happen that the same member is already defined in this type or in a parent type. The default strategy of the aspect framework in this case is simply to report an error and fail the build. You can change this behavior by setting the <xref:Metalama.Framework.Aspects.OverrideStrategy> for this advice:
+When you introduce a member to a type, the same member might already exist in that type or a parent type. The default strategy reports an error and fails the build. Change this behavior by setting the <xref:Metalama.Framework.Aspects.OverrideStrategy> for the advice:
 
 - For declarative advice, set the <xref:Metalama.Framework.Aspects.IntroduceAttribute.WhenExists> property of the custom attribute.
 - For programmatic advice, set the _whenExists_ optional parameter of the advice factory method.
 
 ### Accessing the overridden declaration
 
-Most of the time, when you override a method, you'll want to invoke the base implementation. The same applies to properties and events. In plain C#, when you override a base-class member in a derived class, you call the member with the `base` prefix. A similar approach exists in Metalama.
+When you override a method, you'll usually want to invoke the base implementation. The same applies to properties and events. In plain C#, you use the `base` prefix. Metalama uses a similar approach.
 
 - To invoke the base method or accessor with exactly the same arguments, call <xref:Metalama.Framework.Aspects.meta.Proceed?text=meta.Proceed>.
 - To invoke the base method with different arguments, use <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.Invoke*?text=meta.Target.Method.Invoke>.
@@ -110,7 +121,7 @@ For details, see <xref:invokers>.
 
 ## Referencing introduced members in a template
 
-When you introduce a member to a type, you'll often want to access it from templates. There are three ways to do it:
+When you introduce a member to a type, you'll often want to access it from templates. You can do this three ways:
 
 ### Option 1. Access the aspect template member
 
@@ -122,27 +133,40 @@ When you introduce a member to a type, you'll often want to access it from templ
 
 ### Option 3. Use the invoker of the builder object
 
-If neither of the approaches above offers you the required flexibility (typically because the name of the introduced member is dynamic), use the invokers exposed on the builder object returned from the advice factory method.
+If neither approach above offers the required flexibility (typically because the name of the introduced member is dynamic), use the invokers exposed on the builder object returned from the advice factory method.
 
 > [!NOTE]
-> Declarations introduced by an aspect or aspect layer aren't visible in the `meta` code model exposed to the same aspect or aspect layer. To reference builders, you must reference them differently. For details, see <xref:sharing-state-with-advice>.
+> Declarations introduced by an aspect or aspect layer aren't visible in the `meta` code model exposed to the same aspect or aspect layer. You must reference them differently. For details, see <xref:sharing-state-with-advice>.
 
 For more details, see <xref:Metalama.Framework.Code.Invokers>.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/IntroducePropertyChanged2.cs name="Introduce OnPropertyChanged"]
 
+
+### Example: Dirty tracking
+
+The following example shows a `DirtyTracking` aspect that introduces an `IsDirty` property and a virtual `OnPropertyChanged` method. The aspect uses `WhenExists = OverrideStrategy.Override` so it can override an existing `OnPropertyChanged` in a base class while also introducing the method when no base exists.
+
+> [!NOTE]
+> An optimal dirty-tracking implementation would automatically instrument property setters to call `OnPropertyChanged`. This example assumes you don't own the properties—for instance, they might be in a base class you can't modify—so the aspect only introduces the `OnPropertyChanged` hook and relies on existing code to call it. For a complete change-tracking implementation that instruments properties automatically, see [Change Tracking](https://samples.metalama.net/change-tracking).
+
+- `Entity` is a base class without the aspect but with its own `OnPropertyChanged` implementation.
+- `Customer` derives from `Entity` and has the aspect. The aspect overrides `OnPropertyChanged` and calls `base.OnPropertyChanged`.
+- `StandaloneOrder` has the aspect but no base class. The aspect introduces `OnPropertyChanged` as a new virtual method.
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/DirtyTracking.cs name="Dirty tracking"]
+
+
 ## Referencing introduced members from source code
 
-If you want the _source_ code (not your aspect code) to reference declarations introduced by your aspect, the _user_ of your aspect must make the target types `partial`. Without this keyword, introduced declarations won't be visible at design time in syntax completion, and the IDE will report errors.
+If you want source code (not aspect code) to reference declarations introduced by your aspect, users must make the target types `partial`. Without this keyword, introduced declarations won't be visible at design time in syntax completion, and the IDE will report errors.
 
-The compiler won't complain because Metalama replaces it, but the IDE will because it doesn't know about Metalama. Therefore, your aspect must follow standard C# compiler rules. Unfortunately, there's nothing you as an aspect author, or we as the authors of Metalama, can do about this limitation.
+The compiler won't complain because Metalama handles it, but the IDE will because it doesn't know about Metalama. Your aspect must follow standard C# compiler rules. Neither aspect authors nor Metalama can work around this limitation.
 
 If the user doesn't add the `partial` keyword, Metalama will report a warning and offer a code fix.
 
-> [!NOTE]
-> In test projects built using `Metalama.Testing.AspectTesting`, the Metalama compiler is not activated. Therefore, the source code of test projects cannot reference introduced declarations. Since this documentation relies on `Metalama.Testing.AspectTesting` for all examples, we cannot include an example here.
-
 > [!div class="see-also"]
+> <xref:initializers>
 > <xref:Metalama.Framework.Aspects.IntroduceAttribute>
 > <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceMethod*>
 > <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceProperty*>
