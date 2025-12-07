@@ -80,7 +80,6 @@ public override void BuildAspect(IAspectBuilder<IProperty> builder)
 }
 ```
 
-
 ### Alternative: dynamic typing
 
 A viable alternative to compile-time type parameters is dynamic typing and using methods like `meta.Cast` or abstractions like <xref:Metalama.Framework.Code.IExpression>. For details about generating run-time code, refer to <xref:run-time-expressions>.

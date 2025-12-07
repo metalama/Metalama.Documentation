@@ -47,6 +47,7 @@ To generate a WPF command property from a method:
     Task ExecuteAsync(T, CancellationToken);
 
     ```
+
 3. Make the class `partial` to enable referencing the generated command properties from C# or WPF source code.
 
 ### Example: Simple commands
@@ -96,23 +97,22 @@ By default, the <xref:Metalama.Patterns.Wpf.AsyncDelegateCommand.CanExecute> pro
 
 To track and cancel concurrent executions of the command, subscribe to the <xref:Metalama.Patterns.Wpf.BaseAsyncDelegateCommand.Executed> event and use the <xref:Metalama.Patterns.Wpf.DelegateCommandExecution> object.
 
-
 ## Background commands
 
 By default, the implementation method of the command is executed in the foreground thread. Its execution can be dispatched to a background thread by setting the <xref:Metalama.Patterns.Wpf.CommandAttribute.Background?text=CommandAttribute.Background> property to `true`. This works for implementation methods returning both `void` or a `Task`.
 
 In both cases, the `[Command]` aspect generates a property of type <xref:Metalama.Patterns.Wpf.AsyncDelegateCommand>.
 
-
 ## Customizing naming conventions
 
 All examples above relied on the default naming convention, which is based on the following assumptions:
+
 - The command name is obtained by trimming the `Execute` method name (the one with the `[Command]` aspect) from:
-    - prefixes: `_`, `m_`, and `Execute`,
-    - suffix: `_`, `Command`, and `Async`.
+  - prefixes: `_`, `m_`, and `Execute`,
+  - suffix: `_`, `Command`, and `Async`.
 - Given a command name `Foo` determined by the previous step:
-    - The command property is named `FooCommand`.
-    - The `CanExecute` command or method can be named `CanFoo`, `CanExecuteFoo`, or `IsFooEnabled`.
+  - The command property is named `FooCommand`.
+  - The `CanExecute` command or method can be named `CanFoo`, `CanExecuteFoo`, or `IsFooEnabled`.
 
 This naming convention can be modified by calling the <xref:Metalama.Patterns.Wpf.Configuration.CommandExtensions.ConfigureCommand*> fabric extension method, then <xref:Metalama.Patterns.Wpf.Configuration.CommandOptionsBuilder.AddNamingConvention*?text=builder.AddNamingConvention>, and supply an instance of the <xref:Metalama.Patterns.Wpf.Configuration.CommandNamingConvention> class.
 
@@ -132,4 +132,3 @@ The following example illustrates a naming convention for the Czech language. Th
 > <xref:wpf>
 > <xref:wpf-dependency-property>
 > <xref:observability>
-

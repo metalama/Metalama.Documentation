@@ -32,4 +32,3 @@ There are two complementary mechanisms for configuration: the configuration API 
 > <xref:aspects>
 > <xref:fabrics>
 > <xref:Metalama.Framework.Options>
-

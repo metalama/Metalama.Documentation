@@ -63,7 +63,3 @@ Templates are never executed at design time.
 > <xref:templates>
 > <xref:Metalama.Framework.Aspects.IAspect`1>
 > <xref:Metalama.Framework.Eligibility.IEligible`1>
-
-
-
-

@@ -198,11 +198,13 @@ The text between the parentheses is the skip reason.
 ## Advanced features
 
 ### Excluding a directory
+
 All files in a compile-time test project are turned into test input files by default. To disable this behavior for a directory, create a file named `metalamaTests.json` and add the following content:
 
 ```json
 { "Exclude": true }
 ```
+
 ### Specifying test options
 
 The Metalama test framework supports several test options. They are documented in the <xref:Metalama.Testing.AspectTesting.TestOptions> class.
@@ -261,4 +263,3 @@ For detailed configuration instructions for Rider and ReSharper, see <xref:ide-r
 > <xref:debugging-aspects>
 > <xref:Metalama.Testing.AspectTesting>
 > <xref:Metalama.Testing.AspectTesting.TestOptions>
-

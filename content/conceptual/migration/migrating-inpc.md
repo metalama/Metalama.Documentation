@@ -12,7 +12,6 @@ Metalama's equivalent to PostSharp's `[NotifyPropertyChanged]` aspect is the <xr
 
 Metalama's implementation strategy of the pattern is completely different than PostSharp's one. Where PostSharp maintained an in-memory dependency graph at run time, Metalama does most of the work at build time and doesn't maintain complex data structures at run time.
 
-
 ## API mapping
 
 Most features of PostSharp's `[NotifyPropertyChanged]` aspect are available in Metalama under a different name:

@@ -57,8 +57,3 @@ The following example builds upon the previous one. We added a fabric to enable 
 > <xref:contract-patterns>
 > <xref:value-contracts>
 > <xref:configuring-contracts>
-
-
-
-
-

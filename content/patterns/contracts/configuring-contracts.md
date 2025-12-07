@@ -37,6 +37,7 @@ All other configurable options are compile-time ones, represented by the <xref:M
 Contracts are often only useful during the early phases of development. As the code stabilizes, they can be disabled. However, when a problem arises, it may be beneficial to re-enable them for troubleshooting.
 
 The <xref:Metalama.Patterns.Contracts.ContractOptions> class provides three properties that allow you to enable or disable contracts for the entire project, or more specifically for a given namespace or type:
+
 - <xref:Metalama.Patterns.Contracts.ContractOptions.ArePreconditionsEnabled>
 - <xref:Metalama.Patterns.Contracts.ContractOptions.ArePostconditionsEnabled>
 - <xref:Metalama.Patterns.Contracts.ContractOptions.AreInvariantsEnabled>
@@ -79,6 +80,3 @@ The following example demonstrates how to translate the exception messages into 
 > <xref:contract-patterns>
 > <xref:value-contracts>
 > <xref:fabrics-configuration>
-
-
-

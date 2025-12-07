@@ -10,6 +10,7 @@ modified-date: 2025-12-03
 # SDK extension projects
 
 Previous articles showed how to use `Metalama.Framework.Sdk` directly from your aspect projects. This approach is simple but has two caveats:
+
 - It exposes the `Microsoft.CodeAnalysis` package references to your project/package consumers, which are large dependencies you might want to avoid flowing to your users.
 - You can't have conditional compilation or conditional package references according to the target framework or Roslyn version.
 
@@ -167,15 +168,13 @@ Metalama will load the assembly that matches the Roslyn version used by the comp
 
 For details on `MetalamaExtensionAssembly` and `MetalamaCompileTimeAssembly`, see <xref:msbuild-properties>.
 
-
-
 ## Packaging as a NuGet package
 
 When distributing your SDK extension as a NuGet package, include the extension assemblies and configure MSBuild to load them. This section describes the recommended package structure.
 
 ### Package folder structure
 
-```
+```text
 MyExtension.nupkg
 ├── build/
 │   └── MyExtension.props          # MSBuild props for direct package consumers
@@ -208,7 +207,6 @@ For transitive consumers, create a `buildTransitive/MyExtension.props` that impo
 Create a separate packaging project that includes the extension assemblies in the package. Use `TfmSpecificPackageFile` items to add assemblies to the package:
 
 [!code-xml[](~/code/Metalama.Documentation.SampleCode.Sdk/SdkExtension/MyExtension.Package/MyExtension.Package.csproj)]
-
 
 ## ExportExtensionAttribute vs. MetalamaPlugInAttribute
 

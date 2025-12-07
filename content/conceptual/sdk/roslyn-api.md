@@ -46,4 +46,3 @@ static string? GetDocumentationCommentId(this IDeclaration metalamaDeclaration)
 > <xref:sdk>
 > <xref:aspect-weavers>
 > <xref:code-api>
-

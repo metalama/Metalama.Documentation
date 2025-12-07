@@ -24,17 +24,17 @@ The primary benefits of using `Metalama.Patterns.Observability` include:
 
 - Dramatic reduction of the boilerplate code linked to <xref:System.ComponentModel.INotifyPropertyChanged>
 - Safety from human errors:
-    - Never forget to raise a notification again
-    - The package reports warnings if a dependency or code construct is not supported
+  - Never forget to raise a notification again
+  - The package reports warnings if a dependency or code construct is not supported
 - Idiomatic source code
 - Almost idiomatic code generation
 - Support for complex code constructs:
-     - Automatic properties
-     - Explicitly-implemented properties
-     - Field-backed properties
-     - Properties that depend on **child objects**, a common scenario in MVVM architectures
-     - Properties that depend on **methods**
-     - Constant methods and immutable objects
+  - Automatic properties
+  - Explicitly-implemented properties
+  - Field-backed properties
+  - Properties that depend on **child objects**, a common scenario in MVVM architectures
+  - Properties that depend on **methods**
+  - Constant methods and immutable objects
 - Compatibility with most MVVM frameworks
 
 ## Implementing INotifyPropertyChanged for a class hierarchy
@@ -134,4 +134,3 @@ This method can also be named `NotifyOfPropertyChange` or `RaisePropertyChanged`
 > <xref:patterns>
 > <xref:observability-standard-cases>
 > <xref:immutability>
-

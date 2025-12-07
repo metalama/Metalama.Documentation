@@ -7,8 +7,6 @@ modified-date: 2025-11-30
 
 # Reviewer's Guide
 
-
-
 1. **Introduction**
    - Overview of the Tool
    - Purpose of the Guide
@@ -83,6 +81,3 @@ modified-date: 2025-11-30
     - Contact Information for Further Queries
 
 This TOC should provide a comprehensive framework for reviewers to understand, test, and evaluate the software tool in detail. Each section should be detailed enough to offer deep insights yet concise to maintain the reviewer's interest and focus.
-
-
-

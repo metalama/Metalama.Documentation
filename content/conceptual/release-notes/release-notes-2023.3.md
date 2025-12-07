@@ -14,8 +14,8 @@ Metalama 2023.3 introduces several new features: ready-made aspect implementatio
 
 * Roslyn 4.7.
 * Visual Studio Code:
-    - C# Dev Kit is now supported.
-    - Omnisharp is deprecated and no longer tested.
+  * C# Dev Kit is now supported.
+  * Omnisharp is deprecated and no longer tested.
 * Visual Studio for Mac is deprecated and no longer tested, as Microsoft announced its sunsetting.
 
 ## New features
@@ -74,24 +74,18 @@ For details, see <xref:sdk>.
 
 * Overriding asynchronous methods with a template has been improved.
 
-
 ## Breaking changes
 
 There will be a few minor breaking changes in 2023.3. We think that there are still relatively few users and certainly little legacy code to maintain compatibility with, so we're prioritizing usability improvements over backward compatibility.
 
-
-* T#: `foreach` and `while` expressions now give preference to run-time scope. 
+* T#: `foreach` and `while` expressions now give preference to run-time scope.
 
     Previously, `while ( true )` would be interpreted as a compile-time loop. Now, it will be considered as a run-time loop.
-    
+
     Previously, the way to get a compile-time `for` loop was to do a `foreach ( var in in Enumerable.Range(...) )`. Now, `Enumerable.Range(...)` will be interpreted as run-time by default because it is inside a `foreach`, so you need to specifically mark it as compile-time using  `foreach ( var in in meta.CompileTime( Enumerable.Range(...) ) )`.
-    
-    
+
 * In <xref:Metalama.Framework.Eligibility.EligibilityExtensions>, the method overload `void MustSatisfy<T>( this IEligibilityBuilder<T> eligibilityBuilder, Action<IEligibilityBuilder<T>> requirement )` has been renamed to <xref:Metalama.Framework.Eligibility.EligibilityExtensions.AddRules*> to avoid ambiguities with the first and principal overload of <xref:Metalama.Framework.Eligibility.EligibilityExtensions.MustSatisfy*>.
 
 * The `IDiagnosticSink` interface is now internal. The <xref:Metalama.Framework.Diagnostics.ScopedDiagnosticSink> type is now used in all public APIs.
 
 * The type `SyntaxReference` has been renamed <xref:Metalama.Framework.Code.SourceReference>.
-
-
-

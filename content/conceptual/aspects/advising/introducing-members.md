@@ -42,8 +42,6 @@ The following example demonstrates an aspect that implements the `ToString` meth
 
 Please note that this aspect will replace any hand-written implementation of `ToString`, which is not desirable. Currently, this can only be avoided by introducing the method programmatically and conditionally.
 
-[comment]: # (TODO: #28807)
-
 [!metalama-test  ~/code/Metalama.Documentation.SampleCode.AspectFramework/IntroduceMethod.cs name="ToString"]
 
 ## Introducing members programmatically
@@ -82,11 +80,10 @@ You can use any of the `Introduce*` methods to add a `partial` or `abstract` mem
 
 There are two ways to make a member `partial` or `abstract`:
 
-* Set the `IsPartial` or `IsAbstract` property of the `[Template]` attribute.
-* Set the `IsPartial` or `IsAbstract` property of the <xref:Metalama.Framework.Code.DeclarationBuilders.IMemberBuilder> object.
+- Set the `IsPartial` or `IsAbstract` property of the `[Template]` attribute.
+- Set the `IsPartial` or `IsAbstract` property of the <xref:Metalama.Framework.Code.DeclarationBuilders.IMemberBuilder> object.
 
 The implementation body of the template will be ignored if you set the `IsAbstract` or `IsPartial` property, so any implementation will do. However, if you do not want to have _any_ body, you can use the `extern` keyword on the template member. This keyword will be removed during compilation, and dummy implementations will be provided.
-
 
 ## Overriding existing implementations
 
@@ -97,8 +94,6 @@ When you want to introduce a member to a type, it may happen that the same membe
 - For declarative advice, set the <xref:Metalama.Framework.Aspects.IntroduceAttribute.WhenExists> property of the custom attribute.
 - For programmatic advice, set the _whenExists_ optional parameter of the advice factory method.
 
-[comment]: # (TODO: The implementation and documentation are not final. Another property and parameter should be defined to cope with the case when the member is inherited.)
-
 ### Accessing the overridden declaration
 
 Most of the time, when you override a method, you'll want to invoke the base implementation. The same applies to properties and events. In plain C#, when you override a base-class member in a derived class, you call the member with the `base` prefix. A similar approach exists in Metalama.
@@ -107,8 +102,6 @@ Most of the time, when you override a method, you'll want to invoke the base imp
 - To invoke the base method with different arguments, use <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.Invoke*?text=meta.Target.Method.Invoke>.
 - To call the base property getter or setter, use <xref:Metalama.Framework.Code.IExpression.Value?text=meta.Property.Value>.
 - To access the base event, use <xref:Metalama.Framework.Code.Invokers.IEventInvoker.Add*?text=meta.Event.Add>, <xref:Metalama.Framework.Code.Invokers.IEventInvoker.Remove*?text=meta.Event.Remove> or <xref:Metalama.Framework.Code.Invokers.IEventInvoker.Raise*?text=meta.Event.Raise>.
-
-[comment]: # (TODO: When it will work, Disposable example.)
 
 ## Referencing introduced members in a template
 

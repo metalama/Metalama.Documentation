@@ -12,7 +12,6 @@ modified-date: 2025-11-30
 > [!NOTE]
 > Starting with Metalama 2023.4, this approach is considered obsolete.
 
-
 To establish a configuration API prior to Metalama 2023.4:
 
 1. Construct a class that inherits from <xref:Metalama.Framework.Project.ProjectExtension> and includes a default constructor.
@@ -29,4 +28,3 @@ To establish a configuration API prior to Metalama 2023.4:
 > <xref:aspect-configuration>
 > <xref:exposing-options>
 > <xref:Metalama.Framework.Project.ProjectExtension>
-

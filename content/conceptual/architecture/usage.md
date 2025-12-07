@@ -9,9 +9,9 @@ modified-date: 2025-11-30
 
 # Verifying usage of a class, member, or namespace
 
-When designing software, one of the most critical activities is defining dependencies between components, that is, defining who is allowed to call whom. In C#, this concept is referred to as _accessibility_. For optimal design, it's advisable to always grant the least necessary accessibility. This principle, similar to the "need to know" concept in intelligence services, benefits software architecture by minimizing unintended coupling between components and facilitating changes to individual components in the future.
+Defining dependencies between components—who can call whom—is a critical aspect of software design. In C#, this concept is called _accessibility_. For optimal design, always grant the least necessary accessibility. This principle minimizes unintended coupling between components and makes future changes easier.
 
-In C#, accessibility is defined across two boundaries: _assemblies_ and _types_. As you surely know, `private` members are only accessible from the current type, `protected` members are accessible from the current and any child type, `public` members are universally visible, and `internal` members are only accessible from the current assembly unless an `InternalsVisibleTo` extends the accessibility of internal members to other assemblies.
+In C#, accessibility is defined across two boundaries: _assemblies_ and _types_. `private` members are only accessible from the current type, `protected` members are accessible from the current and any derived type, `public` members are universally visible, and `internal` members are only accessible from the current assembly unless `InternalsVisibleTo` extends accessibility to other assemblies.
 
 However, large projects often require finer control over accessibility than what C# can provide out of the box.
 
@@ -22,9 +22,9 @@ For instance, you might want to enforce rules such as:
 * Requiring a whole namespace only to be used by a friend namespace.
 * Forbidding internal members of a namespace from being accessed outside of their home namespace.
 
-The traditional approach to enforcing such rules is to use code comments and then rely on manual code reviews to enforce the desired design intent. However, this approach has two significant weaknesses: it's prone to human errors and suffers from a lengthy feedback loop. Another approach is to split the codebase into a more fine-grained structure of projects, but this increases the build and deployment complexity and negatively affects the application start-up time.
+The traditional approach is to use code comments and rely on manual code reviews to enforce the desired design intent. However, this approach is prone to human errors and suffers from a lengthy feedback loop. Another approach is to split the codebase into more fine-grained projects, but this increases build and deployment complexity and negatively affects application startup time.
 
-Thanks to Metalama, you can easily fine-tune the intended accessibility of your namespaces, types, or members using custom attributes or a compile-time API.
+With Metalama, you can fine-tune the intended accessibility of your namespaces, types, or members using custom attributes or a compile-time API.
 
 ## Validating usage with custom attributes
 
@@ -130,5 +130,3 @@ Using floating-point arithmetic in operations involving currencies is a common p
 > <xref:Metalama.Extensions.Architecture.Aspects.CanOnlyBeUsedFromAttribute>
 > <xref:Metalama.Extensions.Architecture.Aspects.CannotBeUsedFromAttribute>
 > <xref:fabrics>
-
-

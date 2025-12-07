@@ -52,6 +52,3 @@ With Metalama, you receive feedback within seconds because your projects are alw
 >
 > * <xref:templates>
 > * <xref:aspect-composition>
-
-
-

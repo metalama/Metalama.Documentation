@@ -40,7 +40,7 @@ If you want to enforce naming conventions for a scenario different from the one 
 
 3. Import the <xref:Metalama.Framework.Fabrics> and <xref:Metalama.Extensions.Architecture> namespaces to benefit from extension methods.
 
-4. Edit the <xref:Metalama.Framework.Fabrics.ProjectFabric.AmendProject*>, <xref:Metalama.Framework.Fabrics.NamespaceFabric.AmendNamespace*>, or <xref:Metalama.Framework.Fabrics.TypeFabric.AmendType*> method. 
+4. Edit the <xref:Metalama.Framework.Fabrics.ProjectFabric.AmendProject*>, <xref:Metalama.Framework.Fabrics.NamespaceFabric.AmendNamespace*>, or <xref:Metalama.Framework.Fabrics.TypeFabric.AmendType*> method.
 
 5. Select the APIs using the <xref:Metalama.Framework.Fabrics.IQuery`1.Select*>, <xref:Metalama.Framework.Fabrics.IQuery`1.SelectMany*>, and <xref:Metalama.Framework.Fabrics.IQuery`1.Where*> methods. You may also find the <xref:Metalama.Framework.Fabrics.IQuery`1.SelectTypesDerivedFrom*> method useful.
 
@@ -59,4 +59,3 @@ Many teams require UI pages to be suffixed with `Page`, controls with `Control`,
 > <xref:validation>
 > <xref:Metalama.Extensions.Architecture.Aspects.DerivedTypesMustRespectNamingConventionAttribute>
 > <xref:fabrics>
-

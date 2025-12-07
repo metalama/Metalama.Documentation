@@ -17,6 +17,7 @@ When you assign an aspect weaver to an aspect class, Metalama bypasses the <xref
 
 > [!WARNING]
 > The use of weaver-based aspects is generally discouraged:
+>
 > * They are significantly more complex to implement and integrate less well with IDEs
 > * They have a significant performance impact, particularly when many are in use.
 
@@ -135,4 +136,3 @@ Available examples of Metalama.Framework.Sdk weavers are:
 > <xref:roslyn-api>
 > <xref:aspect-testing>
 > <xref:eligibility>
-

@@ -106,7 +106,6 @@ The following contracts can be used to verify that a value falls within a specif
 > [!WARNING]
 > The library also contains the contracts <xref:Metalama.Patterns.Contracts.PositiveAttribute?text=[Positive]>, <xref:Metalama.Patterns.Contracts.NegativeAttribute?text=[Negative]>, <xref:Metalama.Patterns.Contracts.LessThanAttribute?text=[LessThan]> and <xref:Metalama.Patterns.Contracts.GreaterThanAttribute?text=[GreaterThan]> for backward compatibility. These contracts are oddly named; they enforce a non-strict inequality while the English convention mandates to enforce strict inequalities. Using any of these contracts will result in a warning requesting you to specify the strictness by using one of the contracts listed above or by setting the <xref:Metalama.Patterns.Contracts.ContractOptions.DefaultInequalityStrictness> contract option is set using the <xref:Metalama.Patterns.Contracts.ContractConfigurationExtensions.ConfigureContracts*> fabric extension method.
 
-
 ### Example: numeric contracts
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Contracts/NumericContracts.cs]
@@ -125,5 +124,3 @@ Note that this contract does not validate the collection object against being nu
 > <xref:contract-patterns>
 > <xref:value-contracts>
 > <xref:configuring-contracts>
-
-

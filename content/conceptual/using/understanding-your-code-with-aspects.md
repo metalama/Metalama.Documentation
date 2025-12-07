@@ -15,7 +15,6 @@ modified-date: 2025-11-30
 > [!NOTE]
 > These features are only available in Visual Studio when Visual Studio Tools for Metalama are installed. See <xref:ide-configuration> for IDE-specific information.
 
-
 Now that you've integrated aspects into your code, you might be curious about its functionality and execution process. Metalama provides several tools to help you understand precisely what happens with your code when you hit the Run button.
 
 These tools include:
@@ -41,7 +40,6 @@ CodeLens reveals the following details:
 
 The utility of this feature becomes apparent when you notice that many aspects can be added to your code and when aspects are applied implicitly. That is, even if there is no aspect custom attribute on your code, there may still be an aspect on it due to aspect inheritance (if the aspect has been applied to an ancestor class or interface) or fabrics (which allow adding aspects in bulk to code without custom attributes).
 
-
 ## Metalama Diff
 
 Once you know that your code is being affected by some aspects, you might wonder how. The simplest way is to compare your source code with the generated code, side by side, in a diff. This is what Metalama Diff is about.
@@ -63,8 +61,6 @@ To view changes for a specific section of the code, select that part of the code
 
 ![Diff_change_selector](images/metalama_diff_change_view_selector.png)
 
-
-
 ## Aspect Explorer
 
 With CodeLens, you start from a specific piece of code, and you wonder which aspects it is influenced by.
@@ -83,4 +79,3 @@ To open the Aspect Explorer tool window, use the top-level menu and select _Exte
 > <xref:quickstart-adding-aspects>
 > <xref:debugging-aspect-oriented-code>
 > <xref:install-vsx>
-

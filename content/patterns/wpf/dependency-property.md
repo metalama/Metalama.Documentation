@@ -74,7 +74,6 @@ In the following example, a `[Positive]` contract is added to the automatic prop
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Wpf/DependencyProperties/Contract.cs]
 
-
 ## Adding validation through a callback method
 
 The second way to add validation to a dependency property is by adding a callback method to your code. For a property named `Foo`, the validation method must be named `ValidateFoo` and have one of the following signatures:
@@ -111,7 +110,6 @@ The following example demonstrates the code generation pattern when an automatic
 
 If the property initial value shouldn't be interpreted as the default value of the dependency property, disable this behavior by setting the <xref:Metalama.Patterns.Wpf.DependencyPropertyAttribute.InitializerProvidesDefaultValue> property to `false`. This property is available both as an attribute property on the <xref:Metalama.Patterns.Wpf.DependencyPropertyAttribute> class and through the <xref:Metalama.Patterns.Wpf.Configuration.DependencyPropertyExtensions.ConfigureDependencyProperty*> fabric extension method.
 
-
 ## Adding a PropertyChanged callback
 
 Whereas the validate method executes _before_ the assignment, code can also execute _after_ the assignment of a dependency property to its new value. For a property named `Foo`, add a method named `OnFooChanged` of one of these signatures:
@@ -140,9 +138,9 @@ In the following example, the `OnBorderWidthChanged` method is executed after th
 All examples above relied on the default naming convention, which is based on the following assumptions:
 
 - Given a property named `Foo`:
-    - The name of the field containing the <xref:System.Windows.DependencyProperty> object is `FooProperty`.
-    - The name of the validation method is `ValidateFoo`.
-    - The name of the post-assignment callback is `OnFooChanged`.
+  - The name of the field containing the <xref:System.Windows.DependencyProperty> object is `FooProperty`.
+  - The name of the validation method is `ValidateFoo`.
+  - The name of the post-assignment callback is `OnFooChanged`.
 
 This naming convention can be modified by calling the <xref:Metalama.Patterns.Wpf.Configuration.DependencyPropertyExtensions.ConfigureDependencyProperty*> fabric extension method, then <xref:Metalama.Patterns.Wpf.Configuration.DependencyPropertyOptionsBuilder.AddNamingConvention*?text=builder.AddNamingConvention>, and supplying an instance of the <xref:Metalama.Patterns.Wpf.Configuration.DependencyPropertyNamingConvention> class.
 
@@ -162,4 +160,3 @@ Here is an illustration of a coding convention for the Czech language.
 > <xref:wpf>
 > <xref:wpf-command>
 > <xref:contract-patterns>
-

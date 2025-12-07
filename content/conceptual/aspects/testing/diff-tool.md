@@ -85,11 +85,13 @@ On build servers, you typically want to disable diff tool launching. DiffEngine 
 To explicitly disable, use one of these methods:
 
 1. Set the Metalama setting in `testRunner.json`:
+
     ```json
     { "LaunchDiffTool": false }
     ```
 
 2. Set the DiffEngine environment variable:
+
     ```powershell
     $env:DiffEngine_Disabled = "true"
     ```

@@ -35,6 +35,3 @@ If you plan to implement the <xref:Flashtrace.IFlashtraceLoggerFactory> yourself
 > <xref:caching>
 > <xref:caching-getting-started>
 > <xref:creating-logs>
-
-
-

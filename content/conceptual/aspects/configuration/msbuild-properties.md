@@ -15,14 +15,13 @@ This strategy enables the aspect to be configured without modifying the source c
 
 Another advantage of accepting MSBuild properties for configuration is that they can be defined in `Directory.Build.props` and shared among all projects in the repository. For more details, refer to [Customize the build by folder](https://learn.microsoft.com/en-us/visualstudio/msbuild/customize-by-directory) in the Visual Studio documentation.
 
-
 ## Exposing MSBuild properties
 
 By default, MSBuild properties are not visible to Metalama: you must instruct MSBuild to pass them to the compiler using the `CompilerVisibleProperty` item.
 
 If you're shipping your project as a NuGet package, we recommend the following approach to consume a configuration property:
 
-1. Create a file named `build/YourProject.props`. 
+1. Create a file named `build/YourProject.props`.
 
     > [!WARNING]
     > The file name must exactly match the name of your package.
@@ -35,16 +34,15 @@ If you're shipping your project as a NuGet package, we recommend the following a
     </Project>
     ```
 
-2. Create a second file named `buildTransitive/YourProject.props`. 
+2. Create a second file named `buildTransitive/YourProject.props`.
 
     ```xml
     <Project>
-    	<Import Project="../build/YourProject.props"/>
+     <Import Project="../build/YourProject.props"/>
     </Project>
     ```
 
-
-2. Include both `YourProject.props` in your project and mark it for inclusion in your NuGet package, respectively. Your `csproj` file should look like this:
+3. Include both `YourProject.props` in your project and mark it for inclusion in your NuGet package, respectively. Your `csproj` file should look like this:
 
     ```xml
     <Project Sdk="Microsoft.NET.Sdk">
@@ -90,11 +88,9 @@ To configure the aspect, users should set this property using one of the followi
      > [!WARNING]
      > Line breaks and semicolons are not allowed in the values of compiler-visible properties as they can cause your aspect to receive an incorrect value.
 
-    
 2. From the command line, using the `-p:PropertyName=PropertyValue` command-line argument to `dotnet` or `msbuild`.
 
 3. By setting an environment variable. See the [MSBuild documentation](https://learn.microsoft.com/en-us/visualstudio/msbuild/how-to-use-environment-variables-in-a-build) for details.
-
 
 ## Reading MSBuild properties from an aspect or fabric
 
@@ -105,7 +101,6 @@ To read an MSBuild property, use the <xref:Metalama.Framework.Project.IProject.T
 In the example below, the `Log` aspect reads the default category from the MSBuild property.
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.AspectFramework/ConsumingProperty.cs name="Consuming Property"]
-
 
 ## Combining MSBuild properties with the options API
 
@@ -124,4 +119,3 @@ In the following example, the options class implements the <xref:Metalama.Framew
 > <xref:exposing-options>
 > <xref:Metalama.Framework.Project.IProject.TryGetProperty*>
 > <xref:Metalama.Framework.Options.IHierarchicalOptions.GetDefaultOptions*>
-

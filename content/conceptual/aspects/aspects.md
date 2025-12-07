@@ -45,4 +45,3 @@ This chapter includes the following articles:
 > <xref:simple-aspects>
 > <xref:using-metalama>
 > <xref:Metalama.Framework.Aspects>
-

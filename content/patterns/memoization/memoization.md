@@ -18,7 +18,6 @@ To memoize a property or a method:
 1. Add the [Metalama.Patterns.Memoization](https://www.nuget.org/packages/Metalama.Patterns.Memoization/) package into your project.
 2. Apply the <xref:Metalama.Patterns.Memoization.MemoizeAttribute?text=[Memoize]> attribute to the get-only property or parameterless method.
 
-
 > [!WARNING]
 > The current implementation of the <xref:Metalama.Patterns.Memoization.MemoizeAttribute?text=[Memoize]> aspect doesn't guarantee that the method will be executed only once. However, it does ensure that it always returns the same value or object.
 
@@ -31,11 +30,9 @@ The following example demonstrates a typical use of the <xref:Metalama.Patterns.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Memoization/Memoize.cs]
 
-
 ## Memoization vs Caching
 
 Memoization can be considered as a simple form of caching. The <xref:Metalama.Patterns.Memoization.MemoizeAttribute?text=[Memoize]> aspect is often a no-brainer, extremely simple to use, and requires no infrastructure.
-
 
 | Factor                     | Memoization                               | Caching                                |
 |----------------------------|-------------------------------------------|----------------------------------------|
@@ -47,6 +44,3 @@ Memoization can be considered as a simple form of caching. The <xref:Metalama.Pa
 > [!div class="see-also"]
 > <xref:patterns>
 > <xref:caching>
-
-
-

@@ -25,7 +25,7 @@ First, install the `metalama` .NET tool as outlined in <xref:dotnet-tool>.
 
 Run the following command:
 
-```
+```powershell
 metalama config edit diagnostics
 ```
 
@@ -96,5 +96,3 @@ You can find the log in the `%TEMP%\Metalama\Logs` directory.
 > <xref:troubleshooting-unattended-build>
 > <xref:profiling>
 > <xref:process-dump>
-
-

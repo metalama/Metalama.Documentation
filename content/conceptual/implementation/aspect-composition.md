@@ -45,13 +45,8 @@ When several aspects, unaware of each other, add advice to the same declaration,
 
 For instance, if two aspects override the same method, both aspects are guaranteed to compose correctly. This is a complex problem, but Metalama resolves it, eliminating the need for you to worry about it.
 
-[comment]: # (TODO: example log and cache)
-
 > [!div class="see-also"]
 > <xref:ordering-aspects>
 > <xref:implementation>
 > <xref:pipeline>
 > <xref:aspects>
-
-
-

@@ -193,7 +193,6 @@ var myType = meta.Target.Compilation
     .OfName( "MyClass" );
 ```
 
-
 ### Generic types
 
 Generic types in Metalama are represented by types that implement the <xref:Metalama.Framework.Code.IGeneric> interface. Both <xref:Metalama.Framework.Code.INamedType> and <xref:Metalama.Framework.Code.IMethod> implement this interface.
@@ -208,7 +207,6 @@ Unlike MSIL, Metalama doesn't have a concept of "open" generic type with unbound
 Consider the type `List<T>`, where `T` is a type parameter. In the generic type instance `List<int>`, the `T` is the type parameter; `int` is the type argument, and the `T` parameter is bound to `int`. In the type definition `List<T>`, `T` is both the type parameter and the type argument, because `T` is bound to itself.
 
 The `IGeneric` interface exposes the `IsCanonicalGenericInstance` property, which returns `true` if all type parameters are bound to themselves.
-
 
 ### Creating generic instances
 

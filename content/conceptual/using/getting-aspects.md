@@ -38,5 +38,3 @@ Don't use the demo aspects in real projects. Instead, visit [Metalama Marketplac
 > <xref:using-metalama>
 > <xref:quickstart-adding-aspects>
 > <xref:distributing>
-
-

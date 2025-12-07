@@ -15,8 +15,7 @@ In theory, only _immutable_ types should be cached. However, in practice, there 
 
 So, how can we safely cache these problematic types?
 
-Metalama addresses this issue through the concept of a *value adapter*. A value adapter allows you to store a different type than the one returned by the cached method. The method return value is referred to as the *exposed value* because this is the value exposed by your API. The exposed value must be type-compatible with the method return type. The value that is actually stored in the cache is called the *stored value*. For instance, for a method returning a <xref:System.IO.Stream>, the stored value is an array of bytes and the exposed value is a <xref:System.IO.MemoryStream>.
-
+Metalama addresses this issue through the concept of a _value adapter_. A value adapter allows you to store a different type than the one returned by the cached method. The method return value is referred to as the _exposed value_ because this is the value exposed by your API. The exposed value must be type-compatible with the method return type. The value that is actually stored in the cache is called the _stored value_. For instance, for a method returning a <xref:System.IO.Stream>, the stored value is an array of bytes and the exposed value is a <xref:System.IO.MemoryStream>.
 
 ## Standard value adapters
 
@@ -28,16 +27,13 @@ By default, the following value adapters are used automatically:
 | <xref:System.Collections.Generic.IEnumerator`1> | <xref:System.Collections.Generic.List`1> | <xref:System.Collections.Generic.List`1.Enumerator> | The <xref:System.Collections.IEnumerator.Reset> method is not supported by the exposed value.  |
 | <xref:System.IO.Stream> | <xref:System.Byte> []  | <xref:System.IO.MemoryStream> |  |
 
-
 ## Implementing a custom value adapter
-
 
 To implement a custom value adapter:
 
 1. Create a class implementing the <xref:Metalama.Patterns.Caching.ValueAdapters.IValueAdapter`1> interface or the non-generic <xref:Metalama.Patterns.Caching.ValueAdapters.IValueAdapter> interface.
 
 2. Go back to the code that initialized the Metalama Caching by calling <xref:Metalama.Patterns.Caching.Building.CachingServiceFactory.AddMetalamaCaching*?text=serviceCollection.AddMetalamaCaching>  or <xref:Metalama.Patterns.Caching.CachingService.Create*?text=CachingService.Create>. Call the <xref:Metalama.Patterns.Caching.Building.ICachingServiceBuilder.AddValueAdapter*> method, then pass an instance of your <xref:Metalama.Patterns.Caching.ValueAdapters.IValueAdapter`1>.
-
 
     [!metalama-file ~/code/Metalama.Documentation.SampleCode.Caching/ValueAdapter/ValueAdapter.Program.cs marker="AddMetalamaCaching"]
 
@@ -54,6 +50,3 @@ Let's say you are maintaining a legacy service that implements the unusual pract
 > <xref:caching>
 > <xref:caching-getting-started>
 > <xref:immutability>
-
-
-

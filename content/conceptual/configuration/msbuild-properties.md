@@ -65,4 +65,3 @@ The `LamaDebug` configuration assigns the following properties:
 > <xref:configuration>
 > <xref:debugging-aspect-oriented-code>
 > <xref:reading-msbuild-properties>
-

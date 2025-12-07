@@ -15,8 +15,8 @@ The PostSharp Framework has been entirely ported to Metalama, with a few notable
 * Methods from an external assembly cannot be intercepted; only those from the current project can be.
 * The event of suspending and resuming an `async` state machine, as in PostSharp, cannot be advised. Specifically, the `await` keyword cannot be advised.
 * Some constructor-related advice types are not yet implemented:
-    * After the last constructor
-    * After MemberwiseClone
+  * After the last constructor
+  * After MemberwiseClone
 
 ## PostSharp Architecture Framework
 
@@ -37,8 +37,6 @@ See <xref:validation> for details.
 | Multi-threading        | Not planned      |                          |                                                                    |
 | Aggregatable           | Not planned      |                          |                                                                    |
 | Weak event             | Not planned      |                          |                                                                    |
-
-
 
 > [!NOTE]
 > Please contact us if you have an enterprise subscription and rely on a PostSharp feature that we don't plan to migrate to Metalama.

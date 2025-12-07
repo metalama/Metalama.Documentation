@@ -40,4 +40,3 @@ The first step involves adding the aspect library to your project using a `<Proj
 > <xref:using-metalama>
 > <xref:live-template>
 > <xref:quickstart-adding-aspects>
-

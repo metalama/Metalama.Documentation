@@ -48,7 +48,6 @@ This will work for both standard constructors and primary constructors. If you a
 
 For details, see <xref:overriding-constructors>.
 
-
 ## Other improvements
 
 * Numeric contracts now generate idiomatic code.

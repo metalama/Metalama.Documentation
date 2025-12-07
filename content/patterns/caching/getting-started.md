@@ -59,7 +59,6 @@ Follow these steps to configure your project:
     > [!IMPORTANT]
     > The caching service must be initialized before any cached method is called for the first time.
 
-
 When dependency injection is disabled, we can also cache `static` methods. Observe the <xref:Metalama.Patterns.Caching.Aspects.CacheAttribute?text=[Cache]> in the static `CloudCalculator` implementation.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Caching/GettingStarted_NoDI/GettingStarted_NoDI.cs ]
@@ -73,6 +72,3 @@ So far, so good. However, if your cached methods have more complex parameters th
 > <xref:caching-keys>
 > <xref:caching-invalidation>
 > <xref:dependency-injection>
-
-
-

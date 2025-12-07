@@ -25,9 +25,7 @@ To access these options:
 1. In the top-level menu, choose _Extensions_ > _Metalama + PostSharp_ > _Options_.
 2. Go to the _License_ tab.
 
-
 ![License Options in the Metalama+PostSharp VSX](vsx-license.png)
-
 
 ## With the command-line tool
 
@@ -43,7 +41,6 @@ The following commands are available:
 | `metalama license try` | Activate the 45-day evaluation period of Metalama Ultimate. |
 | `metalama license community` | Activate Metalama Community, free for non-commercial use, individuals, and companies with up to 3 users. |
 | `metalama license register <LICENSE KEY>` | Register a license key. |
-
 
 ## By editing the configuration file
 

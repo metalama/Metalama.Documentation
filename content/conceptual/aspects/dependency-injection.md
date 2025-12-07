@@ -32,10 +32,10 @@ To consume a dependency from an aspect:
 2. Add a field or automatic property of the desired type in your aspect class.
 3. Annotate this field or property with the <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute> custom attribute. The following attribute properties are available:
 
-  * <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute.IsLazy> resolves the dependency upon first use instead of upon initialization, and
-  * <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute.IsRequired> throws an exception if the dependency is not available.
+* <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute.IsLazy> resolves the dependency upon first use instead of upon initialization, and
+* <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute.IsRequired> throws an exception if the dependency is not available.
 
-4. Use this field or property from any template member of your aspect.
+1. Use this field or property from any template member of your aspect.
 
 ### Example: default dependency injection patterns
 

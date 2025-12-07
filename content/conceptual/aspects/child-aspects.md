@@ -20,7 +20,6 @@ An aspect can add child aspects from the <xref:Metalama.Framework.Aspects.IAspec
 
 Note that any aspect added "manually" as a custom attribute takes precedence over aspects added by the parent aspect. In this case, the _primary instance_ of the aspect is the one created by the custom attribute, and the _secondary instance_ is the one added by the parent aspect. Secondary aspect instances are exposed on the <xref:Metalama.Framework.Aspects.IAspectInstance.SecondaryInstances?text=IAspectInstance.SecondaryInstances> property, which you can access from <xref:Metalama.Framework.Aspects.meta.AspectInstance?text=meta.AspectInstance> or <xref:Metalama.Framework.Aspects.IAspectBuilder.AspectInstance?text=builder.AspectInstance>.
 
-
 ## Example: audited object and audited member
 
 The following example contains two aspects: `[AuditedObject]` and `[AuditedMember]`. The `[AuditedObject]` aspect automatically audits all public methods and properties. `[AuditedMember]` only audits the target method or property. To avoid duplicating logic between `AuditedObjectAttribute` and `AuditedMemberAttribute`, `AuditedObjectAttribute` adds instances of the `AuditedObjectAttribute` class as _child aspects_.
@@ -29,15 +28,13 @@ The following example contains two aspects: `[AuditedObject]` and `[AuditedMembe
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.DependencyInjection/ChildAspect.cs name="ChildAspect"]
 
-
 ## Accessing the parent aspect from the child aspect
 
 Parent aspects are enumerated in the <xref:Metalama.Framework.Aspects.IAspectPredecessor.Predecessors> property, accessible by the child aspect from <xref:Metalama.Framework.Aspects.meta.AspectInstance?text=meta.AspectInstance> or <xref:Metalama.Framework.Aspects.IAspectBuilder.AspectInstance?text=builder.AspectInstance>.
 
-
 ## Requiring an aspect without creating a new instance
 
-Instead of calling <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspect*>, you can use <xref:Metalama.Framework.Aspects.AspectQueryExtensions.RequireAspect*>. This method is generic, and its type parameter must be set to an aspect type with a default constructor. It checks if the target declaration already contains an aspect of the required type, and if not, it adds a new aspect instance. 
+Instead of calling <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspect*>, you can use <xref:Metalama.Framework.Aspects.AspectQueryExtensions.RequireAspect*>. This method is generic, and its type parameter must be set to an aspect type with a default constructor. It checks if the target declaration already contains an aspect of the required type, and if not, it adds a new aspect instance.
 
 If you were using <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspect*> and the aspect was already present, a new aspect instance would be created, a primary aspect instance would be chosen, and the other instances would be made available as secondary instances. With <xref:Metalama.Framework.Aspects.AspectQueryExtensions.RequireAspect*>, there would be no secondary instance, but the parent aspect would be exposed as a _predecessor_ in the <xref:Metalama.Framework.Aspects.IAspectPredecessor.Predecessors> collection.
 

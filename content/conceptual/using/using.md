@@ -21,7 +21,6 @@ This chapter is recommended for those who:
 - Plan to use ready-made aspects but don't intend to create their own.
 - Intend to create their own aspects in the future, but prefer a gradual approach.
 
-
 ## In this chapter
 
 |Article | Description |

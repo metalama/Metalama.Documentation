@@ -63,7 +63,6 @@ var expression = ExpressionFactory.Capture( (IExpression) result );
 
 When you need to construct complex expressions programmatically or dynamically, the <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionBuilder> class provides a text-based approach. It offers convenient methods like <xref:Metalama.Framework.Code.SyntaxBuilders.SyntaxBuilder.AppendLiteral*>, <xref:Metalama.Framework.Code.SyntaxBuilders.SyntaxBuilder.AppendTypeName*>, and <xref:Metalama.Framework.Code.SyntaxBuilders.SyntaxBuilder.AppendExpression*>. The <xref:Metalama.Framework.Code.SyntaxBuilders.SyntaxBuilder.AppendVerbatim*> method must be used for anything else, such as keywords or punctuation.
 
-
 When you are done building the expression, call the <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionBuilder.ToExpression*> method. It will return an <xref:Metalama.Framework.Code.IExpression> object. The <xref:Metalama.Framework.Code.IExpression.Value?text=IExpression.Value> property is `dynamic` and can be used in run-time code.
 
 > [!NOTE]
@@ -87,7 +86,6 @@ Since <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionBuilder> works outs
 ## Parsing string-based C# expressions
 
 If you already have a string representing an expression or statement, you can convert it into an <xref:Metalama.Framework.Code.IExpression> using <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionFactory.Parse*?text=ExpressionFactory.Parse>.
-
 
 ### Example: parsing expressions
 

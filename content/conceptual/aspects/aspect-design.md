@@ -97,6 +97,7 @@ The <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method is called on
 Aspects can optionally be custom attributes (by deriving from <xref:System.Attribute>). In this case, aspect classes exist both at compile time (when Metalama executes them) and at run time (as standard .NET attributes accessible via reflection).
 
 This dual nature has important implications:
+
 - Aspect properties set in source code (e.g., `[Log(Category = "Security")]`) are available both to `BuildAspect` at compile time and to reflection at run time.
 - Run-time code can query aspects using standard reflection APIs like `GetCustomAttributes`.
 
@@ -120,9 +121,9 @@ For strategies to pass state from `BuildAspect` to templates without storing it 
 
 Aspects can perform the following transformations to code:
 
-* Apply a template to an existing method, i.e., add generated code to user-written code.
-* Introduce a newly generated member to an existing type.
-* Implement an interface into a type.
+- Apply a template to an existing method, i.e., add generated code to user-written code.
+- Introduce a newly generated member to an existing type.
+- Implement an interface into a type.
 
 For more details, refer to <xref:advising-code>.
 
@@ -138,8 +139,8 @@ For more information about this feature, refer to <xref:diagnostics>.
 
 The <xref:Metalama.Framework.Aspects.IAspectBuilder`1.Outbound?text=builder.Outbound> property allows registering validators for advanced scenarios:
 
-* Validate the target declaration after it has been transformed by all aspects.
-* Validate any _references_ to the target declaration.
+- Validate the target declaration after it has been transformed by all aspects.
+- Validate any _references_ to the target declaration.
 
 Refer to <xref:aspect-validating>.
 

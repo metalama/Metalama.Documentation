@@ -69,35 +69,34 @@ In `MySolution`, the following transitive project fabrics will be active:
 | `MySolution.Library2` | `CoreTransitiveFabric` |
 | `MySolution.App` | First `CoreTransitiveFabric`, then `Library2TransitiveFabric` |
 
-
 ## Using common project fabrics
 
 Another approach is to rely on the directory structure instead of the dependency graph.
 
 The concept is to write a project fabric, store it in the root directory of the repository, and automatically include this file in each project using [Directory.Build.props](https://learn.microsoft.com/en-us/visualstudio/msbuild/customize-your-build).
 
-#### Step 1. Create a project fabric
+### Step 1. Create a project fabric
 
 In the parent directory that recursively contains all projects you want to be affected by the shared fabric, create a project fabric derived from <xref:Metalama.Framework.Fabrics.ProjectFabric> as you would do for a regular project fabric.
 
-#### Step 2. Create Directory.Build.props
+### Step 2. Create Directory.Build.props
 
 In the same directory, create a file named `Directory.Build.props` with the following content:
 
 ```xml
 <Project>
-	<!-- Imports Directory.Build.props of the upper directory. -->
-	<Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))"
-			Condition="Exists('$([MSBuild]::GetPathOfFileAbove(`Directory.Build.props`, `$(MSBuildThisFileDirectory)../`))')"/>
+ <!-- Imports Directory.Build.props of the upper directory. -->
+ <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))"
+   Condition="Exists('$([MSBuild]::GetPathOfFileAbove(`Directory.Build.props`, `$(MSBuildThisFileDirectory)../`))')"/>
 
-	<!-- Include the shared fabric -->
-	<ItemGroup>
+ <!-- Include the shared fabric -->
+ <ItemGroup>
         <Compile Include="$(MSBuildThisFileDirectory)SharedFabric.cs" />
     </ItemGroup>
 </Project>
 ```
 
-#### Example
+### Example
 
 See <xref:sample-shared-fabric>.
 
@@ -134,7 +133,6 @@ repo
 
 Then the projects have the following fabrics:
 
-
 | Project | Active transitive project fabrics |
 |--|--|
 | `Project11` | `SharedFabric`, `Project11Fabric` |
@@ -150,4 +148,3 @@ Then the projects have the following fabrics:
 > <xref:fabrics>
 > <xref:fabrics-adding-aspects>
 > <xref:distributing>
-

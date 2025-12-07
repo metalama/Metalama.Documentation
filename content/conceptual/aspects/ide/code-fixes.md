@@ -78,4 +78,3 @@ The custom code fix performs the following actions:
 > <xref:Metalama.Extensions.CodeFixes.CodeFixFactory>
 > <xref:Metalama.Extensions.CodeFixes.ICodeActionBuilder>
 > <xref:Metalama.Extensions.CodeFixes.CodeFixExtensions>
-

@@ -54,8 +54,8 @@ Inside the `AmendProject` method, we get all the public methods and add _logging
 
 The difference between <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspect*> and <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspectIfEligible*> is that <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspect*> will throw an exception if you try adding an aspect to an ineligible target (for instance, a caching aspect to a `void` method), while <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspectIfEligible*> will silently ignore such targets.
 
-- If you choose <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspect*>, you may be annoyed by exceptions and may have to add a lot of conditions to your `AmendProject` method. The benefit of this approach is that you'll be _aware_ of these conditions.
-- If you choose <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspectIfEligible*>, you may be surprised that some target declarations were silently ignored.
+* If you choose <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspect*>, you may be annoyed by exceptions and may have to add a lot of conditions to your `AmendProject` method. The benefit of this approach is that you'll be _aware_ of these conditions.
+* If you choose <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspectIfEligible*>, you may be surprised that some target declarations were silently ignored.
 
 As is often the case, life doesn't give you a choice to be completely happy, but you can often choose which pain you want to suffer. In most cases, we recommend using <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspectIfEligible*>.
 
@@ -95,4 +95,3 @@ Sometimes you may not need or want to add aspects to all types, but only to a cl
 > <xref:quickstart-adding-aspects>
 > <xref:fabrics-many-projects>
 > <xref:metrics>
-

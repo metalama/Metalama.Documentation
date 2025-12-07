@@ -19,7 +19,6 @@ There are typically two types of Metalama users:
 
 Each article is assigned a _complexity level_, such as 100, 200, 300, following the U.S. school system. Before advancing to a level 200 article, ensure you have a solid understanding of level 100. We strive to avoid incorporating complex details into basic level articles. Occasionally, you may need to study several articles to gather comprehensive information on a specific topic.
 
-
 ## Documentation structure
 
 | Book | Description |
@@ -29,13 +28,11 @@ Each article is assigned a _complexity level_, such as 100, 200, 300, following 
 | <xref:samples> | Commented examples with varying degrees of complexity. |
 | <xref:api> | API documentation generated from the source code. |
 
-
 ## Getting help
 
 If you have any questions, don't hesitate to [initiate a discussion](https://github.com/metalama/Metalama/discussions/new) on GitHub.
 
-
-The source code for this documentation (excluding the API documentation) is open-source and hosted at https://github.com/metalama/Metalama.Documentation. You can:
+The source code for this documentation (excluding the API documentation) is open-source and hosted at <https://github.com/metalama/Metalama.Documentation>. You can:
 
 * [Open an issue](https://github.com/metalama/Metalama.Documentation/issues/new) or
 * Submit a PR with your proposed improvements.
@@ -48,4 +45,3 @@ The source code for this documentation (excluding the API documentation) is open
 > <xref:conceptual>
 > <xref:using-metalama>
 > <xref:aspects>
-

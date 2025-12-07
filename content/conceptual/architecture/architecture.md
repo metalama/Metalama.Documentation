@@ -14,7 +14,7 @@ modified-date: 2025-11-30
 
 This chapter outlines how to verify your source code against the architecture, design patterns, and other team conventions.
 
-There are two methods for adding verification rules to your code. You can do this declaratively by applying custom architecture attributes to your code, or programmatically using a compile-time fluent API. Metalama provides a set of pre-made custom attributes and compile-time methods. Additionally, you can easily create your own attributes or methods for rules that are specific to your project.
+There are two methods for adding verification rules to your code. You can do this declaratively by applying custom architecture attributes to your code, or programmatically using a compile-time fluent API. Metalama provides a set of pre-made custom attributes and compile-time methods. You can also create your own attributes or methods for rules specific to your project.
 
 ## Benefits
 
@@ -42,6 +42,3 @@ This chapter includes the following articles:
 > [!div class="see-also"]
 > <xref:Metalama.Extensions.Architecture>
 > <xref:fabrics>
-
-
-

@@ -10,9 +10,7 @@ modified-date: 2025-11-30
 
 [!metalama-vimeo 842168905]
 
-
 > [!div class="see-also"]
 > <xref:simple-override-method>
 > <xref:quickstart-adding-aspects>
 > <xref:understanding-your-code-with-aspects>
-

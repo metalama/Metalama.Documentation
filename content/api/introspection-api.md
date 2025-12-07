@@ -18,5 +18,6 @@ The following namespaces allow you to query your projects and solutions using th
 
 For conceptual documentation, see <xref:introspection>.
 
-
-
+> [!div class="see-also"]
+> <xref:introspection>
+> <xref:Metalama.Framework.Workspaces>

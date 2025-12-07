@@ -50,7 +50,6 @@ Memoization is a simple yet highly efficient form of caching applicable to compu
 
 Consult <xref:memoization> for detailed information.
 
-
 ### Observability (preview)
 
 We are releasing a preview of our <xref:Metalama.Patterns.Observability.ObservableAttribute?text=[Observable]> aspect implementing `INotifyPropertyChanged`. It will be finalized and documented in Metalama 2024.1.
@@ -79,4 +78,3 @@ We continue to introduce low-impact breaking changes in the compile-time API, as
   * The <xref:Metalama.Extensions.DependencyInjection.DependencyProperties> record constructor has changed.
   * The framework is now configured with the new hierarchical options framework. The `DependencyInjectionOptions` is now internal. The new configuration public API is the <xref:Metalama.Extensions.DependencyInjection.DependencyInjectionExtensions.ConfigureDependencyInjection*> extension method.
 * For external namespaces, the <xref:Metalama.Framework.Code.IDeclaration.ContainingDeclaration> of the namespace now returns the declaring assembly instead of the current compilation.
-

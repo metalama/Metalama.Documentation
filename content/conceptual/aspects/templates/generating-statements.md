@@ -21,7 +21,6 @@ In this article, we'll see how to dynamically add statements to the generated co
 
 When you need to construct statements programmatically or generate complex statements dynamically, use the <xref:Metalama.Framework.Code.SyntaxBuilders.StatementBuilder> class. This is the statement equivalent of <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionBuilder>. It allows you to generate both individual statements and _blocks_ of statements using its <xref:Metalama.Framework.Code.SyntaxBuilders.StatementBuilder.BeginBlock*> and <xref:Metalama.Framework.Code.SyntaxBuilders.StatementBuilder.EndBlock*> methods.
 
-
 > [!WARNING]
 > Don't forget the trailing semicolon at the end of the statement.
 
@@ -39,7 +38,6 @@ The following example demonstrates a reusable compile-time helper method that bu
 ## Parsing C# statements
 
 Just as you can parse C# expressions using <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionFactory.Parse*?text=ExpressionFactory.Parse>, you can parse statements from strings using the <xref:Metalama.Framework.Code.SyntaxBuilders.StatementFactory.Parse*?text=StatementFactory.Parse> method.
-
 
 > [!WARNING]
 > Don't forget the trailing semicolon at the end of the statement.

@@ -94,7 +94,6 @@ SomeMethod( ref TheField );
 
 Use <xref:Metalama.Framework.Code.Invokers.IEventInvoker.Add*?text=event.Add>, <xref:Metalama.Framework.Code.Invokers.IEventInvoker.Remove*?text=event.Remove>, or <xref:Metalama.Framework.Code.Invokers.IEventInvoker.Raise*?text=event.Raise> to generate code that adds handlers to, removes handlers from, or raises an event.
 
-
 ## Working with indexers
 
 You can access indexer items using the `this[ params object[] ]` or `this[ params IExpression[] ]` indexer of the <xref:Metalama.Framework.Code.Invokers.IIndexerInvoker> interface, which returns an <xref:Metalama.Framework.Code.IExpression>. This allows you to access elements in a natural way.

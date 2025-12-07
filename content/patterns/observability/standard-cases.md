@@ -12,39 +12,39 @@ The `Metalama.Patterns.Observability` package supports the following scenarios:
 
 - Automatic properties;
 - Explicitly-implemented properties whose getter references:
-    - fields,
-    - other properties,
-    - non-virtual instance methods;
+  - fields,
+  - other properties,
+  - non-virtual instance methods;
 - Child objects, i.e., properties whose getter references properties of another object, referred to as a child object, stored in a field or an automatic property of the current type (if this child object is itself observable);
 - Class inheritance.
 
 In this section, we present the code generation patterns for each supported scenario.
 
-### Automatic properties
+## Automatic properties
 
 The code pattern for automatic properties is straightforward. The automatic property is transformed into a field-backed property. A new `OnPropertyChanged` method is introduced unless it already exists.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Observability/Simple.cs]
 
-### Explicitly-implemented properties
+## Explicitly-implemented properties
 
 The <xref:Metalama.Patterns.Observability.ObservableAttribute?text=[Observable]> aspect analyzes the dependencies between all properties in the type and calls the `OnPropertyChanged` method for computed properties (also known as read-only properties).
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Observability/ComputedProperty.cs]
 
-### Field-backed properties
+## Field-backed properties
 
 Mutable fields are converted into properties of the same name, and the setter of the new property calls `OnPropertyChanged` for all relevant dependent properties.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Observability/FieldBacked.cs]
 
-### Derived types
+## Derived types
 
 When a derived type has a property whose getter references a property of the base type, the <xref:Metalama.Patterns.Observability.ObservableAttribute?text=[Observable]> aspect overrides the `OnPropertyChanged` method, filters the property name, and recursively calls the `OnPropertyChanged` method for all dependent properties.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Observability/Derived.cs]
 
-### Child objects
+## Child objects
 
 In MVVM architectures, it's common for a property of the ViewModel to depend on a property of the Model object, which itself is a field or property of the ViewModel object.
 
@@ -52,7 +52,7 @@ When a property getter references a property of an object stored in another fiel
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Observability/ChildObject.cs tabs="target"]
 
-### Child objects and derived types
+## Child objects and derived types
 
 The complexity increases when a type depends on a property of a property of the base type. To support this scenario, the <xref:Metalama.Patterns.Observability.ObservableAttribute?text=[Observable]> aspect generates two additional methods in the base type: `OnChildPropertyChanged` and `OnObservablePropertyChanged`.
 
@@ -66,4 +66,3 @@ Both methods are annotated with the <xref:Metalama.Patterns.Observability.Observ
 
 > [!div class="see-also"]
 > <xref:observability>
-

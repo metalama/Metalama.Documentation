@@ -68,6 +68,7 @@ In this example, we demonstrate how to build a custom cache key formatter for th
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Caching/Formatter/Formatter.cs]
 
 ## Changing the maximal length of a cache key
+
 The maximum length of a cache key is 1024 characters by default.
 
 To change the maximum length of a cache key, the procedure is similar to registering a custom formatter.
@@ -101,9 +102,7 @@ To override the default <xref:Metalama.Patterns.Caching.Formatters.ICacheKeyBuil
 
 2. Register your implementation while calling  <xref:Metalama.Patterns.Caching.Building.CachingServiceFactory.AddMetalamaCaching*?text=serviceCollection.AddMetalamaCaching>  or <xref:Metalama.Patterns.Caching.CachingService.Create*?text=CachingService.Create> as shown in the following snippet:
 
-
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Caching/HashingKeyBuilder/HashingKeyBuilder.Program.cs]
-
 
 ### Example: implementing a hashing cache key builder
 
@@ -117,6 +116,3 @@ Note that we're reusing the string-based <xref:Metalama.Patterns.Caching.Formatt
 > <xref:caching>
 > <xref:caching-getting-started>
 > <xref:caching-exclude-parameters>
-
-
-

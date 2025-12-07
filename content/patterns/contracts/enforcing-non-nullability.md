@@ -28,8 +28,3 @@ In the following example, we use the <xref:Metalama.Patterns.Contracts.ContractE
 > <xref:contract-patterns>
 > <xref:value-contracts>
 > <xref:fabrics>
-
-
-
-
-

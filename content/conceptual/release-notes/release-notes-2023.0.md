@@ -9,5 +9,3 @@ modified-date: 2024-08-04
 # Metalama 2023.0
 
 Metalama 2023.0 is our initial release.
-
-

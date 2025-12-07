@@ -32,7 +32,6 @@ For instance, the following line invalidates two `string` dependencies:
 > [!NOTE]
 > Dependencies function correctly with recursive method calls. If a cached method `A` calls another cached method `B`, all dependencies of `B` automatically become dependencies of `A`, even if `A` was cached when `A` was being evaluated.
 
-
 ### Example: string dependencies
 
 The following code is a variation of our `ProductCatalogue` example. It has three read methods:
@@ -97,6 +96,3 @@ To suspend the collection of dependencies in the current context and in all chil
 > <xref:caching>
 > <xref:caching-invalidation>
 > <xref:caching-redis>
-
-
-

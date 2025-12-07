@@ -19,10 +19,9 @@ Metalama offers two ways to invalidate the cache:
 
 - _Indirect_ invalidation adds a layer of abstraction, named _cache dependencies_, between the cached method and the invalidating code. Read methods are responsible for adding the proper dependencies to their context, and update methods are responsible for invalidating the dependencies. Therefore, update methods no longer need to know all read methods. For details about this approach, see <xref:caching-dependencies>.
 
-
 ## Invalidating cache items declaratively using the [InvalidateCache] aspect
 
-You can add the <xref:Metalama.Patterns.Caching.Aspects.InvalidateCacheAttribute?text=[InvalidateCache]> aspect to a method (referred to as the *invalidating method*) to cause any call to this method to remove from the cache the value of one or more other methods. Parameters of both methods are matched by name and type.
+You can add the <xref:Metalama.Patterns.Caching.Aspects.InvalidateCacheAttribute?text=[InvalidateCache]> aspect to a method (referred to as the _invalidating method_) to cause any call to this method to remove from the cache the value of one or more other methods. Parameters of both methods are matched by name and type.
 
 By default, the <xref:Metalama.Patterns.Caching.Aspects.InvalidateCacheAttribute?text=[InvalidateCache]> aspect looks for the cached method in the current type. You can specify a different type using the alternative constructor of the custom attribute.
 
@@ -44,19 +43,19 @@ The following example demonstrates a service named `PriceCatalogue` with two rea
 
 One of the most useful features of the <xref:Metalama.Patterns.Caching.Aspects.InvalidateCacheAttribute?text=[InvalidateCache]> aspect is that it verifies that the parameters of the invalidated and invalidating methods match:
 
-* When the method cannot be found, a compile-time error is reported.
+- When the method cannot be found, a compile-time error is reported.
 
     [!metalama-file ~/code/Metalama.Documentation.SampleCode.Caching/InvalidateCompileTimeErrors/BadMethod.cs]
 
-* If any parameter of the cached method cannot be matched with a parameter of the invalidating method, a build error will be reported (unless the parameter has the <xref:Metalama.Patterns.Caching.NotCacheKeyAttribute> custom attribute). The order of parameters is not considered.
+- If any parameter of the cached method cannot be matched with a parameter of the invalidating method, a build error will be reported (unless the parameter has the <xref:Metalama.Patterns.Caching.NotCacheKeyAttribute> custom attribute). The order of parameters is not considered.
 
     [!metalama-file ~/code/Metalama.Documentation.SampleCode.Caching/InvalidateCompileTimeErrors/BadParameter.cs]
 
-* When you invalidate a non-static method (unless instance has been excluded from the cache key by setting the <xref:Metalama.Patterns.Caching.Aspects.CachingBaseAttribute.IgnoreThisParameter> to `true`), you can do it only from a non-static method of the current type.
+- When you invalidate a non-static method (unless instance has been excluded from the cache key by setting the <xref:Metalama.Patterns.Caching.Aspects.CachingBaseAttribute.IgnoreThisParameter> to `true`), you can do it only from a non-static method of the current type.
 
     [!metalama-file ~/code/Metalama.Documentation.SampleCode.Caching/InvalidateCompileTimeErrors/NonStatic.cs]
 
-* If there are more invalidated methods of the same name for one invalidating method, a build error is reported. To enable invalidation of all the matching overloads by the one invalidating methods, set the property <xref:Metalama.Patterns.Caching.Aspects.InvalidateCacheAttribute.AllowMultipleOverloads> to `true`.
+- If there are more invalidated methods of the same name for one invalidating method, a build error is reported. To enable invalidation of all the matching overloads by the one invalidating methods, set the property <xref:Metalama.Patterns.Caching.Aspects.InvalidateCacheAttribute.AllowMultipleOverloads> to `true`.
 
 ## Invalidating cache items imperatively
 
@@ -89,6 +88,3 @@ Contrary to <xref:Metalama.Patterns.Caching.CachingServiceExtensions.Invalidate*
 > <xref:caching>
 > <xref:caching-getting-started>
 > <xref:caching-dependencies>
-
-
-

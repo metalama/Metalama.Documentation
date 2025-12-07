@@ -32,13 +32,11 @@ The process to access these configuration APIs is similar to adding aspects in b
     * If the aspect library exposes a `Configure` method, such as <xref:Metalama.Patterns.Caching.Aspects.Configuration.CachingConfigurationExtensions.ConfigureCaching*> or <xref:Metalama.Extensions.DependencyInjection.DependencyInjectionExtensions.ConfigureDependencyInjection*>, call this method.
     * If the aspect library exposes a configuration object that implements the <xref:Metalama.Framework.Options.IHierarchicalOptions> interface, call the <xref:Metalama.Framework.Options.OptionQueryExtensions.SetOptions*> and pass an instance of the desired configuration.
 
-
 ## Example: configuring caching
 
 The following example demonstrates how to configure caching. It sets the absolute expiration for the `MyProduct.MyNamespace` namespace.
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.Caching/AbsoluteExpiration_Fabric.cs]
-
 
 ## About the incremental nature of compile-time configuration
 
@@ -86,7 +84,6 @@ Some libraries may provide configuration custom attributes in addition to an imp
 
 It's important to note that both mechanisms &mdash; fabrics and custom attributes &mdash; are equivalent. Configuration custom attributes, when they exist, are simply easier ways to call the configuration API. The configuration properties they provide are merged with the ones provided by the fabrics.
 
-
 ## Inheritance of configuration options
 
 Unless specified otherwise by the aspect library, all configuration options are _inherited_ from the base type or from the overridden member. However, implemented interfaces are not taken into account.
@@ -103,4 +100,3 @@ Options inherited from the base class take precedence over the options that come
 > <xref:fabrics>
 > <xref:aspect-configuration>
 > <xref:configuration>
-

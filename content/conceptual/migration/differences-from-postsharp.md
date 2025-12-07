@@ -189,7 +189,6 @@ flowchart BT
 
 #### Cross-project aspects in Metalama
 
-
 ```mermaid
 flowchart BT
 
@@ -254,6 +253,3 @@ flowchart BT
 > * <xref:aspect-inheritance>
 > * <xref:sharing-state-with-advice>
 > * <xref:introducing-members>
-
-
-

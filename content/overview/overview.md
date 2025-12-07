@@ -35,10 +35,9 @@ Aspects -- transform<br>at compile time --> TransformedCode[Compiled Code]
 
 > [!div class="see-also"]
 >
-> **See also**
+> __See also__
 >
 > <xref:index>
 > <xref:main-getting-started>
 > <xref:conceptual>
 > <xref:aspects>
-

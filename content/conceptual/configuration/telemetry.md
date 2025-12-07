@@ -67,6 +67,3 @@ Metalama Telemetry uses a randomly generated GUID to uniquely identify your devi
 > [!div class="see-also"]
 > <xref:configuration>
 > <xref:dotnet-tool>
-
-
-

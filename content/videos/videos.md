@@ -14,10 +14,9 @@ modified-date: 2025-11-30
 4. <xref:video-testing>
 5. <xref:video-debugging>
 6. <xref:video-reporting-errors-and-warnings>
-7. <xref:video-code-fixes> 
+7. <xref:video-code-fixes>
 8. <xref:video-architecture-verification>
 9. <xref:video-custom-architecture-rules>
 
 > [!div class="see-also"]
 > <xref:conceptual>
-

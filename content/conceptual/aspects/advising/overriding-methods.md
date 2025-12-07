@@ -186,8 +186,8 @@ The following example demonstrates the behavior of the default template when app
 
 The default template works well most of the time, even on async methods and iterators, but it has a few limitations:
 
-* You cannot use `await` or `yield` in the default template.
-* When you call `meta.Proceed()` in the default template, it causes the complete evaluation of the async method or iterator.
+- You cannot use `await` or `yield` in the default template.
+- When you call `meta.Proceed()` in the default template, it causes the complete evaluation of the async method or iterator.
 
 To overcome these limitations, you can implement different variants of the `OverrideMethod`. For each variant, instead of calling <xref:Metalama.Framework.Aspects.meta.Proceed?text=meta.Proceed>, you should invoke the variant of this method with a relevant return type.
 
@@ -227,8 +227,8 @@ The _first argument_ of `Override` is the <xref:Metalama.Framework.Code.IMethod>
 
 The _second argument_ of `Override` is the name of the template method. This method must exist in the aspect class and, additionally:
 
-* The template method must be annotated with the `[Template]` attribute.
-* The template method must have a compatible return type and parameters that exist in the target method with compatible types. When the type is unknown, `dynamic` can be used. For instance, the following template method will match any method because it has no parameters (therefore it will check any parameter list) and has the universal `dynamic` return type, which also matches `void`.
+- The template method must be annotated with the `[Template]` attribute.
+- The template method must have a compatible return type and parameters that exist in the target method with compatible types. When the type is unknown, `dynamic` can be used. For instance, the following template method will match any method because it has no parameters (therefore it will check any parameter list) and has the universal `dynamic` return type, which also matches `void`.
 
     ```cs
     dynamic? Template()

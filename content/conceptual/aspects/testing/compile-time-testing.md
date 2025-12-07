@@ -122,4 +122,3 @@ public class MyTests : UnitTestClass
 > <xref:Metalama.Testing.UnitTesting.UnitTestClass>
 > <xref:Metalama.Testing.UnitTesting.TestContext>
 > <xref:Metalama.Framework.Code.ICompilation>
-

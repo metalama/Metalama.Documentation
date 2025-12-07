@@ -6,7 +6,6 @@ modified-date: 2025-11-30
 ---
 # Conceptual documentation
 
-
 | Chapter              | Description                                                                                                              |
 |----------------------|--------------------------------------------------------------------------------------------------------------------------|
 | <xref:release-notes> | The document provides a high-level changelog for all Metalama releases, highlighting key features and enhancements, and the status of each version. |

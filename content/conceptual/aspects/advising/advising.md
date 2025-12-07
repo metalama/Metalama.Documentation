@@ -31,5 +31,3 @@ In <xref:simple-aspects>, you learned how to build simple aspects composed of a 
 > <xref:simple-aspects>
 > <xref:templates>
 > <xref:Metalama.Framework.Aspects.AdviserExtensions>
-
-

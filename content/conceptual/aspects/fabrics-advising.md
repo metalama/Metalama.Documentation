@@ -27,7 +27,7 @@ To advise a type using a type fabric, follow these steps:
 > [!NOTE]
 > Type fabrics are always executed first, before any aspect. As a result, they can only add advice to members defined in the source code. If you need to add advice to members introduced by an aspect, you'll need to use a helper aspect and order it _after_ the aspects that provide the members you wish to advise.
 
-### Example
+## Example
 
 The following example demonstrates how to create a type fabric that introduces ten methods to the target type.
 
@@ -40,6 +40,3 @@ The following example demonstrates how to create a type fabric that introduces t
 > <xref:ordering-aspects>
 > <xref:Metalama.Framework.Fabrics.TypeFabric>
 > <xref:Metalama.Framework.Fabrics.ITypeAmender>
-
-
-

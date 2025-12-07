@@ -34,7 +34,7 @@ To validate a different version of the code model, follow these steps:
 3. Override or implement the <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method of your aspect. From this method:
    1. Access the <xref:Metalama.Framework.Aspects.IAspectBuilder`1.Outbound*?text=builder.Outbound> property,
    2. Select declarations to be validated using the <xref:Metalama.Framework.Fabrics.IQuery`1.SelectMany*> and <xref:Metalama.Framework.Fabrics.IQuery`1.Select*> methods,
-   2. Call the <xref:Metalama.Extensions.Validation.ValidationQueryExtensions.Validate*> method, pass a delegate to the validation method, and pass a <xref:Metalama.Extensions.Validation.DeclarationValidationOptions>, setting its <xref:Metalama.Extensions.Validation.DeclarationValidationOptions.Time> property to <xref:Metalama.Extensions.Validation.DeclarationValidationTime.BeforeAnyAspect> or <xref:Metalama.Extensions.Validation.DeclarationValidationTime.AfterAllAspects>.
+   3. Call the <xref:Metalama.Extensions.Validation.ValidationQueryExtensions.Validate*> method, pass a delegate to the validation method, and pass a <xref:Metalama.Extensions.Validation.DeclarationValidationOptions>, setting its <xref:Metalama.Extensions.Validation.DeclarationValidationOptions.Time> property to <xref:Metalama.Extensions.Validation.DeclarationValidationTime.BeforeAnyAspect> or <xref:Metalama.Extensions.Validation.DeclarationValidationTime.AfterAllAspects>.
 
 ### Example: requiring a later aspect to be applied
 
@@ -75,4 +75,3 @@ The following example implements a custom attribute `[ForTestOnly]` that enforce
 > <xref:Metalama.Extensions.Validation.ReferenceValidationContext>
 > <xref:Metalama.Extensions.Validation.ValidationQueryExtensions>
 > <xref:Metalama.Extensions.Validation.ReferenceValidationQueryExtensions>
-

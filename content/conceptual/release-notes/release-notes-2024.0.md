@@ -15,14 +15,14 @@ The primary goal of this release was to provide support for C# 12. Additionally,
 * `Metalama.Compiler`: We merged Roslyn 4.8 RTM.
 * Support for C# 12:
 
-   * Default lambda parameters,
-   * Inline arrays in run-time code,
-   * `nameof`: Access to instance members from a static context,
-   * Primary constructors,
-   * Type aliases,
-   * Collection expressions (also known as collection literals) like `[1,2,..array]`,
-   * `AppendParameter` advice (utilized in dependency injection scenarios) in primary constructors,
-   * Primary constructor parameters in initializer expressions.
+  * Default lambda parameters,
+  * Inline arrays in run-time code,
+  * `nameof`: Access to instance members from a static context,
+  * Primary constructors,
+  * Type aliases,
+  * Collection expressions (also known as collection literals) like `[1,2,..array]`,
+  * `AppendParameter` advice (utilized in dependency injection scenarios) in primary constructors,
+  * Primary constructor parameters in initializer expressions.
 
 ## Multi C# version support
 
@@ -49,6 +49,3 @@ We have been working on the following projects, but they are not yet stable:
 
 * [Metalama.Patterns.Observability](https://github.com/metalama/Metalama/tree/HEAD/Metalama.Patterns/src/Metalama.Patterns.Observability) is an aspect implementing the `INotifyPropertyChanged` interface. It supports computed properties and child objects.
 * [Metalama.Patterns.Xaml](https://github.com/metalama/Metalama/tree/HEAD/Metalama.Patterns/src/Metalama.Patterns.Wpf) are aspects implementing WPF commands and dependency properties. This package has been renamed to `Metalama.Patterns.Wpf` in Metalama 2024.2.
-
-
-

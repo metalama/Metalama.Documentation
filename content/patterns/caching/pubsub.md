@@ -21,9 +21,7 @@ Metalama facilitates the easy addition of pub/sub cache invalidation to your exi
 > [!WARNING]
 > With pub/sub invalidation, there may be some latency in the invalidation mechanism, i.e., different application instances running on different servers may see different data for a few dozen milliseconds. While generally harmless when application clients are affinitized to one server (for instance, with geo-based request routing), it can cause issues when the same client can randomly connect to different servers.
 
-
 ## Using Azure Service Bus
-
 
 ### Configuring a topic
 
@@ -34,7 +32,6 @@ The first step is to create a topic. To do this using the Microsoft Azure portal
 2. In the Microsoft Azure portal, create a **Shared access policy** and include the **Send**, **Listen**, and **Manage** rights. Your application will use this policy.
 
 3. Copy the primary or secondary connection string to your clipboard.
-
 
 ### Configuring your application
 
@@ -50,17 +47,14 @@ The first step is to create a topic. To do this using the Microsoft Azure portal
 
     [!metalama-file ~/code/Metalama.Documentation.SampleCode.Caching/AzureSynchronized/AzureSynchronized.Program.cs marker="Initialize"]
 
-
 > [!WARNING]
 > Ensure that the <xref:Metalama.Patterns.Caching.ICachingService> is properly disposed of before the application exits. Failure to do so may leave some background cache write operations unprocessed, leading to cache inconsistency.
-
 
 ### Example: A Distributed Application Synchronized by Azure Service Bus
 
 The following example simulates a multi-instance application. For ease of testing, both instances live in the same process. Both instances read and write to a shared database simulated by a concurrent dictionary, which sits behind an in-memory cache. These two cache instances are synchronized using <xref:Metalama.Patterns.Caching.Backends.Azure.AzureCachingFactory.WithAzureSynchronization*>.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Caching/AzureSynchronized/AzureSynchronized.cs]
-
 
 ## Using Redis Pub/Sub
 
@@ -82,6 +76,3 @@ No configuration on your Redis server is necessary to use it for cache synchroni
 > <xref:caching>
 > <xref:caching-redis>
 > <xref:caching-dependencies>
-
-
-

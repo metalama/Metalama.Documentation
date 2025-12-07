@@ -40,7 +40,3 @@ Fabrics are executed in the following order:
 > <xref:Metalama.Framework.Fabrics.ProjectFabric>
 > <xref:Metalama.Framework.Fabrics.NamespaceFabric>
 > <xref:Metalama.Framework.Fabrics.TypeFabric>
-
-
-
-

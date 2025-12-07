@@ -59,6 +59,3 @@ To make your lock manager work with the caching aspect, you should implement the
 > <xref:caching>
 > <xref:caching-configuration>
 > <xref:caching-redis>
-
-
-

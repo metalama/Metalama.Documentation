@@ -97,5 +97,3 @@ Instead, kindly send us the link via [email](mailto:hello@postsharp.net) or priv
 > <xref:dotnet-tool>
 > <xref:creating-logs>
 > <xref:profiling>
-
-

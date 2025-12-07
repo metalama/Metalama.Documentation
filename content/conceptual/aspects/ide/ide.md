@@ -39,6 +39,3 @@ This chapter includes the following articles:
 > <xref:eligibility>
 > <xref:diagnostics>
 > <xref:Metalama.Framework.Aspects.EditorExperienceAttribute>
-
-
-

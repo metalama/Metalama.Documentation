@@ -27,4 +27,3 @@ The `Metalama.Framework.Sdk` NuGet package provides direct, low-level access to 
 > <xref:conceptual>
 > <xref:aspects>
 > <xref:advanced-api>
-

@@ -54,6 +54,7 @@ Ensure that your code is committed in its repository. Create a separate branch f
    $env:MetalamaEmitCompilerTransformedFiles="true"
    $env:MetalamaFormatOutput="true"
    ```
+
    Note that the syntax differs if you're not using PowerShell. You can also define these properties in `Directory.Build.props`, but make sure they apply to all projects using Metalama.
 
 3. Rebuild _all_ your projects. Don't miss any! Your build may take longer than usual due to the `MetalamaFormatOutput` property.
@@ -88,7 +89,6 @@ Currently, Metalama doesn't provide a way to automatically remove fabrics and as
 
 * Editing all aspects to turn them into plain custom attributes,
 * Removing all fabrics.
-
 
 ## PowerShell script
 
@@ -132,5 +132,3 @@ dotnet format
 > <xref:understanding-your-code-with-aspects>
 > <xref:dotnet-tool>
 > <xref:msbuild-properties>
-
-

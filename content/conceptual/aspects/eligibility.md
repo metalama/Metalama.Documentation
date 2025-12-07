@@ -65,18 +65,15 @@ The following example demonstrates the use of <xref:Metalama.Framework.Eligibili
 
 [!metalama-test  ~/code/Metalama.Documentation.SampleCode.AspectFramework/Eligibility_Custom.cs name="Eligibility"]
 
-
 ## Adding "if" clauses to eligibility
 
 Sometimes the eligibility of aspects depends on a condition. For instance, your aspect may be eligible for all instance methods but only `void` static methods. One approach is to use <xref:Metalama.Framework.Eligibility.EligibilityExtensions.MustSatisfy*> to create a custom condition. A more straightforward approach is to use the <xref:Metalama.Framework.Eligibility.EligibilityExtensions.If*> method.
-
 
 ## Converting eligibility builders
 
 To convert an <xref:Metalama.Framework.Eligibility.IEligibilityBuilder`1> of one declaration type to an <xref:Metalama.Framework.Eligibility.IEligibilityBuilder`1> for another type, use the `builder.Convert().To<T>()` method. This will implicitly add an eligibility condition that the declaration is a `T`.
 
 Alternatively, when you don't want this implicit condition, you can use `builder.Convert().When<T>()`. This is equivalent to using an <xref:Metalama.Framework.Eligibility.EligibilityExtensions.If*> followed by a `Convert().To<T>()`.
-
 
 ## When to emit custom errors instead?
 
@@ -104,5 +101,3 @@ The following example expands the previous one, reporting custom errors when the
 > <xref:Metalama.Framework.Eligibility.IEligible`1>
 > <xref:Metalama.Framework.Eligibility.IEligibilityBuilder`1>
 > <xref:Metalama.Framework.Eligibility.EligibilityExtensions>
-
-

@@ -142,5 +142,3 @@ Once this configuration is done, `MyPackage` can be used both in run-time and co
 > <xref:Metalama.Framework.Aspects.meta>
 > <xref:Metalama.Framework.Aspects.CompileTimeAttribute>
 > <xref:Metalama.Framework.Aspects.RunTimeOrCompileTimeAttribute>
-
-

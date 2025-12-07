@@ -57,7 +57,7 @@ This chapter includes the following articles:
             <xref:invokers>
         </td>
         <td>
-            This article explains how to generate expressions that access members once you've their compile-time `IMethod`, `IProperty`, and similar objects.
+            This article explains how to generate expressions that access members once you have their compile-time `IMethod`, `IProperty`, and similar objects.
         </td>
     </tr>
     <tr>

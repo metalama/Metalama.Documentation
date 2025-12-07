@@ -101,6 +101,3 @@ In the `Item` class, the `Key` property is implemented as an automatic property.
 > <xref:contract-types>
 > <xref:configuring-contracts>
 > <xref:invariants>
-
-
-

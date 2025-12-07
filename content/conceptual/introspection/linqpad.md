@@ -55,7 +55,7 @@ For those unfamiliar, [LINQPad](https://www.linqpad.net/) is a popular tool for 
     ![Add connection 2](connection-2.svg)
 
 > [!WARNING]
-> The `Metalama.LinqPad` driver version must be __equal to or higher than__ the `Metalama.Framework` package version used in your projects.
+> The `Metalama.LinqPad` driver version must be **equal to or higher than** the `Metalama.Framework` package version used in your projects.
 
 ## Querying source code
 

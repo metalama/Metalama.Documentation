@@ -18,7 +18,6 @@ This package serves three purposes:
 * It represents the design intent visibly, enhancing code readability by eliminating the need for the reader to infer the immutability from the type implementation.
 * It reports warnings if a type marked as immutable contains mutable fields.
 
-
 ## Kinds of immutability
 
 The `Metalama.Patterns.Immutability` package recognizes two kinds of immutability, represented by the <xref:Metalama.Patterns.Immutability.ImmutabilityKind> type:
@@ -38,6 +37,7 @@ The `Metalama.Patterns.Immutability` package contains rules that define the foll
 * Immutable collections from the `System.Collections.Immutable` namespace, when all type parameters are themselves deeply immutable.
 
 Additionally, the following types are implicitly classified as _shallowly immutable_:
+
 * Read-only structs.
 * Immutable collections from the `System.Collections.Immutable` namespace, when any type parameter is not deeply immutable.
 
@@ -74,5 +74,3 @@ The following example marks the `Uri` class as deeply immutable. Thanks to this,
 > <xref:patterns>
 > <xref:observability>
 > <xref:caching-value-adapters>
-
-

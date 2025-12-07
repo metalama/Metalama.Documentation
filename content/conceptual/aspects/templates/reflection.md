@@ -39,6 +39,3 @@ The following example demonstrates a method that returns a list of all methods r
 > <xref:Metalama.Framework.Code.IType>
 > <xref:Metalama.Framework.Code.IMethod>
 > <xref:Metalama.Framework.Code.IMemberOrNamedType>
-
-
-

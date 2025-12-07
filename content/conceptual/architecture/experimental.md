@@ -11,7 +11,7 @@ modified-date: 2025-11-30
 
 The [[Obsolete]](xref:System.ObsoleteAttribute) attribute is a familiar custom attribute that generates a warning when the marked declaration is used, unless the referencing declaration is also marked as `[Obsolete]`.
 
-There may be situations where a warning for an experimental API that may be changed or removed later is necessary. The `[Obsolete]` attribute may not be the best choice for this, as the error message it generates could mislead users. As an alternative, Metalama provides the <xref:Metalama.Extensions.Architecture.Aspects.ExperimentalAttribute> attribute and the <xref:Metalama.Extensions.Architecture.ArchitectureExtensions.Experimental*> compile-time method, which are better suited for this purpose.
+Sometimes you need a warning for an experimental API that may change or be removed later. The `[Obsolete]` attribute isn't ideal for this because its error message could mislead users. Instead, Metalama provides the <xref:Metalama.Extensions.Architecture.Aspects.ExperimentalAttribute> attribute and the <xref:Metalama.Extensions.Architecture.ArchitectureExtensions.Experimental*> compile-time method, which are better suited for this purpose.
 
 ## Marking a specific API as experimental
 
@@ -29,7 +29,7 @@ In the following example, the `ExperimentalApi` class is explicitly marked as ex
 
 ## Programmatically marking APIs as experimental
 
-If you wish to mark several APIs as experimental using a programmatic rule instead of hand-picking declarations, you can use fabrics. Follow these steps:
+To mark several APIs as experimental using a programmatic rule instead of hand-picking declarations, use fabrics. Follow these steps:
 
 1. Add the `Metalama.Extensions.Architecture` package to your project.
 
@@ -37,7 +37,7 @@ If you wish to mark several APIs as experimental using a programmatic rule inste
 
 3. Import the <xref:Metalama.Framework.Fabrics> and <xref:Metalama.Extensions.Architecture> namespaces to benefit from extension methods.
 
-4. Edit the <xref:Metalama.Framework.Fabrics.ProjectFabric.AmendProject*>, <xref:Metalama.Framework.Fabrics.NamespaceFabric.AmendNamespace*>, or <xref:Metalama.Framework.Fabrics.TypeFabric.AmendType*> method. 
+4. Edit the <xref:Metalama.Framework.Fabrics.ProjectFabric.AmendProject*>, <xref:Metalama.Framework.Fabrics.NamespaceFabric.AmendNamespace*>, or <xref:Metalama.Framework.Fabrics.TypeFabric.AmendType*> method.
 
 5. Select the experimental APIs using the <xref:Metalama.Framework.Fabrics.IQuery`1.Select*>, <xref:Metalama.Framework.Fabrics.IQuery`1.SelectMany*>, and <xref:Metalama.Framework.Fabrics.IQuery`1.Where*> methods.
 
@@ -53,6 +53,3 @@ In the following example, all public members of `ExperimentalNamespace` are prog
 > <xref:validation>
 > <xref:Metalama.Extensions.Architecture.Aspects.ExperimentalAttribute>
 > <xref:fabrics>
-
-
-

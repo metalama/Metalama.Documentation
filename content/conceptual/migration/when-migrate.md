@@ -51,4 +51,3 @@ DO NOT migrate to Metalama at this time if:
 > <xref:benefits-over-postsharp>
 > <xref:migration-feature-status>
 > <xref:migrating-aspects>
-

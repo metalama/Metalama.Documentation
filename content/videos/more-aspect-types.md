@@ -14,5 +14,3 @@ modified-date: 2025-11-30
 > <xref:simple-override-property>
 > <xref:advising-code>
 > <xref:sample-notifypropertychanged>
-
-

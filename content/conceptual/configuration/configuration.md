@@ -23,6 +23,3 @@ The following articles provide guidance on how to configure Metalama.
 > [!div class="see-also"]
 > <xref:installing>
 > <xref:dotnet-tool>
-
-
-

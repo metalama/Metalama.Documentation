@@ -24,7 +24,6 @@ You can now introduce a constructor into an existing or new type thanks to the <
 
 You can also override any constructor using a new overload of the <xref:Metalama.Framework.Aspects.AdviserExtensions.Override*> method.
 
-
 ## Metalama.Patterns.Observability is Generally Available
 
 The `Metalama.Patterns.Observability` package is now stable and fully supported.
@@ -34,6 +33,7 @@ It contains the <xref:Metalama.Patterns.Observability.ObservableAttribute?text=[
 The <xref:Metalama.Patterns.Observability.ObservableAttribute?text=[Observable]> aspect is incredibly advanced and capable.
 
 Where competing solutions stop at automatic properties, our implementation supports:
+
 * explicit properties with references to fields, other properties, and methods,
 * child objects, i.e., properties like `string FullName => $"{this.Model.FirstName} {this.Model.LastName}"`,
 * references to properties of the base type,
@@ -55,7 +55,6 @@ This new package defines a concept of immutable type. Types can be marked as imm
 
 For details, see <xref:immutability>.
 
-
 ## Improvements in fabrics and IAspectReceiver
 
 * The <xref:Metalama.Framework.Fabrics.IAmender`1.Outbound?text=IAmender.Outbound> property is now redundant and has been marked as `[Obsolete]`. The <xref:Metalama.Framework.Fabrics.IAmender`1> interface now directly derives from `IAspectReceiver<T>` (now <xref:Metalama.Framework.Fabrics.IQuery`1>) instead of exposing it on the <xref:Metalama.Framework.Fabrics.IAmender`1.Outbound> property. The use of the <xref:Metalama.Framework.Aspects.IAspectBuilder`1.Outbound> property is still required for <xref:Metalama.Framework.Aspects.IAspectBuilder`1>.
@@ -63,11 +62,11 @@ For details, see <xref:immutability>.
 * New method <xref:Metalama.Framework.Fabrics.IQuery`1.SelectTypes*?text=IQuery.SelectTypes>: gets all types in the current context (typically namespace, compilation, or current type).
 * New method <xref:Metalama.Framework.Fabrics.IQuery`1.SelectTypesDerivedFrom*?text=IQuery.SelectTypesDerivedFrom>: gets all types in the current context derived from a given type.
 * New extension methods for `IAspectReceiver<ICompilation>`:
-   * <xref:Metalama.Framework.Fabrics.QueryExtensions.SelectReferencedAssembly*> gets a referenced assembly,
-   * <xref:Metalama.Framework.Fabrics.QueryExtensions.SelectReflectionType*> gets a type given by `System.Type`.
+  * <xref:Metalama.Framework.Fabrics.QueryExtensions.SelectReferencedAssembly*> gets a referenced assembly,
+  * <xref:Metalama.Framework.Fabrics.QueryExtensions.SelectReflectionType*> gets a type given by `System.Type`.
 * Performance improvements:
-    * The right side of query operators like `IAspectReceiver.SelectMany()`, `IAspectReceiver.SelectTypes` or `IAspectReceiver.SelectTypesDerivedFrom` now executes concurrently.
-    * When a part of a query is used several times (typically by storing the query in a local variable), its result is cached.
+  * The right side of query operators like `IAspectReceiver.SelectMany()`, `IAspectReceiver.SelectTypes` or `IAspectReceiver.SelectTypesDerivedFrom` now executes concurrently.
+  * When a part of a query is used several times (typically by storing the query in a local variable), its result is cached.
 
 ## Improvements in Metalama.Extensions.Architecture
 
@@ -127,14 +126,13 @@ We are finally addressing the problem where the <xref:Metalama.Patterns.Contract
 Starting from Metalama 2024.2, using any of the <xref:Metalama.Patterns.Contracts.PositiveAttribute?text=[Positive]>, <xref:Metalama.Patterns.Contracts.NegativeAttribute?text=[Negative]>, <xref:Metalama.Patterns.Contracts.LessThanAttribute?text=[LessThan]> or <xref:Metalama.Patterns.Contracts.GreaterThanAttribute?text=[GreaterThan]> attributes will report a warning saying that the strictness of the inequality is ambiguous. You've two options to resolve the warning:
 
 * Use one of the variants where the strictness is made explicit:
-   * Strict: <xref:Metalama.Patterns.Contracts.StrictlyPositiveAttribute?text=[StrictlyPositive]>, <xref:Metalama.Patterns.Contracts.StrictlyNegativeAttribute?text=[StrictlyNegative]>, <xref:Metalama.Patterns.Contracts.StrictlyLessThanAttribute?text=[StrictlyLessThan]> and <xref:Metalama.Patterns.Contracts.StrictlyGreaterThanAttribute?text=[StrictlyGreaterThan]>
-   * Non-strict: <xref:Metalama.Patterns.Contracts.NonNegativeAttribute?text=[NonNegative]>, <xref:Metalama.Patterns.Contracts.NonPositiveAttribute?text=[NonPositive]>, <xref:Metalama.Patterns.Contracts.LessThanOrEqualAttribute?text=[LessThanOrEqual]> and <xref:Metalama.Patterns.Contracts.GreaterThanAttribute?text=[GreaterThanOrEqual]>.
+  * Strict: <xref:Metalama.Patterns.Contracts.StrictlyPositiveAttribute?text=[StrictlyPositive]>, <xref:Metalama.Patterns.Contracts.StrictlyNegativeAttribute?text=[StrictlyNegative]>, <xref:Metalama.Patterns.Contracts.StrictlyLessThanAttribute?text=[StrictlyLessThan]> and <xref:Metalama.Patterns.Contracts.StrictlyGreaterThanAttribute?text=[StrictlyGreaterThan]>
+  * Non-strict: <xref:Metalama.Patterns.Contracts.NonNegativeAttribute?text=[NonNegative]>, <xref:Metalama.Patterns.Contracts.NonPositiveAttribute?text=[NonPositive]>, <xref:Metalama.Patterns.Contracts.LessThanOrEqualAttribute?text=[LessThanOrEqual]> and <xref:Metalama.Patterns.Contracts.GreaterThanAttribute?text=[GreaterThanOrEqual]>.
 * Or set the <xref:Metalama.Patterns.Contracts.ContractOptions.DefaultInequalityStrictness> contract option using the <xref:Metalama.Patterns.Contracts.ContractConfigurationExtensions.ConfigureContracts*> fabric extension method.
 
 If you don't address the warning, the behavior of the ambiguous contracts will remain backward-compatible, i.e., non-standard.
 
 We will change the default behavior and the warning in a future release.
-
 
 ## Improvements in Metalama.Patterns.Caching
 
@@ -145,9 +143,9 @@ We will change the default behavior and the warning in a future release.
 * `CancellationToken` parameters are automatically ignored.
 
 * With the Redis backend:
-    * By default, Metalama Caching will use the `CommandFlags.PreferReplica` for read operations and `CommandFlags.PreferMaster` for write operations. These default values can be modified using the `ReadCommandFlags` and `WriteCommandFlags` properties of the `RedisCachingBackendConfiguration` class.
-    * `StackExchange.Redis` was updated to 2.8.
-    * The <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingFactory.Redis*> method now consumes `IConnectionMultiplexer` from the `IServiceProvider` by default.
+  * By default, Metalama Caching will use the `CommandFlags.PreferReplica` for read operations and `CommandFlags.PreferMaster` for write operations. These default values can be modified using the `ReadCommandFlags` and `WriteCommandFlags` properties of the `RedisCachingBackendConfiguration` class.
+  * `StackExchange.Redis` was updated to 2.8.
+  * The <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingFactory.Redis*> method now consumes `IConnectionMultiplexer` from the `IServiceProvider` by default.
 
 ## Improvements in supportability
 
@@ -170,6 +168,6 @@ For details, see <xref:creating-logs>.
 * `Metalama.Patterns.Contracts`: Some virtual methods of the <xref:Metalama.Patterns.Contracts.RangeAttribute> and <xref:Metalama.Patterns.Contracts.ContractTemplates> classes have changed; overrides must be adapted.
 
 * `Metalama.Patterns.Caching`:
-    * CachingBackend.Clear() no longer raises the `ItemRemoved` event.
-    * The `CacheValue` class has been replaced by the existing `CacheItem` class.
-    * The `ICachingSerializer` interface has been refactored to work with `BinaryReader` and `BinaryWriter`.
+  * CachingBackend.Clear() no longer raises the `ItemRemoved` event.
+  * The `CacheValue` class has been replaced by the existing `CacheItem` class.
+  * The `ICachingSerializer` interface has been refactored to work with `BinaryReader` and `BinaryWriter`.

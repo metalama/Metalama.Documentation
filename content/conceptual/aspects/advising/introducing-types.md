@@ -81,9 +81,9 @@ The input code for this pattern is an anemic class with get-only automatic prope
 The Builder aspect generates the following artifacts:
 
 * A `Builder` nested class with:
-    * A public constructor accepting all required properties.
-    * Writable properties corresponding to all automatic properties of the source class.
-    * A `Build` method that instantiates the source type.
+  * A public constructor accepting all required properties.
+  * Writable properties corresponding to all automatic properties of the source class.
+  * A `Build` method that instantiates the source type.
 * A private constructor in the source class that's called by the `Builder.Build` method.
 
 Ideally, the aspect should also test that the source type does not have another constructor or any settable property, but this is skipped in this example.

@@ -84,4 +84,3 @@ If you want to go deeper into field/property overrides, consider exploring the f
 > <xref:Metalama.Framework.Advising.GetterTemplateSelector>
 > <xref:Metalama.Framework.Code.IFieldOrProperty>
 > <xref:Metalama.Framework.Code.IProperty>
-

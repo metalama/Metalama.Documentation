@@ -30,7 +30,7 @@ Metalama adheres to the "matryoshka" model: your source code is the innermost do
 
 Remember that while Metalama, at _build time_, constructs the matryoshka from the inside out, at _run time_ the code is executed from the outside in; in other words, the source code is executed _last_.
 
-Therefore, the build-time order of applying aspects and the run-time order of executing aspects are usually _opposite_. 
+Therefore, the build-time order of applying aspects and the run-time order of executing aspects are usually _opposite_.
 
 ## Specifying the execution order
 
@@ -52,7 +52,6 @@ using Metalama.Framework.Aspects;
 
 This custom attribute defines the run-time execution order:
 
-
 ```mermaid
 flowchart LR
 
@@ -60,7 +59,6 @@ Aspect1 --> Aspect2
 Aspect2 --> Aspect3
 
 ```
-
 
 ### Partial relationships
 
@@ -85,7 +83,7 @@ If you specify conflicting relationships or import an aspect library that define
 
 ### Inherited aspects
 
-By default, relationships specified with <xref:Metalama.Framework.Aspects.AspectOrderAttribute> also apply to derived aspect classes. 
+By default, relationships specified with <xref:Metalama.Framework.Aspects.AspectOrderAttribute> also apply to derived aspect classes.
 
 For instance, consider the following aspects:
 
@@ -116,8 +114,6 @@ flowchart LR
 MemoryCacheAspect --> RedisCacheAspect --> RetryAspect --> WrapExceptionAspect
 ```
 
-
-
 To disable this behavior, set the <xref:Metalama.Framework.Aspects.AspectOrderAttribute.ApplyToDerivedTypes> property to `false`.
 
 ### How does it work?
@@ -126,13 +122,11 @@ Under the hood, Metalama performs a [topological sort](https://en.wikipedia.org/
 
 When a pair of aspects don't have any specific ordering relationship, from any source, Metalama falls back to _alphabetical_ ordering to avoid any non-determinism.
 
-
 ### Example
 
 The following code snippet demonstrates two aspects that add a method to the target type and display the list of methods defined on the target type before the aspect was applied. The execution order is defined as `Aspect1 < Aspect2`. From this example, you can see that the order of application of aspects is opposite. `Aspect2` is applied first and sees the source code, then `Aspect1` is applied and sees the method added by `Aspect2`. The modified method body of `SourceMethod` shows that the aspects are executed in this order: `Aspect1`, `Aspect2`, then the original method.
 
 [!metalama-test  ~/code/Metalama.Documentation.SampleCode.AspectFramework/Ordering.cs name="Ordering"]
-
 
 > [!div class="see-also"]
 > <xref:aspects>
@@ -143,4 +137,3 @@ The following code snippet demonstrates two aspects that add a method to the tar
 > <xref:Metalama.Framework.Aspects.AspectOrderDirection>
 > <xref:Metalama.Framework.Aspects.LayersAttribute>
 > <xref:Metalama.Framework.Aspects.IAspectInstance>
-

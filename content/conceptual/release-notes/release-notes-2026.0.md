@@ -27,9 +27,9 @@ Metalama 2026.0 ensures you are ready to take full advantage of the latest C# fe
 Metalama 2026.0 supports the following development environments and SDKs:
 
 - Visual Studio:
-    - 2022 LTSC 17.12 (latest build)
-    - 2022 17.14 (latest build)
-    - 2026 18.0 (latest build)
+  - 2022 LTSC 17.12 (latest build)
+  - 2022 17.14 (latest build)
+  - 2026 18.0 (latest build)
 - .NET SDK 8.0, 9.0, or 10.0.
 - C# 12, 13, or 14.
 
@@ -45,7 +45,6 @@ Metalama 2026.0 supports the following target frameworks:
 
 > [!WARNING]
 > .NET 6 has been deprecated as a tested runtime.
-
 
 ## C# 14 support
 
@@ -80,7 +79,6 @@ The following C# 14 features haven't been implemented in Metalama 2026.0:
 - [#1131](https://github.com/metalama/Metalama/issues/1131): Introducing new compound assignment operators.
 - [#1143](https://github.com/metalama/Metalama/issues/1143): Introducing parameters into partial constructors.
 - [#1159](https://github.com/metalama/Metalama/issues/1159): Introducing new extension blocks.
-
 
 ## Extension blocks
 
@@ -126,26 +124,25 @@ For comprehensive documentation, see <xref:overriding-events>.
 
 Visual Studio Tools for Metalama includes refactored components that dramatically improve performance. It's now more stable, consumes less CPU, and makes better use of your cores.
 
-
 ## Additional improvements
 
-* **Toast notifications for product news** ([#1161](https://github.com/metalama/Metalama/issues/1161)). Visual Studio Tools for Metalama can now display toast notifications when new blog posts or product briefs are published.
+- **Toast notifications for product news** ([#1161](https://github.com/metalama/Metalama/issues/1161)). Visual Studio Tools for Metalama can now display toast notifications when new blog posts or product briefs are published.
 
-* **User-defined checked operators** ([#1133](https://github.com/metalama/Metalama/issues/1133)). Metalama 2026.0 adds support for introducing user-defined `checked` operators.
+- **User-defined checked operators** ([#1133](https://github.com/metalama/Metalama/issues/1133)). Metalama 2026.0 adds support for introducing user-defined `checked` operators.
 
-* **Cross-project dependency injection** ([#568](https://github.com/metalama/Metalama/issues/568)). Enhanced dependency injection capabilities now allow pulling constructor parameters across project boundaries. See <xref:dependency-injection>.
+- **Cross-project dependency injection** ([#568](https://github.com/metalama/Metalama/issues/568)). Enhanced dependency injection capabilities now allow pulling constructor parameters across project boundaries. See <xref:dependency-injection>.
 
-* **Compile-time assembly resolver** ([#1088](https://github.com/metalama/Metalama/issues/1088)). The component that downloads compile-time assembly now properly respects the project's `nuget.config` file for package resolution.
+- **Compile-time assembly resolver** ([#1088](https://github.com/metalama/Metalama/issues/1088)). The component that downloads compile-time assembly now properly respects the project's `nuget.config` file for package resolution.
 
-* **Single-file `dotnet run` support** ([#1107](https://github.com/metalama/Metalama/issues/1107)). Metalama now supports Microsoft's single-file `dotnet run` functionality, allowing aspects to work with modern .NET single-file deployment scenarios.
+- **Single-file `dotnet run` support** ([#1107](https://github.com/metalama/Metalama/issues/1107)). Metalama now supports Microsoft's single-file `dotnet run` functionality, allowing aspects to work with modern .NET single-file deployment scenarios.
 
-* **`ExcludeAspect` enhancement** ([#1176](https://github.com/metalama/Metalama/issues/1176)). The `[ExcludeAspect]` attribute, when applied to a field or property, now implicitly applies to its accessors.
+- **`ExcludeAspect` enhancement** ([#1176](https://github.com/metalama/Metalama/issues/1176)). The `[ExcludeAspect]` attribute, when applied to a field or property, now implicitly applies to its accessors.
 
 ## Documentation updates
 
-* New article: <xref:type-system>.
-* Improved the chapter: <xref:templates>.
-* Improved the API documentation by adding elements from the conceptual documentation where relevant.
+- New article: <xref:type-system>.
+- Improved the chapter: <xref:templates>.
+- Improved the API documentation by adding elements from the conceptual documentation where relevant.
 
 ## Breaking changes
 

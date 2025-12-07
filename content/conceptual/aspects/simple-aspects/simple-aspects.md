@@ -26,6 +26,3 @@ In <xref:using-metalama>, you learned how to utilize pre-built aspects in your p
 > <xref:Metalama.Framework.Aspects.OverrideMethodAspect>
 > <xref:Metalama.Framework.Aspects.OverrideFieldOrPropertyAspect>
 > <xref:Metalama.Framework.Aspects.ContractAspect>
-
-
-

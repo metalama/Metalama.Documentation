@@ -8,8 +8,6 @@ modified-date: 2025-11-30
 
 # Metalama API documentation
 
-
-
 | Section                             | Description                                                                                                                                                     |
 |---------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | <xref:code-api> | Defines the compile-time representation of the code model. |

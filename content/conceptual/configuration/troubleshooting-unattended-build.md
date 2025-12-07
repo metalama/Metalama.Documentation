@@ -51,8 +51,7 @@ You can find the logs under the `%TEMP%\Metalama\Logs` directory.
 > [!NOTE]
 > To store temporary files in a different directory than `%TEMP%`, set the `METALAMA_TEMP` environment variable.
 
-
-## Approach 2. Logging to the console 
+## Approach 2. Logging to the console
 
 To diagnose the build on build agents, the above procedure may be cumbersome because of the need to upload the logs from the build agent to some artifact repository.
 
@@ -65,6 +64,7 @@ Note that `dotnet build` or `msbuild` process, as well as the Metalama compiler 
 It is also important to enable detailed verbosity in `dotnet build` or `msbuild` because the default verbosity doesn't pass through the standard output of the compiler process.
 
 ### Example: PowerShell
+
 Combining all these notes, here is how to enable console logging for all categories:
 
 ```powershell
@@ -108,4 +108,3 @@ jobs:
 > <xref:creating-logs>
 > <xref:process-dump>
 > <xref:profiling>
-

@@ -62,5 +62,3 @@ Three complementary strategies are available to test your aspects. Aspect testin
 > <xref:aspects>
 > <xref:Metalama.Testing.AspectTesting>
 > <xref:Metalama.Testing.UnitTesting>
-
-

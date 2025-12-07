@@ -83,13 +83,13 @@ Follow this procedure:
 4. Create a `public static` extension method with a `this` parameter of type <xref:Metalama.Framework.Fabrics.IQuery`1> where `T` is the type of declarations you want to validate. Name it for instance `verifier`.
 5. If you need to apply the rule to _contained_ declarations, select them using the <xref:Metalama.Framework.Fabrics.IQuery`1.Select*>, <xref:Metalama.Framework.Fabrics.IQuery`1.SelectMany*>, and <xref:Metalama.Framework.Fabrics.IQuery`1.Where*> methods.
 6. From here, you have several options:
- * If you already know, based on the <xref:Metalama.Framework.Fabrics.IQuery`1.Select*>, <xref:Metalama.Framework.Fabrics.IQuery`1.SelectMany*>, and <xref:Metalama.Framework.Fabrics.IQuery`1.Where*> methods, that the declaration violates the rule, you can immediately report a warning or error using the <xref:Metalama.Framework.Diagnostics.DiagnosticsQueryExtensions.ReportDiagnostic*> method.
- * To validate references (i.e. dependencies), use <xref:Metalama.Extensions.Validation.ReferenceValidationQueryExtensions.ValidateInboundReferences*>.
- * To validate the declaration itself, use <xref:Metalama.Extensions.Validation.ValidationQueryExtensions.Validate*>.
+
+* If you already know, based on the <xref:Metalama.Framework.Fabrics.IQuery`1.Select*>, <xref:Metalama.Framework.Fabrics.IQuery`1.SelectMany*>, and <xref:Metalama.Framework.Fabrics.IQuery`1.Where*> methods, that the declaration violates the rule, you can immediately report a warning or error using the <xref:Metalama.Framework.Diagnostics.DiagnosticsQueryExtensions.ReportDiagnostic*> method.
+* To validate references (i.e. dependencies), use <xref:Metalama.Extensions.Validation.ReferenceValidationQueryExtensions.ValidateInboundReferences*>.
+* To validate the declaration itself, use <xref:Metalama.Extensions.Validation.ValidationQueryExtensions.Validate*>.
 
 > [!div class="see-also"]
 > <xref:validation>
 > <xref:validating-usage>
 > <xref:aspect-validating>
 > <xref:Metalama.Extensions.Architecture>
-

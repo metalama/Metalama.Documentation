@@ -25,7 +25,6 @@ While this extension is optional, it is highly recommended for a more comprehens
 
 The simplest way to install the extension is to install it from Visual Studio Marketplace and launch the downloaded file.
 
-
 ## Installing from Visual Studio
 
 Alternatively, you can use the following procedure from Visual Studio.

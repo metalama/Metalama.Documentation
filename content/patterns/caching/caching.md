@@ -20,11 +20,10 @@ Metalama Caching offers several advantages over manual caching:
 - **Reduced coupling**: Cache invalidation can be complex and often requires you to review your complete _write_ methods every time you add caching to a _read_ method. Cache dependencies act as an abstraction layer between _read_ and _write_ methods, reducing coupling between them.
 
 - **Flexible topologies**: Metalama Caching supports several caching topologies, allowing you to switch between them effortlessly:
-    - In-memory caching,
-    - Redis-based distributed caching (see <xref:caching-redis>),
-    - Redis-based distributed caching with a synchronized in-memory L1 (see <xref:caching-redis>), and
-    - In-memory caching with multi-node synchronization over Azure Service Bus or Redis Pub/Sub (see <xref:caching-pubsub>).
-
+  - In-memory caching,
+  - Redis-based distributed caching (see <xref:caching-redis>),
+  - Redis-based distributed caching with a synchronized in-memory L1 (see <xref:caching-redis>), and
+  - In-memory caching with multi-node synchronization over Azure Service Bus or Redis Pub/Sub (see <xref:caching-pubsub>).
 
 ## In this chapter
 
@@ -43,6 +42,3 @@ Metalama Caching offers several advantages over manual caching:
 > [!div class="see-also"]
 > <xref:patterns>
 > <xref:memoization>
-
-
-

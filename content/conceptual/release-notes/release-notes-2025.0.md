@@ -28,8 +28,8 @@ We tested and fixed Metalama 2025.0 for all features of C# 13:
 
 ### Platform deprecation
 
-* The minimal supported Visual Studio version is now 2022 17.6 LTSC.
-* The minimal supported Roslyn version is now 4.4.0.
+- The minimal supported Visual Studio version is now 2022 17.6 LTSC.
+- The minimal supported Roslyn version is now 4.4.0.
 
 Third-party package dependencies have been updated.
 
@@ -127,19 +127,19 @@ Background commands are also represented by an <xref:Metalama.Patterns.Wpf.Async
 
 ## Other small improvements
 
-* Test framework: Added test options `@Repeat(<int>)` and `@RandomSeed(<int>)` to help reproduce random issues.
-* Code model: `ToDisplayString` and `ToString` implemented for introduced declarations.
-* Representation of overridden fields has been made more consistent.
-* Some type predicate methods renamed. The old methods have been marked as obsolete.
-  * IType.Is -> IsConvertibeTo
-  * EligibilityBuilder.MustBe -> MustBeConvertibleTo or MustEqual
-  * EligibilityBuilder.MustBeOfType -> MustBeInstanceOfType
+- Test framework: Added test options `@Repeat(<int>)` and `@RandomSeed(<int>)` to help reproduce random issues.
+- Code model: `ToDisplayString` and `ToString` implemented for introduced declarations.
+- Representation of overridden fields has been made more consistent.
+- Some type predicate methods renamed. The old methods have been marked as obsolete.
+  - IType.Is -> IsConvertibeTo
+  - EligibilityBuilder.MustBe -> MustBeConvertibleTo or MustEqual
+  - EligibilityBuilder.MustBeOfType -> MustBeInstanceOfType
 
 ## Breaking changes
 
-* The `ReferenceResolutionOptions` enum and all parameters of `ReferenceResolutionOptions` in `IRef.GetTarget` have been removed.
-* Casting a non-dynamic expression to <xref:Metalama.Framework.Code.IExpression> no longer works. A call of <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionFactory.Capture*> is required instead. The previous behavior "tricking" the cast operator was undocumented and confusing.
-* The `IRef.GetTarget` and `IRef.GetTargetOrNull` methods have been moved to extension methods, which could require you to add new `using` directives in your code.
-* In `Metalama.Patterns.Wpf`, there are a few changes with the `[Command]` aspect:
-  * the <xref:Metalama.Patterns.Wpf.DelegateCommand> type has been moved to the `Metalama.Patterns.Wpf` namespace,
-  * the aspect generates properties of type <xref:Metalama.Patterns.Wpf.DelegateCommand>, <xref:Metalama.Patterns.Wpf.DelegateCommand`1>, <xref:Metalama.Patterns.Wpf.AsyncDelegateCommand> or <xref:Metalama.Patterns.Wpf.AsyncDelegateCommand`1> instead of <xref:System.Windows.Input.ICommand>. All these types implement the <xref:System.Windows.Input.ICommand> interface, but the `Execute(object)` method is now implemented privately. It is replaced by a strongly-typed method `Execute()` for parameterless commands or `Execute(T)` for commands accepting a parameter.
+- The `ReferenceResolutionOptions` enum and all parameters of `ReferenceResolutionOptions` in `IRef.GetTarget` have been removed.
+- Casting a non-dynamic expression to <xref:Metalama.Framework.Code.IExpression> no longer works. A call of <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionFactory.Capture*> is required instead. The previous behavior "tricking" the cast operator was undocumented and confusing.
+- The `IRef.GetTarget` and `IRef.GetTargetOrNull` methods have been moved to extension methods, which could require you to add new `using` directives in your code.
+- In `Metalama.Patterns.Wpf`, there are a few changes with the `[Command]` aspect:
+  - the <xref:Metalama.Patterns.Wpf.DelegateCommand> type has been moved to the `Metalama.Patterns.Wpf` namespace,
+  - the aspect generates properties of type <xref:Metalama.Patterns.Wpf.DelegateCommand>, <xref:Metalama.Patterns.Wpf.DelegateCommand`1>, <xref:Metalama.Patterns.Wpf.AsyncDelegateCommand> or <xref:Metalama.Patterns.Wpf.AsyncDelegateCommand`1> instead of <xref:System.Windows.Input.ICommand>. All these types implement the <xref:System.Windows.Input.ICommand> interface, but the `Execute(object)` method is now implemented privately. It is replaced by a strongly-typed method `Execute()` for parameterless commands or `Execute(T)` for commands accepting a parameter.

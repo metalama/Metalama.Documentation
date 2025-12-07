@@ -79,7 +79,7 @@ Perform the actions that cause the issue.
 
 Close your IDE. If you're profiling the compiler processes, run `metalama kill`.
 
-Wait until a file with extension `*.dtp` is created under the `%TEMP%\Metalama\Profiling` directory. 
+Wait until a file with extension `*.dtp` is created under the `%TEMP%\Metalama\Profiling` directory.
 
 ## Step 5. Upload the snapshots to an online drive
 
@@ -97,5 +97,3 @@ Instead, kindly send us the link via [email](mailto:hello@postsharp.net) or priv
 > <xref:dotnet-tool>
 > <xref:creating-logs>
 > <xref:process-dump>
-
-

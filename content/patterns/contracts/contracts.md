@@ -25,7 +25,6 @@ Compared to hand-written precondition checks, Metalama Contracts offer the follo
 
 - **Customizable**. It's easy to change the code generation pattern that throws the exception. For example, you can localize your exception messages as an afterthought, without any impact on your business code.
 
-
 ## In this chapter
 
 This chapter includes the following articles:
@@ -40,8 +39,3 @@ This chapter includes the following articles:
 
 > [!div class="see-also"]
 > <xref:patterns>
-
-
-
-
-

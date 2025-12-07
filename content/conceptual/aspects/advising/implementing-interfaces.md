@@ -62,8 +62,6 @@ If instead of adding public members you need to add explicit implementations, us
 
 When introducing an interface member to the type, you often want to access it from templates. Unless the member is an explicit implementation, you have two options:
 
-[comment]: # (TODO: better code examples)
-
 ### Option 1. Access the aspect template member
 
 ```cs
@@ -84,13 +82,13 @@ If the members have been added programmatically, you can use invoker APIs like <
 
 The following strategies can be employed to access explicit implementations:
 
-- Cast the instance to the interface and access the member:
+* Cast the instance to the interface and access the member:
 
     ```cs
     ((IDisposable)meta.This).Dispose();
     ```
 
-- Introduce a private method with the concrete method implementation, and call this private member both from the interface member and the templates.
+* Introduce a private method with the concrete method implementation, and call this private member both from the interface member and the templates.
 
 > [!div class="see-also"]
 > <xref:introducing-members>

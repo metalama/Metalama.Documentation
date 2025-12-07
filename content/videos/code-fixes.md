@@ -9,10 +9,7 @@ modified-date: 2025-11-30
 
 [!metalama-vimeo 844973380]
 
-
 > [!div class="see-also"]
 > <xref:applying-live-templates>
 > <xref:live-template>
 > <xref:code-fixes>
-
-

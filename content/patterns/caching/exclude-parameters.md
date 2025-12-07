@@ -39,6 +39,7 @@ In the following example, both methods of the `PricingService` class have a `cor
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.Caching/NotCacheKey.cs]
 
 ## Excluding parameters by rule using classifiers
+
 The inconvenience of using the <xref:Metalama.Patterns.Caching.NotCacheKeyAttribute> custom attribute is that it must be added to every single parameter. This can be cumbersome and subject to human errors when many parameters must be excluded according to the same rules.
 
 In this case, it's preferable to implement and register a programmatic parameter classifier.  Follow these steps:
@@ -59,6 +60,3 @@ The following example demonstrates a parameter classifier that prevents any para
 > <xref:caching>
 > <xref:caching-keys>
 > <xref:caching-configuration>
-
-
-

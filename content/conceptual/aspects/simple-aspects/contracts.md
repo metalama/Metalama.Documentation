@@ -18,7 +18,6 @@ In Metalama, this can be achieved by using a _contract_. With a contract, you ha
 
 A contract, technically, is a segment of code that is injected after _receiving_ or before _sending_ a value. It can be utilized for more than just throwing exceptions or normalizing values.
 
-
 ## The simple way: overriding the ContractAspect class
 
 1. Add the `Metalama.Framework` package to your project.
@@ -32,7 +31,6 @@ A contract, technically, is a segment of code that is injected after _receiving_
     The `nameof(value)` expression will be substituted with the name of the _target_ parameter.
 
 4. The aspect operates as a custom attribute. It can be added to any field, property, or parameter. To validate the return value of a method, use the following syntax: `[return: MyAspect]`.
-
 
 ### Example: null check
 
@@ -63,4 +61,3 @@ If you wish to go deeper into contracts, consider referring to the following art
 > <xref:Metalama.Framework.Aspects.ContractAspect>
 > <xref:Metalama.Framework.Aspects.ContractDirection>
 > <xref:Metalama.Framework.Code.IFieldOrPropertyOrIndexer>
-

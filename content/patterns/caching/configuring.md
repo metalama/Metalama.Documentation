@@ -31,13 +31,11 @@ To configure several methods with a single line of code, add the <xref:Metalama.
 
 The configuration of Metalama Caching is based on the configuration framework of Metalama Framework. For more details, see <xref:fabrics-configuration>.
 
-
 ### Example: Configuring expiration with custom attributes
 
 In the following example, the absolute expiration of cache items is set to 60 minutes for methods of the `PricingService` class, but to 20 minutes for the `GetProducts` method.
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.Caching/AbsoluteExpiration_Attribute.cs]
-
 
 ## Configuring caching with fabrics
 
@@ -48,7 +46,6 @@ Instead of using custom attributes, you can use a fabric to configure the cachin
 The following example sets the absolute expiration to 20 minutes for the namespace `MyProduct.MyNamespace`.
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.Caching/AbsoluteExpiration_Fabric.cs]
-
 
 ## Configuring caching at run time with profiles
 
@@ -65,10 +62,8 @@ To modify run-time caching options with a caching profile:
 
 2. Go back to the code that initialized the Metalama Caching by calling <xref:Metalama.Patterns.Caching.Building.CachingServiceFactory.AddMetalamaCaching*?text=serviceCollection.AddMetalamaCaching>  or <xref:Metalama.Patterns.Caching.CachingService.Create*?text=CachingService.Create>, and supply a delegate that calls <xref:Metalama.Patterns.Caching.Building.ICachingServiceBuilder.AddProfile*>.
 
-
 > [!WARNING]
 > Any configuration property specified through a compile-time mechanism takes precedence over the configuration of the <xref:Metalama.Patterns.Caching.CachingProfile>.
-
 
 ### Example: Configuring expiration with a fabric
 
@@ -80,6 +75,3 @@ In this example, the `ProductCatalogue` class uses two caching profiles: the def
 > <xref:caching>
 > <xref:caching-getting-started>
 > <xref:fabrics-configuration>
-
-
-

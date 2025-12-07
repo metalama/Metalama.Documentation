@@ -26,7 +26,6 @@ The <xref:Metalama.Extensions.DependencyInjection.DependencyAttribute?text=[Depe
 * <xref:Metalama.Extensions.DependencyInjection.DependencyAttribute.IsLazy> generates code that resolves the dependency lazily, upon the first access.
 * <xref:Metalama.Extensions.DependencyInjection.DependencyAttribute.IsRequired> determines whether the code can execute if the property is missing. If you are using nullable reference types, the `IsRequired` parameter is inferred from the nullability of the field or property.
 
-
 ## Example: Injecting Dependencies
 
 The following example demonstrates the code generation pattern for three types of dependency: required, optional, and lazy.
@@ -36,6 +35,3 @@ The following example demonstrates the code generation pattern for three types o
 > [!div class="see-also"]
 > <xref:patterns>
 > <xref:dependency-injection>
-
-
-

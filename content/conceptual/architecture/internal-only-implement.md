@@ -30,8 +30,3 @@ If we attempt to implement this interface in a child project, a warning is repor
 > [!div class="see-also"]
 > <xref:validation>
 > <xref:Metalama.Extensions.Architecture.Aspects.InternalOnlyImplementAttribute>
-
-
-
-
-

@@ -21,3 +21,5 @@ These namespaces implement common design patterns that you can apply to your cod
 
 For conceptual documentation, see <xref:patterns>.
 
+> [!div class="see-also"]
+> <xref:patterns>

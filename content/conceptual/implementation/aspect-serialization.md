@@ -20,10 +20,10 @@ This happens in the following scenarios:
 When any aspect or fabric has some cross-project effect, the following process is executed:
 
 * In the current project:
-    * The objects are _serialized_ into a binary stream.
-    * The binary stream is stored in a _managed resource_ in the current project.
+  * The objects are _serialized_ into a binary stream.
+  * The binary stream is stored in a _managed resource_ in the current project.
 * In all referenced projects:
-    * The objects are _deserialized_ from the managed resource.
+  * The objects are _deserialized_ from the managed resource.
 
 ## How are objects serialized?
 
@@ -80,7 +80,6 @@ Although it is inspired by Microsoft's `BinaryFormatter`, which has been depreca
 
 > [!WARNING]
 > The <xref:Metalama.Framework.Serialization> namespace is _NOT_ compatible with obfuscation. The serialized binary stream contains full names of declarations in clear text, partially defeating the purpose of serialization. Additionally, serialization will fail if these names are changed after compilation by the obfuscation process.
-
 
 ## Accessing a field after it has been overridden
 

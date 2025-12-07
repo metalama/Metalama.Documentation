@@ -114,6 +114,3 @@ You've now completed the migration.
 > * <xref:fabrics-configuration>
 > * <xref:aspect-testing>
 > * <xref:migrating-multicasting>
-
-
-

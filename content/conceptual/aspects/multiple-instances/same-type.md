@@ -43,6 +43,7 @@ Secondary instances are accessible through the <xref:Metalama.Framework.Aspects.
 - `meta.AspectInstance.SecondaryInstances` in template methods
 
 Each secondary instance provides access to:
+
 - The aspect instance itself (via the `Aspect` property), which you can cast to your aspect type to read its properties.
 - Information about what added this instance, such as an attribute, fabric, or parent aspect (via the `Predecessors` property).
 
@@ -74,6 +75,7 @@ Don't confuse <xref:Metalama.Framework.Aspects.IAspectInstance.SecondaryInstance
 - Predecessors are the artifacts (attributes, fabrics, parent aspects) that _created_ this aspect instance. These are "parents."
 
 For example, if `[ParentAspect]` adds a child `[ChildAspect]` to a method, and you also apply `[ChildAspect]` via a custom attribute:
+
 - The custom attribute instance is the _primary_ (higher priority).
 - The child aspect instance is a _secondary instance_.
 - The _predecessor_ of the child aspect instance is `[ParentAspect]`.

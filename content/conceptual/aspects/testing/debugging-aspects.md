@@ -35,11 +35,11 @@ To debug compile-time logic, follow the steps below:
 
 2. Execute the compiler with the following options:
 
-    * `-p:MetalamaDebugCompiler=True` to cause the compiler to display the JIT debugger dialog, allowing you to attach a debugger to the compiler process.
-    * `-p:MetalamaConcurrentBuildEnabled=False` to force Metalama to run in a single thread, saving you from the chaos of multi-threaded debugging.
-    * Optionally, `--disable-build-servers` to disable the use of reusable server MSBuild and `Metalama.Compiler` processes.
-    * Optionally, `--no-dependencies` to avoid rebuilding referenced projects.
-    
+    - `-p:MetalamaDebugCompiler=True` to cause the compiler to display the JIT debugger dialog, allowing you to attach a debugger to the compiler process.
+    - `-p:MetalamaConcurrentBuildEnabled=False` to force Metalama to run in a single thread, saving you from the chaos of multi-threaded debugging.
+    - Optionally, `--disable-build-servers` to disable the use of reusable server MSBuild and `Metalama.Compiler` processes.
+    - Optionally, `--no-dependencies` to avoid rebuilding referenced projects.
+
 Example:
 
 ```powershell
@@ -85,4 +85,3 @@ To attach a debugger to the design-time compiler process, follow these steps:
 > <xref:aspect-testing>
 > <xref:templates>
 > <xref:Metalama.Framework.Aspects.meta.DebugBreak*>
-

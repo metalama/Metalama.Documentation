@@ -101,7 +101,6 @@ public static class MyMetricsExtensions
 > [!NOTE]
 > The type argument `T` of `Add<T>` must be the _interface_ type (e.g., `IMetricProvider<MyCustomMetric>`), not the concrete implementation type.
 
-
 ## Consuming a custom metric
 
 ### Using from an aspect or fabric
@@ -130,4 +129,3 @@ See <xref:metrics> for details on using metrics with the Workspaces API.
 > <xref:sdk>
 > <xref:metrics>
 > <xref:introspection>
-

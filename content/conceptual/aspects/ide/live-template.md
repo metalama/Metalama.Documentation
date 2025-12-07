@@ -35,4 +35,3 @@ Live templates are created using the Metalama Aspect Framework. Unlike tradition
 > <xref:applying-live-templates>
 > <xref:Metalama.Framework.Aspects.EditorExperienceAttribute>
 > <xref:Metalama.Framework.Aspects.IAspect`1>
-

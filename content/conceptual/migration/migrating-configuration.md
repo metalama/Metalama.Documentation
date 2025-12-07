@@ -29,8 +29,3 @@ Refer to the following article for more details:
 > * <xref:fabrics>
 > * <xref:fabrics-configuration>
 > * <xref:fabrics-adding-aspects>
-
-
-
-
-

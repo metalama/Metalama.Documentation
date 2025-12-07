@@ -13,7 +13,6 @@ This section provides instructions on how to install Metalama.
 
 The core features of Metalama are implemented through a set of NuGet packages, eliminating the need for a machine-based installation. However, if you're working on a project that uses Metalama, we recommend installing the Visual Studio Tools for Metalama.
 
-
 | Article  | Description  |
 |---------|---------|
 | <xref:install-vsx>    | This article provides instructions on how to install the Visual Studio Tools for Metalama. We recommend this extension for all users planning to use Metalama.        |
@@ -25,4 +24,3 @@ The core features of Metalama are implemented through a set of NuGet packages, e
 > <xref:using-metalama>
 > <xref:packages>
 > <xref:configuration>
-

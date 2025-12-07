@@ -48,9 +48,9 @@ The _first argument_ of `Override` is the <xref:Metalama.Framework.Code.IFieldOr
 
 The _second argument_ of `Override` is the name of the template property. This property must exist in the aspect class and, additionally:
 
-* The template property must be annotated with the `[Template]` attribute.
-* The template property must be of type `dynamic` (_dynamically-typed_ template), or a type compatible with the type of the overridden property (_strongly-typed_ template).
-* The template property can have a setter, a getter, or both. If one accessor isn't specified in the template, the corresponding accessor in the target code won't be overridden.
+- The template property must be annotated with the `[Template]` attribute.
+- The template property must be of type `dynamic` (_dynamically-typed_ template), or a type compatible with the type of the overridden property (_strongly-typed_ template).
+- The template property can have a setter, a getter, or both. If one accessor isn't specified in the template, the corresponding accessor in the target code won't be overridden.
 
 #### Example: registry-backed class
 
@@ -70,16 +70,16 @@ The following aspect can be applied to fields or properties of type `string`. It
 
 Advising fields or properties with the `Override` method has the following limitations compared to `OverrideAccessors`:
 
-* You cannot choose a template for each accessor separately.
-* You cannot have generic templates.
+- You cannot choose a template for each accessor separately.
+- You cannot have generic templates.
 
 To overcome these limitations, use the <xref:Metalama.Framework.Aspects.AdviserExtensions.OverrideAccessors*> method and provide one or two method templates: a getter template and/or a setter template.
 
 The templates must fulfill the following conditions:
 
-* Both templates must be annotated with the `[Template]` attribute.
-* The getter template must be of signature `T Getter()`, where `T` is either `dynamic` or a type compatible with the target field or property.
-* The setter template must be of signature `void Setter(T value)`, where the parameter name `value` is mandatory.
+- Both templates must be annotated with the `[Template]` attribute.
+- The getter template must be of signature `T Getter()`, where `T` is either `dynamic` or a type compatible with the target field or property.
+- The setter template must be of signature `void Setter(T value)`, where the parameter name `value` is mandatory.
 [comment]: # (TODO: example)
 
 > [!div class="see-also"]

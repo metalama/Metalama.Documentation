@@ -8,7 +8,7 @@ modified-date: 2025-11-30
 
 # Flashtrace API
 
-Flashtrace is a logging front-end used by <xref:Metalama.Patterns.Caching>. We don't recommend using this library at the moment except in explicitly recommended scenarios, such as implementing custom cache key formatters.
+Flashtrace is a logging front-end used by <xref:Metalama.Patterns.Caching>. We don't recommend using this library directly except in explicitly recommended scenarios, such as implementing custom cache key formatters.
 
 > [!NOTE]
 > For most caching scenarios, use the high-level caching API described in <xref:caching> instead of directly using Flashtrace.
@@ -16,5 +16,3 @@ Flashtrace is a logging front-end used by <xref:Metalama.Patterns.Caching>. We d
 > [!div class="see-also"]
 > <xref:caching>
 > <xref:Metalama.Patterns.Caching>
-
-
