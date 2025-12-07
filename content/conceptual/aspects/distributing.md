@@ -32,8 +32,8 @@ Add the following code snippet to your `.csproj` file:
 
 ```xml
 <ItemGroup>
-  <PackageReference Include="Metalama.Framework" Version="CHANGE ME" PrivateAssets="all"/>
-  <PackageReference Include="Metalama.Framework.Redist" Version="CHANGE ME"/>
+  <PackageReference Include="Metalama.Framework" PrivateAssets="all"/>
+  <PackageReference Include="Metalama.Framework.Redist" />
 </ItemGroup>
 ```
 

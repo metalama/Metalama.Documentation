@@ -1,7 +1,10 @@
 <redirect>
     <!-- This is a list of rules that are applied when an article is requested but cannot be found.
-         To match, a rule should fulfil two conditions: the `from` attribute should match the article path, and the new 
+         To match, a rule should fulfil two conditions: the `from` attribute should match the article path, and the new
          article path specified by the `to` attribute should exist. The first rule that fulfils the two conditions wins. -->
+
+    <!-- Renamed articles -->
+    <rule from="^(conceptual/)?aspects/testing/aspect-testing$" to="conceptual/aspects/testing/snapshot-testing"/>
 
     <!-- All articles have been moved to the /conceptual directory -->
     <rule from="^(.*)$" to="conceptual/$1"/>

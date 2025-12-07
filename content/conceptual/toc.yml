@@ -190,7 +190,7 @@ items:
         - name: Testing and debugging aspects
           topicUid: testing
           items:
-          - name: Unit-testing code generation and error reporting
+          - name: Snapshot testing
             topicUid: aspect-testing
           - name: Configuring the external diff tool
             topicUid: diff-tool

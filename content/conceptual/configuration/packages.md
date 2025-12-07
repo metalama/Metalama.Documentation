@@ -20,7 +20,7 @@ Metalama comprises several NuGet packages. Some packages are only used for testi
 | Metalama.Compiler | Compiling | This package replaces Microsoft's C# compiler (Roslyn) with Metalama's own fork. |
 | Metalama.Compiler.Sdk | Compiling | This package defines the extensibility API of `Metalama.Compiler`. |
 | Metalama.Framework.Sdk | Compiling | This package defines the low-level extensibility API of `Metalama.Framework` (extensions using the Roslyn API). |
-| Metalama.Testing.AspectTesting | Testing | This is the top-level package for test projects. It references `Metalama.Framework` but inhibits most of its behaviors. See <xref:aspect-testing>. |
+| Metalama.Testing.AspectTesting | Testing | This package enables snapshot testing of aspects. It references `Metalama.Framework` but inhibits most of its behaviors. See <xref:aspect-testing>. |
 | Metalama.Framework.Engine | Testing, Introspection | This is the principal implementation assembly of Metalama. It's required by the testing and introspection packages. However, it shouldn't be used directly as there's no forward compatibility promise for this package. |
 | Metalama.Framework.Introspection | Introspection | This package allows querying the code model representing the output of the Metalama process. |
 | Metalama.Framework.Workspaces | Introspection | This package allows any application to load a Visual Studio project or solution and to represent its code model and the Introspection of the Metalama process. |

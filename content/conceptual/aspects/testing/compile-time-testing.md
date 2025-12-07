@@ -50,7 +50,7 @@ Disable Metalama for the test project by defining this property:
 
 ```xml
 <ItemGroup>
-    <PackageReference Include="Metalama.Testing.UnitTesting" Version="CHANGE ME" />
+    <PackageReference Include="Metalama.Testing.UnitTesting" />
 </ItemGroup>
 ```
 

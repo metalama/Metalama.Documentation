@@ -1,15 +1,17 @@
 ---
 uid: aspect-testing
 level: 300
-summary: "The document provides a comprehensive guide on how to test aspects using the Metalama.Testing.AspectTesting package. It details the steps to create a test project, add a test case, run the test case, and copy the test output to the expected output. It also includes advanced features and customizations."
-keywords: "compile-time testing, Metalama.Testing.AspectTesting, aspect testing, .NET, create test project, run test case, verify transformed code, expected output, xUnit test project, Metalama framework"
+summary: "This article provides a comprehensive guide on snapshot testing of aspects using the Metalama.Testing.AspectTesting package. It details the steps to create a test project, add a test case, run the test case, and copy the test output to the expected output. It also includes advanced features and customizations."
+keywords: "snapshot testing, Metalama.Testing.AspectTesting, aspect testing, .NET, create test project, run test case, verify transformed code, expected output, xUnit test project, Metalama framework"
 created-date: 2023-02-20
-modified-date: 2025-12-04
+modified-date: 2025-12-07
 ---
 
-# Testing the aspect's code generation and error reporting
+# Snapshot testing of aspects
 
-Compile-time testing involves creating _input_ test files annotated with aspects and _output_ test files containing the transformed code (possibly with comments for errors and warnings). The compile-time testing framework automatically executes inputs and verifies that the outputs match expectations.
+Snapshot testing (also known as approval testing or golden master testing) is a technique where the actual output of a test is compared against a stored baseline file. This approach is widely used in testing frameworks like Jest, Verify, and ApprovalTests.
+
+In Metalama, snapshot testing involves creating _input_ test files annotated with aspects and _output_ test files containing the transformed code (possibly with comments for errors and warnings). The testing framework automatically executes inputs and verifies that the outputs match the expected baselines.
 
 Follow these steps (detailed below):
 
@@ -29,9 +31,9 @@ Follow these steps (detailed below):
 2. Add the `Metalama.Testing.AspectTesting` package (see <xref:packages> for details).
 
 > [!WARNING]
-> Don't add `Metalama.Testing.AspectTesting` to a project you don't intend to use _exclusively_ for compile-time tests. This package significantly changes the semantics of the project items.
+> Don't add `Metalama.Testing.AspectTesting` to a project you don't intend to use _exclusively_ for snapshot tests. This package significantly changes the semantics of the project items.
 
-Typically, the `csproj` project file of a compile-time test project would have this content:
+Typically, the `csproj` project file of a snapshot test project would have this content:
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
@@ -48,8 +50,8 @@ Typically, the `csproj` project file of a compile-time test project would have t
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="Metalama.Framework" Version="TODO" />
-        <PackageReference Include="Metalama.Testing.AspectTesting" Version="TODO" />
+        <PackageReference Include="Metalama.Framework" />
+        <PackageReference Include="Metalama.Testing.AspectTesting" />
     </ItemGroup>
 
 </Project>
@@ -199,7 +201,7 @@ The text between the parentheses is the skip reason.
 
 ### Excluding a directory
 
-All files in a compile-time test project are turned into test input files by default. To disable this behavior for a directory, create a file named `metalamaTests.json` and add the following content:
+All files in a snapshot test project are turned into test input files by default. To disable this behavior for a directory, create a file named `metalamaTests.json` and add the following content:
 
 ```json
 { "Exclude": true }

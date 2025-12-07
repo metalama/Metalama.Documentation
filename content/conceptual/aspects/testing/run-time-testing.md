@@ -42,7 +42,7 @@ class MyTests
 > To make your aspects testable, consider using dependency injection. This approach allows you to supply different implementations of your services in test scenarios than in production scenarios. For details, see <xref:dependency-injection>.
 
 > [!WARNING]
-> Run-time unit tests shouldn't replace aspect tests (see <xref:aspect-testing>), but complement them. The problem with run-time unit tests is that the whole project is compiled at once, making it difficult to debug a specific instance of an aspect in isolation from other instances. The most convenient way to debug aspects during development is to create aspect tests. When a run-time unit test project fails to build because of an aspect, create an aspect test to isolate, diagnose, and fix the issue. For more information, see <xref:debugging-aspects>.
+> Run-time unit tests shouldn't replace snapshot tests (see <xref:aspect-testing>), but complement them. The problem with run-time unit tests is that the whole project is compiled at once, making it difficult to debug a specific instance of an aspect in isolation from other instances. The most convenient way to debug aspects during development is to create snapshot tests. When a run-time unit test project fails to build because of an aspect, create a snapshot test to isolate, diagnose, and fix the issue. For more information, see <xref:debugging-aspects>.
 
 > [!div class="see-also"]
 > <xref:testing>
