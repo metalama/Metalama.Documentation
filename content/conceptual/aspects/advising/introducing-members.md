@@ -11,7 +11,7 @@ modified-date: 2025-11-30
 
 In previous articles, you learned how to override the implementation of existing type members. This article teaches you how to add new members to an existing type.
 
-Currently, you can add the following types of members:
+You can add the following types of members:
 
 - Methods
 - Constructors
@@ -29,9 +29,9 @@ The simplest way to introduce a member from an aspect is to implement it in the 
 |----------|-------------|
 | <xref:Metalama.Framework.Aspects.TemplateAttribute.Name> | Sets the name of the introduced member. If not specified, the name of the introduced member is the name of the template itself. |
 | <xref:Metalama.Framework.Aspects.IntroduceAttribute.Scope> | Determines whether the introduced member will be `static` or not. See <xref:Metalama.Framework.Aspects.IntroductionScope> for possible strategies. By default, it is copied from the template, except when the aspect is applied to a static member, in which case the introduced member is always `static`. |
-| <xref:Metalama.Framework.Aspects.TemplateAttribute.Accessibility> | Determines if the member will be `private`, `protected`, `public`, etc. By default, the accessibility of the template is copied. |
-| <xref:Metalama.Framework.Aspects.TemplateAttribute.IsVirtual> | Determines if the member will be `virtual`. By default, the characteristic of the template is copied. |
-| <xref:Metalama.Framework.Aspects.TemplateAttribute.IsSealed> | Determines if the member will be `sealed`. By default, the characteristic of the template is copied. |
+| <xref:Metalama.Framework.Aspects.TemplateAttribute.Accessibility> | Determines whether the member will be `private`, `protected`, `public`, etc. By default, the accessibility of the template is copied. |
+| <xref:Metalama.Framework.Aspects.TemplateAttribute.IsVirtual> | Determines whether the member will be `virtual`. By default, the characteristic of the template is copied. |
+| <xref:Metalama.Framework.Aspects.TemplateAttribute.IsSealed> | Determines whether the member will be `sealed`. By default, the characteristic of the template is copied. |
 
 > [!NOTE]
 > Constructors cannot be introduced declaratively.
@@ -76,7 +76,7 @@ The following aspect introduces an `Update` method that assigns all writable fie
 
 ### Introducing a partial or abstract member
 
-You can use any of the `Introduce*` methods to add a `partial` or `abstract` member. However, the _template_ itself cannot be `partial` or `extern` because that would not be valid C#.
+You can use any of the `Introduce*` methods to add a `partial` or `abstract` member. However, the _template_ itself cannot be `partial` or `extern` because that wouldn't be valid C#.
 
 There are two ways to make a member `partial` or `abstract`:
 
@@ -103,6 +103,11 @@ Most of the time, when you override a method, you'll want to invoke the base imp
 - To call the base property getter or setter, use <xref:Metalama.Framework.Code.IExpression.Value?text=meta.Property.Value>.
 - To access the base event, use <xref:Metalama.Framework.Code.Invokers.IEventInvoker.Add*?text=meta.Event.Add>, <xref:Metalama.Framework.Code.Invokers.IEventInvoker.Remove*?text=meta.Event.Remove> or <xref:Metalama.Framework.Code.Invokers.IEventInvoker.Raise*?text=meta.Event.Raise>.
 
+For details, see <xref:invokers>.
+
+> [!NOTE]
+> Inside an override template, invokers resolve to the _previous implementation layer_ by default—that is, the implementation before the current aspect, or the `base` implementation if you're the first aspect in the chain. In other contexts, invokers resolve to the _final layer_, which includes all aspect transformations and uses virtual dispatch when applicable. To specify a different layer, use the <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.WithOptions*> method with the appropriate <xref:Metalama.Framework.Code.Invokers.InvokerOptions> value.
+
 ## Referencing introduced members in a template
 
 When you introduce a member to a type, you'll often want to access it from templates. There are three ways to do it:
@@ -128,7 +133,9 @@ For more details, see <xref:Metalama.Framework.Code.Invokers>.
 
 ## Referencing introduced members from source code
 
-If you want the _source_ code (not your aspect code) to reference declarations introduced by your aspect, the _user_ of your aspect must make the target types `partial`. Without this keyword, the introduced declarations will not be visible at design time in syntax completion, and the IDE will report errors. Note that the compiler will not complain because Metalama replaces the compiler, but the IDE will because it does not know about Metalama, and therefore your aspect has to follow the rules of the C# compiler. However inconvenient this may be, there is nothing you as an aspect author, or us as the authors of Metalama, can do.
+If you want the _source_ code (not your aspect code) to reference declarations introduced by your aspect, the _user_ of your aspect must make the target types `partial`. Without this keyword, introduced declarations won't be visible at design time in syntax completion, and the IDE will report errors.
+
+The compiler won't complain because Metalama replaces it, but the IDE will because it doesn't know about Metalama. Therefore, your aspect must follow standard C# compiler rules. Unfortunately, there's nothing you as an aspect author, or we as the authors of Metalama, can do about this limitation.
 
 If the user doesn't add the `partial` keyword, Metalama will report a warning and offer a code fix.
 
