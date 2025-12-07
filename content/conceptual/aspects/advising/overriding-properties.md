@@ -9,7 +9,7 @@ modified-date: 2025-11-30
 
 # Overriding fields or properties
 
-In <xref:simple-override-property>, you learned the basics of the <xref:Metalama.Framework.Aspects.OverrideFieldOrPropertyAspect> class. In this section, we cover more advanced scenarios.
+In <xref:simple-override-property>, you learned the basics of the <xref:Metalama.Framework.Aspects.OverrideFieldOrPropertyAspect> class. This article covers more advanced scenarios.
 
 ## Accessing metadata of the overridden field or property
 
@@ -26,21 +26,21 @@ To access the _value_ of the field or property, use the <xref:Metalama.Framework
 
 The following example is a simplified implementation of the service locator pattern.
 
-The `Import` aspect overrides the getter of a property to make a call to a global service locator. The type of the service is determined from the type of the field or property, using `meta.Target.FieldOrProperty.Type`. The dependency is not stored, so the service locator must be called every time the property is evaluated.
+The `Import` aspect overrides the getter of a property to call a global service locator. The aspect determines the service type from the field or property type using `meta.Target.FieldOrProperty.Type`. The dependency isn't stored, so the aspect calls the service locator every time the property is accessed.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/GlobalImport.cs name="Import Service"]
 
 ### Example: Resolving dependencies on the fly and storing the result
 
-This example builds on the previous one, but the dependency is stored in the field or property after it has been retrieved from the service provider for the first time.
+This example builds on the previous one but stores the dependency in the field or property after first retrieval from the service provider.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/GlobalImportWithSetter.cs name="Import Service"]
 
 ## Overriding several fields or properties from the same aspect
 
-Similar to methods, to override one or more fields or properties from a single aspect, your aspect needs to implement the <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method. Your implementation must then call the <xref:Metalama.Framework.Aspects.AdviserExtensions.Override*?text=builder.Advice.Override> method.
+To override one or more fields or properties from a single aspect, implement the <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method and call the <xref:Metalama.Framework.Aspects.AdviserExtensions.Override*?text=builder.Advice.Override> method.
 
-Alternatively, you can call the <xref:Metalama.Framework.Aspects.AdviserExtensions.OverrideAccessors*?text=builder.Advice.OverrideAccessors> method, which accepts one or two _accessor_ templates, i.e., one template _method_ for the getter and/or one other method for the setter.
+Alternatively, call the <xref:Metalama.Framework.Aspects.AdviserExtensions.OverrideAccessors*?text=builder.Advice.OverrideAccessors> method, which accepts one or two accessor templates: one template method for the getter and/or one for the setter.
 
 ### Using a property template
 
@@ -68,7 +68,7 @@ The following aspect can be applied to fields or properties of type `string`. It
 
 ### Using an accessor template
 
-Advising fields or properties with the `Override` method has the following limitations compared to `OverrideAccessors`:
+The `Override` method has these limitations compared to `OverrideAccessors`:
 
 - You cannot choose a template for each accessor separately.
 - You cannot have generic templates.
@@ -80,7 +80,12 @@ The templates must fulfill the following conditions:
 - Both templates must be annotated with the `[Template]` attribute.
 - The getter template must be of signature `T Getter()`, where `T` is either `dynamic` or a type compatible with the target field or property.
 - The setter template must be of signature `void Setter(T value)`, where the parameter name `value` is mandatory.
-[comment]: # (TODO: example)
+
+#### Example: Logging property setters
+
+This example demonstrates `OverrideAccessors` with only a setter template. The aspect iterates over properties and overrides those with setters, skipping read-only properties like `FullName`.
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/LogSetters.cs name="Log Setters"]
 
 > [!div class="see-also"]
 > <xref:simple-override-property>

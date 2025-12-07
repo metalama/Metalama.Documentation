@@ -36,12 +36,12 @@ public class GenerateResetAttribute : TypeAspect
 
         // Option 3: Use the invoker API on the interface method.
         meta.InsertComment( "Option 3: disposeMethod.Invoke()" );
+        var disposableInterface = (INamedType) TypeFactory.GetType( typeof(IDisposable) );
+        var disposeMethod = disposableInterface.Methods.Single( m => m.Name == "Dispose" );
         disposeMethod.Invoke();
 
         // Option 4: Cast to interface (useful for explicit implementations).
         meta.InsertComment( "Option 4: ((IDisposable)meta.This).Dispose()" );
-        var disposableInterface = (INamedType) TypeFactory.GetType( typeof(IDisposable) );
-        var disposeMethod = disposableInterface.Methods.Single( m => m.Name == "Dispose" );
         ((IDisposable) meta.This).Dispose();
     }
 }
