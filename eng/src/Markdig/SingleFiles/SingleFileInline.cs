@@ -13,4 +13,6 @@ public class SingleFileInline : TabGroupBaseInline
     public string? Marker { get; set; }
 
     public string? Member { get; set; }
+
+    public bool Diff { get; set; }
 }

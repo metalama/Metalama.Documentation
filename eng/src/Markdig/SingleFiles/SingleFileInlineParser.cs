@@ -48,6 +48,13 @@ public class SingleFileInlineParser : InlineParser
                     continue;
                 }
 
+                if ( value == "diff" )
+                {
+                    file.Diff = true;
+
+                    continue;
+                }
+
                 throw new InvalidOperationException( $"Unexpected unnamed argument '{value}'." );
             }
 
@@ -85,6 +92,11 @@ public class SingleFileInlineParser : InlineParser
 
                 case "transformed":
                     file.ShowTransformed = bool.Parse( value );
+
+                    break;
+
+                case "diff":
+                    file.Diff = bool.Parse( value );
 
                     break;
 

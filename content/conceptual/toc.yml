@@ -153,6 +153,9 @@ items:
           topicUid: diagnostics
         - name: Injecting dependencies into aspects
           topicUid: dependency-injection
+          items:
+            - name: Creating custom adapters
+              topicUid: dependency-injection-custom-frameworks
         - name: Defining aspect eligibility
           topicUid: eligibility
         - name: Building IDE interactions

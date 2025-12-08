@@ -26,7 +26,7 @@ For more details on configuration, see <xref:caching-configuration>.
 
 In the following example, the `PricingService` class exposes two instance methods. Both methods are cached. The `PricingService` class has a unique `id` field, and its `ToString` implementation includes this field because it's useful for troubleshooting. However, we want several instances of the `PricingService` to reuse the cached results. Therefore, we exclude the `this` instance from the cache key. Since this decision must apply to all cached methods of this type, we apply the <xref:Metalama.Patterns.Caching.Aspects.CachingConfigurationAttribute?text=[CacheConfiguration]> to the type.
 
-[!metalama-file ~/code/Metalama.Documentation.SampleCode.Caching/ExcludeThisParameter.cs]
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Caching/ExcludeThisParameter.cs diff]
 
 ## Excluding parameters using [NotCacheKey]
 
@@ -36,7 +36,7 @@ To exclude a parameter other than the current instance (`this`), simply add the 
 
 In the following example, both methods of the `PricingService` class have a `correlationId` field. This field is used for troubleshooting; it has a unique value for each web API request and therefore must be excluded from the cache key.
 
-[!metalama-file ~/code/Metalama.Documentation.SampleCode.Caching/NotCacheKey.cs]
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Caching/NotCacheKey.cs diff]
 
 ## Excluding parameters by rule using classifiers
 

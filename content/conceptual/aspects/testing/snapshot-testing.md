@@ -111,6 +111,12 @@ To test this aspect, we create a test file with the following content:
 
 [!metalama-test  ~/code/Metalama.Documentation.SampleCode.AspectFramework/Testing.cs name="Main"]
 
+### Excluding files from test discovery
+
+Files whose name starts with an underscore (`_`) are not recognized as tests. This is useful for shared helper files that should be included in multiple tests but shouldn't run as standalone tests themselves.
+
+To include such files in a test, use the `@Include` directive as described below.
+
 ### Include other files
 
 To include other files in the test compilation beyond auxiliary files based on file name, add a comment of this form in the main test file:
@@ -119,7 +125,7 @@ To include other files in the test compilation beyond auxiliary files based on f
 // @Include(../Path/To/The/File.cs)
 ```
 
-The included file will behave just as an auxiliary file.
+The included file will behave just as an auxiliary file. This is particularly useful for including files that start with `_` or files from other directories.
 
 ### Including references to introduced members and interfaces
 

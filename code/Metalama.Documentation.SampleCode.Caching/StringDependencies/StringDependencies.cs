@@ -25,8 +25,8 @@ public sealed partial class ProductCatalogue
         this.DbOperationCount++;
 
 #if METALAMA
-         // [<snippet AddDependency>]
-        this._cachingService.AddDependency( $"ProductPrice:{productId}" );  
+        // [<snippet AddDependency>]
+        this._cachingService.AddDependency( $"ProductPrice:{productId}" );
         // [<endsnippet AddDependency>]
 #endif
         return this._dbSimulator[productId];

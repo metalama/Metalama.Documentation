@@ -51,7 +51,7 @@ An aspect is a template that doesn't do anything until it's applied to target co
 
 Add the `[Log]` attribute to a method.
 
-[!metalama-file ~/code/Metalama.Documentation.SampleCode.AspectFramework/GettingStarted/GettingStarted.cs]
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.AspectFramework/GettingStarted/GettingStarted.cs diff]
 
 When you execute the method, the following output is printed.
 

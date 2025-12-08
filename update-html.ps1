@@ -1,1 +1,1 @@
-.\Build.ps1 build --no-dependencies --solution 5
+.\Build.ps1 build --no-dependencies --solution 5 --nologo

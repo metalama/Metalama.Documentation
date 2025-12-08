@@ -21,6 +21,7 @@
 
 		<PackageReference Include="Metalama.Framework" />
 		<PackageReference Include="Metalama.Extensions.DependencyInjection" />
+		<PackageReference Include="Metalama.Extensions.DependencyInjection.ServiceLocator" />
 		<PackageReference Include="Metalama.Testing.AspectTesting" />
 	</ItemGroup>
 

@@ -35,7 +35,7 @@ The configuration of Metalama Caching is based on the configuration framework of
 
 In the following example, the absolute expiration of cache items is set to 60 minutes for methods of the `PricingService` class, but to 20 minutes for the `GetProducts` method.
 
-[!metalama-file ~/code/Metalama.Documentation.SampleCode.Caching/AbsoluteExpiration_Attribute.cs]
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Caching/AbsoluteExpiration_Attribute.cs diff]
 
 ## Configuring caching with fabrics
 

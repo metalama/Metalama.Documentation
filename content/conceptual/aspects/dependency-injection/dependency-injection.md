@@ -31,11 +31,9 @@ To consume a dependency from an aspect:
 1. Add the `Metalama.Extensions.DependencyInjection` package to your project.
 2. Add a field or automatic property of the desired type in your aspect class.
 3. Annotate this field or property with the <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute> custom attribute. The following attribute properties are available:
-
-* <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute.IsLazy> resolves the dependency upon first use instead of upon initialization, and
-* <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute.IsRequired> throws an exception if the dependency is not available.
-
-1. Use this field or property from any template member of your aspect.
+    * <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute.IsLazy> resolves the dependency upon first use instead of upon initialization, and
+    * <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute.IsRequired> throws an exception if the dependency is not available.
+4. Use this field or property from any template member of your aspect.
 
 ### Example: default dependency injection patterns
 
@@ -43,9 +41,22 @@ The following example uses [Microsoft.Extensions.Hosting](https://learn.microsof
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.DependencyInjection/LogDefaultFramework.cs name="Dependency Injection"]
 
-### Example: ServiceLocator
+### Example: Service locator
 
-The following example is similar to the previous one but uses the `ServiceLocator` pattern instead of pulling dependencies from the constructor.
+The following example is similar to the previous one but uses the service locator pattern instead of pulling dependencies from the constructor. To use the service locator:
+
+1. Add the `Metalama.Extensions.DependencyInjection.ServiceLocator` package to your project.
+2. Register the framework using a fabric.
+
+    [!metalama-file ~/code/Metalama.Documentation.SampleCode.DependencyInjection.ServiceLocator/LogServiceLocator.Fabric.cs]
+
+3. Configure <xref:Metalama.Extensions.DependencyInjection.ServiceLocator.ServiceProviderProvider.ServiceProvider> in your application startup to point to your `IServiceProvider`.
+
+    ```csharp
+    ServiceProviderProvider.ServiceProvider = () => serviceProvider;
+    ```
+
+Here is the complete code of the example:
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.DependencyInjection.ServiceLocator/LogServiceLocator.cs name="Service Locator"]
 
@@ -53,7 +64,10 @@ The following example is similar to the previous one but uses the `ServiceLocato
 
 By default, Metalama generates code for the default .NET dependency injection framework implemented in the `Microsoft.Extensions.DependencyInjection` namespace (also called the .NET Core dependency injection framework).
 
-If you want to select a different framework for a project, adding a reference to the package implementing this dependency framework is typically sufficient, e.g., `Metalama.Extensions.DependencyInjection.ServiceLocator`. These packages typically include a <xref:Metalama.Framework.Fabrics.TransitiveProjectFabric> that registers itself. This works well when the project has a single dependency injection framework.
+To select a different framework for a project:
+
+1. Add a reference to the package implementing the desired dependency framework, e.g., `Metalama.Extensions.DependencyInjection.ServiceLocator`.
+2. Register the framework using a fabric by calling `amender.ConfigureDependencyInjection(builder => builder.RegisterFramework<MyFramework>( priority: 10 ))`.
 
 When several dependency injection frameworks can handle a specified dependency, Metalama selects the one with the lowest priority value among them. This selection strategy can be customized for the whole project or for specified namespaces or types.
 
@@ -65,28 +79,12 @@ When several dependency injection frameworks can handle a specified dependency, 
     * Call the <xref:Metalama.Extensions.DependencyInjection.DependencyInjectionOptionsBuilder.SetFrameworkPriority*> method, to change the priority of a given framework (lower values win), or
     * Set the <xref:Metalama.Extensions.DependencyInjection.DependencyInjectionOptionsBuilder.Selector?text=builder.Selector> property to your own implementation of <xref:Metalama.Extensions.DependencyInjection.IDependencyInjectionFrameworkSelector> interface.
 
-## Implementing an adaptor for a new dependency injection framework
+## Implementing a custom adapter
 
-If you need to support a dependency injection framework or pattern for which no ready-made implementation exists, you can implement an adapter yourself.
-
-See [Metalama.Extensions.DependencyInjection.ServiceLocator on GitHub](https://github.com/metalama/Metalama/tree/HEAD/Metalama.Extensions/src/Metalama.Extensions.DependencyInjection.ServiceLocator) for a working example.
-
-The steps are as follows:
-
-1. Create a class library project that targets `netstandard2.0`.
-2. Add a reference to the `Metalama.Extensions.DependencyInjection` package.
-3. Implement the <xref:Metalama.Extensions.DependencyInjection.Implementation.IDependencyInjectionFramework> interface in a new public class. It's easier to start from the <xref:Metalama.Extensions.DependencyInjection.Implementation.DefaultDependencyInjectionFramework> class. In this case, you must override the <xref:Metalama.Extensions.DependencyInjection.Implementation.DefaultDependencyInjectionStrategy> class. See the source code and the class documentation for details.
-4. Optionally create a <xref:Metalama.Framework.Fabrics.TransitiveProjectFabric> that registers the framework by calling <xref:Metalama.Extensions.DependencyInjection.DependencyInjectionExtensions.ConfigureDependencyInjection*?text=amender.Outgoing.ConfigureDependencyInjection>, then <xref:Metalama.Extensions.DependencyInjection.DependencyInjectionOptionsBuilder.RegisterFramework*?text=builder.RegisterFramework>.
-
-### Example
-
-The following example shows how to implement the correct code generation pattern for the `ILogger` service under .NET Core. Whereas normal services usually require a parameter of the same type of the constructor, the `ILogger` service requires a parameter of the generic type `ILogger<T>`, where `T` is the current type used as a category.
-
-Our implementation of <xref:Metalama.Extensions.DependencyInjection.Implementation.IDependencyInjectionFramework> implements the <xref:Metalama.Extensions.DependencyInjection.Implementation.DefaultDependencyInjectionFramework.CanHandleDependency*> method and returns `true` only when the dependency is of type `ILogger`. The only difference in the default implementation strategy is the parameter type.
-
-[!metalama-test ~/code/Metalama.Documentation.SampleCode.DependencyInjection/LogCustomFramework.cs name="Custom Adapter"]
+If you need to support a dependency injection framework or pattern for which no ready-made implementation exists, you can implement an adapter yourself. See <xref:dependency-injection-custom-frameworks> for detailed instructions and examples.
 
 > [!div class="see-also"]
+> <xref:dependency-injection-custom-frameworks>
 > <xref:Metalama.Extensions.DependencyInjection>
 > <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute>
 > <xref:Metalama.Extensions.DependencyInjection.Implementation.IDependencyInjectionFramework>
