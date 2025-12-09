@@ -4,7 +4,7 @@ level: 200
 summary: "Metalama 2026.0 provides full C# 14 and .NET 10 SDK support, introduces first-class tuple types, and enables event handler invocation overriding."
 keywords: "Metalama 2026.0, release notes"
 created-date: 2025-11-01
-modified-date: 2025-11-07
+modified-date: 2025-12-09
 ---
 
 # Metalama 2026.0
@@ -151,7 +151,10 @@ Visual Studio Tools for Metalama includes refactored components that dramaticall
 - The <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.With*> method has been split into <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.WithObject*> and <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.WithOptions*> with additional overloads. This change applies to all kinds of members.
 - <xref:Metalama.Framework.Aspects.IAdviser> and <xref:Metalama.Framework.Aspects.AdviserExtensions> have been moved to the `Metalama.Framework.Aspects` namespace.
 - `TypeKind.RecordClass` and `TypeKind.RecordStruct` have been removed and replaced by <xref:Metalama.Framework.Code.INamedType.IsRecord?text=INamedType.IsRecord>.
-- The `IntroduceConversionOperator` method now has an additional optional parameter to support `checked` operators ([#1133](https://github.com/metalama/Metalama/issues/1133)).
+- The `IntroduceConversionOperator` method now has an additional optional parameter to support `checked` operators.
+- **ServiceLocator self-registration removed**: The <xref:Metalama.Extensions.DependencyInjection.ServiceLocator> adapter no longer automatically registers itself via a <xref:Metalama.Framework.Fabrics.TransitiveProjectFabric>. Projects using this adapter must now explicitly register the <xref:Metalama.Extensions.DependencyInjection.ServiceLocator.ServiceLocatorDependencyInjectionFramework> it in their <xref:Metalama.Framework.Fabrics.ProjectFabric>.
+- **Elvis operator behavior change in templates**: The null-conditional operator (`?.`) is no longer simplified for non-nullable reference types in templates. It is still simplified for non-nullable value types. This may result in different generated code compared to previous versions.
+- **Test framework changes**: The `@AcceptInvalidInput` and `@ReportOutputWarnings` directives have been removed; both behaviors are now enabled by default.
 
 > [!div class="see-also"]
 > <xref:release-notes>

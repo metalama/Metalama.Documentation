@@ -31,14 +31,12 @@
       "Bash(gh project item-list:*)",
       "Bash(gh project list:*)",
       "Bash(gh api:*)",
-      "Bash(dir /s /b \"X:\\src\\Metalama-2026.0\\Metalama.Samples\\metalamaTests.json\")",
-      "Bash(dir /s /b \"X:\\src\\Metalama-2026.0\\Metalama.Samples\\*metalamaTests*\")",
-      "Bash(dir \"X:\\src\\Metalama-2026.0\\Metalama.Samples\")",
       "Bash(dir:*)",
       "Bash(ls:*)",
-      "Bash(powershell -ExecutionPolicy Bypass -File \"X:\\src\\Metalama-2026.0\\Metalama.Documentation\\Build.ps1\":*)",
-      "Bash(code \"X:\\src\\Metalama-2026.0\\Metalama.Documentation\\161-TODO.md\")",
-      "Bash(code \"X:\\src\\Metalama-2026.0\\Metalama.Documentation\\VERIFY-ALL-TODO.md\")"
+      
+      "Bash(npx markdownlint-cli:*)",
+      "Bash(git stash:*)",
+      "Bash(gh search:*)",
     ],
     "deny": [],
     "ask": [
