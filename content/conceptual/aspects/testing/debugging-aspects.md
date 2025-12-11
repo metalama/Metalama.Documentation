@@ -11,9 +11,14 @@ modified-date: 2025-11-30
 
 ## Adding breakpoints to templates and compile-time code
 
-Debugging the compile-time logic of an aspect can be challenging because the compiler doesn't execute your _source_ code, but a heavily transformed version where T# templates have been compiled into plain C#. This transformed code is stored under an unpredictable path.
+Debugging the compile-time logic of an aspect or fabric can be challenging because the compiler doesn't execute your _source_ code, but a heavily transformed version where T# templates have been compiled into plain C#. This transformed code is stored under the `obj/<Configuration>/<TargetFramework>/metalama` directory.
 
-Regular debugger breakpoints won't work. You must add break statements directly in your source code and remember to remove them after the debugging session.
+> [!WARNING]
+> You **cannot** set compile-time breakpoints in your source code files if the project references the `Metalama.Framework` package and the `MetalamaEnabled` MSBuild property is not set to `False`. Visual Studio breakpoints placed in source files will not be hit because the debugger sees only the transformed code, not the original source.
+>
+> You must add break statements directly in your source code and remember to remove them after the debugging session. Once the debugger stops at a break statement and you step through the code, you'll be viewing the _transformed_ code. At that point, you can set breakpoints in that transformed code file for the remainder of your debugging session.
+
+To add break statements:
 
 - In a _non-template_ compile-time method such as `BuildAspect`, invoke <xref:System.Diagnostics.Debugger.Break?text=Debugger.Break()>.
 - In a _template_ compile-time method, invoke <xref:Metalama.Framework.Aspects.meta.DebugBreak?text=meta.DebugBreak()>.

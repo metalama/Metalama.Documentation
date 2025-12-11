@@ -46,9 +46,15 @@ You're now ready to debug your aspect-transformed code.
 
 ## Breakpoints and step-into
 
-If you set a breakpoint in your code that's being modified by an aspect, those breakpoints won't be hit. However, you can use `F11` to step into as usual.
+> [!WARNING]
+> With the `LamaDebug` build configuration, you **cannot** set breakpoints in your source code files. The debugger only sees the transformed code, so breakpoints placed in source files will not be hit.
 
-You can also set breakpoints in the transformed code. The following sections show how to locate the transformed code and debug it.
+However, you can:
+
+- Use `F11` to step into the code as usual
+- Use a hardcoded `Debugger.Break()` in your source to force a break at a specific location (see below)
+
+The following sections show how to locate the transformed code and debug it.
 
 Consider the following code with the logging (`[Log]`) aspect:
 
