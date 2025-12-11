@@ -63,6 +63,9 @@ This skill pertains to Metalama <version>.
 
 ### Template Fundamentals
 
+> [!IMPORTANT]
+> T# templates look like C# but have different semantics. Code that works in normal C# may not work identically in a template. Always read the full template documentation at `content/conceptual/aspects/templates/` before writing template code.
+
 ```csharp
 public override dynamic? OverrideMethod()
 {
