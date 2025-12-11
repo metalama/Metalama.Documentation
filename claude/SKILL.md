@@ -44,6 +44,8 @@ This skill pertains to Metalama <version>.
 | Contracts | `content/patterns/contracts/contract-patterns.md` | Parameter/property validation |
 | Caching | `content/patterns/caching/caching.md` | Method result caching |
 | Observability | `content/patterns/observability/observability.md` | INotifyPropertyChanged implementation |
+| Debugging Aspects | `content/conceptual/aspects/testing/debugging-aspects.md` | Debug compile-time code, breakpoints, `meta.DebugBreak()` |
+| Debugging User Code | `content/conceptual/using/debugging-aspect-oriented-code.md` | Debug run-time transformed code, LamaDebug configuration |
 
 ## Common Patterns
 
@@ -79,6 +81,29 @@ public override dynamic? OverrideMethod()
 - `dynamic?` handles any return type (void returns null)
 - `meta.Proceed()` auto-transforms to `await` for async targets
 - Use `meta.Target.*` to access compile-time information about the target declaration
+- To debug templates, use `meta.DebugBreak()` (not `Debugger.Break()`)
+
+### Debugging Quick Reference
+
+**Debugging compile-time code (aspects, fabrics, templates):**
+1. Add `Debugger.Break()` in `BuildAspect`/fabrics, or `meta.DebugBreak()` in templates
+2. Build with: `dotnet build -p:MetalamaDebugCompiler=True -p:MetalamaConcurrentBuildEnabled=False`
+3. Attach debugger when prompted, then set breakpoints in transformed code (`obj/.../metalama/`)
+
+**Debugging run-time code (transformed output):**
+1. Create a `LamaDebug` build configuration in Visual Studio
+1. Use `F11` to step into code, or add `Debugger.Break()`
+1. Set breakpoints in transformed files under `obj/<Config>/<TFM>/metalama/`
+
+### Common Pitfalls
+
+| Mistake | Correct Approach |
+|---------|------------------|
+| Using `Debugger.Break()` in templates | Use `meta.DebugBreak()` in templates; `Debugger.Break()` only works in `BuildAspect` and fabrics |
+| Setting breakpoints in source files | Breakpoints don't work in Metalama-transformed projects; use `Debugger.Break()`/`meta.DebugBreak()` then set breakpoints in transformed code |
+| Using `nameof()` for introduced members | Use string literals; `nameof()` resolves at aspect compile-time, not target compile-time |
+| Filtering all types by namespace in fabrics | Use `GlobalNamespace.GetDescendant("Ns")` or a `NamespaceFabric` instead of `SelectTypes().Where(t => t.Namespace...)` |
+| Forgetting `partial` on target classes | Classes receiving introduced members need the `partial` modifier |
 
 ## Sample Code Conventions
 
