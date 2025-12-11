@@ -143,6 +143,7 @@ Visual Studio Tools for Metalama includes refactored components that dramaticall
 - New article: <xref:type-system>.
 - Improved the chapter: <xref:templates>.
 - Improved the API documentation by adding elements from the conceptual documentation where relevant.
+- **Claude Code skill**: A new skill package is available to enhance [Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview) with Metalama-specific knowledge. See <xref:ide-claude-code> for installation instructions.
 
 ## Breaking changes
 

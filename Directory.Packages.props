@@ -5,7 +5,7 @@
   </PropertyGroup>
   <!-- Set versions of dependencies that need special treatment or consist of multiple packages of the same version. -->
   <PropertyGroup>
-    <PostSharpEngineeringVersion Condition="'$(PostSharpEngineeringVersion)'==''">2023.2.277</PostSharpEngineeringVersion>
+    <PostSharpEngineeringVersion Condition="'$(PostSharpEngineeringVersion)'==''">2023.2.278</PostSharpEngineeringVersion>
   </PropertyGroup>
   <ItemGroup>
     <!-- Must match the version defined in PostSharp.Engineering.
@@ -78,5 +78,6 @@
     <PackageVersion Include="System.ServiceProcess.ServiceController" Version="8.0.1" />
     <PackageVersion Include="xunit" Version="2.9.3" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.2" />
+    <PackageVersion Include="YamlDotNet" Version="16.3.0" />
   </ItemGroup>
 </Project>

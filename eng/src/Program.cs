@@ -13,6 +13,7 @@ using PostSharp.Engineering.BuildTools.Build.Solutions;
 using PostSharp.Engineering.BuildTools.Build;
 using PostSharp.Engineering.BuildTools.Build.Model;
 using PostSharp.Engineering.BuildTools.Build.Publishing;
+using PostSharp.Engineering.BuildTools.Build.Publishing.Downloads;
 using PostSharp.Engineering.BuildTools.Docker;
 using PostSharp.Engineering.BuildTools.Search;
 using PostSharp.Engineering.DocFx;
@@ -21,6 +22,7 @@ using System.IO.Compression;
 using MetalamaDependencies = PostSharp.Engineering.BuildTools.Dependencies.Definitions.MetalamaDependencies.V2026_0;
 
 var docPackageFileName = $"Metalama.Doc.{MetalamaDependencies.Metalama.ProductFamily.Version}.zip";
+const string skillPackageFileName = "Metalama.Skill.$(PackageVersion).zip";
 const string dotNetSdkVersion = "10.0.100";
 
 var product = new Product( MetalamaDependencies.MetalamaDocumentation )
@@ -47,10 +49,11 @@ var product = new Product( MetalamaDependencies.MetalamaDocumentation )
         new DotNetSolution( "code\\Metalama.Documentation.Snippets.TestBased.sln" ) { CanFormatCode = true, BuildMethod = BuildMethod.Test },
         new DotNetSolution( "code\\Metalama.Documentation.Snippets.ProjectBased.sln" ) { CanFormatCode = true, BuildMethod = BuildMethod.Build },
         new DocFxApiSolution( "docfx.json" ),
-        new DocFxSiteSolution( "docfx.json", docPackageFileName )
+        new DocFxSiteSolution( "docfx.json", docPackageFileName ),
+        new ClaudeSkillSolution()
     ],
     PublicArtifacts = Pattern.Create( docPackageFileName ),
-    AdditionalDirectoriesToClean = [Path.Combine( "artifacts", "api" ), Path.Combine( "artifacts", "site" )],
+    AdditionalDirectoriesToClean = [Path.Combine( "artifacts", "api" ), Path.Combine( "artifacts", "site" ), Path.Combine( "artifacts", "skill" )],
     Configurations = Product.DefaultConfigurations
         .WithValue( BuildConfiguration.Debug, c => c with { BuildTriggers = default } )
         .WithValue(
@@ -62,7 +65,13 @@ var product = new Product( MetalamaDependencies.MetalamaDocumentation )
                 [
                     new DocumentationPublisher(
                         [new( docPackageFileName, RegionEndpoint.EUWest1, "doc.postsharp.net", docPackageFileName )],
-                        "https://postsharp-helpbrowser.azurewebsites.net/" )
+                        "https://postsharp-helpbrowser.azurewebsites.net/" ),
+                    new DownloadPublisher(
+                        [new S3PublisherConfiguration(
+                            skillPackageFileName,
+                            RegionEndpoint.EUWest1,
+                            "download-sharpcrafters-com",
+                            $"metalama/metalama-{MetalamaDependencies.Metalama.ProductFamily.Version}/v$(PackageVersion)/{skillPackageFileName}" )] )
                 ]
             } ),
     Extensions =

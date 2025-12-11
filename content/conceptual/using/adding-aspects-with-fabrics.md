@@ -77,6 +77,48 @@ In this example, the `Fabric` class inherits from <xref:Metalama.Framework.Fabri
 
 Notice how `TargetMethod` in `TargetNamespace` gets the logging aspect applied (shown in the transformed code), while `OtherMethod` in `OtherNamespace` remains unchanged because the fabric only affects its containing namespace.
 
+### Performance: Avoid filtering all types by namespace
+
+A common mistake when adding aspects to a specific namespace from a `ProjectFabric` is to enumerate all types and filter by namespace:
+
+```csharp
+// DON'T do this - it enumerates ALL types in the project, which is slow
+amender.SelectTypes()
+    .Where( t => t.Namespace.FullName.StartsWith( "MyNamespace" ) )
+    .AddAspectIfEligible<LogAttribute>();
+```
+
+This approach is inefficient because it enumerates every type in the entire project.
+
+Instead, use one of these approaches:
+
+**Option 1: Use a NamespaceFabric (recommended)**
+
+Place a <xref:Metalama.Framework.Fabrics.NamespaceFabric> directly in the target namespace, as shown in Example 3 above. This is the most readable approach.
+
+**Option 2: Use GlobalNamespace.GetDescendant**
+
+If you need to target a namespace from a `ProjectFabric`, navigate directly to the namespace using <xref:Metalama.Framework.Code.INamespace.GetDescendant*>:
+
+```csharp
+// DO this - navigates directly to the namespace
+amender.Select( c => c.GlobalNamespace.GetDescendant( "MyNamespace" )! )
+    .SelectTypes()
+    .SelectMany( t => t.Methods )
+    .AddAspectIfEligible<LogAttribute>();
+```
+
+> [!NOTE]
+> <xref:Metalama.Framework.Fabrics.IQuery`1.SelectTypes*> selects types in the specified namespace only, not in child namespaces. To include types in child namespaces, use <xref:Metalama.Framework.Code.NamespaceExtensions.DescendantsAndSelf*>:
+>
+> ```csharp
+> amender.Select( c => c.GlobalNamespace.GetDescendant( "MyNamespace" )! )
+>     .SelectMany( ns => ns.DescendantsAndSelf() )
+>     .SelectTypes()
+>     .SelectMany( t => t.Methods )
+>     .AddAspectIfEligible<LogAttribute>();
+> ```
+
 ### Example 4: Adding the `Log` aspect only to derived classes of a given class
 
 Sometimes you may want to add aspects only to a class and its derived types. The following fabric shows how to accomplish this by getting the derived types of a given type and adding aspects to them.

@@ -56,6 +56,8 @@ items:
               topicUid: ide-vs-code
             - name: Rider
               topicUid: ide-rider
+            - name: Claude Code
+              topicUid: ide-claude-code
         - name: Getting aspects
           topicUid: getting-aspects
         - name: Adding aspects to code
