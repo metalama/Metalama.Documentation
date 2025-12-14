@@ -9,13 +9,14 @@ param(
     [switch]$NoClean, # Does not clean up.
     [switch]$NoNuGetCache, # Does not mount the host nuget cache in the container.
     [switch]$KeepEnv, # Does not override the env.g.json file.
+    [switch]$Claude, # Run Claude CLI instead of Build.ps1. Use -Claude for interactive, -Claude "prompt" for non-interactive.
     [string]$ImageName, # Image name (defaults to a name based on the directory).
     [string]$BuildAgentPath = 'C:\BuildAgent',
     [switch]$LoadEnvFromKeyVault, # Forces loading environment variables form the key vault.
     [switch]$StartVsmon, # Enable the remote debugger.
     [string]$Script = 'Build.ps1', # The build script to be executed inside Docker.
     [Parameter(ValueFromRemainingArguments)]
-    [string[]]$BuildArgs   # Arguments passed to `Build.ps1` within the container.
+    [string[]]$BuildArgs   # Arguments passed to `Build.ps1` within the container (or Claude prompt if -Claude is specified).
 )
 
 ####
@@ -93,6 +94,71 @@ function New-EnvJson
     return $jsonPath
 }
 
+# Function to create Claude-specific env.g.json with filtered/renamed variables
+function New-ClaudeEnvJson
+{
+    $claudeEnv = @{ }
+
+    # CLAUDE_GITHUB_TOKEN -> GITHUB_TOKEN (renamed)
+    if ($env:CLAUDE_GITHUB_TOKEN)
+    {
+        $claudeEnv["GITHUB_TOKEN"] = $env:CLAUDE_GITHUB_TOKEN
+    }
+
+    # Preserved variables
+    if ($env:ANTHROPIC_API_KEY)
+    {
+        $claudeEnv["ANTHROPIC_API_KEY"] = $env:ANTHROPIC_API_KEY
+    }
+    if ($env:IS_POSTSHARP_OWNED)
+    {
+        $claudeEnv["IS_POSTSHARP_OWNED"] = $env:IS_POSTSHARP_OWNED
+    }
+    if ($env:IS_TEAMCITY_AGENT)
+    {
+        $claudeEnv["IS_TEAMCITY_AGENT"] = $env:IS_TEAMCITY_AGENT
+    }
+
+    # Git identity - read from host git config if not set in environment
+    $gitUserName = $env:GIT_USER_NAME
+    $gitUserEmail = $env:GIT_USER_EMAIL
+    if (-not $gitUserName)
+    {
+        $gitUserName = git config --global user.name
+    }
+    if (-not $gitUserEmail)
+    {
+        $gitUserEmail = git config --global user.email
+    }
+    if ($gitUserName)
+    {
+        $claudeEnv["GIT_USER_NAME"] = $gitUserName
+    }
+    if ($gitUserEmail)
+    {
+        $claudeEnv["GIT_USER_EMAIL"] = $gitUserEmail
+    }
+
+    # Convert to JSON and save
+    $jsonPath = Join-Path $dockerContextDirectory "env.g.json"
+
+    # Write a test JSON file with GUID first
+    @{ guid = [System.Guid]::NewGuid().ToString() } | ConvertTo-Json | Set-Content -Path $jsonPath -Encoding UTF8
+
+    # Check if secrets file is tracked by git
+    $gitStatus = git status --porcelain $jsonPath 2> $null
+    if ($LASTEXITCODE -eq 0 -and -not [string]::IsNullOrWhiteSpace($gitStatus))
+    {
+        Write-Error "Secrets file '$jsonPath' is tracked by git. Please add it to .gitignore first."
+        exit 1
+    }
+
+    $claudeEnv | ConvertTo-Json -Depth 10 | Set-Content -Path $jsonPath -Encoding UTF8
+    Write-Host "Created Claude secrets file: $jsonPath" -ForegroundColor Cyan
+
+    return $jsonPath
+}
+
 if ($env:RUNNING_IN_DOCKER)
 {
     Write-Error "Already running in Docker."
@@ -139,29 +205,38 @@ Write-Host "Preparing context and mounts." -ForegroundColor Green
 # Create secrets JSON file.
 if (-not $KeepEnv)
 {
-    if (-not $env:ENG_USERNAME)
+    if ($Claude)
     {
-        $env:ENG_USERNAME = $env:USERNAME
-    }
-
-    # Add git identity to environment
-    if ($env:IS_TEAMCITY_AGENT)
-    {
-        # On TeamCity agents, check if the environment variables are set.
-        if (-not $env:GIT_USER_EMAIL -or -not $env:GIT_USER_NAME)
-        {
-            Write-Error "On TeamCity agents, the GIT_USER_EMAIL and GIT_USER_NAME environment variables must be set."
-            exit 1
-        }
+        # Use Claude-specific environment variables (filtered and renamed)
+        New-ClaudeEnvJson
     }
     else
     {
-        # On developer machines, use the current git user.
-        $env:GIT_USER_EMAIL = git config --global user.email
-        $env:GIT_USER_NAME = git config --global user.name
-    }
+        # Use standard build environment variables
+        if (-not $env:ENG_USERNAME)
+        {
+            $env:ENG_USERNAME = $env:USERNAME
+        }
 
-    New-EnvJson -EnvironmentVariableList $EnvironmentVariables
+        # Add git identity to environment
+        if ($env:IS_TEAMCITY_AGENT)
+        {
+            # On TeamCity agents, check if the environment variables are set.
+            if (-not $env:GIT_USER_EMAIL -or -not $env:GIT_USER_NAME)
+            {
+                Write-Error "On TeamCity agents, the GIT_USER_EMAIL and GIT_USER_NAME environment variables must be set."
+                exit 1
+            }
+        }
+        else
+        {
+            # On developer machines, use the current git user.
+            $env:GIT_USER_EMAIL = git config --global user.email
+            $env:GIT_USER_NAME = git config --global user.name
+        }
+
+        New-EnvJson -EnvironmentVariableList $EnvironmentVariables
+    }
 }
 
 # Get the source directory name from $PSScriptRoot
@@ -265,6 +340,109 @@ if (Test-Path $dockerMountsScript)
     . $dockerMountsScript
 }
 
+# Handle non-C: drive letters for Docker (Windows containers only have C: by default)
+# We mount X:\foo to C:\X\foo in the container, then use subst to create the X: drive
+$driveLetters = @{}
+
+function Get-ContainerPath($hostPath)
+{
+    if ($hostPath -match '^([A-Za-z]):(.*)$')
+    {
+        $driveLetter = $Matches[1].ToUpper()
+        $pathWithoutDrive = $Matches[2]
+        if ($driveLetter -ne 'C')
+        {
+            $driveLetters[$driveLetter] = $true
+            return "C:\$driveLetter$pathWithoutDrive"
+        }
+    }
+    return $hostPath
+}
+
+# Transform all volume mappings to use container paths
+$transformedVolumeMappings = @()
+for ($i = 0; $i -lt $VolumeMappings.Count; $i += 2)
+{
+    $flag = $VolumeMappings[$i]
+    $mapping = $VolumeMappings[$i + 1]
+
+    # Parse volume mapping: hostPath:containerPath[:options]
+    if ($mapping -match '^([A-Za-z]:\\[^:]*):([A-Za-z]:\\[^:]*)(:.+)?$')
+    {
+        $hostPath = $Matches[1]
+        $containerPath = $Matches[2]
+        $options = $Matches[3]
+        $newContainerPath = Get-ContainerPath $containerPath
+        $transformedVolumeMappings += @($flag, "${hostPath}:${newContainerPath}${options}")
+    }
+    else
+    {
+        $transformedVolumeMappings += @($flag, $mapping)
+    }
+}
+$VolumeMappings = $transformedVolumeMappings
+
+# Transform MountPoints, GitDirectories, and SourceDirName for the container
+$MountPoints = $MountPoints | ForEach-Object { Get-ContainerPath $_ }
+$GitDirectories = $GitDirectories | ForEach-Object { Get-ContainerPath $_ }
+$ContainerSourceDir = Get-ContainerPath $SourceDirName
+
+# Add both the unmapped (C:\X\...) and mapped (X:\...) paths to GitDirectories for safe.directory
+# Git may resolve paths differently depending on how it's invoked
+$expandedGitDirectories = @()
+foreach ($dir in $GitDirectories)
+{
+    $expandedGitDirectories += $dir
+    # If path is C:\<letter>\... (unmapped subst path), also add <letter>:\... (mapped path)
+    if ($dir -match '^C:\\([A-Za-z])\\(.*)$')
+    {
+        $letter = $Matches[1].ToUpper()
+        $rest = $Matches[2]
+        $expandedGitDirectories += "${letter}:\$rest"
+    }
+}
+$GitDirectories = $expandedGitDirectories
+
+# Build subst commands string for inline execution in docker run
+$substCommandsInline = ""
+foreach ($letter in $driveLetters.Keys | Sort-Object)
+{
+    $substCommandsInline += "C:\Windows\System32\subst.exe ${letter}: C:\$letter; "
+}
+if ($driveLetters.Count -gt 0)
+{
+    Write-Host "Drive letter mappings for container: $($driveLetters.Keys -join ', ')" -ForegroundColor Cyan
+}
+
+# Create Init.g.ps1 with git configuration (safe.directory and user identity)
+$initScript = Join-Path $dockerContextDirectory "Init.g.ps1"
+$initScriptContent = @"
+# Auto-generated initialization script for container startup
+
+# Configure git user identity from Machine environment variables
+`$gitUserName = [Environment]::GetEnvironmentVariable('GIT_USER_NAME', 'Machine')
+`$gitUserEmail = [Environment]::GetEnvironmentVariable('GIT_USER_EMAIL', 'Machine')
+if (`$gitUserName) {
+    git config --global user.name `$gitUserName
+}
+if (`$gitUserEmail) {
+    git config --global user.email `$gitUserEmail
+}
+
+# Configure git safe.directory for all mounted directories
+`$gitDirectories = @(
+$(($GitDirectories | ForEach-Object { "    '$_'" }) -join ",`n")
+)
+
+foreach (`$dir in `$gitDirectories) {
+    if (`$dir) {
+        `$normalizedDir = (`$dir -replace '\\\\', '/').TrimEnd('/') + '/'
+        git config --global --add safe.directory `$normalizedDir
+    }
+}
+"@
+$initScriptContent | Set-Content -Path $initScript -Encoding UTF8
+
 $mountPointsAsString = $MountPoints -Join ";"
 $gitDirectoriesAsString = $GitDirectories -Join ";"
 
@@ -281,61 +459,173 @@ docker ps -q --filter "ancestor=$ImageTag" | ForEach-Object {
 # Building the image.
 if (-not $NoBuildImage)
 {
-    Write-Host "Building the image with tag: $ImageTag" -ForegroundColor Green
-    Get-Content -Raw Dockerfile | docker build -t $ImageTag  --build-arg GITDIRS="$gitDirectoriesAsString"  --build-arg MOUNTPOINTS="$mountPointsAsString"  -f - $dockerContextDirectory
-    if ($LASTEXITCODE -ne 0)
+    if ($Claude)
     {
-        Write-Host "Docker build failed with exit code $LASTEXITCODE" -ForegroundColor Red
-        exit $LASTEXITCODE
+        # Build Claude image directly from standalone Dockerfile.claude
+        $ImageTag = "$ImageTag-claude"
+        Write-Host "Building the Claude image with tag: $ImageTag" -ForegroundColor Green
+
+        if (-not (Test-Path "Dockerfile.claude"))
+        {
+            Write-Error "Dockerfile.claude not found. Make sure generate-scripts was run with Claude support."
+            exit 1
+        }
+
+        Get-Content -Raw Dockerfile.claude | docker build -t $ImageTag --build-arg MOUNTPOINTS="$mountPointsAsString" -f - $dockerContextDirectory
+        if ($LASTEXITCODE -ne 0)
+        {
+            Write-Host "Docker build (Claude) failed with exit code $LASTEXITCODE" -ForegroundColor Red
+            exit $LASTEXITCODE
+        }
+    }
+    else
+    {
+        # Build base image
+        Write-Host "Building the base image with tag: $ImageTag" -ForegroundColor Green
+        Get-Content -Raw Dockerfile | docker build -t $ImageTag --build-arg MOUNTPOINTS="$mountPointsAsString" -f - $dockerContextDirectory
+        if ($LASTEXITCODE -ne 0)
+        {
+            Write-Host "Docker build failed with exit code $LASTEXITCODE" -ForegroundColor Red
+            exit $LASTEXITCODE
+        }
     }
 }
 else
 {
     Write-Host "Skipping image build (-NoBuildImage specified)." -ForegroundColor Yellow
+
+    # If Claude mode and skipping build, use the Claude image tag
+    if ($Claude)
+    {
+        $ImageTag = "$ImageTag-claude"
+    }
 }
 
 
 # Run the build within the container
 if (-not $BuildImage)
 {
-
-    # Delete now and not in the container because it's much faster and lock error messages are more relevant.
-    Write-Host "Building the product in the container." -ForegroundColor Green
-
-    # Prepare Build.ps1 arguments
-    if ($StartVsmon)
+    if ($Claude)
     {
-        $BuildArgs = @("-StartVsmon") + $BuildArgs
-    }
+        # Run Claude mode
+        Write-Host "Running Claude in the container." -ForegroundColor Green
 
-    if ($Interactive)
-    {
-        $pwshArgs = "-NoExit"
-        $BuildArgs = @("-Interactive") + $BuildArgs
-        $dockerArgs = @("-it")
-        $pwshExitCommand = ""
+        # Add Claude-specific volume mounts for auth and settings
+        $hostUserProfile = $env:USERPROFILE
+        $containerUserProfile = "C:\Users\ContainerUser"
+
+        # Mount .claude directory (settings and credentials)
+        if (Test-Path "$hostUserProfile\.claude")
+        {
+            $VolumeMappings += @("-v", "${hostUserProfile}\.claude:${containerUserProfile}\.claude")
+        }
+
+        # Copy .claude.json to docker-context (cannot mount files on Windows Docker)
+        # Also fix installMethod to match container's npm installation
+        $claudeJsonSource = "$hostUserProfile\.claude.json"
+        $claudeJsonDest = Join-Path $dockerContextDirectory "claude.json"
+        $copyClaudeJsonScript = ""
+        if (Test-Path $claudeJsonSource)
+        {
+            $claudeConfig = Get-Content $claudeJsonSource -Raw | ConvertFrom-Json
+            # Change installMethod to npm since that's how Claude is installed in container
+            if ($claudeConfig.installMethod)
+            {
+                $claudeConfig.installMethod = "npm"
+            }
+            $claudeConfig | ConvertTo-Json -Depth 10 | Set-Content $claudeJsonDest -Encoding UTF8
+            # Will copy from mounted source dir to user profile in container
+            $copyClaudeJsonScript = "Copy-Item '$ContainerSourceDir\eng\docker-context\claude.json' '$containerUserProfile\.claude.json' -Force; "
+        }
+
+        # Mount .cache\claude (cache)
+        if (Test-Path "$hostUserProfile\.cache\claude")
+        {
+            $VolumeMappings += @("-v", "${hostUserProfile}\.cache\claude:${containerUserProfile}\.cache\claude")
+        }
+
+        $VolumeMappingsAsString = $VolumeMappings -join " "
+
+        # Extract Claude prompt from remaining arguments if present
+        # Usage: -Claude for interactive, -Claude "prompt" for non-interactive
+        $ClaudePrompt = $null
+        if ($BuildArgs -and $BuildArgs.Count -gt 0 -and $BuildArgs[0] -and -not $BuildArgs[0].StartsWith('-'))
+        {
+            $ClaudePrompt = $BuildArgs[0]
+        }
+
+        # Build inline script: subst drives, copy claude.json, cd to source, run Claude
+        if ($ClaudePrompt)
+        {
+            # Non-interactive mode with prompt - no -it flags
+            $dockerArgs = @()
+            $inlineScript = "${substCommandsInline}& c:\Init.g.ps1; ${copyClaudeJsonScript}cd '$SourceDirName'; & .\eng\RunClaude.ps1 -Prompt `"$ClaudePrompt`""
+        }
+        else
+        {
+            # Interactive mode - requires TTY
+            $dockerArgs = @("-it")
+            $inlineScript = "${substCommandsInline}& c:\Init.g.ps1; ${copyClaudeJsonScript}cd '$SourceDirName'; & .\eng\RunClaude.ps1"
+        }
+
+        $dockerArgsAsString = $dockerArgs -join " "
+        $pwshPath = 'C:\Program Files\PowerShell\7\pwsh.exe'
+
+        # Set HOME/USERPROFILE so Claude finds its config in the mounted location
+        $envArgs = @("-e", "HOME=$containerUserProfile", "-e", "USERPROFILE=$containerUserProfile")
+
+        Write-Host "Executing: ``docker run --rm --memory=12g $dockerArgsAsString $VolumeMappingsAsString -e HOME=$containerUserProfile -e USERPROFILE=$containerUserProfile -w $ContainerSourceDir $ImageTag `"$pwshPath`" -Command `"$inlineScript`"" -ForegroundColor Cyan
+        docker run --rm --memory=12g $dockerArgs @VolumeMappings @envArgs -w $ContainerSourceDir $ImageTag $pwshPath -Command $inlineScript
+
+        if ($LASTEXITCODE -ne 0)
+        {
+            Write-Host "Docker run (Claude) failed with exit code $LASTEXITCODE" -ForegroundColor Red
+            exit $LASTEXITCODE
+        }
     }
     else
     {
-        $pwshArgs = "-NonInteractive"
-        $dockerArgs = @()
-        $pwshExitCommand = "exit `$LASTEXITCODE`;"
+        # Run standard build mode
+        # Delete now and not in the container because it's much faster and lock error messages are more relevant.
+        Write-Host "Building the product in the container." -ForegroundColor Green
+
+        # Prepare Build.ps1 arguments
+        if ($StartVsmon)
+        {
+            $BuildArgs = @("-StartVsmon") + $BuildArgs
+        }
+
+        if ($Interactive)
+        {
+            $pwshArgs = "-NoExit"
+            $BuildArgs = @("-Interactive") + $BuildArgs
+            $dockerArgs = @("-it")
+            $pwshExitCommand = ""
+        }
+        else
+        {
+            $pwshArgs = "-NonInteractive"
+            $dockerArgs = @()
+            $pwshExitCommand = "exit `$LASTEXITCODE`;"
+        }
+
+        $buildArgsString = $BuildArgs -join " "
+        $VolumeMappingsAsString = $VolumeMappings -join " "
+        $dockerArgsAsString = $dockerArgs -join " "
+
+        # Build inline script: subst drives, run init, cd to source, run build
+        $inlineScript = "${substCommandsInline}& c:\Init.g.ps1; cd '$SourceDirName'; & .\$Script $buildArgsString; $pwshExitCommand"
+
+        $pwshPath = 'C:\Program Files\PowerShell\7\pwsh.exe'
+        Write-Host "Executing: ``docker run --rm --memory=12g $dockerArgsAsString $VolumeMappingsAsString -w $ContainerSourceDir $ImageTag `"$pwshPath`" $pwshArgs -Command `"$inlineScript`"" -ForegroundColor Cyan
+
+        docker run --rm --memory=12g $dockerArgs @VolumeMappings -w $ContainerSourceDir $ImageTag $pwshPath $pwshArgs -Command $inlineScript
+        if ($LASTEXITCODE -ne 0)
+        {
+            Write-Host "Docker run (build) failed with exit code $LASTEXITCODE" -ForegroundColor Red
+            exit $LASTEXITCODE
+        }
     }
-
-    $buildArgsString = $BuildArgs -join " "
-    $VolumeMappingsAsString = $VolumeMappings -join " "
-    $dockerArgsAsString = $dockerArgs -join " "
-
-
-    Write-Host "Executing: ``docker run --rm --memory=12g $dockerArgsAsString $VolumeMappingsAsString -w $SourceDirName $ImageTag pwsh $pwshArgs -Command `"& .\$Script $buildArgsString`; $pwshExitCommand`"" -ForegroundColor Cyan
-
-    docker run --rm --memory=12g $dockerArgs @VolumeMappings -w $SourceDirName @dockerArgs $ImageTag pwsh $pwshArgs -Command "& .\$Script $buildArgsString`; $pwshExitCommand; "
-    if ($LASTEXITCODE -ne 0)
-    {
-        Write-Host "Docker run (build) failed with exit code $LASTEXITCODE" -ForegroundColor Red
-        exit $LASTEXITCODE
-    }
-
 }
 else
 {
