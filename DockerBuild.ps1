@@ -332,6 +332,54 @@ if (Test-Path $sourceDependenciesDir)
     }
 }
 
+# Mount sibling directories from the product family (parent directory)
+# Only if parent is a recognized product family (PostSharp* or Metalama*)
+$parentDir = Split-Path $SourceDirName -Parent
+$parentDirName = Split-Path $parentDir -Leaf
+if ($parentDir -and (Test-Path $parentDir) -and ($parentDirName -like "PostSharp*" -or $parentDirName -like "Metalama*"))
+{
+    Write-Host "Detected product family directory: $parentDirName" -ForegroundColor Cyan
+    $siblingDirs = Get-ChildItem -Path $parentDir -Directory -ErrorAction SilentlyContinue |
+        Where-Object { $_.FullName -ne $SourceDirName }
+
+    foreach ($sibling in $siblingDirs)
+    {
+        $siblingPath = $sibling.FullName
+        # Skip if already mounted
+        $alreadyMounted = $VolumeMappings | Where-Object { $_ -like "*${siblingPath}:*" }
+        if (-not $alreadyMounted)
+        {
+            Write-Host "Mounting product family sibling: $siblingPath" -ForegroundColor Cyan
+            $VolumeMappings += @("-v", "${siblingPath}:${siblingPath}:ro")
+            $MountPoints += $siblingPath
+            $GitDirectories += $siblingPath
+        }
+    }
+}
+
+# Mount PostSharp.Engineering.* directories from grandparent
+# This provides access to engineering tools and related repos
+$grandparentDir = Split-Path $parentDir -Parent
+if ($grandparentDir -and (Test-Path $grandparentDir))
+{
+    $engineeringDirs = Get-ChildItem -Path $grandparentDir -Directory -Filter "PostSharp.Engineering*" -ErrorAction SilentlyContinue |
+        Where-Object { $_.FullName -ne $SourceDirName }
+
+    foreach ($engDir in $engineeringDirs)
+    {
+        $engPath = $engDir.FullName
+        # Skip if already mounted
+        $alreadyMounted = $VolumeMappings | Where-Object { $_ -like "*${engPath}:*" }
+        if (-not $alreadyMounted)
+        {
+            Write-Host "Mounting engineering repo: $engPath" -ForegroundColor Cyan
+            $VolumeMappings += @("-v", "${engPath}:${engPath}:ro")
+            $MountPoints += $engPath
+            $GitDirectories += $engPath
+        }
+    }
+}
+
 # Execute auto-generated DockerMounts.g.ps1 script to add more directory mounts.
 $dockerMountsScript = Join-Path $EngPath 'DockerMounts.g.ps1'
 if (Test-Path $dockerMountsScript)
