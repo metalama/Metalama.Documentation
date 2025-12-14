@@ -7,6 +7,7 @@ using System;
 using System.IO;
 using System.IO.Compression;
 using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
@@ -14,11 +15,11 @@ using YamlDotNet.Serialization.NamingConventions;
 namespace BuildMetalamaDocumentation;
 
 /// <summary>
-/// Solution that generates the Claude SKILL artifact from documentation.
+/// Solution that generates the Claude marketplace artifact from documentation.
 /// </summary>
-internal class ClaudeSkillSolution : Solution
+internal class ClaudeMarketplaceSolution : Solution
 {
-    public ClaudeSkillSolution() : base( "Claude SKILL" )
+    public ClaudeMarketplaceSolution() : base( "Claude Marketplace" )
     {
         this.BuildMethod = PostSharp.Engineering.BuildTools.Build.Model.BuildMethod.Pack;
     }
@@ -26,28 +27,54 @@ internal class ClaudeSkillSolution : Solution
     public override bool Build( BuildContext context, BuildSettings settings )
     {
         var repoDir = context.RepoDirectory;
-        var skillOutputDir = Path.Combine( repoDir, "artifacts", "skill" );
+        var marketplaceOutputDir = Path.Combine( repoDir, "artifacts", "marketplace" );
+        var version = context.Product.ProductFamily.Version;
 
-        context.Console.WriteHeading( "Building Claude SKILL artifact" );
+        context.Console.WriteHeading( "Building Claude Marketplace artifact" );
 
         try
         {
             // Clean and create output directory
-            if ( Directory.Exists( skillOutputDir ) )
+            if ( Directory.Exists( marketplaceOutputDir ) )
             {
-                Directory.Delete( skillOutputDir, true );
+                Directory.Delete( marketplaceOutputDir, true );
             }
 
-            Directory.CreateDirectory( skillOutputDir );
+            Directory.CreateDirectory( marketplaceOutputDir );
 
-            // 1. Copy SKILL.md from claude/SKILL.md and replace version placeholder
+            // Define plugin and skill paths
+            var pluginDir = Path.Combine( marketplaceOutputDir, "plugins", "metalama" );
+            var pluginConfigDir = Path.Combine( pluginDir, ".claude-plugin" );
+            var skillDir = Path.Combine( pluginDir, "skills", "metalama" );
+
+            Directory.CreateDirectory( pluginConfigDir );
+            Directory.CreateDirectory( skillDir );
+
+            // 1. Generate marketplace.json at the root
+            GenerateMarketplaceJson( marketplaceOutputDir, version );
+            context.Console.WriteMessage( "Generated marketplace.json" );
+
+            // 2. Generate .claude-plugin/plugin.json
+            GeneratePluginJson( pluginConfigDir, version );
+            context.Console.WriteMessage( "Generated plugin.json" );
+
+            // 3. Copy README.md from claude/README.md to marketplace root
+            var readmeSourcePath = Path.Combine( repoDir, "claude", "README.md" );
+            var readmeDestPath = Path.Combine( marketplaceOutputDir, "README.md" );
+
+            if ( File.Exists( readmeSourcePath ) )
+            {
+                File.Copy( readmeSourcePath, readmeDestPath, true );
+                context.Console.WriteMessage( "Copied README.md" );
+            }
+
+            // 4. Copy SKILL.md from claude/SKILL.md and replace version placeholder
             var skillSourcePath = Path.Combine( repoDir, "claude", "SKILL.md" );
-            var skillDestPath = Path.Combine( skillOutputDir, "SKILL.md" );
+            var skillDestPath = Path.Combine( skillDir, "SKILL.md" );
 
             if ( File.Exists( skillSourcePath ) )
             {
                 var skillContent = File.ReadAllText( skillSourcePath );
-                var version = context.Product.ProductFamily.Version;
                 skillContent = skillContent.Replace( "<version>", version, StringComparison.Ordinal );
                 File.WriteAllText( skillDestPath, skillContent );
                 context.Console.WriteMessage( $"Copied SKILL.md (version: {version})" );
@@ -57,26 +84,26 @@ internal class ClaudeSkillSolution : Solution
                 context.Console.WriteWarning( $"SKILL.md not found at {skillSourcePath}" );
             }
 
-            // 2. Copy content/**/*.md (Markdown documentation)
+            // 5. Copy content/**/*.md (Markdown documentation)
             var contentSourceDir = Path.Combine( repoDir, "content" );
-            var contentDestDir = Path.Combine( skillOutputDir, "content" );
+            var contentDestDir = Path.Combine( skillDir, "content" );
 
             CopyDirectory( contentSourceDir, contentDestDir, "*.md", context );
             CopyDirectory( contentSourceDir, contentDestDir, "*.yml", context );
 
             context.Console.WriteMessage( "Copied content/ directory" );
 
-            // 3. Copy code/**/*.cs (sample code, verbatim)
+            // 6. Copy code/**/*.cs (sample code, verbatim)
             var codeSourceDir = Path.Combine( repoDir, "code" );
-            var codeDestDir = Path.Combine( skillOutputDir, "code" );
+            var codeDestDir = Path.Combine( skillDir, "code" );
 
             CopyDirectory( codeSourceDir, codeDestDir, "*.cs", context );
 
             context.Console.WriteMessage( "Copied code/ directory" );
 
-            // 4. Copy artifacts/api/*.yml and .manifest (API documentation)
+            // 7. Copy artifacts/api/*.yml and .manifest (API documentation)
             var apiSourceDir = Path.Combine( repoDir, "artifacts", "api" );
-            var apiDestDir = Path.Combine( skillOutputDir, "api" );
+            var apiDestDir = Path.Combine( skillDir, "api" );
 
             if ( Directory.Exists( apiSourceDir ) )
             {
@@ -99,24 +126,66 @@ internal class ClaudeSkillSolution : Solution
                 context.Console.WriteWarning( $"API directory not found at {apiSourceDir}. Run DocFx API generation first." );
             }
 
-            // 5. Generate index.yml
+            // 8. Generate index.yml
             var indexGenerator = new SkillIndexGenerator( repoDir, context.Console );
             var indexContent = indexGenerator.GenerateIndex();
-            var indexPath = Path.Combine( skillOutputDir, "index.yml" );
+            var indexPath = Path.Combine( skillDir, "index.yml" );
 
             File.WriteAllText( indexPath, indexContent );
             context.Console.WriteMessage( "Generated index.yml" );
 
-            context.Console.WriteSuccess( $"Claude SKILL artifact created at {skillOutputDir}" );
+            context.Console.WriteSuccess( $"Claude Marketplace artifact created at {marketplaceOutputDir}" );
 
             return true;
         }
         catch ( Exception ex )
         {
-            context.Console.WriteError( $"Failed to build Claude SKILL: {ex.Message}" );
+            context.Console.WriteError( $"Failed to build Claude Marketplace: {ex.Message}" );
 
             return false;
         }
+    }
+
+    private static void GenerateMarketplaceJson( string marketplaceDir, string version )
+    {
+        var marketplace = new
+        {
+            name = "metalama",
+            owner = new
+            {
+                name = "PostSharp Technologies",
+                email = "hello@postsharp.net"
+            },
+            description = "Metalama documentation and tools for aspect-oriented programming in C#",
+            plugins = new[]
+            {
+                new
+                {
+                    name = "metalama",
+                    source = "./plugins/metalama",
+                    description = "Complete Metalama documentation for aspect-oriented programming in C#. Use when writing aspects, templates, fabrics, or meta-programming code with Metalama.",
+                    version = version
+                }
+            }
+        };
+
+        var options = new JsonSerializerOptions { WriteIndented = true, PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+        var json = JsonSerializer.Serialize( marketplace, options );
+        File.WriteAllText( Path.Combine( marketplaceDir, "marketplace.json" ), json );
+    }
+
+    private static void GeneratePluginJson( string pluginConfigDir, string version )
+    {
+        var plugin = new
+        {
+            name = "metalama",
+            version = version,
+            description = "Complete Metalama documentation for aspect-oriented programming in C#. Use when writing aspects, templates, fabrics, or meta-programming code with Metalama."
+        };
+
+        var options = new JsonSerializerOptions { WriteIndented = true, PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+        var json = JsonSerializer.Serialize( plugin, options );
+        File.WriteAllText( Path.Combine( pluginConfigDir, "plugin.json" ), json );
     }
 
     private static void CopyDirectory( string sourceDir, string destDir, string pattern, BuildContext context )
@@ -154,13 +223,19 @@ internal class ClaudeSkillSolution : Solution
         }
 
         var repoDir = context.RepoDirectory;
-        var skillOutputDir = Path.Combine( repoDir, "artifacts", "skill" );
+        var marketplaceOutputDir = Path.Combine( repoDir, "artifacts", "marketplace" );
         var publishDir = Path.Combine( repoDir, "artifacts", "publish", "private" );
-        var zipFileName = $"Metalama.Skill.{buildArguments.PackageVersion}.zip";
+        var zipFileName = $"Metalama.AI.Skills.{buildArguments.PackageVersion}.zip";
         var zipPath = Path.Combine( publishDir, zipFileName );
 
         try
         {
+            // Update JSON files with the full package version
+            var pluginConfigDir = Path.Combine( marketplaceOutputDir, "plugins", "metalama", ".claude-plugin" );
+            GenerateMarketplaceJson( marketplaceOutputDir, buildArguments.PackageVersion );
+            GeneratePluginJson( pluginConfigDir, buildArguments.PackageVersion );
+            context.Console.WriteMessage( $"Updated JSON files with package version: {buildArguments.PackageVersion}" );
+
             // Ensure publish directory exists
             Directory.CreateDirectory( publishDir );
 
@@ -170,8 +245,8 @@ internal class ClaudeSkillSolution : Solution
                 File.Delete( zipPath );
             }
 
-            // Create zip from skill directory
-            ZipFile.CreateFromDirectory( skillOutputDir, zipPath, CompressionLevel.Optimal, false );
+            // Create zip from marketplace directory
+            ZipFile.CreateFromDirectory( marketplaceOutputDir, zipPath, CompressionLevel.Optimal, false );
 
             context.Console.WriteSuccess( $"Created {zipFileName} in {publishDir}" );
 
@@ -179,7 +254,7 @@ internal class ClaudeSkillSolution : Solution
         }
         catch ( Exception ex )
         {
-            context.Console.WriteError( $"Failed to pack Claude SKILL: {ex.Message}" );
+            context.Console.WriteError( $"Failed to pack Claude Marketplace: {ex.Message}" );
 
             return false;
         }

@@ -2,45 +2,49 @@
 uid: ide-claude-code
 level: 100
 summary: "Configure Claude Code with Metalama documentation to get AI-assisted aspect development."
-keywords: "Claude Code, Metalama AI, AI coding assistant, Claude skill, aspect development"
+keywords: "Claude Code, Metalama AI, AI coding assistant, Claude plugin, aspect development"
 created-date: 2025-12-11
-modified-date: 2025-12-11
+modified-date: 2025-12-14
 ---
 
 # Configuring Claude Code
 
-[Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview) is Anthropic's AI-powered coding assistant that runs in your terminal. You can enhance Claude Code with Metalama-specific knowledge by installing the Metalama skill, which provides comprehensive documentation about aspects, templates, fabrics, and the entire Metalama API.
+[Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview) is Anthropic's AI-powered coding assistant that runs in your terminal. You can enhance Claude Code with Metalama-specific knowledge by installing the Metalama plugin, which provides comprehensive documentation about aspects, templates, fabrics, and the entire Metalama API.
 
-## Installing the Metalama skill
+## Installing the Metalama plugin
 
-1. Download the skill zip file from the [Metalama downloads page](https://www.postsharp.net/downloads/metalama). Look for `Metalama.Skill.{version}.zip` in the version folder (e.g., `metalama-2026.0/v2026.0.4-rc/`).
+1. Add the Metalama marketplace to Claude Code:
 
-2. Extract the zip contents to your Claude skills directory:
-   - **Windows**: `%USERPROFILE%\.claude\skills\metalama`
-   - **macOS/Linux**: `~/.claude/skills/metalama`
+   ```
+   /plugin marketplace add https://github.com/metalama/Metalama.AI.Skills
+   ```
 
-3. Ensure the `SKILL.md` file is at the root of the `metalama` folder (not nested in a subfolder).
+2. Install the Metalama plugin:
+
+   ```
+   /plugin install metalama
+   ```
 
 ## Verifying the installation
 
-After installation, verify the skill is recognized by Claude Code:
+After installation, verify the plugin is recognized by Claude Code:
 
 1. Start Claude Code in your terminal.
 2. Ask Claude "What skills do you have?" or check if Metalama-related questions trigger the skill.
-3. When the skill is active, Claude will have access to Metalama documentation.
+3. When the plugin is active, Claude will have access to Metalama documentation.
 
-## What the skill provides
+## What the plugin provides
 
-The Metalama skill gives Claude Code access to:
+The Metalama plugin gives Claude Code access to:
 
 - **Conceptual documentation**: Complete guides on aspects, templates, fabrics, validation, and configuration.
 - **API reference**: Full documentation for all Metalama namespaces and types.
 - **Sample code**: Working examples demonstrating common patterns and techniques.
 - **Pattern libraries**: Documentation for Metalama.Patterns.Contracts, Caching, Observability, and more.
 
-## Using the skill
+## Using the plugin
 
-Once installed, Claude Code automatically uses the Metalama skill when you ask questions about:
+Once installed, Claude Code automatically uses the Metalama plugin when you ask questions about:
 
 - Creating or modifying aspects
 - Writing T# templates
@@ -55,26 +59,36 @@ Once installed, Claude Code automatically uses the Metalama skill when you ask q
 - "Write a contract that validates a string parameter is not empty"
 - "How do I apply an aspect to all public methods in a namespace?"
 
-## Updating the skill
+## Updating the plugin
 
-To update to a newer version, simply run the installation commands again with the new version number. The existing skill directory will be replaced.
+To update to a newer version:
+
+```
+/plugin update metalama
+```
 
 ## Troubleshooting
 
-### Skill not being detected
+### Plugin not being detected
 
-Ensure the skill was extracted to the correct location:
-- Windows: `%USERPROFILE%\.claude\skills\metalama`
-- macOS/Linux: `~/.claude/skills/metalama`
+If the plugin is not detected, verify the marketplace was added correctly:
 
-The directory should contain a `SKILL.md` file at the root.
+```
+/plugin marketplace list
+```
+
+Then reinstall the plugin:
+
+```
+/plugin install metalama
+```
 
 ### Claude not using Metalama knowledge
 
 If Claude doesn't seem to use Metalama-specific knowledge:
 
 1. Explicitly mention "Metalama" in your prompt.
-2. Verify the skill directory structure is correct.
+2. Verify the plugin is installed with `/plugin list`.
 3. Try restarting Claude Code.
 
 > [!div class="see-also"]

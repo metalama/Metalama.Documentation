@@ -22,7 +22,7 @@ using System.IO.Compression;
 using MetalamaDependencies = PostSharp.Engineering.BuildTools.Dependencies.Definitions.MetalamaDependencies.V2026_0;
 
 var docPackageFileName = $"Metalama.Doc.{MetalamaDependencies.Metalama.ProductFamily.Version}.zip";
-const string skillPackageFileName = "Metalama.Skill.$(PackageVersion).zip";
+var marketplacePackageFileName = $"Metalama.AI.Skills.*.zip";
 const string dotNetSdkVersion = "10.0.100";
 
 var product = new Product( MetalamaDependencies.MetalamaDocumentation )
@@ -50,10 +50,10 @@ var product = new Product( MetalamaDependencies.MetalamaDocumentation )
         new DotNetSolution( "code\\Metalama.Documentation.Snippets.ProjectBased.sln" ) { CanFormatCode = true, BuildMethod = BuildMethod.Build },
         new DocFxApiSolution( "docfx.json" ),
         new DocFxSiteSolution( "docfx.json", docPackageFileName ),
-        new ClaudeSkillSolution()
+        new ClaudeMarketplaceSolution()
     ],
-    PublicArtifacts = Pattern.Create( docPackageFileName ),
-    AdditionalDirectoriesToClean = [Path.Combine( "artifacts", "api" ), Path.Combine( "artifacts", "site" ), Path.Combine( "artifacts", "skill" )],
+    PublicArtifacts = Pattern.Create( docPackageFileName, marketplacePackageFileName ),
+    AdditionalDirectoriesToClean = [Path.Combine( "artifacts", "api" ), Path.Combine( "artifacts", "site" ), Path.Combine( "artifacts", "marketplace" )],
     Configurations = Product.DefaultConfigurations
         .WithValue( BuildConfiguration.Debug, c => c with { BuildTriggers = default } )
         .WithValue(
@@ -66,12 +66,10 @@ var product = new Product( MetalamaDependencies.MetalamaDocumentation )
                     new DocumentationPublisher(
                         [new( docPackageFileName, RegionEndpoint.EUWest1, "doc.postsharp.net", docPackageFileName )],
                         "https://postsharp-helpbrowser.azurewebsites.net/" ),
-                    new DownloadPublisher(
-                        [new S3PublisherConfiguration(
-                            skillPackageFileName,
-                            RegionEndpoint.EUWest1,
-                            "download-sharpcrafters-com",
-                            $"metalama/metalama-{MetalamaDependencies.Metalama.ProductFamily.Version}/v$(PackageVersion)/{skillPackageFileName}" )] )
+                    new GitRepoPublisher(
+                        Pattern.Create( marketplacePackageFileName ),
+                        "https://github.com/metalama/Metalama.AI.Skills",
+                        $"Updated to {MetalamaDependencies.Metalama.ProductFamily.Version}." )
                 ]
             } ),
     Extensions =
