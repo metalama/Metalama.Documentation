@@ -42,16 +42,18 @@ internal class ClaudeMarketplaceSolution : Solution
 
             Directory.CreateDirectory( marketplaceOutputDir );
 
-            // Define plugin and skill paths
+            // Define marketplace config and plugin paths
+            var marketplaceConfigDir = Path.Combine( marketplaceOutputDir, ".claude-plugin" );
             var pluginDir = Path.Combine( marketplaceOutputDir, "plugins", "metalama" );
             var pluginConfigDir = Path.Combine( pluginDir, ".claude-plugin" );
             var skillDir = Path.Combine( pluginDir, "skills", "metalama" );
 
+            Directory.CreateDirectory( marketplaceConfigDir );
             Directory.CreateDirectory( pluginConfigDir );
             Directory.CreateDirectory( skillDir );
 
-            // 1. Generate marketplace.json at the root
-            GenerateMarketplaceJson( marketplaceOutputDir, version );
+            // 1. Generate marketplace.json in .claude-plugin/ (required by Claude Code)
+            GenerateMarketplaceJson( marketplaceConfigDir, version );
             context.Console.WriteMessage( "Generated marketplace.json" );
 
             // 2. Generate .claude-plugin/plugin.json
@@ -231,8 +233,9 @@ internal class ClaudeMarketplaceSolution : Solution
         try
         {
             // Update JSON files with the full package version
+            var marketplaceConfigDir = Path.Combine( marketplaceOutputDir, ".claude-plugin" );
             var pluginConfigDir = Path.Combine( marketplaceOutputDir, "plugins", "metalama", ".claude-plugin" );
-            GenerateMarketplaceJson( marketplaceOutputDir, buildArguments.PackageVersion );
+            GenerateMarketplaceJson( marketplaceConfigDir, buildArguments.PackageVersion );
             GeneratePluginJson( pluginConfigDir, buildArguments.PackageVersion );
             context.Console.WriteMessage( $"Updated JSON files with package version: {buildArguments.PackageVersion}" );
 
