@@ -184,6 +184,11 @@ Visual Studio Tools for Metalama includes refactored components that dramaticall
 - **`ExtensionKinds.ServiceFactory`**: New flag enabling service factory extensions ([#1223](https://github.com/metalama/Metalama/pull/1223)).
 - **`TemplateAttribute.Id`**: Property for assigning stable identifiers to templates, enabling template lookup by ID in addition to member name ([#1223](https://github.com/metalama/Metalama/pull/1223)).
 
+### Code Model - Pseudo Members
+
+- **`IDeclaration.ImplementationKind`**: Property (moved from `IMemberOrNamedType` to the broader `IDeclaration` interface) that indicates whether a declaration represents a real symbol or a pseudo member ([#828](https://github.com/metalama/Metalama/issues/828)).
+- **`EligibilityExtensions.MustNotBePseudoMember()`**: Extension method for `IDeclaration` that filters out pseudo members from eligibility checks, preventing aspects from incorrectly flowing between real members and their pseudo counterparts ([#828](https://github.com/metalama/Metalama/issues/828)).
+
 ## Breaking changes
 
 - <xref:Metalama.Framework.Code.IType.TypeKind?text=INamedType.TypeKind> now returns `Tuple` instead of `NamedType` for tuples.
@@ -195,6 +200,7 @@ Visual Studio Tools for Metalama includes refactored components that dramaticall
 - **ServiceLocator self-registration removed**: The <xref:Metalama.Extensions.DependencyInjection.ServiceLocator> adapter no longer automatically registers itself via a <xref:Metalama.Framework.Fabrics.TransitiveProjectFabric>. Projects using this adapter must now explicitly configure the framework by creating a <xref:Metalama.Framework.Fabrics.ProjectFabric> class that calls `RegisterFramework<ServiceLocatorDependencyInjectionFramework>()` within the `ConfigureDependencyInjection` method.
 - **Elvis operator behavior change in templates**: The null-conditional operator (`?.`) is no longer simplified for non-nullable reference types in templates. It is still simplified for non-nullable value types. This may result in different generated code compared to previous versions.
 - **Test framework changes**: The `@AcceptInvalidInput` and `@ReportOutputWarnings` directives have been removed; both behaviors are now enabled by default. A new `@SkipDiffTool` annotation has been introduced to replace the previous mechanism for suppressing diff tool execution during tests.
+- **Field pseudo-accessor behavior change** ([#828](https://github.com/metalama/Metalama/issues/828)): The <xref:Metalama.Framework.Code.IDeclaration.IsImplicitlyDeclared?text=IsImplicitlyDeclared> property for field pseudo-accessors now returns `false` instead of `true`, since they represent explicitly declared fields. This may affect aspects that rely on `IsImplicitlyDeclared` for eligibility rules. Use the new <xref:Metalama.Framework.Code.IDeclaration.ImplementationKind> property or <xref:Metalama.Framework.Eligibility.EligibilityExtensions.MustNotBePseudoMember*> method to explicitly filter pseudo members.
 
 > [!div class="see-also"]
 > <xref:release-notes>
