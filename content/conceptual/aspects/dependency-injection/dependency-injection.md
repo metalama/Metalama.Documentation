@@ -46,7 +46,10 @@ The following example uses [Microsoft.Extensions.Hosting](https://learn.microsof
 The following example is similar to the previous one but uses the service locator pattern instead of pulling dependencies from the constructor. To use the service locator:
 
 1. Add the `Metalama.Extensions.DependencyInjection.ServiceLocator` package to your project.
-2. Register the framework using a fabric.
+2. Register the framework by creating a <xref:Metalama.Framework.Fabrics.ProjectFabric> that calls `RegisterFramework<ServiceLocatorDependencyInjectionFramework>()` within the `ConfigureDependencyInjection` method.
+
+    > [!NOTE]
+    > Starting with Metalama 2026.0, the ServiceLocator framework must be explicitly registered. Previous versions automatically registered the framework via a transitive project fabric.
 
     [!metalama-file ~/code/Metalama.Documentation.SampleCode.DependencyInjection.ServiceLocator/LogServiceLocator.Fabric.cs]
 
