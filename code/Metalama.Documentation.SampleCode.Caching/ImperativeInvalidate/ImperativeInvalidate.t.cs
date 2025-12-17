@@ -16,7 +16,6 @@ public sealed partial class ProductCatalogue
   // [<snippet Cache>]
   [Cache]
   public decimal GetPrice(string productId)
-  // [<endsnippet Cache>]
   {
     // [<endsnippet Cache>]
     static object? Invoke(object? instance, object? [] args)
@@ -25,7 +24,8 @@ public sealed partial class ProductCatalogue
     }
     return _cachingService.GetFromCacheOrExecute<decimal>(_cacheRegistration_GetPrice, this, new object[] { productId }, Invoke);
   }
-  private decimal GetPrice_Source(string productId) // [<endsnippet Cache>]
+  private decimal GetPrice_Source(string productId)
+  // [<endsnippet Cache>]
   {
     Console.WriteLine($"Getting the price of {productId} from database.");
     this.DbOperationCount++;

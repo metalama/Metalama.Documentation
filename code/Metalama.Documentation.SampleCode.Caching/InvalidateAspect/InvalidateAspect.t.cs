@@ -31,7 +31,6 @@ public sealed class ProductCatalogue
   // [<snippet Cache>]
   [Cache]
   public decimal GetPrice(string productId)
-  // [<endsnippet Cache>]
   {
     // [<endsnippet Cache>]
     static object? Invoke(object? instance, object? [] args)
@@ -40,7 +39,8 @@ public sealed class ProductCatalogue
     }
     return _cachingService.GetFromCacheOrExecute<decimal>(_cacheRegistration_GetPrice, this, new object[] { productId }, Invoke);
   }
-  private decimal GetPrice_Source(string productId) // [<endsnippet Cache>]
+  private decimal GetPrice_Source(string productId)
+  // [<endsnippet Cache>]
   {
     Console.WriteLine($"Getting the price of {productId} from database.");
     this.DbOperationCount++;
@@ -58,7 +58,6 @@ public sealed class ProductCatalogue
   // [<snippet InvalidateCache>]
   [InvalidateCache(nameof(GetPrice))]
   public void UpdatePrice(string productId, decimal price)
-  // [<endsnippet InvalidateCache>]
   {
     // [<endsnippet InvalidateCache>]
     if (!this._dbSimulator.ContainsKey(productId))
