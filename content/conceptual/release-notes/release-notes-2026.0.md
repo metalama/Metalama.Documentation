@@ -120,6 +120,32 @@ This advice kind allows you to implement aspects such as "safe events", where ev
 
 For comprehensive documentation, see <xref:overriding-events>.
 
+## Metrics
+
+Metalama 2026.0 enhances code metrics capabilities with new built-in metrics and improved API support for consuming metrics from standalone applications.
+
+### Lines of Code metric
+
+The `Metalama.Extensions.Metrics` package now includes a comprehensive <xref:Metalama.Extensions.Metrics.LinesOfCode> metric that provides three distinct measurements ([#1216](https://github.com/metalama/Metalama/issues/1216)):
+
+- **Logical**: Counts lines of substantive code, excluding braces, blank lines, and comments
+- **NonBlank**: Counts any line containing non-whitespace content
+- **Total**: Measures the total line span from the first to the last line of a declaration
+
+This metric complements the existing <xref:Metalama.Extensions.Metrics.StatementsCount> and <xref:Metalama.Extensions.Metrics.SyntaxNodesCount> metrics, enabling more nuanced code complexity analysis.
+
+### Workspaces API metrics support
+
+The <xref:Metalama.Framework.Workspaces> API now officially supports metrics consumption without requiring internal APIs ([#1209](https://github.com/metalama/Metalama/issues/1209)). The <xref:Metalama.Framework.Workspaces.ServiceProviderBuilder`1> class is now part of the public SDK namespace, enabling extension packages to provide clean integration methods:
+
+```csharp
+WorkspaceCollection.Default.ServiceBuilder.AddMetrics();
+```
+
+This eliminates previous workarounds involving internal API warnings and compile-time/run-time boundary violations, making it straightforward to consume metrics from standalone applications and build tools.
+
+For details on using metrics, see <xref:metrics>. For creating custom metrics, see <xref:custom-metrics>.
+
 ## Visual Studio Tools for Metalama: performance improvements
 
 Visual Studio Tools for Metalama includes refactored components that dramatically improve performance. It's now more stable, consumes less CPU, and makes better use of your cores.
