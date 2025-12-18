@@ -235,6 +235,13 @@ internal class ClaudeMarketplaceSolution : Solution
             // Update JSON files with the full package version
             var marketplaceConfigDir = Path.Combine( marketplaceOutputDir, ".claude-plugin" );
             var pluginConfigDir = Path.Combine( marketplaceOutputDir, "plugins", "metalama", ".claude-plugin" );
+
+            if ( buildArguments.PackageVersion == null )
+            {
+                context.Console.WriteError( "Package version is null" );
+                return false;
+            }
+
             GenerateMarketplaceJson( marketplaceConfigDir, buildArguments.PackageVersion );
             GeneratePluginJson( pluginConfigDir, buildArguments.PackageVersion );
             context.Console.WriteMessage( $"Updated JSON files with package version: {buildArguments.PackageVersion}" );

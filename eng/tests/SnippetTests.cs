@@ -18,7 +18,7 @@ public class SnippetTests
         var snippet = tab.GetTabContent();
 
         Assert.NotNull( snippet );
-        Assert.Contains( "BuildAspect", snippet );
+        Assert.Contains( "BuildAspect", snippet, StringComparison.Ordinal );
     }
 
     [Fact]
@@ -50,16 +50,16 @@ public class TestClass
             var html = writer.ToString();
 
             // Assert: Check for JSON-LD block.
-            Assert.Contains( "application/ld+json", html );
-            Assert.Contains( "SoftwareSourceCode", html );
+            Assert.Contains( "application/ld+json", html, StringComparison.Ordinal );
+            Assert.Contains( "SoftwareSourceCode", html, StringComparison.Ordinal );
 
             // Extract the JSON-LD content to verify leading comments are stripped.
             var jsonLdStart = html.IndexOf( "<script type=\"application/ld+json\">", StringComparison.Ordinal );
             var jsonLdEnd = html.IndexOf( "</script>", jsonLdStart, StringComparison.Ordinal );
             var jsonLdContent = html.Substring( jsonLdStart, jsonLdEnd - jsonLdStart + "</script>".Length );
 
-            Assert.Contains( "public class TestClass", jsonLdContent );
-            Assert.DoesNotContain( "Copyright notice", jsonLdContent );
+            Assert.Contains( "public class TestClass", jsonLdContent, StringComparison.Ordinal );
+            Assert.DoesNotContain( "Copyright notice", jsonLdContent, StringComparison.Ordinal );
         }
         finally
         {
@@ -94,9 +94,9 @@ public class TestClass
 
         var result = CodeContentHelper.ProcessCodeContent( lines );
 
-        Assert.DoesNotContain( "Copyright", result );
-        Assert.Contains( "using System;", result );
-        Assert.Contains( "public class Test", result );
+        Assert.DoesNotContain( "Copyright", result, StringComparison.Ordinal );
+        Assert.Contains( "using System;", result, StringComparison.Ordinal );
+        Assert.Contains( "public class Test", result, StringComparison.Ordinal );
     }
 
     [Fact]
@@ -113,9 +113,9 @@ public class TestClass
 
         var result = CodeContentHelper.ProcessCodeContent( lines );
 
-        Assert.Contains( "public class Test", result );
-        Assert.DoesNotContain( "[<snippet", result );
-        Assert.DoesNotContain( "[<endsnippet", result );
+        Assert.Contains( "public class Test", result, StringComparison.Ordinal );
+        Assert.DoesNotContain( "[<snippet", result, StringComparison.Ordinal );
+        Assert.DoesNotContain( "[<endsnippet", result, StringComparison.Ordinal );
     }
 
     [Fact]
@@ -156,10 +156,10 @@ public class TestClass
         var result = CodeContentHelper.ExtractSnippet( lines, "MySnippet" );
 
         Assert.NotNull( result );
-        Assert.Contains( "public void Method()", result );
-        Assert.Contains( "Console.WriteLine", result );
-        Assert.DoesNotContain( "[<snippet", result );
-        Assert.DoesNotContain( "public class Outer", result );
+        Assert.Contains( "public void Method()", result, StringComparison.Ordinal );
+        Assert.Contains( "Console.WriteLine", result, StringComparison.Ordinal );
+        Assert.DoesNotContain( "[<snippet", result, StringComparison.Ordinal );
+        Assert.DoesNotContain( "public class Outer", result, StringComparison.Ordinal );
     }
 
     [Fact]
@@ -214,9 +214,9 @@ public class TestClass
         var result = CodeContentHelper.ExtractSnippet( lines, "Outer" );
 
         Assert.NotNull( result );
-        Assert.Contains( "public class Test", result );
-        Assert.Contains( "public void Method()", result );
-        Assert.DoesNotContain( "[<snippet Inner>]", result );
-        Assert.DoesNotContain( "[<endsnippet Inner>]", result );
+        Assert.Contains( "public class Test", result, StringComparison.Ordinal );
+        Assert.Contains( "public void Method()", result, StringComparison.Ordinal );
+        Assert.DoesNotContain( "[<snippet Inner>]", result, StringComparison.Ordinal );
+        Assert.DoesNotContain( "[<endsnippet Inner>]", result, StringComparison.Ordinal );
     }
 }
