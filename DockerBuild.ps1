@@ -6,15 +6,19 @@ param(
     [switch]$Interactive, # Opens an interactive PowerShell session
     [switch]$BuildImage, # Only builds the image, but does not build the product.
     [switch]$NoBuildImage, # Does not build the image.
-    [switch]$NoClean, # Does not clean up.
+    [switch]$Clean, # Performs cleanup of bin and obj directories.
     [switch]$NoNuGetCache, # Does not mount the host nuget cache in the container.
     [switch]$KeepEnv, # Does not override the env.g.json file.
     [switch]$Claude, # Run Claude CLI instead of Build.ps1. Use -Claude for interactive, -Claude "prompt" for non-interactive.
+    [switch]$NoMcp, # Do not start the MCP approval server (for -Claude mode).
     [string]$ImageName, # Image name (defaults to a name based on the directory).
     [string]$BuildAgentPath = 'C:\BuildAgent',
     [switch]$LoadEnvFromKeyVault, # Forces loading environment variables form the key vault.
     [switch]$StartVsmon, # Enable the remote debugger.
     [string]$Script = 'Build.ps1', # The build script to be executed inside Docker.
+    [string]$Isolation = 'process', # Docker isolation mode (process or hyperv).
+    [string]$Memory = '8g', # Docker memory limit.
+    [int]$Cpus = [Environment]::ProcessorCount, # Docker CPU limit (defaults to host's CPU count).
     [Parameter(ValueFromRemainingArguments)]
     [string[]]$BuildArgs   # Arguments passed to `Build.ps1` within the container (or Claude prompt if -Claude is specified).
 )
@@ -49,6 +53,17 @@ function New-EnvJson
         {
             $envVariables[$envVarName] = $value
         }
+    }
+
+    # Add NUGET_PACKAGES with default if not set
+    if (-not $envVariables.ContainsKey("NUGET_PACKAGES"))
+    {
+        $nugetPackages = $env:NUGET_PACKAGES
+        if ( [string]::IsNullOrEmpty($nugetPackages))
+        {
+            $nugetPackages = Join-Path $env:USERPROFILE ".nuget\packages"
+        }
+        $envVariables["NUGET_PACKAGES"] = $nugetPackages
     }
 
     # Add secrets from the PostSharpBuildEnv key vault, on our development machines.
@@ -139,6 +154,14 @@ function New-ClaudeEnvJson
         $claudeEnv["GIT_USER_EMAIL"] = $gitUserEmail
     }
 
+    # Add NUGET_PACKAGES with default if not set
+    $nugetPackages = $env:NUGET_PACKAGES
+    if ( [string]::IsNullOrEmpty($nugetPackages))
+    {
+        $nugetPackages = Join-Path $env:USERPROFILE ".nuget\packages"
+    }
+    $claudeEnv["NUGET_PACKAGES"] = $nugetPackages
+
     # Convert to JSON and save
     $jsonPath = Join-Path $dockerContextDirectory "env.g.json"
 
@@ -157,6 +180,98 @@ function New-ClaudeEnvJson
     Write-Host "Created Claude secrets file: $jsonPath" -ForegroundColor Cyan
 
     return $jsonPath
+}
+
+# Function to prepare MCP server for execution by copying to temp directory
+# This avoids file locking issues when running the MCP server
+function Copy-McpServerToTemp
+{
+    param(
+        [string]$SourceRootDir
+    )
+
+    # Find the BuildTools Debug directory
+    $debugDir = Join-Path $SourceRootDir "$EngPath\src\bin\Debug"
+
+    if (-not (Test-Path $debugDir))
+    {
+        throw "MCP server Debug directory not found: $debugDir. Please build the project first using: Build.ps1"
+    }
+
+    # Get the single subdirectory (e.g., net8.0, net9.0)
+    $targetFrameworkDirs = Get-ChildItem -Path $debugDir -Directory
+
+    if ($targetFrameworkDirs.Count -eq 0)
+    {
+        throw "No target framework directory found in $debugDir. Please build the project first using: Build.ps1"
+    }
+
+    if ($targetFrameworkDirs.Count -gt 1)
+    {
+        Write-Warning "Multiple target framework directories found in $debugDir"
+        Write-Warning "Using the first one: $( $targetFrameworkDirs[0].Name )"
+    }
+
+    $targetFrameworkDir = $targetFrameworkDirs[0].FullName
+    Write-Host "Found MCP server build directory: $targetFrameworkDir" -ForegroundColor Cyan
+
+    # Find the executable (.exe) or library (.dll)
+    $exeFiles = Get-ChildItem -Path $targetFrameworkDir -Filter "*.exe"
+    $dllFiles = Get-ChildItem -Path $targetFrameworkDir -Filter "*.dll" | Where-Object { $_.Name -notlike "*.resources.dll" }
+
+    $executableFile = $null
+    if ($exeFiles.Count -gt 0)
+    {
+        $executableFile = $exeFiles[0]
+    }
+    elseif ($dllFiles.Count -gt 0)
+    {
+        # Prefer files with "Build" in the name
+        $buildDll = $dllFiles | Where-Object { $_.Name -like "*Build*" } | Select-Object -First 1
+        if ($buildDll)
+        {
+            $executableFile = $buildDll
+        }
+        else
+        {
+            $executableFile = $dllFiles[0]
+        }
+    }
+    else
+    {
+        throw "No executable (.exe) or assembly (.dll) found in $targetFrameworkDir"
+    }
+
+    Write-Host "Found MCP server executable: $( $executableFile.Name )" -ForegroundColor Cyan
+
+    # Create temporary directory using hash of source directory
+    # This ensures the same repo always uses the same temp path (avoiding firewall prompts)
+    # but different repos won't conflict
+    $hashBytes = (New-Object -TypeName System.Security.Cryptography.SHA256Managed).ComputeHash([System.Text.Encoding]::UTF8.GetBytes($SourceRootDir))
+    $directoryHash = [System.BitConverter]::ToString($hashBytes, 0, 4).Replace("-", "").ToLower()
+    $tempDir = Join-Path $env:TEMP "mcp-server-$directoryHash"
+
+    # Clean up old temp directory if it exists
+    if (Test-Path $tempDir)
+    {
+        Remove-Item $tempDir -Recurse -Force -ErrorAction SilentlyContinue
+    }
+
+    New-Item -ItemType Directory -Path $tempDir -Force | Out-Null
+    Write-Host "Created temporary directory: $tempDir" -ForegroundColor Cyan
+
+    # Copy the entire target framework directory to temp
+    $tempTargetDir = Join-Path $tempDir $targetFrameworkDirs[0].Name
+    Copy-Item -Path $targetFrameworkDir -Destination $tempTargetDir -Recurse -Force
+    Write-Host "Copied MCP server files to temporary directory" -ForegroundColor Cyan
+
+    # Return the path to the executable and the temp directory for cleanup
+    $tempExecutable = Join-Path $tempTargetDir $executableFile.Name
+    return @{
+        ExecutablePath = $tempExecutable
+        TempDirectory = $tempDir
+        IsExe = $executableFile.Extension -eq ".exe"
+    }
 }
 
 if ($env:RUNNING_IN_DOCKER)
@@ -188,15 +303,40 @@ else
     Write-Host "Image will be tagged as: $ImageTag" -ForegroundColor Cyan
 }
 
-# When building locally (as opposed as on the build agent), we must do a complete cleanup because 
+# Save MCP server files to temp directory BEFORE cleanup (for -Claude mode)
+# This must happen before cleaning because cleanup removes all bin directories
+$mcpServerSnapshot = $null
+if ($Claude -and -not $NoMcp)
+{
+    try
+    {
+        Write-Host "Building MCP server before cleanup..." -ForegroundColor Cyan
+        $mcpProjectPath = Join-Path $PSScriptRoot "$EngPath\src"
+
+        # Build the MCP server project
+        & dotnet build $mcpProjectPath --configuration Debug --nologo --verbosity quiet
+        if ($LASTEXITCODE -ne 0)
+        {
+            throw "Failed to build MCP server project at $mcpProjectPath"
+        }
+
+        Write-Host "Saving MCP server files before cleanup..." -ForegroundColor Cyan
+        $mcpServerSnapshot = Copy-McpServerToTemp -SourceRootDir $PSScriptRoot
+        Write-Host "MCP server files saved to: $( $mcpServerSnapshot.TempDirectory )" -ForegroundColor Cyan
+    }
+    catch
+    {
+        Write-Host "WARNING: Could not save MCP server files: $_" -ForegroundColor Yellow
+        Write-Host "MCP server will not be available." -ForegroundColor Yellow
+        $mcpServerSnapshot = $null
+    }
+}
+
+# When building locally (as opposed as on the build agent), we can optionally do a complete cleanup because
 # obj files may point to the host filesystem.
-if (-not $env:IS_TEAMCITY_AGENT -and -not $NoClean)
+if ($Clean)
 {
     Write-Host "Cleaning up." -ForegroundColor Green
-    if (Test-Path "artifacts")
-    {
-        Remove-Item artifacts -Force -Recurse  -ErrorAction SilentlyContinue
-    }
     Get-ChildItem "bin" -Recurse | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
     Get-ChildItem "obj" -Recurse | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
 }
@@ -253,8 +393,8 @@ if (-not (Test-Path $dockerContextDirectory))
 }
 
 
-# Prepare volume mappings
-$VolumeMappings = @("-v", "${SourceDirName}:${SourceDirName}")
+# Prepare volume mappings (stored as mapping strings, "-v" flags added later)
+$VolumeMappings = @("${SourceDirName}:${SourceDirName}")
 $MountPoints = @($SourceDirName, "c:\packages")
 $GitDirectories = @($SourceDirName)
 
@@ -263,14 +403,20 @@ $gitSystemDir = "$BuildAgentPath\system\git"
 
 if (Test-Path $gitSystemDir)
 {
-    $VolumeMappings += @("-v", "${gitSystemDir}:${gitSystemDir}:ro")
+    $VolumeMappings += "${gitSystemDir}:${gitSystemDir}:ro"
     $MountPoints += $gitSystemDir
 }
 
 # Mount the host NuGet cache in the container.
 if (-not $NoNuGetCache)
 {
-    $nugetCacheDir = Join-Path $env:USERPROFILE ".nuget\packages"
+    # Use NUGET_PACKAGES from environment or default to user profile
+    $nugetCacheDir = $env:NUGET_PACKAGES
+    if ( [string]::IsNullOrEmpty($nugetCacheDir))
+    {
+        $nugetCacheDir = Join-Path $env:USERPROFILE ".nuget\packages"
+    }
+
     Write-Host "NuGet cache directory: $nugetCacheDir" -ForegroundColor Cyan
     if (-not (Test-Path $nugetCacheDir))
     {
@@ -278,7 +424,9 @@ if (-not $NoNuGetCache)
         New-Item -ItemType Directory -Force -Path $nugetCacheDir | Out-Null
     }
 
-    $VolumeMappings += @("-v", "${nugetCacheDir}:c:\packages")
+    # Mount to the same path in the container (will be transformed by Get-ContainerPath later)
+    $VolumeMappings += "${nugetCacheDir}:${nugetCacheDir}"
+    $MountPoints += $nugetCacheDir
 }
 
 # Mount VS Remote Debugger
@@ -298,7 +446,7 @@ if ($StartVsmon)
     }
 
     $remoteDebuggerContainerDir = "C:\msvsmon"
-    $VolumeMappings += @("-v", "${remoteDebuggerHostDir}:${remoteDebuggerContainerDir}:ro")
+    $VolumeMappings += "${remoteDebuggerHostDir}:${remoteDebuggerContainerDir}:ro"
     $MountPoints += $remoteDebuggerContainerDir
 
 }
@@ -315,7 +463,7 @@ if (Test-Path $sourceDependenciesDir)
         if (-not [string]::IsNullOrEmpty($targetPath) -and (Test-Path $targetPath))
         {
             Write-Host "Found symbolic link '$( $link.Name )' -> '$targetPath'" -ForegroundColor Cyan
-            $VolumeMappings += @("-v", "${targetPath}:${targetPath}:ro")
+            $VolumeMappings += "${targetPath}:${targetPath}:ro"
             $MountPoints += $targetPath
             $GitDirectories += $targetPath
         }
@@ -340,20 +488,15 @@ if ($parentDir -and (Test-Path $parentDir) -and ($parentDirName -like "PostSharp
 {
     Write-Host "Detected product family directory: $parentDirName" -ForegroundColor Cyan
     $siblingDirs = Get-ChildItem -Path $parentDir -Directory -ErrorAction SilentlyContinue |
-        Where-Object { $_.FullName -ne $SourceDirName }
+            Where-Object { $_.FullName -ne $SourceDirName }
 
     foreach ($sibling in $siblingDirs)
     {
         $siblingPath = $sibling.FullName
-        # Skip if already mounted
-        $alreadyMounted = $VolumeMappings | Where-Object { $_ -like "*${siblingPath}:*" }
-        if (-not $alreadyMounted)
-        {
-            Write-Host "Mounting product family sibling: $siblingPath" -ForegroundColor Cyan
-            $VolumeMappings += @("-v", "${siblingPath}:${siblingPath}:ro")
-            $MountPoints += $siblingPath
-            $GitDirectories += $siblingPath
-        }
+        Write-Host "Mounting product family sibling: $siblingPath" -ForegroundColor Cyan
+        $VolumeMappings += "${siblingPath}:${siblingPath}:ro"
+        $MountPoints += $siblingPath
+        $GitDirectories += $siblingPath
     }
 }
 
@@ -363,20 +506,15 @@ $grandparentDir = Split-Path $parentDir -Parent
 if ($grandparentDir -and (Test-Path $grandparentDir))
 {
     $engineeringDirs = Get-ChildItem -Path $grandparentDir -Directory -Filter "PostSharp.Engineering*" -ErrorAction SilentlyContinue |
-        Where-Object { $_.FullName -ne $SourceDirName }
+            Where-Object { $_.FullName -ne $SourceDirName }
 
     foreach ($engDir in $engineeringDirs)
     {
-        $engPath = $engDir.FullName
-        # Skip if already mounted
-        $alreadyMounted = $VolumeMappings | Where-Object { $_ -like "*${engPath}:*" }
-        if (-not $alreadyMounted)
-        {
-            Write-Host "Mounting engineering repo: $engPath" -ForegroundColor Cyan
-            $VolumeMappings += @("-v", "${engPath}:${engPath}:ro")
-            $MountPoints += $engPath
-            $GitDirectories += $engPath
-        }
+        $engDirPath = $engDir.FullName
+        Write-Host "Mounting engineering repo: $engDirPath" -ForegroundColor Cyan
+        $VolumeMappings += "${engDirPath}:${engDirPath}:ro"
+        $MountPoints += $engDirPath
+        $GitDirectories += $engDirPath
     }
 }
 
@@ -387,10 +525,15 @@ if (Test-Path $dockerMountsScript)
     Write-Host "Importing Docker mount points from $dockerMountsScript" -ForegroundColor Cyan
     . $dockerMountsScript
 }
+elseif (-not $env:IS_TEAMCITY_AGENT)
+{
+    Write-Error "DockerMounts.g.ps1 not found at '$dockerMountsScript'. Run './Build.ps1 prepare' or './Build.ps1 dependencies update' to generate it."
+    exit 1
+}
 
 # Handle non-C: drive letters for Docker (Windows containers only have C: by default)
 # We mount X:\foo to C:\X\foo in the container, then use subst to create the X: drive
-$driveLetters = @{}
+$driveLetters = @{ }
 
 function Get-ContainerPath($hostPath)
 {
@@ -409,11 +552,8 @@ function Get-ContainerPath($hostPath)
 
 # Transform all volume mappings to use container paths
 $transformedVolumeMappings = @()
-for ($i = 0; $i -lt $VolumeMappings.Count; $i += 2)
+foreach ($mapping in $VolumeMappings)
 {
-    $flag = $VolumeMappings[$i]
-    $mapping = $VolumeMappings[$i + 1]
-
     # Parse volume mapping: hostPath:containerPath[:options]
     if ($mapping -match '^([A-Za-z]:\\[^:]*):([A-Za-z]:\\[^:]*)(:.+)?$')
     {
@@ -421,11 +561,11 @@ for ($i = 0; $i -lt $VolumeMappings.Count; $i += 2)
         $containerPath = $Matches[2]
         $options = $Matches[3]
         $newContainerPath = Get-ContainerPath $containerPath
-        $transformedVolumeMappings += @($flag, "${hostPath}:${newContainerPath}${options}")
+        $transformedVolumeMappings += "${hostPath}:${newContainerPath}${options}"
     }
     else
     {
-        $transformedVolumeMappings += @($flag, $mapping)
+        $transformedVolumeMappings += $mapping
     }
 }
 $VolumeMappings = $transformedVolumeMappings
@@ -451,6 +591,11 @@ foreach ($dir in $GitDirectories)
 }
 $GitDirectories = $expandedGitDirectories
 
+# Deduplicate again after transformations and expansions (case-insensitive for Windows paths)
+$VolumeMappings = $VolumeMappings | Group-Object { $_.ToLower() } | ForEach-Object { $_.Group[0] }
+$MountPoints = $MountPoints | Group-Object { $_.ToLower() } | ForEach-Object { $_.Group[0] }
+$GitDirectories = $GitDirectories | Group-Object { $_.ToLower() } | ForEach-Object { $_.Group[0] }
+
 # Build subst commands string for inline execution in docker run
 $substCommandsInline = ""
 foreach ($letter in $driveLetters.Keys | Sort-Object)
@@ -459,7 +604,7 @@ foreach ($letter in $driveLetters.Keys | Sort-Object)
 }
 if ($driveLetters.Count -gt 0)
 {
-    Write-Host "Drive letter mappings for container: $($driveLetters.Keys -join ', ')" -ForegroundColor Cyan
+    Write-Host "Drive letter mappings for container: $( $driveLetters.Keys -join ', ' )" -ForegroundColor Cyan
 }
 
 # Create Init.g.ps1 with git configuration (safe.directory and user identity)
@@ -477,9 +622,12 @@ if (`$gitUserEmail) {
     git config --global user.email `$gitUserEmail
 }
 
+# Disable autocrlf to prevent EOL conversion issues with Claude Code's Edit tool
+git config --global core.autocrlf false
+
 # Configure git safe.directory for all mounted directories
 `$gitDirectories = @(
-$(($GitDirectories | ForEach-Object { "    '$_'" }) -join ",`n")
+$( ($GitDirectories | ForEach-Object { "    '$_'" }) -join ",`n" )
 )
 
 foreach (`$dir in `$gitDirectories) {
@@ -488,6 +636,7 @@ foreach (`$dir in `$gitDirectories) {
         git config --global --add safe.directory `$normalizedDir
     }
 }
+
 "@
 $initScriptContent | Set-Content -Path $initScript -Encoding UTF8
 
@@ -498,55 +647,68 @@ Write-Host "Volume mappings: " @VolumeMappings -ForegroundColor Gray
 Write-Host "Mount points: " $mountPointsAsString -ForegroundColor Gray
 Write-Host "Git directories: " $gitDirectoriesAsString -ForegroundColor Gray
 
-# Kill all containers
-docker ps -q --filter "ancestor=$ImageTag" | ForEach-Object {
-    Write-Host "Killing container $_"
-    docker kill $_
-}
+# Check if a container is already running with this image (only for interactive scenarios)
+$existingContainerId = $null
 
-# Building the image.
-if (-not $NoBuildImage)
+if ($Interactive)
 {
-    if ($Claude)
+    # Check for existing container
+    $existingContainerId = docker ps -q --filter "ancestor=$ImageTag" | Select-Object -First 1
+    if ($existingContainerId)
     {
-        # Build Claude image directly from standalone Dockerfile.claude
-        $ImageTag = "$ImageTag-claude"
-        Write-Host "Building the Claude image with tag: $ImageTag" -ForegroundColor Green
-
-        if (-not (Test-Path "Dockerfile.claude"))
-        {
-            Write-Error "Dockerfile.claude not found. Make sure generate-scripts was run with Claude support."
-            exit 1
-        }
-
-        Get-Content -Raw Dockerfile.claude | docker build -t $ImageTag --build-arg MOUNTPOINTS="$mountPointsAsString" -f - $dockerContextDirectory
-        if ($LASTEXITCODE -ne 0)
-        {
-            Write-Host "Docker build (Claude) failed with exit code $LASTEXITCODE" -ForegroundColor Red
-            exit $LASTEXITCODE
-        }
+        Write-Host "Found existing container $existingContainerId running with image $ImageTag" -ForegroundColor Cyan
+        Write-Host "Will reuse existing container instead of starting a new one." -ForegroundColor Cyan
+        $ImageTag = $searchImageTag
     }
     else
     {
-        # Build base image
-        Write-Host "Building the base image with tag: $ImageTag" -ForegroundColor Green
-        Get-Content -Raw Dockerfile | docker build -t $ImageTag --build-arg MOUNTPOINTS="$mountPointsAsString" -f - $dockerContextDirectory
-        if ($LASTEXITCODE -ne 0)
-        {
-            Write-Host "Docker build failed with exit code $LASTEXITCODE" -ForegroundColor Red
-            exit $LASTEXITCODE
-        }
+        Write-Host "No existing container for $ImageTag."
+    }
+}
+
+# If no existing container, kill any stopped containers with same image to avoid conflicts
+if (-not $existingContainerId)
+{
+    docker ps -q --filter "ancestor=$ImageTag" | ForEach-Object {
+        Write-Host "Killing container $_"
+        docker kill $_
+    }
+}
+
+# Building the image.
+if (-not $NoBuildImage -and -not $existingContainerId)
+{
+
+    if ($Claude)
+    {
+        $Dockerfile = "Dockerfile.claude"
+    }
+    else
+    {
+        $Dockerfile = "Dockerfile"
+    }
+
+
+    Write-Host "Building the image with tag: $ImageTag" -ForegroundColor Green
+    Get-Content -Raw $Dockerfile | docker build -t $ImageTag --build-arg MOUNTPOINTS="$mountPointsAsString" -f - $dockerContextDirectory
+    if ($LASTEXITCODE -ne 0)
+    {
+        Write-Host "Docker build failed with exit code $LASTEXITCODE" -ForegroundColor Red
+        exit $LASTEXITCODE
     }
 }
 else
 {
-    Write-Host "Skipping image build (-NoBuildImage specified)." -ForegroundColor Yellow
-
-    # If Claude mode and skipping build, use the Claude image tag
-    if ($Claude)
+    if ($existingContainerId)
     {
-        $ImageTag = "$ImageTag-claude"
+        Write-Host "Skipping image build (reusing existing container $existingContainerId)." -ForegroundColor Yellow
     }
+    else
+    {
+        Write-Host "Skipping image build (-NoBuildImage specified)." -ForegroundColor Yellow
+    }
+
+
 }
 
 
@@ -555,6 +717,108 @@ if (-not $BuildImage)
 {
     if ($Claude)
     {
+        # Start MCP approval server on host with dynamic port in new terminal tab
+        $mcpPort = $null
+        $mcpPortFile = $null
+        $mcpSecret = $null
+        $mcpTempDir = $null
+        if (-not $NoMcp)
+        {
+            try
+            {
+                # Check if MCP server snapshot was saved before cleanup
+                if (-not $mcpServerSnapshot)
+                {
+                    throw "MCP server files were not saved before cleanup. Cannot start MCP server."
+                }
+
+                Write-Host "Starting MCP approval server..." -ForegroundColor Green
+                $mcpPortFile = Join-Path $env:TEMP "mcp-port-$([System.Guid]::NewGuid().ToString('N').Substring(0, 8) ).txt"
+
+                # Generate 128-bit (16 byte) random secret for authentication
+                $randomBytes = New-Object byte[] 16
+                [Security.Cryptography.RandomNumberGenerator]::Fill($randomBytes)
+                # Use hex encoding (alphanumeric only, URL-safe and command-line safe)
+                $mcpSecret = [BitConverter]::ToString($randomBytes).Replace('-', '').ToLower()
+                Write-Host "Generated MCP authentication secret" -ForegroundColor Cyan
+
+                # Use the MCP server snapshot saved before cleanup
+                $mcpServerInfo = $mcpServerSnapshot
+                $mcpTempDir = $mcpServerInfo.TempDirectory
+
+                # Build the command to run in the new tab
+                if ($mcpServerInfo.IsExe)
+                {
+                    # Run executable directly
+                    $mcpCommand = "& '$( $mcpServerInfo.ExecutablePath )' tools mcp-server --port-file '$mcpPortFile' --secret '$mcpSecret'"
+                }
+                else
+                {
+                    # Run DLL with dotnet
+                    $mcpCommand = "dotnet '$( $mcpServerInfo.ExecutablePath )' tools mcp-server --port-file '$mcpPortFile' --secret '$mcpSecret'"
+                }
+
+                # Try Windows Terminal first (wt.exe), fall back to conhost
+                $wtPath = Get-Command wt.exe -ErrorAction SilentlyContinue
+                if ($wtPath)
+                {
+                    # Open new tab in current Windows Terminal window
+                    # The -w 0 option targets the current window
+                    # Use single argument string for proper escaping
+                    $wtArgString = "-w 0 new-tab --title `"MCP Approval Server`" -- pwsh -NoExit -Command `"$mcpCommand`""
+                    $mcpServerProcess = Start-Process -FilePath "wt.exe" -ArgumentList $wtArgString -PassThru
+                }
+                else
+                {
+                    # Fallback: start in new console window
+                    $mcpServerProcess = Start-Process -FilePath "pwsh" `
+                        -ArgumentList "-NoExit", "-Command", $mcpCommand `
+                        -PassThru
+                }
+
+                # Wait for port file to be written (with timeout)
+                $timeout = 30
+                $elapsed = 0
+                while (-not (Test-Path $mcpPortFile) -and $elapsed -lt $timeout)
+                {
+                    Start-Sleep -Milliseconds 500
+                    $elapsed += 0.5
+                }
+
+                if (-not (Test-Path $mcpPortFile))
+                {
+                    throw "MCP server failed to start within $timeout seconds"
+                }
+
+                $mcpPort = (Get-Content $mcpPortFile -Raw).Trim()
+                Write-Host "MCP approval server running on port $mcpPort" -ForegroundColor Cyan
+            }
+            catch
+            {
+                Write-Host "ERROR: Failed to start MCP approval server: $_" -ForegroundColor Red
+                Write-Host "Continuing without MCP server support." -ForegroundColor Yellow
+
+                # Clean up on error
+                if ($mcpServerProcess -and !$mcpServerProcess.HasExited)
+                {
+                    Stop-Process -Id $mcpServerProcess.Id -Force -ErrorAction SilentlyContinue
+                }
+                if ($mcpTempDir -and (Test-Path $mcpTempDir))
+                {
+                    Remove-Item $mcpTempDir -Recurse -Force -ErrorAction SilentlyContinue
+                }
+
+                # Reset variables to continue without MCP
+                $mcpPort = $null
+                $mcpSecret = $null
+                $mcpTempDir = $null
+            }
+        }
+        else
+        {
+            Write-Host "Skipping MCP approval server (-NoMcp specified)." -ForegroundColor Yellow
+        }
+
         # Run Claude mode
         Write-Host "Running Claude in the container." -ForegroundColor Green
 
@@ -565,7 +829,7 @@ if (-not $BuildImage)
         # Mount .claude directory (settings and credentials)
         if (Test-Path "$hostUserProfile\.claude")
         {
-            $VolumeMappings += @("-v", "${hostUserProfile}\.claude:${containerUserProfile}\.claude")
+            $VolumeMappings += "${hostUserProfile}\.claude:${containerUserProfile}\.claude"
         }
 
         # Copy .claude.json to docker-context (cannot mount files on Windows Docker)
@@ -589,10 +853,16 @@ if (-not $BuildImage)
         # Mount .cache\claude (cache)
         if (Test-Path "$hostUserProfile\.cache\claude")
         {
-            $VolumeMappings += @("-v", "${hostUserProfile}\.cache\claude:${containerUserProfile}\.cache\claude")
+            $VolumeMappings += "${hostUserProfile}\.cache\claude:${containerUserProfile}\.cache\claude"
         }
 
-        $VolumeMappingsAsString = $VolumeMappings -join " "
+        # Convert volume mappings to docker args format (interleave "-v" flags)
+        $volumeArgs = @()
+        foreach ($mapping in $VolumeMappings)
+        {
+            $volumeArgs += @("-v", $mapping)
+        }
+        $VolumeMappingsAsString = ($VolumeMappings | ForEach-Object { "-v $_" }) -join " "
 
         # Extract Claude prompt from remaining arguments if present
         # Usage: -Claude for interactive, -Claude "prompt" for non-interactive
@@ -607,28 +877,117 @@ if (-not $BuildImage)
         {
             # Non-interactive mode with prompt - no -it flags
             $dockerArgs = @()
-            $inlineScript = "${substCommandsInline}& c:\Init.g.ps1; ${copyClaudeJsonScript}cd '$SourceDirName'; & .\eng\RunClaude.ps1 -Prompt `"$ClaudePrompt`""
+            $mcpArg = if ($mcpPort)
+            {
+                " -McpPort $mcpPort"
+            }
+            else
+            {
+                ""
+            }
+            $inlineScript = "${substCommandsInline}& c:\Init.g.ps1; ${copyClaudeJsonScript}cd '$SourceDirName'; & .\eng\RunClaude.ps1 -Prompt `"$ClaudePrompt`"$mcpArg"
         }
         else
         {
             # Interactive mode - requires TTY
             $dockerArgs = @("-it")
-            $inlineScript = "${substCommandsInline}& c:\Init.g.ps1; ${copyClaudeJsonScript}cd '$SourceDirName'; & .\eng\RunClaude.ps1"
+            $mcpArg = if ($mcpPort)
+            {
+                " -McpPort $mcpPort"
+            }
+            else
+            {
+                ""
+            }
+            $inlineScript = "${substCommandsInline}& c:\Init.g.ps1; ${copyClaudeJsonScript}cd '$SourceDirName'; & .\eng\RunClaude.ps1$mcpArg"
         }
 
         $dockerArgsAsString = $dockerArgs -join " "
         $pwshPath = 'C:\Program Files\PowerShell\7\pwsh.exe'
 
         # Set HOME/USERPROFILE so Claude finds its config in the mounted location
-        $envArgs = @("-e", "HOME=$containerUserProfile", "-e", "USERPROFILE=$containerUserProfile")
+        $envArgs = @(
+            "-e", "HOME=$containerUserProfile",
+            "-e", "USERPROFILE=$containerUserProfile"
+        )
 
-        Write-Host "Executing: ``docker run --rm --memory=12g $dockerArgsAsString $VolumeMappingsAsString -e HOME=$containerUserProfile -e USERPROFILE=$containerUserProfile -w $ContainerSourceDir $ImageTag `"$pwshPath`" -Command `"$inlineScript`"" -ForegroundColor Cyan
-        docker run --rm --memory=12g $dockerArgs @VolumeMappings @envArgs -w $ContainerSourceDir $ImageTag $pwshPath -Command $inlineScript
-
-        if ($LASTEXITCODE -ne 0)
+        # Pass MCP secret to container if MCP server is running
+        if ($mcpSecret)
         {
-            Write-Host "Docker run (Claude) failed with exit code $LASTEXITCODE" -ForegroundColor Red
-            exit $LASTEXITCODE
+            $envArgs += @("-e", "MCP_APPROVAL_SERVER_TOKEN=$mcpSecret")
+        }
+
+        try
+        {
+            # Start new container with docker run
+            Write-Host "Executing: docker run --rm --memory=$Memory --cpus=$Cpus --isolation=$Isolation $dockerArgsAsString $VolumeMappingsAsString -e HOME=$containerUserProfile -e USERPROFILE=$containerUserProfile -w $ContainerSourceDir $ImageTag `"$pwshPath`" -Command `"$inlineScript`"" -ForegroundColor Cyan
+            docker run --rm --memory=$Memory --cpus=$Cpus --isolation=$Isolation $dockerArgs @volumeArgs @envArgs -w $ContainerSourceDir $ImageTag $pwshPath -Command $inlineScript
+            $dockerExitCode = $LASTEXITCODE
+        }
+        finally
+        {
+            # Cleanup MCP server after container exits (only if it was started)
+            if ($mcpPort)
+            {
+                Write-Host "Stopping MCP approval server..." -ForegroundColor Cyan
+
+                # Find the process listening on the MCP port and kill it
+                try
+                {
+                    # Find PID using netstat
+                    $netstatOutput = netstat -ano | Select-String ":$mcpPort\s" | Select-Object -First 1
+                    if ($netstatOutput)
+                    {
+                        $parts = $netstatOutput.Line.Trim() -split '\s+'
+                        $mcpPid = $parts[-1]
+                        if ($mcpPid -and $mcpPid -match '^\d+$')
+                        {
+                            Stop-Process -Id $mcpPid -Force -ErrorAction SilentlyContinue
+                            Write-Host "Stopped MCP server process (PID: $mcpPid)" -ForegroundColor Cyan
+                        }
+                    }
+                }
+                catch
+                {
+                    Write-Host "Could not stop MCP server via port lookup: $_" -ForegroundColor Yellow
+                }
+
+                # Fallback: try to find by command line
+                $mcpProcesses = Get-Process -Name pwsh, dotnet -ErrorAction SilentlyContinue |
+                        Where-Object { $_.CommandLine -like "*mcp-server*" }
+
+                foreach ($proc in $mcpProcesses)
+                {
+                    try
+                    {
+                        Stop-Process -Id $proc.Id -Force -ErrorAction SilentlyContinue
+                        Write-Host "Stopped MCP server process $( $proc.Id )" -ForegroundColor Cyan
+                    }
+                    catch
+                    {
+                        # Process may have already exited
+                    }
+                }
+            }
+
+            # Clean up port file
+            if ($mcpPortFile -and (Test-Path $mcpPortFile))
+            {
+                Remove-Item $mcpPortFile -ErrorAction SilentlyContinue
+            }
+
+            # Clean up temporary MCP server directory
+            if ($mcpTempDir -and (Test-Path $mcpTempDir))
+            {
+                Write-Host "Cleaning up temporary MCP server directory: $mcpTempDir" -ForegroundColor Cyan
+                Remove-Item $mcpTempDir -Recurse -Force -ErrorAction SilentlyContinue
+            }
+        }
+
+        if ($dockerExitCode -ne 0)
+        {
+            Write-Host "Docker run (Claude) failed with exit code $dockerExitCode" -ForegroundColor Red
+            exit $dockerExitCode
         }
     }
     else
@@ -658,19 +1017,39 @@ if (-not $BuildImage)
         }
 
         $buildArgsString = $BuildArgs -join " "
-        $VolumeMappingsAsString = $VolumeMappings -join " "
+
+        # Convert volume mappings to docker args format (interleave "-v" flags)
+        $volumeArgs = @()
+        foreach ($mapping in $VolumeMappings)
+        {
+            $volumeArgs += @("-v", $mapping)
+        }
+        $VolumeMappingsAsString = ($VolumeMappings | ForEach-Object { "-v $_" }) -join " "
         $dockerArgsAsString = $dockerArgs -join " "
 
         # Build inline script: subst drives, run init, cd to source, run build
         $inlineScript = "${substCommandsInline}& c:\Init.g.ps1; cd '$SourceDirName'; & .\$Script $buildArgsString; $pwshExitCommand"
 
         $pwshPath = 'C:\Program Files\PowerShell\7\pwsh.exe'
-        Write-Host "Executing: ``docker run --rm --memory=12g $dockerArgsAsString $VolumeMappingsAsString -w $ContainerSourceDir $ImageTag `"$pwshPath`" $pwshArgs -Command `"$inlineScript`"" -ForegroundColor Cyan
 
-        docker run --rm --memory=12g $dockerArgs @VolumeMappings -w $ContainerSourceDir $ImageTag $pwshPath $pwshArgs -Command $inlineScript
+        # Build docker command arguments
+        if ($existingContainerId)
+        {
+            # Reuse existing container with docker exec
+            Write-Host "Executing: ``docker exec $existingContainerId $dockerArgsAsString -w $ContainerSourceDir $ImageTag `"$pwshPath`" $pwshArgs -Command `"$inlineScript`"" -ForegroundColor Cyan
+            docker exec $dockerArgs  -w $ContainerSourceDir $existingContainerId $pwshPath $pwshArgs -Command $inlineScript
+
+        }
+        else
+        {
+            # Start new container with docker run
+            Write-Host "Executing: ``docker run --rm --memory=$Memory --cpus=$Cpus --isolation=$Isolation $dockerArgsAsString $VolumeMappingsAsString -w $ContainerSourceDir $ImageTag `"$pwshPath`" $pwshArgs -Command `"$inlineScript`"" -ForegroundColor Cyan
+            docker run --rm --memory=$Memory --cpus=$Cpus --isolation=$Isolation $dockerArgs @volumeArgs -w $ContainerSourceDir $ImageTag $pwshPath $pwshArgs -Command $inlineScript
+        }
+
         if ($LASTEXITCODE -ne 0)
         {
-            Write-Host "Docker run (build) failed with exit code $LASTEXITCODE" -ForegroundColor Red
+            Write-Host "Container failed with exit code $LASTEXITCODE" -ForegroundColor Red
             exit $LASTEXITCODE
         }
     }
