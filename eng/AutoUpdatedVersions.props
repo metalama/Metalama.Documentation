@@ -1,13 +1,10 @@
-
 <Project>
-
-    <PropertyGroup>
-        <MetalamaCompilerVersion>2026.0.6-rc</MetalamaCompilerVersion>
-        <MetalamaVersion>2026.0.10-rc</MetalamaVersion>
-        <MetalamaPremiumVersion>2026.0.10-rc</MetalamaPremiumVersion>
-        <MetalamaSamplesVersion>2026.0.10-rc</MetalamaSamplesVersion>
-        <MetalamaDocumentationReleaseVersion>2026.0.9-rc</MetalamaDocumentationReleaseVersion>     
-    <MetalamaDocumentationReleaseMainVersion>2026.0.9</MetalamaDocumentationReleaseMainVersion>
-    </PropertyGroup>
-
+  <PropertyGroup>
+    <MetalamaCompilerVersion Condition="'$(MetalamaCompilerVersion)' == ''">2026.0.7-rc</MetalamaCompilerVersion>
+    <MetalamaVersion Condition="'$(MetalamaVersion)' == ''">2026.0.11-rc</MetalamaVersion>
+    <MetalamaPremiumVersion Condition="'$(MetalamaPremiumVersion)' == ''">2026.0.11-rc</MetalamaPremiumVersion>
+    <MetalamaSamplesVersion Condition="'$(MetalamaSamplesVersion)' == ''">2026.0.11-rc</MetalamaSamplesVersion>
+    <MetalamaDocumentationReleaseVersion>2026.0.10-rc</MetalamaDocumentationReleaseVersion>
+    <MetalamaDocumentationReleaseMainVersion>2026.0.10</MetalamaDocumentationReleaseMainVersion>
+  </PropertyGroup>
 </Project>
