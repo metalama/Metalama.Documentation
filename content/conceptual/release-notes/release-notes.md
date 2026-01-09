@@ -12,9 +12,9 @@ This article provides a high-level changelog for major Metalama releases. For de
 
 | Version | Status                | Highlights                                                                                                                                                            | Release Notes               |
 | ------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
-| 2026.0  | Preview              | C# 14, .NET 10 SDK, tuple types, override _event invocation_ operations of events. | <xref:release-notes-2026.0> |
+| 2026.0  | Stable              | C# 14, .NET 10 SDK, tuple types, override _event invocation_ operations of events. | <xref:release-notes-2026.0> |
 | 2025.1  | Stable               | First open-source Metalama release with breaking changes in packages and namespaces for proprietary components. | <xref:release-notes-2025.1> |
-| 2025.0  | Stable               | Support for .NET 9 and C# 13. Improved work with introduced types. Async WPF commands. | <xref:release-notes-2025.0> |
+| 2025.0  | Deprecated               | Support for .NET 9 and C# 13. Improved work with introduced types. Async WPF commands. | <xref:release-notes-2025.0> |
 | 2024.2  | Deprecated | Type introduction, `Metalama.Patterns.Observability`, `Metalama.Patterns.Wpf`, `Metalama.Patterns.Immutability`, and dozens of other improvements.                     | <xref:release-notes-2024.2> |
 | 2024.1  | Deprecated            | Visual Studio tooling, activation UI, overriding constructors, performance improvements                                                                               | <xref:release-notes-2024.1> |
 | 2024.0  | Deprecated            | .NET 8 and C# 12                                                                                                                                                                 | <xref:release-notes-2024.0> |
