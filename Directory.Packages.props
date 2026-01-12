@@ -5,13 +5,13 @@
   </PropertyGroup>
   <!-- Set versions of dependencies that need special treatment or consist of multiple packages of the same version. -->
   <PropertyGroup>
-    <PostSharpEngineeringVersion Condition="'$(PostSharpEngineeringVersion)'==''">2023.2.299</PostSharpEngineeringVersion>
+    <PostSharpEngineeringVersion Condition="'$(PostSharpEngineeringVersion)'==''">2023.2.306</PostSharpEngineeringVersion>
   </PropertyGroup>
   <ItemGroup>
     <!-- Must match the version defined in PostSharp.Engineering.
          We cannot use $(DocFxVersion) because we reference the repo using a nuget feed dependency, which does not define these properties. -->
-    <PackageVersion Include="Docfx.App" Version=" 2.78.4" />
-    <PackageVersion Include="Docfx.Common" Version=" 2.78.4" />
+    <PackageVersion Include="Docfx.App" Version="2.78.4" />
+    <PackageVersion Include="Docfx.Common" Version="2.78.4" />
     <PackageVersion Include="Metalama.Compiler" Version="$(MetalamaCompilerVersion)" />
     <PackageVersion Include="Metalama.Documentation.QuickStart" Version="$(MetalamaSamplesVersion)" />
     <PackageVersion Include="Metalama.Extensions.Architecture" Version="$(MetalamaPremiumVersion)" />
