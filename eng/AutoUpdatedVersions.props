@@ -4,7 +4,7 @@
     <MetalamaVersion Condition="'$(MetalamaVersion)' == ''">2026.0.12</MetalamaVersion>
     <MetalamaPremiumVersion Condition="'$(MetalamaPremiumVersion)' == ''">2026.0.12</MetalamaPremiumVersion>
     <MetalamaSamplesVersion Condition="'$(MetalamaSamplesVersion)' == ''">2026.0.12</MetalamaSamplesVersion>
-    <MetalamaDocumentationReleaseVersion>2026.0.11</MetalamaDocumentationReleaseVersion>
-    <MetalamaDocumentationReleaseMainVersion>2026.0.11</MetalamaDocumentationReleaseMainVersion>
+    <MetalamaDocumentationReleaseVersion>2026.0.12</MetalamaDocumentationReleaseVersion>
+    <MetalamaDocumentationReleaseMainVersion>2026.0.12</MetalamaDocumentationReleaseMainVersion>
   </PropertyGroup>
 </Project>
