@@ -4,10 +4,20 @@
 	<Import Sdk="PostSharp.Engineering.Sdk" Project="PackagesConfig.targets"/>
 
     <!--
+        Pattern matching for Metalama.Extensions.* and Metalama.Patterns.* packages
+        which transitively depend on Metalama.Framework.
+    -->
+    <PropertyGroup>
+        <_AllPackageIds>@(PackageReference->'%(Identity)', ';')</_AllPackageIds>
+        <_HasMetalamaExtensions Condition="$([System.String]::new('$(_AllPackageIds)').Contains('Metalama.Extensions.'))">true</_HasMetalamaExtensions>
+        <_HasMetalamaPatterns Condition="$([System.String]::new('$(_AllPackageIds)').Contains('Metalama.Patterns.'))">true</_HasMetalamaPatterns>
+    </PropertyGroup>
+
+    <!--
         Documentation generation - not needed for user/production projects.
         Only added to projects that already use Metalama to avoid implicit dependencies.
     -->
-    <ItemGroup Condition="@(PackageReference->AnyHaveMetadataValue('Identity', 'Metalama.Framework')) or @(PackageReference->AnyHaveMetadataValue('Identity', 'Metalama.Testing.AspectTesting'))">
+    <ItemGroup Condition="@(PackageReference->AnyHaveMetadataValue('Identity', 'Metalama.Framework')) or @(PackageReference->AnyHaveMetadataValue('Identity', 'Metalama.Testing.AspectTesting')) or '$(_HasMetalamaExtensions)' == 'true' or '$(_HasMetalamaPatterns)' == 'true'">
         <PackageReference Include="Metalama.Extensions.HtmlWriter" />
     </ItemGroup>
 

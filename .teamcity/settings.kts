@@ -35,7 +35,11 @@ object DebugBuild : BuildType({
 """
 
     params {
-        text("Build.Arguments", "", label = "DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Build' build step.", allowEmpty = true)
+        text(
+            "Build.Arguments", 
+            "", 
+            label ="DockerBuild.ps1 Arguments",
+            description = "Arguments to append to the 'Build' build step.", allowEmpty = true)
         param("Build.Timeout", "30")
     }
 
@@ -168,7 +172,11 @@ object ReleaseBuild : BuildType({
 """
 
     params {
-        text("Build.Arguments", "", label = "DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Build' build step.", allowEmpty = true)
+        text(
+            "Build.Arguments", 
+            "", 
+            label ="DockerBuild.ps1 Arguments",
+            description = "Arguments to append to the 'Build' build step.", allowEmpty = true)
         param("Build.Timeout", "30")
     }
 
@@ -301,7 +309,11 @@ object PublicBuild : BuildType({
 """
 
     params {
-        text("Build.Arguments", "", label = "DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Build' build step.", allowEmpty = true)
+        text(
+            "Build.Arguments", 
+            "", 
+            label ="DockerBuild.ps1 Arguments",
+            description = "Arguments to append to the 'Build' build step.", allowEmpty = true)
         param("Build.Timeout", "30")
     }
 
@@ -429,7 +441,11 @@ object PublicDeployment : BuildType({
     type = Type.DEPLOYMENT
 
     params {
-        text("Publish.Arguments", "", label = "DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Publish' build step.", allowEmpty = true)
+        text(
+            "Publish.Arguments", 
+            "", 
+            label ="DockerBuild.ps1 Arguments",
+            description = "Arguments to append to the 'Publish' build step.", allowEmpty = true)
         param("Publish.Timeout", "30")
     }
 
@@ -542,7 +558,11 @@ object PublicDeploymentNoDependency : BuildType({
     type = Type.DEPLOYMENT
 
     params {
-        text("Publish.Arguments", "", label = "DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Publish' build step.", allowEmpty = true)
+        text(
+            "Publish.Arguments", 
+            "", 
+            label ="DockerBuild.ps1 Arguments",
+            description = "Arguments to append to the 'Publish' build step.", allowEmpty = true)
         param("Publish.Timeout", "30")
     }
 
@@ -645,7 +665,11 @@ object PublicUpdateSearch : BuildType({
     type = Type.DEPLOYMENT
 
     params {
-        text("UpdateSearch.Arguments", "", label = "Build.ps1 Arguments", description = "Arguments to append to the 'Update search' build step.", allowEmpty = true)
+        text(
+            "UpdateSearch.Arguments", 
+            "", 
+            label ="Build.ps1 Arguments",
+            description = "Arguments to append to the 'Update search' build step.", allowEmpty = true)
         param("UpdateSearch.Timeout", "30")
     }
 
@@ -694,7 +718,11 @@ object PublicUpdateSearchNoDependency : BuildType({
     type = Type.DEPLOYMENT
 
     params {
-        text("UpdateSearch.Arguments", "", label = "Build.ps1 Arguments", description = "Arguments to append to the 'Update search' build step.", allowEmpty = true)
+        text(
+            "UpdateSearch.Arguments", 
+            "", 
+            label ="Build.ps1 Arguments",
+            description = "Arguments to append to the 'Update search' build step.", allowEmpty = true)
         param("UpdateSearch.Timeout", "30")
     }
 
