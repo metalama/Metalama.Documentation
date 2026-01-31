@@ -1,10 +1,10 @@
 <Project>
   <PropertyGroup>
-    <MetalamaCompilerVersion Condition="'$(MetalamaCompilerVersion)' == ''">2026.1.0</MetalamaCompilerVersion>
+    <MetalamaCompilerVersion Condition="'$(MetalamaCompilerVersion)' == ''">2026.1.0-preview</MetalamaCompilerVersion>
     <MetalamaVersion Condition="'$(MetalamaVersion)' == ''">2026.1.0</MetalamaVersion>
     <MetalamaPremiumVersion Condition="'$(MetalamaPremiumVersion)' == ''">2026.1.0</MetalamaPremiumVersion>
     <MetalamaSamplesVersion Condition="'$(MetalamaSamplesVersion)' == ''">2026.1.0</MetalamaSamplesVersion>
-    <MetalamaDocumentationReleaseVersion>2026.1.0</MetalamaDocumentationReleaseVersion>
+    <MetalamaDocumentationReleaseVersion>2026.1.0-preview</MetalamaDocumentationReleaseVersion>
     <MetalamaDocumentationReleaseMainVersion>2026.1.0</MetalamaDocumentationReleaseMainVersion>
   </PropertyGroup>
 </Project>
