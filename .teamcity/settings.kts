@@ -710,11 +710,6 @@ object DownstreamMerge : BuildType({
     }
 
     dependencies {
-        dependency(DebugBuild) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
-        }
         dependency(AbsoluteId("Metalama_Metalama20260_MetalamaSamples_DownstreamMerge")) {
             snapshot {
                      onDependencyFailure = FailureAction.ADD_PROBLEM
