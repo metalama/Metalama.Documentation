@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <MetalamaCompilerVersion Condition="'$(MetalamaCompilerVersion)' == ''">2026.1.0-preview</MetalamaCompilerVersion>
+    <MetalamaCompilerVersion Condition="'$(MetalamaCompilerVersion)' == ''">2026.1.0</MetalamaCompilerVersion>
     <MetalamaVersion Condition="'$(MetalamaVersion)' == ''">2026.1.0</MetalamaVersion>
     <MetalamaPremiumVersion Condition="'$(MetalamaPremiumVersion)' == ''">2026.1.0</MetalamaPremiumVersion>
     <MetalamaSamplesVersion Condition="'$(MetalamaSamplesVersion)' == ''">2026.1.0</MetalamaSamplesVersion>
