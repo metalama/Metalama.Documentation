@@ -23,7 +23,7 @@ using MetalamaDependencies = PostSharp.Engineering.BuildTools.Dependencies.Defin
 
 var docPackageFileName = $"Metalama.Doc.{MetalamaDependencies.Metalama.ProductFamily.Version}.zip";
 var marketplacePackageFileName = $"Metalama.AI.Skills.*.zip";
-const string dotNetSdkVersion = "10.0.100";
+const string dotNetSdkVersion = PreferredVersions.DotNetSdk.V_10_0;
 
 var product = new Product( MetalamaDependencies.MetalamaDocumentation )
 {
@@ -34,7 +34,7 @@ var product = new Product( MetalamaDependencies.MetalamaDocumentation )
         Components =
         [
             // Required for eng.
-            new DotNetComponent( "9.0.305", DotNetComponentKind.Sdk ),
+            new DotNetComponent( PreferredVersions.DotNetSdk.V_9_0, DotNetComponentKind.Sdk ),
             
             // Required for the rest.
             new DotNetComponent( dotNetSdkVersion, DotNetComponentKind.Sdk ),
