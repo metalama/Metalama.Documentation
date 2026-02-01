@@ -715,19 +715,6 @@ object UpstreamMerge : BuildType({
         }
     }
 
-    dependencies {
-        dependency(AbsoluteId("Metalama_Metalama20260_MetalamaCommunity_UpstreamMerge")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.ADD_PROBLEM
-            }
-        }
-        dependency(AbsoluteId("Metalama_Metalama20260_MetalamaSamples_UpstreamMerge")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.ADD_PROBLEM
-            }
-        }
-     }
-
 })
 
 object PublicUpdateSearch : BuildType({
