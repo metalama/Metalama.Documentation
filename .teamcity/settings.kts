@@ -16,11 +16,11 @@ project {
     buildType(PublicBuild)
     buildType(PublicDeployment)
     buildType(PublicDeploymentNoDependency)
-    buildType(DownstreamMerge)
+    buildType(UpstreamMerge)
     buildType(PublicUpdateSearch)
     buildType(PublicUpdateSearchNoDependency)
 
-    buildTypesOrder = arrayListOf(DebugBuild,ReleaseBuild,PublicBuild,PublicDeployment,PublicDeploymentNoDependency,DownstreamMerge,PublicUpdateSearch,PublicUpdateSearchNoDependency)
+    buildTypesOrder = arrayListOf(DebugBuild,ReleaseBuild,PublicBuild,PublicDeployment,PublicDeploymentNoDependency,UpstreamMerge,PublicUpdateSearch,PublicUpdateSearchNoDependency)
 
 }
 
@@ -80,6 +80,7 @@ object DebugBuild : BuildType({
 
     features {
         swabra {
+            filesCleanup = Swabra.FilesCleanup.BEFORE_BUILD
             lockingProcesses = Swabra.LockingProcessPolicy.KILL
             verbose = true
         }
@@ -217,6 +218,7 @@ object ReleaseBuild : BuildType({
 
     features {
         swabra {
+            filesCleanup = Swabra.FilesCleanup.BEFORE_BUILD
             lockingProcesses = Swabra.LockingProcessPolicy.KILL
             verbose = true
         }
@@ -354,6 +356,7 @@ object PublicBuild : BuildType({
 
     features {
         swabra {
+            filesCleanup = Swabra.FilesCleanup.BEFORE_BUILD
             lockingProcesses = Swabra.LockingProcessPolicy.KILL
             verbose = true
         }
@@ -482,6 +485,7 @@ object PublicDeployment : BuildType({
 
     features {
         swabra {
+            filesCleanup = Swabra.FilesCleanup.BEFORE_BUILD
             lockingProcesses = Swabra.LockingProcessPolicy.KILL
             verbose = true
         }
@@ -599,6 +603,7 @@ object PublicDeploymentNoDependency : BuildType({
 
     features {
         swabra {
+            filesCleanup = Swabra.FilesCleanup.BEFORE_BUILD
             lockingProcesses = Swabra.LockingProcessPolicy.KILL
             verbose = true
         }
@@ -659,17 +664,17 @@ object PublicDeploymentNoDependency : BuildType({
 
 })
 
-object DownstreamMerge : BuildType({
+object UpstreamMerge : BuildType({
 
-    name = "Downstream Merge"
+    name = "Upstream Merge"
 
     params {
         text(
-            "DownstreamMerge.Arguments", 
+            "UpstreamMerge.Arguments", 
             "", 
             label ="DockerBuild.ps1 Arguments",
-            description = "Arguments to append to the 'Merge downstream' build step.", allowEmpty = true)
-        param("DownstreamMerge.Timeout", "15")
+            description = "Arguments to append to the 'Merge upstream' build step.", allowEmpty = true)
+        param("UpstreamMerge.Timeout", "15")
     }
 
     vcs {
@@ -685,16 +690,16 @@ object DownstreamMerge : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-BuildImage -ImageName metalamadocumentation-2026.0 "
+            scriptArgs = "-BuildImage -ImageName metalamadocumentation-2026.0 -Dockerfile Dockerfile.claude "
         }
         powerShell {
-            name = "Merge downstream"
-            id = "DownstreamMerge"
+            name = "Merge upstream"
+            id = "UpstreamMerge"
             scriptMode = file {
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2026.0 -NoBuildImage tools git merge-downstream --timeout %DownstreamMerge.Timeout% %DownstreamMerge.Arguments%"
+            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2026.0 -Dockerfile Dockerfile.claude -NoBuildImage -Snapshot upstream-merge --timeout %UpstreamMerge.Timeout% %UpstreamMerge.Arguments%"
         }
     }
 
@@ -704,13 +709,19 @@ object DownstreamMerge : BuildType({
 
     features {
         swabra {
+            filesCleanup = Swabra.FilesCleanup.BEFORE_BUILD
             lockingProcesses = Swabra.LockingProcessPolicy.KILL
             verbose = true
         }
     }
 
     dependencies {
-        dependency(AbsoluteId("Metalama_Metalama20260_MetalamaSamples_DownstreamMerge")) {
+        dependency(AbsoluteId("Metalama_Metalama20260_MetalamaCommunity_UpstreamMerge")) {
+            snapshot {
+                     onDependencyFailure = FailureAction.ADD_PROBLEM
+            }
+        }
+        dependency(AbsoluteId("Metalama_Metalama20260_MetalamaSamples_UpstreamMerge")) {
             snapshot {
                      onDependencyFailure = FailureAction.ADD_PROBLEM
             }
@@ -757,6 +768,7 @@ object PublicUpdateSearch : BuildType({
 
     features {
         swabra {
+            filesCleanup = Swabra.FilesCleanup.BEFORE_BUILD
             lockingProcesses = Swabra.LockingProcessPolicy.KILL
             verbose = true
         }
@@ -810,6 +822,7 @@ object PublicUpdateSearchNoDependency : BuildType({
 
     features {
         swabra {
+            filesCleanup = Swabra.FilesCleanup.BEFORE_BUILD
             lockingProcesses = Swabra.LockingProcessPolicy.KILL
             verbose = true
         }
