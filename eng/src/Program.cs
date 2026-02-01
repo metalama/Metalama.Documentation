@@ -22,7 +22,7 @@ using System.IO.Compression;
 using MetalamaDependencies = PostSharp.Engineering.BuildTools.Dependencies.Definitions.MetalamaDependencies.V2025_1;
 
 var docPackageFileName = $"Metalama.Doc.{MetalamaDependencies.Metalama.ProductFamily.Version}.zip";
-const string dotNetSdkVersion = "9.0.305";
+const string dotNetSdkVersion = PreferredVersions.DotNetSdk.V_9_0;
 
 var product = new Product( MetalamaDependencies.MetalamaDocumentation )
 {
