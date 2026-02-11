@@ -17,30 +17,8 @@ internal class Material
     {
       this.Name = Name;
     }
-    private double _density;
-    private double Density
-    {
-      get
-      {
-        return _density;
-      }
-      set
-      {
-        _density = value;
-      }
-    }
-    private string _name = default !;
-    private string Name
-    {
-      get
-      {
-        return _name;
-      }
-      set
-      {
-        _name = value;
-      }
-    }
+    private double Density { get; set; }
+    private string Name { get; set; }
     public Material Build(string Name, double Density)
     {
       return new Material(this.Name, this.Density);

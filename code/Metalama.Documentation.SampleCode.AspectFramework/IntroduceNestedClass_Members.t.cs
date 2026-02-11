@@ -6,29 +6,7 @@ internal class Material
   public double Density { get; }
   class Builder
   {
-    private double _density;
-    private double Density
-    {
-      get
-      {
-        return _density;
-      }
-      set
-      {
-        _density = value;
-      }
-    }
-    private string _name = default !;
-    private string Name
-    {
-      get
-      {
-        return _name;
-      }
-      set
-      {
-        _name = value;
-      }
-    }
+    private double Density { get; set; }
+    private string Name { get; set; }
   }
 }
