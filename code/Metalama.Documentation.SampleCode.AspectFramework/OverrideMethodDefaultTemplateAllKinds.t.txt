@@ -17,7 +17,7 @@ EnumeratorMethod: start
   Yielding 1
   Yielding 2
   Yielding 3
-EnumeratorMethod: returning System.Collections.Generic.List`1+Enumerator[System.Int32].
+EnumeratorMethod: returning Metalama.Framework.RunTime.RunTimeAspectHelper+Enumerator`1[System.Int32].
  Received 1 from EnumeratorMethod
  Received 2 from EnumeratorMethod
  Received 3 from EnumeratorMethod
@@ -35,7 +35,7 @@ AsyncEnumeratorMethod: start
   Yielding 1
   Yielding 2
   Yielding 3
-AsyncEnumeratorMethod: returning Metalama.Framework.RunTime.AsyncEnumerableList`1+AsyncEnumerator[System.Int32].
+AsyncEnumeratorMethod: returning Metalama.Framework.RunTime.RunTimeAspectHelper+AsyncEnumerator`1[System.Int32].
  Received 1 from AsyncEnumeratorMethod
  Received 2 from AsyncEnumeratorMethod
  Received 3 from AsyncEnumeratorMethod
