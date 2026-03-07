@@ -37,3 +37,4 @@ global.json
 OPEN-ISSUES.md
 *-TODO.md
 eng/docker-context/.g/
+*.binlog
