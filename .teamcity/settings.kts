@@ -3,6 +3,7 @@
 import jetbrains.buildServer.configs.kotlin.*
 import jetbrains.buildServer.configs.kotlin.buildFeatures.*
 import jetbrains.buildServer.configs.kotlin.buildSteps.powerShell
+import jetbrains.buildServer.configs.kotlin.buildSteps.PowerShellStep
 import jetbrains.buildServer.configs.kotlin.failureConditions.*
 import jetbrains.buildServer.configs.kotlin.triggers.*
 import jetbrains.buildServer.configs.kotlin.projectFeatures.*
@@ -57,6 +58,7 @@ object DebugBuild : BuildType({
         powerShell {
             name = "Prepare Docker image metalamadocumentation-2026.0"
             id = "PrepareImage"
+            edition = PowerShellStep.Edition.Core
             scriptMode = file {
                 path = "DockerBuild.ps1"
             }
@@ -66,15 +68,28 @@ object DebugBuild : BuildType({
         powerShell {
             name = "Build"
             id = "Build"
+            edition = PowerShellStep.Edition.Core
             scriptMode = file {
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2026.0 -NoBuildImage test --configuration Debug --buildNumber %build.number% --buildType %system.teamcity.buildType.id% --timeout %Build.Timeout% %Build.Arguments%"
+            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2026.0 -NoBuildImage -Label %system.teamcity.buildType.id%_%build.number% test --configuration Debug --buildNumber %build.number% --buildType %system.teamcity.buildType.id% --timeout %Build.Timeout% %Build.Arguments%"
+        }
+        powerShell {
+            name = "Cleanup Docker containers"
+            id = "DockerCleanup"
+            executionMode = BuildStep.ExecutionMode.ALWAYS
+            edition = PowerShellStep.Edition.Core
+            scriptMode = script {
+                content = "${'$'}label = \"%system.teamcity.buildType.id%_%build.number%\"; ${'$'}ids = docker ps -a -q --filter \"label=postsharp.build=${'$'}label\"; if (${'$'}ids) { docker rm -f ${'$'}ids 2>&1 | Out-Null }"
+            }
+            noProfile = false
         }
     }
 
     requirements {
+        matches("teamcity.agent.jvm.os.family", "Windows")
+        matches("teamcity.agent.jvm.os.arch", "amd64")
         equals("env.BuildAgentType", "docker-win-x64-md")
     }
 
@@ -108,55 +123,43 @@ pullRequests {
     }
 
     dependencies {
-        dependency(AbsoluteId("Metalama_Metalama20260_Metalama_DebugBuild")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
+        snapshot(AbsoluteId("Metalama_Metalama20260_Metalama_DebugBuild")) {
+                 onDependencyFailure = FailureAction.FAIL_TO_START
+        }
 
-            artifacts {
-                cleanDestination = true
-                artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama"
-            }
+        artifacts(AbsoluteId("Metalama_Metalama20260_Metalama_DebugBuild")) { 
+            cleanDestination = true
+            artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama"
         }
-        dependency(AbsoluteId("Metalama_Metalama20260_MetalamaCommunity_DebugBuild")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
+        snapshot(AbsoluteId("Metalama_Metalama20260_MetalamaCommunity_DebugBuild")) {
+                 onDependencyFailure = FailureAction.FAIL_TO_START
         }
-        dependency(AbsoluteId("Metalama_Metalama20260_MetalamaCompiler_ReleaseBuild")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
+        snapshot(AbsoluteId("Metalama_Metalama20260_MetalamaCompiler_ReleaseBuild")) {
+                 onDependencyFailure = FailureAction.FAIL_TO_START
+        }
 
-            artifacts {
-                cleanDestination = true
-                artifactRules = "+:artifacts/packages/Release/Shipping/**/*=>dependencies/Metalama.Compiler"
-            }
+        artifacts(AbsoluteId("Metalama_Metalama20260_MetalamaCompiler_ReleaseBuild")) { 
+            cleanDestination = true
+            artifactRules = "+:artifacts/packages/Release/Shipping/**/*=>dependencies/Metalama.Compiler"
         }
-        dependency(AbsoluteId("Metalama_Metalama20260_MetalamaPremium_DebugBuild")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
+        snapshot(AbsoluteId("Metalama_Metalama20260_MetalamaPremium_DebugBuild")) {
+                 onDependencyFailure = FailureAction.FAIL_TO_START
+        }
 
-            artifacts {
-                cleanDestination = true
-                artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama.Premium"
-            }
+        artifacts(AbsoluteId("Metalama_Metalama20260_MetalamaPremium_DebugBuild")) { 
+            cleanDestination = true
+            artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama.Premium"
         }
-        dependency(AbsoluteId("Metalama_Metalama20260_MetalamaSamples_DebugBuild")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
+        snapshot(AbsoluteId("Metalama_Metalama20260_MetalamaSamples_DebugBuild")) {
+                 onDependencyFailure = FailureAction.FAIL_TO_START
+        }
 
-            artifacts {
-                cleanDestination = true
-                artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama.Samples"
-            }
+        artifacts(AbsoluteId("Metalama_Metalama20260_MetalamaSamples_DebugBuild")) { 
+            cleanDestination = true
+            artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama.Samples"
         }
-        dependency(AbsoluteId("Metalama_Metalama20260_MetalamaSamples_DebugBuild")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
+        snapshot(AbsoluteId("Metalama_Metalama20260_MetalamaSamples_DebugBuild")) {
+                 onDependencyFailure = FailureAction.FAIL_TO_START
         }
      }
 
@@ -195,6 +198,7 @@ object ReleaseBuild : BuildType({
         powerShell {
             name = "Prepare Docker image metalamadocumentation-2026.0"
             id = "PrepareImage"
+            edition = PowerShellStep.Edition.Core
             scriptMode = file {
                 path = "DockerBuild.ps1"
             }
@@ -204,15 +208,28 @@ object ReleaseBuild : BuildType({
         powerShell {
             name = "Build"
             id = "Build"
+            edition = PowerShellStep.Edition.Core
             scriptMode = file {
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2026.0 -NoBuildImage test --configuration Release --buildNumber %build.number% --buildType %system.teamcity.buildType.id% --timeout %Build.Timeout% %Build.Arguments%"
+            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2026.0 -NoBuildImage -Label %system.teamcity.buildType.id%_%build.number% test --configuration Release --buildNumber %build.number% --buildType %system.teamcity.buildType.id% --timeout %Build.Timeout% %Build.Arguments%"
+        }
+        powerShell {
+            name = "Cleanup Docker containers"
+            id = "DockerCleanup"
+            executionMode = BuildStep.ExecutionMode.ALWAYS
+            edition = PowerShellStep.Edition.Core
+            scriptMode = script {
+                content = "${'$'}label = \"%system.teamcity.buildType.id%_%build.number%\"; ${'$'}ids = docker ps -a -q --filter \"label=postsharp.build=${'$'}label\"; if (${'$'}ids) { docker rm -f ${'$'}ids 2>&1 | Out-Null }"
+            }
+            noProfile = false
         }
     }
 
     requirements {
+        matches("teamcity.agent.jvm.os.family", "Windows")
+        matches("teamcity.agent.jvm.os.arch", "amd64")
         equals("env.BuildAgentType", "docker-win-x64-md")
     }
 
@@ -246,55 +263,43 @@ pullRequests {
     }
 
     dependencies {
-        dependency(AbsoluteId("Metalama_Metalama20260_Metalama_ReleaseBuild")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
+        snapshot(AbsoluteId("Metalama_Metalama20260_Metalama_ReleaseBuild")) {
+                 onDependencyFailure = FailureAction.FAIL_TO_START
+        }
 
-            artifacts {
-                cleanDestination = true
-                artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama"
-            }
+        artifacts(AbsoluteId("Metalama_Metalama20260_Metalama_ReleaseBuild")) { 
+            cleanDestination = true
+            artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama"
         }
-        dependency(AbsoluteId("Metalama_Metalama20260_MetalamaCommunity_ReleaseBuild")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
+        snapshot(AbsoluteId("Metalama_Metalama20260_MetalamaCommunity_ReleaseBuild")) {
+                 onDependencyFailure = FailureAction.FAIL_TO_START
         }
-        dependency(AbsoluteId("Metalama_Metalama20260_MetalamaCompiler_ReleaseBuild")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
+        snapshot(AbsoluteId("Metalama_Metalama20260_MetalamaCompiler_ReleaseBuild")) {
+                 onDependencyFailure = FailureAction.FAIL_TO_START
+        }
 
-            artifacts {
-                cleanDestination = true
-                artifactRules = "+:artifacts/packages/Release/Shipping/**/*=>dependencies/Metalama.Compiler"
-            }
+        artifacts(AbsoluteId("Metalama_Metalama20260_MetalamaCompiler_ReleaseBuild")) { 
+            cleanDestination = true
+            artifactRules = "+:artifacts/packages/Release/Shipping/**/*=>dependencies/Metalama.Compiler"
         }
-        dependency(AbsoluteId("Metalama_Metalama20260_MetalamaPremium_ReleaseBuild")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
+        snapshot(AbsoluteId("Metalama_Metalama20260_MetalamaPremium_ReleaseBuild")) {
+                 onDependencyFailure = FailureAction.FAIL_TO_START
+        }
 
-            artifacts {
-                cleanDestination = true
-                artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama.Premium"
-            }
+        artifacts(AbsoluteId("Metalama_Metalama20260_MetalamaPremium_ReleaseBuild")) { 
+            cleanDestination = true
+            artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama.Premium"
         }
-        dependency(AbsoluteId("Metalama_Metalama20260_MetalamaSamples_ReleaseBuild")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
+        snapshot(AbsoluteId("Metalama_Metalama20260_MetalamaSamples_ReleaseBuild")) {
+                 onDependencyFailure = FailureAction.FAIL_TO_START
+        }
 
-            artifacts {
-                cleanDestination = true
-                artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama.Samples"
-            }
+        artifacts(AbsoluteId("Metalama_Metalama20260_MetalamaSamples_ReleaseBuild")) { 
+            cleanDestination = true
+            artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama.Samples"
         }
-        dependency(AbsoluteId("Metalama_Metalama20260_MetalamaSamples_ReleaseBuild")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
+        snapshot(AbsoluteId("Metalama_Metalama20260_MetalamaSamples_ReleaseBuild")) {
+                 onDependencyFailure = FailureAction.FAIL_TO_START
         }
      }
 
@@ -333,6 +338,7 @@ object PublicBuild : BuildType({
         powerShell {
             name = "Prepare Docker image metalamadocumentation-2026.0"
             id = "PrepareImage"
+            edition = PowerShellStep.Edition.Core
             scriptMode = file {
                 path = "DockerBuild.ps1"
             }
@@ -342,15 +348,28 @@ object PublicBuild : BuildType({
         powerShell {
             name = "Build"
             id = "Build"
+            edition = PowerShellStep.Edition.Core
             scriptMode = file {
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2026.0 -NoBuildImage test --configuration Public --buildNumber %build.number% --buildType %system.teamcity.buildType.id% --timeout %Build.Timeout% %Build.Arguments%"
+            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2026.0 -NoBuildImage -Label %system.teamcity.buildType.id%_%build.number% test --configuration Public --buildNumber %build.number% --buildType %system.teamcity.buildType.id% --timeout %Build.Timeout% %Build.Arguments%"
+        }
+        powerShell {
+            name = "Cleanup Docker containers"
+            id = "DockerCleanup"
+            executionMode = BuildStep.ExecutionMode.ALWAYS
+            edition = PowerShellStep.Edition.Core
+            scriptMode = script {
+                content = "${'$'}label = \"%system.teamcity.buildType.id%_%build.number%\"; ${'$'}ids = docker ps -a -q --filter \"label=postsharp.build=${'$'}label\"; if (${'$'}ids) { docker rm -f ${'$'}ids 2>&1 | Out-Null }"
+            }
+            noProfile = false
         }
     }
 
     requirements {
+        matches("teamcity.agent.jvm.os.family", "Windows")
+        matches("teamcity.agent.jvm.os.arch", "amd64")
         equals("env.BuildAgentType", "docker-win-x64-md")
     }
 
@@ -384,55 +403,43 @@ pullRequests {
     }
 
     dependencies {
-        dependency(AbsoluteId("Metalama_Metalama20260_Metalama_PublicBuild")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
+        snapshot(AbsoluteId("Metalama_Metalama20260_Metalama_PublicBuild")) {
+                 onDependencyFailure = FailureAction.FAIL_TO_START
+        }
 
-            artifacts {
-                cleanDestination = true
-                artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama"
-            }
+        artifacts(AbsoluteId("Metalama_Metalama20260_Metalama_PublicBuild")) { 
+            cleanDestination = true
+            artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama"
         }
-        dependency(AbsoluteId("Metalama_Metalama20260_MetalamaCommunity_PublicBuild")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
+        snapshot(AbsoluteId("Metalama_Metalama20260_MetalamaCommunity_PublicBuild")) {
+                 onDependencyFailure = FailureAction.FAIL_TO_START
         }
-        dependency(AbsoluteId("Metalama_Metalama20260_MetalamaCompiler_PublicBuild")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
+        snapshot(AbsoluteId("Metalama_Metalama20260_MetalamaCompiler_PublicBuild")) {
+                 onDependencyFailure = FailureAction.FAIL_TO_START
+        }
 
-            artifacts {
-                cleanDestination = true
-                artifactRules = "+:artifacts/packages/Release/Shipping/**/*=>dependencies/Metalama.Compiler"
-            }
+        artifacts(AbsoluteId("Metalama_Metalama20260_MetalamaCompiler_PublicBuild")) { 
+            cleanDestination = true
+            artifactRules = "+:artifacts/packages/Release/Shipping/**/*=>dependencies/Metalama.Compiler"
         }
-        dependency(AbsoluteId("Metalama_Metalama20260_MetalamaPremium_PublicBuild")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
+        snapshot(AbsoluteId("Metalama_Metalama20260_MetalamaPremium_PublicBuild")) {
+                 onDependencyFailure = FailureAction.FAIL_TO_START
+        }
 
-            artifacts {
-                cleanDestination = true
-                artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama.Premium"
-            }
+        artifacts(AbsoluteId("Metalama_Metalama20260_MetalamaPremium_PublicBuild")) { 
+            cleanDestination = true
+            artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama.Premium"
         }
-        dependency(AbsoluteId("Metalama_Metalama20260_MetalamaSamples_PublicBuild")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
+        snapshot(AbsoluteId("Metalama_Metalama20260_MetalamaSamples_PublicBuild")) {
+                 onDependencyFailure = FailureAction.FAIL_TO_START
+        }
 
-            artifacts {
-                cleanDestination = true
-                artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama.Samples"
-            }
+        artifacts(AbsoluteId("Metalama_Metalama20260_MetalamaSamples_PublicBuild")) { 
+            cleanDestination = true
+            artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama.Samples"
         }
-        dependency(AbsoluteId("Metalama_Metalama20260_MetalamaSamples_PublicBuild")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
+        snapshot(AbsoluteId("Metalama_Metalama20260_MetalamaSamples_PublicBuild")) {
+                 onDependencyFailure = FailureAction.FAIL_TO_START
         }
      }
 
@@ -462,6 +469,7 @@ object PublicDeployment : BuildType({
         powerShell {
             name = "Prepare Docker image metalamadocumentation-2026.0"
             id = "PrepareImage"
+            edition = PowerShellStep.Edition.Core
             scriptMode = file {
                 path = "DockerBuild.ps1"
             }
@@ -471,15 +479,28 @@ object PublicDeployment : BuildType({
         powerShell {
             name = "Publish"
             id = "Publish"
+            edition = PowerShellStep.Edition.Core
             scriptMode = file {
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2026.0 -NoBuildImage publish --configuration Public --timeout %Publish.Timeout% %Publish.Arguments%"
+            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2026.0 -NoBuildImage -Label %system.teamcity.buildType.id%_%build.number% publish --configuration Public --timeout %Publish.Timeout% %Publish.Arguments%"
+        }
+        powerShell {
+            name = "Cleanup Docker containers"
+            id = "DockerCleanup"
+            executionMode = BuildStep.ExecutionMode.ALWAYS
+            edition = PowerShellStep.Edition.Core
+            scriptMode = script {
+                content = "${'$'}label = \"%system.teamcity.buildType.id%_%build.number%\"; ${'$'}ids = docker ps -a -q --filter \"label=postsharp.build=${'$'}label\"; if (${'$'}ids) { docker rm -f ${'$'}ids 2>&1 | Out-Null }"
+            }
+            noProfile = false
         }
     }
 
     requirements {
+        matches("teamcity.agent.jvm.os.family", "Windows")
+        matches("teamcity.agent.jvm.os.arch", "amd64")
         equals("env.BuildAgentType", "docker-win-x64-md")
     }
 
@@ -492,65 +513,51 @@ object PublicDeployment : BuildType({
     }
 
     dependencies {
-        dependency(AbsoluteId("Metalama_Metalama20260_Metalama_PublicBuild")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
+        snapshot(AbsoluteId("Metalama_Metalama20260_Metalama_PublicBuild")) {
+                 onDependencyFailure = FailureAction.FAIL_TO_START
+        }
 
-            artifacts {
-                cleanDestination = true
-                artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama"
-            }
+        artifacts(AbsoluteId("Metalama_Metalama20260_Metalama_PublicBuild")) { 
+            cleanDestination = true
+            artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama"
         }
-        dependency(AbsoluteId("Metalama_Metalama20260_MetalamaCommunity_PublicDeployment")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
+        snapshot(AbsoluteId("Metalama_Metalama20260_MetalamaCommunity_PublicDeployment")) {
+                 onDependencyFailure = FailureAction.FAIL_TO_START
         }
-        dependency(AbsoluteId("Metalama_Metalama20260_MetalamaCompiler_PublicBuild")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
+        snapshot(AbsoluteId("Metalama_Metalama20260_MetalamaCompiler_PublicBuild")) {
+                 onDependencyFailure = FailureAction.FAIL_TO_START
+        }
 
-            artifacts {
-                cleanDestination = true
-                artifactRules = "+:artifacts/packages/Release/Shipping/**/*=>dependencies/Metalama.Compiler"
-            }
+        artifacts(AbsoluteId("Metalama_Metalama20260_MetalamaCompiler_PublicBuild")) { 
+            cleanDestination = true
+            artifactRules = "+:artifacts/packages/Release/Shipping/**/*=>dependencies/Metalama.Compiler"
         }
-        dependency(AbsoluteId("Metalama_Metalama20260_MetalamaPremium_PublicBuild")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
+        snapshot(AbsoluteId("Metalama_Metalama20260_MetalamaPremium_PublicBuild")) {
+                 onDependencyFailure = FailureAction.FAIL_TO_START
+        }
 
-            artifacts {
-                cleanDestination = true
-                artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama.Premium"
-            }
+        artifacts(AbsoluteId("Metalama_Metalama20260_MetalamaPremium_PublicBuild")) { 
+            cleanDestination = true
+            artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama.Premium"
         }
-        dependency(AbsoluteId("Metalama_Metalama20260_MetalamaSamples_PublicBuild")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
+        snapshot(AbsoluteId("Metalama_Metalama20260_MetalamaSamples_PublicBuild")) {
+                 onDependencyFailure = FailureAction.FAIL_TO_START
+        }
 
-            artifacts {
-                cleanDestination = true
-                artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama.Samples"
-            }
+        artifacts(AbsoluteId("Metalama_Metalama20260_MetalamaSamples_PublicBuild")) { 
+            cleanDestination = true
+            artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama.Samples"
         }
-        dependency(AbsoluteId("Metalama_Metalama20260_MetalamaSamples_PublicDeployment")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
+        snapshot(AbsoluteId("Metalama_Metalama20260_MetalamaSamples_PublicDeployment")) {
+                 onDependencyFailure = FailureAction.FAIL_TO_START
         }
-        dependency(PublicBuild) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
+        snapshot(PublicBuild) {
+                 onDependencyFailure = FailureAction.FAIL_TO_START
+        }
 
-            artifacts {
-                cleanDestination = true
-                artifactRules = "+:artifacts/publish/public/**/*=>artifacts/publish/public\n+:artifacts/publish/private/**/*=>artifacts/publish/private"
-            }
+        artifacts(PublicBuild) { 
+            cleanDestination = true
+            artifactRules = "+:artifacts/publish/public/**/*=>artifacts/publish/public\n+:artifacts/publish/private/**/*=>artifacts/publish/private"
         }
      }
 
@@ -580,6 +587,7 @@ object PublicDeploymentNoDependency : BuildType({
         powerShell {
             name = "Prepare Docker image metalamadocumentation-2026.0"
             id = "PrepareImage"
+            edition = PowerShellStep.Edition.Core
             scriptMode = file {
                 path = "DockerBuild.ps1"
             }
@@ -589,15 +597,28 @@ object PublicDeploymentNoDependency : BuildType({
         powerShell {
             name = "Publish"
             id = "Publish"
+            edition = PowerShellStep.Edition.Core
             scriptMode = file {
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2026.0 -NoBuildImage publish --configuration Public --standalone --timeout %Publish.Timeout% %Publish.Arguments%"
+            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2026.0 -NoBuildImage -Label %system.teamcity.buildType.id%_%build.number% publish --configuration Public --standalone --timeout %Publish.Timeout% %Publish.Arguments%"
+        }
+        powerShell {
+            name = "Cleanup Docker containers"
+            id = "DockerCleanup"
+            executionMode = BuildStep.ExecutionMode.ALWAYS
+            edition = PowerShellStep.Edition.Core
+            scriptMode = script {
+                content = "${'$'}label = \"%system.teamcity.buildType.id%_%build.number%\"; ${'$'}ids = docker ps -a -q --filter \"label=postsharp.build=${'$'}label\"; if (${'$'}ids) { docker rm -f ${'$'}ids 2>&1 | Out-Null }"
+            }
+            noProfile = false
         }
     }
 
     requirements {
+        matches("teamcity.agent.jvm.os.family", "Windows")
+        matches("teamcity.agent.jvm.os.arch", "amd64")
         equals("env.BuildAgentType", "docker-win-x64-md")
     }
 
@@ -610,55 +631,45 @@ object PublicDeploymentNoDependency : BuildType({
     }
 
     dependencies {
-        dependency(AbsoluteId("Metalama_Metalama20260_Metalama_PublicBuild")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
-
-            artifacts {
-                cleanDestination = true
-                artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama"
-            }
+        snapshot(AbsoluteId("Metalama_Metalama20260_Metalama_PublicBuild")) {
+                 onDependencyFailure = FailureAction.FAIL_TO_START
         }
-        dependency(AbsoluteId("Metalama_Metalama20260_MetalamaCompiler_PublicBuild")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
 
-            artifacts {
-                cleanDestination = true
-                artifactRules = "+:artifacts/packages/Release/Shipping/**/*=>dependencies/Metalama.Compiler"
-            }
+        artifacts(AbsoluteId("Metalama_Metalama20260_Metalama_PublicBuild")) { 
+            cleanDestination = true
+            artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama"
         }
-        dependency(AbsoluteId("Metalama_Metalama20260_MetalamaPremium_PublicBuild")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
-
-            artifacts {
-                cleanDestination = true
-                artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama.Premium"
-            }
+        snapshot(AbsoluteId("Metalama_Metalama20260_MetalamaCompiler_PublicBuild")) {
+                 onDependencyFailure = FailureAction.FAIL_TO_START
         }
-        dependency(AbsoluteId("Metalama_Metalama20260_MetalamaSamples_PublicBuild")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
 
-            artifacts {
-                cleanDestination = true
-                artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama.Samples"
-            }
+        artifacts(AbsoluteId("Metalama_Metalama20260_MetalamaCompiler_PublicBuild")) { 
+            cleanDestination = true
+            artifactRules = "+:artifacts/packages/Release/Shipping/**/*=>dependencies/Metalama.Compiler"
         }
-        dependency(PublicBuild) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
+        snapshot(AbsoluteId("Metalama_Metalama20260_MetalamaPremium_PublicBuild")) {
+                 onDependencyFailure = FailureAction.FAIL_TO_START
+        }
 
-            artifacts {
-                cleanDestination = true
-                artifactRules = "+:artifacts/publish/public/**/*=>artifacts/publish/public\n+:artifacts/publish/private/**/*=>artifacts/publish/private"
-            }
+        artifacts(AbsoluteId("Metalama_Metalama20260_MetalamaPremium_PublicBuild")) { 
+            cleanDestination = true
+            artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama.Premium"
+        }
+        snapshot(AbsoluteId("Metalama_Metalama20260_MetalamaSamples_PublicBuild")) {
+                 onDependencyFailure = FailureAction.FAIL_TO_START
+        }
+
+        artifacts(AbsoluteId("Metalama_Metalama20260_MetalamaSamples_PublicBuild")) { 
+            cleanDestination = true
+            artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama.Samples"
+        }
+        snapshot(PublicBuild) {
+                 onDependencyFailure = FailureAction.FAIL_TO_START
+        }
+
+        artifacts(PublicBuild) { 
+            cleanDestination = true
+            artifactRules = "+:artifacts/publish/public/**/*=>artifacts/publish/public\n+:artifacts/publish/private/**/*=>artifacts/publish/private"
         }
      }
 
@@ -686,6 +697,7 @@ object UpstreamMerge : BuildType({
         powerShell {
             name = "Prepare Docker image metalamadocumentation-2026.0"
             id = "PrepareImage"
+            edition = PowerShellStep.Edition.Core
             scriptMode = file {
                 path = "DockerBuild.ps1"
             }
@@ -695,15 +707,28 @@ object UpstreamMerge : BuildType({
         powerShell {
             name = "Merge upstream"
             id = "UpstreamMerge"
+            edition = PowerShellStep.Edition.Core
             scriptMode = file {
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2026.0 -Dockerfile Dockerfile.claude -NoBuildImage -Snapshot upstream-merge --timeout %UpstreamMerge.Timeout% %UpstreamMerge.Arguments%"
+            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2026.0 -Dockerfile Dockerfile.claude -NoBuildImage -Label %system.teamcity.buildType.id%_%build.number% -Snapshot upstream-merge --timeout %UpstreamMerge.Timeout% %UpstreamMerge.Arguments%"
+        }
+        powerShell {
+            name = "Cleanup Docker containers"
+            id = "DockerCleanup"
+            executionMode = BuildStep.ExecutionMode.ALWAYS
+            edition = PowerShellStep.Edition.Core
+            scriptMode = script {
+                content = "${'$'}label = \"%system.teamcity.buildType.id%_%build.number%\"; ${'$'}ids = docker ps -a -q --filter \"label=postsharp.build=${'$'}label\"; if (${'$'}ids) { docker rm -f ${'$'}ids 2>&1 | Out-Null }"
+            }
+            noProfile = false
         }
     }
 
     requirements {
+        matches("teamcity.agent.jvm.os.family", "Windows")
+        matches("teamcity.agent.jvm.os.arch", "amd64")
         equals("env.BuildAgentType", "docker-win-x64-md")
     }
 
@@ -741,6 +766,7 @@ object PublicUpdateSearch : BuildType({
         powerShell {
             name = "Update search"
             id = "UpdateSearch"
+            edition = PowerShellStep.Edition.Core
             scriptMode = file {
                 path = "Build.ps1"
             }
@@ -750,6 +776,8 @@ object PublicUpdateSearch : BuildType({
     }
 
     requirements {
+        matches("teamcity.agent.jvm.os.family", "Windows")
+        matches("teamcity.agent.jvm.os.arch", "amd64")
         equals("env.BuildAgentType", "docker-win-x64-md")
     }
 
@@ -762,10 +790,8 @@ object PublicUpdateSearch : BuildType({
     }
 
     dependencies {
-        dependency(PublicDeployment) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
+        snapshot(PublicDeployment) {
+                 onDependencyFailure = FailureAction.FAIL_TO_START
         }
      }
 
@@ -795,6 +821,7 @@ object PublicUpdateSearchNoDependency : BuildType({
         powerShell {
             name = "Update search"
             id = "UpdateSearch"
+            edition = PowerShellStep.Edition.Core
             scriptMode = file {
                 path = "Build.ps1"
             }
@@ -804,6 +831,8 @@ object PublicUpdateSearchNoDependency : BuildType({
     }
 
     requirements {
+        matches("teamcity.agent.jvm.os.family", "Windows")
+        matches("teamcity.agent.jvm.os.arch", "amd64")
         equals("env.BuildAgentType", "docker-win-x64-md")
     }
 
