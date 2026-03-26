@@ -2,7 +2,6 @@ using Flashtrace.Formatters;
 using Metalama.Framework.RunTime;
 using Metalama.Patterns.Caching;
 using Metalama.Patterns.Caching.Aspects;
-using Metalama.Patterns.Caching.Aspects.Helpers;
 using Metalama.Patterns.Caching.Formatters;
 using System;
 using System.Collections.Generic;
@@ -52,7 +51,7 @@ public class EntityService
   private ICachingService _cachingService;
   static EntityService()
   {
-    _cacheRegistration_GetRelatedEntities = CachedMethodMetadata.Register(typeof(EntityService).GetMethod("GetRelatedEntities", BindingFlags.Public | BindingFlags.Instance, null, new[] { typeof(Entity) }, null).ThrowIfMissing("EntityService.GetRelatedEntities(Entity)"), new CachedMethodConfiguration() { AbsoluteExpiration = null, AutoReload = null, IgnoreThisParameter = null, Priority = null, ProfileName = (string? )null, SlidingExpiration = null }, true);
+    _cacheRegistration_GetRelatedEntities = CachedMethodMetadata.Register(typeof(EntityService).GetMethod("GetRelatedEntities", BindingFlags.Public | BindingFlags.Instance, null, new[] { typeof(Entity) }, null) ?? throw new MissingMethodException("The method 'EntityService.GetRelatedEntities(Entity)' could not be found using reflection."), new CachedMethodConfiguration() { AbsoluteExpiration = null, AutoReload = null, IgnoreThisParameter = null, Priority = null, ProfileName = (string? )null, SlidingExpiration = null }, true);
   }
   public EntityService([AspectGenerated] ICachingService? cachingService = null)
   {

@@ -1,6 +1,5 @@
 using Metalama.Patterns.Caching;
 using Metalama.Patterns.Caching.Aspects;
-using Metalama.Patterns.Caching.Aspects.Helpers;
 using System;
 using System.Reflection;
 namespace Doc.RedisWithLocalCache;
@@ -26,7 +25,7 @@ public sealed class CloudCalculator
   private ICachingService _cachingService;
   static CloudCalculator()
   {
-    _cacheRegistration_Add = CachedMethodMetadata.Register(typeof(CloudCalculator).GetMethod("Add", BindingFlags.Public | BindingFlags.Instance, null, new[] { typeof(int), typeof(int) }, null).ThrowIfMissing("CloudCalculator.Add(int, int)"), new CachedMethodConfiguration() { AbsoluteExpiration = null, AutoReload = null, IgnoreThisParameter = null, Priority = null, ProfileName = (string? )null, SlidingExpiration = null }, false);
+    _cacheRegistration_Add = CachedMethodMetadata.Register(typeof(CloudCalculator).GetMethod("Add", BindingFlags.Public | BindingFlags.Instance, null, new[] { typeof(int), typeof(int) }, null) ?? throw new MissingMethodException("The method 'CloudCalculator.Add(int, int)' could not be found using reflection."), new CachedMethodConfiguration() { AbsoluteExpiration = null, AutoReload = null, IgnoreThisParameter = null, Priority = null, ProfileName = (string? )null, SlidingExpiration = null }, false);
   }
   public CloudCalculator(ICachingService? cachingService = null)
   {

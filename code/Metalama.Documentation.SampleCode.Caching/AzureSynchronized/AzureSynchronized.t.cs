@@ -3,7 +3,6 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Metalama.Patterns.Caching;
-using Metalama.Patterns.Caching.Aspects.Helpers;
 using System.Reflection;
 namespace Doc.AzureSynchronized;
 public record Product(string Id, decimal Price, string? Remarks = null);
@@ -46,7 +45,7 @@ public sealed partial class ProductCatalogue
   private ICachingService _cachingService;
   static ProductCatalogue()
   {
-    _cacheRegistration_GetProduct = CachedMethodMetadata.Register(typeof(ProductCatalogue).GetMethod("GetProduct", BindingFlags.Public | BindingFlags.Instance, null, new[] { typeof(string) }, null).ThrowIfMissing("ProductCatalogue.GetProduct(string)"), new CachedMethodConfiguration() { AbsoluteExpiration = null, AutoReload = null, IgnoreThisParameter = null, Priority = null, ProfileName = (string? )null, SlidingExpiration = null }, true);
+    _cacheRegistration_GetProduct = CachedMethodMetadata.Register(typeof(ProductCatalogue).GetMethod("GetProduct", BindingFlags.Public | BindingFlags.Instance, null, new[] { typeof(string) }, null) ?? throw new MissingMethodException("The method 'ProductCatalogue.GetProduct(string)' could not be found using reflection."), new CachedMethodConfiguration() { AbsoluteExpiration = null, AutoReload = null, IgnoreThisParameter = null, Priority = null, ProfileName = (string? )null, SlidingExpiration = null }, true);
   }
   public ProductCatalogue(ICachingService? cachingService = null)
   {

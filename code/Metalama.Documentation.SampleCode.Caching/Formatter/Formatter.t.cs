@@ -1,6 +1,5 @@
 using Metalama.Patterns.Caching;
 using Metalama.Patterns.Caching.Aspects;
-using Metalama.Patterns.Caching.Aspects.Helpers;
 using System;
 using System.IO;
 using System.Reflection;
@@ -27,7 +26,7 @@ public sealed class FileSystem
   private ICachingService _cachingService;
   static FileSystem()
   {
-    _cacheRegistration_ReadAll = CachedMethodMetadata.Register(typeof(FileSystem).GetMethod("ReadAll", BindingFlags.Public | BindingFlags.Instance, null, new[] { typeof(FileInfo) }, null).ThrowIfMissing("FileSystem.ReadAll(FileInfo)"), new CachedMethodConfiguration() { AbsoluteExpiration = null, AutoReload = null, IgnoreThisParameter = null, Priority = null, ProfileName = (string? )null, SlidingExpiration = null }, true);
+    _cacheRegistration_ReadAll = CachedMethodMetadata.Register(typeof(FileSystem).GetMethod("ReadAll", BindingFlags.Public | BindingFlags.Instance, null, new[] { typeof(FileInfo) }, null) ?? throw new MissingMethodException("The method 'FileSystem.ReadAll(FileInfo)' could not be found using reflection."), new CachedMethodConfiguration() { AbsoluteExpiration = null, AutoReload = null, IgnoreThisParameter = null, Priority = null, ProfileName = (string? )null, SlidingExpiration = null }, true);
   }
   public FileSystem(ICachingService? cachingService = null)
   {

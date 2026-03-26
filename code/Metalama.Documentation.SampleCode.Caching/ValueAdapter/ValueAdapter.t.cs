@@ -1,6 +1,5 @@
 using Metalama.Patterns.Caching;
 using Metalama.Patterns.Caching.Aspects;
-using Metalama.Patterns.Caching.Aspects.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -42,7 +41,7 @@ public sealed class ProductCatalogue
   private ICachingService _cachingService;
   static ProductCatalogue()
   {
-    _cacheRegistration_GetProductsAsStringBuilder = CachedMethodMetadata.Register(typeof(ProductCatalogue).GetMethod("GetProductsAsStringBuilder", BindingFlags.Public | BindingFlags.Instance, null, Type.EmptyTypes, null).ThrowIfMissing("ProductCatalogue.GetProductsAsStringBuilder()"), new CachedMethodConfiguration() { AbsoluteExpiration = null, AutoReload = null, IgnoreThisParameter = null, Priority = null, ProfileName = (string? )null, SlidingExpiration = null }, true);
+    _cacheRegistration_GetProductsAsStringBuilder = CachedMethodMetadata.Register(typeof(ProductCatalogue).GetMethod("GetProductsAsStringBuilder", BindingFlags.Public | BindingFlags.Instance, null, Type.EmptyTypes, null) ?? throw new MissingMethodException("The method 'ProductCatalogue.GetProductsAsStringBuilder()' could not be found using reflection."), new CachedMethodConfiguration() { AbsoluteExpiration = null, AutoReload = null, IgnoreThisParameter = null, Priority = null, ProfileName = (string? )null, SlidingExpiration = null }, true);
   }
   public ProductCatalogue(ICachingService? cachingService = null)
   {
