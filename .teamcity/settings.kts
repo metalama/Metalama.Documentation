@@ -8,7 +8,7 @@ import jetbrains.buildServer.configs.kotlin.failureConditions.*
 import jetbrains.buildServer.configs.kotlin.triggers.*
 import jetbrains.buildServer.configs.kotlin.projectFeatures.*
 
-version = "2025.07"
+version = "2025.11"
 
 project {
 
@@ -702,7 +702,7 @@ object UpstreamMerge : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-BuildImage -ImageName metalamadocumentation-2026.0 -Dockerfile Dockerfile.claude "
+            scriptArgs = "-BuildImage -ImageName metalamadocumentation-2026.0 -Dockerfile eng/docker/Dockerfile.claude "
         }
         powerShell {
             name = "Merge upstream"
@@ -712,7 +712,7 @@ object UpstreamMerge : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2026.0 -Dockerfile Dockerfile.claude -NoBuildImage -Label %system.teamcity.buildType.id%_%build.number% -Snapshot upstream-merge --timeout %UpstreamMerge.Timeout% %UpstreamMerge.Arguments%"
+            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2026.0 -Dockerfile eng/docker/Dockerfile.claude -NoBuildImage -Label %system.teamcity.buildType.id%_%build.number% -Snapshot upstream-merge --timeout %UpstreamMerge.Timeout% %UpstreamMerge.Arguments%"
         }
         powerShell {
             name = "Cleanup Docker containers"
