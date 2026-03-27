@@ -37,10 +37,6 @@ public sealed class PersonViewModel : INotifyPropertyChanged
   public string? LastName => this.Person.LastName;
   public string FullName => $"{this.FirstName} {this.LastName}";
   private PropertyChangedEventHandler? _handlePersonPropertyChanged;
-  [ObservedExpressions("Person")]
-  private void OnChildPropertyChanged(string parentPropertyPath, string propertyName)
-  {
-  }
   private void OnPropertyChanged(string propertyName)
   {
     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -61,15 +57,10 @@ public sealed class PersonViewModel : INotifyPropertyChanged
           case "FirstName":
             OnPropertyChanged("FirstName");
             OnPropertyChanged("FullName");
-            OnChildPropertyChanged("Person", "FirstName");
             break;
           case "LastName":
             OnPropertyChanged("FullName");
             OnPropertyChanged("LastName");
-            OnChildPropertyChanged("Person", "LastName");
-            break;
-          default:
-            OnChildPropertyChanged("Person", propertyName);
             break;
         }
       }
