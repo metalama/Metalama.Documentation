@@ -18,8 +18,8 @@ public class MyWindow : Window
   }
   public MyWindow()
   {
-    IncrementCommand = DelegateCommandFactory.CreateDelegateCommand(Increment, () => CanExecuteIncrement);
     DecrementCommand = DelegateCommandFactory.CreateDelegateCommand(Decrement, () => CanExecuteDecrement);
+    IncrementCommand = DelegateCommandFactory.CreateDelegateCommand(Increment, () => CanExecuteIncrement);
   }
   public DelegateCommand DecrementCommand { get; }
   public DelegateCommand IncrementCommand { get; }

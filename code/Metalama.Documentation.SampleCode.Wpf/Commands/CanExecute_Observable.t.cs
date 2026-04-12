@@ -38,8 +38,8 @@ public class MyWindow : Window, INotifyPropertyChanged
   public bool CanExecuteDecrement => this.Counter > 0;
   public MyWindow()
   {
-    IncrementCommand = DelegateCommandFactory.CreateDelegateCommand(Increment, () => CanExecuteIncrement, this, "CanExecuteIncrement");
     DecrementCommand = DelegateCommandFactory.CreateDelegateCommand(Decrement, () => CanExecuteDecrement, this, "CanExecuteDecrement");
+    IncrementCommand = DelegateCommandFactory.CreateDelegateCommand(Increment, () => CanExecuteIncrement, this, "CanExecuteIncrement");
   }
   public DelegateCommand DecrementCommand { get; }
   public DelegateCommand IncrementCommand { get; }

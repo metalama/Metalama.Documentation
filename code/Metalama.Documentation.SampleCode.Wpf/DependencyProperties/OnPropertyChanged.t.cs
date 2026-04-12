@@ -37,8 +37,8 @@ internal class MyControl : UserControl
   public static readonly DependencyProperty BorderWidthProperty;
   static MyControl()
   {
-    BorderWidthProperty = DependencyProperty.Register("BorderWidth", typeof(double), typeof(MyControl), new PropertyMetadata((d, e) => ((MyControl)d).OnBorderWidthChanged()));
     AvailableWidthPropertyKey = DependencyProperty.RegisterReadOnly("AvailableWidth", typeof(double), typeof(MyControl), null);
     AvailableWidthProperty = AvailableWidthPropertyKey.DependencyProperty;
+    BorderWidthProperty = DependencyProperty.Register("BorderWidth", typeof(double), typeof(MyControl), new PropertyMetadata((d, e) => ((MyControl)d).OnBorderWidthChanged()));
   }
 }
