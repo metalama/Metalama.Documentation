@@ -36,7 +36,10 @@ To consume a dependency from an aspect:
 4. Use this field or property from any template member of your aspect.
 
 > [!NOTE]
-> The <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute> attribute automatically suppresses compiler warnings that would otherwise be raised on the annotated aspect fields or properties, such as _CS8618_ (non-nullable field not initialized in constructor), _CS0649_ (field is never assigned), and _IDE0051_ (private member is unused). These warnings are irrelevant because the field or property is introduced into the target type and initialized by the dependency injection framework.
+> The <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute> attribute can only be applied to fields and properties.
+
+> [!NOTE]
+> The <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute> attribute automatically suppresses compiler and analyzer warnings that would otherwise be raised on the annotated aspect fields or properties, such as _CS8618_ (non-nullable field not initialized in constructor), _CS0649_ (field is never assigned), and _IDE0051_ (private member is unused). These warnings are irrelevant because the field or property is introduced into the target type and initialized by the dependency injection framework.
 
 ### Example: default dependency injection patterns
 
@@ -68,7 +71,7 @@ Here is the complete code of the example:
 
 ### Constructor parameter reuse
 
-When a dependency is introduced using the default .NET Core pattern, the dependency injection framework adds a constructor parameter to the target type. If the target constructor (or a derived constructor) already has a parameter of the same or a compatible type, the framework reuses the existing parameter instead of introducing a duplicate. This avoids generating constructors with two parameters of the same service type, which is never intentional.
+When a dependency is introduced using the default .NET Core pattern, the dependency injection framework adds a constructor parameter to the target type. If the target constructor (or another constructor in the `this`/`base` constructor chain) already has a parameter of the same or a compatible type, the framework reuses the existing parameter instead of introducing a duplicate. This avoids generating constructors with two parameters of the same service type, which is never intentional.
 
 For example, if an aspect introduces a dependency on `ILogger<T>` and the target class already accepts an `ILogger<T>` from its constructor, the existing parameter is forwarded to the aspect field without adding a second one.
 
