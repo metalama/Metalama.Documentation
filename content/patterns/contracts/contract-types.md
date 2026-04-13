@@ -114,12 +114,6 @@ The following contracts can be used to verify that a value falls within a specif
 
 Starting with .NET 7, the `System.Numerics.INumber<T>` interface provides a unified abstraction for numeric types. All numeric contracts listed above support any type implementing `INumber<T>`, in addition to built-in numeric types. This includes generic type parameters constrained to `INumber<T>` as well as concrete types like `BigInteger`.
 
-In the following example, note that:
-
-- The `[NonNegative]`, `[StrictlyPositive]`, and `[Range]` contracts are applied to generic parameters constrained to `INumber<T>`.
-- The `Clamp` method uses `[NonNegative]` and `[StrictlyPositive]` to validate its inputs.
-- The `Scale` method uses `[Range(1, 100)]` to restrict the percentage to a valid range.
-
 ### Example: numeric contracts with INumber\<T>
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Contracts/GenericMathContracts.cs]
