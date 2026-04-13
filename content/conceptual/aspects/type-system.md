@@ -359,6 +359,12 @@ var ctor = meta.Target.Type.Constructors.OfExactSignature( [intType, stringType]
 var ctor2 = meta.Target.Type.Constructors.OfExactSignature( sourceCtor );
 ```
 
+### Example: using OfExactSignature
+
+The following aspect uses `OfExactSignature` to find a `Validate` method with the same parameter types as the target method and calls it before execution:
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/OfExactSignature.cs name="OfExactSignature"]
+
 ## Creating array types
 
 Use the <xref:Metalama.Framework.Code.IType.MakeArrayType*?text=IType.MakeArrayType> method to create an array type from an element type. You can optionally specify the rank (number of dimensions) as a parameter:

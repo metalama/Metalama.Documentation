@@ -25,10 +25,10 @@ public class RegisterCallbackAttribute : OverrideMethodAspect
             .OfName( this._callbackMethodName )
             .Single( m => m.Parameters.Count == 1 );
 
-        Action<string> callback = callbackMethod.CreateDelegateExpression().Value;
+        Action<string> callback = callbackMethod.CreateDelegateExpression().Value!;
 
         // Use the delegate.
-        callback( "Operation completed." );
+        callback.Invoke( "Operation completed." );
 
         return result;
     }

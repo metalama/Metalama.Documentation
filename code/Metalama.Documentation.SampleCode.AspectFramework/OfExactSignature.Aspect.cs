@@ -2,8 +2,6 @@
 
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
-using System;
-using System.Linq;
 
 namespace Doc.OfExactSignature;
 
@@ -11,17 +9,15 @@ public class WrapWithValidationAttribute : OverrideMethodAspect
 {
     public override dynamic? OverrideMethod()
     {
-        // Find a Validate method with the same parameter types as the target method.
-        var parameterTypes = meta.Target.Method.Parameters.Select( p => p.Type ).ToList();
-
+        // Find a Validate method that takes (int, int) using System.Type overload.
         var validateMethod = meta.Target.Type.Methods.OfExactSignature(
             "Validate",
-            parameterTypes );
+            [typeof(int), typeof(int)] );
 
         if ( validateMethod != null )
         {
-            // Call the validation method with the same arguments.
-            validateMethod.Invoke( meta.Target.Parameters.ToValueArray() );
+            // Call the validation method with compile-time foreach to forward arguments.
+            validateMethod.Invoke( meta.Target.Parameters[0].Value, meta.Target.Parameters[1].Value );
         }
 
         return meta.Proceed();
