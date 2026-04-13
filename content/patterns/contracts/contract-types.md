@@ -110,23 +110,19 @@ The following contracts can be used to verify that a value falls within a specif
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Contracts/NumericContracts.cs]
 
-### Generic math support (INumber\<T>)
+## Generic math support (INumber\<T>)
 
-Starting with .NET 7, the `System.Numerics.INumber<T>` interface provides a unified abstraction for numeric types. All numeric contracts listed above support generic type parameters constrained to `INumber<T>`, in addition to built-in numeric types.
+Starting with .NET 7, the `System.Numerics.INumber<T>` interface provides a unified abstraction for numeric types. All numeric contracts listed above support any type implementing `INumber<T>`, in addition to built-in numeric types. This includes generic type parameters constrained to `INumber<T>` as well as concrete types like `BigInteger`.
 
-When a numeric contract is applied to a parameter of type `T` where `T : INumber<T>`:
+In the following example, note that:
 
-- **Zero-based comparisons** (e.g. `[NonNegative]`, `[StrictlyPositive]`) use `T.Zero` in the generated code.
-- **Non-zero bounds** (e.g. `[Range(1, 100)]`) use `T.CreateChecked(bound)` to convert the compile-time constant to `T` at run time. If the bound value is not representable in `T` (e.g. an upper bound of `1000` when `T` is ultimately `byte`), `CreateChecked` throws an `OverflowException` at the point of conversion.
+- The `[NonNegative]`, `[StrictlyPositive]`, and `[Range]` contracts are applied to generic parameters constrained to `INumber<T>`.
+- The `Clamp` method uses `[NonNegative]` and `[StrictlyPositive]` to validate its inputs.
+- The `Scale` method uses `[Range(1, 100)]` to restrict the percentage to a valid range.
 
-This means you can use contracts on generic methods that accept any numeric type:
-
-#### Example: numeric contracts with INumber\<T>
+### Example: numeric contracts with INumber\<T>
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Contracts/GenericMathContracts.cs]
-
-> [!NOTE]
-> `INumberBase<T>` alone is not sufficient. The type must implement `INumber<T>`, which extends `IComparisonOperators<T, T, bool>` and guarantees that comparison operators (`<`, `>`, `<=`, `>=`) are available. Types like `System.Numerics.Complex`, which implement `INumberBase<T>` but not `INumber<T>`, are not eligible for numeric contracts.
 
 ## Collections contracts
 
