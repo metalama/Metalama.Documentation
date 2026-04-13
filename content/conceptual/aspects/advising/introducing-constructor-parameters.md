@@ -62,12 +62,10 @@ The following example demonstrates an aspect that introduces a `DateTime creatio
 
 ## Parameters on record primary constructors
 
-> [!WARNING]
-> **Breaking change in 2026.1:** When `IntroduceParameter` targets a record's primary constructor, the introduced parameter is no longer materialized as part of the record's value shape by default. This means the parameter will not generate an auto-property, will not appear in `Deconstruct`, and will not participate in `Equals`, `GetHashCode`, or `ToString`.
-
-This change prevents accidental pollution of a record's identity with infrastructure parameters (such as DI dependencies or contextual objects).
-
-To restore the previous behavior, explicitly opt in by using `PullStrategy.IntroduceParameterAndPull(materializeOnRecord: true)`.
+> [!NOTE]
+> When `IntroduceParameter` targets a record's primary constructor, the introduced parameter is not materialized as part of the record's value shape by default. This means the parameter will not generate an auto-property, will not appear in `Deconstruct`, and will not participate in `Equals`, `GetHashCode`, or `ToString`. This prevents accidental pollution of a record's identity with infrastructure parameters (such as DI dependencies or contextual objects).
+>
+> To materialize the parameter as part of the record's value shape, explicitly opt in by using `PullStrategy.IntroduceParameterAndPull(materializeOnRecord: true)`.
 
 > [!div class="see-also"]
 > <xref:dependency-injection>
