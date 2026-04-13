@@ -81,7 +81,7 @@ If you aren't using dependency injection:
 
 2. Call <xref:Metalama.Patterns.Caching.CachingService.Create*?text=CachingService.Create>, then the <xref:Metalama.Patterns.Caching.Building.ICachingServiceBuilder.WithBackend*> method, and supply a delegate that calls the <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingFactory.Redis*> method. Pass a <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration> and set the <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.Connection> property to your `ConnectionMultiplexer`.
 
-## Resilience
+## Resilience and performance
 
 The Redis caching backend includes a built-in resilience framework that handles transient failures through retry policies and exception handling policies. This replaces the previous `ExceptionHandlingCachingBackendEnhancer` approach used in earlier versions.
 
@@ -125,7 +125,7 @@ The exception handling policy receives an <xref:Metalama.Patterns.Caching.Resili
 
 The <xref:Metalama.Patterns.Caching.Resilience.OperationKind> enum identifies which operation triggered the exception, allowing the policy to make context-specific decisions.
 
-## Key compression
+### Key compression
 
 When cache keys exceed a certain length, they can cause performance issues or hit Redis key length limits. The Redis caching backend can automatically hash long keys using the <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.KeyCompressingThreshold> property.
 
@@ -137,11 +137,11 @@ When a cache key exceeds the threshold (default: 128 characters), it is hashed u
 | `XxHash64` | 64-bit xxHash — fast, low collision rate. |
 | `XxHash128` | 128-bit xxHash — negligible collision rate. |
 
-## Concurrency and overload detection
+### Concurrency and overload detection
 
 The Redis caching backend manages several types of concurrent operations and provides mechanisms to prevent system overload.
 
-### Background task management
+#### Background task management
 
 Many Redis operations (write-through for L1 caches, invalidation propagation, recovery actions) are executed in the background. The following configuration properties control concurrency:
 
@@ -151,20 +151,15 @@ Many Redis operations (write-through for L1 caches, invalidation propagation, re
 | <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.BackgroundTasksOverloadedThreshold> | 125 | Number of queued tasks above which the backend reports an overloaded state. |
 | <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.InvalidationMaxConcurrency> | 20 | Maximum number of concurrent invalidation operations per call. |
 
-### Overload detection
+#### Overload detection
 
 The <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackend> exposes an overload detection mechanism through the <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackend.IsBackgroundTaskQueueOverloaded> property and the <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackend.IsBackgroundTaskQueueOverloadedChanged> event. When the number of queued background tasks exceeds the <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.BackgroundTasksOverloadedThreshold>, the backend notifies dependent components. In particular, the <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCacheDependencyGarbageCollector> temporarily stops processing real-time eviction and expiration notifications during overload to prevent further strain on the system.
 
-## Additional configuration
+### Example: configuring resilience and performance
 
-The <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration> class exposes additional configuration properties:
+The following example shows how to customize retry policies, concurrency limits, and key compression when initializing the Redis caching backend:
 
-| Property | Type | Default | Description |
-|----------|------|---------|-------------|
-| <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.ReadCommandFlags> | `CommandFlags` | `PreferReplica` | Redis command flags for read operations. |
-| <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.WriteCommandFlags> | `CommandFlags` | `PreferMaster` | Redis command flags for write operations. |
-| <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.SupportsEvents> | `bool` | `false` | Whether the backend should support raising events. |
-| <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.DisposeTimeout> | `TimeSpan` | 30 s | Timeout for the disposal of the backend. |
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Caching/Redis/RedisConfiguration.Program.cs marker="ConfigureResilience"]
 
 ## Adding a local in-memory cache in front of your Redis cache
 
