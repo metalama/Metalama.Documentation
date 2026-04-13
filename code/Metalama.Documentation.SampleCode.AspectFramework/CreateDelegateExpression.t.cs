@@ -17,6 +17,14 @@ public partial class MyService : IDisposable
   }
   public void Dispose()
   {
-    AppEvents.Shutdown -= OnShutdown;
+    this.Dispose(true);
+    GC.SuppressFinalize(this);
+  }
+  protected virtual void Dispose(bool disposing)
+  {
+    if (disposing)
+    {
+      AppEvents.Shutdown -= OnShutdown;
+    }
   }
 }

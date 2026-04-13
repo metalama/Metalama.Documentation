@@ -55,11 +55,11 @@ meta.Target.Type.Events["MyEvent"].Raise( meta.This, EventArgs.Empty );
 
 Not all events can be raised. Only field-like events (events without explicit `add`/`remove` accessors) support raising because they have a backing delegate field. Use <xref:Metalama.Framework.Code.Invokers.IEventInvoker.CanRaise?text=CanRaise> to check before raising, and <xref:Metalama.Framework.Code.IEvent.RaiseMethod?text=RaiseMethod> to access the raise accessor (returns `null` for non-raisable events).
 
-#### Example: raising an introduced event
+#### Example: raising an existing event
 
-The following aspect introduces a `PropertyChanged` event and an `OnPropertyChanged` method that raises it:
+The following aspect overrides a method and raises the target type's existing `StatusChanged` event after the method executes:
 
-[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/IntroducePropertyChanged2.cs name="Raising an Introduced Event"]
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/RaiseEvent.cs name="Raising an Existing Event"]
 
 ### Limitations
 

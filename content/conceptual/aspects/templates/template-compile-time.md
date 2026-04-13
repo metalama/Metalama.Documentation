@@ -97,6 +97,16 @@ The following example shows a simple _Retry_ aspect. The maximum number of attem
 
 [!metalama-test  ~/code/Metalama.Documentation.SampleCode.AspectFramework/Retry.cs name="Retry"]
 
+## Compile-time types and methods
+
+If you want to share compile-time code between aspects or aspect methods, you can create your own types and methods that execute at compile time.
+
+- Compile-time code must be annotated with the [<xref:Metalama.Framework.Aspects.CompileTimeAttribute?text=CompileTime>] custom attribute. This attribute is typically used on:
+  - A method or field of an aspect
+  - A type (`class`, `struct`, `record`, ...)
+  - The whole project, using `[assembly: CompileTime]`
+- Code that can execute at either compile or run time must be annotated with the [<xref:Metalama.Framework.Aspects.RunTimeOrCompileTimeAttribute?text=RunTimeOrCompileTime>] custom attribute.
+
 ## Referencing run-time-only enum values
 
 When working with custom attributes or constants in compile-time code, you may need to reference enum values from run-time-only types that aren't available at compile time. The <xref:Metalama.Framework.Code.TypedConstant.NamedConstant*?text=TypedConstant.NamedConstant> method creates a <xref:Metalama.Framework.Code.TypedConstant> that references a named constant (such as an enum member or a `const` field) by name. When rendered to code, this produces a qualified reference to the field (e.g., `MyEnum.MyValue`).
@@ -126,16 +136,6 @@ if ( attribute.TryConstruct( out var constructedAttribute ) )
 ```
 
 An overload accepting a <xref:Metalama.Framework.Diagnostics.ScopedDiagnosticSink> is available to report diagnostics when construction fails.
-
-## Compile-time types and methods
-
-If you want to share compile-time code between aspects or aspect methods, you can create your own types and methods that execute at compile time.
-
-- Compile-time code must be annotated with the [<xref:Metalama.Framework.Aspects.CompileTimeAttribute?text=CompileTime>] custom attribute. This attribute is typically used on:
-  - A method or field of an aspect
-  - A type (`class`, `struct`, `record`, ...)
-  - The whole project, using `[assembly: CompileTime]`
-- Code that can execute at either compile or run time must be annotated with the [<xref:Metalama.Framework.Aspects.RunTimeOrCompileTimeAttribute?text=RunTimeOrCompileTime>] custom attribute.
 
 ## Calling other packages from compile-time code
 

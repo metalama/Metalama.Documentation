@@ -15,6 +15,12 @@ public class AutoConnectAttribute : TypeAspect
         // Implement IDisposable.
         builder.ImplementInterface( typeof(IDisposable) );
 
+        // Introduce or override Dispose(bool).
+        builder.IntroduceMethod(
+            nameof(this.DisposeImpl),
+            whenExists: OverrideStrategy.Override,
+            buildMethod: m => m.Name = "Dispose" );
+
         // Override all constructors.
         foreach ( var constructor in builder.Target.Constructors )
         {
@@ -35,8 +41,20 @@ public class AutoConnectAttribute : TypeAspect
     [InterfaceMember]
     public void Dispose()
     {
-        // Unregister the OnShutdown handler.
-        var onShutdown = meta.Target.Type.Methods.OfName( "OnShutdown" ).Single();
-        AppEvents.Shutdown -= onShutdown.CreateDelegateExpression().Value!;
+        meta.This.Dispose( true );
+        GC.SuppressFinalize( meta.This );
+    }
+
+    [Template]
+    protected virtual void DisposeImpl( bool disposing )
+    {
+        meta.Proceed();
+
+        if ( disposing )
+        {
+            // Unregister the OnShutdown handler.
+            var onShutdown = meta.Target.Type.Methods.OfName( "OnShutdown" ).Single();
+            AppEvents.Shutdown -= onShutdown.CreateDelegateExpression().Value!;
+        }
     }
 }
