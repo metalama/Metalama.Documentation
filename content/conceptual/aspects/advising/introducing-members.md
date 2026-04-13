@@ -118,12 +118,9 @@ Use the `buildMethod` callback to set parameter types and the return type as nee
 
 ### Example: Introducing operators
 
-The following aspect introduces a binary `+` operator and a unary `-` operator to a `Vector2D` class:
+The following aspect implements `IEquatable<T>` including `==` and `!=` operators and `GetHashCode`, comparing all public automatic properties and fields using the default comparer:
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/IntroduceOperator.cs name="Introduce operators"]
-
-> [!NOTE]
-> The deprecated <xref:Metalama.Framework.Advising.IAdviceFactory.IntroduceBinaryOperator*>, <xref:Metalama.Framework.Advising.IAdviceFactory.IntroduceUnaryOperator*>, and <xref:Metalama.Framework.Advising.IAdviceFactory.IntroduceConversionOperator*> methods still work but should be replaced with `IntroduceMethod` and the `OperatorKind` property.
 
 ## Overriding existing implementations
 

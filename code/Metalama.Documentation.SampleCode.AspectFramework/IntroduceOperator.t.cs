@@ -1,32 +1,73 @@
 using System;
+using System.Collections.Generic;
 namespace Doc.IntroduceOperator;
-[Addable]
-internal partial class Vector2D
+[Equatable]
+internal partial class Person : IEquatable<Person>
 {
-  public double X { get; }
-  public double Y { get; }
-  public Vector2D(double x, double y)
+  public string Name { get; }
+  public int Age { get; }
+  public Person(string name, int age)
   {
-    X = x;
-    Y = y;
+    Name = name;
+    Age = age;
   }
-  public override string ToString() => $"({X}, {Y})";
-  public static Vector2D operator +(Vector2D left, Vector2D right)
+  public override bool Equals(object? obj)
   {
-    return new Vector2D((double)left.X + (double)right.X, (double)left.Y + (double)right.Y);
+    if (obj is null || obj.GetType() != typeof(Person))
+    {
+      return false;
+    }
+    if (!EqualityComparer<string>.Default.Equals(Name, ((Person)obj).Name))
+    {
+      return false;
+    }
+    if (!EqualityComparer<int>.Default.Equals(Age, ((Person)obj).Age))
+    {
+      return false;
+    }
+    return true;
   }
-  public static Vector2D operator -(Vector2D value)
+  public bool Equals(Person other)
   {
-    return new Vector2D(-(double)value.X, -(double)value.Y);
+    if (other is null)
+    {
+      return false;
+    }
+    if (!EqualityComparer<string>.Default.Equals(Name, other.Name))
+    {
+      return false;
+    }
+    if (!EqualityComparer<int>.Default.Equals(Age, other.Age))
+    {
+      return false;
+    }
+    return true;
+  }
+  public override int GetHashCode()
+  {
+    var hashCode = new HashCode();
+    hashCode.Add(Name);
+    hashCode.Add(Age);
+    return hashCode.ToHashCode();
+  }
+  public static bool operator ==(Person left, Person right)
+  {
+    return Equals(left, right);
+  }
+  public static bool operator !=(Person left, Person right)
+  {
+    return !Equals(left, right);
   }
 }
 internal class Program
 {
   private static void Main()
   {
-    var a = new Vector2D(1, 2);
-    var b = new Vector2D(3, 4);
-    Console.WriteLine(a + b);
-    Console.WriteLine(-a);
+    var p1 = new Person("Alice", 30);
+    var p2 = new Person("Alice", 30);
+    var p3 = new Person("Bob", 25);
+    Console.WriteLine($"p1 == p2: {p1 == p2}");
+    Console.WriteLine($"p1 != p3: {p1 != p3}");
+    Console.WriteLine($"p1.GetHashCode() == p2.GetHashCode(): {p1.GetHashCode() == p2.GetHashCode()}");
   }
 }

@@ -4,31 +4,32 @@ using System;
 
 namespace Doc.IntroduceOperator;
 
-[Addable]
-internal partial class Vector2D
+[Equatable]
+internal partial class Person
 {
-    public double X { get; }
-    public double Y { get; }
+    public string Name { get; }
 
-    public Vector2D( double x, double y )
+    public int Age { get; }
+
+    public Person( string name, int age )
     {
-        X = x;
-        Y = y;
+        Name = name;
+        Age = age;
     }
-
-    public override string ToString() => $"({X}, {Y})";
 }
 
 internal class Program
 {
     private static void Main()
     {
-        var a = new Vector2D( 1, 2 );
-        var b = new Vector2D( 3, 4 );
+        var p1 = new Person( "Alice", 30 );
+        var p2 = new Person( "Alice", 30 );
+        var p3 = new Person( "Bob", 25 );
 
 #if METALAMA
-        Console.WriteLine( a + b );
-        Console.WriteLine( -a );
+        Console.WriteLine( $"p1 == p2: {p1 == p2}" );
+        Console.WriteLine( $"p1 != p3: {p1 != p3}" );
+        Console.WriteLine( $"p1.GetHashCode() == p2.GetHashCode(): {p1.GetHashCode() == p2.GetHashCode()}" );
 #endif
     }
 }
