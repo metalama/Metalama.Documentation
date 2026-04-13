@@ -14,8 +14,10 @@ keywords:
   - IAspect
   - AdviserExtensions
   - introduce member
+  - introduce operator
+  - OperatorKind
 created-date: 2023-02-17
-modified-date: 2025-11-30
+modified-date: 2026-04-13
 ---
 
 # Introducing members
@@ -95,6 +97,33 @@ There are two ways to make a member `partial` or `abstract`:
 - Set the `IsPartial` or `IsAbstract` property of the <xref:Metalama.Framework.Code.DeclarationBuilders.IMemberBuilder> object.
 
 The implementation body of the template will be ignored if you set the `IsAbstract` or `IsPartial` property, so any implementation will do. However, if you don't want to have _any_ body, you can use the `extern` keyword on the template member. This keyword will be removed during compilation, and dummy implementations will be provided.
+
+## Introducing operators
+
+To introduce an operator to a type, use <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceMethod*> and set the <xref:Metalama.Framework.Code.DeclarationBuilders.IMethodBuilder.OperatorKind> property in the `buildMethod` callback.
+
+When you set `OperatorKind` to a value other than `None`:
+
+- The method **name** is automatically set to the correct operator name (e.g., `op_Addition`).
+- The method is automatically made **static**.
+- Both `Name` and `IsStatic` become **read-only** after `OperatorKind` is set.
+
+The template must have the correct number of parameters for the operator category:
+
+- **Binary operators** (e.g., `Addition`, `Subtraction`): two parameters.
+- **Unary operators** (e.g., `UnaryNegation`, `Increment`): one parameter.
+- **Conversion operators** (e.g., `ImplicitConversion`, `ExplicitConversion`): one parameter.
+
+Use the `buildMethod` callback to set parameter types and the return type as needed.
+
+### Example: Introducing operators
+
+The following aspect introduces a binary `+` operator and a unary `-` operator to a `Vector2D` class:
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/IntroduceOperator.cs name="Introduce operators"]
+
+> [!NOTE]
+> The deprecated <xref:Metalama.Framework.Advising.IAdviceFactory.IntroduceBinaryOperator*>, <xref:Metalama.Framework.Advising.IAdviceFactory.IntroduceUnaryOperator*>, and <xref:Metalama.Framework.Advising.IAdviceFactory.IntroduceConversionOperator*> methods still work but should be replaced with `IntroduceMethod` and the `OperatorKind` property.
 
 ## Overriding existing implementations
 
