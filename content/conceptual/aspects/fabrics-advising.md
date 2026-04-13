@@ -31,23 +31,23 @@ To advise a type using a type fabric, follow these steps:
 > [!NOTE]
 > Type fabrics are always executed first, before any aspect. As a result, they can only add advice to members defined in the source code. If you need to add advice to members introduced by an aspect, you'll need to use a helper aspect and order it _after_ the aspects that provide the members you wish to advise.
 
+## Example: overriding a method and reporting a diagnostic
+
+The following example shows how to use a type fabric to override a method and report a diagnostic when the target type is missing the expected `Name` property. Notice how advice extension methods are called directly on the `amender` and the <xref:Metalama.Framework.Aspects.IAdviser.With*> method is used to advise a specific method.
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/AdvisingTypeFabricDiagnostics.cs name="Type Fabric With Diagnostics"]
+
 ## Reporting diagnostics
 
 The <xref:Metalama.Framework.Fabrics.ITypeAmender> exposes a <xref:Metalama.Framework.Fabrics.ITypeAmender.Diagnostics> property of type <xref:Metalama.Framework.Diagnostics.ScopedDiagnosticSink>. You can use it to report or suppress diagnostics scoped to the target type, just as you would in an aspect's `BuildAspect` method.
 
 For details on how to define and report diagnostics, see <xref:diagnostics>.
 
-## Example: introducing members
+### Example: introducing members
 
 The following example demonstrates how to create a type fabric that introduces ten methods to the target type.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/AdvisingTypeFabric.cs name="Type Fabric Adding Advice"]
-
-## Example: overriding a method and reporting a diagnostic
-
-The following example shows how to use a type fabric to override a method and report a diagnostic when the target type is missing the expected `Name` property. Notice how advice extension methods are called directly on the `amender` and the <xref:Metalama.Framework.Aspects.IAdviser.With*> method is used to advise a specific method.
-
-[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/AdvisingTypeFabricDiagnostics.cs name="Type Fabric With Diagnostics"]
 
 > [!div class="see-also"]
 > <xref:fabrics>
