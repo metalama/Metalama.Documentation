@@ -4,16 +4,16 @@ using System;
 
 namespace Doc.CreateDelegateExpression;
 
-public class TestClass
+public static class AppEvents
 {
-    [RegisterCallback( nameof(OnCompleted) )]
-    public void DoWork()
-    {
-        Console.WriteLine( "Doing work..." );
-    }
+    public static event Action? Shutdown;
+}
 
-    private void OnCompleted( string message )
+[AutoConnect]
+public partial class MyService
+{
+    private void OnShutdown()
     {
-        Console.WriteLine( $"Callback: {message}" );
+        Console.WriteLine( "Cleaning up..." );
     }
 }

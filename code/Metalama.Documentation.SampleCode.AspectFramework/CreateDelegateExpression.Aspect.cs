@@ -1,5 +1,6 @@
 // This is public domain Metalama sample code.
 
+using Metalama.Framework.Advising;
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 using System;
@@ -7,29 +8,35 @@ using System.Linq;
 
 namespace Doc.CreateDelegateExpression;
 
-public class RegisterCallbackAttribute : OverrideMethodAspect
+public class AutoConnectAttribute : TypeAspect
 {
-    private readonly string _callbackMethodName;
-
-    public RegisterCallbackAttribute( string callbackMethodName )
+    public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
-        this._callbackMethodName = callbackMethodName;
+        // Implement IDisposable.
+        builder.ImplementInterface( typeof(IDisposable) );
+
+        // Override all constructors.
+        foreach ( var constructor in builder.Target.Constructors )
+        {
+            builder.With( constructor ).Override( nameof(this.OverrideConstructor) );
+        }
     }
 
-    public override dynamic? OverrideMethod()
+    [Template]
+    private void OverrideConstructor()
     {
-        var result = meta.Proceed();
+        meta.Proceed();
 
-        // Find the callback method and create a delegate expression for it.
-        var callbackMethod = meta.Target.Type.AllMethods
-            .OfName( this._callbackMethodName )
-            .Single( m => m.Parameters.Count == 1 );
+        // Register the OnShutdown handler.
+        var onShutdown = meta.Target.Type.Methods.OfName( "OnShutdown" ).Single();
+        AppEvents.Shutdown += onShutdown.CreateDelegateExpression().Value!;
+    }
 
-        Action<string> callback = callbackMethod.CreateDelegateExpression().Value!;
-
-        // Use the delegate.
-        callback.Invoke( "Operation completed." );
-
-        return result;
+    [InterfaceMember]
+    public void Dispose()
+    {
+        // Unregister the OnShutdown handler.
+        var onShutdown = meta.Target.Type.Methods.OfName( "OnShutdown" ).Single();
+        AppEvents.Shutdown -= onShutdown.CreateDelegateExpression().Value!;
     }
 }

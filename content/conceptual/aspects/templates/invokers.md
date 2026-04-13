@@ -68,15 +68,7 @@ Without <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.WithObject*?text=W
 
 ## Referencing a method as a delegate
 
-To generate an expression that represents a method as a delegate, use the <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.CreateDelegateExpression*?text=method.CreateDelegateExpression> method. This returns an <xref:Metalama.Framework.Code.IExpression> that, when rendered to code, produces a method group or an explicit delegate-construction expression.
-
-The method automatically chooses the most appropriate code generation strategy:
-
-- When the method has no overloads and no `delegateType` is specified, a simple method group expression is generated (e.g., `this.Method`).
-- When the method has overloads, the delegate type is used to disambiguate. If no delegate type is specified, the target typing context or `Action<>`/`Func<>` types are used automatically.
-- You can explicitly specify the delegate type using the optional `delegateType` parameter.
-
-By default, the delegate references the method on the current object (`this`), unless the method is static. Use <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.WithObject*?text=WithObject> to specify a different target instance.
+To generate an expression that represents a method as a delegate (e.g., a method group), use the <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.CreateDelegateExpression*?text=method.CreateDelegateExpression> method. You can optionally specify a `delegateType` parameter to disambiguate overloaded methods.
 
 ### Example: referencing a method as a delegate
 

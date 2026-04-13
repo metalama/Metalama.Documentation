@@ -45,11 +45,21 @@ If you are writing an exception handling aspect, you'll want to unregister the e
  meta.Target.Event.Remove( handler );
 ```
 
-### Raisability of events
+### Raising events
 
-Not all events can be raised. The <xref:Metalama.Framework.Code.IEvent.RaiseMethod?text=IEvent.RaiseMethod> property returns `null` for events that cannot be raised. In C#, only field-like events (events without explicit `add`/`remove` accessors) can be raised because they have a backing delegate field. For non-field-like events (events with explicit accessors), interface events, and abstract events, there is no backing delegate to invoke, so `RaiseMethod` returns `null`.
+To raise an event from a template, use the <xref:Metalama.Framework.Code.Invokers.IEventInvoker.Raise*?text=Raise> method of the <xref:Metalama.Framework.Code.Invokers.IEventInvoker> interface. For instance:
 
-Use the <xref:Metalama.Framework.Code.Invokers.IEventInvoker.CanRaise?text=IEventInvoker.CanRaise> property to programmatically check whether an event can be raised before attempting to use `RaiseMethod` or the <xref:Metalama.Framework.Code.Invokers.IEventInvoker.Raise*?text=Raise> method.
+```csharp
+meta.Target.Type.Events["MyEvent"].Raise( meta.This, EventArgs.Empty );
+```
+
+Not all events can be raised. Only field-like events (events without explicit `add`/`remove` accessors) support raising because they have a backing delegate field. Use <xref:Metalama.Framework.Code.Invokers.IEventInvoker.CanRaise?text=CanRaise> to check before raising, and <xref:Metalama.Framework.Code.IEvent.RaiseMethod?text=RaiseMethod> to access the raise accessor (returns `null` for non-raisable events).
+
+#### Example: raising an introduced event
+
+The following aspect introduces a `PropertyChanged` event and an `OnPropertyChanged` method that raises it:
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/IntroducePropertyChanged2.cs name="Raising an Introduced Event"]
 
 ### Limitations
 

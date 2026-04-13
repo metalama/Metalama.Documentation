@@ -1,17 +1,22 @@
 using System;
 namespace Doc.CreateDelegateExpression;
-public class TestClass
+public static class AppEvents
 {
-  [RegisterCallback(nameof(OnCompleted))]
-  public void DoWork()
+  public static event Action? Shutdown;
+}
+[AutoConnect]
+public partial class MyService : IDisposable
+{
+  private void OnShutdown()
   {
-    Console.WriteLine("Doing work...");
-    object result = null;
-    Action<string> callback = OnCompleted;
-    callback.Invoke("Operation completed.");
+    Console.WriteLine("Cleaning up...");
   }
-  private void OnCompleted(string message)
+  public MyService()
   {
-    Console.WriteLine($"Callback: {message}");
+    AppEvents.Shutdown += OnShutdown;
+  }
+  public void Dispose()
+  {
+    AppEvents.Shutdown -= OnShutdown;
   }
 }
