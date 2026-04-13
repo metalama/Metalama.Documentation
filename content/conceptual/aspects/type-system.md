@@ -177,6 +177,24 @@ Some types are identified by a member of the <xref:Metalama.Framework.Code.Speci
 var stringType = TypeFactory.GetType( SpecialType.String );
 ```
 
+### From a reflection type name
+
+You can get a type by its reflection full name using <xref:Metalama.Framework.Code.TypeFactory.GetType(System.String)?text=TypeFactory.GetType(string)>, which throws if the type is not found, or <xref:Metalama.Framework.Code.TypeFactory.TryGetType*?text=TypeFactory.TryGetType>, which returns `false` instead.
+
+```csharp
+// Throws if the type is not found.
+var myType = TypeFactory.GetType( "MyNamespace.MyClass" );
+
+// Returns false if the type is not found.
+if ( TypeFactory.TryGetType( "MyNamespace.MyClass", out var myType2 ) )
+{
+    // Use myType2.
+}
+```
+
+> [!NOTE]
+> Use `+` for nested types (e.g. `System.Environment+SpecialFolder`) and `` ` `` for generic type definitions (e.g. `` System.Collections.Generic.List`1 ``).
+
 ### From the current project
 
 You can get any type of the current project by querying the `ICompilation` object.
