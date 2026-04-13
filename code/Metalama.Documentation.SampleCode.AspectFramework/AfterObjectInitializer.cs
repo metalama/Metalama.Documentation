@@ -9,3 +9,8 @@ public partial class Invoice
 
     public required decimal Amount { get; init; }
 }
+
+public partial class CreditNote : Invoice
+{
+    public required string Reason { get; init; }
+}

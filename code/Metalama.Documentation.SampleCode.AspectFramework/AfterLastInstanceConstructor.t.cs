@@ -27,3 +27,18 @@ public partial class Connection
     Console.WriteLine("Connection constructed.");
   }
 }
+public partial class SecureConnection : Connection
+{
+  public SecureConnection(string connectionString, string certificate, [AspectGenerated] InitializationContext context = default) : base(connectionString, context.Descend(InitializationSlot.OnConstructed))
+  {
+    if (!context.IsHandled(InitializationSlot.OnConstructed))
+    {
+      this.OnConstructed(context);
+    }
+  }
+  protected override void OnConstructed(InitializationContext context = default)
+  {
+    base.OnConstructed(context);
+    Console.WriteLine("SecureConnection constructed.");
+  }
+}

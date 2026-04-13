@@ -11,3 +11,9 @@ public partial class Connection
 
     public Connection( string host, int port ) : this( $"{host}:{port}" ) { }
 }
+
+public partial class SecureConnection : Connection
+{
+    public SecureConnection( string connectionString, string certificate )
+        : base( connectionString ) { }
+}

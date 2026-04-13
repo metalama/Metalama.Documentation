@@ -7,6 +7,7 @@ using System;
 
 namespace Doc.AfterLastInstanceConstructor;
 
+[Inheritable]
 public class NotifyConstructedAttribute : TypeAspect
 {
     public override void BuildAspect( IAspectBuilder<INamedType> builder )

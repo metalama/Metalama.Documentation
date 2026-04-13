@@ -105,6 +105,12 @@ The following aspect validates an `Invoice` class after all its `required` prope
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/AfterObjectInitializer.cs name="After Object Initializer"]
 
+### Example: Using `with` on records
+
+When using `AfterObjectInitializer` with records, the `Initialize` method is also called after a `with` expression, which creates a modified copy of the record. This ensures validation runs both when the record is first created and when a copy is made with different values.
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/RecordWithExpression.cs name="Record With Expression"]
+
 ## Before the type constructor
 
 The same approach can be used to add logic to the type constructor (i.e., static constructor) instead of the object constructor. In this case, the `InitializerType.BeforeTypeConstructor` value should be used.

@@ -5,9 +5,8 @@ using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 using System;
 
-namespace Doc.AfterObjectInitializer;
+namespace Doc.RecordWithExpression;
 
-[Inheritable]
 public class ValidateAfterInitializationAttribute : TypeAspect
 {
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
