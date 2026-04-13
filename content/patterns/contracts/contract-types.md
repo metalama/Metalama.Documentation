@@ -4,7 +4,7 @@ summary: "The document describes various contract attributes in the Metalama Pat
 level: 200
 keywords: "Metalama contracts, types, custom attributes"
 created-date: 2024-06-17
-modified-date: 2025-11-30
+modified-date: 2026-04-13
 ---
 
 # List of contract attributes
@@ -109,6 +109,14 @@ The following contracts can be used to verify that a value falls within a specif
 ### Example: numeric contracts
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Contracts/NumericContracts.cs]
+
+## Generic math support (INumber\<T>)
+
+Starting with .NET 7, the `System.Numerics.INumber<T>` interface provides a unified abstraction for numeric types. All numeric contracts listed above support any type implementing `INumber<T>`, in addition to built-in numeric types. This includes generic type parameters constrained to `INumber<T>` as well as concrete types like `BigInteger`.
+
+### Example: numeric contracts with INumber\<T>
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.Contracts/GenericMathContracts.cs]
 
 ## Collections contracts
 
