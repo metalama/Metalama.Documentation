@@ -220,7 +220,7 @@ To generate HTML representations of your test input and output files, install th
 <PackageReference Include="Metalama.Extensions.HtmlWriter" />
 ```
 
-Then enable HTML generation by adding the following options to your `metalamaTests.json` file:
+For **test projects**, enable HTML generation by adding the following options to your `metalamaTests.json` file:
 
 ```json
 {
@@ -229,7 +229,7 @@ Then enable HTML generation by adding the following options to your `metalamaTes
 }
 ```
 
-You can also enable HTML output for the entire project by setting the `MetalamaWriteHtml` MSBuild property in your `.csproj`:
+For **non-test projects**, enable HTML output in the compile-time pipeline by setting the `MetalamaWriteHtml` MSBuild property in your `.csproj`:
 
 ```xml
 <PropertyGroup>
@@ -237,7 +237,7 @@ You can also enable HTML output for the entire project by setting the `MetalamaW
 </PropertyGroup>
 ```
 
-Without this package, using `WriteInputHtml` or `WriteOutputHtml` will result in an error indicating that the package needs to be installed.
+Without this package, using these features will result in an error indicating that the package needs to be installed.
 
 ### Diff tool integration
 
