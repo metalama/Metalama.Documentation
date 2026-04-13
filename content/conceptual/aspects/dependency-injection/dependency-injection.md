@@ -77,6 +77,12 @@ For example, if an aspect introduces a dependency on `ILogger<T>` and the target
 
 This behavior is enabled by default for all dependencies introduced through the <xref:Metalama.Extensions.DependencyInjection> framework. For custom pull strategies, this can be controlled using the `reuseExistingParameterOfCompatibleType` parameter of <xref:Metalama.Framework.Advising.PullStrategy.IntroduceParameterAndPull*>.
 
+#### Example: ILogger\<T> with class inheritance
+
+In the following example, both `BaseService` and `DerivedService` have the `[Log]` aspect, which introduces an `ILogger` dependency. The default framework resolves `ILogger` as `ILogger<T>` where `T` is the target type. Notice in the transformed code that `DerivedService` has a single `ILogger<DerivedService>` constructor parameter that is forwarded to the base constructor via `: base(logger)` — no duplicate parameter is added.
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.DependencyInjection/LoggerParameterReuse.cs name="Constructor Parameter Reuse"]
+
 ## Selecting a dependency injection framework
 
 By default, Metalama generates code for the default .NET dependency injection framework implemented in the `Microsoft.Extensions.DependencyInjection` namespace (also called the .NET Core dependency injection framework).
