@@ -5,7 +5,7 @@ using Metalama.Framework.Code;
 
 namespace Doc.IntroduceExtensionBlock;
 
-public class GenerateToStringAttribute : TypeAspect
+public class GenerateToDisplayStringAttribute : TypeAspect
 {
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
@@ -28,9 +28,9 @@ public class GenerateToStringAttribute : TypeAspect
     [Template]
     public string ToDisplayString()
     {
-        // A complete implementation would use SwitchStatementBuilder to
-        // generate a switch mapping each enum member to a display string.
-        // See the "Generating statements" article for details.
-        return "TODO: generate switch";
+        // A complete implementation would use SwitchStatementBuilder to generate
+        // a switch expression mapping each member to a display string.
+        // See the "Generating switch statements" article for details.
+        return "unknown";
     }
 }

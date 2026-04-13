@@ -1,5 +1,5 @@
 namespace Doc.IntroduceExtensionBlock;
-[GenerateToString]
+[GenerateToDisplayString]
 public enum Fruit
 {
   Apple,

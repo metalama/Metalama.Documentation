@@ -6,7 +6,7 @@ namespace Doc.IntroduceExtensionBlock
     {
       public string ToDisplayString()
       {
-        return "TODO: generate switch";
+        return "unknown";
       }
     }
   }

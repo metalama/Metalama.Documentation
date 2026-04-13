@@ -12,7 +12,7 @@ modified-date: 2026-04-13
 Many patterns require you to create new types. This is the case, for instance, with the Memento, Enum View-Model, or Builder patterns. You can do this by calling the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceClass*> or <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceInterface*> advice method from your `BuildAspect` implementation.
 
 > [!NOTE]
-> The current version of Metalama allows you to introduce classes and interfaces. Support for structs, delegates, and enums will be added in a future release.
+> The current version of Metalama allows you to introduce classes, interfaces, and extension blocks. Support for structs, delegates, and enums will be added in a future release.
 
 ## Introducing a nested class
 
@@ -78,15 +78,15 @@ Starting with Metalama 2026.1, you can introduce C# 14 extension blocks using th
 
 To introduce an extension block:
 
-1. Apply the aspect to a **static class** (extension blocks must be defined in static classes).
-2. Call <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceExtensionBlock*> with the receiver type (the type being extended) and an optional receiver parameter name.
+1. Ensure the extension block is introduced into a **static class** (extension blocks must be defined in static classes). The aspect itself can be applied to any supported target type and can introduce that static class if needed.
+2. Call <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceExtensionBlock*> on that static class, specifying the receiver type (the type being extended) and an optional receiver parameter name.
 3. Use the returned <xref:Metalama.Framework.Advising.IIntroductionAdviceResult`1> to introduce members into the extension block, just as you would with an introduced class.
 
 Setting the `receiverParameterName` to a non-empty string (e.g., `"self"`) creates an _instance_ extension block, where introduced members appear as instance members of the extended type. Setting it to `null` or an empty string creates a _static_ extension block.
 
 ### Example: Extension block
 
-In the following example, the `[GenerateToString]` aspect is applied to an enum type. It introduces a new top-level static class `FruitExtensions`, adds an extension block for the `Fruit` enum, and introduces a `ToDisplayString()` extension method.
+In the following example, the `[GenerateToDisplayString]` aspect is applied to an enum type. It introduces a new top-level static class `FruitExtensions`, adds an extension block for the `Fruit` enum, and introduces a `ToDisplayString()` extension method.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/IntroduceExtensionBlock.cs name="Introducing an extension block"]
 

@@ -4,7 +4,7 @@ level: 200
 summary: "Metalama 2026.0 provides full C# 14 and .NET 10 SDK support, introduces first-class tuple types, and enables event handler invocation overriding."
 keywords: "Metalama 2026.0, release notes"
 created-date: 2025-11-01
-modified-date: 2025-12-09
+modified-date: 2026-04-13
 ---
 
 # Metalama 2026.0
