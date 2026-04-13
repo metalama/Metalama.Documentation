@@ -179,7 +179,7 @@ var stringType = TypeFactory.GetType( SpecialType.String );
 
 ### From a reflection type name
 
-You can get a type by its reflection full name using <xref:Metalama.Framework.Code.TypeFactory.GetType(System.String)?text=TypeFactory.GetType(string)>, which throws if the type is not found, or <xref:Metalama.Framework.Code.TypeFactory.TryGetType*?text=TypeFactory.TryGetType>, which returns `false` instead.
+You can get a type by its namespace-qualified metadata name using <xref:Metalama.Framework.Code.TypeFactory.GetType(System.String)?text=TypeFactory.GetType(string)>, which throws if the type is not found, or <xref:Metalama.Framework.Code.TypeFactory.TryGetType*?text=TypeFactory.TryGetType>, which returns `false` instead. The type must be referenced by the current compilation.
 
 ```csharp
 // Throws if the type is not found.
@@ -193,7 +193,7 @@ if ( TypeFactory.TryGetType( "MyNamespace.MyClass", out var myType2 ) )
 ```
 
 > [!NOTE]
-> Use `+` for nested types (e.g. `System.Environment+SpecialFolder`) and `` ` `` for generic type definitions (e.g. `` System.Collections.Generic.List`1 ``).
+> Use `+` for nested types (e.g. `System.Environment+SpecialFolder`) and `` ` `` for generic type definitions (e.g. `` System.Collections.Generic.List`1 ``). Assembly-qualified names are not supported — only the namespace-qualified name should be provided (i.e. `Type.FullName` format, not `Type.AssemblyQualifiedName`).
 
 ### From the current project
 
