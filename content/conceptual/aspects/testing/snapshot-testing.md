@@ -212,9 +212,23 @@ The text between the parentheses is the skip reason.
 
 ## Optional extension packages
 
+### Diff tool integration
+
+To automatically launch a diff tool when an aspect test fails, install the `Metalama.Extensions.DiffEngine` package in your test project:
+
+```xml
+<PackageReference Include="Metalama.Extensions.DiffEngine" />
+```
+
+Without this package, tests work normally but the diff tool feature described in <xref:diff-tool> is silently disabled.
+
+For details on configuring the diff tool, see <xref:diff-tool>.
+
 ### HTML output
 
-To generate HTML representations of your test input and output files, install the `Metalama.Extensions.HtmlWriter` package in your test project:
+The `Metalama.Extensions.HtmlWriter` package generates syntax-highlighted HTML representations of your code. This is primarily useful for producing documentation from code or tests.
+
+To use it, install the package in your project:
 
 ```xml
 <PackageReference Include="Metalama.Extensions.HtmlWriter" />
@@ -238,18 +252,6 @@ For **non-test projects**, enable HTML output in the compile-time pipeline by se
 ```
 
 Without this package, using these features will result in an error indicating that the package needs to be installed.
-
-### Diff tool integration
-
-To automatically launch a diff tool when an aspect test fails, install the `Metalama.Extensions.DiffEngine` package in your test project:
-
-```xml
-<PackageReference Include="Metalama.Extensions.DiffEngine" />
-```
-
-Without this package, tests work normally but the diff tool feature described in <xref:diff-tool> is silently disabled.
-
-For details on configuring the diff tool, see <xref:diff-tool>.
 
 ## Advanced features
 
