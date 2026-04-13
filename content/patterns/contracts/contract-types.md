@@ -4,7 +4,7 @@ summary: "The document describes various contract attributes in the Metalama Pat
 level: 200
 keywords: "Metalama contracts, types, custom attributes"
 created-date: 2024-06-17
-modified-date: 2025-11-30
+modified-date: 2026-04-13
 ---
 
 # List of contract attributes
@@ -109,6 +109,24 @@ The following contracts can be used to verify that a value falls within a specif
 ### Example: numeric contracts
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Contracts/NumericContracts.cs]
+
+### Generic math support (INumber\<T>)
+
+Starting with .NET 7, the `System.Numerics.INumber<T>` interface provides a unified abstraction for numeric types. All numeric contracts listed above support generic type parameters constrained to `INumber<T>`, in addition to built-in numeric types.
+
+When a numeric contract is applied to a parameter of type `T` where `T : INumber<T>`:
+
+- **Zero-based comparisons** (e.g. `[NonNegative]`, `[StrictlyPositive]`) use `T.Zero` in the generated code.
+- **Non-zero bounds** (e.g. `[Range(1, 100)]`) use `T.CreateChecked(bound)` to convert the compile-time constant to `T` at run time. If the bound value is not representable in `T` (e.g. an upper bound of `1000` when `T` is ultimately `byte`), `CreateChecked` throws an `OverflowException` at the point of conversion.
+
+This means you can use contracts on generic methods that accept any numeric type:
+
+#### Example: numeric contracts with INumber\<T>
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.Contracts/GenericMathContracts.cs]
+
+> [!NOTE]
+> `INumberBase<T>` alone is not sufficient. The type must implement `INumber<T>`, which extends `IComparisonOperators<T, T, bool>` and guarantees that comparison operators (`<`, `>`, `<=`, `>=`) are available. Types like `System.Numerics.Complex`, which implement `INumberBase<T>` but not `INumber<T>`, are not eligible for numeric contracts.
 
 ## Collections contracts
 
