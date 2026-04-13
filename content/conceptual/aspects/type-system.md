@@ -4,7 +4,7 @@ level: 300
 summary: "Learn how to work with the Metalama type system, including IType, INamedType, generic types, tuple types, array types, pointer types, and nullability handling. Discover how to obtain type references, access type members, construct derived types, and control nullability."
 keywords: "IType, INamedType, TypeFactory, generic types, tuple types, array types, pointer types, type system, Metalama types, compile-time types, nullability, ToNullable, ToNonNullable, nullable reference types"
 created-date: 2025-11-07
-modified-date: 2025-12-06
+modified-date: 2026-04-13
 ---
 
 # Working with types
@@ -193,6 +193,19 @@ var myType = meta.Target.Compilation
     .OfName( "MyClass" );
 ```
 
+### From the compilation entry point
+
+The <xref:Metalama.Framework.Code.ICompilation.EntryPoint?text=ICompilation.EntryPoint> property returns the entry point (`Main` method) of the compilation, or `null` if the compilation does not have an entry point (e.g., for library projects).
+
+```csharp
+// Get the entry point of the current compilation
+var entryPoint = meta.Target.Compilation.EntryPoint;
+if ( entryPoint != null )
+{
+    // The compilation has a Main method
+}
+```
+
 ### Generic types
 
 Generic types in Metalama are represented by types that implement the <xref:Metalama.Framework.Code.IGeneric> interface. Both <xref:Metalama.Framework.Code.INamedType> and <xref:Metalama.Framework.Code.IMethod> implement this interface.
@@ -304,6 +317,47 @@ This example is quite convoluted because of the need to implement a basic interc
 Despite the complexity due to the interception scenario, the aspect demonstrates the simplicity of working with tuples. The aspect code doesn't need to bother about the number of parameters. All details are taken care of by <xref:Metalama.Framework.Code.ITupleType>.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/TupleInterceptor.cs name="TupleInterceptor"]
+
+## Querying methods and constructors by signature
+
+When working with the code model, you often need to find a method or constructor with a specific signature. The extension methods in <xref:Metalama.Framework.Code.MethodCollectionExtensions> and <xref:Metalama.Framework.Code.ConstructorCollectionExtensions> provide several ways to query members by signature.
+
+### Finding a method by exact signature
+
+Use the <xref:Metalama.Framework.Code.MethodCollectionExtensions.OfExactSignature*?text=OfExactSignature> extension method to find a method that exactly matches a given signature. This method returns `null` if no match is found.
+
+```csharp
+// Find a method by name and parameter types using Metalama IType
+var intType = TypeFactory.GetType( SpecialType.Int32 );
+var method = meta.Target.Type.Methods.OfExactSignature( "Calculate", [intType] );
+
+// Find a method by name and parameter types using System.Type
+var method2 = meta.Target.Type.Methods.OfExactSignature( "Calculate", [typeof(int)] );
+
+// Find a method matching the signature of another method
+var method3 = meta.Target.Type.Methods.OfExactSignature( sourceMethod );
+```
+
+### Finding a generic method
+
+To disambiguate between generic and non-generic methods with the same name and parameter types, use the overload that accepts a `typeParameterCount` parameter:
+
+```csharp
+// Find a method with exactly 2 type parameters
+var genericMethod = meta.Target.Type.Methods.OfExactSignature( "Transform", typeParameterCount: 2, parameterTypes: [intType] );
+```
+
+### Finding a constructor by exact signature
+
+Use the <xref:Metalama.Framework.Code.ConstructorCollectionExtensions.OfExactSignature*?text=OfExactSignature> extension method to find a constructor:
+
+```csharp
+// Find a constructor by parameter types
+var ctor = meta.Target.Type.Constructors.OfExactSignature( [intType, stringType] );
+
+// Find a constructor matching the signature of another constructor
+var ctor2 = meta.Target.Type.Constructors.OfExactSignature( sourceCtor );
+```
 
 ## Creating array types
 

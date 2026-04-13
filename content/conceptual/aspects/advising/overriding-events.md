@@ -4,7 +4,7 @@ level: 300
 summary: "The document discusses how to override events, including overriding their invoke operation."
 keywords: "overriding events, .NET, add accessor, remove accessor, event invocation, invoke accessor, Metalama Framework, OverrideEventAspect"
 created-date: 2023-02-20
-modified-date: 2025-11-30
+modified-date: 2026-04-13
 ---
 
 # Overriding events
@@ -45,8 +45,11 @@ If you are writing an exception handling aspect, you'll want to unregister the e
  meta.Target.Event.Remove( handler );
 ```
 
-> [!WARNING]
-> The <xref:Metalama.Framework.Code.Invokers.IEventInvoker.Raise*?text=Raise> method is not implemented yet.
+### Raisability of events
+
+Not all events can be raised. The <xref:Metalama.Framework.Code.IEvent.RaiseMethod?text=IEvent.RaiseMethod> property returns `null` for events that cannot be raised. In C#, only field-like events (events without explicit `add`/`remove` accessors) can be raised because they have a backing delegate field. For non-field-like events (events with explicit accessors), interface events, and abstract events, there is no backing delegate to invoke, so `RaiseMethod` returns `null`.
+
+Use the <xref:Metalama.Framework.Code.Invokers.IEventInvoker.CanRaise?text=IEventInvoker.CanRaise> property to programmatically check whether an event can be raised before attempting to use `RaiseMethod` or the <xref:Metalama.Framework.Code.Invokers.IEventInvoker.Raise*?text=Raise> method.
 
 ### Limitations
 
