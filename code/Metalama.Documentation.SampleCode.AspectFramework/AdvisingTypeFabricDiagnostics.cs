@@ -13,6 +13,8 @@ public partial class MyClass
 {
     public string? Name { get; set; }
 
+    public override string ToString() => "MyClass";
+
     private class Fabric : TypeFabric
     {
         private static readonly DiagnosticDefinition<INamedType> _warning = new(
