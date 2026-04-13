@@ -4,7 +4,7 @@ level: 300
 summary: "This article provides a comprehensive guide on snapshot testing of aspects using the Metalama.Testing.AspectTesting package. It details the steps to create a test project, add a test case, run the test case, and copy the test output to the expected output. It also includes advanced features and customizations."
 keywords: "snapshot testing, Metalama.Testing.AspectTesting, aspect testing, .NET, create test project, run test case, verify transformed code, expected output, xUnit test project, Metalama framework"
 created-date: 2023-02-20
-modified-date: 2025-12-07
+modified-date: 2026-04-13
 ---
 
 # Snapshot testing of aspects
@@ -257,12 +257,12 @@ graph BT
 
 For detailed configuration instructions for Rider and ReSharper, see <xref:ide-rider>.
 
-## Obsolete APIs
+## Removed APIs
 
 > [!WARNING]
-> The `AspectTestClass`, `DefaultAspectTestClass`, `CurrentDirectoryAttribute`, and `CurrentProjectAttribute` classes are obsolete and shouldn't be used. These classes were previously required to manually create test runners, but the `Metalama.Testing.AspectTesting` package now provides automatic test discovery. Simply add the package to your project and place test files in the project directory—no additional test runner code is needed.
+> The `AspectTestClass`, `DefaultAspectTestClass`, `CurrentDirectoryAttribute`, and `CurrentProjectAttribute` classes have been **removed** in Metalama 2026.1. These classes were previously required to manually create test runners, but the `Metalama.Testing.AspectTesting` package now provides automatic test discovery. Simply add the package to your project and place test files in the project directory—no additional test runner code is needed.
 >
-> Legacy code using `_Runner.cs` files with `AspectTestClass` and `[CurrentDirectory]` will continue to work but isn't recommended for new projects.
+> If your test project contains `_Runner.cs` files with `AspectTestClass` and `[CurrentDirectory]`, you must remove them. The test framework now discovers and runs tests automatically without any runner classes.
 
 > [!div class="see-also"]
 > <xref:testing>
