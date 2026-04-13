@@ -1,10 +1,10 @@
 ---
 uid: introducing-types
 level: 300
-summary: "This article explains how to introduce new types (nested or top-level classes and interfaces) using the Metalama Framework, including how to add members, base types, and implemented interfaces."
-keywords: "IntroduceClass, Metalama, nested class, non-nested class, IAdviser, INamespace, BuildAspect, introduce members, Builder pattern, introduce types"
+summary: "This article explains how to introduce new types (nested or top-level classes, interfaces, and extension blocks) using the Metalama Framework, including how to add members, base types, and implemented interfaces."
+keywords: "IntroduceClass, IntroduceExtensionBlock, Metalama, nested class, non-nested class, extension block, IAdviser, INamespace, BuildAspect, introduce members, Builder pattern, introduce types"
 created-date: 2024-11-06
-modified-date: 2025-11-30
+modified-date: 2026-04-13
 ---
 
 # Introducing types
@@ -72,6 +72,24 @@ The following aspect copies the properties of the source object into the introdu
 
 To add interface implementations to an introduced type, use the <xref:Metalama.Framework.Aspects.AdviserExtensions.ImplementInterface*> method as mentioned in <xref:implementing-interfaces>.
 
+## Introducing extension blocks
+
+Starting with Metalama 2026.1, you can introduce C# 14 extension blocks using the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceExtensionBlock*> method. Extension blocks allow you to add extension members (methods, properties, operators) to any type.
+
+To introduce an extension block:
+
+1. Apply the aspect to a **static class** (extension blocks must be defined in static classes).
+2. Call <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceExtensionBlock*> with the receiver type (the type being extended) and an optional receiver parameter name.
+3. Use the returned <xref:Metalama.Framework.Advising.IIntroductionAdviceResult`1> to introduce members into the extension block, just as you would with an introduced class.
+
+Setting the `receiverParameterName` to a non-empty string (e.g., `"self"`) creates an _instance_ extension block, where introduced members appear as instance members of the extended type. Setting it to `null` or an empty string creates a _static_ extension block.
+
+### Example: Extension block
+
+In the following example, the aspect introduces an extension block for `string` with an extension method.
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/IntroduceExtensionBlock.cs name="Introducing an extension block"]
+
 ### Final example: The Builder pattern
 
 Let's finish this article with a complete implementation of the `Builder` pattern, a few fragments of which were illustrated above.
@@ -102,3 +120,4 @@ We use the `aspectBuilder.Tags` property to share this list with the template im
 > <xref:implementing-interfaces>
 > <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceClass*>
 > <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceInterface*>
+> <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceExtensionBlock*>
