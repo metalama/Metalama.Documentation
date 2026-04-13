@@ -2,9 +2,9 @@
 uid: initializers
 level: 300
 summary: "The document provides instructions on how to add initializers to fields, properties, object constructors, and type constructors using the Metalama Framework. It includes examples for each case."
-keywords: "initializers, fields, properties, Metalama Framework, initialization, declarative advice, programmatic advice, constructors, object constructors, type constructors"
+keywords: "initializers, fields, properties, Metalama Framework, initialization, declarative advice, programmatic advice, constructors, object constructors, type constructors, AfterObjectInitializer, AfterLastInstanceConstructor, IInitializable, records"
 created-date: 2023-02-17
-modified-date: 2025-11-30
+modified-date: 2026-04-13
 ---
 
 # Adding initializers
@@ -53,21 +53,69 @@ The `AddInitializer` advice will _not_ affect the constructors that call a chain
 
 A default constructor will be created automatically if the type doesn't contain any constructor.
 
+This initializer kind also supports records, including positional records. The initializer code is injected into the primary constructor.
+
 ### Example: Registering live instances
 
 The following aspect registers any new instance of the target class in a registry of live instances. After an instance has been garbage-collected, it is automatically removed from the registry. The aspect injects the registration logic into the constructor of the target class.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/RegisterInstance.cs name="Register Instance"]
 
+### Example: Initializing a record
+
+The following example applies `BeforeInstanceConstructor` to a positional record. The initializer code is injected at the beginning of the primary constructor.
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/RecordInitializer.cs name="Record Initializer"]
+
 ## Before a specific object constructor
 
 If you want to insert logic into a specific constructor, call the <xref:Metalama.Framework.Aspects.AdviserExtensions.AddInitializer*> method and pass an <xref:Metalama.Framework.Code.IConstructor>. With this method overload, you can advise the constructors chained to another constructor of the same type through the `this` keyword.
+
+## After the last instance constructor
+
+To inject logic that runs at the _end_ of every instance constructor body, use `InitializerKind.AfterLastInstanceConstructor`. This is useful when you need to perform actions after the constructor has fully initialized the object, but before any object initializer or `with` expression runs.
+
+1. Add a template method to your aspect class and annotate it with `[Template]`.
+2. Call the <xref:Metalama.Framework.Aspects.AdviserExtensions.AddInitializer*> method with the value `InitializerKind.AfterLastInstanceConstructor`.
+
+Metalama introduces a helper method (typically named `OnConstructed`) on the target type and calls it at the end of each constructor body. Constructors that chain to another constructor of the same type using `this(...)` are skipped to avoid duplicate execution.
+
+For non-sealed types, the introduced method is `protected virtual`, allowing derived types to participate in the initialization chain. An <xref:Metalama.Framework.RunTime.Initialization.InitializationContext> parameter is added to each constructor to coordinate initialization across inheritance hierarchies.
+
+### Example: Notifying after construction
+
+The following aspect prints a message after each constructor completes. Notice how the `this`-chaining constructor delegates to the primary constructor and does not call `OnConstructed` itself.
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/AfterLastInstanceConstructor.cs name="After Last Instance Constructor"]
+
+## After object initialization
+
+To inject logic that runs after the constructor _and_ any object initializer or `with` expression has completed, use `InitializerKind.AfterObjectInitializer`. This is the only reliable way to validate or compute derived state after all `required` and `init`-only properties have been set.
+
+1. Add a template method to your aspect class and annotate it with `[Template]`.
+2. Call the <xref:Metalama.Framework.Aspects.AdviserExtensions.AddInitializer*> method with the value `InitializerKind.AfterObjectInitializer`.
+
+Metalama makes the target type implement the <xref:Metalama.Framework.RunTime.Initialization.IInitializable> interface, which defines an `Initialize` method. This method is called automatically after construction and object initialization by the framework's call-site rewriting.
+
+For non-sealed types, the `Initialize` method is `virtual`, allowing derived types to override it and call `base.Initialize(...)` to chain initialization logic.
+
+### Example: Validating after initialization
+
+The following aspect validates an `Invoice` class after all its `required` properties have been set via object initializers.
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/AfterObjectInitializer.cs name="After Object Initializer"]
 
 ## Before the type constructor
 
 The same approach can be used to add logic to the type constructor (i.e., static constructor) instead of the object constructor. In this case, the `InitializerType.BeforeTypeConstructor` value should be used.
 
+## Ordering of initializers
+
+When multiple aspects add initializers to the same type, the order of initializer statements in the generated code respects `AspectOrderDirection.RunTime`. This means that if you define an aspect ordering using `[assembly: AspectOrder(AspectOrderDirection.RunTime, typeof(FirstAspect), typeof(SecondAspect))]`, the initializer from `FirstAspect` will execute before the initializer from `SecondAspect`.
+
 > [!div class="see-also"]
 > <xref:introducing-members>
 > <xref:Metalama.Framework.Aspects.AdviserExtensions.AddInitializer*>
 > <xref:Metalama.Framework.Aspects.IntroduceAttribute>
+> <xref:Metalama.Framework.RunTime.Initialization.IInitializable>
+> <xref:Metalama.Framework.RunTime.Initialization.InitializationContext>
