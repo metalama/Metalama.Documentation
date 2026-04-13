@@ -4,7 +4,7 @@ level: 400
 summary: "The document explains how to introduce a parameter to a constructor using the Metalama.Extensions.DependencyInjection framework, specifically the AdviserExtensions.IntroduceParameter method. It also provides a relevant example."
 keywords: "IntroduceParameter, constructor parameter, dependency injection, Metalama.Extensions.DependencyInjection, IConstructor, AdviserExtensions, default value, pullStrategy, IInstanceRegistry, Register method"
 created-date: 2023-02-20
-modified-date: 2025-11-30
+modified-date: 2026-04-13
 ---
 
 # Introducing constructor parameters
@@ -16,6 +16,8 @@ Typically, implementations of dependency injection frameworks introduce paramete
 To append a parameter to a constructor, use the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceParameter*> method. This method requires several arguments: the target <xref:Metalama.Framework.Code.IConstructor>, the name, the type of the new parameter, and the default value for this parameter. A parameter can't be introduced without specifying a default value.
 
 The `pullStrategy` parameter of the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceParameter*> method allows you to specify the value passed to this parameter in other constructors that call the specified constructor, using the `: this(...)` or `: base(...)` syntax. This parameter accepts an <xref:Metalama.Framework.Advising.IPullStrategy> implementation. To create a pull strategy, use one of the factory methods of the <xref:Metalama.Framework.Advising.PullStrategy> class, such as <xref:Metalama.Framework.Advising.PullStrategy.UseExpression*> or <xref:Metalama.Framework.Advising.PullStrategy.IntroduceParameterAndPull*>.
+
+The <xref:Metalama.Framework.Advising.PullStrategy.IntroduceParameterAndPull*> method accepts a `reuseExistingParameterOfCompatibleType` parameter. When set to `true`, if a child constructor already has a parameter whose type is the same as or more specific than the type being introduced, the existing parameter is forwarded instead of adding a duplicate. If the existing parameter was previously introduced and has a less specific type, it is automatically replaced with the more specific type. This is particularly useful for dependency injection scenarios where two parameters of the same service type on a single constructor are never intentional.
 
 ## Example
 

@@ -4,7 +4,7 @@ level: 300
 summary: "The document provides a detailed guide on injecting dependencies into aspects using the Metalama.Extensions.DependencyInjection project. It covers consuming dependencies, selecting a dependency injection framework, and implementing an adaptor for a new dependency injection framework."
 keywords: "dependency injection, Metalama.Extensions.DependencyInjection, .NET Core, constructor parameter, custom attribute, IDependencyInjectionFramework, introduce dependency, ServiceLocator, dependency injection framework, ILogger"
 created-date: 2023-02-20
-modified-date: 2025-11-30
+modified-date: 2026-04-13
 ---
 
 # Injecting dependencies into aspects
@@ -29,11 +29,14 @@ The <xref:Metalama.Extensions.DependencyInjection> project is designed to make i
 To consume a dependency from an aspect:
 
 1. Add the `Metalama.Extensions.DependencyInjection` package to your project.
-2. Add a field or automatic property of the desired type in your aspect class.
+2. Add a field or automatic property of the desired type in your aspect class. The <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute> attribute can only be applied to fields and properties.
 3. Annotate this field or property with the <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute> custom attribute. The following attribute properties are available:
     * <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute.IsLazy> resolves the dependency upon first use instead of upon initialization, and
     * <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute.IsRequired> throws an exception if the dependency is not available.
 4. Use this field or property from any template member of your aspect.
+
+> [!NOTE]
+> The <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute> attribute automatically suppresses compiler warnings that would otherwise be raised on the annotated aspect fields or properties, such as _CS8618_ (non-nullable field not initialized in constructor), _CS0649_ (field is never assigned), and _IDE0051_ (private member is unused). These warnings are irrelevant because the field or property is introduced into the target type and initialized by the dependency injection framework.
 
 ### Example: default dependency injection patterns
 
@@ -62,6 +65,14 @@ The following example is similar to the previous one but uses the service locato
 Here is the complete code of the example:
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.DependencyInjection.ServiceLocator/LogServiceLocator.cs name="Service Locator"]
+
+## Constructor parameter reuse
+
+When a dependency is introduced using the default .NET Core pattern, the dependency injection framework adds a constructor parameter to the target type. If the target constructor (or a derived constructor) already has a parameter of the same or a compatible type, the framework reuses the existing parameter instead of introducing a duplicate. This avoids generating constructors with two parameters of the same service type, which is never intentional.
+
+For example, if an aspect introduces a dependency on `ILogger<T>` and the target class already accepts an `ILogger<T>` from its constructor, the existing parameter is forwarded to the aspect field without adding a second one.
+
+This behavior is enabled by default for all dependencies introduced through the <xref:Metalama.Extensions.DependencyInjection> framework. For custom pull strategies, this can be controlled using the `reuseExistingParameterOfCompatibleType` parameter of <xref:Metalama.Framework.Advising.PullStrategy.IntroduceParameterAndPull*>.
 
 ## Selecting a dependency injection framework
 
