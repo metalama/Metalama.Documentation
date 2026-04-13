@@ -84,13 +84,13 @@ For non-sealed types, the introduced method is `protected virtual`, allowing der
 
 ### Example: Notifying after construction
 
-The following aspect prints a message after each constructor completes. Notice how the `this`-chaining constructor delegates to the primary constructor and does not call `OnConstructed` itself.
+The following aspect prints a message after all constructors complete for an object. Notice how the `this`-chaining constructor delegates to the primary constructor and does not call `OnConstructed` itself.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/AfterLastInstanceConstructor.cs name="After Last Instance Constructor"]
 
 ## After object initialization
 
-To inject logic that runs after the constructor _and_ any object initializer or `with` expression has completed, use `InitializerKind.AfterObjectInitializer`. This is the only reliable way to validate or compute derived state after all `required` and `init`-only properties have been set.
+To inject logic that runs after the constructor _and_ any object initializer or `with` expression has completed, use `InitializerKind.AfterObjectInitializer`. This is the only reliable way to validate or compute derived state after all properties and fields have been set, including those assigned via object initializers.
 
 1. Add a template method to your aspect class and annotate it with `[Template]`.
 2. Call the <xref:Metalama.Framework.Aspects.AdviserExtensions.AddInitializer*> method with the value `InitializerKind.AfterObjectInitializer`.
@@ -110,6 +110,12 @@ The following aspect validates an `Invoice` class after all its `required` prope
 When using `AfterObjectInitializer` with records, the `Initialize` method is also called after a `with` expression, which creates a modified copy of the record. This ensures validation runs both when the record is first created and when a copy is made with different values.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/RecordWithExpression.cs name="Record With Expression"]
+
+### Example: Mixing user-code and aspect-code initialization
+
+The following example demonstrates how user-code initialization (in the constructor) and aspect-code initialization (via `AfterObjectInitializer`) work together. The constructor sets the `Id` property, the object initializer sets `Name` and `Email`, and the aspect's initialization logic runs after both have completed.
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/MixedInitialization.cs name="Mixed Initialization"]
 
 ## Before the type constructor
 
