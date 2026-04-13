@@ -45,7 +45,7 @@ The following example demonstrates how to create a type fabric that introduces t
 
 ## Example: overriding a method and reporting a diagnostic
 
-The following example shows how to use a type fabric to override a method and report a diagnostic. Notice how advice extension methods are called directly on the `amender` and the <xref:Metalama.Framework.Aspects.IAdviser.With*> method is used to advise a specific method.
+The following example shows how to use a type fabric to override a method and report a diagnostic when the target type is missing the expected `Name` property. Notice how advice extension methods are called directly on the `amender` and the <xref:Metalama.Framework.Aspects.IAdviser.With*> method is used to advise a specific method.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/AdvisingTypeFabricDiagnostics.cs name="Type Fabric With Diagnostics"]
 
