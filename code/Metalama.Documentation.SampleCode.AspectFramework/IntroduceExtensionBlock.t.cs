@@ -1,12 +1,8 @@
 namespace Doc.IntroduceExtensionBlock;
-[AddStringExtensions]
-public static class MyExtensions
+[GenerateToString]
+public enum Fruit
 {
-  extension(string self)
-  {
-    public bool IsNullOrBlank()
-    {
-      return false;
-    }
-  }
+  Apple,
+  Banana,
+  Cherry
 }

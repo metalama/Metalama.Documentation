@@ -5,20 +5,32 @@ using Metalama.Framework.Code;
 
 namespace Doc.IntroduceExtensionBlock;
 
-public class AddStringExtensionsAttribute : TypeAspect
+public class GenerateToStringAttribute : TypeAspect
 {
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
-        // Introduce an instance extension block for string.
-        var extensionBlock = builder.IntroduceExtensionBlock( typeof(string), "self" );
+        // Introduce a top-level static class named <TargetType>Extensions.
+        var ns = builder.With( builder.Target.Compilation )
+            .WithNamespace( builder.Target.ContainingNamespace.FullName );
 
-        // Introduce a method into the extension block.
-        extensionBlock.IntroduceMethod( nameof(IsNullOrBlank) );
+        var extensionsClass = ns.IntroduceClass(
+            builder.Target.Name + "Extensions",
+            buildType: t => t.IsStatic = true );
+
+        // Introduce an instance extension block for the target enum type.
+        var extensionBlock =
+            extensionsClass.IntroduceExtensionBlock( builder.Target, "self" );
+
+        // Introduce the ToDisplayString method into the extension block.
+        extensionBlock.IntroduceMethod( nameof(ToDisplayString) );
     }
 
     [Template]
-    public bool IsNullOrBlank()
+    public string ToDisplayString()
     {
-        return false;
+        // A complete implementation would use SwitchStatementBuilder to
+        // generate a switch mapping each enum member to a display string.
+        // See the "Generating statements" article for details.
+        return "TODO: generate switch";
     }
 }

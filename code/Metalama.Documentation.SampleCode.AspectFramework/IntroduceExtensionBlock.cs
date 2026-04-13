@@ -2,5 +2,10 @@
 
 namespace Doc.IntroduceExtensionBlock;
 
-[AddStringExtensions]
-public static class MyExtensions { }
+[GenerateToString]
+public enum Fruit
+{
+    Apple,
+    Banana,
+    Cherry
+}

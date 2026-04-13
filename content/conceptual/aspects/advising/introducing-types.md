@@ -86,7 +86,7 @@ Setting the `receiverParameterName` to a non-empty string (e.g., `"self"`) creat
 
 ### Example: Extension block
 
-In the following example, the aspect introduces an extension block for `string` with an extension method.
+In the following example, the `[GenerateToString]` aspect is applied to an enum type. It introduces a new top-level static class `FruitExtensions`, adds an extension block for the `Fruit` enum, and introduces a `ToDisplayString()` extension method.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/IntroduceExtensionBlock.cs name="Introducing an extension block"]
 
