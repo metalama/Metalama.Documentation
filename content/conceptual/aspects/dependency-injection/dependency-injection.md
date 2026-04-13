@@ -29,7 +29,7 @@ The <xref:Metalama.Extensions.DependencyInjection> project is designed to make i
 To consume a dependency from an aspect:
 
 1. Add the `Metalama.Extensions.DependencyInjection` package to your project.
-2. Add a field or automatic property of the desired type in your aspect class. The <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute> attribute can only be applied to fields and properties.
+2. Add a field or automatic property of the desired type in your aspect class.
 3. Annotate this field or property with the <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute> custom attribute. The following attribute properties are available:
     * <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute.IsLazy> resolves the dependency upon first use instead of upon initialization, and
     * <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute.IsRequired> throws an exception if the dependency is not available.
@@ -66,7 +66,7 @@ Here is the complete code of the example:
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.DependencyInjection.ServiceLocator/LogServiceLocator.cs name="Service Locator"]
 
-## Constructor parameter reuse
+### Constructor parameter reuse
 
 When a dependency is introduced using the default .NET Core pattern, the dependency injection framework adds a constructor parameter to the target type. If the target constructor (or a derived constructor) already has a parameter of the same or a compatible type, the framework reuses the existing parameter instead of introducing a duplicate. This avoids generating constructors with two parameters of the same service type, which is never intentional.
 
