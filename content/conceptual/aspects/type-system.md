@@ -4,7 +4,7 @@ level: 300
 summary: "Learn how to work with the Metalama type system, including IType, INamedType, generic types, tuple types, array types, pointer types, and nullability handling. Discover how to obtain type references, access type members, construct derived types, and control nullability."
 keywords: "IType, INamedType, TypeFactory, generic types, tuple types, array types, pointer types, type system, Metalama types, compile-time types, nullability, ToNullable, ToNonNullable, nullable reference types"
 created-date: 2025-11-07
-modified-date: 2025-12-06
+modified-date: 2026-04-14
 ---
 
 # Working with types

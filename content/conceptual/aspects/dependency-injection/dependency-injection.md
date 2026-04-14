@@ -4,7 +4,7 @@ level: 300
 summary: "The document provides a detailed guide on injecting dependencies into aspects using the Metalama.Extensions.DependencyInjection project. It covers consuming dependencies, selecting a dependency injection framework, and implementing an adaptor for a new dependency injection framework."
 keywords: "dependency injection, Metalama.Extensions.DependencyInjection, .NET Core, constructor parameter, custom attribute, IDependencyInjectionFramework, introduce dependency, ServiceLocator, dependency injection framework, ILogger"
 created-date: 2023-02-20
-modified-date: 2025-11-30
+modified-date: 2026-04-13
 ---
 
 # Injecting dependencies into aspects
@@ -35,6 +35,12 @@ To consume a dependency from an aspect:
     * <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute.IsRequired> throws an exception if the dependency is not available.
 4. Use this field or property from any template member of your aspect.
 
+> [!NOTE]
+> The <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute> attribute can only be applied to fields and automatic properties.
+
+> [!NOTE]
+> The <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute> attribute automatically suppresses compiler and analyzer warnings that would otherwise be raised on the annotated aspect fields or properties, such as _CS8618_ (non-nullable field not initialized in constructor), _CS0649_ (field is never assigned), and _IDE0051_ (private member is unused). These warnings are irrelevant because the field or property is introduced into the target type and initialized by the dependency injection framework.
+
 ### Example: default dependency injection patterns
 
 The following example uses [Microsoft.Extensions.Hosting](https://learn.microsoft.com/dotnet/core/extensions/generic-host), typical to .NET Core applications, to build an application and inject services. The `Program.Main` method builds the host, and the host then instantiates our `Worker` class. We add a `[Log]` aspect to this class. The `Log` aspect class has a field of type `IMessageWriter` marked with the <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute> custom attribute. As you can see in the transformed code, this field is introduced into the `Worker` class and pulled from the constructor.
@@ -62,6 +68,20 @@ The following example is similar to the previous one but uses the service locato
 Here is the complete code of the example:
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.DependencyInjection.ServiceLocator/LogServiceLocator.cs name="Service Locator"]
+
+### Constructor parameter reuse
+
+When a dependency is introduced using the default .NET Core pattern, the dependency injection framework adds a constructor parameter to the target type. If the target constructor (or another constructor in the `this`/`base` constructor chain) already has a parameter of the same or a compatible type, the framework reuses the existing parameter instead of introducing a duplicate. This avoids generating constructors with two parameters of the same service type, which is never intentional.
+
+For example, if an aspect introduces a dependency on `ILogger<T>` and the target class already accepts an `ILogger<T>` from its constructor, the existing parameter is forwarded to the aspect field without adding a second one.
+
+This behavior is enabled by default for all dependencies introduced through the <xref:Metalama.Extensions.DependencyInjection> framework. For custom pull strategies, this can be controlled using the `reuseExistingParameterOfCompatibleType` parameter of <xref:Metalama.Framework.Advising.PullStrategy.IntroduceParameterAndPull*>.
+
+#### Example: ILogger\<T> with class inheritance
+
+In the following example, both `BaseService` and `DerivedService` have the `[Log]` aspect, which introduces an `ILogger` dependency. The default framework resolves `ILogger` as `ILogger<T>` where `T` is the target type. Notice in the transformed code that `DerivedService` has a single `ILogger<DerivedService>` constructor parameter that is forwarded to the base constructor via `: base(logger)` — no duplicate parameter is added.
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.DependencyInjection/LoggerParameterReuse.cs name="Constructor Parameter Reuse"]
 
 ## Selecting a dependency injection framework
 
