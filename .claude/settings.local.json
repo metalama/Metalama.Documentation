@@ -36,7 +36,7 @@
       
       "Bash(npx markdownlint-cli:*)",
       "Bash(git stash:*)",
-      "Bash(gh search:*)",
+      "Bash(gh search:*)"
     ],
     "deny": [],
     "ask": [
