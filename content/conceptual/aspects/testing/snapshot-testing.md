@@ -2,7 +2,7 @@
 uid: aspect-testing
 level: 300
 summary: "This article provides a comprehensive guide on snapshot testing of aspects using the Metalama.Testing.AspectTesting package. It details the steps to create a test project, add a test case, run the test case, and copy the test output to the expected output. It also includes advanced features and customizations."
-keywords: "snapshot testing, Metalama.Testing.AspectTesting, aspect testing, .NET, create test project, run test case, verify transformed code, expected output, xUnit test project, Metalama framework"
+keywords: "snapshot testing, Metalama.Testing.AspectTesting, aspect testing, .NET, create test project, run test case, verify transformed code, expected output, xUnit test project, Metalama framework, Metalama.Extensions.HtmlWriter, Metalama.Extensions.DiffEngine, WriteInputHtml, WriteOutputHtml"
 created-date: 2023-02-20
 modified-date: 2026-04-13
 ---
@@ -52,10 +52,17 @@ Typically, the `csproj` project file of a snapshot test project would have this 
         </PackageReference>
         <PackageReference Include="Metalama.Framework" />
         <PackageReference Include="Metalama.Testing.AspectTesting" />
+        <!-- Optional: enables HTML output for test files -->
+        <PackageReference Include="Metalama.Extensions.HtmlWriter" />
+        <!-- Optional: enables automatic diff tool when tests fail -->
+        <PackageReference Include="Metalama.Extensions.DiffEngine" />
     </ItemGroup>
 
 </Project>
 ```
+
+> [!NOTE]
+> The `Metalama.Extensions.HtmlWriter` and `Metalama.Extensions.DiffEngine` packages are optional. See [Optional extension packages](#optional-extension-packages) below for details.
 
 ### Dependency graph
 
@@ -202,6 +209,49 @@ To skip a test, add the following comment to the file:
 ```
 
 The text between the parentheses is the skip reason.
+
+## Optional extension packages
+
+### Diff tool integration
+
+To automatically launch a diff tool when an aspect test fails, install the `Metalama.Extensions.DiffEngine` package in your test project:
+
+```xml
+<PackageReference Include="Metalama.Extensions.DiffEngine" />
+```
+
+Without this package, tests work normally but the diff tool feature described in <xref:diff-tool> is silently disabled.
+
+For details on configuring the diff tool, see <xref:diff-tool>.
+
+### HTML output
+
+The `Metalama.Extensions.HtmlWriter` package generates syntax-highlighted HTML representations of your code. This is primarily useful for producing documentation from code or tests.
+
+To use it, install the package in your project:
+
+```xml
+<PackageReference Include="Metalama.Extensions.HtmlWriter" />
+```
+
+For **test projects**, enable HTML generation by adding the following options to your `metalamaTests.json` file:
+
+```json
+{
+  "WriteInputHtml": true,
+  "WriteOutputHtml": true
+}
+```
+
+For **non-test projects**, enable HTML output in the compile-time pipeline by setting the `MetalamaWriteHtml` MSBuild property in your `.csproj`:
+
+```xml
+<PropertyGroup>
+  <MetalamaWriteHtml>True</MetalamaWriteHtml>
+</PropertyGroup>
+```
+
+Without this package, using these features will result in an error indicating that the package needs to be installed.
 
 ## Advanced features
 
