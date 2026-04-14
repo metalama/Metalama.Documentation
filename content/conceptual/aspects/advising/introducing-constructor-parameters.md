@@ -31,7 +31,11 @@ The example below demonstrates an aspect that registers the current instance in 
 
 To append a parameter whose default value can be any expression (not just a compile-time constant), use the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceParameter*> overload that does _not_ accept a `defaultValue` argument.
 
-Because existing callers cannot omit the new argument, the framework preserves both **source and binary compatibility** by generating a _forwarding constructor_: a constructor with the pre-mutation signature that chains via `: this(...)` to the mutated constructor, passing the default value computed by the pull strategy. This constructor is marked with <xref:Metalama.Framework.RunTime.SourceCompatibilityConstructorAttribute>.
+Metalama will generate a _forwarding constructor_ to preserve both **source and binary compatibility**: a constructor with the pre-mutation signature that chains via `: this(...)` to the mutated constructor. This constructor is marked with <xref:Metalama.Framework.RunTime.SourceCompatibilityConstructorAttribute>.
+
+The value passed by the forwarding constructor to the augmented constructor comes from the <xref:Metalama.Framework.Advising.IPullStrategy> parameter of the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceParameter*> method. Use <xref:Metalama.Framework.Advising.PullStrategy.UseExpression*> to supply an expression (such as `DateTime.Now` or a factory method call) for the parameter value in the forwarding constructor. Unlike the source-compatible approach, this expression does not need to be a compile-time constant.
+
+For more advanced scenarios, implement <xref:Metalama.Framework.Advising.IPullStrategy> directly. Your implementation can detect whether it is being called for a forwarding constructor by using the <xref:Metalama.Framework.Code.ConstructorExtensions.IsSourceCompatibilityConstructor*> extension method.
 
 ### Overloading strategy
 
@@ -45,14 +49,6 @@ The <xref:Metalama.Framework.Advising.ConstructorOverloadingStrategy> class prov
 | <xref:Metalama.Framework.Advising.ConstructorOverloadingStrategy.ForwardDefaultConstructor> | Generates a forwarding constructor only when the mutated constructor is the parameterless constructor. This is useful for types that must remain constructible via `Activator.CreateInstance<T>()` or a `new()` generic constraint. |
 
 Both strategies return a <xref:Metalama.Framework.Advising.ForwardConstructorStrategy> that exposes a <xref:Metalama.Framework.Advising.ForwardConstructorStrategy.WithObsoleteAttribute*> method. Use this method to decorate the generated forwarding constructor with `[Obsolete]`, signaling to downstream callers that they should migrate to the new constructor signature.
-
-### Pull strategy for forwarding constructors
-
-The forwarding constructor needs to supply a value for the introduced parameter when chaining to the mutated constructor. This value comes from the <xref:Metalama.Framework.Advising.IPullStrategy> you provide.
-
-Use <xref:Metalama.Framework.Advising.PullStrategy.UseExpression*> to supply an expression (such as `DateTime.Now` or a factory method call) for the parameter value in the forwarding constructor. Unlike the source-compatible approach, this expression does not need to be a compile-time constant.
-
-For more advanced scenarios, implement <xref:Metalama.Framework.Advising.IPullStrategy> directly. Your implementation can detect whether it is being called for a forwarding constructor by using the <xref:Metalama.Framework.Code.ConstructorExtensions.IsSourceCompatibilityConstructor*> extension method.
 
 ### Example: binary-compatible parameter with forwarding constructors
 
