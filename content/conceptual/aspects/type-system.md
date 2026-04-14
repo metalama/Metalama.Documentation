@@ -305,18 +305,6 @@ Despite the complexity due to the interception scenario, the aspect demonstrates
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/TupleInterceptor.cs name="TupleInterceptor"]
 
-## Querying methods and constructors by signature
-
-Use the <xref:Metalama.Framework.Code.MethodCollectionExtensions.OfExactSignature*?text=OfExactSignature> extension method to find a method or constructor that exactly matches a given signature. It returns `null` if no match is found.
-
-```csharp
-// Find a method by name and parameter types
-var method = meta.Target.Type.Methods.OfExactSignature( "Calculate", [typeof(int)] );
-
-// Find a constructor by parameter types
-var ctor = meta.Target.Type.Constructors.OfExactSignature( [typeof(int), typeof(string)] );
-```
-
 ## Creating array types
 
 Use the <xref:Metalama.Framework.Code.IType.MakeArrayType*?text=IType.MakeArrayType> method to create an array type from an element type. You can optionally specify the rank (number of dimensions) as a parameter:

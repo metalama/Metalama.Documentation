@@ -107,7 +107,7 @@ If you want to share compile-time code between aspects or aspect methods, you ca
   - The whole project, using `[assembly: CompileTime]`
 - Code that can execute at either compile or run time must be annotated with the [<xref:Metalama.Framework.Aspects.RunTimeOrCompileTimeAttribute?text=RunTimeOrCompileTime>] custom attribute.
 
-## Referencing run-time-only enum values
+## Referencing run-time-only enum values or other constant fields
 
 When working with custom attributes or constants in compile-time code, you may need to reference enum values from run-time-only types that aren't available at compile time. The <xref:Metalama.Framework.Code.TypedConstant.NamedConstant*?text=TypedConstant.NamedConstant> method creates a <xref:Metalama.Framework.Code.TypedConstant> that references a named constant (such as an enum member or a `const` field) by name. When rendered to code, this produces a qualified reference to the field (e.g., `MyEnum.MyValue`).
 
