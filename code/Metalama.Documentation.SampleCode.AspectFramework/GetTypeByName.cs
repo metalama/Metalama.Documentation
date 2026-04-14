@@ -13,14 +13,14 @@ internal class ResolveTypeAspect : TypeAspect
 
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
-        // Look up a type by its namespace-qualified metadata name.
+        // Look up a type from the core library by its namespace-qualified metadata name.
         var stringType = TypeFactory.GetType( "System.String" );
         builder.Diagnostics.Report( _info.WithArguments( $"Found: {stringType}" ) );
 
-        // The non-throwing alternative returns false when the type is not found.
-        if ( TypeFactory.TryGetType( "System.Text.StringBuilder", out var sbType ) )
+        // Look up a type from a referenced package (Microsoft.Win32.Registry).
+        if ( TypeFactory.TryGetType( "Microsoft.Win32.RegistryKey", out var registryKeyType ) )
         {
-            builder.Diagnostics.Report( _info.WithArguments( $"Found: {sbType}" ) );
+            builder.Diagnostics.Report( _info.WithArguments( $"Found: {registryKeyType}" ) );
         }
 
         // Use '+' for nested types.

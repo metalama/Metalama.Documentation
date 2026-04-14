@@ -179,7 +179,7 @@ var stringType = TypeFactory.GetType( SpecialType.String );
 
 ### From a reflection type name
 
-You can get a type by its namespace-qualified metadata name using <xref:Metalama.Framework.Code.TypeFactory.GetType(System.String)?text=TypeFactory.GetType(string)>, which throws if the type is not found, or <xref:Metalama.Framework.Code.TypeFactory.TryGetType*?text=TypeFactory.TryGetType>, which returns `false` instead. The type must be referenced by the current compilation. Use `+` for nested types and backtick notation for generic type definitions.
+You can get a type by its namespace-qualified metadata name (i.e., the `Type.FullName` format) using <xref:Metalama.Framework.Code.TypeFactory.GetType(System.String)?text=TypeFactory.GetType(string)>, which throws if the type is not found, or <xref:Metalama.Framework.Code.TypeFactory.TryGetType*?text=TypeFactory.TryGetType>, which returns `false` instead. The type must be referenced by the current compilation but can belong to any referenced assembly. Use `+` for nested types and backtick notation for generic type definitions. Assembly-qualified names are not supported.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/GetTypeByName.cs name="Getting types by reflection name"]
 
