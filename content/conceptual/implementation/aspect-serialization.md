@@ -4,7 +4,7 @@ level: 400
 summary: Metalama uses serialization to handle situations where an aspect has cross-project effects, affecting not only the current project but also referencing projects transitively.
 keywords: "serialization, cross-project effect, Metalama, IAspect, deserialized, custom serializer, ICompileTimeSerializable, NonCompileTimeSerialized, ValueTypeSerializer, ImportSerializerAttribute"
 created-date: 2024-11-06
-modified-date: 2025-11-30
+modified-date: 2026-04-13
 ---
 
 # Serialization of aspects and other compile-time classes
@@ -47,6 +47,8 @@ The following types are serializable by default:
 * Common system types: <xref:System.DateTime>, <xref:System.TimeSpan>, <xref:System.Guid>, <xref:System.Globalization.CultureInfo>.
 * Collection types: <xref:System.Collections.Generic.List`1>, <xref:System.Collections.Generic.Dictionary`2>.
 * Immutable collection types: <xref:System.Collections.Immutable.ImmutableDictionary`2>, <xref:System.Collections.Immutable.ImmutableArray`1>, <xref:System.Collections.Immutable.ImmutableHashSet`1>.
+* Value tuple types: `ValueTuple` through `ValueTuple<T1,...,T7>` and `ValueTuple<T1,...,T7,TRest>` (8+ elements with nested rest tuples). All element types must themselves be serializable.
+* <xref:System.Index> and <xref:System.Range> (.NET Core and .NET 5+ only).
 * Metalama types: <xref:Metalama.Framework.Code.IRef`1>, <xref:Metalama.Framework.Code.SerializableDeclarationId>, <xref:Metalama.Framework.Code.SerializableTypeId>, <xref:Metalama.Framework.Code.TypedConstant>, <xref:Metalama.Framework.Options.IncrementalKeyedCollection`2>, <xref:Metalama.Framework.Options.IncrementalHashSet`1>.
 
 > [!WARNING]

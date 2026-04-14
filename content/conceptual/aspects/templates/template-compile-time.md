@@ -5,7 +5,7 @@ level: 200
 summary: "This document provides detailed information on writing compile-time code using the Metalama Framework, including compile-time expressions, statements, the 'meta' pseudo-keyword, compile-time language constructs, aspect properties, compile-time types and methods, and calling other packages from compile-time code."
 keywords: "compile-time code, Metalama Framework, compile-time expressions, meta pseudo-keyword, aspect properties, compile-time types, compile-time methods, compile-time variables, compile-time statements, compile-time constructs"
 created-date: 2023-02-20
-modified-date: 2025-11-30
+modified-date: 2026-04-13
 ---
 
 # Writing compile-time code
@@ -106,6 +106,36 @@ If you want to share compile-time code between aspects or aspect methods, you ca
   - A type (`class`, `struct`, `record`, ...)
   - The whole project, using `[assembly: CompileTime]`
 - Code that can execute at either compile or run time must be annotated with the [<xref:Metalama.Framework.Aspects.RunTimeOrCompileTimeAttribute?text=RunTimeOrCompileTime>] custom attribute.
+
+## Referencing run-time-only enum values or other constant fields
+
+When working with custom attributes or constants in compile-time code, you may need to reference enum values from run-time-only types that aren't available at compile time. The <xref:Metalama.Framework.Code.TypedConstant.NamedConstant*?text=TypedConstant.NamedConstant> method creates a <xref:Metalama.Framework.Code.TypedConstant> that references a named constant (such as an enum member or a `const` field) by name. When rendered to code, this produces a qualified reference to the field (e.g., `MyEnum.MyValue`).
+
+```csharp
+// Reference an enum member by name
+var enumValue = TypedConstant.NamedConstant( typeof(MyEnum), "MyValue" );
+
+// Reference using an INamedType
+var enumType = TypeFactory.GetNamedType( typeof(MyEnum) );
+var enumValue2 = TypedConstant.NamedConstant( enumType, "MyValue" );
+
+// Reference using an IField directly
+var field = enumType.Fields.OfName( "MyValue" ).Single();
+var enumValue3 = TypedConstant.NamedConstant( field );
+```
+
+## Constructing attribute instances at compile time
+
+The <xref:Metalama.Framework.Code.AttributeExtensions.TryConstruct*?text=IAttribute.TryConstruct> extension method tries to construct an instance of the attribute represented by an <xref:Metalama.Framework.Code.IAttribute>. This is useful when you need to access attribute properties in compile-time code. The attribute type must not be a run-time-only type.
+
+```csharp
+if ( attribute.TryConstruct( out var constructedAttribute ) )
+{
+    // Use the constructedAttribute instance
+}
+```
+
+An overload accepting a <xref:Metalama.Framework.Diagnostics.ScopedDiagnosticSink> is available to report diagnostics when construction fails.
 
 ## Calling other packages from compile-time code
 

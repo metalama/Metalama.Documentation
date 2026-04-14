@@ -21,6 +21,8 @@ Because the parameter has a default value, existing callers can omit the new arg
 
 The `pullStrategy` parameter allows you to specify the value passed to this parameter in other constructors that call the specified constructor, using the `: this(...)` or `: base(...)` syntax. This parameter accepts an <xref:Metalama.Framework.Advising.IPullStrategy> implementation. To create a pull strategy, use one of the factory methods of the <xref:Metalama.Framework.Advising.PullStrategy> class, such as <xref:Metalama.Framework.Advising.PullStrategy.UseExpression*> or <xref:Metalama.Framework.Advising.PullStrategy.IntroduceParameterAndPull*>.
 
+The <xref:Metalama.Framework.Advising.PullStrategy.IntroduceParameterAndPull*> method accepts a `reuseExistingParameterOfCompatibleType` parameter. When set to `true`, if a constructor that calls the target constructor via `: this(...)` or `: base(...)` already has a parameter whose type is the same as or more specific than the type being introduced, the existing parameter is forwarded instead of adding a duplicate. If the existing parameter was previously introduced and has a less specific type, it is automatically replaced with the more specific type. This is particularly useful for dependency injection scenarios where two parameters of the same service type on a single constructor are never intentional.
+
 ### Example: source-compatible parameter
 
 The example below demonstrates an aspect that registers the current instance in a registry of type `IInstanceRegistry`. The aspect appends a parameter of type `IInstanceRegistry` to the target constructor and invokes the `IInstanceRegistry.Register(this)` method.

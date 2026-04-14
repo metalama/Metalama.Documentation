@@ -4,7 +4,7 @@ level: 300
 summary: "Learn how to generate run-time code that invokes methods, accesses properties and fields, raises events, works with indexers, and creates tuple instances using the invoker API from the code model."
 keywords: "invokers, IMethodInvoker, IExpression, method invocation, property access, field access, event handling, indexers, tuple creation, code generation"
 created-date: 2025-11-07
-modified-date: 2025-11-30
+modified-date: 2026-04-13
 ---
 
 # Generating code based on the code model
@@ -66,6 +66,14 @@ printer?.Print( "Hello, world." );
 
 Without <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.WithObject*?text=WithObject>, `this` would have been written instead of `printer`. Without <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.WithOptions*?text=WithOptions>, the simple dot `.` would have been generated instead of `?.`.
 
+## Referencing a method as a delegate
+
+To generate an expression that represents a method as a delegate (e.g., a method group), use the <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.CreateDelegateExpression*?text=method.CreateDelegateExpression> method. You can optionally specify a `delegateType` parameter to disambiguate overloaded methods.
+
+### Example: referencing a method as a delegate
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/CreateDelegateExpression.cs name="CreateDelegateExpression"]
+
 ## Accessing a field or property
 
 Fields and properties inherit the <xref:Metalama.Framework.Code.IExpression> interface. As with any expression, you can use the <xref:Metalama.Framework.Code.IExpression.Value?text=IExpression.Value> property to read or assign the field or property in a template. For fields, you can also use `ref` when accessing the `Value` property.
@@ -93,6 +101,8 @@ SomeMethod( ref TheField );
 ## Accessing an event
 
 Use <xref:Metalama.Framework.Code.Invokers.IEventInvoker.Add*?text=event.Add>, <xref:Metalama.Framework.Code.Invokers.IEventInvoker.Remove*?text=event.Remove>, or <xref:Metalama.Framework.Code.Invokers.IEventInvoker.Raise*?text=event.Raise> to generate code that adds handlers to, removes handlers from, or raises an event.
+
+Not all events can be raised. Only field-like events (events without explicit `add`/`remove` accessors) support raising. Use <xref:Metalama.Framework.Code.Invokers.IEventInvoker.CanRaise?text=event.CanRaise> to check whether an event can be raised, and <xref:Metalama.Framework.Code.IEvent.RaiseMethod?text=event.RaiseMethod> to access the raise accessor (returns `null` for non-raisable events). See <xref:overriding-events> for details.
 
 ## Working with indexers
 
