@@ -179,21 +179,9 @@ var stringType = TypeFactory.GetType( SpecialType.String );
 
 ### From a reflection type name
 
-You can get a type by its namespace-qualified metadata name using <xref:Metalama.Framework.Code.TypeFactory.GetType(System.String)?text=TypeFactory.GetType(string)>, which throws if the type is not found, or <xref:Metalama.Framework.Code.TypeFactory.TryGetType*?text=TypeFactory.TryGetType>, which returns `false` instead. The type must be referenced by the current compilation.
+You can get a type by its namespace-qualified metadata name using <xref:Metalama.Framework.Code.TypeFactory.GetType(System.String)?text=TypeFactory.GetType(string)>, which throws if the type is not found, or <xref:Metalama.Framework.Code.TypeFactory.TryGetType*?text=TypeFactory.TryGetType>, which returns `false` instead. The type must be referenced by the current compilation. Use `+` for nested types and backtick notation for generic type definitions.
 
-```csharp
-// Throws if the type is not found.
-var myType = TypeFactory.GetType( "MyNamespace.MyClass" );
-
-// Returns false if the type is not found.
-if ( TypeFactory.TryGetType( "MyNamespace.MyClass", out var myType2 ) )
-{
-    // Use myType2.
-}
-```
-
-> [!NOTE]
-> Use `+` for nested types (e.g. `System.Environment+SpecialFolder`) and `` ` `` for generic type definitions (e.g. `` System.Collections.Generic.List`1 ``). Assembly-qualified names are not supported — only the namespace-qualified name should be provided (i.e. `Type.FullName` format, not `Type.AssemblyQualifiedName`).
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/GetTypeByName.cs name="Getting types by reflection name"]
 
 ### From the current project
 
