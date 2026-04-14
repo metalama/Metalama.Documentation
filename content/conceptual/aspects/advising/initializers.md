@@ -47,7 +47,7 @@ In the following example, the aspect introduces a field using the <xref:Metalama
 To inject some initialization before any user code of the instance constructor is called:
 
 1. Add a method of signature `void BeforeInstanceConstructor()` to your aspect class and annotate it with the `[Template]` custom attribute. The name of this method is arbitrary.
-2. Call the <xref:Metalama.Framework.Aspects.AdviserExtensions.AddInitializer*?text=builder.Advice.AddInitializer> method in your aspect (or <xref:Metalama.Framework.Aspects.AdviserExtensions.AddInitializer*?text=amender.Advice.AddInitializer> in a fabric). Pass the type that must be initialized, the name of the method from the previous step, and the value `InitializerType.BeforeInstanceConstructor`.
+2. Call the <xref:Metalama.Framework.Aspects.AdviserExtensions.AddInitializer*?text=builder.Advice.AddInitializer> method in your aspect (or <xref:Metalama.Framework.Aspects.AdviserExtensions.AddInitializer*?text=amender.Advice.AddInitializer> in a fabric). Pass the type that must be initialized, the name of the method from the previous step, and the value `InitializerKind.BeforeInstanceConstructor`.
 
 The `AddInitializer` advice will _not_ affect the constructors that call a chained `this` constructor. That is, the advice always runs before any constructor of the current class. However, the initialization logic runs _after_ the call to the `base` constructor if the advised constructor calls the base constructor.
 
@@ -78,13 +78,13 @@ To inject logic that executes after the whole chain of instance constructors has
 1. Add a template method to your aspect class and annotate it with `[Template]`.
 2. Call the <xref:Metalama.Framework.Aspects.AdviserExtensions.AddInitializer*> method with the value `InitializerKind.AfterLastInstanceConstructor`.
 
-Metalama introduces an `OnConstructed` helper method on the target type and calls it at the end of each constructor body. Constructors that chain to another constructor of the same type using `this(...)` are skipped to avoid duplicate execution.
+Metalama introduces an `OnConstructed` helper method on the target type and emits calls to it from every constructor. Constructors that chain to another constructor of the same type using `this(...)` still include the generated call, but duplicate execution is prevented by the <xref:Metalama.Framework.RunTime.Initialization.InitializationContext> and its `IsHandled` check.
 
 For non-sealed types, the introduced method is `protected virtual`, allowing derived types to participate in the initialization chain. An <xref:Metalama.Framework.RunTime.Initialization.InitializationContext> parameter is added to each constructor to coordinate initialization across inheritance hierarchies.
 
 ### Example: Notifying after construction
 
-The following aspect prints a message after all constructors complete for an object. Notice how the `this`-chaining constructor delegates to the primary constructor and does not call `OnConstructed` itself.
+The following aspect prints a message after all constructors complete for an object. Notice how the `this`-chaining constructor includes the generated guard and call pattern, while the `InitializationContext` ensures that `OnConstructed` executes only once.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/AfterLastInstanceConstructor.cs name="After Last Instance Constructor"]
 
@@ -119,7 +119,7 @@ The following example demonstrates how aspect initialization logic is merged wit
 
 ## Before the type constructor
 
-The same approach can be used to add logic to the type constructor (i.e., static constructor) instead of the object constructor. In this case, the `InitializerType.BeforeTypeConstructor` value should be used.
+The same approach can be used to add logic to the type constructor (i.e., static constructor) instead of the object constructor. In this case, the `InitializerKind.BeforeTypeConstructor` value should be used.
 
 ## Ordering of initializers
 
