@@ -36,7 +36,7 @@ To consume a dependency from an aspect:
 4. Use this field or property from any template member of your aspect.
 
 > [!NOTE]
-> The <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute> attribute can only be applied to fields and properties.
+> The <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute> attribute can only be applied to fields and automatic properties.
 
 > [!NOTE]
 > The <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute> attribute automatically suppresses compiler and analyzer warnings that would otherwise be raised on the annotated aspect fields or properties, such as _CS8618_ (non-nullable field not initialized in constructor), _CS0649_ (field is never assigned), and _IDE0051_ (private member is unused). These warnings are irrelevant because the field or property is introduced into the target type and initialized by the dependency injection framework.
