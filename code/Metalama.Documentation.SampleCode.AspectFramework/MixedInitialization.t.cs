@@ -15,6 +15,7 @@ public sealed partial class Customer : IInitializable
   public void Initialize(InitializationContext context = default)
   {
     Console.WriteLine("  Aspect: Customer fully initialized.");
+    Console.WriteLine($"  User code: validating {this.Name} ({this.Email}).");
   }
 }
 internal class Program

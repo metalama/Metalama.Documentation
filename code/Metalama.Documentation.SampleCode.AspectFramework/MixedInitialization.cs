@@ -1,11 +1,12 @@
 // This is public domain Metalama sample code.
 
 using System;
+using Metalama.Framework.RunTime.Initialization;
 
 namespace Doc.MixedInitialization;
 
 [TrackInitialization]
-public sealed partial class Customer
+public sealed partial class Customer : IInitializable
 {
     public Customer( int id )
     {
@@ -18,6 +19,11 @@ public sealed partial class Customer
     public string Name { get; init; } = "";
 
     public string Email { get; init; } = "";
+
+    public void Initialize( InitializationContext context = default )
+    {
+        Console.WriteLine( $"  User code: validating {this.Name} ({this.Email})." );
+    }
 }
 
 internal class Program

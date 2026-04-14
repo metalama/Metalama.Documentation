@@ -113,7 +113,7 @@ When using `AfterObjectInitializer` with records, the `Initialize` method is als
 
 ### Example: Mixing user-code and aspect-code initialization
 
-The following example demonstrates how user-code initialization (in the constructor) and aspect-code initialization (via `AfterObjectInitializer`) work together. The constructor sets the `Id` property, the object initializer sets `Name` and `Email`, and the aspect's initialization logic runs after both have completed.
+The following example demonstrates how aspect initialization logic is merged with a user-code implementation of `IInitializable`. The `Customer` class manually implements `IInitializable` with its own validation logic. When the aspect adds its `AfterObjectInitializer`, Metalama merges the aspect's initialization code into the existing `Initialize` method instead of replacing it.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/MixedInitialization.cs name="Mixed Initialization"]
 
