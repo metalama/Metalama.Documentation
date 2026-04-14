@@ -8,7 +8,7 @@ internal class Order
   {
     this.Id = id;
   }
-  public Order(int id, string label, DateTime creationTime) : this(id, DateTime.Now)
+  public Order(int id, string label, DateTime creationTime) : this(id, creationTime)
   {
     this.Label = label;
   }
