@@ -4,7 +4,7 @@ level: 200
 summary: "Metalama 2026.0 provides full C# 14 and .NET 10 SDK support, introduces first-class tuple types, and enables event handler invocation overriding."
 keywords: "Metalama 2026.0, release notes"
 created-date: 2025-11-01
-modified-date: 2025-12-09
+modified-date: 2026-04-13
 ---
 
 # Metalama 2026.0
@@ -70,7 +70,7 @@ Metalama 2026.0 supports the following C# 14 features:
 
 ### Limitations
 
-The following C# 14 features haven't been implemented in Metalama 2026.0:
+The following C# 14 features weren't implemented in Metalama 2026.0 but have been added in Metalama 2026.1:
 
 - [#1109](https://github.com/metalama/Metalama/issues/1109): Use null-conditional assignments in templates.
 - [#1114](https://github.com/metalama/Metalama/issues/1114): Use the `field` keyword in templates.
