@@ -9,6 +9,8 @@ items:
 
         - name: Requirements
           topicUid: requirements
+        - name: Metalama 2026.1
+          topicUid: release-notes-2026.1
         - name: Metalama 2026.0
           topicUid: release-notes-2026.0
         - name: Metalama 2025.1
