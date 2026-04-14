@@ -4,7 +4,7 @@ summary: "Learn how to use Metalama.Patterns.Immutability to mark types as immut
 level: 200
 keywords: "immutability, immutable type, C#, Metalama.Patterns.Immutability, ImmutableAttribute, ConfigureImmutability, shallow immutability, deep immutability, Metalama"
 created-date: 2024-06-11
-modified-date: 2025-11-30
+modified-date: 2026-04-13
 ---
 
 # Metalama.Patterns.Immutability
@@ -35,13 +35,13 @@ Deep immutability ensures that all objects reachable by recursively evaluating f
 The `Metalama.Patterns.Immutability` package contains rules that define the following types as deeply immutable:
 
 * Intrinsic types like `bool`, `byte`, `int`, or `string`
-* Structs from the `System` namespace
+* Structs from the `System` namespace, except `ValueTuple`, `Span<T>`, `ReadOnlySpan<T>`, `Memory<T>`, and `ReadOnlyMemory<T>`
 * Delegates and enums
 * Immutable collections from the `System.Collections.Immutable` namespace, when all type parameters are themselves deeply immutable
 
 Additionally, the following types are implicitly classified as shallowly immutable:
 
-* Read-only structs
+* Read-only structs (including `Memory<T>`, `ReadOnlyMemory<T>`, and `ReadOnlySpan<T>`)
 * Immutable collections from the `System.Collections.Immutable` namespace, when any type parameter isn't deeply immutable
 
 > [!WARNING]
