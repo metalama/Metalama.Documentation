@@ -2,14 +2,24 @@
 uid: diff-tool
 level: 300
 summary: "This article explains how to configure the external diff tool used when aspect tests fail, including supported tools, DiffEngineTray, and CI/CD considerations."
-keywords: "diff tool, DiffEngine, DiffEngineTray, aspect testing, snapshot testing, test failure, visual diff"
+keywords: "diff tool, DiffEngine, DiffEngineTray, aspect testing, snapshot testing, test failure, visual diff, Metalama.Extensions.DiffEngine"
 created-date: 2025-12-04
 modified-date: 2025-12-04
 ---
 
 # Configuring the external diff tool
 
-By default, the test framework opens a visual diff tool when an aspect test fails—when the expected snapshot differs from the actual output. This feature uses the open-source [DiffEngine](https://github.com/VerifyTests/DiffEngine) library, which automatically detects and launches installed diff tools.
+The test framework can open a visual diff tool when an aspect test fails—when the expected snapshot differs from the actual output. This feature uses the open-source [DiffEngine](https://github.com/VerifyTests/DiffEngine) library, which automatically detects and launches installed diff tools.
+
+## Installing the DiffEngine extension
+
+Diff tool integration requires the `Metalama.Extensions.DiffEngine` optional package. Add it to your test project:
+
+```xml
+<PackageReference Include="Metalama.Extensions.DiffEngine" />
+```
+
+Without this package, tests work normally but the diff tool feature is silently disabled.
 
 ## Metalama test runner settings
 

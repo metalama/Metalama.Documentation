@@ -2,7 +2,7 @@
 uid: packages
 level: 300
 summary: "This article lists NuGet packages for Metalama, detailing their uses and descriptions. It also includes package diagrams for building, executing, testing, introspection, and SDK."
-keywords: "NuGet packages, Metalama, Metalama.Framework, Metalama.Compiler, testing, introspection"
+keywords: "NuGet packages, Metalama, Metalama.Framework, Metalama.Compiler, testing, introspection, Metalama.Extensions.HtmlWriter, Metalama.Extensions.DiffEngine"
 created-date: 2023-01-26
 modified-date: 2025-11-30
 ---
@@ -24,6 +24,8 @@ Metalama comprises several NuGet packages. Some packages are only used for testi
 | Metalama.Framework.Engine | Testing, Introspection | This is the principal implementation assembly of Metalama. It's required by the testing and introspection packages. However, it shouldn't be used directly as there's no forward compatibility promise for this package. |
 | Metalama.Framework.Introspection | Introspection | This package allows querying the code model representing the output of the Metalama process. |
 | Metalama.Framework.Workspaces | Introspection | This package allows any application to load a Visual Studio project or solution and to represent its code model and the Introspection of the Metalama process. |
+| Metalama.Extensions.HtmlWriter | Testing | Optional package that enables HTML code output in the compile-time pipeline and aspect tests. Required for the `MetalamaWriteHtml` MSBuild property and the `WriteInputHtml`/`WriteOutputHtml` test options. See <xref:aspect-testing>. |
+| Metalama.Extensions.DiffEngine | Testing | Optional package that enables automatic diff tool launching when aspect test output differs from the expected baseline. Without this package, tests work normally but diff tool features are unavailable. See <xref:diff-tool>. |
 
 ## Package diagrams
 
@@ -69,6 +71,10 @@ graph BT
     Metalama.Testing.AspectTesting -- references--> xUnit
     Metalama.Framework.Engine -- references --> Metalama.Framework
     YourTests -- references --> Metalama.Testing.AspectTesting
+    YourTests -. optional .-> Metalama.Extensions.HtmlWriter
+    YourTests -. optional .-> Metalama.Extensions.DiffEngine
+    Metalama.Extensions.HtmlWriter -- references --> Metalama.Framework.Engine
+    Metalama.Extensions.DiffEngine -- references --> Metalama.Testing.AspectTesting
     IDE -- loads --> analyzers
     Metalama.Compiler -- loads --> analyzers
 
@@ -83,6 +89,8 @@ graph BT
     class Metalama.Framework.Introspection testing;
     class Metalama.Framework.Workspaces testing;
     class Metalama.LinqPad testing;
+    class Metalama.Extensions.HtmlWriter testing;
+    class Metalama.Extensions.DiffEngine testing;
 
     classDef compileTime fill:yellow;
     class Metalama.Compiler compileTime;
