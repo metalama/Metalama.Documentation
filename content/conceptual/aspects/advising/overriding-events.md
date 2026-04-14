@@ -4,7 +4,7 @@ level: 300
 summary: "The document discusses how to override events, including overriding their invoke operation."
 keywords: "overriding events, .NET, add accessor, remove accessor, event invocation, invoke accessor, Metalama Framework, OverrideEventAspect"
 created-date: 2023-02-20
-modified-date: 2025-11-30
+modified-date: 2026-04-13
 ---
 
 # Overriding events
@@ -45,8 +45,21 @@ If you are writing an exception handling aspect, you'll want to unregister the e
  meta.Target.Event.Remove( handler );
 ```
 
-> [!WARNING]
-> The <xref:Metalama.Framework.Code.Invokers.IEventInvoker.Raise*?text=Raise> method is not implemented yet.
+### Raising events
+
+To raise an event from a template, use the <xref:Metalama.Framework.Code.Invokers.IEventInvoker.Raise*?text=Raise> method of the <xref:Metalama.Framework.Code.Invokers.IEventInvoker> interface. For instance:
+
+```csharp
+meta.Target.Type.Events["MyEvent"].Raise( meta.This, EventArgs.Empty );
+```
+
+Not all events can be raised. Only field-like events (events without explicit `add`/`remove` accessors) support raising because they have a backing delegate field. Use <xref:Metalama.Framework.Code.Invokers.IEventInvoker.CanRaise?text=CanRaise> to check before raising, and <xref:Metalama.Framework.Code.IEvent.RaiseMethod?text=RaiseMethod> to access the raise accessor (returns `null` for non-raisable events).
+
+#### Example: raising an existing event
+
+The following aspect overrides a method and raises the target type's existing `StatusChanged` event after the method executes:
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/RaiseEvent.cs name="Raising an Existing Event"]
 
 ### Limitations
 
