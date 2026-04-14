@@ -73,12 +73,12 @@ If you want to insert logic into a specific constructor, call the <xref:Metalama
 
 ## After the last instance constructor
 
-To inject logic that runs at the _end_ of every instance constructor body, use `InitializerKind.AfterLastInstanceConstructor`. This is useful when you need to perform actions after the constructor has fully initialized the object, but before any object initializer or `with` expression runs.
+To inject logic that executes after the whole chain of instance constructors has executed for an object, use `InitializerKind.AfterLastInstanceConstructor`. This is useful when you need to perform actions after the constructor has fully initialized the object, but before the object initializer or the `with` expression sets fields and properties.
 
 1. Add a template method to your aspect class and annotate it with `[Template]`.
 2. Call the <xref:Metalama.Framework.Aspects.AdviserExtensions.AddInitializer*> method with the value `InitializerKind.AfterLastInstanceConstructor`.
 
-Metalama introduces a helper method (typically named `OnConstructed`) on the target type and calls it at the end of each constructor body. Constructors that chain to another constructor of the same type using `this(...)` are skipped to avoid duplicate execution.
+Metalama introduces an `OnConstructed` helper method on the target type and calls it at the end of each constructor body. Constructors that chain to another constructor of the same type using `this(...)` are skipped to avoid duplicate execution.
 
 For non-sealed types, the introduced method is `protected virtual`, allowing derived types to participate in the initialization chain. An <xref:Metalama.Framework.RunTime.Initialization.InitializationContext> parameter is added to each constructor to coordinate initialization across inheritance hierarchies.
 
