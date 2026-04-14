@@ -11,7 +11,6 @@ public sealed partial class Customer : IInitializable
     public Customer( int id )
     {
         this.Id = id;
-        Console.WriteLine( $"  Constructor: Id = {this.Id}" );
     }
 
     public int Id { get; }
