@@ -127,15 +127,15 @@ The <xref:Metalama.Patterns.Caching.Resilience.OperationKind> enum identifies wh
 
 ### Key compression
 
-When cache keys exceed a certain length, they can cause performance issues or hit Redis key length limits. The Redis caching backend can automatically hash long keys using the <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.KeyCompressingThreshold> property.
+When cache keys exceed a certain length, they can cause performance issues. Redis recommends a maximum length of 1024 bytes. The Redis caching backend can automatically hash long keys using the <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.KeyCompressingThreshold> property.
 
 When a cache key exceeds the threshold (default: 128 characters), it is hashed using the algorithm specified by the <xref:Metalama.Patterns.Caching.Formatters.CacheKeyHashingAlgorithm> enum:
 
-| Algorithm | Description |
-|-----------|-------------|
-| `None` | No hashing (default). |
-| `XxHash64` | 64-bit xxHash — fast, low collision rate. |
-| `XxHash128` | 128-bit xxHash — negligible collision rate. |
+| Algorithm | Description | Max safe elements (p < 10⁻⁹) |
+|-----------|-------------|-------------------------------|
+| `None` | No hashing (default). | N/A |
+| `XxHash64` | 64-bit xxHash — small data spaces | ~200,000 (1.9 × 10⁵) |
+| `XxHash128` | 128-bit xxHash — any data space | ~250 trillion (2.6 × 10¹⁴) |
 
 ### Concurrency and overload detection
 
