@@ -95,22 +95,7 @@ public class EquatableAttribute : TypeAspect
             return false;
         }
 
-        var otherExpression = ExpressionFactory.Capture( obj );
-
-        foreach ( var fieldOrProperty in meta.Target.Type.FieldsAndProperties.Where(
-                     f => f is { IsAutoPropertyOrField: true, IsImplicitlyDeclared: false, IsStatic: false } ) )
-        {
-            meta.InvokeTemplate(
-                nameof(this.CompareFieldOrProperty),
-                args: new
-                {
-                    TField = fieldOrProperty.Type,
-                    fieldOrProperty,
-                    other = otherExpression
-                } );
-        }
-
-        return true;
+        return meta.This.Equals( meta.Cast( meta.Target.Type, obj ) );
     }
 
     [Introduce( Name = nameof(GetHashCode), WhenExists = OverrideStrategy.Override )]

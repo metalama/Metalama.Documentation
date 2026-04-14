@@ -17,15 +17,7 @@ internal partial class Person : IEquatable<Person>
     {
       return false;
     }
-    if (!EqualityComparer<string>.Default.Equals(Name, ((Person)obj).Name))
-    {
-      return false;
-    }
-    if (!EqualityComparer<int>.Default.Equals(Age, ((Person)obj).Age))
-    {
-      return false;
-    }
-    return true;
+    return Equals((Person)obj);
   }
   public bool Equals(Person other)
   {
