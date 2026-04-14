@@ -19,8 +19,12 @@ public partial class Connection
       this.OnConstructed(context);
     }
   }
-  public Connection(string host, int port, [AspectGenerated] InitializationContext context = default) : this($"{host}:{port}", context)
+  public Connection(string host, int port, [AspectGenerated] InitializationContext context = default) : this($"{host}:{port}", context.Descend(InitializationSlot.OnConstructed))
   {
+    if (!context.IsHandled(InitializationSlot.OnConstructed))
+    {
+      this.OnConstructed(context);
+    }
   }
   protected virtual void OnConstructed(InitializationContext context = default)
   {
