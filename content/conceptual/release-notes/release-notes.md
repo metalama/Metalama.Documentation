@@ -3,7 +3,7 @@ uid: release-notes
 summary: "This document provides a high-level changelog for all Metalama releases, highlighting key features and enhancements, and the status of each version."
 keywords: "Metalama release notes"
 created-date: 2023-11-07
-modified-date: 2026-04-13
+modified-date: 2026-04-14
 ---
 
 # Release notes
@@ -12,7 +12,7 @@ This article provides a high-level changelog for major Metalama releases. For de
 
 | Version | Status                | Highlights                                                                                                                                                            | Release Notes               |
 | ------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
-| 2026.1  | Stable              | Major Redis caching backend improvements: resilience framework, key compression, overload detection. | <xref:release-notes-2026.1> |
+| 2026.1  | Stable              | C# 14 completions, operator and extension block introduction, `INumber<T>` contracts, initialization advice enhancements, Redis caching improvements. | <xref:release-notes-2026.1> |
 | 2026.0  | Stable              | C# 14, .NET 10 SDK, tuple types, override _event invocation_ operations of events. | <xref:release-notes-2026.0> |
 | 2025.1  | Stable               | First open-source Metalama release with breaking changes in packages and namespaces for proprietary components. | <xref:release-notes-2025.1> |
 | 2025.0  | Deprecated               | Support for .NET 9 and C# 13. Improved work with introduced types. Async WPF commands. | <xref:release-notes-2025.0> |
