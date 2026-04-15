@@ -14,7 +14,7 @@ Metalama 2026.1 is a consolidation release, and the first long-term support (LTS
 **Highlights:**
 
 - **C# 14 completion.** Every feature listed as a limitation in <xref:release-notes-2026.0> is now implemented, including extension blocks introductions, constracts on extension block parameters, and introduction of C# 14 compound assignment operators.
-- **Initialization advice.** New `AfterObjectInitializer` and `AfterLastInstanceConstructor` kinds, records supported by `BeforeInstanceConstructor`, generation binary-compatible parameter introduction, and parameter reuse for dependency injection.
+- **Initialization advice.** New `AfterObjectInitializer` and `AfterLastInstanceConstructor` kinds, records supported by `BeforeInstanceConstructor`, forwarding overloads for constructor parameter introduction, and parameter reuse for dependency injection.
 - **Redis caching backend.** Retry and exception-handling policies, key compression, overload detection, and many new configuration options.
 - **Reduced third-party dependencies.** `System.Text.Json` replaces `Newtonsoft.Json`, `System.IO.Hashing` replaces `K4os.Hash`, and optional HTML/diff-tool components have been extracted into opt-in extension packages.
 - **Performance enhancements.** Source-generated JSON serializers, MessagePack for design-time RPC, and pattern-matching optimizations.
@@ -30,7 +30,7 @@ Metalama 2026.1 has the same requirements as 2026.0. See <xref:requirements> for
 
 ## C# 14 completion
 
-All C# 14 features listed as limitations in <xref:release-notes-2026.0> are now implemented in 2026.1. The two most prominent additions — introducing C# 14 compound assignment operators and introducing extension blocks — are covered in their own sections below. The rest are closing gaps in template and advice support.
+All C# 14 features listed as limitations in <xref:release-notes-2026.0> are now implemented in 2026.1. The two most prominent additions (introducing C# 14 compound assignment operators and introducing extension blocks) are covered in their own sections below. The rest are closing gaps in template and advice support.
 
 ### Introducing extension blocks
 
@@ -73,12 +73,12 @@ Metalama 2026.1 significantly broadens how aspects advise object initialization.
 
 See <xref:initializers> for examples.
 
-### Constructor parameter introduction with binary-compatible forwarding overloads
+### Constructor parameter introduction with forwarding overloads
 
-The <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceParameter*> advice has been reworked to separate two scenarios:
+The <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceParameter*> advice now supports two mechanisms, both source-compatible:
 
-- **Source-compatible parameters**: the overload taking a compile-time-constant `defaultValue` preserves source compatibility by adding an _optional_ parameter to the constructor. This was the only available strategy prior to 2026.1. It was designed for dependency injection, where the objects are dynamically instantiated using reflection. 
-- **Binary-compatible parameters**: the overload without `defaultValue` preserves binary compatibility by generating a _forwarding constructor_. The value is supplied at run time by an <xref:Metalama.Framework.Advising.IPullStrategy> instead of a compile-time constant — for instance, <xref:Metalama.Framework.Advising.PullStrategy.UseExpression*> for a non-constant expression such as `DateTime.Now`.
+- **Adding an optional parameter**: the overload taking a compile-time-constant `defaultValue` adds the parameter directly to the existing constructor. The IL signature changes, so binary compatibility is not preserved. This was the only available strategy prior to 2026.1, and remains the right choice for dependency-injection scenarios.
+- **Adding a required parameter, pulled from a forwarding constructor**: the overload without `defaultValue` adds the new parameter as required, and generates a forwarding constructor that retains the pre-mutation signature and chains to the mutated constructor via `: this(...)`, preserving binary compatibility. The value supplied by the forwarding constructor comes from an <xref:Metalama.Framework.Advising.IPullStrategy>: for instance, <xref:Metalama.Framework.Advising.PullStrategy.UseExpression*> for a non-constant expression such as `DateTime.Now`.
 
 The new <xref:Metalama.Framework.Advising.ConstructorOverloadingStrategy.ForwardSourceConstructors> and <xref:Metalama.Framework.Advising.ConstructorOverloadingStrategy.ForwardDefaultConstructor> strategies control when forwarding constructors are generated. Both expose a <xref:Metalama.Framework.Advising.ForwardConstructorStrategy.WithObsoleteAttribute*> method so generated constructors can be deprecated.
 
@@ -159,13 +159,13 @@ See the _Generic math support_ section of <xref:contract-types>.
 ### Templates and compile-time code
 
 - **<xref:Metalama.Framework.Code.TypedConstant.NamedConstant*?text=TypedConstant.NamedConstant>** creates a `TypedConstant` that references an enum member or a `const` field by name, for instance run-time-only enum value.
-- **<xref:Metalama.Framework.Code.Invokers.IMethodInvoker.CreateDelegateExpression*?text=IMethodInvoker.CreateDelegateExpression>** generates an expression that references a method as a delegate — useful when you need to pass a method reference (e.g., to `EventHandler` or `Func<…>`) rather than invoke it. See <xref:invokers>.
+- **<xref:Metalama.Framework.Code.Invokers.IMethodInvoker.CreateDelegateExpression*?text=IMethodInvoker.CreateDelegateExpression>** generates an expression that references a method as a delegate. Useful when you need to pass a method reference (e.g., to `EventHandler` or `Func<…>`) rather than invoke it. See <xref:invokers>.
 - **Compile-time serialization** now supports value tuples (`ValueTuple` through `ValueTuple<T1,…,T7,TRest>`) and <xref:System.Index>/<xref:System.Range>. See <xref:aspect-serialization>.
 
 
 ### Fabrics
 
-<xref:Metalama.Framework.Fabrics.ITypeAmender> now implements <xref:Metalama.Framework.Aspects.IAdviser`1> ([#1487](https://github.com/metalama/Metalama/issues/1487)), so you can call `IntroduceMethod`, `Override`, `ImplementInterface`, and every other extension method from <xref:Metalama.Framework.Aspects.AdviserExtensions> directly on the `amender` parameter — no more `amender.Advice.*` boilerplate. Use <xref:Metalama.Framework.Aspects.IAdviser.With*> to target a specific member.
+<xref:Metalama.Framework.Fabrics.ITypeAmender> now implements <xref:Metalama.Framework.Aspects.IAdviser`1> ([#1487](https://github.com/metalama/Metalama/issues/1487)), so you can call `IntroduceMethod`, `Override`, `ImplementInterface`, and every other extension method from <xref:Metalama.Framework.Aspects.AdviserExtensions> directly on the `amender` parameter; no more `amender.Advice.*` boilerplate. Use <xref:Metalama.Framework.Aspects.IAdviser.With*> to target a specific member.
 
 A new <xref:Metalama.Framework.Fabrics.ITypeAmender.Diagnostics> property of type <xref:Metalama.Framework.Diagnostics.ScopedDiagnosticSink> ([#724](https://github.com/metalama/Metalama/issues/724)) lets you report or suppress diagnostics scoped to the target type, just as you would from an aspect's `BuildAspect` method.
 
@@ -185,11 +185,11 @@ For the full, per-build list of fixes, see the [2026.1 releases on GitHub](https
 ## Breaking changes
 
 - **`AddInitializer` ordering** ([#1529](https://github.com/metalama/Metalama/issues/1529)): initializer order now respects `AspectOrderDirection.RunTime`. If you define an ordering with `[assembly: AspectOrder(AspectOrderDirection.RunTime, typeof(FirstAspect), typeof(SecondAspect))]`, the initializer from `FirstAspect` runs before the one from `SecondAspect`.
-- **`IntroduceParameter` on record primary constructors** ([#1555](https://github.com/metalama/Metalama/issues/1555)): the introduced parameter is no longer materialized as part of the record's value shape by default — it does not generate an auto-property, does not appear in `Deconstruct`, and does not participate in `Equals`, `GetHashCode`, or `ToString`. Opt in explicitly with `PullStrategy.IntroduceParameterAndPull(materializeOnRecord: true)`.
+- **`IntroduceParameter` on record primary constructors** ([#1555](https://github.com/metalama/Metalama/issues/1555)): the introduced parameter is no longer materialized as part of the record's value shape by default: it does not generate an auto-property, does not appear in `Deconstruct`, and does not participate in `Equals`, `GetHashCode`, or `ToString`. Opt in explicitly with `PullStrategy.IntroduceParameterAndPull(materializeOnRecord: true)`.
 - **<xref:Metalama.Framework.Code.IConstructor.InitializerKind?text=IConstructor.InitializerKind>** now returns `Base` (instead of `None`) for implicit `base()` calls.
 - **<xref:Metalama.Framework.Aspects.TemplateAttribute.IsVirtual?text=TemplateAttribute.IsVirtual>** is disregarded when the target type is `sealed`.
 - **<xref:Metalama.Framework.Code.IEvent.RaiseMethod?text=IEvent.RaiseMethod>** returns `null` for events that cannot be raised. Use <xref:Metalama.Framework.Code.Invokers.IEventInvoker.CanRaise?text=IEventInvoker.CanRaise> to check before raising.
-- **Removed test base classes**: the `AspectTestClass`, `DefaultAspectTestClass`, `CurrentDirectoryAttribute`, and `CurrentProjectAttribute` classes have been removed from `Metalama.Testing.AspectTesting`. Tests are now discovered automatically — no test-runner code is needed.
+- **Removed test base classes**: the `AspectTestClass`, `DefaultAspectTestClass`, `CurrentDirectoryAttribute`, and `CurrentProjectAttribute` classes have been removed from `Metalama.Testing.AspectTesting`. Tests are now discovered automatically; no test-runner code is needed.
 
 ### Redis caching
 
