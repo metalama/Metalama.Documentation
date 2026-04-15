@@ -1,5 +1,4 @@
 using System;
-using Metalama.Framework.RunTime;
 namespace Doc.IntroduceRequiredParameter;
 [AddTimestamp]
 internal class Order
@@ -14,11 +13,9 @@ internal class Order
   }
   public int Id { get; }
   public string? Label { get; }
-  [SourceCompatibilityConstructor]
   public Order(int id) : this(id: id, creationTime: DateTime.Now)
   {
   }
-  [SourceCompatibilityConstructor]
   public Order(int id, string label) : this(id: id, label: label, creationTime: DateTime.Now)
   {
   }

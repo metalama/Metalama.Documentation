@@ -1,19 +1,27 @@
 // This is public domain Metalama sample code.
 
+using System;
+
 namespace Doc.AfterLastInstanceConstructor;
 
-[NotifyConstructed]
-public partial class Connection
+[PublishWhenCreated]
+public partial class Order
 {
-    public Connection() { }
+    public string CustomerId { get; }
 
-    public Connection( string connectionString ) { }
-
-    public Connection( string host, int port ) : this( $"{host}:{port}" ) { }
+    public Order( string customerId )
+    {
+        this.CustomerId = customerId;
+    }
 }
 
-public partial class SecureConnection : Connection
+public partial class RecurringOrder : Order
 {
-    public SecureConnection( string connectionString, string certificate )
-        : base( connectionString ) { }
+    public TimeSpan Interval { get; }
+
+    public RecurringOrder( string customerId, TimeSpan interval )
+        : base( customerId )
+    {
+        this.Interval = interval;
+    }
 }

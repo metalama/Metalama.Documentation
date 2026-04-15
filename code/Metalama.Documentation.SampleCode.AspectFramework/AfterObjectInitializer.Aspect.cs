@@ -3,23 +3,22 @@
 using Metalama.Framework.Advising;
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
-using System;
 
 namespace Doc.AfterObjectInitializer;
 
-[Inheritable]
-public class ValidateAfterInitializationAttribute : TypeAspect
+public class PublishWhenInitializedAttribute : TypeAspect
 {
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
         builder.AddInitializer(
-            nameof(this.Validate),
+            nameof(this.OnInitialized),
             InitializerKind.AfterObjectInitializer );
     }
 
     [Template]
-    private void Validate()
+    private void OnInitialized()
     {
-        Console.WriteLine( $"Validating {meta.Target.Type.Name}." );
+        DomainEvents.Publish(
+            new EntityInitialized( meta.Target.Type.Name, meta.This ) );
     }
 }

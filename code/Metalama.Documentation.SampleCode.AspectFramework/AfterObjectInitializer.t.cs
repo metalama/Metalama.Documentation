@@ -1,22 +1,17 @@
 using System;
 using Metalama.Framework.RunTime.Initialization;
 namespace Doc.AfterObjectInitializer;
-[ValidateAfterInitialization]
-public partial class Invoice : IInitializable
+[PublishWhenInitialized]
+public partial record Document : IInitializable
 {
-  public required string Number { get; init; }
-  public required decimal Amount { get; init; }
+  public required string Id { get; init; }
+  public string Title { get; init; } = "Untitled";
   public virtual void Initialize(InitializationContext context = default)
   {
-    Console.WriteLine("Validating Invoice.");
+    DomainEvents.Publish(new EntityInitialized("Document", this));
   }
 }
-public partial class CreditNote : Invoice
+public partial record Report : Document
 {
-  public required string Reason { get; init; }
-  public override void Initialize(InitializationContext context = default)
-  {
-    base.Initialize(context);
-    Console.WriteLine("Validating CreditNote.");
-  }
+  public required DateOnly Date { get; init; }
 }

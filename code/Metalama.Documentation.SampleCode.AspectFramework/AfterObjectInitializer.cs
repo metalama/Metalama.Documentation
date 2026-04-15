@@ -1,16 +1,18 @@
 // This is public domain Metalama sample code.
 
+using System;
+
 namespace Doc.AfterObjectInitializer;
 
-[ValidateAfterInitialization]
-public partial class Invoice
+[PublishWhenInitialized]
+public partial record Document
 {
-    public required string Number { get; init; }
+    public required string Id { get; init; }
 
-    public required decimal Amount { get; init; }
+    public string Title { get; init; } = "Untitled";
 }
 
-public partial class CreditNote : Invoice
+public partial record Report : Document
 {
-    public required string Reason { get; init; }
+    public required DateOnly Date { get; init; }
 }

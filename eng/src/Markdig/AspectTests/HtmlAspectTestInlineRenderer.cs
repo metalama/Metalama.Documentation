@@ -38,6 +38,8 @@ internal class HtmlAspectTestInlineRenderer : HtmlObjectRenderer<AspectTestInlin
         Introduced,
         Dependency,
         Auxiliary,
+        Program,
+        Additional,
         ProgramOutput
     }
 
@@ -115,9 +117,18 @@ internal class HtmlAspectTestInlineRenderer : HtmlObjectRenderer<AspectTestInlin
                                  fileNameParts[1] + " (Introduced)", TabOrder.Introduced), // Introduced code
                     ("dependency", _) => (SandboxFileKind.Incompatible, DiffSide.Both, "Referenced Project",
                                           TabOrder.Dependency),
+                    ("program", _) => (SandboxFileKind.ExtraCode, DiffSide.Source, "Program Code", TabOrder.Program),
+                    ("additional", _) => (SandboxFileKind.ExtraCode, DiffSide.Source, "Additional Code",
+                                          TabOrder.Additional),
                     (_, true) => (SandboxFileKind.AspectCode, DiffSide.Source, "Aspect Code", TabOrder.Aspect),
                     (_, false) => (SandboxFileKind.ExtraCode, DiffSide.Source, "Extra Code", TabOrder.ProgramOutput)
                 };
+
+            // The diff-files argument lets an article force specific files to render as a diff.
+            if ( obj.DiffFilesPattern != null && obj.DiffFilesPattern.IsMatch( Path.GetFileName( file ) ) )
+            {
+                diffSide = DiffSide.Both;
+            }
 
             AddCodeTab( fileNameParts[1], fileSuffix, sandboxFileKind, diffSide, tabHeader, order );
         }

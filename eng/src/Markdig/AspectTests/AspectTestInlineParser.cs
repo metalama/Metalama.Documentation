@@ -7,6 +7,7 @@ using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Syntax;
 using System;
+using System.Text.RegularExpressions;
 
 namespace BuildMetalamaDocumentation.Markdig.AspectTests;
 
@@ -68,6 +69,11 @@ public class AspectTestInlineParser : InlineParser
 
                 case "diff-side":
                     test.DiffSide = Enum.Parse<DiffSide>( value, true );
+
+                    break;
+
+                case "diff-files":
+                    test.DiffFilesPattern = new Regex( value, RegexOptions.IgnoreCase );
 
                     break;
 

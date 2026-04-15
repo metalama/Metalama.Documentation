@@ -1,0 +1,2 @@
+Handling OrderPlaced { OrderId = O-42 }.
+Handling OrderShipped { OrderId = O-42 }.

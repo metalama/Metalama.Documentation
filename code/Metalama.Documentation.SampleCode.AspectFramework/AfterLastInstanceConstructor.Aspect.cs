@@ -3,23 +3,22 @@
 using Metalama.Framework.Advising;
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
-using System;
 
 namespace Doc.AfterLastInstanceConstructor;
 
-[Inheritable]
-public class NotifyConstructedAttribute : TypeAspect
+public class PublishWhenCreatedAttribute : TypeAspect
 {
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
         builder.AddInitializer(
-            nameof(this.OnConstructed),
+            nameof(this.OnCreated),
             InitializerKind.AfterLastInstanceConstructor );
     }
 
     [Template]
-    private void OnConstructed()
+    private void OnCreated()
     {
-        Console.WriteLine( $"{meta.Target.Type.Name} constructed." );
+        DomainEvents.Publish(
+            new EntityCreated( meta.Target.Type.Name, meta.This ) );
     }
 }

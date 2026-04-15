@@ -2,25 +2,13 @@ using System;
 using Metalama.Framework.RunTime;
 using Metalama.Framework.RunTime.Initialization;
 namespace Doc.AfterLastInstanceConstructor;
-[NotifyConstructed]
-public partial class Connection
+[PublishWhenCreated]
+public partial class Order
 {
-  public Connection([AspectGenerated] InitializationContext context = default)
+  public string CustomerId { get; }
+  public Order(string customerId, [AspectGenerated] InitializationContext context = default)
   {
-    if (!context.IsHandled(InitializationSlot.OnConstructed))
-    {
-      this.OnConstructed(context);
-    }
-  }
-  public Connection(string connectionString, [AspectGenerated] InitializationContext context = default)
-  {
-    if (!context.IsHandled(InitializationSlot.OnConstructed))
-    {
-      this.OnConstructed(context);
-    }
-  }
-  public Connection(string host, int port, [AspectGenerated] InitializationContext context = default) : this($"{host}:{port}", context.Descend(InitializationSlot.OnConstructed))
-  {
+    this.CustomerId = customerId;
     if (!context.IsHandled(InitializationSlot.OnConstructed))
     {
       this.OnConstructed(context);
@@ -28,21 +16,14 @@ public partial class Connection
   }
   protected virtual void OnConstructed(InitializationContext context = default)
   {
-    Console.WriteLine("Connection constructed.");
+    DomainEvents.Publish(new EntityCreated("Order", this));
   }
 }
-public partial class SecureConnection : Connection
+public partial class RecurringOrder : Order
 {
-  public SecureConnection(string connectionString, string certificate, [AspectGenerated] InitializationContext context = default) : base(connectionString, context.Descend(InitializationSlot.OnConstructed))
+  public TimeSpan Interval { get; }
+  public RecurringOrder(string customerId, TimeSpan interval, [AspectGenerated] InitializationContext context = default) : base(customerId, context)
   {
-    if (!context.IsHandled(InitializationSlot.OnConstructed))
-    {
-      this.OnConstructed(context);
-    }
-  }
-  protected override void OnConstructed(InitializationContext context = default)
-  {
-    base.OnConstructed(context);
-    Console.WriteLine("SecureConnection constructed.");
+    this.Interval = interval;
   }
 }

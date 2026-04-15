@@ -1,13 +1,16 @@
 // This is public domain Metalama sample code.
 
 using System;
+using System.Collections.Generic;
 using Metalama.Framework.RunTime.Initialization;
 
 namespace Doc.MixedInitialization;
 
-[TrackInitialization]
+[TrackLifecycle]
 public sealed partial class Customer : IInitializable
 {
+    private List<string>? _tags = new();
+
     public Customer( int id )
     {
         this.Id = id;
@@ -15,22 +18,32 @@ public sealed partial class Customer : IInitializable
 
     public int Id { get; }
 
-    public string Name { get; init; } = "";
+    public string FirstName { get; init; } = "";
+
+    public string LastName { get; init; } = "";
 
     public string Email { get; init; } = "";
 
+    public IReadOnlyList<string> Tags { get; private set; } = null!;
+
+    public void OnConstructed( InitializationContext context = default )
+    {
+        // Once all constructors have run, the tag list is frozen.
+        this.Tags = ( this._tags ?? new List<string>() ).AsReadOnly();
+        this._tags = null;
+    }
+
     public void Initialize( InitializationContext context = default )
     {
-        Console.WriteLine( $"  User code: validating {this.Name} ({this.Email})." );
-    }
-}
+        // Cross-property validation: identity requires Email, or both names.
+        var hasEmail = !string.IsNullOrEmpty( this.Email );
+        var hasFullName = !string.IsNullOrEmpty( this.FirstName )
+                          && !string.IsNullOrEmpty( this.LastName );
 
-internal class Program
-{
-    private static void Main()
-    {
-        Console.WriteLine( "Creating customer:" );
-        var customer = new Customer( 1 ) { Name = "Alice", Email = "alice@example.com" };
-        Console.WriteLine( $"  Result: {customer.Name} ({customer.Email})" );
+        if ( !hasEmail && !hasFullName )
+        {
+            throw new InvalidOperationException(
+                "A customer needs either an Email or both FirstName and LastName." );
+        }
     }
 }
