@@ -2,9 +2,9 @@
 uid: initializers
 level: 300
 summary: "The document provides instructions on how to add initializers to fields, properties, object constructors, and type constructors using the Metalama Framework. It includes examples for each case."
-keywords: "initializers, fields, properties, Metalama Framework, initialization, declarative advice, programmatic advice, constructors, object constructors, type constructors, AfterObjectInitializer, AfterLastInstanceConstructor, IInitializable, records"
+keywords: "initializers, fields, properties, Metalama Framework, initialization, declarative advice, programmatic advice, constructors, object constructors, type constructors, AfterObjectInitializer, AfterLastInstanceConstructor, InitializerPosition, BeforeBase, AfterBase, IInitializable, records, InitializationSlot, slotFields, IsHandled, InitializationContext, Descend"
 created-date: 2023-02-17
-modified-date: 2026-04-15
+modified-date: 2026-04-16
 ---
 
 # Adding initializers
@@ -94,6 +94,8 @@ Metalama introduces an `OnConstructed` helper method on the target type and emit
 
 For non-sealed types, the introduced method is `protected virtual`, allowing derived types to participate in the initialization chain. An <xref:Metalama.Framework.RunTime.Initialization.InitializationContext> parameter is added to each constructor to coordinate initialization across inheritance hierarchies.
 
+By default, the aspect's statements are appended to `OnConstructed` after the call to `base.OnConstructed(...)`, in aspect-application order (i.e. <xref:Metalama.Framework.Aspects.AspectOrderDirection.CompileTime> order). This can be customized through the <xref:Metalama.Framework.Advising.InitializerPosition> argument of <xref:Metalama.Framework.Aspects.AdviserExtensions.AddInitializer*>; see <xref:initializers#ordering-of-initializers> for details.
+
 ### Example: Publishing a domain event after construction
 
 The following aspect publishes a domain event once an object has been fully constructed. If any constructor throws, the event is not published, so subscribers only see successfully-created instances. Because the generated `OnConstructed` method is `protected virtual`, a derived type such as `RecurringOrder` inherits the initialization chain automatically and its constructor also ends with the call to `OnConstructed`.
@@ -113,6 +115,8 @@ Metalama makes the target type implement the <xref:Metalama.Framework.RunTime.In
 
 For non-sealed types, the `Initialize` method is `virtual`, allowing derived types to override it and call `base.Initialize(...)` to chain initialization logic.
 
+By default, the aspect's statements are appended to `Initialize` after the call to `base.Initialize(...)`, in aspect-application order (i.e. <xref:Metalama.Framework.Aspects.AspectOrderDirection.CompileTime> order). This can be customized through the <xref:Metalama.Framework.Advising.InitializerPosition> argument of <xref:Metalama.Framework.Aspects.AdviserExtensions.AddInitializer*>; see <xref:initializers#ordering-of-initializers> for details.
+
 ### Example: Publishing after initialization
 
 The next aspect is a variation of the previous one: it publishes the event after the object initializer has run, so the payload can depend on properties set in the object initializer. The `Id` of a `Document` is only known once the object initializer has assigned it, so the publish cannot happen at the end of the constructor. 
@@ -121,9 +125,10 @@ With `AfterObjectInitializer`, the aspect implements <xref:Metalama.Framework.Ru
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/AfterObjectInitializer.cs name="After Object Initializer" diff-files="\.Program\.cs$"]
 
+
 ## Combining hand-written initialization logic with aspect-generated one
 
-When the target type supplies its own `OnConstructed` or `Initialize` method, Metalama merges the aspect's statements into the user's method rather than replacing it. 
+When the target type supplies its own `OnConstructed` or `Initialize` method, Metalama merges the aspect's statements into the user's method rather than replacing it. The user's body plays the role of the base-call anchor: `BeforeBase` statements are prepended to it, `AfterBase` statements are appended at a generated `end:` label, and any top-level `return;` in the user body is rewritten to `goto end;` so that appended statements still run.
 
 ### Example: Tracking lifecycle with all three initializer kinds
 
@@ -133,11 +138,65 @@ The following `TrackLifecycle` aspect registers the instance's lifecycle state (
 
 ## Ordering of initializers
 
-When multiple aspects add initializers to the same type, the order of initializer statements in the generated code respects `AspectOrderDirection.RunTime`. This means that if you define an aspect ordering using `[assembly: AspectOrder(AspectOrderDirection.RunTime, typeof(FirstAspect), typeof(SecondAspect))]`, the initializer from `FirstAspect` will execute before the initializer from `SecondAspect`.
+When several aspects add initializers to the same type, Metalama lays out their statements according to the matryoshka rule: **statements placed before the base call run in reverse aspect-application order, and statements placed after the base call run in direct aspect-application order**. This mirrors the ordering of a method-override chain, where outer (more-derived) logic wraps inner (base) logic: the outer layer's pre-base code runs first on the way in, and the inner layer's post-base code runs first on the way out.
+
+Given `[assembly: AspectOrder(AspectOrderDirection.RunTime, typeof(FirstAspect), typeof(SecondAspect))]` (i.e. `FirstAspect` is the outer layer and runs first at run time), a _before-base_ statement from `FirstAspect` runs before one from `SecondAspect`, and an _after-base_ statement from `SecondAspect` runs before one from `FirstAspect`.
+
+How this applies to each <xref:Metalama.Framework.Aspects.InitializerKind>:
+
+* <xref:Metalama.Framework.Aspects.InitializerKind.BeforeTypeConstructor>: direct aspect-application order. No base call is involved.
+* <xref:Metalama.Framework.Aspects.InitializerKind.BeforeInstanceConstructor>: direct aspect-application order. The advice sits after the constructor's `:base(...)` call, so it falls in the after-base bucket.
+* <xref:Metalama.Framework.Aspects.InitializerKind.AfterLastInstanceConstructor> and <xref:Metalama.Framework.Aspects.InitializerKind.AfterObjectInitializer>: governed by the <xref:Metalama.Framework.Advising.InitializerPosition> argument. `AfterBase` (the default) runs in direct aspect-application order after `base.OnConstructed(...)` / `base.Initialize(...)`; `BeforeBase` runs in reverse aspect-application order before that call. In a sealed class the base call does not exist, so `BeforeBase` simply means "reverse order across aspect instances" and `AfterBase` means "direct order across aspect instances".
+
+Within a single aspect instance, multiple calls to <xref:Metalama.Framework.Aspects.AdviserExtensions.AddInitializer*> preserve their programmatic add-order inside each bucket.
+
+### Example: Two aspects and two levels of inheritance
+
+The following example exercises the matryoshka rule end-to-end. `AspectA` and `AspectB` are both `[Inheritable]` and each adds a `BeforeBase` and an `AfterBase` initializer for `AfterLastInstanceConstructor`. The assembly-level `AspectOrder` declares `AspectA` as the outer layer (run-time-first). `BaseClass` carries both attributes and `DerivedClass` inherits them. Running `new DerivedClass()` produces the expected order: `DerivedClass`'s `OnConstructed` runs its pre-base statements (outer-first: A then B), calls `base.OnConstructed()`, which runs its own pre-base statements, then unwinds its post-base statements (inner-first: B then A), and finally `DerivedClass`'s post-base statements run in the same inner-first order.
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/InitializerOrdering.cs name="Initializer Ordering"]
+
+## Running an initializer only at the most-derived layer
+
+The generated `Initialize` and `OnConstructed` methods are declared `virtual`, so a derived class invokes `base.Initialize(...)` or `base.OnConstructed(...)` from its own override. When an `[Inheritable]` aspect is applied to a base class, the derived class inherits the aspect's template body at every level of the hierarchy, and constructing a derived instance executes that body once per level. For logic that depends on the object being fully initialized (for example, external validation of the completed aggregate, publication of a single "created" domain event, or freezing), execution at every inheritance level is incorrect: the base levels observe only a partial view of the object.
+
+Metalama resolves this through _initialization slots_. An initialization slot is a marker indicating that a given concern is handled by the derived method and must therefore be skipped by the base method. Each concern (typically one per aspect) is assigned its own <xref:Metalama.Framework.RunTime.Initialization.InitializationSlot>, and the framework propagates it to base levels through an <xref:Metalama.Framework.RunTime.Initialization.InitializationContext> parameter added to every generated `Initialize` and `OnConstructed` method.
+
+### Orchestrating initialization with initialization slots
+
+Three steps are required:
+
+1. Define a public static field of type <xref:Metalama.Framework.RunTime.Initialization.InitializationSlot> and initialize it by calling <xref:Metalama.Framework.RunTime.Initialization.InitializationSlot.Allocate*?InitializationSlot.Allocate>. 
+2. Pass the corresponding <xref:Metalama.Framework.Code.IField> to the <xref:Metalama.Framework.Aspects.AdviserExtensions.AddInitializer*> method via the `slotFields:` parameter (one aspect may pass several slots).
+3. In the template, accept an <xref:Metalama.Framework.RunTime.Initialization.InitializationContext> parameter and guard the body with `if (!context.IsHandled(slot)) { ... }`.
+
+### Generated code
+
+The `slotFields:` parameter on <xref:Metalama.Framework.Aspects.AdviserExtensions.AddInitializer*> determines the code that Metalama emits on derived types. Without slot fields, a derived `Initialize` forwards the incoming context unchanged: `base.Initialize(context)`. With slot fields, Metalama rewrites the call to invoke <xref:Metalama.Framework.RunTime.Initialization.InitializationContext.Descend*>, combining all slots declared by slot-using aspects on the type with the `|` operator. For the two aspects in the example below, `SubscriptionOrder.Initialize` emits `base.Initialize(context.Descend(InitializerSlots.Validate | InitializerSlots.Publish))`. `Descend` returns a copy of the context with the specified slots added to its handled set. When the base-level template evaluates `context.IsHandled(slot)`, the guard returns `true` and the body is skipped. The derived-level template receives the original (unmodified) `context`, so its body executes. `Descend` is invoked exclusively by framework-generated code; aspect authors do not call it directly.
+
+### Additional notes
+
+* Up to 32 slots can be allocated per application domain. This limit is sufficient for typical use: most applications allocate only a small number of slots.
+* The framework reserves one slot, `InitializationSlot.OnConstructed`, to prevent duplicate `OnConstructed` calls across `this(...)` constructor chains. This slot is reserved for internal framework use and is not intended for aspect code.
+* The mechanism applies to both `InitializerKind.AfterObjectInitializer` (through `IInitializable.Initialize`) and `InitializerKind.AfterLastInstanceConstructor` (through the generated virtual `OnConstructed`).
+
+### Example: validating the finished object before publishing
+
+The following example applies two `[Inheritable]` aspects to an `Order` hierarchy. `[Validate]` invokes an external `ValidationService` on the fully-initialized object, and `[Publish]` raises a "created" event through an external `PublishService`. Each aspect declares its own slot, so each executes exactly once per constructed object, at the most-derived level, once every `init` property has been assigned. 
+
+The declaration `[assembly: AspectOrder(AspectOrderDirection.RunTime, typeof(PublishAttribute), typeof(ValidateAttribute))]` designates `Publish` as the outer aspect at run time, which causes `Validate` to execute before `Publish` at the most-derived level. The event is therefore raised only for an object that has already been validated.
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/InitializerSlot.cs name="Initializer Slot" diff-files="\.Program\.cs$"]
+
 
 > [!div class="see-also"]
 > <xref:introducing-members>
 > <xref:Metalama.Framework.Aspects.AdviserExtensions.AddInitializer*>
+> <xref:Metalama.Framework.Advising.InitializerPosition>
 > <xref:Metalama.Framework.Aspects.IntroduceAttribute>
 > <xref:Metalama.Framework.RunTime.Initialization.IInitializable>
 > <xref:Metalama.Framework.RunTime.Initialization.InitializationContext>
+> <xref:Metalama.Framework.RunTime.Initialization.InitializationSlot>
+> <xref:Metalama.Framework.RunTime.Initialization.InitializationSlot.Allocate*>
+> <xref:Metalama.Framework.RunTime.Initialization.InitializationContext.IsHandled*>
+> <xref:Metalama.Framework.RunTime.Initialization.InitializationContext.Descend*>

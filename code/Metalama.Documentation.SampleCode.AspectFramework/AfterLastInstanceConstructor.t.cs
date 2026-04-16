@@ -22,8 +22,12 @@ public partial class Order
 public partial class RecurringOrder : Order
 {
   public TimeSpan Interval { get; }
-  public RecurringOrder(string customerId, TimeSpan interval, [AspectGenerated] InitializationContext context = default) : base(customerId, context)
+  public RecurringOrder(string customerId, TimeSpan interval, [AspectGenerated] InitializationContext context = default) : base(customerId, context.Descend(InitializationSlot.OnConstructed))
   {
     this.Interval = interval;
+    if (!context.IsHandled(InitializationSlot.OnConstructed))
+    {
+      this.OnConstructed(context);
+    }
   }
 }

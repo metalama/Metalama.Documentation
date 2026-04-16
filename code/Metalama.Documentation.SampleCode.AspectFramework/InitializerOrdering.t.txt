@@ -1,0 +1,10 @@
+BaseClass constructor
+DerivedClass constructor
+AspectA before in DerivedClass
+AspectB before in DerivedClass
+AspectA before in BaseClass
+AspectB before in BaseClass
+AspectB after in BaseClass
+AspectA after in BaseClass
+AspectB after in DerivedClass
+AspectA after in DerivedClass
