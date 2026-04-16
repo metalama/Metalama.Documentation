@@ -111,7 +111,7 @@ To inject logic that runs after the constructor _and_ any object initializer or 
 1. Add a template method to your aspect class and annotate it with `[Template]`.
 2. Call the <xref:Metalama.Framework.Aspects.AdviserExtensions.AddInitializer*> method with the value `InitializerKind.AfterObjectInitializer`.
 
-Metalama makes the target type implement the <xref:Metalama.Framework.RunTime.Initialization.IInitializable> interface, which defines an <xref:Metalama.Framework.RunTime.Initialization.IInitializable.Initialize> method. This method is called automatically after construction and object initialization by the framework's call-site rewriting.
+Metalama makes the target type implement the <xref:Metalama.Framework.RunTime.Initialization.IInitializable> interface, which defines an <xref:Metalama.Framework.RunTime.Initialization.IInitializable.Initialize*> method. This method is called automatically after construction and object initialization by the framework's call-site rewriting.
 
 For non-sealed types, the `Initialize` method is `virtual`, allowing derived types to override it and call `base.Initialize(...)` to chain initialization logic.
 
@@ -142,11 +142,11 @@ When several aspects add initializers to the same type, Metalama lays out their 
 
 Given `[assembly: AspectOrder(AspectOrderDirection.RunTime, typeof(FirstAspect), typeof(SecondAspect))]` (i.e. `FirstAspect` is the outer layer and runs first at run time), a _before-base_ statement from `FirstAspect` runs before one from `SecondAspect`, and an _after-base_ statement from `SecondAspect` runs before one from `FirstAspect`.
 
-How this applies to each <xref:Metalama.Framework.Aspects.InitializerKind>:
+How this applies to each <xref:Metalama.Framework.Advising.InitializerKind>:
 
-* <xref:Metalama.Framework.Aspects.InitializerKind.BeforeTypeConstructor>: direct aspect-application order. No base call is involved.
-* <xref:Metalama.Framework.Aspects.InitializerKind.BeforeInstanceConstructor>: direct aspect-application order. The advice sits after the constructor's `:base(...)` call, so it falls in the after-base bucket.
-* <xref:Metalama.Framework.Aspects.InitializerKind.AfterLastInstanceConstructor> and <xref:Metalama.Framework.Aspects.InitializerKind.AfterObjectInitializer>: governed by the <xref:Metalama.Framework.Advising.InitializerPosition> argument. `AfterBase` (the default) runs in direct aspect-application order after `base.OnConstructed(...)` / `base.Initialize(...)`; `BeforeBase` runs in reverse aspect-application order before that call. In a sealed class the base call does not exist, so `BeforeBase` simply means "reverse order across aspect instances" and `AfterBase` means "direct order across aspect instances".
+* <xref:Metalama.Framework.Advising.InitializerKind.BeforeTypeConstructor>: direct aspect-application order. No base call is involved.
+* <xref:Metalama.Framework.Advising.InitializerKind.BeforeInstanceConstructor>: direct aspect-application order. The advice sits after the constructor's `:base(...)` call, so it falls in the after-base bucket.
+* <xref:Metalama.Framework.Advising.InitializerKind.AfterLastInstanceConstructor> and <xref:Metalama.Framework.Advising.InitializerKind.AfterObjectInitializer>: governed by the <xref:Metalama.Framework.Advising.InitializerPosition> argument. `AfterBase` (the default) runs in direct aspect-application order after `base.OnConstructed(...)` / `base.Initialize(...)`; `BeforeBase` runs in reverse aspect-application order before that call. In a sealed class the base call does not exist, so `BeforeBase` simply means "reverse order across aspect instances" and `AfterBase` means "direct order across aspect instances".
 
 Within a single aspect instance, multiple calls to <xref:Metalama.Framework.Aspects.AdviserExtensions.AddInitializer*> preserve their programmatic add-order inside each bucket.
 
