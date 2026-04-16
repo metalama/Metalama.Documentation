@@ -257,7 +257,7 @@ var tupleType = TypeFactory.CreateTupleType( (typeof(decimal), "Quantity"), (typ
 var tupleInstance = tupleType.CreateCreateInstanceExpression(42, "HAT").Value;
 ```
 
-This will generate the following code:
+This generates the following code:
 
 ```csharp
 var tupleInstance = (Quantity: 42, ProductCode: "HAT");

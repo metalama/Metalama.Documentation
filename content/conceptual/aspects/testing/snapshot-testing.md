@@ -310,7 +310,7 @@ For detailed configuration instructions for Rider and ReSharper, see <xref:ide-r
 ## Removed APIs
 
 > [!WARNING]
-> The `AspectTestClass`, `DefaultAspectTestClass`, `CurrentDirectoryAttribute`, and `CurrentProjectAttribute` classes have been **removed** in Metalama 2026.1. These classes were previously required to manually create test runners, but the `Metalama.Testing.AspectTesting` package now provides automatic test discovery. Simply add the package to your project and place test files in the project directory—no additional test runner code is needed.
+> The `AspectTestClass`, `DefaultAspectTestClass`, `CurrentDirectoryAttribute`, and `CurrentProjectAttribute` classes have been **removed** in Metalama 2026.1. These classes were previously required to manually create test runners, but the `Metalama.Testing.AspectTesting` package now provides automatic test discovery. Add the package to your project and place test files in the project directory. No additional test runner code is needed.
 >
 > If your test project contains `_Runner.cs` files with `AspectTestClass` and `[CurrentDirectory]`, you must remove them. The test framework now discovers and runs tests automatically without any runner classes.
 

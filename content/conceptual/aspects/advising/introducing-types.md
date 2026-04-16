@@ -49,7 +49,7 @@ By default, the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceClas
 
 In the following aspect, we continue the nested type example, make it `public`, and set its base type to the `Builder` nested type of the base class, if any.
 
-[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/IntroduceNestedClass.cs name="Introducing a nested class"]
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/IntroduceNestedClass_BaseClass.cs name="Setting up the type"]
 
 ## Adding class members
 
@@ -74,7 +74,7 @@ To add interface implementations to an introduced type, use the <xref:Metalama.F
 
 ## Introducing extension blocks
 
-Starting with Metalama 2026.1, you can introduce C# 14 extension blocks using the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceExtensionBlock*> method. Extension blocks allow you to add extension members (methods, properties, operators) to any type.
+Starting with Metalama 2026.1, you can introduce C# 14 extension blocks using the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceExtensionBlock*> method. Extension blocks allow you to add extension members (methods, static methods, properties, and operators) to any type. Fields, events, indexers, constructors, and nested types are not supported inside an extension block and are rejected by Metalama with LAMA0041.
 
 To introduce an extension block:
 

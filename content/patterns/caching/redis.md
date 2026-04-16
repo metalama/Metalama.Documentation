@@ -134,8 +134,8 @@ When a cache key exceeds the threshold (default: 128 characters), it is hashed u
 | Algorithm | Description | Max safe elements (p < 10⁻⁹) |
 |-----------|-------------|-------------------------------|
 | `None` | No hashing (default). | N/A |
-| `XxHash64` | 64-bit xxHash — small data spaces | ~200,000 (1.9 × 10⁵) |
-| `XxHash128` | 128-bit xxHash — any data space | ~250 trillion (2.6 × 10¹⁴) |
+| `XxHash64` | 64-bit xxHash (small data spaces) | ~200,000 (1.9 × 10⁵) |
+| `XxHash128` | 128-bit xxHash (any data space) | ~250 trillion (2.6 × 10¹⁴) |
 
 ### Concurrency and overload detection
 

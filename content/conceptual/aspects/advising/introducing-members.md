@@ -174,7 +174,7 @@ For more details, see <xref:Metalama.Framework.Code.Invokers>.
 The following example shows a `DirtyTracking` aspect that introduces an `IsDirty` property and a virtual `OnPropertyChanged` method. The aspect uses `WhenExists = OverrideStrategy.Override` so it can override an existing `OnPropertyChanged` in a base class while also introducing the method when no base exists.
 
 > [!NOTE]
-> An optimal dirty-tracking implementation would automatically instrument property setters to call `OnPropertyChanged`. This example assumes you don't own the properties—for instance, they might be in a base class you can't modify—so the aspect only introduces the `OnPropertyChanged` hook and relies on existing code to call it. For a complete change-tracking implementation that instruments properties automatically, see [Change Tracking](https://samples.metalama.net/change-tracking).
+> An optimal dirty-tracking implementation would automatically instrument property setters to call `OnPropertyChanged`. This example assumes you don't own the properties—for instance, they might be in a base class you can't modify—so the aspect only introduces the `OnPropertyChanged` hook and relies on existing code to call it. For a complete change-tracking implementation that instruments properties automatically, see <xref:sample-dirty>.
 
 - `Entity` is a base class without the aspect but with its own `OnPropertyChanged` implementation.
 - `Customer` derives from `Entity` and has the aspect. The aspect overrides `OnPropertyChanged` and calls `base.OnPropertyChanged`.

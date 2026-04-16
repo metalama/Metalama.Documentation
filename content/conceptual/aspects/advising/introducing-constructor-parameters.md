@@ -4,7 +4,7 @@ level: 400
 summary: "This article explains how to introduce parameters to constructors, either by adding an optional parameter with a default value or by adding a forwarding constructor that preserves binary compatibility."
 keywords: "IntroduceParameter, constructor parameter, dependency injection, IConstructor, AdviserExtensions, default value, pullStrategy, optional parameter, forwarding constructor, ForwardSourceConstructors, ConstructorOverloadingStrategy, binary compatibility, source compatibility"
 created-date: 2023-02-20
-modified-date: 2026-04-15
+modified-date: 2026-04-16
 ---
 
 # Introducing constructor parameters
@@ -52,14 +52,11 @@ Together, these preserve both **source and binary compatibility**: external call
 The forwarding constructor can also be marked with `[Obsolete]` by calling <xref:Metalama.Framework.Advising.ForwardConstructorStrategy.WithObsoleteAttribute*> on the overloading strategy. This signals to downstream callers that they should migrate from the original signature to the new one, while still compiling against the forwarder in the meantime (see [Overloading strategy](#overloading-strategy) below).
 
 > [!NOTE]
-> Generated code carries two marker attributes that make the transformation self-describing:
->
-> - `[SourceCompatibilityConstructor]` (<xref:Metalama.Framework.RunTime.SourceCompatibilityConstructorAttribute>) is placed on each generated forwarding constructor, distinguishing Metalama-generated forwarders from constructors written by the user. You can check for it programmatically from a pull strategy by calling <xref:Metalama.Framework.Code.ConstructorExtensions.IsSourceCompatibilityConstructor*> on the target <xref:Metalama.Framework.Code.IConstructor>.
-> - `[AspectGenerated]` (<xref:Metalama.Framework.RunTime.AspectGeneratedAttribute>) is placed on each introduced parameter when the target constructor is reachable from external assemblies. This lets Metalama (and other tools) reconstruct the pre-transformation identity of the constructor, which matters for cross-assembly scenarios such as re-applying an aspect to an already-transformed type.
+> The <xref:Metalama.Framework.RunTime.AspectGeneratedAttribute?text=[AspectGenerated]> attribute is placed on each introduced parameter when the target constructor is reachable from external assemblies. This lets Metalama (and other tools) reconstruct the pre-transformation identity of the constructor, which matters for cross-assembly scenarios such as re-applying an aspect to an already-transformed type.
 
 The `IPullStrategy` is also consulted when user-written chained constructors (`: this(...)` or `: base(...)`) call the mutated constructor without supplying the new argument, so the pull mechanism is the single source of truth for the new parameter's value wherever it is needed.
 
-For more advanced scenarios, implement <xref:Metalama.Framework.Advising.IPullStrategy> directly. Your implementation can detect whether it is being called for a forwarding constructor by using the <xref:Metalama.Framework.Code.ConstructorExtensions.IsSourceCompatibilityConstructor*> extension method.
+For more advanced scenarios, implement <xref:Metalama.Framework.Advising.IPullStrategy> directly. To control the value passed for the new parameter in the framework-emitted forwarder, set the `forwarderExpression` argument when building a <xref:Metalama.Framework.Advising.PullAction.IntroduceParameterAndPull*> action; unlike `parameterDefaultValue`, `forwarderExpression` does not need to be a compile-time constant.
 
 ### Overloading strategy
 

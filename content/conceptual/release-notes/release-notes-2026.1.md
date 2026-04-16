@@ -1,7 +1,7 @@
 ---
 uid: release-notes-2026.1
 level: 200
-summary: "Metalama 2026.1 completes C# 14 support, expands initialization advice, brings major Redis caching improvements, reduces third-party dependencies, and clears most of the bug backlog."
+summary: "Metalama 2026.1 completes C# 14 support, expands initialization advice, brings major Redis caching improvements, reduces third-party dependencies, and clears substantially the entire bug backlog."
 keywords: "Metalama 2026.1, release notes, C# 14, extension blocks, operator introduction, initialization, dependency injection, Redis caching, System.Text.Json"
 created-date: 2026-04-13
 modified-date: 2026-04-14
@@ -9,11 +9,11 @@ modified-date: 2026-04-14
 
 # Metalama 2026.1
 
-Metalama 2026.1 is a consolidation release, and the first long-term support (LTS) release of Metalama ever. It finishes the C# 14 story started in 2026.0, rounds out the initialization and parameter-introduction advice, ports major new features into the Redis caching backend, trims third-party dependencies, makes the design-time experience faster, and clears the entite bug backlog.
+Metalama 2026.1 is a consolidation release, and the first long-term support (LTS) release of Metalama ever. It finishes the C# 14 story started in 2026.0, rounds out the initialization and parameter-introduction advice, ports major new features into the Redis caching backend, trims third-party dependencies, makes the design-time experience faster, and clears substantially the entire bug backlog.
 
 **Highlights:**
 
-- **C# 14 completion.** Every feature listed as a limitation in <xref:release-notes-2026.0> is now implemented, including extension blocks introductions, constracts on extension block parameters, and introduction of C# 14 compound assignment operators.
+- **C# 14 completion.** Every feature listed as a limitation in <xref:release-notes-2026.0> is now implemented, including extension block introductions, contracts on extension block parameters, and introduction of user-defined compound assignment operators.
 - **Initialization advice.** New `AfterObjectInitializer` and `AfterLastInstanceConstructor` kinds, records supported by `BeforeInstanceConstructor`, forwarding overloads for constructor parameter introduction, and parameter reuse for dependency injection.
 - **Redis caching backend.** Retry and exception-handling policies, key compression, overload detection, and many new configuration options.
 - **Reduced third-party dependencies.** `System.Text.Json` replaces `Newtonsoft.Json`, `System.IO.Hashing` replaces `K4os.Hash`, and optional HTML/diff-tool components have been extracted into opt-in extension packages.
@@ -30,21 +30,21 @@ Metalama 2026.1 has the same requirements as 2026.0. See <xref:requirements> for
 
 ## C# 14 completion
 
-All C# 14 features listed as limitations in <xref:release-notes-2026.0> are now implemented in 2026.1. The two most prominent additions (introducing C# 14 compound assignment operators and introducing extension blocks) are covered in their own sections below. The rest are closing gaps in template and advice support.
+All C# 14 features listed as limitations in <xref:release-notes-2026.0> are now implemented in 2026.1. The two most prominent additions (introducing user-defined compound assignment operators and introducing extension blocks) are covered in their own sections below. The rest are closing gaps in template and advice support.
 
 ### Introducing extension blocks
 
-The new <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceExtensionBlock*> advice lets aspects introduce C# 14 extension blocks into a static class. You can specify the receiver type and an optional receiver parameter name to choose between instance and static extension blocks, and then add members with the usual `IntroduceMethod`, `IntroduceProperty`, and so on.
+The new <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceExtensionBlock*> advice lets aspects introduce C# 14 extension blocks into a static class. The advice takes the receiver type and an optional receiver parameter name to choose between instance and static extension blocks, and supports the usual `IntroduceMethod`, `IntroduceProperty`, and so on for adding members.
 
 See <xref:introducing-types> for a full example.
 
 ### Contracts on extension-block receiver parameters
 
-Contracts such as `[NotNull]` or <xref:Metalama.Patterns.Contracts> attributes can now be applied to the receiver parameter of an extension block ([#1127](https://github.com/metalama/Metalama/issues/1127)). Metalama propagates the contract to every extension member in the block, so a single declaration validates `this`-equivalent receiver access across the entire extension block, including members introduced by other aspects.
+Contracts such as `[NotNull]` or attributes from <xref:contract-patterns?text=Metalama.Patterns.Contracts> can now be applied to the receiver parameter of an extension block ([#1127](https://github.com/metalama/Metalama/issues/1127)). Metalama propagates the contract to every extension member in the block, so a single declaration validates `this`-equivalent receiver access across the entire extension block, including members introduced by other aspects.
 
-### Introducing C# 14 compound assignment operators
+### Introducing user-defined compound assignment operators
 
-Aspects can now introduce the new C# 14 compound assignment operators (`+=`, `-=`, `*=`, etc.) ([#1131](https://github.com/metalama/Metalama/issues/1131)). Operator introduction goes through the standard <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceMethod*> advice by setting <xref:Metalama.Framework.Code.DeclarationBuilders.IMethodBuilder.OperatorKind>.
+C# 14 lets types define their own compound assignment operators (`+=`, `-=`, `*=`, etc.). Aspects can now introduce these user-defined overloads ([#1131](https://github.com/metalama/Metalama/issues/1131)). Operator introduction goes through the standard <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceMethod*> advice by setting <xref:Metalama.Framework.Code.DeclarationBuilders.IMethodBuilder.OperatorKind>.
 
 For details, see the _Introducing operators_ section of <xref:introducing-members>.
 
@@ -131,7 +131,6 @@ Metalama 2026.1 tightens its dependency footprint. Transitive dependencies that 
 - **HTML test output extracted to `Metalama.Extensions.HtmlWriter`** ([#447](https://github.com/metalama/Metalama/issues/447)). The only typical use of this package is the generation of Metalama's own documentation.
 - MD5 is no longer used internally for non-cryptographic hashing ([#525](https://github.com/metalama/Metalama/issues/525)), so Metalama assemblies no longer trip security scanners that flag MD5 usage regardless of intent.
 
-
 ## Performance enhancements
 
 Several parts of the Metalama pipeline have been rewritten for speed:
@@ -155,13 +154,15 @@ See the _Generic math support_ section of <xref:contract-types>.
 - **`OfExactSignature`** overloads on <xref:Metalama.Framework.Code.Collections.IMethodCollection> and <xref:Metalama.Framework.Code.Collections.IConstructorCollection> ([#846](https://github.com/metalama/Metalama/issues/846)) locate methods or constructors by exact signature.
 - **Generic parameter constraints** are now honored when matching signatures on <xref:Metalama.Framework.Code.Collections.IMethodCollection> ([#842](https://github.com/metalama/Metalama/issues/842)).
 - **<xref:Metalama.Framework.Code.TypeFactory.TryGetType*?text=TypeFactory.TryGetType>** returns `false` instead of throwing when a type cannot be resolved.
+- **<xref:Metalama.Framework.Code.DeclarationBuilders.IMethodBaseBuilder.InsertParameter*?text=IMethodBaseBuilder.InsertParameter>** adds a parameter at an arbitrary position in an introduced method or constructor, not just at the end ([#657](https://github.com/metalama/Metalama/issues/657)).
+- **<xref:Metalama.Framework.Project.IProject.Features?text=IProject.Features>** exposes a <xref:Metalama.Framework.Project.ProjectFeatures> object describing compiler and target-framework capabilities (for instance, `SupportsCovariantReturnTypes`), so aspects can adapt their output to the target project ([#1532](https://github.com/metalama/Metalama/issues/1532)).
 
 ### Templates and compile-time code
 
 - **<xref:Metalama.Framework.Code.TypedConstant.NamedConstant*?text=TypedConstant.NamedConstant>** creates a `TypedConstant` that references an enum member or a `const` field by name, for instance run-time-only enum value.
 - **<xref:Metalama.Framework.Code.Invokers.IMethodInvoker.CreateDelegateExpression*?text=IMethodInvoker.CreateDelegateExpression>** generates an expression that references a method as a delegate. Useful when you need to pass a method reference (e.g., to `EventHandler` or `Func<…>`) rather than invoke it. See <xref:invokers>.
 - **Compile-time serialization** now supports value tuples (`ValueTuple` through `ValueTuple<T1,…,T7,TRest>`) and <xref:System.Index>/<xref:System.Range>. See <xref:aspect-serialization>.
-
+- **<xref:Metalama.Framework.Code.AttributeExtensions.TryConstruct*?text=IAttribute.TryConstruct>** instantiates a custom attribute from a template, returning `false` if the attribute cannot be constructed at compile time ([#723](https://github.com/metalama/Metalama/issues/723)).
 
 ### Fabrics
 
@@ -173,10 +174,10 @@ See <xref:fabrics-advising>.
 
 ### IDE and tooling
 
-You can now hide an aspect from  **Aspect Explorer** via a the <xref:Metalama.Framework.Aspects.EditorExperienceAttribute.HideFromAspectExplorer> property of the <xref:Metalama.Framework.Aspects.EditorExperienceAttribute>  attribute ([#697](https://github.com/metalama/Metalama/issues/697)).
+- You can now hide an aspect from **Aspect Explorer** via the <xref:Metalama.Framework.Aspects.EditorExperienceAttribute.HideFromAspectExplorer> property of the <xref:Metalama.Framework.Aspects.EditorExperienceAttribute> attribute ([#697](https://github.com/metalama/Metalama/issues/697)).
+- **Read-only generated files.** The transformed files emitted under `obj/<Config>/<TFM>/metalama/` are now marked read-only, so accidental edits during a debugging session no longer go unnoticed (the edits would be overwritten on the next build) ([#745](https://github.com/metalama/Metalama/issues/745)).
 
-
-## Deep backlog fixes
+## Bug backlog
 
 Beyond the feature work, Metalama 2026.1 is the release in which we processed substantially the entire bug backlog. More than 100 bug fixes shipped across the 2026.1 preview builds, addressing long-standing issues across the template engine, linker, code model, design-time services, dependency injection, and diagnostics. Many of these bugs had been open for a long time; clearing them is a feature in its own right.
 
@@ -197,7 +198,7 @@ For the full, per-build list of fixes, see the [2026.1 releases on GitHub](https
 - **Removed `ExceptionHandlingCachingBackendEnhancer`**: use the <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.ExceptionHandlingPolicy> property instead.
 - **`TransactionMaxRetries` is obsolete**: use <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.TransactionRetryPolicy> instead.
 - **`CacheCleanupOptions.Sequential` is obsolete**: use <xref:Metalama.Patterns.Caching.Implementation.CacheCleanupOptions.MaxConcurrency> instead.
-- **`CacheValue.Dependencies` / `CacheItem.Dependencies`**: now expose first-level dependencies only (not recursive).
+- **`CacheItem.Dependencies`**: now exposes direct dependencies only. Transitive dependencies are resolved at invalidation time rather than flattened into the item.
 
 > [!div class="see-also"]
 > <xref:release-notes>

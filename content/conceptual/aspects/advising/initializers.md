@@ -75,7 +75,7 @@ The following aspect registers any new instance of the target class in a registr
 
 ### Example: Initializing a record
 
-The following example applies `BeforeInstanceConstructor` to a positional record. The primary constructor is materialized into a normal constructor and a set of properties. The initializer code is injected at the beginning of the synthetised constructor.
+The following example applies `BeforeInstanceConstructor` to a positional record. The primary constructor is materialized into a normal constructor and a set of properties. The initializer code is injected at the beginning of the synthesized constructor.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/RecordInitializer.cs name="Record Initializer"]
 

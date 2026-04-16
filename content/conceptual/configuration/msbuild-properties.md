@@ -38,7 +38,7 @@ All environment variables are imported as MSBuild properties by default.
 | `MetalamaCreateLamaDebugConfiguration`       | Boolean                  | Indicates whether the `LamaDebug` build configuration should be automatically defined (see below). The default value is `True`. |
 | `MetalamaTemplateLanguageVersion`            | String                   | Specifies the C# language version (e.g., `10.0`) that's used by templates. Any syntax from higher C# versions isn't allowed in template bodies. Such templates can then be used in projects that use this C# version.
 | `MetalamaConcurrentBuildEnabled` | Boolean | Specifies whether Metalama can parallelize work across several cores. The default value is `True`. |
-| `MetalamaRoslynIsCompileTimeOnly` | Boolean | Indicates whether types from the `Microsoft.CodeAnalysis` namespaces are considered compile-time-only. The default value is `True`. Set it to `False` if your project uses Roslyn in runtime code. |
+| `MetalamaRoslynIsCompileTimeOnly` | Boolean | Indicates whether types from the `Microsoft.CodeAnalysis` namespaces are considered compile-time-only. The default value is `True`. Set it to `False` if your project uses Roslyn in run-time code. |
 
 ## MSBuild items
 

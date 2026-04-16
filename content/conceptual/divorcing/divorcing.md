@@ -19,7 +19,7 @@ So we built Metalama to be the considerate partner. Want out? Run `metalama divo
 
 You will, of course, lose everything that made the relationship work: deterministically auto-generated boilerplate, compile-time architecture validation, and the quiet confidence that your cross-cutting concerns are handled. You'll be writing that code by hand again. You might also use an AI: faster, but neither deterministic nor infallible. But Metalama isn't the kind of partner that makes you fight for custody of your own source files.
 
-Before you file the papers, though — if something isn't working, talk to the Metalama team. Sometimes the problem has a fix, or Metalama can be extended to address it. We'd rather improve the framework than wave you goodbye. Think of us as the couples therapist who happens to know the framework's source code.
+Before you file the papers, though: if something isn't working, talk to the Metalama team. Sometimes the problem has a fix, or Metalama can be extended to address it. We'd rather improve the framework than wave you goodbye. Think of us as the couples therapist who happens to know the framework's source code.
 
 ## Step 0. Consider your decision carefully
 
@@ -95,7 +95,7 @@ Review the changes in your repository and commit them to your new branch. Do not
 
 ## Step 7. Remove any reference to Metalama
 
-At this point, your code base no longer requires processing by the Metalama compiler — the `metalama divorce` command has already set `MetalamaEnabled` to `false` in every `.csproj`. However, your code base still contains references to the Metalama libraries. Removing them is tedious but straightforward.
+At this point, your code base no longer requires processing by the Metalama compiler. The `metalama divorce` command has already set `MetalamaEnabled` to `false` in every `.csproj`. However, your code base still contains references to the Metalama libraries. Removing them is tedious but straightforward.
 
 Currently, Metalama doesn't provide a way to automatically remove fabrics and aspect custom attributes from your code. Therefore, we recommend:
 
