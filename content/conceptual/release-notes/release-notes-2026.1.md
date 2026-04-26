@@ -1,7 +1,7 @@
 ---
 uid: release-notes-2026.1
 level: 200
-summary: "Metalama 2026.1 completes C# 14 support, expands initialization advice, brings major Redis caching improvements, reduces third-party dependencies, and clears substantially the entire bug backlog."
+summary: "Metalama 2026.1 completes C# 14 support, extends initialization advice, brings major Redis caching improvements, reduces third-party dependencies, and closes most of the bug backlog."
 keywords: "Metalama 2026.1, release notes, C# 14, extension blocks, operator introduction, initialization, dependency injection, Redis caching, System.Text.Json"
 created-date: 2026-04-13
 modified-date: 2026-04-14
@@ -9,7 +9,7 @@ modified-date: 2026-04-14
 
 # Metalama 2026.1
 
-Metalama 2026.1 is a consolidation release, and the first long-term support (LTS) release of Metalama ever. It finishes the C# 14 story started in 2026.0, rounds out the initialization and parameter-introduction advice, ports major new features into the Redis caching backend, trims third-party dependencies, makes the design-time experience faster, and clears substantially the entire bug backlog.
+Metalama 2026.1 is a consolidation release, and the first long-term support (LTS) release of Metalama. It completes the C# 14 support started in 2026.0, extends the initialization and parameter-introduction advice, ports a major redesign of PostSharp.Patterns.Caching into the Redis caching backend, trims third-party dependencies, improves design-time performance, and closes most of the bug backlog.
 
 **Highlights:**
 
@@ -18,7 +18,7 @@ Metalama 2026.1 is a consolidation release, and the first long-term support (LTS
 - **Redis caching backend.** Retry and exception-handling policies, key compression, overload detection, and many new configuration options.
 - **Reduced third-party dependencies.** `System.Text.Json` replaces `Newtonsoft.Json`, `System.IO.Hashing` replaces `K4os.Hash`, and optional HTML/diff-tool components have been extracted into opt-in extension packages.
 - **Performance enhancements.** Source-generated JSON serializers, MessagePack for design-time RPC, and pattern-matching optimizations.
-- **Over 100 bug fixes.** Substantially the entire backlog.
+- **Over 100 bug fixes**, i.e. almost the entire backlog.
 
 ## Requirements
 
@@ -30,7 +30,7 @@ Metalama 2026.1 has the same requirements as 2026.0. See <xref:requirements> for
 
 ## C# 14 completion
 
-All C# 14 features listed as limitations in <xref:release-notes-2026.0> are now implemented in 2026.1. The two most prominent additions (introducing user-defined compound assignment operators and introducing extension blocks) are covered in their own sections below. The rest are closing gaps in template and advice support.
+All C# 14 features listed as limitations in <xref:release-notes-2026.0> are now implemented in 2026.1. 
 
 ### Introducing extension blocks
 
@@ -57,7 +57,7 @@ For details, see the _Introducing operators_ section of <xref:introducing-member
 
 ## Initialization advice
 
-Metalama 2026.1 significantly broadens how aspects advise object initialization. New initializer kinds cover modern C# object-construction patterns: primary constructors, object initializers, `required` and `init`-only properties, and `with` expressions. The companion <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceParameter*> advice can now preserve binary compatibility through forwarding constructors, in addition to preserving source compatibility through default values as in 2026.0.
+Metalama 2026.1 extends the initialization advice with two new initializer kinds: `AfterObjectInitializer` and `AfterObjectInitializer`. It improves `BeforeInstanceConstructor` on records. It also adds features to the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceParameter*> advice.
 
 ### AfterLastInstanceConstructor
 
@@ -65,7 +65,7 @@ Metalama 2026.1 significantly broadens how aspects advise object initialization.
 
 ### AfterObjectInitializer
 
-`InitializerKind.AfterObjectInitializer` runs after the constructor _and_ any object initializer or `with` expression have completed. Metalama makes the target type implement <xref:Metalama.Framework.RunTime.Initialization.IInitializable> and rewrites _call sites_ to invoke `Initialize` automatically once construction and object initialization are done. This is the only reliable way to validate or compute derived state after all fields and properties have been set in the object initializer.
+`InitializerKind.AfterObjectInitializer` runs after the constructor _and_ any object initializer or `with` expression have completed. Metalama makes the target type implement <xref:Metalama.Framework.RunTime.Initialization.IInitializable> and rewrites _call sites_ to invoke `Initialize` automatically once construction and object initialization are done. Use this kind to validate or compute derived state after all fields and properties have been set in the object initializer.
 
 ### BeforeInstanceConstructor on records
 
@@ -92,7 +92,17 @@ See <xref:dependency-injection>.
 
 ## Redis caching backend
 
-The Redis caching backend has been significantly enhanced, with many features ported from PostSharp.Patterns.Caching. For full documentation, see <xref:caching-redis>.
+The refactoring performed in the late summer 2025 to `PostSharp.Patterns.Caching.Redis` is now integrated into Metalama 2026.1. The motivation and full background are described in the [PostSharp blog post](https://blog.postsharp.net/redis-caching-update). For full documentation, see <xref:caching-redis>.
+
+### New data schema
+
+The data schema has been redesigned so that cache items are read with a single, observationally-consistent operation. The previous implementation reconciled the cache item and its dependencies, stored under separate Redis keys, through a client-side retry loop that could fail under sustained load in master/replica deployments. Dependencies are no longer flattened into the cache item; transitive dependencies are walked recursively at invalidation time instead. Cache keys are now versioned, so future schema changes can be rolled out alongside the running application.
+
+A cache purge (`FLUSHDB`) is required after upgrading. See _Breaking changes_ below.
+
+### Cluster and multi-node support
+
+The backend now supports sharded Redis clusters through hash tags on cache keys, ensuring that related keys map to the same hash slot. <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.ReadCommandFlags> (default: `PreferReplica`) and <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.WriteCommandFlags> (default: `PreferMaster`) let you steer reads and writes between primary and replica nodes.
 
 ### Retry and exception-handling policies
 
@@ -123,7 +133,7 @@ The <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCacheDependencyGarbageCo
 
 ## Supply chain security
 
-Metalama 2026.1 tightens its dependency footprint. Transitive dependencies that used to be forced on every Metalama user have either been replaced with platform-provided APIs or extracted into optional extension packages, so projects that don't need a given community-maintained component are no longer exposed to its risks.
+Several transitive dependencies have been replaced with platform-provided APIs or extracted into optional extension packages, so projects that don't use a given component are no longer exposed to it.
 
 - **`System.Text.Json` replaces `Newtonsoft.Json`** ([#741](https://github.com/metalama/Metalama/issues/741)).
 - **`System.IO.Hashing` replaces `K4os.Hash`** ([#742](https://github.com/metalama/Metalama/issues/742)). Non-cryptographic hashes now use xxHash from the .NET runtime libraries.
@@ -133,11 +143,10 @@ Metalama 2026.1 tightens its dependency footprint. Transitive dependencies that 
 
 ## Performance enhancements
 
-Several parts of the Metalama pipeline have been rewritten for speed:
-
 - **Source-generated JSON serializers.** Metalama now uses `System.Text.Json` source generators for its configuration files.
 - **MessagePack for design-time RPC** ([#1299](https://github.com/metalama/Metalama/issues/1299)). The protocol between the Metalama analyzer and the design-time services has been migrated from JSON to MessagePack.
 - **Pattern-matching optimization.** Polymorphic matching on interface types has been restructured into matching by `DeclarationKind` or `TypeKind`.
+- **Improved WPF compatibility** ([#1590](https://github.com/metalama/Metalama/issues/1590)). XAML files can now reference declarations introduced by Metalama aspects. The WPF temporary compilation phase (`MarkupCompilePass1`) runs a reduced pipeline that emits member signatures only, skipping the linker step since the temporary assembly is discarded after XAML type resolution.
 
 ## Other enhancements
 
@@ -179,7 +188,7 @@ See <xref:fabrics-advising>.
 
 ## Bug backlog
 
-Beyond the feature work, Metalama 2026.1 is the release in which we processed substantially the entire bug backlog. More than 100 bug fixes shipped across the 2026.1 preview builds, addressing long-standing issues across the template engine, linker, code model, design-time services, dependency injection, and diagnostics. Many of these bugs had been open for a long time; clearing them is a feature in its own right.
+More than 100 bug fixes shipped across the 2026.1 preview builds, covering the template engine, linker, code model, design-time services, dependency injection, and diagnostics.
 
 For the full, per-build list of fixes, see the [2026.1 releases on GitHub](https://github.com/metalama/Metalama/releases?q=2026.1&expanded=true).
 
