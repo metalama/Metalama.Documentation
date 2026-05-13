@@ -32,9 +32,6 @@ var product = new Product( MetalamaDependencies.MetalamaDocumentation )
     {
         Components =
         [
-            // Required for eng.
-            new DotNetComponent( PreferredVersions.DotNetSdk.V_9_0, DotNetComponentKind.Sdk ),
-
             // Required for the rest.
             new DotNetComponent( PreferredVersions.DotNetSdk.V_10_0, DotNetComponentKind.Sdk ),
         ]

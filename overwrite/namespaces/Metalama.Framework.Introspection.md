@@ -18,7 +18,7 @@ The entry point of this namespace is the <xref:Metalama.Framework.Introspection.
 For example, the following query returns all aspect instances in a project:
 
 ```cs
-workspace.GetProject("Metalama.Samples.Log4", "net9.0").AspectInstances
+workspace.GetProject("Metalama.Samples.Log4", "net10.0").AspectInstances
 ```
 
 ## Class diagram

@@ -10,8 +10,8 @@ internal static class DotNetVersions
         ImmutableArray.Create(
             "net6.0",
             "net7.0",
-            "net9.0-windows",
+            "net10.0-windows",
             "net7.0-windows",
-            "net9.0",
-            "net9.0-windows" );
+            "net10.0",
+            "net10.0-windows" );
 }
