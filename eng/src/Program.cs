@@ -107,7 +107,7 @@ static void OnPrepareCompleted( PrepareCompletedEventArgs args )
         Path.Combine( args.Context.RepoDirectory, "dependencies", "Metalama.Samples", "html-examples.zip" );
 
     var htmlTargetDirectory =
-        Path.Combine( args.Context.RepoDirectory, "source-dependencies", "Metalama.Samples", "examples" );
+        Path.Combine( args.Context.RepoDirectory, "source-dependencies", "Metalama.Samples", "src" );
 
     if ( File.Exists( htmlSourceZipFile ) )
     {
