@@ -4,7 +4,7 @@ summary: "Requirements for using Metalama, including build environment, supporte
 keywords: "Metalama, .NET SDK, Roslyn-based IDEs, Visual Studio, version synchronization, build environment, compatibility issues, C# features, SDK-style projects, target frameworks"
 level: 200
 created-date: 2023-01-26
-modified-date: 2025-11-30
+modified-date: 2026-06-03
 ---
 
 # Requirements
@@ -20,8 +20,8 @@ Metalama integrates with Roslyn, making it compatible with any Roslyn-based IDE.
 
 | IDE                                                | Earliest supported version | Design-time correctness | Code fixes | Additional UI features                               |
 | -------------------------------------------------- | -------------------------- | ----------------------- | ---------- | ---------------------------------------------------- |
-| Visual Studio 2022 _with_ Visual Studio tooling    | 17.12                      | Yes                     | Yes        | Transformed code diff, info bar, syntax highlighting |
-| Visual Studio 2022 _without_ Visual Studio tooling | 17.12                      | Yes                     | Yes        |                                                      |
+| Visual Studio 2022 _with_ Visual Studio tooling    | 17.14                      | Yes                     | Yes        | Transformed code diff, info bar, syntax highlighting |
+| Visual Studio 2022 _without_ Visual Studio tooling | 17.14                      | Yes                     | Yes        |                                                      |
 | Rider                                              |                            | Yes                     | Yes        |                                                      |
 | Visual Studio Code (C# Dev Kit)                    |                            | Yes                     | Yes        |                                                      |
 

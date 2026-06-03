@@ -4,7 +4,7 @@ level: 200
 summary: "Metalama 2026.1 completes C# 14 support, extends initialization advice, brings major Redis caching improvements, reduces third-party dependencies, and closes most of the bug backlog."
 keywords: "Metalama 2026.1, release notes, C# 14, extension blocks, operator introduction, initialization, dependency injection, Redis caching, System.Text.Json"
 created-date: 2026-04-13
-modified-date: 2026-04-14
+modified-date: 2026-06-03
 ---
 
 # Metalama 2026.1
@@ -22,11 +22,13 @@ Metalama 2026.1 is a consolidation release, and the first long-term support (LTS
 
 ## Requirements
 
-Metalama 2026.1 has the same requirements as 2026.0. See <xref:requirements> for the full matrix.
+Metalama 2026.1 raises the minimum supported Visual Studio version compared to 2026.0. See <xref:requirements> for the full matrix.
 
-- Visual Studio 2022 LTSC 17.12, 2022 17.14, or 2026 18.0 (latest build).
+- Visual Studio 2022 17.14 (LTSC) or 2026 18.5 (latest build).
 - .NET SDK 8.0, 9.0, or 10.0.
 - C# 12, 13, or 14.
+
+Support for Roslyn 4.8 has been dropped and the minimum supported Roslyn API raised to 4.12, which moves the Visual Studio floor from 17.12 to 17.14 ([#1603](https://github.com/metalama/Metalama/issues/1603)).
 
 ## C# 14 completion
 
