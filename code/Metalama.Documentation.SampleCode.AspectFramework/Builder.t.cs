@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 namespace Doc.Builder_;
 [Builder]
-internal class Material
+internal partial class Material
 {
   [Required]
   public string Name { get; }
@@ -13,15 +13,25 @@ internal class Material
   }
   public class Builder
   {
-    private Builder(string Name)
+    public Builder(string Name)
     {
       this.Name = Name;
     }
-    private double Density { get; set; }
-    private string Name { get; set; }
-    public Material Build(string Name, double Density)
+    public double Density { get; set; }
+    public string Name { get; set; }
+    public Material Build()
     {
-      return new Material(this.Name, this.Density);
+      return new Material(Name, Density);
     }
+  }
+}
+internal static class Program
+{
+  public static void Main()
+  {
+    var material = new Material.Builder("Steel")
+    {
+      Density = 7.87
+    }.Build();
   }
 }

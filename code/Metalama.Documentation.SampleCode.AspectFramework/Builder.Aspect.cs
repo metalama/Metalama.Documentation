@@ -61,7 +61,8 @@ public class BuilderAttribute : TypeAspect
                 builderType.IntroduceAutomaticProperty(
                         property.SourceProperty.Name,
                         property.SourceProperty.Type,
-                        IntroductionScope.Instance )
+                        IntroductionScope.Instance,
+                        buildProperty: p => p.Accessibility = Accessibility.Public )
                     .Declaration;
         }
 
@@ -72,6 +73,8 @@ public class BuilderAttribute : TypeAspect
                 nameof(this.BuilderConstructorTemplate),
                 buildConstructor: c =>
                 {
+                    c.Accessibility = Accessibility.Public;
+
                     foreach ( var property in properties.Where( m => m.IsRequired ) )
                     {
                         property.BuilderConstructorParameterIndex = c.AddParameter(
@@ -91,13 +94,6 @@ public class BuilderAttribute : TypeAspect
                 m.Name = "Build";
                 m.Accessibility = Accessibility.Public;
                 m.ReturnType = builder.Target;
-
-                foreach ( var property in properties )
-                {
-                    property.BuilderConstructorParameterIndex =
-                        m.AddParameter( property.SourceProperty.Name, property.SourceProperty.Type )
-                            .Index;
-                }
             } );
 
         // Add a constructor to the source type with all properties.

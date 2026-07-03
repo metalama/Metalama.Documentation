@@ -4,7 +4,7 @@ level: 300
 summary: "This article explains how to introduce new types (nested or top-level classes, interfaces, and extension blocks) using the Metalama Framework, including how to add members, base types, and implemented interfaces."
 keywords: "IntroduceClass, IntroduceExtensionBlock, Metalama, nested class, non-nested class, extension block, IAdviser, INamespace, BuildAspect, introduce members, Builder pattern, introduce types"
 created-date: 2024-11-06
-modified-date: 2026-04-13
+modified-date: 2026-07-03
 ---
 
 # Introducing types
@@ -100,8 +100,8 @@ The Builder aspect generates the following artifacts:
 
 * A `Builder` nested class with:
   * A public constructor accepting all required properties.
-  * Writable properties corresponding to all automatic properties of the source class.
-  * A `Build` method that instantiates the source type.
+  * Public writable properties corresponding to all automatic properties of the source class.
+  * A parameterless `Build` method that instantiates the source type.
 * A private constructor in the source class that's called by the `Builder.Build` method.
 
 Ideally, the aspect should also test that the source type does not have another constructor or any settable property, but this is skipped in this example.
@@ -109,6 +109,8 @@ Ideally, the aspect should also test that the source type does not have another 
 A key element of the design in the aspect is the `PropertyMapping` record, which maps a property of the source type to the corresponding property in the `Builder` type, the corresponding constructor parameter in the `Builder` type, and the corresponding parameter in the source type. We build this list in the `BuildAspect` method.
 
 We use the `aspectBuilder.Tags` property to share this list with the template implementations, which can then read it from `meta.Tags.Source`.
+
+The `Program` class at the bottom of the example demonstrates how to use the generated builder.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/Builder.cs name="The Builder pattern"]
 
