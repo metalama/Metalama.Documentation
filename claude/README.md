@@ -2,11 +2,13 @@
 <img width="450" src="https://raw.githubusercontent.com/metalama/Metalama/HEAD/images/metalama.svg" alt="Metalama logo" />
 </p>
 
-# Metalama Plugin for Claude Code
+# Metalama Plugin for AI Coding Agents
 
-This repository contains the Metalama plugin for [Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview), providing comprehensive documentation for aspect-oriented programming with Metalama.
+This repository contains the Metalama plugin for [Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview) and [OpenAI Codex](https://developers.openai.com/codex/plugins/build), providing comprehensive documentation for aspect-oriented programming with Metalama.
 
 ## Installation
+
+### Claude Code
 
 1. Add this marketplace to Claude Code:
 
@@ -20,9 +22,19 @@ This repository contains the Metalama plugin for [Claude Code](https://docs.anth
    /plugin install metalama
    ```
 
+### OpenAI Codex
+
+1. Add this marketplace to Codex:
+
+   ```
+   codex plugin marketplace add metalama/Metalama.AI.Skills
+   ```
+
+2. Install the Metalama plugin from the Codex plugin directory (**Plugins** in the Codex app).
+
 ## What's included
 
-The plugin provides Claude Code with access to:
+The plugin provides the coding agent with access to:
 
 - **Conceptual documentation**: Complete guides on aspects, templates, fabrics, validation, and configuration.
 - **API reference**: Full documentation for all Metalama namespaces and types.
@@ -31,7 +43,7 @@ The plugin provides Claude Code with access to:
 
 ## Usage
 
-Once installed, Claude Code automatically uses Metalama knowledge when you ask questions about:
+Once installed, the agent automatically uses Metalama knowledge when you ask questions about:
 
 - Creating or modifying aspects
 - Writing T# templates
@@ -46,19 +58,13 @@ Once installed, Claude Code automatically uses Metalama knowledge when you ask q
 - "Write a contract that validates a string parameter is not empty"
 - "How do I apply an aspect to all public methods in a namespace?"
 
-## Updating
-
-To update to the latest version:
-
-```
-/plugin update metalama
-```
 
 ## Resources
 
 - [Metalama Documentation](https://doc.metalama.net)
 - [Metalama GitHub](https://github.com/metalama/Metalama)
 - [Claude Code Documentation](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview)
+- [OpenAI Codex Plugin Documentation](https://developers.openai.com/codex/plugins/build)
 
 ---
 

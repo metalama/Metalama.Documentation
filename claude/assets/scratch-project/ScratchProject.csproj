@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Minimal scratch project for trying out a Metalama aspect.
+    Copy this folder somewhere, add your aspect and target code, then:
+
+        dotnet build -c LamaDebug
+
+    and read the transformed code under obj/LamaDebug/<tfm>/metalama/.
+    The Metalama.Framework package defines the LamaDebug configuration.
+
+    Notes:
+    - Warning LAMA0066 (code formatting enabled) is expected in LamaDebug builds.
+    - Copy to a SHORT path on Windows: in deep directories `dotnet run` can fail
+      on the apphost path-length limit; if it does, run the built DLL directly:
+      dotnet bin/LamaDebug/net8.0/ScratchProject.dll
+  -->
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Version="*" floats to the latest stable release. Pin it to the version
+         the user's solution references when reproducing an issue. -->
+    <PackageReference Include="Metalama.Framework" Version="*" />
+  </ItemGroup>
+
+</Project>
