@@ -76,12 +76,15 @@ internal abstract class TabGroup
                 @$"
     <a class=""github"" href=""{gitUrl}"" target=""github"">See on GitHub</a>" );
 
-            renderer.WriteLine( "<span class='separator'>|</span>" );
+            // Full screen. Skip the button when all tabs are small enough to fit without it.
+            if ( tabs.Any( RequiresFullScreen ) )
+            {
+                renderer.WriteLine( "<span class='separator'>|</span>" );
 
-            // Full screen.
-            renderer.WriteLine(
-                @$"
+                renderer.WriteLine(
+                    @$"
     <a class=""fullscreen"" onclick=""toggleFullScreen('{divId}');"" role=""button"" target=""github"">Full screen</a>" );
+            }
 
             // Close.
             renderer.WriteLine( "</div>" );
@@ -167,6 +170,21 @@ internal abstract class TabGroup
             CodeTab => "Source code",
             _ => "Code file"
         };
+    }
+
+    private static bool RequiresFullScreen( BaseTab tab )
+    {
+        var plainCode = GetPlainCode( tab );
+
+        if ( plainCode == null )
+        {
+            // When the content cannot be measured, keep the button.
+            return true;
+        }
+
+        var lines = plainCode.Split( '\n' );
+
+        return lines.Length >= 10 || lines.Any( line => line.TrimEnd( '\r' ).Length >= 120 );
     }
 
     private static string? GetPlainCode( BaseTab tab )

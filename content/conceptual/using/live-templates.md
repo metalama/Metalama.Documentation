@@ -34,9 +34,6 @@ Add the aspect library to your project using a `<ProjectReference>` or `<Package
 > The live template author can customize the appearance of the live template in the refactoring menu. It may appear under a different menu item than _Apply live template_.
 
 > [!div class="see-also"]
->
-> **See also**
->
 > <xref:using-metalama>
 > <xref:live-template>
 > <xref:quickstart-adding-aspects>

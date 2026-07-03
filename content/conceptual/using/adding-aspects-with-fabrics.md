@@ -129,9 +129,6 @@ Sometimes you may want to add aspects only to a class and its derived types. The
 > Use code metrics to filter declarations based on complexity. For example, add logging only to methods exceeding a certain number of syntax nodes. For details, see <xref:metrics>.
 
 > [!div class="see-also"]
->
-> **See also**
->
 > <xref:using-metalama>
 > <xref:fabrics>
 > <xref:quickstart-adding-aspects>

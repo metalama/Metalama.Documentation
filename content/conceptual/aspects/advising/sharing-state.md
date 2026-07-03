@@ -66,7 +66,7 @@ In the following example, the tags are set by setting the <xref:Metalama.Framewo
 
 When you want to share state not from templates inside the current aspect instance, but with other aspect instances, you set the <xref:Metalama.Framework.Aspects.IAspectBuilder.AspectState?text=IAspectBuilder.AspectState> property. Its value is exposed for read-only access on the <xref:Metalama.Framework.Aspects.IAspectInstance.AspectState?text=IAspectInstance.AspectState> property. It is therefore visible to child aspects and aspects that inherit from them (i.e., successors) through the <xref:Metalama.Framework.Aspects.IAspectPredecessor.Predecessors> property.
 
-This property is opaque to the Metalama framework. You can use it for any purpose, but at your own risk. You're responsible for thread safety if you choose to have any mutable state in your aspect state.
+This property is opaque to Metalama. You can use it for any purpose, but at your own risk. You're responsible for thread safety if you choose to have any mutable state in your aspect state.
 
 Objects assigned to <xref:Metalama.Framework.Aspects.IAspectBuilder.AspectState> must implement the <xref:Metalama.Framework.Aspects.IAspectState> interface, which makes them automatically serializable. This mechanism ensures that the aspect state is available in cross-project scenarios. For details, see <xref:aspect-serialization>.
 

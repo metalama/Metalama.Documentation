@@ -169,7 +169,7 @@ Visual Studio Tools for Metalama includes refactored components that dramaticall
 - New article: <xref:type-system>.
 - Improved the chapter: <xref:templates>.
 - Improved the API documentation by adding elements from the conceptual documentation where relevant.
-- **Claude Code plugin**: A new plugin is available to enhance [Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview), Anthropic's AI-powered coding assistant, with comprehensive Metalama knowledge. The plugin provides access to conceptual documentation, API references, sample code, and pattern libraries, enabling Claude to assist with aspect development, templates, fabrics, and the Metalama code model. Install from the [Metalama.AI.Skills marketplace](https://github.com/metalama/Metalama.AI.Skills). See <xref:ide-claude-code> for complete installation and usage instructions.
+- **Claude Code plugin**: A new plugin is available to enhance [Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview), Anthropic's AI-powered coding assistant, with comprehensive Metalama knowledge. The plugin provides access to conceptual documentation, API references, sample code, and pattern libraries, enabling Claude to assist with aspect development, templates, fabrics, and the Metalama code model. Install from the [Metalama.AI.Skills marketplace](https://github.com/metalama/Metalama.AI.Skills). See <xref:ai-agents> for complete installation and usage instructions.
 
 ## New APIs
 

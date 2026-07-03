@@ -123,9 +123,6 @@ var metric = declaration.Metrics().Get<MyCustomMetric>();
 See <xref:metrics> for details on using metrics with the Workspaces API.
 
 > [!div class="see-also"]
->
-> **See also**
->
 > * <xref:sdk>
 > * <xref:metrics>
 > * <xref:introspection>

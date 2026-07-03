@@ -11,7 +11,7 @@ modified-date: 2025-12-07
 
 Metalama Patterns is a collection of aspect libraries that implement common design patterns for C#. You'll find these libraries under the <xref:patterns-api?text=Metalama.Patterns> namespace.
 
-The Metalama team builds and maintains these patterns to the same quality standards as the Metalama framework itself.
+The Metalama team builds and maintains these patterns to the same quality standards as Metalama itself.
 
 > [!NOTE]
 > Metalama Patterns are released under the open-source MIT license and are available on [GitHub](https://github.com/metalama/Metalama/tree/HEAD/Metalama.Patterns).

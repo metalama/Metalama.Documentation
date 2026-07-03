@@ -5,6 +5,7 @@
 
     <!-- Renamed articles -->
     <rule from="^(conceptual/)?aspects/testing/aspect-testing$" to="conceptual/aspects/testing/snapshot-testing"/>
+    <rule from="^(conceptual/)?using/ide/claude-code$" to="conceptual/using/ide/ai-agents"/>
 
     <!-- All articles have been moved to the /conceptual directory -->
     <rule from="^(.*)$" to="conceptual/$1"/>

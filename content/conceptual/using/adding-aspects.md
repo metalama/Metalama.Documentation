@@ -64,9 +64,6 @@ The refactoring menu recognizes which aspects have already been applied and adju
 > The refactoring menu only displays aspects that are _eligible_ for your code. The aspect author determines eligibility. For example, a caching aspect wouldn't make sense on a method returning `void`, so the aspect author might restrict it to non-void methods only.
 
 > [!div class="see-also"]
->
-> **See also**
->
 > <xref:using-metalama>
 > <xref:fabrics-adding-aspects>
 > <xref:getting-aspects>

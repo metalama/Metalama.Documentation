@@ -32,9 +32,6 @@ When applied, these aspects change the behavior of your source code without alte
 Don't use demo aspects in real projects. Instead, visit [Metalama Marketplace](https://www.postsharp.net/metalama/marketplace) to find dozens of open-source aspects and extensions.
 
 > [!div class="see-also"]
->
-> **See also**
->
 > <xref:using-metalama>
 > <xref:quickstart-adding-aspects>
 > <xref:distributing>

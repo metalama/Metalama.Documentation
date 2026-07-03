@@ -1,8 +1,8 @@
 ---
 uid: fabrics
 level: 200
-summary: "The document discusses fabrics in the Metalama framework, which are unique classes that execute at compile time. They can add aspects, configure libraries, and implement architecture rules."
-keywords: "fabrics, Metalama framework, configure libraries, architecture rules, ProjectFabric, Namespace Fabric, Type Fabric, Transitive Project Fabrics"
+summary: "The document discusses fabrics in Metalama, which are unique classes that execute at compile time. They can add aspects, configure libraries, and implement architecture rules."
+keywords: "fabrics, Metalama, configure libraries, architecture rules, ProjectFabric, Namespace Fabric, Type Fabric, Transitive Project Fabrics"
 created-date: 2024-08-04
 modified-date: 2025-12-07
 ---
@@ -84,9 +84,6 @@ To create reusable logic for fabrics, define extension methods operating on <xre
 | Add advice to a single type without creating a reusable aspect | Use a <xref:fabrics-advising?text=type fabric> |
 
 > [!div class="see-also"]
->
-> **See also**
->
 > - <xref:using-metalama>
 > - <xref:fabrics-adding-aspects>
 > - <xref:fabrics-configuration>

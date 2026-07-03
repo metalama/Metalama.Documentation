@@ -4,7 +4,7 @@ level: 100
 summary: "The document provides a step-by-step guide on how to debug aspect-oriented code using the Visual Studio debugger, including setting up a debug configuration, using breakpoints and step-into, and forcefully breaking the program."
 keywords: "debug aspect-oriented code, debugger, breakpoints, step-into, transformed code, debug configuration, LamaDebug, Debugger.Break, aspect-transformed code"
 created-date: 2023-02-16
-modified-date: 2025-12-07
+modified-date: 2026-07-03
 ---
 
 # Debugging aspect-oriented code
@@ -43,6 +43,9 @@ The Configuration Manager displays the following dialog:
 - Change the build configuration to `LamaDebug`.
 
 You're now ready to debug your aspect-transformed code.
+
+> [!NOTE]
+> Builds in the `LamaDebug` configuration report warning `LAMA0066` ("Formatting of generated code is enabled. Build performance could be significantly affected."). This warning is expected and doesn't indicate a problem.
 
 ## Breakpoints and step-into
 
@@ -94,9 +97,6 @@ Use `Debugger.Break` to forcefully break the program.
 > Add `Debugger.Break` to forcefully break the debugger at a specific location.
 
 > [!div class="see-also"]
->
-> **See also**
->
 > <xref:using-metalama>
 > <xref:debugging-aspects>
 > <xref:understanding-your-code-with-aspects>

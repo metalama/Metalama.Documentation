@@ -1,18 +1,17 @@
 ---
 uid: overview
 level: 100
-summary: "Metalama offers Aspect-Oriented Programming, Code Generation, and Code Validation to improve code readability, generate repetitive code, and ensure compliance with team rules."
-keywords: "Metalama, Aspect-Oriented Programming, Code Generation, Code Validation, code readability, repetitive code, team rules, .NET, encapsulate repetitive patterns, generate repetitive code, verify code compliance"
+summary: "Metalama is an open-source patterns and architecture toolkit for C#: it implements your patterns at compile time and enforces your architecture rules as you type."
+keywords: "Metalama, patterns and architecture toolkit, design patterns, Aspect-Oriented Programming, Code Generation, Code Validation, code readability, repetitive code, team rules, .NET, encapsulate repetitive patterns, generate repetitive code, verify code compliance"
 created-date: 2023-02-16
-modified-date: 2025-11-30
+modified-date: 2026-07-03
 ---
 
 # Overview
 
-> [!WARNING]
-> This chapter hasn't been written yet.
-
 This book will guide you through evaluating Metalama. It won't teach you how to deploy and use it, but rather why and whether it's suitable for you.
+
+Metalama is an open-source patterns and architecture toolkit for C#. You define your team's patterns and rules once: the compiler generates the repetitive code at build time and enforces your architecture rules in real time, as you type.
 
 ## Features
 

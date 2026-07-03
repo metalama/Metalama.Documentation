@@ -2,7 +2,7 @@
 uid: aspect-testing
 level: 300
 summary: "This article provides a comprehensive guide on snapshot testing of aspects using the Metalama.Testing.AspectTesting package. It details the steps to create a test project, add a test case, run the test case, and copy the test output to the expected output. It also includes advanced features and customizations."
-keywords: "snapshot testing, Metalama.Testing.AspectTesting, aspect testing, .NET, create test project, run test case, verify transformed code, expected output, xUnit test project, Metalama framework, Metalama.Extensions.HtmlWriter, Metalama.Extensions.DiffEngine, WriteInputHtml, WriteOutputHtml"
+keywords: "snapshot testing, Metalama.Testing.AspectTesting, aspect testing, .NET, create test project, run test case, verify transformed code, expected output, xUnit test project, Metalama, Metalama.Extensions.HtmlWriter, Metalama.Extensions.DiffEngine, WriteInputHtml, WriteOutputHtml"
 created-date: 2023-02-20
 modified-date: 2026-04-13
 ---

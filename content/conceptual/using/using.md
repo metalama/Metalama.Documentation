@@ -34,9 +34,6 @@ This chapter is recommended for those who:
 |<xref:ide-configuration> | Explains how to configure Visual Studio, VS Code, and Rider for the best Metalama experience. |
 
 > [!div class="see-also"]
->
-> **See also**
->
 > <xref:conceptual>
 > <xref:main-getting-started>
 > <xref:aspects>

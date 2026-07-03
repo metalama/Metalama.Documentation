@@ -215,9 +215,6 @@ The <xref:Metalama.Framework.Engine.MetalamaPlugInAttribute> attribute registers
 In contrast, <xref:Metalama.Framework.Engine.Extensibility.ExportExtensionAttribute> works with extension assemblies that Metalama doesn't compile (`MetalamaEnabled=false`). Use this attribute to export extension types such as service factories from these assemblies.
 
 > [!div class="see-also"]
->
-> **See also**
->
 > * <xref:sdk>
 > * <xref:aspect-weavers>
 > * <xref:custom-metrics>

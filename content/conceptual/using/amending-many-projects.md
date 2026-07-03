@@ -141,9 +141,6 @@ Then the projects have the following fabrics:
 | `Project22` | `SharedFabric`, `Project21Fabric` |
 
 > [!div class="see-also"]
->
-> **See also**
->
 > <xref:using-metalama>
 > <xref:fabrics>
 > <xref:fabrics-adding-aspects>

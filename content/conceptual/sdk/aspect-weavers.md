@@ -127,9 +127,6 @@ Examples of `Metalama.Framework.Sdk` weavers:
 * [Metalama.Community.Costura](https://github.com/metalama/Metalama.Community/tree/HEAD/src/Metalama.Community.Costura): Bundles .NET Framework applications into a single executable file
 
 > [!div class="see-also"]
->
-> **See also**
->
 > * <xref:sdk>
 > * <xref:roslyn-api>
 > * <xref:aspect-testing>

@@ -18,7 +18,7 @@ Metalama works with any text editor or IDE since the core transformation happens
 | <xref:ide-visual-studio> | Configuration tips for Visual Studio users, including the Metalama Tools extension. |
 | <xref:ide-vs-code> | How to enable Roslyn analyzers and code fixes in VS Code. |
 | <xref:ide-rider> | Configuration for aspect testing and other Rider-specific settings. |
-| <xref:ide-claude-code> | Installing the Metalama skill for AI-assisted aspect development. |
+| <xref:ai-agents> | Installing the Metalama plugin for AI coding agents such as Claude Code and OpenAI Codex. |
 
 ## Feature availability by IDE
 

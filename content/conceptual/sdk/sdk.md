@@ -21,9 +21,6 @@ The `Metalama.Framework.Sdk` NuGet package provides direct, low-level access to 
 | <xref:sdk-extensions> | Create SDK extension projects that provide custom services aspects can consume at compile time. |
 
 > [!div class="see-also"]
->
-> **See also**
->
 > * <xref:conceptual>
 > * <xref:aspects>
 > * <xref:advanced-api>

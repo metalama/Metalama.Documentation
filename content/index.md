@@ -1,15 +1,18 @@
 ---
 uid: index
 level: 100
-summary: "Guidance on navigating the Metalama documentation, a framework for enhancing C# code quality and productivity through code generation and analysis."
-keywords: "C# code quality, productivity, code generation, analysis framework, Metalama documentation, aspects, develop aspects, getting started, API documentation, tutorial videos"
+summary: "Guidance on navigating the documentation of Metalama, an open-source patterns and architecture toolkit for C# that implements design patterns at compile time and enforces architecture as you type."
+keywords: "patterns and architecture toolkit, C# design patterns, code generation, architecture verification, Metalama documentation, aspects, develop aspects, getting started, API documentation, tutorial videos, Claude Code, OpenAI Codex, AI plugin"
 created-date: 2023-02-17
-modified-date: 2025-11-30
+modified-date: 2026-07-03
 ---
 
 # Metalama Documentation
 
-Welcome to the documentation of Metalama, a code generation and analysis framework for C#.
+Welcome to the documentation of Metalama, an open-source patterns and architecture toolkit for C#. Define your team's patterns once: the compiler writes the repetitive code at build time and enforces your architecture rules as you type.
+
+> [!TIP]
+> **Using an AI coding agent?** Install the Metalama plugin for Claude Code or OpenAI Codex, and your agent gets this entire documentation—concepts, API reference, and samples—at its fingertips. See <xref:ai-agents>.
 
 ## How to navigate this documentation
 
@@ -44,3 +47,4 @@ The source code for this documentation (excluding the API documentation) is open
 > <xref:conceptual>
 > <xref:using-metalama>
 > <xref:aspects>
+> <xref:ai-agents>

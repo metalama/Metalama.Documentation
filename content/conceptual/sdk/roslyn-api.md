@@ -40,9 +40,6 @@ static string? GetDocumentationCommentId(this IDeclaration metalamaDeclaration)
 ```
 
 > [!div class="see-also"]
->
-> **See also**
->
 > * <xref:sdk>
 > * <xref:aspect-weavers>
 > * <xref:code-api>
