@@ -3,7 +3,7 @@ created-date: 2023-02-02
 modified-date: 2024-04-10
 ---
 <p align="center">
-<img width="450" src="https://raw.githubusercontent.com/metalama/Metalama/HEAD/images/metalama.svg" alt="Metalama logo" />
+<img width="450" src="https://raw.githubusercontent.com/metalama/.github/HEAD/images/metalama.svg" alt="Metalama logo" />
 </p>
 
 # Metalama.Documentation

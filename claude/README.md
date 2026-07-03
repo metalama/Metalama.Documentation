@@ -1,10 +1,10 @@
 <p align="center">
-<img width="450" src="https://raw.githubusercontent.com/metalama/Metalama/HEAD/images/metalama.svg" alt="Metalama logo" />
+<img width="450" src="https://raw.githubusercontent.com/metalama/.github/HEAD/images/metalama.svg" alt="Metalama logo" />
 </p>
 
 # Metalama Plugin for AI Coding Agents
 
-This repository contains the Metalama plugin for [Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview) and [OpenAI Codex](https://developers.openai.com/codex/plugins/build), providing comprehensive documentation for aspect-oriented programming with Metalama.
+This repository contains the Metalama plugin for [Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview) and [OpenAI Codex](https://developers.openai.com/codex/plugins/build), providing documentation for aspect-oriented programming with Metalama.
 
 ## Installation
 
@@ -36,7 +36,7 @@ This repository contains the Metalama plugin for [Claude Code](https://docs.anth
 
 The plugin provides the coding agent with access to:
 
-- **Conceptual documentation**: Complete guides on aspects, templates, fabrics, validation, and configuration.
+- **Conceptual documentation**: Guides on aspects, templates, fabrics, validation, and configuration.
 - **API reference**: Full documentation for all Metalama namespaces and types.
 - **Sample code**: Working examples demonstrating common patterns and techniques.
 - **Pattern libraries**: Documentation for Metalama.Patterns.Contracts, Caching, Observability, and more.
