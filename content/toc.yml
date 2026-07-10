@@ -28,4 +28,6 @@ items:
     - name: Advanced Extensibility API (SDK)
       topicUid: advanced-api      
     - name: PostSharp API migration
-      topicUid: migration-api      
+      topicUid: migration-api
+- name: Contributing
+  href: contributing/toc.yml
