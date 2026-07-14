@@ -1,5 +1,5 @@
 <p align="center">
-<img width="450" src="https://raw.githubusercontent.com/metalama/.github/HEAD/images/metalama.svg" alt="Metalama logo" />
+<img width="450" src="https://raw.githubusercontent.com/metalama/.github/HEAD/images/metalama.svg" alt="Metalama by PostSharp" />
 </p>
 
 # Metalama Plugin for AI Coding Agents
