@@ -110,7 +110,7 @@ object DebugBuild : BuildType({
         gitHubAppBuildScopedToken {
             parameterName = "env.GITHUB_TOKEN"
             connectionId = "%GITHUB_CONNECTION_METALAMA%"
-            targetRepositories = "Metalama.Documentation"
+            targetRepositories = "Metalama.Documentation\nMetalama.Samples\nMetalama.Community"
         }
         commitStatusPublisher {
             vcsRootExtId = "Metalama_Metalama20261_MetalamaDocumentation"
@@ -258,7 +258,7 @@ object ReleaseBuild : BuildType({
         gitHubAppBuildScopedToken {
             parameterName = "env.GITHUB_TOKEN"
             connectionId = "%GITHUB_CONNECTION_METALAMA%"
-            targetRepositories = "Metalama.Documentation"
+            targetRepositories = "Metalama.Documentation\nMetalama.Samples\nMetalama.Community"
         }
         commitStatusPublisher {
             vcsRootExtId = "Metalama_Metalama20261_MetalamaDocumentation"
@@ -406,7 +406,7 @@ object PublicBuild : BuildType({
         gitHubAppBuildScopedToken {
             parameterName = "env.GITHUB_TOKEN"
             connectionId = "%GITHUB_CONNECTION_METALAMA%"
-            targetRepositories = "Metalama.Documentation"
+            targetRepositories = "Metalama.Documentation\nMetalama.Samples\nMetalama.Community"
         }
         commitStatusPublisher {
             vcsRootExtId = "Metalama_Metalama20261_MetalamaDocumentation"
