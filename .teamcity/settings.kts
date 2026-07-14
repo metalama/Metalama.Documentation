@@ -2,8 +2,7 @@
 
 import jetbrains.buildServer.configs.kotlin.*
 import jetbrains.buildServer.configs.kotlin.buildFeatures.*
-import jetbrains.buildServer.configs.kotlin.buildSteps.powerShell
-import jetbrains.buildServer.configs.kotlin.buildSteps.PowerShellStep
+import jetbrains.buildServer.configs.kotlin.buildSteps.*
 import jetbrains.buildServer.configs.kotlin.failureConditions.*
 import jetbrains.buildServer.configs.kotlin.triggers.*
 import jetbrains.buildServer.configs.kotlin.projectFeatures.*
@@ -107,27 +106,26 @@ object DebugBuild : BuildType({
             lockingProcesses = Swabra.LockingProcessPolicy.KILL
             verbose = true
         }
-    commitStatusPublisher {
-        vcsRootExtId = "Metalama_Metalama20251_MetalamaDocumentation"
-        publisher = github {
-            githubUrl = "https://api.github.com"
-            authType = personalToken {
-                token = "%env.GITHUB_TOKEN%"
+        gitHubAppBuildScopedToken {
+            parameterName = "env.GITHUB_TOKEN"
+            connectionId = "%GITHUB_CONNECTION_METALAMA%"
+            targetRepositories = "Metalama.Documentation\nMetalama.Samples\nMetalama.Community"
+        }
+        commitStatusPublisher {
+            vcsRootExtId = "Metalama_Metalama20251_MetalamaDocumentation"
+            publisher = github {
+                githubUrl = "https://api.github.com"
+                authType = vcsRoot()
             }
         }
-    }
-pullRequests {
-       vcsRootExtId = "Metalama_Metalama20251_MetalamaDocumentation"
-        provider = github {
-            authType = token {
-                token = "%env.GITHUB_TOKEN%"
+        pullRequests {
+            vcsRootExtId = "Metalama_Metalama20251_MetalamaDocumentation"
+            provider = github {
+                authType = vcsRoot()
+                filterTargetBranch = "+:refs/heads/develop/2025.1"
+                filterAuthorRole = PullRequests.GitHubRoleFilter.EVERYBODY
             }
-           filterTargetBranch = "+:refs/heads/develop/2025.1"
-           filterAuthorRole = PullRequests.GitHubRoleFilter.EVERYBODY
-       }
-   }
-
-
+        }
     }
 
     dependencies {
@@ -256,27 +254,26 @@ object ReleaseBuild : BuildType({
             lockingProcesses = Swabra.LockingProcessPolicy.KILL
             verbose = true
         }
-    commitStatusPublisher {
-        vcsRootExtId = "Metalama_Metalama20251_MetalamaDocumentation"
-        publisher = github {
-            githubUrl = "https://api.github.com"
-            authType = personalToken {
-                token = "%env.GITHUB_TOKEN%"
+        gitHubAppBuildScopedToken {
+            parameterName = "env.GITHUB_TOKEN"
+            connectionId = "%GITHUB_CONNECTION_METALAMA%"
+            targetRepositories = "Metalama.Documentation\nMetalama.Samples\nMetalama.Community"
+        }
+        commitStatusPublisher {
+            vcsRootExtId = "Metalama_Metalama20251_MetalamaDocumentation"
+            publisher = github {
+                githubUrl = "https://api.github.com"
+                authType = vcsRoot()
             }
         }
-    }
-pullRequests {
-       vcsRootExtId = "Metalama_Metalama20251_MetalamaDocumentation"
-        provider = github {
-            authType = token {
-                token = "%env.GITHUB_TOKEN%"
+        pullRequests {
+            vcsRootExtId = "Metalama_Metalama20251_MetalamaDocumentation"
+            provider = github {
+                authType = vcsRoot()
+                filterTargetBranch = "+:refs/heads/develop/2025.1"
+                filterAuthorRole = PullRequests.GitHubRoleFilter.EVERYBODY
             }
-           filterTargetBranch = "+:refs/heads/develop/2025.1"
-           filterAuthorRole = PullRequests.GitHubRoleFilter.EVERYBODY
-       }
-   }
-
-
+        }
     }
 
     dependencies {
@@ -405,27 +402,26 @@ object PublicBuild : BuildType({
             lockingProcesses = Swabra.LockingProcessPolicy.KILL
             verbose = true
         }
-    commitStatusPublisher {
-        vcsRootExtId = "Metalama_Metalama20251_MetalamaDocumentation"
-        publisher = github {
-            githubUrl = "https://api.github.com"
-            authType = personalToken {
-                token = "%env.GITHUB_TOKEN%"
+        gitHubAppBuildScopedToken {
+            parameterName = "env.GITHUB_TOKEN"
+            connectionId = "%GITHUB_CONNECTION_METALAMA%"
+            targetRepositories = "Metalama.Documentation\nMetalama.Samples\nMetalama.Community"
+        }
+        commitStatusPublisher {
+            vcsRootExtId = "Metalama_Metalama20251_MetalamaDocumentation"
+            publisher = github {
+                githubUrl = "https://api.github.com"
+                authType = vcsRoot()
             }
         }
-    }
-pullRequests {
-       vcsRootExtId = "Metalama_Metalama20251_MetalamaDocumentation"
-        provider = github {
-            authType = token {
-                token = "%env.GITHUB_TOKEN%"
+        pullRequests {
+            vcsRootExtId = "Metalama_Metalama20251_MetalamaDocumentation"
+            provider = github {
+                authType = vcsRoot()
+                filterTargetBranch = "+:refs/heads/develop/2025.1"
+                filterAuthorRole = PullRequests.GitHubRoleFilter.EVERYBODY
             }
-           filterTargetBranch = "+:refs/heads/develop/2025.1"
-           filterAuthorRole = PullRequests.GitHubRoleFilter.EVERYBODY
-       }
-   }
-
-
+        }
     }
 
     dependencies {
@@ -544,6 +540,11 @@ object PublicDeployment : BuildType({
             filesCleanup = Swabra.FilesCleanup.BEFORE_BUILD
             lockingProcesses = Swabra.LockingProcessPolicy.KILL
             verbose = true
+        }
+        gitHubAppBuildScopedToken {
+            parameterName = "env.GITHUB_TOKEN"
+            connectionId = "%GITHUB_CONNECTION_METALAMA%"
+            targetRepositories = "Metalama.Documentation"
         }
     }
 
@@ -672,6 +673,11 @@ object PublicDeploymentNoDependency : BuildType({
             lockingProcesses = Swabra.LockingProcessPolicy.KILL
             verbose = true
         }
+        gitHubAppBuildScopedToken {
+            parameterName = "env.GITHUB_TOKEN"
+            connectionId = "%GITHUB_CONNECTION_METALAMA%"
+            targetRepositories = "Metalama.Documentation"
+        }
     }
 
     dependencies {
@@ -773,6 +779,11 @@ object PublicUpdateSearch : BuildType({
             lockingProcesses = Swabra.LockingProcessPolicy.KILL
             verbose = true
         }
+        gitHubAppBuildScopedToken {
+            parameterName = "env.GITHUB_TOKEN"
+            connectionId = "%GITHUB_CONNECTION_METALAMA%"
+            targetRepositories = "Metalama.Documentation"
+        }
     }
 
     dependencies {
@@ -836,6 +847,11 @@ object PublicUpdateSearchNoDependency : BuildType({
             filesCleanup = Swabra.FilesCleanup.BEFORE_BUILD
             lockingProcesses = Swabra.LockingProcessPolicy.KILL
             verbose = true
+        }
+        gitHubAppBuildScopedToken {
+            parameterName = "env.GITHUB_TOKEN"
+            connectionId = "%GITHUB_CONNECTION_METALAMA%"
+            targetRepositories = "Metalama.Documentation"
         }
     }
 
