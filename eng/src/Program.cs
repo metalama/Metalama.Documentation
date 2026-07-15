@@ -14,6 +14,7 @@ using PostSharp.Engineering.BuildTools.Build;
 using PostSharp.Engineering.BuildTools.Build.Model;
 using PostSharp.Engineering.BuildTools.Build.Publishing;
 using PostSharp.Engineering.BuildTools.Build.Publishing.Downloads;
+using PostSharp.Engineering.BuildTools.ContinuousIntegration;
 using PostSharp.Engineering.BuildTools.Docker;
 using PostSharp.Engineering.BuildTools.Search;
 using PostSharp.Engineering.DocFx;
@@ -77,7 +78,8 @@ var product = new Product( MetalamaDependencies.MetalamaDocumentation )
             "https://doc-production.metalama.net/sitemap.xml",
             () => new MetalamaDocCrawler(),
             ["Metalama"] )
-    ]
+    ],
+    AdditionalGitHubTokenRepositories = [new GitHubRepository( "Metalama.AI.Skills", "metalama" )]
 };
 
 product.PrepareCompleted += OnPrepareCompleted;

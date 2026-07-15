@@ -110,7 +110,7 @@ object DebugBuild : BuildType({
         gitHubAppBuildScopedToken {
             parameterName = "env.GITHUB_TOKEN"
             connectionId = "%GITHUB_CONNECTION_METALAMA%"
-            targetRepositories = "Metalama.Documentation"
+            targetRepositories = "Metalama.Documentation\nMetalama.Samples\nMetalama.Community\nMetalama.AI.Skills"
         }
         commitStatusPublisher {
             vcsRootExtId = "Metalama_Metalama20261_MetalamaDocumentation"
@@ -258,7 +258,7 @@ object ReleaseBuild : BuildType({
         gitHubAppBuildScopedToken {
             parameterName = "env.GITHUB_TOKEN"
             connectionId = "%GITHUB_CONNECTION_METALAMA%"
-            targetRepositories = "Metalama.Documentation"
+            targetRepositories = "Metalama.Documentation\nMetalama.Samples\nMetalama.Community\nMetalama.AI.Skills"
         }
         commitStatusPublisher {
             vcsRootExtId = "Metalama_Metalama20261_MetalamaDocumentation"
@@ -406,7 +406,7 @@ object PublicBuild : BuildType({
         gitHubAppBuildScopedToken {
             parameterName = "env.GITHUB_TOKEN"
             connectionId = "%GITHUB_CONNECTION_METALAMA%"
-            targetRepositories = "Metalama.Documentation"
+            targetRepositories = "Metalama.Documentation\nMetalama.Samples\nMetalama.Community\nMetalama.AI.Skills"
         }
         commitStatusPublisher {
             vcsRootExtId = "Metalama_Metalama20261_MetalamaDocumentation"
@@ -545,7 +545,7 @@ object PublicDeployment : BuildType({
         gitHubAppBuildScopedToken {
             parameterName = "env.GITHUB_TOKEN"
             connectionId = "%GITHUB_CONNECTION_METALAMA%"
-            targetRepositories = "Metalama.Documentation"
+            targetRepositories = "Metalama.Documentation\nMetalama.AI.Skills"
         }
     }
 
@@ -677,7 +677,7 @@ object PublicDeploymentNoDependency : BuildType({
         gitHubAppBuildScopedToken {
             parameterName = "env.GITHUB_TOKEN"
             connectionId = "%GITHUB_CONNECTION_METALAMA%"
-            targetRepositories = "Metalama.Documentation"
+            targetRepositories = "Metalama.Documentation\nMetalama.AI.Skills"
         }
     }
 
@@ -801,7 +801,7 @@ object UpstreamMerge : BuildType({
         gitHubAppBuildScopedToken {
             parameterName = "env.GITHUB_TOKEN"
             connectionId = "%GITHUB_CONNECTION_METALAMA%"
-            targetRepositories = "Metalama.Documentation"
+            targetRepositories = "Metalama.Documentation\nMetalama.AI.Skills"
         }
     }
 
@@ -864,7 +864,7 @@ object PublicUpdateSearch : BuildType({
         gitHubAppBuildScopedToken {
             parameterName = "env.GITHUB_TOKEN"
             connectionId = "%GITHUB_CONNECTION_METALAMA%"
-            targetRepositories = "Metalama.Documentation"
+            targetRepositories = "Metalama.Documentation\nMetalama.AI.Skills"
         }
     }
 
@@ -933,7 +933,7 @@ object PublicUpdateSearchNoDependency : BuildType({
         gitHubAppBuildScopedToken {
             parameterName = "env.GITHUB_TOKEN"
             connectionId = "%GITHUB_CONNECTION_METALAMA%"
-            targetRepositories = "Metalama.Documentation"
+            targetRepositories = "Metalama.Documentation\nMetalama.AI.Skills"
         }
     }
 
