@@ -2,9 +2,9 @@
 uid: telemetry
 level: 200
 summary: "This article explains what data Metalama collects, how to review exception reports before they are sent, and how to disable telemetry per machine or per repository, reset the device ID, and check the current telemetry status."
-keywords: "telemetry, Metalama, disable telemetry, reset device id, license audit, metalama.json, exception report, performance report, privacy, environment variable, telemetry status, news feed, rss"
+keywords: "telemetry, Metalama, disable telemetry, reset device id, license audit, metalama.json, exception report, performance report, privacy, environment variable, telemetry status, news feed, rss, never report this error"
 created-date: 2023-01-23
-modified-date: 2026-06-27
+modified-date: 2026-07-30
 ---
 
 # Telemetry
@@ -38,10 +38,19 @@ In addition to telemetry, if you're using premium components of Metalama (as opp
 Exception and performance reports contain the most detailed information, so by default Metalama lets you review each one before it leaves your machine:
 
 1. When Metalama captures a report, it stores the report locally and, on Windows, shows a notification.
-2. Opening the notification displays the exact, anonymized content that would be uploaded, with a **Report** button to send that individual report.
-3. The same page lets you choose to automatically send all future reports of that category (exceptions or performance problems). Selecting this option switches that category to automatic sending.
+2. Opening the notification displays the full local report next to the exact, anonymized content that would be uploaded, so you can see precisely what the anonymization removes.
+3. You then choose one of three actions:
 
-This review-first behavior is the default for exception and performance reports. Usage reports have no review step; they're simply enabled or disabled. You can change these settings from the Privacy options page or with the Metalama command-line tools, as described in [Disabling telemetry](#disabling-telemetry).
+   - **Report** sends this report, and only this one.
+   - **Report**, with _Automatically report all … in the future_ selected, sends this report and switches that category (exceptions or performance problems) to automatic sending.
+   - **Never report this error** discards the report and stops Metalama from asking about that particular error again. Other errors are still reported to you for review.
+
+If you don't act on the notification, nothing is sent and the report stays on your machine. Metalama asks you again the next time the same error occurs, at most once an hour, until you choose one of the three actions above. A report you never decide on is deleted along with the rest of the local telemetry data after 30 days.
+
+> [!NOTE]
+> **Never report this error** applies to the error as identified in your current version of Metalama. An error's signature includes the version number, so after upgrading you may be asked again about a seemingly identical error. This is intentional: the new version may behave differently, and if the problem persists we want to know about it.
+
+This review-first behavior is the default for exception and performance reports. Usage reports have no review step; they're simply enabled or disabled. To stop being asked about exceptions altogether, set that category to _never send_ on the Privacy options page or with the Metalama command-line tools, as described in [Disabling telemetry](#disabling-telemetry).
 
 ## Disabling telemetry
 
