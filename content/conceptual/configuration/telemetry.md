@@ -48,7 +48,7 @@ Exception and performance reports contain the most detailed information, so by d
 If you don't act on the notification, nothing is sent and the report stays on your machine. Metalama asks you again the next time the same error occurs, at most once an hour, until you choose one of the three actions above. A report you never decide on is deleted along with the rest of the local telemetry data after 30 days.
 
 > [!NOTE]
-> **Never report this error** applies to the error as identified in your current version of Metalama. An error's signature includes the version number, so after upgrading you may be asked again about a seemingly identical error. This is intentional: the new version may behave differently, and if the problem persists we want to know about it.
+> **Never report this error** applies to the error as identified in your current version of Metalama. An error's signature includes the Metalama version number, so after upgrading you may be asked again about a seemingly identical error. This is intentional: the new version may behave differently, and if the problem persists we want to know about it.
 
 This review-first behavior is the default for exception and performance reports. Usage reports have no review step; they're simply enabled or disabled. To stop being asked about exceptions altogether, set that category to _never send_ on the Privacy options page or with the Metalama command-line tools, as described in [Disabling telemetry](#disabling-telemetry).
 
