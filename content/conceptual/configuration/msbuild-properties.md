@@ -54,7 +54,9 @@ Two situations require you to set `MetalamaRootDirectory` explicitly:
 * The same project is built from several solutions located in different directories, and the build must be reproducible across all of them. Set the property to a directory that is common to all solutions, typically the root of the repository.
 * The project is built without a solution, for instance by running `dotnet build` on the project file. In this case `$(SolutionDir)` is undefined, and only the file name of the project is used. Two projects that have the same file name and the same assembly name are then indistinguishable.
 
-If the symbol is missing, the build reports error `LAMA0080`. The usual cause is a project that assigns the `DefineConstants` property instead of appending to it.
+If the symbol is missing, the build reports warning `LAMA0080` and continues, because the build itself is correct. Only the experience in the editor is degraded. The usual cause is a project that assigns the `DefineConstants` property instead of appending to it.
+
+The hash is 32 bits, so two projects of one solution can in principle produce the same symbol. Such a collision is reported rather than silently accepted: before serving a cached pipeline, Metalama compares the path, the target framework and the configuration of the two projects, and raises an error when they differ.
 
 ## MSBuild items
 
