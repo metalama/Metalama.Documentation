@@ -4,7 +4,7 @@ level: 300
 summary: "This article lists MSBuild properties and environment variables, including their types, descriptions, and default values, related to the Metalama compiler."
 keywords: "MSBuild properties, Metalama, environment variables, temporary directory, execution order, transformers, debug transformed code, transformed code files, output path"
 created-date: 2023-03-03
-modified-date: 2026-07-03
+modified-date: 2026-07-31
 ---
 
 # MSBuild properties and environment variables
@@ -39,6 +39,7 @@ All environment variables are imported as MSBuild properties by default.
 | `MetalamaTemplateLanguageVersion`            | String                   | Specifies the C# language version (e.g., `10.0`) that's used by templates. Any syntax from higher C# versions isn't allowed in template bodies. Such templates can then be used in projects that use this C# version.
 | `MetalamaConcurrentBuildEnabled` | Boolean | Specifies whether Metalama can parallelize work across several cores. The default value is `True`. |
 | `MetalamaRoslynIsCompileTimeOnly` | Boolean | Indicates whether types from the `Microsoft.CodeAnalysis` namespaces are considered compile-time-only. The default value is `True`. Set it to `False` if your project uses Roslyn in run-time code. |
+| `MetalamaRootDirectory` | Path | Specifies the directory to which the path of the project is made relative when Metalama computes the identifier of the project. The default value is `$(SolutionDir)`. A relative path keeps the build reproducible, because the identifier is a part of the compilation and a full path would make the compiled assembly depend on the directory into which the repository is cloned. Set this property when a project is built from several solutions located in different directories and the build must be reproducible in all of them. When neither this property nor `$(SolutionDir)` is defined, which is the case when a project is built without a solution, only the file name of the project is used. |
 
 ## MSBuild items
 
