@@ -39,24 +39,7 @@ All environment variables are imported as MSBuild properties by default.
 | `MetalamaTemplateLanguageVersion`            | String                   | Specifies the C# language version (e.g., `10.0`) that's used by templates. Any syntax from higher C# versions isn't allowed in template bodies. Such templates can then be used in projects that use this C# version.
 | `MetalamaConcurrentBuildEnabled` | Boolean | Specifies whether Metalama can parallelize work across several cores. The default value is `True`. |
 | `MetalamaRoslynIsCompileTimeOnly` | Boolean | Indicates whether types from the `Microsoft.CodeAnalysis` namespaces are considered compile-time-only. The default value is `True`. Set it to `False` if your project uses Roslyn in run-time code. |
-| `MetalamaRootDirectory` | Path | Specifies the directory that the path of the project is made relative to when Metalama computes the compilation symbol that identifies the project. The default value is `$(SolutionDir)`. See [Project identity](#project-identity) below. |
-
-## Project identity
-
-Metalama identifies a project by its assembly name and by its compilation symbols, because those are the only data that identify a project inside a Roslyn `Compilation`. Two projects that have the same assembly name and the same target framework would otherwise be indistinguishable, which breaks the design-time experience.
-
-To make the identity unique, `Metalama.Framework.targets` defines a compilation symbol named `METALAMA_PROJECT_<hash>`, where the hash is computed from the path of the project, its target framework, its configuration and its platform. The symbol is defined in every project that references _Metalama.Framework_, including projects in which `MetalamaEnabled` is `False`, because such a project is still referenced by projects that Metalama does process.
-
-The path used in the hash is **relative to `MetalamaRootDirectory`**, which defaults to the directory of the solution. A relative path keeps the symbol, and therefore the compiled assembly, independent of the directory into which the repository is cloned. This is required by a reproducible build, in which building the same source from two different directories must produce identical binaries.
-
-Two situations require you to set `MetalamaRootDirectory` explicitly:
-
-* The same project is built from several solutions located in different directories, and the build must be reproducible across all of them. Set the property to a directory that is common to all solutions, typically the root of the repository.
-* The project is built without a solution, for instance by running `dotnet build` on the project file. In this case `$(SolutionDir)` is undefined, and only the file name of the project is used. Two projects that have the same file name and the same assembly name are then indistinguishable.
-
-If the symbol is missing, the build reports warning `LAMA0080` and continues, because the build itself is correct. Only the experience in the editor is degraded. The usual cause is a project that assigns the `DefineConstants` property instead of appending to it.
-
-The hash is 32 bits, so two projects of one solution can in principle produce the same symbol. Such a collision is reported rather than silently accepted: before serving a cached pipeline, Metalama compares the path, the target framework and the configuration of the two projects, and raises an error when they differ.
+| `MetalamaRootDirectory` | Path | Specifies the directory to which the path of the project is made relative when Metalama computes the identifier of the project. The default value is `$(SolutionDir)`. A relative path keeps the build reproducible, because the identifier is a part of the compilation and a full path would make the compiled assembly depend on the directory into which the repository is cloned. Set this property when a project is built from several solutions located in different directories and the build must be reproducible in all of them. When neither this property nor `$(SolutionDir)` is defined, which is the case when a project is built without a solution, only the file name of the project is used. |
 
 ## MSBuild items
 
