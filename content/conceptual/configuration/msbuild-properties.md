@@ -4,7 +4,7 @@ level: 300
 summary: "This article lists MSBuild properties and environment variables, including their types, descriptions, and default values, related to the Metalama compiler."
 keywords: "MSBuild properties, Metalama, environment variables, temporary directory, execution order, transformers, debug transformed code, transformed code files, output path"
 created-date: 2023-03-03
-modified-date: 2026-07-31
+modified-date: 2026-08-02
 ---
 
 # MSBuild properties and environment variables
@@ -40,6 +40,8 @@ All environment variables are imported as MSBuild properties by default.
 | `MetalamaConcurrentBuildEnabled` | Boolean | Specifies whether Metalama can parallelize work across several cores. The default value is `True`. |
 | `MetalamaRoslynIsCompileTimeOnly` | Boolean | Indicates whether types from the `Microsoft.CodeAnalysis` namespaces are considered compile-time-only. The default value is `True`. Set it to `False` if your project uses Roslyn in run-time code. |
 | `MetalamaRootDirectory` | Path | Specifies the directory to which the path of the project is made relative when Metalama computes the identifier of the project. The default value is `$(SolutionDir)`. A relative path keeps the build reproducible, because the identifier is a part of the compilation and a full path would make the compiled assembly depend on the directory into which the repository is cloned. Set this property when a project is built from several solutions located in different directories and the build must be reproducible in all of them. When neither this property nor `$(SolutionDir)` is defined, which is the case when a project is built without a solution, only the file name of the project is used. |
+| `MetalamaAssemblyLocatorHooksDirectory` | Path | Specifies a directory whose `Metalama.AssemblyLocator.Build.props` and `Metalama.AssemblyLocator.Build.targets` files, if they exist, are imported into the internal project that Metalama builds to determine which APIs are available to compile-time code. There is no default value, and no file is imported unless this property is set. See <xref:compile-time-dependencies>. |
+| `MetalamaAssemblyLocatorSalt` | String | Specifies an arbitrary value that is included in the cache key of the project that Metalama builds to resolve the compile-time dependencies. There is no default value. Change it to any other value to have that project restored and built again instead of its cached result being reused. See <xref:compile-time-dependencies>. |
 
 ## MSBuild items
 

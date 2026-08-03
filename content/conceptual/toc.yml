@@ -234,6 +234,8 @@ items:
           items:
             - name: NuGet packages
               topicUid: packages
+            - name: Restoring compile-time dependencies
+              topicUid: compile-time-dependencies
             - name: Aspect serialization
               topicUid: aspect-serialization
             - name: Pipeline
