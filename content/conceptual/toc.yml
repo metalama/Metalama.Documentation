@@ -270,10 +270,10 @@ items:
           topicUid: process-dump
         - name: Capturing performance data
           topicUid: profiling
-        - name: Diagnosing memory leaks
-          topicUid: diagnosing-memory-leaks
         - name: Troubleshooting a build server
           topicUid: troubleshooting-unattended-build
+        - name: Diagnosing memory leaks
+          topicUid: diagnosing-memory-leaks
         - name: Telemetry
           topicUid: telemetry
 

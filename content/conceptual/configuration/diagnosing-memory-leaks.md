@@ -9,7 +9,7 @@ modified-date: 2026-08-04
 
 # Diagnosing memory leaks caused by compile-time code
 
-If your IDE grows by tens or hundreds of megabytes as you edit a solution that uses Metalama, the cause may be in your own compile-time code. This article explains why that happens and how to find the field responsible.
+An IDE that uses hundreds of megabytes on a large solution is normal, and its memory rising while you work is normal too. What is not normal is memory that **keeps rising for as long as you keep editing, without ever reaching a plateau**, and that a garbage collection does not bring back down. If you observe that on a solution that uses Metalama, the cause may be in your own compile-time code. This article explains why that happens and how to find the field responsible.
 
 ## Why compile-time code can retain memory
 
@@ -23,6 +23,8 @@ Metalama does not run your compile-time code on every keystroke. It runs it once
 * An **inheritable aspect instance**, a **reference validator** and an **annotation** are filed under the path of the document they belong to, and are reused for every later version in which that document did not change.
 
 This is a deliberate design: recompiling your compile-time code between two keystrokes would be far too slow. The consequence is that any object of yours held by one of those results outlives the compilation it was created from. If one of its fields holds a declaration, such as an <xref:Metalama.Framework.Code.INamedType>, that whole version of the project can never be released.
+
+This is what produces the curve without a plateau. One retained version costs what is described above; a field that keeps *accumulating* declarations retains one more version for every edit, so the total grows for as long as the session lasts.
 
 The typical shapes are:
 
@@ -86,13 +88,19 @@ The diagnostic reports the second kind and never the first.
 
 ## Fixing a retention
 
-Call `ToDurable()` on the reference before storing it, and resolve it later with `GetTarget( compilation )` exactly as you would resolve any other reference. Resolving a durable reference costs an identifier lookup, which is why references are not durable by default.
+### Do not store declaration objects
 
-**Declare the requirement in the type rather than in a comment.** A field, property or parameter that keeps a reference beyond a single pipeline run should be typed <xref:Metalama.Framework.Code.IDurableRef`1> instead of <xref:Metalama.Framework.Code.IRef`1>. The conversion can then no longer be forgotten, because the compiler asks for it at every call site, and a reader of your fabric learns the constraint from its signature.
+Never keep an <xref:Metalama.Framework.Code.IDeclaration>, an <xref:Metalama.Framework.Code.INamedType>, an <xref:Metalama.Framework.Code.IType>, a `SemanticModel` or a Roslyn `ISymbol` in anything that outlives a single pipeline run: a field of a fabric, a field of an inheritable aspect, a static field, or a variable captured by a lambda you register. Each of them is bound to the compilation it came from and keeps that compilation alive.
 
-The same reasoning applies to anything reachable from a declaration, such as an <xref:Metalama.Framework.Code.IType>, a `SemanticModel` or a Roslyn `ISymbol`: none of them may be stored beyond the run.
+The same applies to a plain <xref:Metalama.Framework.Code.IRef`1> obtained from <xref:Metalama.Framework.Code.IDeclaration.ToRef*>. A reference resolves in any compilation version, which makes it the right way to *pass* a declaration between aspects, but it holds the symbol and the compilation behind it, so it is not the right way to *store* one.
 
-Two cases call for something other than a durable reference:
+### Store a durable reference instead
+
+Call `ToDurable()` on the reference before storing it, and resolve it later with `GetTarget( compilation )` exactly as you would resolve any other reference. A durable reference holds only a string identifier. Resolving one costs an identifier lookup, which is why references are not durable by default.
+
+**Type the field <xref:Metalama.Framework.Code.IDurableRef`1>, not <xref:Metalama.Framework.Code.IRef`1>.** The conversion can then no longer be forgotten, because the compiler asks for it at every call site, and a reader of your fabric learns the constraint from its signature rather than from a comment.
+
+### Two cases that call for something else
 
 * A durable reference is backed by a *declaration* identifier, so a constructed generic type such as `Base<int>` resolves back to `Base<T>` and its type arguments are lost silently. Where the value is a type whose shape you do not control, store its full name instead and match on that.
 * When the value has to cross a process or a project boundary, store the <xref:Metalama.Framework.Code.SerializableDeclarationId> returned by `ToSerializableId()` and resolve it with `compilation.Factory.GetDeclarationFromId( id )`.
