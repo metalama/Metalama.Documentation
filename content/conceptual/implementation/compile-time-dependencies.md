@@ -1,17 +1,22 @@
 ---
 uid: compile-time-dependencies
 level: 400
-summary: "This article explains how Metalama determines which APIs are available to compile-time code, by restoring and building a small project of its own, and how that result is cached, configured and troubleshot."
+summary: "This article explains how Metalama determines which APIs are available to compile-time code, by restoring and building a small project of its own, how that result is cached, and how to configure and troubleshoot it."
 keywords: "compile-time dependencies, reference assemblies, restore, nuget.config, cache, MetalamaCompileTimeTargetFrameworks, MetalamaReferenceAssemblyRestoreTimeout, LAMA0082, LAMA0083"
 created-date: 2026-08-02
-modified-date: 2026-08-02
+modified-date: 2026-08-04
 ---
 
 # Restoring compile-time dependencies
 
+Before it can compile your aspects, Metalama has to know exactly which APIs compile-time code is allowed to call. It
+works that out by generating a small project of its own, restoring it, and building it. This article explains what that
+project contains, where its result is cached, how your `nuget.config` files reach it, and what to do when the restore
+fails.
+
 ## Why Metalama restores its own dependencies
 
-Compile-time code, such as aspects, templates and fabrics, executes inside the compiler instead of executing in your
+Compile-time code, such as aspects, templates, and fabrics, executes inside the compiler instead of executing in your
 application. It therefore runs against a different set of APIs than your run-time code: the .NET Standard 2.0 API, the
 Roslyn API and the Metalama API.
 
@@ -40,14 +45,14 @@ The generated project is deliberately minimal, and deliberately isolated from yo
   always required.
 * It references the version of `Microsoft.CodeAnalysis.CSharp` that your version of Metalama is built against, plus
   whatever you added through the `MetalamaCompileTimePackage` and `MetalamaCompileTimeAssembly` items.
-* It does _not_ import your `Directory.Build.props`, `Directory.Build.targets` or `Directory.Packages.props`. Your
-  build customizations therefore cannot influence it, and cannot break it.
+* It does _not_ import your `Directory.Build.props`, `Directory.Build.targets`, or `Directory.Packages.props`. Your
+  build customizations therefore can't influence it, and can't break it.
 * It carries a `global.json` requesting the same .NET SDK version as the one that builds your project, when that
   version is known, so that both builds use the same SDK.
 
 The project is built with `dotnet build`, or with `MSBuild.exe` when your own project is built by `MSBuild.exe`
-without a .NET SDK. The child process does not inherit the .NET SDK and MSBuild environment variables of its parent,
-because a host such as an IDE sets them to its own bundled .NET, which does not necessarily include an SDK.
+without a .NET SDK. The child process doesn't inherit the .NET SDK and MSBuild environment variables of its parent,
+because a host such as an IDE sets them to its own bundled .NET, which doesn't necessarily include an SDK.
 
 ## Where the result is cached
 
@@ -70,18 +75,18 @@ Two projects that agree on all of these share a single cache entry, so a solutio
 once per project. Concurrent builds are safe: the directory is protected by a system-wide lock, so only one build
 populates it.
 
-A cached result is reused only if it is still complete, which means that the list of reference assemblies exists, that
+A cached result is reused only if it's still complete, which means that the list of reference assemblies exists, that
 every assembly it names is still present on disk, and that the output directory of the generated project still exists.
 When any of these is missing, which typically happens after a NuGet cache has been cleared, the project is restored
 and built again without further notice.
 
-Note that neither the .NET SDK version nor the `MetalamaAssemblyLocatorHooksDirectory` property is a part of the hash.
+Note that neither the .NET SDK version nor the `MetalamaAssemblyLocatorHooksDirectory` property is part of the hash.
 
 The directory is deleted by the `metalama cleanup` command once it has been unused for seven days.
 
 ## How nuget.config files are merged
 
-The generated project lives outside your repository, so the NuGet configuration of your repository would not apply to
+The generated project lives outside your repository, so the NuGet configuration of your repository wouldn't apply to
 it. Metalama therefore reproduces that configuration.
 
 It collects every `nuget.config` file from the directory of your project up to the root of the volume, merges them
@@ -103,7 +108,7 @@ The merge follows these rules:
 
 The most frequent surprise concerns `packageSourceMapping`. It is merged and applied like any other section, so a
 pattern routing `Microsoft.CodeAnalysis.*` to a private feed also routes the dependency of the generated project,
-which fails when that feed does not carry it. Map these packages to a source that provides them, such as nuget.org.
+which fails when that feed doesn't carry it. Map these packages to a source that provides them, such as nuget.org.
 
 ## Customizing the generated project
 
@@ -128,13 +133,13 @@ Each file is imported only if it exists, and neither is required. The two positi
 Give the property an absolute path, as above. A relative path is interpreted relative to the generated project, which
 is under the Metalama temporary directory and not in your repository.
 
-The generated project assigns some properties itself, after the props file is imported, and a hook therefore cannot
+The generated project assigns some properties itself, after the props file is imported, and a hook therefore can't
 change them. `RestoreAdditionalProjectSources`, which comes from `MetalamaRestoreSources`, as well as
-`RestoreIgnoreFailedSources`, `TargetFrameworks` and `LangVersion`, are among them. Set the NuGet sources through
+`RestoreIgnoreFailedSources`, `TargetFrameworks`, and `LangVersion`, are among them. Set the NuGet sources through
 `MetalamaRestoreSources` or through your `nuget.config` instead.
 
 > [!WARNING]
-> The hooks directory is not a part of the cache key, so the cached result is still used after you change a hook file.
+> The hooks directory isn't part of the cache key, so the cached result is still used after you change a hook file.
 > Assign a new value to the `MetalamaAssemblyLocatorSalt` property to have the project built again.
 
 ## When the restore or the build fails
@@ -153,10 +158,10 @@ Viewer to see exactly what happened.
 These failures are almost always caused by the environment rather than by a defect of Metalama. The most frequent
 causes are:
 
-* a NuGet feed requiring credentials, which the separate process cannot obtain interactively, so that the credentials
+* a NuGet feed requiring credentials, which the separate process can't obtain interactively, so that the credentials
   must be available without user interaction;
-* a `packageSourceMapping` rule routing the dependency of the generated project to a feed that does not carry it;
-* a `global.json` file requesting a .NET SDK version that is not installed;
+* a `packageSourceMapping` rule routing the dependency of the generated project to a feed that doesn't carry it;
+* a `global.json` file requesting a .NET SDK version that isn't installed;
 * no network access to the configured feeds.
 
 > [!div class="see-also"]
