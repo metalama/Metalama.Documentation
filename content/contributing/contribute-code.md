@@ -4,7 +4,7 @@ level: 200
 summary: "This document outlines the steps for contributing code into Metalama repositories, including feature implementation, testing, formatting, and submitting a pull request."
 keywords: "contributing code, Metalama, testing, formatting, pull request, build repository, unit tests, Contributor License Agreement"
 created-date: 2025-04-02
-modified-date: 2026-07-10
+modified-date: 2026-08-04
 ---
 
 # How to contribute code
@@ -15,7 +15,7 @@ Before contributing to the core projects, consider implementing your feature in 
 
 The main difference between a core project and a community-driven project lies in the responsibility for maintenance and the level of commercial support:
 
-- For _core repositories_, PostSharp Technologies takes on the maintenance responsibility and provides full support to enterprise customers. These repositories include [Metalama](https://github.com/metalama/Metalama), [Metalama.Compiler](https://github.com/metalama/Metalama.Compiler), [Metalama.Samples](https://github.com/metalama/Metalama.Samples), and [Metalama.Documentation](https://github.com/metalama/Metalama.Documentation). Due to their extended guarantees, contributions to core repositories undergo higher scrutiny and must meet stricter quality standards. Note that contributing to core repositories requires signing the [Contributor License Agreement](xref:cla).
+- For _core repositories_, PostSharp Technologies takes on the maintenance responsibility and provides full support to enterprise customers. These repositories include [Metalama](https://github.com/metalama/Metalama), [Metalama.Compiler](https://github.com/metalama/Metalama.Compiler), [Metalama.Samples](https://github.com/metalama/Metalama.Samples), and [Metalama.Documentation](https://github.com/metalama/Metalama.Documentation). Due to their extended guarantees, contributions to core repositories undergo higher scrutiny and must meet stricter quality standards. Note that contributing to core repositories requires signing the <xref:cla>.
 
 - For _community repositories_, such as [Metalama.Community](https://github.com/metalama/Metalama.Community), PostSharp Technologies assumes no responsibility and offers no guarantees or support. However, unlike personal projects, their maintenance responsibility is shared by the entire community rather than a single person. By contributing to a community repository, you enable other community members to build upon your work.
 
@@ -23,7 +23,7 @@ The quality process for both repository categories is identical and described in
 
 ## 2. Clone and build the repository
 
-See [How to build from source](xref:build-from-source) to learn how to clone the repo (you need to enable symbolic links) and which branch to checkout.
+See <xref:build-from-source> to learn how to clone the repo (you need to enable symbolic links) and which branch to check out.
 
 ## 3. Implement the feature
 
@@ -32,7 +32,7 @@ Before you start coding, you'll need to [check out and build](xref:build-from-so
 > [!NOTE]
 > We strongly recommend _building_ the entire repository (`./Build.ps1 build`) before you open any project in the IDE. This ensures that all dependencies of your projects are built. It can be tricky otherwise.
 
-Once the repository is built and ready, proceed to implement your feature while adhering to our [coding standard](xref:coding-standard).
+Once the repository is built and ready, proceed to implement your feature while adhering to our <xref:coding-standard>.
 
 ## 4. Write tests
 
@@ -47,10 +47,10 @@ The expected level of testing depends on the repository you're contributing to: 
 
 ## 5. Format all modified files
 
-We recommend reformatting (or cleaning up) all modified files to adhere to our coding standard. The best tool for this is ReSharper's or Rider's clean-up profile named `Custom`. You can also use Visual Studio, but it may not perform as well.
+We recommend reformatting (or cleaning up) all modified files to adhere to our coding standard. The best tool for this is ReSharper's or Rider's clean-up profile named `Custom`. Visual Studio also works, but it may not perform as well.
 
 > [!WARNING]
-> DO NOT reformat files you haven't modified.
+> Don't reformat files you haven't modified.
 
 ## 6. Address any remaining warnings
 
@@ -72,6 +72,11 @@ Ensure the following command executes successfully:
 
 ## 8. Submit your PR
 
-Even if you branched from `release/YYYY.N`, remember that we will merge into `develop/YYYY.N`.
+Even if you branched from `release/YYYY.N`, remember that we'll merge into `develop/YYYY.N`.
 
-Before we can accept your first PR, you will be asked to sign the [Contributor License Agreement](xref:cla).
+Before we can accept your first PR, you'll be asked to sign the <xref:cla>.
+
+> [!div class="see-also"]
+> <xref:build-from-source>
+> <xref:coding-standard>
+> <xref:cla>

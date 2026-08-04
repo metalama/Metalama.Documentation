@@ -4,7 +4,7 @@ level: 200
 summary: "This document provides instructions for building Metalama from source, including environment setup, cloning, building, testing, and using Docker."
 keywords: "Metalama build, source code, clone repo, build script, local dependencies, Docker build, multi-repo build"
 created-date: 2025-04-02
-modified-date: 2026-07-10
+modified-date: 2026-08-04
 ---
 
 # How to build from source
@@ -34,7 +34,7 @@ Metalama uses symbolic links for `.editorconfig`. Ensure you enable symbolic lin
 git clone --config core.symlinks=true https://github.com/metalama/Metalama.git
 ```
 
-If you encounter numerous formatting warnings during the build, it indicates that symbolic links are not properly enabled. To resolve this, enable symbolic links, delete `.editorconfig`, and execute `git reset --hard`.
+If you encounter numerous formatting warnings during the build, it indicates that symbolic links aren't properly enabled. To resolve this, enable symbolic links, delete `.editorconfig`, and execute `git reset --hard`.
 
 ### 2. Check out the right branch
 
@@ -57,22 +57,22 @@ The packages will be placed in the `artifacts/publish/private` directory.
 
 This command creates _development builds_ intended for use on your development machine only. Each time you run `./Build.ps1 build`, a new package version number is generated.
 
-There are three build configurations, which you can specify using the `-c` command-line option:
+Select the build configuration with the `-c` command-line option:
 - `Debug`
 - `Release`
 - `Public`: A release build with the following differences:
     - The version is _not_ suffixed with a unique build number; it matches the version specified in `eng/MainVersion.props`.
-    - Binaries are signed. If you do not have access to the signing server, use the `--no-sign` option.
+    - Binaries are signed. If you don't have access to the signing server, use the `--no-sign` option.
     - XML documentation files exclude internal APIs.
 
 ## Consuming local builds
 
-After successfully creating a local build, you can use it in any project as follows:
+After creating a local build, use it in any project as follows:
 
 1. Add the following code to your `Directory.Build.props` file:
 
     ```xml
-    <Import Path="path/to/Metalama/Metalama.Imports.props" />
+    <Import Project="path/to/Metalama/Metalama.Import.props" />
     ```
 
 2. Use the `$(MetalamaVersion)` property to reference the version number of any package produced by this repository:
@@ -83,9 +83,9 @@ After successfully creating a local build, you can use it in any project as foll
 
 3. Run `dotnet restore` after completing a new local build.
 
-Each time you run `./Build.ps1 build`, a new version number is generated, so you do not need to clear the cache or restart your IDE.
+Each time you run `./Build.ps1 build`, a new version number is generated, so you don't need to clear the cache or restart your IDE.
 
-If you are using [package source mapping](https://learn.microsoft.com/en-us/nuget/consume-packages/package-source-mapping), you also use to add `path/to/Metalama/artifacts/publish/private` as a local source, and configure mapping,.
+If you use [package source mapping](https://learn.microsoft.com/en-us/nuget/consume-packages/package-source-mapping), also add `path/to/Metalama/artifacts/publish/private` as a local source in your `nuget.config`, and map the Metalama packages to it.
 
 ## Running tests
 
@@ -113,7 +113,7 @@ For the multi-repo build to work, check out all required Metalama repositories u
 - `c:\src\Metalama-2025.1\Metalama`
 - `c:\src\Metalama-2025.1\Metalama.Samples`
 
-### 2. Listing the dependencies
+### 2. List the dependencies
 
 To list the dependencies of a repo, execute:
 
@@ -162,7 +162,7 @@ Specifically, you should process the repositories in the following order:
 
 We use Docker for continuous integration builds.
 
-The host must be an AMD64 device with Windows 11 or Windows Server 2025, and Docker must be configured with Windows Containers. Using Hyper-V isolation is not recommended for performance, and untested.
+The host must be an AMD64 device with Windows 11 or Windows Server 2025, and Docker must be configured with Windows Containers. Using Hyper-V isolation isn't recommended for performance, and is untested.
 
 To build on Docker, use the `DockerBuild.ps1` script, which acts as a wrapper of `Build.ps1`. For instance:
 
@@ -175,3 +175,8 @@ To start an interactive PowerShell prompt inside Docker, use:
 ```powershell
 .\DockerBuild.ps1 -Interactive
 ```
+
+> [!div class="see-also"]
+> <xref:branching>
+> <xref:contribute-code>
+> <xref:coding-standard>

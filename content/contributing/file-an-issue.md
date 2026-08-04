@@ -4,16 +4,16 @@ level: 100
 summary: "This document outlines how to file issues and bug reports for Metalama using GitHub, including necessary information and repositories."
 keywords: "bug reports, GitHub issues, Metalama, exception, error message, binary build log, crash report, profiling snapshot"
 created-date: 2025-04-02
-modified-date: 2026-07-10
+modified-date: 2026-08-04
 ---
 
 # How to file an issue
 
 ## Reporting bugs
 
-We use GitHub issues as our main channel for handling bug reports for open-source users. If you are a commercial customer, see [Enterprise Support](https://postsharp.net/metalama/premium/enterprise-support).
+We use GitHub issues as our main channel for handling bug reports for open-source users. If you're a commercial customer, see [Enterprise Support](https://postsharp.net/metalama/premium/enterprise-support).
 
-Please report issues to the relevant repository:
+Report issues to the relevant repository:
 
 | Repository | Areas |
 |----|----|
@@ -27,11 +27,11 @@ Proposals and discussions are held in [GitHub discussions](https://github.com/or
 
 ## Crafting a good bug report
 
-To increase your chances of resolving your issue quickly, please consider including the following in your report:
+To increase your chances of resolving your issue quickly, consider including the following in your report:
 
-* The version of the Metalama packages and Visual Studio Tools for Metalama you are using.
-* The version of the .NET SDK and IDE you are using.
-* The operating system you are using.
+* The version of the Metalama packages and Visual Studio Tools for Metalama you're using.
+* The version of the .NET SDK and IDE you're using.
+* The operating system you're using.
 * If this is a code issue:
     - The full error message, including the full exception stack.
     - If the error message refers to a file, the content of this file.
@@ -51,6 +51,11 @@ To increase your chances of resolving your issue quickly, please consider includ
 
 If the issue you're encountering is already being tracked, you can still help by providing additional information.
 
-- Let us know how you're affected. If you can add more details, please leave a comment. Otherwise, adding a reaction to the original issue is a quick way to communicate that this is a recurring issue.
+- Let us know how you're affected. If you can add more details, leave a comment. Otherwise, adding a reaction to the original issue is a quick way to communicate that this is a recurring issue.
 - Provide a workaround. This can help unblock others until a fix is identified.
-- Send a pull request. If you think you can help with a fix, we'd be happy to see a PR! See also [Contributing code](xref:contribute-code).
+- Send a pull request. If you think you can help with a fix, we'd be happy to see a PR!
+
+> [!div class="see-also"]
+> <xref:contribute-code>
+> <xref:creating-logs>
+> <xref:process-dump>

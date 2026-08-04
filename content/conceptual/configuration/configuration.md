@@ -19,7 +19,7 @@ This section provides guidance on configuring Metalama.
 | <xref:process-dump> | Explains how to instruct Metalama to capture process dumps when exceptions occur. |
 | <xref:profiling> | Shows how to collect performance data for Metalama processes. |
 | <xref:troubleshooting-unattended-build> | Explains how to deploy diagnostic configurations to a build server. |
-| <xref:diagnosing-memory-leaks> | Explains how to find out which of your compile-time objects keeps a compilation in memory. |
+| <xref:diagnosing-memory-leaks> | Explains how to find out which of your compile-time objects keeps a project snapshot in memory. |
 | <xref:packages> | Lists the NuGet packages that constitute Metalama and their dependency graphs. |
 
 > [!div class="see-also"]

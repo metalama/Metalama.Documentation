@@ -4,7 +4,7 @@ level: 200
 summary: "This document guides on contributing to Metalama's documentation using DocFx, including cloning, building, authoring, updating, and preparing a PR."
 keywords: "DocFx, Metalama, documentation, authoring sample code, Metalama.Testing.AspectTesting, authoring documentation article, update documentation, prepare PR"
 created-date: 2025-04-02
-modified-date: 2026-07-10
+modified-date: 2026-08-04
 ---
 
 # How to contribute documentation
@@ -27,26 +27,26 @@ From PowerShell, execute:
 ./Build.ps1 build
 ```
 
-## 3. Authoring sample code
+## 3. Author sample code
 
-Most samples are created using the [Metalama.Testing.AspectTesting](xref:aspect-testing) framework, where each example consists of a group of files (typically a source file and a file with the expected output).
+Most samples are created using the <xref:aspect-testing> framework, where each example consists of a group of files (typically a source file and a file with the expected output).
 
 First, open the solution and the project in your IDE:
 - All sample code projects are located under the `code/` directory.
 - Samples using the `Metalama.Testing.AspectTesting` framework are all in the `Metalama.Documentation.Snippets.ProjectBased.sln` solution.
 - Samples that only depend on `Metalama.Framework` are in the `Metalama.Documentation.SampleCode.AspectFramework.csproj` project.
 
-You can now add a new sample as described in the [Metalama.Testing.AspectTesting](xref:aspect-testing) documentation or by examining other samples.
+Now add a new sample as described in the <xref:aspect-testing> documentation or by examining other samples.
 
 When you build the documentation projects, the build script automatically generates syntax-highlighted HTML files, including diff files, from this code.
 
-## 4. Authoring a documentation article
+## 4. Author a documentation article
 
 Documentation articles must be written in Markdown and can be found under the `content/` directory. We typically use Visual Studio Code.
 
 Follow these recommendations:
 
-- Use the `<xref:>` tag to include references to code. For details, see [Links and Cross-References](https://dotnet.github.io/docfx/docs/links-and-cross-references.html) in the DocFx documentation. You can search for the proper reference string in `*.yml` files under the `artifacts/api` directory.
+- Use the `<xref:>` tag to include references to code. For details, see [Links and Cross-References](https://dotnet.github.io/docfx/docs/links-and-cross-references.html) in the DocFx documentation. Search for the proper reference string in `*.yml` files under the `artifacts/api` directory.
 - Include a YAML front matter with the following information:
     - `uid`: the unique identifier of your article
     - `level`: the difficulty level
@@ -56,7 +56,7 @@ Follow these recommendations:
 
     For example:
 
-    ```YAML
+    ```yaml
     uid: validation
     level: 200
     summary: "The document discusses verifying source code against architecture, design patterns, and team conventions, emphasizing the benefits of immediate feedback, smoother code reviews, team alignment, reduced complexity, and architecture erosion prevention."
@@ -77,19 +77,19 @@ Refresh the documentation output by running the following command in PowerShell:
 ./update-html.ps1
 ```
 
-Ensure you did not introduce any warnings.
+Ensure you didn't introduce any warnings.
 
 ## 6. Preview the documentation
 
-Unfortunately, the web engine that renders the documentation on https://doc.metalama.net is not publicly available yet.
+Unfortunately, the web engine that renders the documentation on https://doc.metalama.net isn't publicly available yet.
 
-To preview the documentation, you can still use a browser to open `artifacts/site/index.html` and then navigate to your article.
+To preview the documentation, open `artifacts/site/index.html` in a browser and navigate to your article.
 
 If you need changes, iterate to step 3 or 4.
 
 ## 7. Execute a complete build
 
-When you are satisfied with your modifications, run a new complete build of the documentation:
+When you're satisfied with your modifications, run a new complete build of the documentation:
 
 ```powershell
 ./Build.ps1 build
@@ -100,3 +100,8 @@ Ensure the build is successful.
 ## 8. Prepare a PR
 
 Congratulations! You can now prepare a PR against the `develop/YYYY.N` branch.
+
+> [!div class="see-also"]
+> <xref:aspect-testing>
+> <xref:branching>
+> <xref:cla>

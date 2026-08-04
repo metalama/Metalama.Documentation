@@ -4,7 +4,7 @@ level: 200
 summary: "The document outlines Metalama's Git flow strategy involving concurrent version branches, continuous integration, and specific branch naming conventions."
 keywords: "Git flow strategy, version branches, continuous integration, branch naming conventions, version control, Metalama, .NET, TeamCity, versioning"
 created-date: 2025-04-02
-modified-date: 2026-07-10
+modified-date: 2026-08-04
 ---
 
 # Branching strategy
@@ -68,3 +68,7 @@ gitGraph:
     merge develop/2023.4
     commit
 ```
+
+> [!div class="see-also"]
+> <xref:build-from-source>
+> <xref:contribute-code>
