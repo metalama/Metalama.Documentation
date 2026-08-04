@@ -2,7 +2,7 @@
 uid: diagnosing-memory-leaks
 level: 200
 summary: "This article explains how to find out which of your compile-time objects keeps a project snapshot in memory, causing the IDE to grow while you edit, using the MetalamaDiagnoseMemoryLeaks MSBuild property."
-keywords: "memory leak, design time, Visual Studio memory, project snapshot, fabric, inheritable aspect, MetalamaDiagnoseMemoryLeaks, LAMA0085, LAMA0086, durable reference, IDurableRef, ToDurable, ToSerializableId"
+keywords: "memory leak, design time, Visual Studio memory, project snapshot, fabric, inheritable aspect, MetalamaDiagnoseMemoryLeaks, LAMA0085, LAMA0086, durable reference, IDurableRef, ToDurableRef, ToDurable, ToSerializableId"
 created-date: 2026-08-04
 modified-date: 2026-08-04
 ---
@@ -81,7 +81,7 @@ An <xref:Metalama.Framework.Code.IRef> identifies the same declaration across pr
 
 A reference is either **durable** or not, as reported by <xref:Metalama.Framework.Code.IRef.IsDurable>:
 
-* A **durable** reference, of type <xref:Metalama.Framework.Code.IDurableRef> or <xref:Metalama.Framework.Code.IDurableRef`1>, stores only a string identifier and holds nothing else. It is safe in an object of any lifetime, and it is what Metalama itself stores in its own long-lived objects.
+* A **durable** reference, of type <xref:Metalama.Framework.Code.IDurableRef> or <xref:Metalama.Framework.Code.IDurableRef`1>, stores only a string identifier and holds nothing else. It is safe in an object of any lifetime, and it is what Metalama itself stores in its own long-lived objects. Obtain one with `ToDurableRef()` on a declaration, or with `ToDurable()` on a reference you already have.
 * Any **other** reference, such as one returned by <xref:Metalama.Framework.Code.IDeclaration.ToRef*>, holds the symbol and the project snapshot behind it. It is correct and fast within a run, and it retains a snapshot as soon as you store it in something that outlives the run.
 
 The diagnostic reports the second kind and never the first.
@@ -96,7 +96,9 @@ The same applies to a plain <xref:Metalama.Framework.Code.IRef`1> obtained from 
 
 ### Store a durable reference instead
 
-Call `ToDurable()` on the reference before storing it, and resolve it later with `GetTarget( compilation )` exactly as you would resolve any other reference. A durable reference holds only a string identifier. Resolving one costs an identifier lookup, which is why references are not durable by default.
+Call `ToDurableRef()` on the declaration before storing it, and resolve it later with `GetTarget( compilation )` exactly as you would resolve any other reference. When what you hold is already an <xref:Metalama.Framework.Code.IRef`1> rather than a declaration, call `ToDurable()` on it instead. The two produce the same reference; `ToDurableRef()` merely avoids creating the non-durable one on the way.
+
+A durable reference holds only a string identifier. Resolving one costs an identifier lookup, which is why references are not durable by default.
 
 **Type the field <xref:Metalama.Framework.Code.IDurableRef`1>, not <xref:Metalama.Framework.Code.IRef`1>.** The conversion can then no longer be forgotten, because the compiler asks for it at every call site, and a reader of your fabric learns the constraint from its signature rather than from a comment.
 
