@@ -34,7 +34,7 @@ Metalama uses symbolic links for `.editorconfig`. Ensure you enable symbolic lin
 git clone --config core.symlinks=true https://github.com/metalama/Metalama.git
 ```
 
-If you encounter numerous formatting warnings during the build, it indicates that symbolic links are not properly enabled. To resolve this, enable symbolic links, delete `.editorconfig`, and execute `git reset --hard`.
+If you encounter numerous formatting warnings during the build, it indicates that symbolic links aren't properly enabled. To resolve this, enable symbolic links, delete `.editorconfig`, and execute `git reset --hard`.
 
 ### 2. Check out the right branch
 
@@ -162,7 +162,7 @@ Specifically, you should process the repositories in the following order:
 
 We use Docker for continuous integration builds.
 
-The host must be an AMD64 device with Windows 11 or Windows Server 2025, and Docker must be configured with Windows Containers. Using Hyper-V isolation is not recommended for performance, and untested.
+The host must be an AMD64 device with Windows 11 or Windows Server 2025, and Docker must be configured with Windows Containers. Using Hyper-V isolation isn't recommended for performance, and is untested.
 
 To build on Docker, use the `DockerBuild.ps1` script, which acts as a wrapper of `Build.ps1`. For instance:
 

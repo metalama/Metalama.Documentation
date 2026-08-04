@@ -9,18 +9,18 @@ modified-date: 2026-08-04
 
 # Restoring compile-time dependencies
 
-Before it can compile your aspects, Metalama has to know exactly which APIs compile-time code is allowed to call. It
-works that out by generating a small project of its own, restoring it, and building it. This article explains what that
-project contains, where its result is cached, how your `nuget.config` files reach it, and what to do when the restore
-fails.
+Before it can compile your aspects, Metalama must determine exactly which APIs compile-time code is allowed to call.
+It determines that set by generating a small project of its own, restoring it, and building it. This article describes
+what that project contains, where its result is cached, how your `nuget.config` files are applied to it, and what to do
+when the restore fails.
 
 ## Why Metalama restores its own dependencies
 
 Compile-time code, such as aspects, templates, and fabrics, executes inside the compiler instead of executing in your
 application. It therefore runs against a different set of APIs than your run-time code: the .NET Standard 2.0 API, the
-Roslyn API and the Metalama API.
+Roslyn API, and the Metalama API.
 
-Metalama needs to know that set precisely. It reports an error when compile-time code uses an API that is not
+Metalama needs to know that set precisely. It reports an error when compile-time code uses an API that isn't
 available at compile time, and it compiles the compile-time part of your project against exactly these references.
 
 To obtain the set, Metalama generates a small project of its own, restores it, builds it, and collects the reference
@@ -38,7 +38,7 @@ process is started.
 
 ## What is built
 
-The generated project is deliberately minimal, and deliberately isolated from your repository:
+The generated project is minimal, and isolated from your repository by design:
 
 * It targets the frameworks listed by the `MetalamaCompileTimeTargetFrameworks` property, which are
   `netstandard2.0;net8.0;net48` by default. These are the frameworks that can host the compiler. `netstandard2.0` is
@@ -47,7 +47,7 @@ The generated project is deliberately minimal, and deliberately isolated from yo
   whatever you added through the `MetalamaCompileTimePackage` and `MetalamaCompileTimeAssembly` items.
 * It does _not_ import your `Directory.Build.props`, `Directory.Build.targets`, or `Directory.Packages.props`. Your
   build customizations therefore can't influence it, and can't break it.
-* It carries a `global.json` requesting the same .NET SDK version as the one that builds your project, when that
+* It includes a `global.json` requesting the same .NET SDK version as the one that builds your project, when that
   version is known, so that both builds use the same SDK.
 
 The project is built with `dotnet build`, or with `MSBuild.exe` when your own project is built by `MSBuild.exe`
@@ -59,8 +59,12 @@ because a host such as an IDE sets them to its own bundled .NET, which doesn't n
 The generated project and its result are stored under the Metalama temporary directory, in a path of this form:
 
 ```text
-<METALAMA_TEMP>/Metalama/AssemblyLocator/<Metalama version>/<hash>
+<Metalama temporary directory>\AssemblyLocator\<Metalama version>\<hash>
 ```
+
+The Metalama temporary directory is `%TEMP%\Metalama` on Windows, and the `Temp` subdirectory of the Metalama
+application data directory on other platforms. Setting the `METALAMA_TEMP` environment variable moves it to the
+`Metalama` subdirectory of the path you give.
 
 The `<hash>` covers everything that can change the outcome:
 
@@ -106,13 +110,14 @@ The merge follows these rules:
   `globalPackagesFolder` keys of the `<config>` section. URLs, absolute paths, and values that reference an undefined
   environment variable are left unchanged.
 
-The most frequent surprise concerns `packageSourceMapping`. It is merged and applied like any other section, so a
-pattern routing `Microsoft.CodeAnalysis.*` to a private feed also routes the dependency of the generated project,
-which fails when that feed doesn't carry it. Map these packages to a source that provides them, such as nuget.org.
+`packageSourceMapping` is the most frequent cause of an unexpected failure. It is merged and applied like any other
+section, so a pattern routing `Microsoft.CodeAnalysis.*` to a private feed also routes the dependency of the generated
+project, which fails when that feed doesn't carry it. Map these packages to a source that provides them, such as
+nuget.org.
 
 ## Customizing the generated project
 
-When the generated project cannot be restored in your environment without additional configuration, the
+When the generated project can't be restored in your environment without additional configuration, the
 `MetalamaAssemblyLocatorHooksDirectory` property names a directory from which the generated project imports two
 optional files:
 
@@ -150,7 +155,7 @@ reports an error of its own and quotes what the build said:
 | Diagnostic | Meaning |
 |------------|---------|
 | `LAMA0082` | The build of the generated project completed with an error. The diagnostic quotes the errors that this build reported and, when the cause is recognizable, names it and the way to resolve it. |
-| `LAMA0083` | The build did not complete within its time budget and was stopped. Raise the budget with the `MetalamaReferenceAssemblyRestoreTimeout` property, expressed in milliseconds, whose default value is `120000`. |
+| `LAMA0083` | The build didn't complete within its time budget and was stopped. Raise the budget with the `MetalamaReferenceAssemblyRestoreTimeout` property, expressed in milliseconds, whose default value is `120000`. |
 
 Both diagnostics give the path of an MSBuild binary log of the failed build. Open it with the MSBuild Structured Log
 Viewer to see exactly what happened.

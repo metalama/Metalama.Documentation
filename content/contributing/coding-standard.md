@@ -47,7 +47,7 @@ Build.ps1 codestyle inspect
 
 ## Tests
 
-All new features must be thoroughly tested. The code must work seamlessly with _any_ valid C# code. Our policy is that Metalama should support _all_ valid C# code, and users should never be required to refactor their code to accommodate Metalama.
+All new features must be thoroughly tested. The code must work with _any_ valid C# code. Our policy is that Metalama should support _all_ valid C# code, and users should never be required to refactor their code to accommodate Metalama.
 
 > [!div class="see-also"]
 > <xref:contribute-code>

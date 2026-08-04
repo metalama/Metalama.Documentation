@@ -7,8 +7,8 @@ namespace Doc.RetainedDeclaration_Good;
 
 public class Fabric : ProjectFabric
 {
-    // A durable reference holds only a string identifier. Typing the field IDurableRef<INamedType> also makes
-    // the conversion impossible to forget: the compiler asks for it at every assignment.
+    // A durable reference holds only a string identifier. Declaring the field as IDurableRef<INamedType>
+    // also makes the conversion mandatory at every assignment, so a later edit cannot omit it.
     private IDurableRef<INamedType>? _registry;
 
     public override void AmendProject( IProjectAmender amender )
