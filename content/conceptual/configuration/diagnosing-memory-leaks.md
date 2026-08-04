@@ -2,7 +2,7 @@
 uid: diagnosing-memory-leaks
 level: 200
 summary: "This article explains how to find out which of your compile-time objects keeps a compilation in memory, causing the IDE to grow while you edit, using the MetalamaDiagnoseMemoryLeaks MSBuild property."
-keywords: "memory leak, design time, Visual Studio memory, compilation, fabric, inheritable aspect, MetalamaDiagnoseMemoryLeaks, LAMA0085, LAMA0086, ToSerializableId"
+keywords: "memory leak, design time, Visual Studio memory, compilation, fabric, inheritable aspect, MetalamaDiagnoseMemoryLeaks, LAMA0085, LAMA0086, durable reference, IDurableRef, ToDurable, ToSerializableId"
 created-date: 2026-08-04
 modified-date: 2026-08-04
 ---
@@ -79,19 +79,23 @@ An <xref:Metalama.Framework.Code.IRef> identifies the same declaration across co
 
 A reference is either **durable** or not, as reported by <xref:Metalama.Framework.Code.IRef.IsDurable>:
 
-* A **durable** reference stores only a string identifier and holds nothing else. It is safe in an object of any lifetime, and it is what Metalama itself stores in its own long-lived objects. There is currently no public API to create one, so the fix below uses the serializable identifier instead.
+* A **durable** reference, of type <xref:Metalama.Framework.Code.IDurableRef> or <xref:Metalama.Framework.Code.IDurableRef`1>, stores only a string identifier and holds nothing else. It is safe in an object of any lifetime, and it is what Metalama itself stores in its own long-lived objects.
 * Any **other** reference, such as one returned by <xref:Metalama.Framework.Code.IDeclaration.ToRef*>, holds the symbol and the compilation behind it. It is correct and fast within a run, and it retains a compilation as soon as you store it in something that outlives the run.
 
 The diagnostic reports the second kind and never the first.
 
 ## Fixing a retention
 
-Because you cannot create a durable reference, store the identifier instead and resolve it against the compilation you are given:
+Call `ToDurable()` on the reference before storing it, and resolve it later with `GetTarget( compilation )` exactly as you would resolve any other reference. Resolving a durable reference costs an identifier lookup, which is why references are not durable by default.
 
-* Call `ToSerializableId()` on the declaration or on the reference to obtain a <xref:Metalama.Framework.Code.SerializableDeclarationId>, which is backed by a string and holds nothing else. This is the public equivalent of a durable reference.
-* Call `compilation.Factory.GetDeclarationFromId( id )` to obtain the declaration again.
+**Declare the requirement in the type rather than in a comment.** A field, property or parameter that keeps a reference beyond a single pipeline run should be typed <xref:Metalama.Framework.Code.IDurableRef`1> instead of <xref:Metalama.Framework.Code.IRef`1>. The conversion can then no longer be forgotten, because the compiler asks for it at every call site, and a reader of your fabric learns the constraint from its signature.
 
-The same applies to anything reachable from a declaration, such as an <xref:Metalama.Framework.Code.IType>, a `SemanticModel` or a Roslyn `ISymbol`.
+The same reasoning applies to anything reachable from a declaration, such as an <xref:Metalama.Framework.Code.IType>, a `SemanticModel` or a Roslyn `ISymbol`: none of them may be stored beyond the run.
+
+Two cases call for something other than a durable reference:
+
+* A durable reference is backed by a *declaration* identifier, so a constructed generic type such as `Base<int>` resolves back to `Base<T>` and its type arguments are lost silently. Where the value is a type whose shape you do not control, store its full name instead and match on that.
+* When the value has to cross a process or a project boundary, store the <xref:Metalama.Framework.Code.SerializableDeclarationId> returned by `ToSerializableId()` and resolve it with `compilation.Factory.GetDeclarationFromId( id )`.
 
 When you only need to recognize a declaration later rather than to use it, storing its full name or its file path is usually enough and is always safe.
 
