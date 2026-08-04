@@ -1,8 +1,8 @@
 ---
 uid: diagnosing-memory-leaks
 level: 200
-summary: "This article explains how to find out which of your compile-time objects keeps a compilation in memory, causing the IDE to grow while you edit, using the MetalamaDiagnoseMemoryLeaks MSBuild property."
-keywords: "memory leak, design time, Visual Studio memory, compilation, fabric, inheritable aspect, MetalamaDiagnoseMemoryLeaks, LAMA0085, LAMA0086, durable reference, IDurableRef, ToDurable, ToSerializableId"
+summary: "This article explains how to find out which of your compile-time objects keeps a project snapshot in memory, causing the IDE to grow while you edit, using the MetalamaDiagnoseMemoryLeaks MSBuild property."
+keywords: "memory leak, design time, Visual Studio memory, project snapshot, fabric, inheritable aspect, MetalamaDiagnoseMemoryLeaks, LAMA0085, LAMA0086, durable reference, IDurableRef, ToDurable, ToSerializableId"
 created-date: 2026-08-04
 modified-date: 2026-08-04
 ---
@@ -13,18 +13,18 @@ An IDE that uses hundreds of megabytes on a large solution is normal, and its me
 
 ## Why compile-time code can retain memory
 
-When you build from the command line, the compiler handles one compilation and exits, so nothing that compile-time code keeps in memory matters.
+When you build from the command line, the compiler handles one snapshot of the project and exits, so nothing that compile-time code keeps in memory matters.
 
-The IDE works differently. The Roslyn analysis process stays alive for as long as the solution is open, and it produces a **new compilation on essentially every keystroke**. It releases the previous one as soon as every component that received it does. A single retained compilation keeps alive every syntax tree of the project, the full text of every file, and the symbol tables built from it: tens of megabytes on a medium project.
+The IDE works differently. The Roslyn analysis process stays alive for as long as the solution is open, and it produces a **new snapshot of the project on essentially every keystroke**. It releases the previous one as soon as every component that received it does. A single retained snapshot keeps alive every syntax tree of the project, the full text of every file, and the symbol tables built from it: tens of megabytes on a medium project.
 
 Metalama does not run your compile-time code on every keystroke. It runs it once and reuses the result:
 
 * A **fabric** runs once per pipeline configuration, and everything it registers is reused for every later version of the project, until you change compile-time code.
 * An **inheritable aspect instance**, a **reference validator** and an **annotation** are filed under the path of the document they belong to, and are reused for every later version in which that document did not change.
 
-This is a deliberate design: recompiling your compile-time code between two keystrokes would be far too slow. The consequence is that any object of yours held by one of those results outlives the compilation it was created from. If one of its fields holds a declaration, such as an <xref:Metalama.Framework.Code.INamedType>, that whole version of the project can never be released.
+This is a deliberate design: recompiling your compile-time code between two keystrokes would be far too slow. The consequence is that any object of yours held by one of those results outlives the project snapshot it was created from. If one of its fields holds a declaration, such as an <xref:Metalama.Framework.Code.INamedType>, that whole version of the project can never be released.
 
-This is what produces the curve without a plateau. One retained version costs what is described above; a field that keeps *accumulating* declarations retains one more version for every edit, so the total grows for as long as the session lasts.
+This is what produces the curve without a plateau. One retained snapshot costs what is described above; a field that keeps *accumulating* declarations retains one more snapshot for every edit, so the total grows for as long as the session lasts.
 
 The typical shapes are:
 
@@ -32,7 +32,7 @@ The typical shapes are:
 * a static field of a compile-time class used as a cache;
 * a field of an inheritable aspect marked `[NonCompileTimeSerialized]` that holds a declaration.
 
-## Running the diagnostic
+## Investigating the memory leak
 
 Build the project once from the command line, passing the `MetalamaDiagnoseMemoryLeaks` property:
 
@@ -40,7 +40,7 @@ Build the project once from the command line, passing the `MetalamaDiagnoseMemor
 dotnet build MyProject.csproj -p:MetalamaDiagnoseMemoryLeaks=true
 ```
 
-Metalama then inspects the objects your compile-time code left behind and reports every reference that keeps a compilation alive.
+Metalama then inspects the objects your compile-time code left behind and reports every reference that keeps a project snapshot alive.
 
 This is a one-time investigation, so pass the property on the command line rather than setting it in your project file. The analysis walks the whole object graph of everything your compile-time code registered, which takes time and memory, and it would slow down every build of every developer on the project.
 
@@ -77,12 +77,12 @@ The report file named by `LAMA0086` contains both categories, with the full chai
 
 ## References, durable and otherwise
 
-An <xref:Metalama.Framework.Code.IRef> identifies the same declaration across compilation versions, which is why the API recommends it for passing declarations between aspects. That recommendation concerns a single pipeline run, and it comes with a distinction that matters here.
+An <xref:Metalama.Framework.Code.IRef> identifies the same declaration across project snapshots, which is why the API recommends it for passing declarations between aspects. That recommendation concerns a single pipeline run, and it comes with a distinction that matters here.
 
 A reference is either **durable** or not, as reported by <xref:Metalama.Framework.Code.IRef.IsDurable>:
 
 * A **durable** reference, of type <xref:Metalama.Framework.Code.IDurableRef> or <xref:Metalama.Framework.Code.IDurableRef`1>, stores only a string identifier and holds nothing else. It is safe in an object of any lifetime, and it is what Metalama itself stores in its own long-lived objects.
-* Any **other** reference, such as one returned by <xref:Metalama.Framework.Code.IDeclaration.ToRef*>, holds the symbol and the compilation behind it. It is correct and fast within a run, and it retains a compilation as soon as you store it in something that outlives the run.
+* Any **other** reference, such as one returned by <xref:Metalama.Framework.Code.IDeclaration.ToRef*>, holds the symbol and the project snapshot behind it. It is correct and fast within a run, and it retains a snapshot as soon as you store it in something that outlives the run.
 
 The diagnostic reports the second kind and never the first.
 
@@ -90,9 +90,9 @@ The diagnostic reports the second kind and never the first.
 
 ### Do not store declaration objects
 
-Never keep an <xref:Metalama.Framework.Code.IDeclaration>, an <xref:Metalama.Framework.Code.INamedType>, an <xref:Metalama.Framework.Code.IType>, a `SemanticModel` or a Roslyn `ISymbol` in anything that outlives a single pipeline run: a field of a fabric, a field of an inheritable aspect, a static field, or a variable captured by a lambda you register. Each of them is bound to the compilation it came from and keeps that compilation alive.
+Never keep an <xref:Metalama.Framework.Code.IDeclaration>, an <xref:Metalama.Framework.Code.INamedType>, an <xref:Metalama.Framework.Code.IType>, a `SemanticModel` or a Roslyn `ISymbol` in anything that outlives a single pipeline run: a field of a fabric, a field of an inheritable aspect, a static field, or a variable captured by a lambda you register. Each of them is bound to the project snapshot it came from and keeps that snapshot alive.
 
-The same applies to a plain <xref:Metalama.Framework.Code.IRef`1> obtained from <xref:Metalama.Framework.Code.IDeclaration.ToRef*>. A reference resolves in any compilation version, which makes it the right way to *pass* a declaration between aspects, but it holds the symbol and the compilation behind it, so it is not the right way to *store* one.
+The same applies to a plain <xref:Metalama.Framework.Code.IRef`1> obtained from <xref:Metalama.Framework.Code.IDeclaration.ToRef*>. A reference resolves in any project snapshot, which makes it the right way to *pass* a declaration between aspects, but it holds the symbol and the snapshot behind it, so it is not the right way to *store* one.
 
 ### Store a durable reference instead
 
@@ -100,7 +100,7 @@ Call `ToDurable()` on the reference before storing it, and resolve it later with
 
 **Type the field <xref:Metalama.Framework.Code.IDurableRef`1>, not <xref:Metalama.Framework.Code.IRef`1>.** The conversion can then no longer be forgotten, because the compiler asks for it at every call site, and a reader of your fabric learns the constraint from its signature rather than from a comment.
 
-### Two cases that call for something else
+### Generic types and cross-project references
 
 * A durable reference is backed by a *declaration* identifier, so a constructed generic type such as `Base<int>` resolves back to `Base<T>` and its type arguments are lost silently. Where the value is a type whose shape you do not control, store its full name instead and match on that.
 * When the value has to cross a process or a project boundary, store the <xref:Metalama.Framework.Code.SerializableDeclarationId> returned by `ToSerializableId()` and resolve it with `compilation.Factory.GetDeclarationFromId( id )`.
