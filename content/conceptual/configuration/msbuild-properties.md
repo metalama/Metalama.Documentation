@@ -58,7 +58,7 @@ All environment variables are imported as MSBuild properties by default.
 
 ## The supported platform check
 
-Metalama is tested with a defined set of target frameworks, .NET SDK versions and Visual Studio versions. When your project falls outside that set, the build reports a warning instead of letting you discover the problem later through an obscure failure. The build always continues.
+Metalama is tested with a defined set of target frameworks, .NET SDK versions and Visual Studio versions. When your project falls outside that set, the build reports a warning instead of letting you discover the problem later through an obscure failure. The build always continues, but a configuration outside that set is not officially supported, so a problem that is specific to it will not be fixed.
 
 ### The warning codes
 
