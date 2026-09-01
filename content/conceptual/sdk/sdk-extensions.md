@@ -147,16 +147,16 @@ To target different frameworks or Roslyn versions with different assemblies, inc
 
     <!-- dotnet build, Rider, and other modern hosts -->
     <MetalamaExtensionAssembly
-        Include="$(MSBuildThisFileDirectory)../metalama/net8.0/MyExtension.Engine.4.8.0.dll"
-        TargetFramework="net8.0"
+        Include="$(MSBuildThisFileDirectory)../metalama/net10.0/MyExtension.Engine.4.8.0.dll"
+        TargetFramework="net10.0"
         TargetRoslynVersion="4.8.0"/>
     <MetalamaExtensionAssembly
-        Include="$(MSBuildThisFileDirectory)../metalama/net8.0/MyExtension.Engine.4.12.0.dll"
-        TargetFramework="net8.0"
+        Include="$(MSBuildThisFileDirectory)../metalama/net10.0/MyExtension.Engine.4.12.0.dll"
+        TargetFramework="net10.0"
         TargetRoslynVersion="4.12.0"/>
     <MetalamaExtensionAssembly
-        Include="$(MSBuildThisFileDirectory)../metalama/net8.0/MyExtension.Engine.5.0.0.dll"
-        TargetFramework="net8.0"
+        Include="$(MSBuildThisFileDirectory)../metalama/net10.0/MyExtension.Engine.5.0.0.dll"
+        TargetFramework="net10.0"
         TargetRoslynVersion="5.0.0"/>
 </ItemGroup>
 ```
@@ -183,7 +183,7 @@ MyExtension.nupkg
 ├── lib/
 │   ├── netstandard2.0/
 │   │   └── MyExtension.AspectContracts.dll  # AspectContracts assembly
-│   └── net8.0/
+│   └── net10.0/
 │       └── MyExtension.dll                  # Main assembly with aspects
 └── metalama/
     └── MyExtension.Engine.dll     # Extension assembly
