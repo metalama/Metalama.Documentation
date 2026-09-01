@@ -43,7 +43,7 @@ All environment variables are imported as MSBuild properties by default.
 | `MetalamaAssemblyLocatorHooksDirectory` | Path | Specifies a directory whose `Metalama.AssemblyLocator.Build.props` and `Metalama.AssemblyLocator.Build.targets` files, if they exist, are imported into the internal project that Metalama builds to determine which APIs are available to compile-time code. There is no default value, and no file is imported unless this property is set. See <xref:compile-time-dependencies>. |
 | `MetalamaAssemblyLocatorSalt` | String | Specifies an arbitrary value that is included in the cache key of the project that Metalama builds to resolve the compile-time dependencies. There is no default value. Change it to any other value to have that project restored and built again instead of its cached result being reused. See <xref:compile-time-dependencies>. |
 | `MetalamaDiagnoseMemoryLeaks` | Boolean | Indicates whether the objects that your compile-time code leaves behind should be analyzed for references that keep a project snapshot in memory. The default value is `False`. Pass this property on the command line of a single build while you're investigating a memory leak: the analysis walks a large object graph and is too slow for an ordinary build. See <xref:diagnosing-memory-leaks>. |
-| `MetalamaCheckSupportedPlatform` | Boolean | Indicates whether the build reports a target framework, a .NET SDK or a Visual Studio version outside the configuration matrix that Metalama is tested with. The default value is `True`. Set it to `False` to turn off every warning of the check. See [The supported platform check](#the-supported-platform-check) below. |
+| `MetalamaCheckSupportedPlatform` | Boolean | Indicates whether the build reports a target framework, a .NET SDK or a Visual Studio version outside the configuration matrix that Metalama supports. The default value is `True`. Set it to `False` to turn off every warning of the check. See [The supported platform check](#the-supported-platform-check) below. |
 
 ## MSBuild items
 
@@ -53,20 +53,20 @@ All environment variables are imported as MSBuild properties by default.
 | `MetalamaCompileTimePackage`      | Represents a list of packages accessible from the compile-time code. These packages must explicitly target .NET Standard 2.0 and be included in the project as a `ProjectReference`. By default, only the .NET Standard 2.0 API and the Metalama API are available to compile-time code. |
 | `MetalamaExtensionAssembly`       | Loads an assembly as a Metalama extension at compile time. The assembly must contain types exported via <xref:Metalama.Framework.Engine.Extensibility.ExportExtensionAttribute>. Supports `TargetFramework` (e.g., `net472`, `net8.0`) and `TargetRoslynVersion` (e.g., `4.8`, `4.12`, `5.0`) metadata to specify which build of the extension to load. See <xref:sdk-extensions>. |
 | `MetalamaCompileTimeAssembly`     | Makes an assembly available to compile-time code. Use this when your compile-time code references types from an external assembly that isn't a NuGet package. See <xref:sdk-extensions>. |
-| `MetalamaPlatformRequirement`     | Declares the configuration matrix that a package is tested with. `Metalama.Framework` declares its own. Add one to declare a stricter requirement for your own package or project. See [The supported platform check](#the-supported-platform-check) below. |
+| `MetalamaPlatformRequirement`     | Declares the configuration matrix that a package supports. `Metalama.Framework` declares its own. Add one to declare a stricter requirement for your own package or project. See [The supported platform check](#the-supported-platform-check) below. |
 | `MetalamaSupportedPlatformExclusion` | Skips the `MetalamaPlatformRequirement` whose name it repeats, and leaves the other requirements in place. See [The supported platform check](#the-supported-platform-check) below. |
 
 ## The supported platform check
 
-Metalama is tested with a defined set of target frameworks, .NET SDK versions and Visual Studio versions. When your project falls outside that set, the build reports a warning instead of letting you discover the problem later through an obscure failure. The build always continues, but a configuration outside that set is not officially supported, so a problem that is specific to it will not be fixed.
+Metalama supports a defined set of target frameworks, .NET SDK versions and Visual Studio versions. When your project falls outside that set, the build reports a warning instead of letting you discover the problem later through an obscure failure. The build always continues, and a package whose asset can still be resolved still works, but a problem that is specific to an unsupported configuration will not be fixed.
 
 ### The warning codes
 
 | Code | Dimension | Reported when |
 |------|-----------|---------------|
-| `LAMA0600` | Target framework | The target framework of the project is older than, newer than, or outside the tested set. |
-| `LAMA0601` | .NET SDK | The .NET SDK that drives the build is older or newer than the tested set. |
-| `LAMA0602` | Visual Studio | The build runs on `msbuild.exe` from a version of Visual Studio older than the oldest tested one. |
+| `LAMA0600` | Target framework | The target framework of the project is older than, newer than, or outside the supported set. |
+| `LAMA0601` | .NET SDK | The .NET SDK that drives the build is older or newer than the supported set. |
+| `LAMA0602` | Visual Studio | The build runs on `msbuild.exe` from a version of Visual Studio older than the oldest supported one. |
 
 The Visual Studio dimension is evaluated only when MSBuild runs on .NET Framework, which is the case for `msbuild.exe` and therefore for Visual Studio, the Build Tools and the `VSBuild` task of Azure Pipelines. A build started by `dotnet build` never reports `LAMA0602`.
 
@@ -111,7 +111,7 @@ An aspect library that is narrower than `Metalama.Framework`, for example one th
         <MinimumNETFrameworkVersion>4.7.2</MinimumNETFrameworkVersion>
         <MinimumNETCoreAppVersion>10.0</MinimumNETCoreAppVersion>
         <RequiredTargetPlatformIdentifier>windows</RequiredTargetPlatformIdentifier>
-        <SupportedTargetFrameworksDescription>The tested target frameworks are net472 and net10.0-windows.</SupportedTargetFrameworksDescription>
+        <SupportedTargetFrameworksDescription>The supported target frameworks are net472 and net10.0-windows.</SupportedTargetFrameworksDescription>
         <HelpLink>https://docs.contoso.com/aspects/supported-platforms</HelpLink>
     </MetalamaPlatformRequirement>
 </ItemGroup>
@@ -129,7 +129,7 @@ The metadata entries are the following, and all of them are optional. An absent 
 | `MinimumNETCoreAppVersion`, `MaximumNETCoreAppVersion` | The oldest and newest version of .NET, for example `10.0`. |
 | `RequiredTargetPlatformIdentifier` | The target platform that the package requires, for example `windows`. |
 | `MinimumSdkVersion`, `MaximumSdkVersion` | The oldest and newest version of the .NET SDK, for example `10.0`. |
-| `MinimumVisualStudioVersion` | The oldest version of Visual Studio, for example `17.14`. There is no maximum, because Visual Studio updates its own feature band. |
+| `MinimumVisualStudioVersion` | The version of MSBuild that the oldest supported version of Visual Studio carries, for example `18.0` for Visual Studio 2026. There is no maximum, because Visual Studio updates its own feature band. |
 | `SupportedTargetFrameworksDescription`, `SupportedSdkVersionsDescription`, `SupportedVisualStudioVersionsDescription`, `SdkUpgradeDescription` | Complete sentences that the warning quotes verbatim. |
 | `HelpLink` | The address of an article that describes the supported configurations of the package. |
 
