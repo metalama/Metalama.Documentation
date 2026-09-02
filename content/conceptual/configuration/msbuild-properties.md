@@ -60,6 +60,8 @@ All environment variables are imported as MSBuild properties by default.
 
 Metalama supports a defined set of target frameworks, .NET SDK versions and Visual Studio versions. When your project falls outside that set, the build reports a warning instead of letting you discover the problem later through an obscure failure. The build always continues, and a package whose asset can still be resolved still works, but a problem that is specific to an unsupported configuration will not be fixed.
 
+When you cannot move to a supported configuration, use an earlier version of Metalama that supports it, typically a long-term support (LTS) version. The warning says so as well.
+
 ### The warning codes
 
 | Code | Dimension | Reported when |
