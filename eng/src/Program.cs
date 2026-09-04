@@ -22,6 +22,10 @@ using System.IO;
 using System.IO.Compression;
 using MetalamaDependencies = PostSharp.Engineering.BuildTools.Dependencies.Definitions.MetalamaDependencies.V2027_0;
 
+// The only .NET SDK of the build agent, and the one pinned in global.json. The version comes from the product
+// family, so that it matches the feature band that the Visual Studio version of the family installs.
+var dotNetSdkVersion = MetalamaDependencies.Family.PreferredVersions.DotNetSdk.V_10_0;
+
 var docPackageFileName = $"Metalama.Doc.{MetalamaDependencies.Metalama.ProductFamily.Version}.zip";
 var marketplacePackageFileName = $"Metalama.AI.Skills.*.zip";
 
@@ -34,11 +38,11 @@ var product = new Product( MetalamaDependencies.MetalamaDocumentation )
         Components =
         [
             // Required for the rest.
-            new DotNetComponent( PreferredVersions.DotNetSdk.V_10_0, DotNetComponentKind.Sdk ),
+            new DotNetComponent( dotNetSdkVersion, DotNetComponentKind.Sdk ),
         ]
     },
     GenerateNuGetConfig = true,
-    DotNetSdkVersion = new DotNetSdkVersion( PreferredVersions.DotNetSdk.V_10_0 ),
+    DotNetSdkVersion = new DotNetSdkVersion( dotNetSdkVersion ),
     
     Solutions =
     [
