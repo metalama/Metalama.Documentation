@@ -41,7 +41,7 @@ process is started.
 The generated project is minimal, and isolated from your repository by design:
 
 * It targets the frameworks listed by the `MetalamaCompileTimeTargetFrameworks` property, which are
-  `netstandard2.0;net8.0;net48` by default. These are the frameworks that can host the compiler. `netstandard2.0` is
+  `netstandard2.0;net10.0;net48` by default. These are the frameworks that can host the compiler. `netstandard2.0` is
   always required.
 * It references the version of `Microsoft.CodeAnalysis.CSharp` that your version of Metalama is built against, plus
   whatever you added through the `MetalamaCompileTimePackage` and `MetalamaCompileTimeAssembly` items.
