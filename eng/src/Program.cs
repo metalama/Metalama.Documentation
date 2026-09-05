@@ -25,6 +25,8 @@ using MetalamaDependencies = PostSharp.Engineering.BuildTools.Dependencies.Defin
 var docPackageFileName = $"Metalama.Doc.{MetalamaDependencies.Metalama.ProductFamily.Version}.zip";
 var marketplacePackageFileName = $"Metalama.AI.Skills.*.zip";
 
+var preferredVersions = MetalamaDependencies.Family.PreferredVersions;
+
 var product = new Product( MetalamaDependencies.MetalamaDocumentation )
 {
     // Note that we don't build Metalama.Samples ourselves. We expect it to be built from the repo itself.
@@ -34,11 +36,11 @@ var product = new Product( MetalamaDependencies.MetalamaDocumentation )
         Components =
         [
             // Required for the rest.
-            new DotNetComponent( PreferredVersions.DotNetSdk.V_10_0, DotNetComponentKind.Sdk ),
+            new DotNetComponent( preferredVersions.DotNetSdk.V_10_0, DotNetComponentKind.Sdk ),
         ]
     },
     GenerateNuGetConfig = true,
-    DotNetSdkVersion = new DotNetSdkVersion( PreferredVersions.DotNetSdk.V_10_0 ),
+    DotNetSdkVersion = new DotNetSdkVersion( preferredVersions.DotNetSdk.V_10_0 ),
     
     Solutions =
     [
