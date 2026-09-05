@@ -516,7 +516,7 @@ object PublicDeployment : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2026.1 -NoBuildImage -Label %system.teamcity.buildType.id%_%build.number% publish --configuration Public --timeout %Publish.Timeout% %Publish.Arguments%"
+            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2026.1 -NoBuildImage -Label %system.teamcity.buildType.id%_%build.number% publish --configuration Public --deployment default --timeout %Publish.Timeout% %Publish.Arguments%"
         }
         powerShell {
             name = "Cleanup Docker containers"
@@ -648,7 +648,7 @@ object PublicDeploymentNoDependency : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2026.1 -NoBuildImage -Label %system.teamcity.buildType.id%_%build.number% publish --configuration Public --standalone --timeout %Publish.Timeout% %Publish.Arguments%"
+            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2026.1 -NoBuildImage -Label %system.teamcity.buildType.id%_%build.number% publish --configuration Public --deployment default --standalone --timeout %Publish.Timeout% %Publish.Arguments%"
         }
         powerShell {
             name = "Cleanup Docker containers"
