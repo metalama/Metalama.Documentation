@@ -46,6 +46,10 @@ var product = new Product( MetalamaDependencies.MetalamaDocumentation )
         Components =
         [
             // Required for the rest.
+            // Must precede every DotNetComponent: it decides the archive form that dotnet-install.ps1
+            // downloads.
+            new DotNetInstallZipComponent(),
+
             new DotNetComponent( dotNet11SdkVersion, DotNetComponentKind.Sdk ),
             new DotNetComponent( dotNet10SdkVersion, DotNetComponentKind.Sdk ),
         ]
