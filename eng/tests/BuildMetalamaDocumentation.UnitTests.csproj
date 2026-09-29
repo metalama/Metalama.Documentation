@@ -13,11 +13,6 @@
              runs 'dotnet test' in its VSTest mode. xunit.v3 declares a test project to be a Microsoft.Testing.Platform
              application by default, and the .NET 10 SDK refuses such a project in the VSTest mode. -->
         <IsTestingPlatformApplication>false</IsTestingPlatformApplication>
-
-        <!-- xUnit1051 reports every call in a test that accepts a cancellation token and receives none. xUnit1069
-             reports every test that has a Timeout and does not use Xunit.TestContext.Current.CancellationToken. These
-             tests were written before xunit.v3. -->
-        <NoWarn>$(NoWarn);xUnit1051;xUnit1069</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
