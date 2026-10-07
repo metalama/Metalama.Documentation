@@ -34,7 +34,7 @@ As a last resort, grep the manifest and read the listed `.yml` file:
 grep -i "OverrideMethodAspect" api/.manifest      # find the YML file
 ```
 
-If the user's project references a **different** Metalama version than this skill, prefer the actual referenced version. Its XML docs ship in the NuGet cache (e.g. `~/.nuget/packages/metalama.framework/<version>/lib/**/*.xml`).
+If the user's project references a **different** Metalama version than this skill, prefer the actual referenced version. Its XML docs ship in the NuGet cache (e.g. `~/.nuget/packages/metalama.framework/<package-version>/lib/**/*.xml`).
 
 ### 2. See the generated code — you have no IDE diff preview
 
