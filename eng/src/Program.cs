@@ -18,6 +18,7 @@ using PostSharp.Engineering.BuildTools.ContinuousIntegration;
 using PostSharp.Engineering.BuildTools.Docker;
 using PostSharp.Engineering.BuildTools.Search;
 using PostSharp.Engineering.DocFx;
+using PostSharp.Engineering.DocFx.AiSkills;
 using System.IO;
 using System.IO.Compression;
 using MetalamaDependencies = PostSharp.Engineering.BuildTools.Dependencies.Definitions.MetalamaDependencies.V2027_0;
@@ -35,7 +36,27 @@ const string dotNet11SdkVersion = "11.0.100-rc.1.26425.128";
 var dotNet10SdkVersion = MetalamaDependencies.Family.PreferredVersions.DotNetSdk.V_10_0;
 
 var docPackageFileName = $"Metalama.Doc.{MetalamaDependencies.Metalama.ProductFamily.Version}.zip";
-var marketplacePackageFileName = $"Metalama.AI.Skills.*.zip";
+
+var aiSkillOptions = new AiSkillOptions
+{
+    PluginName = "metalama",
+    DisplayName = "Metalama",
+    MarketplaceDescription = "Metalama documentation and tools for aspect-oriented programming in C#",
+    FallbackDescription =
+        "Complete Metalama documentation for aspect-oriented programming in C#. Use when writing aspects, templates, fabrics, or meta-programming code with Metalama.",
+    Homepage = "https://doc.metalama.net",
+    RepositoryUrl = "https://github.com/metalama/Metalama.AI.Skills",
+    Keywords = ["metalama", "aspect-oriented-programming", "metaprogramming", "csharp", "dotnet"],
+    ZipFilePrefix = "Metalama.AI.Skills",
+    ContentDirectory = "content",
+    TocPath = Path.Combine( "content", "toc.yml" ),
+    CodeDirectory = "code",
+
+    // The legacy PostSharp API is shipped only to support migration, so searches over the main API must not surface it.
+    ApiRelocations = [new AiSkillApiRelocation( "PostSharp.", "migration" )]
+};
+
+var marketplacePackageFileName = aiSkillOptions.PackageFilePattern;
 
 var product = new Product( MetalamaDependencies.MetalamaDocumentation )
 {
@@ -60,7 +81,7 @@ var product = new Product( MetalamaDependencies.MetalamaDocumentation )
         new DotNetSolution( "code\\Metalama.Documentation.Snippets.ProjectBased.sln" ) { CanFormatCode = true, BuildMethod = BuildMethod.Build },
         new DocFxApiSolution( "docfx.json" ),
         new DocFxSiteSolution( "docfx.json", docPackageFileName ),
-        new ClaudeMarketplaceSolution()
+        new AiSkillSolution( aiSkillOptions )
     ],
     PublicArtifacts = Pattern.Create( docPackageFileName, marketplacePackageFileName ),
     AdditionalDirectoriesToClean = [Path.Combine( "artifacts", "api" ), Path.Combine( "artifacts", "site" ), Path.Combine( "artifacts", "marketplace" )],
@@ -78,7 +99,7 @@ var product = new Product( MetalamaDependencies.MetalamaDocumentation )
                         "https://postsharp-helpbrowser.azurewebsites.net/" ),
                     new GitRepoPublisher(
                         Pattern.Create( marketplacePackageFileName ),
-                        "https://github.com/metalama/Metalama.AI.Skills",
+                        aiSkillOptions.RepositoryUrl,
                         $"Updated to {MetalamaDependencies.Metalama.ProductFamily.Version}." )
                 ]
             } ),
