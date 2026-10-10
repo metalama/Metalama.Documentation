@@ -1,0 +1,11 @@
+{
+  "id": "LAMA5203",
+  "symbol": "ExistingMemberNameConflict",
+  "verdict": "correct",
+  "message": "The name of the existing {0} '{1}', defined in or inherited by the type '{2}', conflicts with the {4} name determined by the '{5}' naming convention. Rename the existing {0} or change the naming convention.",
+  "title": null,
+  "rationale": "The declaration placeholders {1}, {2} and the convention name {5} are not quoted, unlike in LAMA5204 and LAMA5205 (rendered: 'existing method X.FooProperty(), defined in or inherited by class X'). The {3} placeholder always renders 'required ' at both report sites (command property and registration field are always required), which adds noise; 'class' is replaced by 'type' and a way forward is added.",
+  "codeChange": null,
+  "engineBug": "CommandAttribute.CommandPropertyName is ignored unless CanExecuteMethod or CanExecuteProperty is also set (CommandAttribute.BuildAspect uses ExplicitCommandNamingConvention only when hasExplicitCanExecuteNaming), and DependencyPropertyAttribute.RegistrationField is ignored unless PropertyChangedMethod or ValidateMethod is also set (DependencyPropertyAspectBuilder.Build, hasExplicitNaming). Setting only these properties to avoid a LAMA5203 conflict has no effect.",
+  "applied": "2026-10-10"
+}

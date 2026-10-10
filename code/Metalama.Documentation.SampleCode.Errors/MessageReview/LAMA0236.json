@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0236",
+  "symbol": "CannotReferenceRunTimeOnly",
+  "verdict": "correct",
+  "message": "Cannot reference '{1}' in '{0}' because '{1}' is run-time-only but '{0}' is {2}. Run-time-only declarations can be referenced only in templates and in run-time code.",
+  "title": "Cannot reference a run-time-only declaration in code that can execute at compile time.",
+  "rationale": "The title says 'compile-time-only declaration', but the report site (TemplatingCodeValidator.Visitor.VisitCore) fires whenever the current scope is not run-time-only, including run-time-or-compile-time declarations such as aspect classes; the message gives no way forward.",
+  "codeChange": "The {2} placeholder shows internal scope names such as 'compile-time-returning-run-time' (TemplatingScopeExtensions.ToDisplayString), which users cannot interpret; consider mapping it to 'compile-time'. Also, when a member with a run-time-only type is declared in a non-run-time type (for example a field of type Logger in an aspect), WithDeclaration returns without a scope transition, so {0} is the declaring type instead of the member.",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

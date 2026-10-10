@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0274",
+  "symbol": "TemplatesHaveToBeInTemplateProvider",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message names the template and its containing type and matches the check in TemplatingCodeValidator.Visitor (not an aspect, not a fabric, not an ITemplateProvider).",
+  "codeChange": null,
+  "engineBug": null
+}

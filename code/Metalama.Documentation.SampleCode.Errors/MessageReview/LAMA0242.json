@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0242",
+  "symbol": "ExpressionScopeConflictBecauseOfParent",
+  "verdict": "correct",
+  "message": "Execution scope mismatch in the expression '{0}': the type of the expression is {1}, but the sub-expression '{2}' is {3}.",
+  "title": null,
+  "rationale": "The message quotes the expressions with backticks instead of single quotes, which also breaks its rendering in inline code, and it lacks the final period. The report site (TemplateAnnotator.GetExpressionScope) computes {1} from the type of the expression, not from its sub-expressions, so 'the expression is {1}' does not tell the reader where the scope comes from.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

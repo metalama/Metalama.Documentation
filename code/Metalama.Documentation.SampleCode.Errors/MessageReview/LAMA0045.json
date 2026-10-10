@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0045",
+  "symbol": "LiveTemplateMustHaveDefaultConstructor",
+  "verdict": "correct",
+  "message": "The class '{0}' must be non-abstract and must have a parameterless constructor because of the [EditorExperienceAttribute(SuggestAsLiveTemplate = true)] attribute.",
+  "title": "A live template must be a non-abstract class with a parameterless constructor.",
+  "rationale": "The report site in AspectClass (Metalama.Framework.Engine/Aspects/AspectClass.cs) uses SymbolExtensions.HasDefaultConstructor, which also fails for abstract classes, so the current text is incorrect for an abstract aspect that has a parameterless constructor. 'Parameterless constructor' is also more precise than 'default constructor', which C# reserves for the implicit constructor.",
+  "codeChange": null,
+  "engineBug": "AspectClass copies EditorExperienceOptions.SuggestAsLiveTemplate from the base aspect class and then reports LAMA0045 for every aspect class with this option that has no parameterless constructor or is abstract (AspectClass.cs, around lines 136-140 and 219-229). An abstract base aspect marked with [EditorExperience(SuggestAsLiveTemplate = true)] so that its derived aspects become live templates therefore gets LAMA0045 although it can never be instantiated. Abstract aspect classes should probably be skipped by this check (not verified by a test).",
+  "applied": "2026-10-10"
+}

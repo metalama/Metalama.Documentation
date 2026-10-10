@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0513",
+  "symbol": "CannotImplementCanonicalGenericInstanceOfGenericInterface",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message names the aspect, the interface and the target type, matches the single report site (ImplementInterfaceAdvice.Initialize, interfaceType.IsCanonicalGenericInstance), and gives the fix: specify all type arguments, possibly with type parameters of the target type. 'Canonical generic instance' is the public API term (INamedType.IsCanonicalGenericInstance).",
+  "codeChange": null,
+  "engineBug": null
+}

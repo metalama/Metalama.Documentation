@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0105",
+  "symbol": "SplitVariables",
+  "verdict": "correct",
+  "message": "The local variables {0} cannot be declared in the same declaration because some of them are compile-time and others are run-time. Split the declaration into two declarations: one for the compile-time variables and one for the run-time variables.",
+  "title": "Compile-time and run-time local variables cannot be mixed in the same declaration.",
+  "rationale": "The title uses the outdated term 'Build-time' and repeats the advice of the message; neither text ends with a period, the semicolon before 'one for' should be a colon, and the message does not say why the variables cannot share the declaration (TemplateAnnotator.VisitVariableDeclaration reports when the variables have different scopes).",
+  "codeChange": "In TemplateAnnotator.VisitVariableDeclaration (TemplateAnnotator.cs line 1802), the variable names are joined with \",\" without a space, which renders as 'a','b'. Join them with \", \" instead.",
+  "engineBug": "TemplateAnnotator.VisitVariableDeclaration (TemplateAnnotator.cs line 1805) calls variableScopes.Single() right after reporting LAMA0105, when variableScopes has two or more elements, so the template compiler always throws InvalidOperationException after reporting this diagnostic. It should pick a fallback scope (for example RunTimeOnly) and continue.",
+  "applied": "2026-10-10"
+}

@@ -1,0 +1,2 @@
+// Error LAMA5205 on `CanSave`: `Ambiguous match while identifying the can-execute method for [Command] method 'Document.Save()' by the 'default' naming convention.`
+// Error LAMA5205 on `CanSave`: `Ambiguous match while identifying the can-execute method for [Command] method 'Document.Save()' by the 'default' naming convention.`

@@ -1,0 +1,1 @@
+// Error LAMA0518 on `Order`: `The aspect 'Describable' cannot implement an interface property 'IDescribable.Description' in the type 'Order' explicitly because the template 'DescribableAttribute.Description' has an unexpected 'set' accessor.`

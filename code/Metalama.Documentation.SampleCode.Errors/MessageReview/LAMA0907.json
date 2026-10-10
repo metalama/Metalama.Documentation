@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0907",
+  "symbol": "ExclusionTypePropertyMustHaveDefaultConstructor",
+  "verdict": "correct",
+  "message": "The type assigned to the ExclusionPredicateType property must have a public constructor accepting a single parameter of type ReferencePredicateBuilder.",
+  "title": "The exclusion predicate type must have a public constructor accepting a ReferencePredicateBuilder.",
+  "rationale": "The message of ExclusionTypePropertyMustHaveDefaultConstructor duplicates the word 'constructor'. ExclusionPredicateTypeHelper.TryCreateExclusionPredicate looks the constructor up with Type.GetConstructor( Type[] ), which only finds public constructors, so 'public' is a useful precision. The other definition with the same ID, ExclusionTypePropertyMustBeOfTypeReferencePredicate ('The type assigned to the ExclusionPredicateType property must be derived from ReferencePredicate.'), is correct and stays as it is.",
+  "codeChange": "Two DiagnosticDefinition fields share the ID LAMA0907 (ExclusionTypePropertyMustBeOfTypeReferencePredicate and ExclusionTypePropertyMustHaveDefaultConstructor); the second one should get its own ID. Both definitions have no title and no category, unlike the other definitions of ArchitectureDiagnosticDefinitions, which pass _category; suggested title for the first one: 'The exclusion predicate type must be derived from ReferencePredicate.'. Neither message names the offending type or attribute; passing the type name and the attribute name would make them precise. The symbol name and the XML documentation of the ExclusionPredicateType properties (BaseUsageValidationAttribute, DerivedTypesMustRespectRegexNamingConventionAttribute) say 'default constructor', but the code requires a constructor accepting a ReferencePredicateBuilder. Finally, the severity is Warning although the aspect is skipped, so the architecture rule is silently disabled; Error, as for LAMA0904, would be more appropriate.",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

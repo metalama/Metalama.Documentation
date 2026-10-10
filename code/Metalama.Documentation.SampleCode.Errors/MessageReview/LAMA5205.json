@@ -1,0 +1,11 @@
+{
+  "id": "LAMA5205",
+  "symbol": "ValidCandidateDeclarationIsAmbiguous",
+  "verdict": "correct",
+  "message": "Several members, including this {0}, can be used as the {1} for {2}'{3}' {4}by the '{5}' naming convention. Rename or remove the members that must not be used, so that only one member matches.",
+  "title": null,
+  "rationale": "The current message is a sentence fragment ('Ambiguous match while identifying ...'), does not say that the diagnostic is reported on each competing member, and gives no way forward. The new text uses the unused {0} placeholder (the declaration kind of the reported member).",
+  "codeChange": "When a valid can-execute method and a valid can-execute property both match (CommandNamingConventionMatcher), {1} is the category of the reported member, so the diagnostic on the property says 'can-execute property' although the competitor is a method. Passing 'can-execute method or property' as {1} in this case would be clearer.",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

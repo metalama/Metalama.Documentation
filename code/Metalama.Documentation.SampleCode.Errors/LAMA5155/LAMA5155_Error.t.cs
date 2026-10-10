@@ -1,0 +1,1 @@
+// Error LAMA5155 on `Price`: `The 'DiscountedProduct.Price' property is 'new'. This is not supported by the [Observable] aspect.`

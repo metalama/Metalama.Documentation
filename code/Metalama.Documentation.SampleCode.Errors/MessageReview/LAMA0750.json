@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0750",
+  "symbol": "CannotApplyAdviceOnTypeOrItsMembers",
+  "verdict": "correct",
+  "message": "The aspect '{0}' cannot introduce a member of kind '{1}' because the target type is of kind '{2}'. Members can be introduced only into a class, a struct, or an interface.",
+  "title": null,
+  "rationale": "The '{2}' placeholder is a TypeKind that the formatter renders unquoted and capitalized ('because Enum is not a supported target type'), which reads as a type name, and the message does not say which kinds are supported. The report site in IntroduceAttribute.BuildAdvice rejects every TypeKind other than Class, Struct, and Interface. '{1}' after 'a' also produces 'a event'.",
+  "codeChange": "Consider passing the target type itself so that the message can name it, and formatting TypeKind in lowercase in MetalamaStringFormatterImpl.",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

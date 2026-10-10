@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0210",
+  "symbol": "RecordSerializersNotSupported",
+  "verdict": "correct",
+  "message": null,
+  "title": "Generated serializers are not supported for positional records.",
+  "rationale": "The title states that generated serializers are not supported for records, but TemplatingCodeValidator.Visitor reports the diagnostic only for records with a non-empty parameter list (positional records); non-positional records get a generated serializer (Metalama test RecordClass_NonPositional).",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0704",
+  "symbol": "DependencyLessAccessibleThanConstructor",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "DefaultDependencyInjectionStrategy.TryPullDependency reports LAMA0704 when the effective accessibility of the dependency type is lower than the effective accessibility of the constructor. The message names both the dependency type and the constructor and states the condition accurately; the fix (make the type more accessible or the constructor less accessible) follows directly.",
+  "codeChange": null,
+  "engineBug": null
+}

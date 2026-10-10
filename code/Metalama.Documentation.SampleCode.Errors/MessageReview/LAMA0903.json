@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0903",
+  "symbol": "NamingConventionViolationInDerivedType",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message names the offending type, the base type on which the convention is set (also for indirect inheritance, see the IndirectInheritance test), and the pattern. Quoting the pattern with double quotes is consistent with LAMA0906.",
+  "codeChange": null,
+  "engineBug": null
+}

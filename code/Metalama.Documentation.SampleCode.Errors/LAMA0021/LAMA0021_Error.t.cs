@@ -1,0 +1,1 @@
+// Error LAMA0021 on `AspectOrder( AspectOrderDirection.RunTime, typeof(MeasureAttribute), typeof(LogAttribute) )`: `A cycle was found in the specifications of aspect ordering between the following aspect part: Doc.LAMA0021.Error.MeasureAttribute, Doc.LAMA0021.Error.LogAttribute.`

@@ -1,0 +1,1 @@
+// Error LAMA0205 on `LogCategory`: `Cannot generate a compile-time serializer for 'LogCategory' because the base type 'NamedItem' is not serializable and does not have a visible parameterless constructor.`

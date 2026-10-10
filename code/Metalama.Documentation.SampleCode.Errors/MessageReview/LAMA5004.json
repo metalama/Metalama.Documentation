@@ -1,0 +1,11 @@
+{
+  "id": "LAMA5004",
+  "symbol": "SuspensionNotSupported",
+  "verdict": "correct",
+  "message": "The [SuspendInvariantsAttribute] aspect cannot be applied to the method '{0}' because the IsInvariantSuspensionSupported contract option is not enabled for the type '{1}'. Enable this option in ContractOptions using a fabric.",
+  "title": "The [SuspendInvariantsAttribute] aspect cannot be applied to the method because the IsInvariantSuspensionSupported option is not enabled for its declaring type.",
+  "rationale": "The title contains a stray '$' ('[$SuspendInvariantsAttribute]', because of '$' inside an interpolated string) and the duplicated determiner 'the its'. The message gives no way forward although the fix is always to set ContractOptions.IsInvariantSuspensionSupported (report site: SuspendInvariantsAttribute.BuildAspect).",
+  "codeChange": "The definition of LAMA5004 (and of LAMA5005) in ContractDiagnostics.cs omits the category argument \"Metalama.Patterns.Contracts\" that the other contract diagnostics pass. In C#, keep the nameof() interpolations and write the title as $\"The [{nameof(SuspendInvariantsAttribute)}] aspect ...\" without the '$' inside the string. SuspendInvariantsAttribute.BuildAspect does not call builder.SkipAspect() after reporting the error, unlike the LAMA5005 branch; consider skipping the aspect.",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0053",
+  "symbol": "MissingMetalamaPreprocessorSymbol",
+  "verdict": "correct",
+  "message": "Metalama is enabled in this project, but the METALAMA preprocessor symbol is not defined. This symbol is defined by Metalama.Framework.targets. Verify that the DefineConstants property is appended to and not overwritten.",
+  "title": null,
+  "rationale": "The message gives no way forward although the cause is almost always an overwritten DefineConstants property (CompileTimeAspectPipeline.cs checks the symbol, which Metalama.Framework.targets appends to DefineConstants). The advice mirrors the one of LAMA0080.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

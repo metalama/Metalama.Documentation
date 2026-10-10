@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0068",
+  "symbol": "ErrorsInSourceCode",
+  "verdict": "correct",
+  "message": "The compile-time code of the project contains C# errors, so it cannot be compiled. Fix the C# errors reported in the compile-time code.",
+  "title": null,
+  "rationale": "The message gives no way forward and does not say that the actual C# errors are reported separately. The report site (CompileTimeCompilationBuilder.ProduceCompileTimeCodeRewriter.TransformCompileTimeType) reports this error in addition to the C# errors of the compile-time type, as a safeguard in case they are not shown.",
+  "codeChange": "The diagnostic is reported without a location (CreateRoslynDiagnostic( null, default )). Passing the location of the compile-time type (symbol.GetDiagnosticLocation()) would tell the user which type fails to compile.",
+  "engineBug": "In CompileTimeCompilationBuilder.ProduceCompileTimeCodeRewriter.cs, around line 500, the report of LAMA0068 is nested inside 'if ( this._parent._logger.Warning != null )', so the diagnostic is reported only when warning-level logging is enabled for the CompileTime category (the default NullLogger returns null). The comment above the call says the error must always be reported; move the Report call out of the logger check.",
+  "applied": "2026-10-10"
+}

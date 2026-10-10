@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0518",
+  "symbol": "ExplicitInterfacePropertyHasSuperficialAccessor",
+  "verdict": "correct",
+  "message": "The aspect '{0}' cannot implement the interface property '{1}' in the type '{2}' explicitly because the template '{3}' has the '{4}' accessor, which the interface property does not have. Remove the accessor from the template or implement the property implicitly.",
+  "title": "Cannot implement an interface property explicitly because the template has an accessor that the interface property does not have.",
+  "rationale": "The title uses the wrong word ('superficial' instead of 'superfluous'), lacks an article, and is a comma splice. The message does not say why the accessor is unexpected nor how to fix it, although an implicit implementation accepts extra accessors (ImplementInterfaceAdvice.IntroduceProperty, hasSetter computation).",
+  "codeChange": null,
+  "engineBug": "Unverified, from reading the code: a get-only auto-property template ('{ get; }') for a get-only interface property implemented explicitly probably reports a false LAMA0518 with 'set', because SourcePropertyOrIndexer.SetMethod returns a PseudoSetter for read-only auto-properties (SourcePropertyOrIndexer.cs line 53), which makes setMethodUnexpectedInTemplate true in ImplementInterfaceAdvice.IntroduceProperty.",
+  "applied": "2026-10-10"
+}

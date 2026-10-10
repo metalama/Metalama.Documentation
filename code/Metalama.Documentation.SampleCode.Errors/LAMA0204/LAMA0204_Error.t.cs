@@ -1,0 +1,1 @@
+// Error LAMA0204 on `DatabaseLogCategory`: `Cannot generate a compile-time serializer for 'DatabaseLogCategory' because the base type 'LogCategory' declared in a referenced assembly is serializable and does not have an accessible parameterless constructor nor an accessible deserializing constructor with a single parameter of type IArgumentsReader.`

@@ -1,0 +1,1 @@
+// Error LAMA0237 on `Clock`: `The template 'ClockAttribute.Clock' cannot be abstract because it has a run-time-ony signature.`

@@ -1,0 +1,1 @@
+// Error LAMA0270 on `this.Log()`: `Template call 'this.Log()' cannot be part of another expression or statement, it can only be done as a stand-alone statement.`

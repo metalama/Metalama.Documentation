@@ -1,0 +1,1 @@
+// Error LAMA0242 on `meta.Target.Parameters[0] as Customer`: `Execution scope mismatch in the expression `meta.Target.Parameters[0] as Customer`: the expression is run-time, but the sub-expression `meta.Target.Parameters[0]` is compile-time`

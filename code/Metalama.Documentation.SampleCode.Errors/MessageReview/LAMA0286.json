@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0286",
+  "symbol": "CannotCastRunTimeExpressionToIExpression",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "TemplateAnnotator.VisitCastExpression reports the diagnostic when a run-time expression whose type is not dynamic is cast to IExpression, and ExpressionFactory.Capture is indeed the correct way to create an IExpression from such an expression. The message and title are correct and give the fix.",
+  "codeChange": "In TemplateAnnotator.VisitCastExpression, the operand of a cast to IExpression is visited in the current scope context. When the cast initializes a 'var' or IExpression local, that context is compile-time-only, so the run-time operand also reports a redundant LAMA0104 (see the CastNonDynamicToIExpression template test), although the comment 'Act as if the cast worked, to suppress other errors' shows the intent to report LAMA0286 alone. Visiting the operand with RunTimePreferred when the target type is IExpression, as the dynamic case does, would avoid the duplicate error.",
+  "engineBug": null
+}

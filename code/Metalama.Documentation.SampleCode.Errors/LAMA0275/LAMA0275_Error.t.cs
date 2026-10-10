@@ -1,0 +1,1 @@
+// Error LAMA0275 on `LogEntry()`: `Template call 'LogEntry()' currently cannot be virtual and use optional parameters at the same time.`

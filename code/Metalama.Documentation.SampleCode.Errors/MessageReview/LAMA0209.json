@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0209",
+  "symbol": "AmbiguousBaseSerializer",
+  "verdict": "correct",
+  "message": "Cannot generate a compile-time serializer for '{0}' because the base type '{1}' declares several nested types that implement ISerializer.",
+  "title": null,
+  "rationale": "SerializerGeneratorHelper.TryGetSerializer counts every nested type of the base type that implements ISerializer, not only types implementing ReferenceTypeSerializer (which is a class, so it cannot be implemented).",
+  "codeChange": "The diagnostic is effectively unreachable: SerializerGenerator.GetBaseSerializer (SerializerGenerator.cs lines 355 and 388) reports it only when the base type has an ambiguous serializer, but TemplatingCodeValidator already reports LAMA0208 on that base type (in the same project, or when the referenced project was compiled), which stops the pipeline first. The Metalama test ReferenceType_AmbiguousBaseSerializer, meant to cover LAMA0209, reports LAMA0208. Consider removing LAMA0209 or fixing the test name.",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

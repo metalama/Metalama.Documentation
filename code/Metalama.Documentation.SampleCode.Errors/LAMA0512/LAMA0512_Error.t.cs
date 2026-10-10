@@ -1,0 +1,1 @@
+// Error LAMA0512 on `Product`: `The aspect 'Describable' cannot implement interface 'IDescribable' in the type 'Product' because the type already implements it and WhenExists is set to Fail.`

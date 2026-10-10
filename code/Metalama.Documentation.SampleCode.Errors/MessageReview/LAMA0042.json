@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0042",
+  "symbol": "AspectLayersSeparatedByWeaver",
+  "verdict": "correct",
+  "message": "The aspect '{0}' has several layers, but the low-level aspect '{1}' is ordered between two of these layers. A low-level aspect, which is an aspect implemented by an IAspectWeaver, cannot be ordered between two layers of another aspect because it would split that aspect across two pipeline stages. Add an [assembly: AspectOrder(...)] attribute to order '{1}' before or after all layers of '{0}'.",
+  "title": null,
+  "rationale": "The message uses the abbreviation 'i.e.', which the message style excludes, and names the attribute 'AspectOrderAttribute' (from nameof) while users write it as [assembly: AspectOrder(...)]. The condition described matches the report site in AspectPipeline.TryInitialize (around line 386).",
+  "codeChange": "The text is built with nameof(AspectOrderAttribute); write the attribute name as 'AspectOrder' instead.",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

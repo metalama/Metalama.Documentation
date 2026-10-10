@@ -1,0 +1,11 @@
+{
+  "id": "LAMA5207",
+  "symbol": "NoNamingConventionMatched",
+  "verdict": "correct",
+  "message": "No {0} naming convention matched '{1}'. Add a naming convention that matches this name, or do not remove the default naming convention.",
+  "title": null,
+  "rationale": "Typo 'conventioned'. The message also gives no way forward; the default naming convention always matches, so the diagnostic is only reported when it has been removed with RemoveNamingConvention and no custom convention matches.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

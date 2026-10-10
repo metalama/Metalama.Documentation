@@ -1,0 +1,1 @@
+// Error LAMA0117 on `IMethod`: `Cannot reference 'IMethod' in 'LogAttribute.IsMethod(object)' because 'IMethod' is compile-time-only but 'LogAttribute.IsMethod(object)' is run-time-or-compile-time. Consider adding [CompileTime] to 'LogAttribute.IsMethod(object)', or do not use 'IMethod' in 'LogAttribute.IsMethod(object)'.'`

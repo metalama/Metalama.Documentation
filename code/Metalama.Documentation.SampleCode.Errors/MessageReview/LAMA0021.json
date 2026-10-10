@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0021",
+  "symbol": "CycleInAspectOrdering",
+  "verdict": "correct",
+  "message": "A cycle was found in the specifications of aspect ordering between the following aspect layers: {0}.",
+  "title": null,
+  "rationale": "'the following aspect part' is singular although the placeholder lists several items, and 'part' is outdated terminology: AspectLayerSorter.TrySort (AspectLayerSorter.cs:202-221) lists the full names of the aspect layers that form the cycle.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

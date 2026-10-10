@@ -1,0 +1,11 @@
+{
+  "id": "LAMA5208",
+  "symbol": "CancellationInNonAsyncNotSupported",
+  "verdict": "correct",
+  "message": "The '{0}' method has a CancellationToken parameter, but it does not return a Task and the Background property of the [Command] attribute is not set to true.",
+  "title": "A command method with a CancellationToken parameter must return a Task or run in the background.",
+  "rationale": "Grammar error in both texts ('but is neither returns a Task nor has'). The title also duplicates the message instead of stating the rule as a short sentence.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

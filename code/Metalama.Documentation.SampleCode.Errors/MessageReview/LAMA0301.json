@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0301",
+  "symbol": "UserError",
+  "verdict": "correct",
+  "message": null,
+  "title": "An error diagnostic is not yet registered in the current IDE session.",
+  "rationale": "The message is accurate, but the title does not describe the condition: the report site in TheDiagnosticAnalyzer.ReportDiagnostics wraps any diagnostic whose ID is missing from the IDE session's list of supported diagnostics, including diagnostics defined by referenced aspect libraries, so 'user' is imprecise and the title says nothing about the missing registration.",
+  "codeChange": null,
+  "engineBug": "The definition of UserError in Metalama.Framework.DesignTime/DiagnosticAnalysis/DesignTimeDiagnosticDescriptors.cs (line 20) does not pass the _category argument, unlike LAMA0302-LAMA0304, so LAMA0301 gets the default category Metalama.User instead of Metalama.DesignTime.",
+  "applied": "2026-10-10"
+}

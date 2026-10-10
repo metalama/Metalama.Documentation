@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0651",
+  "symbol": "CannotUseProceedWithSynthesizedRecordMember",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The only report site (LinkerAnalysisStep.SubstitutionGenerator, when the declaring syntax of the overridden member is the record declaration itself) matches the text: the member is synthesized by the compiler, so meta.Proceed() has no body to call. The message names the member and gives the fix, without contractions.",
+  "codeChange": "The diagnostic is thrown as an exception without a location, so it appears without a source location. Passing the location of the record declaration (or of the aspect attribute) would help users find the offending type.",
+  "engineBug": null
+}

@@ -1,0 +1,10 @@
+{
+  "id": "LAMA5201",
+  "symbol": "CannotSpecifyBothCanExecuteMethodAndCanExecuteProperty",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The only report site (CommandAttribute.BuildAspect) reports the diagnostic on the target method when both CanExecuteMethod and CanExecuteProperty are set, which is exactly what the rendered message says ('The CanExecuteMethod and CanExecuteProperty properties cannot both be defined at the same time.'). The rendered title 'Invalid CommandAttribute properties.' is acceptable.",
+  "codeChange": null,
+  "engineBug": null
+}

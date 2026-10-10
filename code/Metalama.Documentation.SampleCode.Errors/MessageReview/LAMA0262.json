@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0262",
+  "symbol": "AdviceAttributeOnAccessor",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message names the accessor and the attribute, and gives a working fix; the containing member kind comes from the associated symbol (property or event).",
+  "codeChange": null,
+  "engineBug": null
+}

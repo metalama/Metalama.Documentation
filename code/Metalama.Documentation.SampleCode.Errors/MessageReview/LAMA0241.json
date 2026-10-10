@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0241",
+  "symbol": "ExpressionScopeConflictBecauseOfChildren",
+  "verdict": "correct",
+  "message": "Execution scope mismatch in the expression '{0}': the sub-expression '{1}' is {2}, but the other sub-expression '{3}' is {4}.",
+  "title": null,
+  "rationale": "The message quotes the expressions with backticks instead of single quotes, unlike the other Metalama messages. Because snapshots and the documentation show diagnostic messages in inline code, the nested backticks also break the rendering of the message.",
+  "codeChange": null,
+  "engineBug": "Crash after reporting LAMA0241 when the conflicting expression is the condition of an 'if' (also 'while', 'foreach', 'else', switch section) and has the type 'dynamic', for example 'if ( property != null && property.Value != null )'. TemplateAnnotator.GetExpressionScope (TemplateAnnotator.cs, around lines 507-521) reports the error and returns RunTimeOrCompileTime, so the node keeps an undetermined scope. Because the condition is dynamic, VisitIfStatement takes the run-time branch and does not call ReplaceScopeAnnotationIfUndetermined on the condition. TextSpanClassifier (classification for IDE colorization and HTML output) then calls TemplateCompilerRewriter.IsCompileTimeCode, whose GetFromParent throws AssertionFailedException 'The node ... must be annotated.' (TemplateCompilerRewriter.cs, line 258) when the parent is an IfStatement. The same 'return RunTimeOrCompileTime' exists after LAMA0242 (around line 551), so LAMA0242 is presumably affected in the same position. Suggested fix: annotate the conflicting node with a determined scope (for example RunTimeOnly) after reporting, or make GetFromParent tolerate nodes with an undetermined scope.",
+  "applied": "2026-10-10"
+}

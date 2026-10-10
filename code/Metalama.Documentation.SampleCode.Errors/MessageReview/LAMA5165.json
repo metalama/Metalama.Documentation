@@ -1,0 +1,11 @@
+{
+  "id": "LAMA5165",
+  "symbol": "LocalVariablesNonSupported",
+  "verdict": "correct",
+  "message": "Local variables of type '{0}' cannot be observed: only local variables of immutable types, such as primitive types, are supported.",
+  "title": "Local variables of types that are not immutable are not supported.",
+  "rationale": "The report site (DependencyGraphBuilder.Visitor.VisitVariableDeclaration) passes symbolInfo.Symbol, the symbol of the declared TYPE, so the current message renders as \"The 'Address' local variable\", naming the type as if it were the variable. It accepts any type whose immutability kind is not None (including types configured as immutable and read-only structs), not only primitive types; the title says 'deeply immutable', but shallow immutability is accepted too.",
+  "codeChange": "Alternatively, pass the local symbol (the declarator) as the argument and keep a message in the form \"The '{0}' local variable cannot be observed...\".",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

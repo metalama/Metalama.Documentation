@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0060",
+  "symbol": "RefMembersNotSupported",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "TemplateClassMemberBuilder reports the diagnostic for template methods, properties, and fields whose RefKind is not None, which the message and title describe correctly. The field report site is practically unreachable because ref fields can only be declared in ref structs.",
+  "codeChange": null,
+  "engineBug": null
+}

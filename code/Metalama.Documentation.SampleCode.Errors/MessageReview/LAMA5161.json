@@ -1,0 +1,11 @@
+{
+  "id": "LAMA5161",
+  "symbol": "WarningChildrenOfNonInpcFieldsOrPropertiesAreNotObservable",
+  "verdict": "correct",
+  "message": "The members of '{0}' cannot be observed because '{0}' does not implement INotifyPropertyChanged and is not immutable. Implement INotifyPropertyChanged in '{0}', for example with the [Observable] aspect, or mark '{0}' as immutable.",
+  "title": null,
+  "rationale": "The report site in DependencyGraphBuilder.Visitor.ValidatePathElement also skips the warning when the type is immutable (IsDeeplyImmutable), which the message does not say, and the message gives no way forward although the fixes are obvious. 'Children of fields or properties of type' is vague: the warning is about accessing members of a value of type '{0}'.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

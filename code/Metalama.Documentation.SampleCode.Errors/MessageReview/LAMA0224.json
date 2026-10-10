@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0224",
+  "symbol": "CannotUseDynamicInUninitializedLocal",
+  "verdict": "correct",
+  "message": "The 'dynamic' keyword cannot be used in the local variable '{0}' because it is not initialized. Initialize the variable in its declaration, or use 'meta.DefineLocalVariable' to declare a run-time variable without an initializer.",
+  "title": "Cannot declare a local variable of type 'dynamic' without an initializer.",
+  "rationale": "The title lacks an article ('declare local variable') and the message gives no way forward; meta.DefineLocalVariable(string, IType) is the supported way to declare a run-time variable without an initializer (TemplateAnnotator.VisitVariableDeclaration reports the diagnostic whenever a dynamic variable has no initializer).",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

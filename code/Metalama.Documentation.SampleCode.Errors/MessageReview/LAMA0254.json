@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0254",
+  "symbol": "OnlyLiteralArgumentInConfigureAwaitAfterProceedAsync",
+  "verdict": "correct",
+  "message": "The argument of 'ConfigureAwait' after 'meta.ProceedAsync()' must be the literal 'true' or 'false', but it is '{0}'. To choose the value at compile time, use a compile-time 'if' statement with a literal argument in each branch.",
+  "title": "The argument of ConfigureAwait after ProceedAsync must be a literal.",
+  "rationale": "Language defects: the message uses the contraction 'can't' and a comma splice, and the title lacks an article ('has to have literal argument') and should use 'must'. The message also gives no way forward although the report site (TemplateCompilerRewriter.CompileTimeOnlyRewriter.TryRewriteProceedInvocation) rejects any non-literal, including compile-time aspect properties, which can be handled with a compile-time 'if' statement.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

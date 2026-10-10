@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0040",
+  "symbol": "TypeMustHavePublicDefaultConstructor",
+  "verdict": "correct",
+  "message": "The type '{0}' must have a public parameterless constructor.",
+  "title": "The type must have a public parameterless constructor.",
+  "rationale": "The message contains a double space ('The  type'), and 'default constructor' is imprecise: both report sites (FabricManager.CreateDrivers and AspectPipeline.CreateInstanceOfType) use Type.GetConstructor(Type.EmptyTypes), which only finds a public parameterless constructor, so a private or protected parameterless constructor also triggers the error.",
+  "codeChange": "Both report sites pass a null location, so the error has no location in the IDE or the build output, and the message only shows the short type name (Type.Name). Report it on the declaration of the fabric or plug-in type, or pass the full type name.",
+  "engineBug": "Possible: CompileTimeCompilationBuilder.cs (around line 1213) lists all types derived from Fabric, including abstract ones, and FabricManager.CreateDrivers (line 138) then tries to instantiate them. An abstract fabric base class, whose implicit constructor is protected, would therefore report LAMA0040 instead of being ignored. Not verified by a test.",
+  "applied": "2026-10-10"
+}

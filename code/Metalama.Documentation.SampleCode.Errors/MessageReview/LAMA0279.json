@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0279",
+  "symbol": "CantCallAbstractSubtemplate",
+  "verdict": "correct",
+  "message": "The template '{0}' cannot be called because it is abstract or marked with [Template(IsEmpty = true)]. Call a template that has an implementation instead, for example a virtual template with a default implementation.",
+  "title": "An abstract or empty template cannot be called.",
+  "rationale": "Both texts use contractions, and 'empty template' is unclear without knowing that it means [Template(IsEmpty = true)] (SymbolClassifier.GetTemplateInfoCore). The message gave no way forward. The title lacks an article.",
+  "codeChange": null,
+  "engineBug": "Not a crash, but a limitation flagged by a TODO in TemplateAnnotator.VisitInvocationExpression (around line 1134): LAMA0279 is reported whenever the call resolves to an abstract template, even when the call is virtual (for example this.Template() from an abstract aspect class) and every concrete aspect overrides the template; only base.Template() calls or calls without an override should be forbidden.",
+  "applied": "2026-10-10"
+}

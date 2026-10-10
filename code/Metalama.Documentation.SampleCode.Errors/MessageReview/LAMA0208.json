@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0208",
+  "symbol": "AmbiguousManualSerializer",
+  "verdict": "correct",
+  "message": "The compile-time serializable type '{0}' declares several nested types that implement ISerializer. Only one manual serializer is allowed.",
+  "title": null,
+  "rationale": "SerializerGeneratorHelper.TryGetSerializer counts every nested type that implements ISerializer, not only classes derived from ReferenceTypeSerializer or ValueTypeSerializer (the Metalama test ReferenceType_AmbiguousBaseSerializer triggers it with two direct ISerializer implementations), so the message names the wrong base types.",
+  "codeChange": null,
+  "engineBug": "Metalama crashes with AssertionFailedException 'Ambiguous serializer for ... This should have been caught by TemplatingCodeValidator.' (CompileTimeCompilationBuilder.ProduceCompileTimeCodeRewriter.cs line 633) instead of reporting LAMA0208, when a class implementing ICompileTimeSerializable declares two nested serializers and an aspect in the same compilation uses the type. Observed in the documentation test runner with both [RunTimeOrCompileTime] and [CompileTime] on the type. The validator check in TemplatingCodeValidator.Visitor.VerifyTypeDeclaration (TemplatingCodeValidator.Visitor.cs lines 413-427) is not limited to any scope, and CompileTimeAspectPipeline.cs line 167 stops after phase-1 validation errors, so some path builds the compile-time project without honoring the validation result. Metalama's test ReferenceType_AmbiguousBaseSerializer (no aspect) reports LAMA0208 correctly.",
+  "applied": "2026-10-10"
+}

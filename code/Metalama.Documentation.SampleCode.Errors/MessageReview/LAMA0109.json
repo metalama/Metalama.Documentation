@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0109",
+  "symbol": "UndeclaredRunTimeIdentifier",
+  "verdict": "correct",
+  "message": "The run-time identifier '{0}' was not declared in the template. This can be caused by an error in the template or by a defect in Metalama.",
+  "title": "The run-time identifier was not declared.",
+  "rationale": "The message says 'defined' while the title says 'declared', and it gives no way forward. The report site (TemplateCompilerRewriter.TransformIdentifierToken) is only reached when a local symbol referenced by the template has no known declaration, which happens only in an incorrect compilation or through a Metalama defect. The title also lacks the final period.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

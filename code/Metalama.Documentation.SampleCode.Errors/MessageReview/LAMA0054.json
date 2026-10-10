@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0054",
+  "symbol": "MetalamaVersionNotSupported",
+  "verdict": "correct",
+  "message": "The project references the following version(s) of Metalama.Framework: {0}. The project must reference a single version of Metalama.Framework, and this version must not be higher than '{1}', the version of the Metalama engine that compiles the project.",
+  "title": "The project references an unsupported version of Metalama.Framework.",
+  "rationale": "AspectPipeline.TryInitialize reports the diagnostic in two cases: several versions of Metalama.Framework are referenced, or the referenced version is higher than the engine version ({1} is EngineAssemblyMetadataReader.AssemblyVersion, not a compiler version). The current message mentions only the second case and calls the engine 'the current compiler'. The title is ungrammatical ('has referenced to') and lacks the final period.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

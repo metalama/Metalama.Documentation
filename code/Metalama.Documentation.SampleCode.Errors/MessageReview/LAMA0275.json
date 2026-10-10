@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0275",
+  "symbol": "SubtemplateCallWithMissingArgumentsCantBeVirtual",
+  "verdict": "correct",
+  "message": "The template call '{0}' omits arguments of optional parameters, which is not supported when the called template is virtual, abstract, or an override. Specify all arguments, or make the template non-virtual.",
+  "title": "A call to a virtual template cannot omit arguments of optional parameters.",
+  "rationale": "The current text says the call 'cannot be virtual', but it is the called template that is virtual, abstract, or a non-sealed override (TemplateAnnotator.VisitInvocationExpression compares the parameter count with the argument count); it gives no advice, lacks an article, and the title uses the contraction 'can't'.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

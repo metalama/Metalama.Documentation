@@ -1,0 +1,1 @@
+// Error LAMA0519 on `Order`: `The aspect 'Describable' cannot implicitly implement interface 'IDescribable' using member 'DescribableAttribute.Describe()', because it is not public.`

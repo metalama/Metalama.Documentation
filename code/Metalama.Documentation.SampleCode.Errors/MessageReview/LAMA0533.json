@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0533",
+  "symbol": "CannotIntroduceAbstractMemberWithOverrideStrategy",
+  "verdict": "correct",
+  "message": "The aspect '{0}' cannot introduce the abstract member '{1}' with the override strategy '{2}' because an introduced abstract member cannot override or hide an existing member. Use the override strategy 'Fail' or 'Ignore'.",
+  "title": "Cannot introduce an abstract member with override strategy Override or New.",
+  "rationale": "The report site in IntroduceMemberAdvice.ValidateBuilder fires when the introduced member is abstract and the override strategy is Override or New, so the title, which names only Override, is incorrect. The message gives no reason and no way forward, although Fail or Ignore resolves it.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

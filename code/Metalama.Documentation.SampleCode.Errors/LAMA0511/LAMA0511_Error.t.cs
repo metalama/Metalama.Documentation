@@ -1,0 +1,1 @@
+// Error LAMA0511 on `Product`: `The aspect 'Describable' cannot implicitly implement interface 'IDescribable' in the type 'Product' because the aspect member 'DescribableAttribute.Describe()' marked with [InterfaceMember] attribute does not have the same return type as the corresponding interface member 'IDescribable.Describe()'.`

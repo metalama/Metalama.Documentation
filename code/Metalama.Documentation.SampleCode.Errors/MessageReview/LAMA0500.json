@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0500",
+  "symbol": "CannotIntroduceMemberAlreadyExists",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message is accurate for all report sites (methods, properties, fields, events, indexers, constructors, finalizers): it is reported when the OverrideStrategy is Fail, the default, and a member with the same signature or name already exists in the target type or a visible base type. It names the declaring type and points to the OverrideStrategy.",
+  "codeChange": null,
+  "engineBug": null
+}

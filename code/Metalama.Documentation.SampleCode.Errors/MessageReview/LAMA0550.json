@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0550",
+  "symbol": "InitializeNotVirtual",
+  "verdict": "correct",
+  "message": "The aspect '{0}' cannot add an initializer to the 'Initialize' method of type '{1}' because the method is not both 'public' and 'virtual' (or 'override'). Since '{1}' is not sealed, its 'Initialize' method must be 'public virtual' so that derived types can extend the initialization. Make the method 'public virtual', or make the type 'sealed'.",
+  "title": "The Initialize method of a non-sealed class must be public and virtual.",
+  "rationale": "The report sites in InitializeMethodAdvice.Implement also fire when the method is virtual but not public, while the message only says that the method must be virtual. The condition does not require the type to implement IInitializable (a hand-written Initialize(InitializationContext) method is enough), and the message gave no way forward although sealing the type is a valid fix.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

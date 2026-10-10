@@ -1,0 +1,1 @@
+// Error LAMA0025 on `Add`: `The type 'Log' must have exactly one member named 'LogTemplate'.`

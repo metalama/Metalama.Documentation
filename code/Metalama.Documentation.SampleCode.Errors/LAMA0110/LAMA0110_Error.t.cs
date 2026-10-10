@@ -1,0 +1,1 @@
+// Error LAMA0110 on `i < meta.Target.Parameters.Count`: `The compile-time while loop is not allowed here because it is a part of block whose execution depends on the run-time condition 'if ( result == null )'. Move the loop out of the run-time-conditional block.`

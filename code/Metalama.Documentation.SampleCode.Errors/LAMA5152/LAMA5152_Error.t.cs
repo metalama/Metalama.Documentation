@@ -1,0 +1,1 @@
+// Error LAMA5152 on `Position`: `The type 'Coordinates' of property 'Vehicle.Position' is a struct implementing INotifyPropertyChanged. Structs implementing INotifyPropertyChanged are not supported.`

@@ -1,0 +1,1 @@
+// Error LAMA0699 on `DatabaseConnection`: `Version of declaration 'DatabaseConnection.DatabaseConnection(string) provided by 'source code' cannot be inlined. It is not currently possible to generate non-inlined code for this declaration.`

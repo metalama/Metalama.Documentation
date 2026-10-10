@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0050",
+  "symbol": "CannotFindAspectWeaver",
+  "verdict": "correct",
+  "message": "The weaver type '{0}' required to weave aspect '{1}' is not found in the project. Make sure that the project references the assembly that defines this weaver, and that the weaver type is annotated with [MetalamaPlugIn].",
+  "title": null,
+  "rationale": "The message gives no way forward. AspectDriverFactory.GetAspectDriver returns an ErrorAspectWeaver when no loaded plug-in (a type annotated with [MetalamaPlugIn] in a compile-time assembly of the project or its references) has the full name required by [RequireAspectWeaver], so the two obvious fixes are a missing reference and a missing [MetalamaPlugIn] attribute.",
+  "codeChange": "ErrorAspectWeaver.TransformAsync reports the error with a null location, so it appears without a file in the error list. It could be reported on the aspect class or on one of the aspect instances in context.AspectInstances.",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

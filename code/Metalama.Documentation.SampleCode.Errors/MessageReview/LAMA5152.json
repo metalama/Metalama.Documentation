@@ -1,0 +1,11 @@
+{
+  "id": "LAMA5152",
+  "symbol": "ErrorFieldOrPropertyTypeIsStructImplementingInpc",
+  "verdict": "correct",
+  "message": "The type '{2}' of the {0} '{1}' is a struct that implements INotifyPropertyChanged. The [Observable] aspect does not support structs that implement INotifyPropertyChanged.",
+  "title": "The type of a field or property is a struct that implements INotifyPropertyChanged.",
+  "rationale": "The title lacks articles and mentions only properties, while the report site (ValidateFieldOrPropertyIntrinsicCharacteristics) also validates fields. The message lacks the article before the declaration kind and does not say which component rejects the type.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

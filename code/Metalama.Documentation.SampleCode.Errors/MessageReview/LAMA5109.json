@@ -1,0 +1,10 @@
+{
+  "id": "LAMA5109",
+  "symbol": "InfoMethodInvalidates",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message and title are correct and grammatical. The definition is dead: it is enclosed in an #if false block in CachingDiagnosticDescriptors.cs (InvalidateCache class), and its only report site in InvalidateCacheAttribute.cs (around line 485) is also under #if false, so Metalama never reports it.",
+  "codeChange": "Dead definition, never reported. Either remove it or, when it is reinstated, fix the typo '_cagtegory' (it should be '_category'), otherwise the code does not compile.",
+  "engineBug": null
+}

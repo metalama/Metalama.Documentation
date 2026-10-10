@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0294",
+  "symbol": "LanguageFeatureNotSupportedInCompileTimeCode",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message matches the only report site (CompileTimeCompilationBuilder.ProduceCompileTimeCodeRewriter.VisitTypeDeclaration, which reports an [InlineArray] type in compile-time code), names the declaration and the feature, and explains the cause.",
+  "codeChange": null,
+  "engineBug": null
+}

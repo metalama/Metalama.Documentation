@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0059",
+  "symbol": "GenericAspectTypeNotSupported",
+  "verdict": "correct",
+  "message": "The type '{0}' is not a valid aspect type because it is generic and not abstract. Only abstract aspect types can be generic.",
+  "title": null,
+  "rationale": "AspectClass.TryCreate reports the diagnostic only for non-abstract generic types (abstract generic aspect classes are accepted as base classes), so 'because it is generic' and 'Generic aspect types are not yet supported' are imprecise and contradict the title. The corrected message states the exact condition and implies the way forward.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

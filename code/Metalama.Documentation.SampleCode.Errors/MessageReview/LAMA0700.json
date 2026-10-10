@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0700",
+  "symbol": "CannotUseIntroduceWithoutDeclaringType",
+  "verdict": "correct",
+  "message": "The aspect '{0}' cannot introduce a member of kind '{1}' because it has been applied to a declaration of kind '{2}', which is neither a type nor a type member.",
+  "title": null,
+  "rationale": "The '{1}' and '{2}' placeholders are rendered as lowercase declaration kinds after the article 'a', which produces ungrammatical text such as 'a event' or 'a assembly reference'. Quoting them as kinds avoids the article problem.",
+  "codeChange": "The diagnostic is unreachable: IntroduceAttribute.BuildAspectEligibility requires the target to be an IMemberOrNamedType, so an ineligible target is rejected with LAMA0037 before IntroduceAttribute.BuildAdvice (IntroduceAttribute.cs:185) reaches the default case. The report site could be kept as a defensive check.",
+  "engineBug": "AspectDriver constructor (Metalama.Framework.Engine/Aspects/AspectDriver.cs:61-69) assigns this.EligibilityRule inside the loop over declarative advice, so only the eligibility rule of the last declarative advice member is kept; the rules of the other [Introduce] members (for example the static-type rule of an instance member) are lost.",
+  "applied": "2026-10-10"
+}

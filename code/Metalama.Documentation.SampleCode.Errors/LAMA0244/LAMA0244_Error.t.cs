@@ -1,0 +1,1 @@
+// Error LAMA0244 on `INameFormatter`: `Execution scope mismatch: the type 'UpperCaseNameFormatter' is compile-time, but the base type 'INameFormatter' is run-time.`

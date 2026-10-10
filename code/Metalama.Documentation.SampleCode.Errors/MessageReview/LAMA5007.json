@@ -1,0 +1,11 @@
+{
+  "id": "LAMA5007",
+  "symbol": "AttributeMeaningIsAmbiguous",
+  "verdict": "correct",
+  "message": "The meaning of the [{1}] attribute on '{0}' is ambiguous because the inequality strictness is not specified. It is now interpreted as {4}, which is non-standard, and this behavior might be changed in the future. Use either [{2}] or [{3}], or specify the DefaultInequalityStrictness property in ContractOptions using the ConfigureContracts fabric extension method.",
+  "title": null,
+  "rationale": "The declaration placeholder {0} is not quoted, unlike the other contract diagnostics ('{0}' in LAMA5001 and LAMA5006), which makes the rendered text 'on C.A is ambiguous' hard to read; the list of options also lacks a comma before the final alternative.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

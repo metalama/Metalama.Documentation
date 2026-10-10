@@ -1,0 +1,1 @@
+// Error LAMA0550 on `Document`: `The aspect 'LogInitialized' targets type 'Document' whose 'Initialize' method is not 'public virtual' (or 'override'). On a non-sealed class implementing IInitializable, the method must be virtual so that derived types can extend initialization behavior.`

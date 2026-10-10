@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0255",
+  "symbol": "CannotCastRunTimeExpressionToCompileTimeType",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message is accurate for the report site in TemplateAnnotator.VisitCastExpression, which reports a cast of an expression with a run-time value to a compile-time-only type other than IExpression (that case is LAMA0286), and it names both the expression and the type.",
+  "codeChange": null,
+  "engineBug": null
+}

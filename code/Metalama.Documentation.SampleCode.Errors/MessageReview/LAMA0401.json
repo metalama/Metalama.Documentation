@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0401",
+  "symbol": "CannotFindAttributeType",
+  "verdict": "correct",
+  "message": "Cannot instantiate a custom attribute: cannot find the compile-time type '{0}'. Make sure that the type exists and is annotated with [CompileTime] or [RunTimeOrCompileTime].",
+  "title": null,
+  "rationale": "The message uses the outdated term 'build-time' instead of 'compile-time'. AttributeDeserializer.TryCreateAttribute reports it when CompileTimeTypeResolver.GetCompileTimeType returns null for the attribute type, typically because the attribute type is run-time-only.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

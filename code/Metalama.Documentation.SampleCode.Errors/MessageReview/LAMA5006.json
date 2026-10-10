@@ -1,0 +1,10 @@
+{
+  "id": "LAMA5006",
+  "symbol": "RangeIsRedundant",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message matches the report site in RangeAttribute.BuildAspect (NumericRange.IsTypeSupported returns Redundant when every bound is at or beyond the limits of the target type), names the contract, the declaration, the range and the type, and implies that the contract can be removed.",
+  "codeChange": null,
+  "engineBug": null
+}

@@ -1,0 +1,1 @@
+// Error LAMA0045 on `LogAttribute`: `The class 'LogAttribute' must have a default constructor because of the [EditorExperienceAttribute(SuggestAsLiveTemplate = true)] attribute.`

@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0509",
+  "symbol": "CannotIntroduceNewMemberWhenItAlreadyExists",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message names the aspect, the introduced member and the type, and states the exact condition checked by the five report sites (Introduce{Method,Property,Field,Event,Indexer}Advice): OverrideStrategy.New is used and the existing member is declared in the target type itself rather than in a base type. The title is correct.",
+  "codeChange": null,
+  "engineBug": null
+}

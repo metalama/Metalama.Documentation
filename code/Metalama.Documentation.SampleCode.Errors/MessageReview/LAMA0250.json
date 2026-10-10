@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0250",
+  "symbol": "ForbiddenDynamicUseInTemplate",
+  "verdict": "correct",
+  "message": "In a template, 'dynamic' cannot be used as the type of a cast, 'as', 'is', or 'default' expression, as the type of a lambda parameter or return value, or as a type argument of a method.",
+  "title": "The 'dynamic' type cannot be used in this context in a template.",
+  "rationale": "The message 'This use of dynamic is not allowed' does not say which uses are forbidden, so the reader cannot tell what to change; the new message lists the contexts checked by the report sites in TemplateAnnotator (VisitCastExpression, VisitBinaryExpression for 'is'/'as', VisitParenthesizedLambdaExpression, VisitGenericName for method type arguments, VisitDefaultExpression). The title 'cannot use dynamic like this' is informal and lacks a period.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0536",
+  "symbol": "InvalidPullActionForForwardingConstructor",
+  "verdict": "correct",
+  "message": "The aspect '{0}' cannot generate the forwarding constructor '{2}' because the pull strategy returned '{3}' for the parameter '{1}'. For a forwarding constructor, the pull strategy must provide a value, for instance with PullAction.UseExpression, and must not return PullAction.None.",
+  "title": null,
+  "rationale": "The report site in ForwardingConstructorHelper.GetForwardingExpression fires when the pull strategy returns an action that gives the forwarder no value. The current message names DoNotPull and ReplaceParameterTypeAndPull, which are members of the internal PullActionKind enum that users cannot see (DoNotPull is created by PullAction.None, ReplaceParameterTypeAndPull is internal only), and gives no valid alternative.",
+  "codeChange": "The {3} argument passes pullAction.Kind.ToString(), an internal enum name (for example 'DoNotPull'); passing the public factory name (for example 'PullAction.None') would be clearer. The {1} argument renders as 'Order.Order(int)@creationTime'; passing the parameter name would be clearer.",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

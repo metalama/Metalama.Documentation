@@ -1,0 +1,11 @@
+{
+  "id": "LAMA5003",
+  "symbol": "ContractRedundant",
+  "verdict": "correct",
+  "message": "The [{1}] contract on '{0}' is redundant because a fabric automatically adds the [NotNull] contract to this declaration.",
+  "title": null,
+  "rationale": "The message does not name the declaration although the report sites in ContractExtensions.VerifyNotNullableDeclarations pass it as {0}, so the user cannot tell which of several redundant contracts is meant in a list of warnings.",
+  "codeChange": "The report sites pass nameof(NotNullAttribute) and nameof(RequiredAttribute) as {1}, so the message shows '[NotNullAttribute]' and '[RequiredAttribute]', while the sibling LAMA5001 and LAMA5002 messages show the short aspect name ('[NotNull]'). Consider passing \"NotNull\" and \"Required\" for consistency.",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

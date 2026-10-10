@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0057",
+  "symbol": "MetalamaNotInstalled",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "AspectPipeline.TryInitialize reports the diagnostic when the compilation does not define the METALAMA symbol, does not reference Metalama.Framework, or when MetalamaEnabled is False or MetalamaCompileTimeProject is True. 'Not enabled' covers all these conditions, and the message is correct and grammatical.",
+  "codeChange": null,
+  "engineBug": null
+}

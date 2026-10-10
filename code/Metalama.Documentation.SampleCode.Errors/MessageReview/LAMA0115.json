@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0115",
+  "symbol": "MetaMemberNotAvailable",
+  "verdict": "correct",
+  "message": "The template '{0}' cannot use '{1}' when applied to the {3} '{2}' because no '{4}' is available in this context.{5}",
+  "title": null,
+  "rationale": "Placeholder {0} is the template member (MetaApi.CreateInvalidOperationException passes _common.Template), not an advice, and the current text repeats 'advice' twice. 'because there is no 'IField'' is cryptic; stating that no such object is available in this context is clearer and fits all meta.Target members, including ContractDirection.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

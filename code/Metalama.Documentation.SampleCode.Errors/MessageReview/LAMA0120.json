@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0120",
+  "symbol": "CannotImplementBecauseOfInternalImplementAttribute",
+  "verdict": "correct",
+  "message": "The interface '{0}' cannot be implemented in this project. It can only be implemented in '{1}' or in a project to which '{1}' grants access with the InternalsVisibleTo attribute.",
+  "title": null,
+  "rationale": "'another project marked with InternalsVisibleTo' is misleading: the check (AreInternalsVisibleToImpl in AdditionalDiagnosticAnalyzer.AnalyzeNamedTypeSymbol) requires the assembly that declares the interface to name the current project in an InternalsVisibleTo attribute, not the current project to carry the attribute.",
+  "codeChange": null,
+  "engineBug": "AdditionalDiagnosticAnalyzer.cs:83 passes (attribute.AttributeClass, attribute.AttributeClass.ContainingAssembly.Name) instead of (@interface, @interface.ContainingAssembly.Name), so '{0}' shows 'InternalImplementAttribute' instead of the interface name, and '{1}' always shows 'Metalama.Framework' (the assembly of the attribute) instead of the assembly that declares the interface.",
+  "applied": "2026-10-10"
+}

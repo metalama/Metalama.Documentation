@@ -1,0 +1,10 @@
+{
+  "id": "LAMA5021",
+  "symbol": "PropertyMustHaveNoSetter",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message matches the report site in ImmutableAttribute.BuildAspect (a non-static automatic property with Writeability.All, that is, a set accessor), names the property, and implies the fix; init accessors are not reported, consistent with 'setter'.",
+  "codeChange": null,
+  "engineBug": null
+}

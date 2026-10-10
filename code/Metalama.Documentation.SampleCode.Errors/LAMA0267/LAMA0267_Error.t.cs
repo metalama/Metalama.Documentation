@@ -1,0 +1,1 @@
+// Error LAMA0267 on `categories.First`: `Converting extension method 'IReadOnlyList<string>.First<string>()' to a delegate using a method group conversion is currently not supported.`

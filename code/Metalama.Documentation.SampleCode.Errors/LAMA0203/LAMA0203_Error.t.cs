@@ -1,0 +1,1 @@
+// Error LAMA0203 on `Customer`: `Cannot serialize the compile-time dictionary into a run-time value because it has an unsupported equality comparer 'IgnoreCaseComparer'.  Only the default comparer and predefined string comparers are supported.`

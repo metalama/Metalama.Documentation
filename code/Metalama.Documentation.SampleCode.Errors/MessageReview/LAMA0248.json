@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0248",
+  "symbol": "UnsafeCodeForbiddenInCompileTimeCode",
+  "verdict": "correct",
+  "message": "'{0}' cannot contain unsafe code because it is {1} code.",
+  "title": "Compile-time code cannot contain unsafe code.",
+  "rationale": "The placeholder {1} is a scope adjective such as 'compile-time' or 'run-time-or-compile-time' (TemplatingCodeValidator.Visitor.VerifyModifiers passes TemplatingScope.ToDisplayString()), so the sentence ends with a dangling adjective ('because it is run-time-or-compile-time.'); adding 'code' makes it grammatical. The title lacks the final period.",
+  "codeChange": "VerifyModifiers only inspects the 'unsafe' modifier of declarations (types, methods, properties, fields, and so on). 'unsafe' statement blocks and unsafe local functions in compile-time code are not detected by LAMA0248 or LAMA0249. Consider checking UnsafeStatementSyntax and local function modifiers too.",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

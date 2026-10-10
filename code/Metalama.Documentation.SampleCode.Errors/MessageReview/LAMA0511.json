@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0511",
+  "symbol": "DeclarativeInterfaceMemberDoesNotMatch",
+  "verdict": "correct",
+  "message": "The aspect '{0}' cannot implement interface '{2}' in the type '{1}' because the aspect member '{3}', marked with the [InterfaceMember] attribute, does not have the same type or return type as the corresponding interface member '{4}'.",
+  "title": "An aspect member marked with [InterfaceMember] does not have the same type as the interface member.",
+  "rationale": "The title misses the word 'not' ('does match'). The message says 'implicitly implement', but ImplementInterfaceAdvice.Initialize (TryAddMember, line 140) also reports it for explicit implementations ([InterfaceMember(IsExplicit = true)]), and it says 'return type' although the check also compares the type (and ref kind) of properties and events.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

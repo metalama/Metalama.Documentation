@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0280",
+  "symbol": "CannotSetCompileTimeExpressionInRunTimeConditionalBlock",
+  "verdict": "correct",
+  "message": "The compile-time expression '{0}' cannot be set here because the assignment is in a block whose execution depends on a run-time condition ('{1}'). In such a block, only compile-time local variables declared in the block can be set.",
+  "title": "A compile-time expression cannot be set in a block whose execution depends on a run-time condition.",
+  "rationale": "Aligned with the corrected LAMA0108: '{1}' is not always a condition, since TemplateAnnotator passes 'catch', 'finally', or 'local function 'X'' as the reason, and the title is a sentence fragment without a subject. The message gave no way forward; the added rule matches CheckForMutatingCompileTimeExpressionInRunTimeConditionalBlock, which only accepts locals declared in the block.",
+  "codeChange": null,
+  "engineBug": "Possible false positive: TemplateAnnotator.CheckForMutatingCompileTimeExpressionInRunTimeConditionalBlock (TemplateAnnotator.cs around line 2222) reports LAMA0280 for a tuple deconstruction assignment such as '(i, j) = (3, 4)' even when 'i' and 'j' are compile-time locals declared inside the run-time-conditional block (test LocalVariables/CompileTimeExpressionInRunTimeConditionalBlock), because the tuple expression is not an ILocalSymbol; the elements could be checked individually.",
+  "applied": "2026-10-10"
+}

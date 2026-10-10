@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0066",
+  "symbol": "CodeFormattingEnabled",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message correctly states that formatting of the generated code is enabled and that it slows the build, which matches the report site (CompileTimeAspectPipeline, reported when CodeFormattingOptions is Formatted or WriteHtml is enabled, outside of tests).",
+  "codeChange": null,
+  "engineBug": null
+}

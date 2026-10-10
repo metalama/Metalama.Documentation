@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0247",
+  "symbol": "CannotConvertProceedReturnToType",
+  "verdict": "correct",
+  "message": "Cannot apply the aspect '{0}' to '{1}': the template returns '{2}', of type '{3}', from a method or local function whose return type is '{4}'.",
+  "title": "A template cannot return a void expression from a method or local function that has a non-void return type.",
+  "rationale": "The only report site (TemplateExpansionContext.CreateReturnStatement) fires when a returned expression of type void meets a non-void return type of the enclosing local function or template method; 'the desired type' does not tell the reader that '{4}' is this return type. The title names only the Proceed method, although any void expression triggers it, and has no final period.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

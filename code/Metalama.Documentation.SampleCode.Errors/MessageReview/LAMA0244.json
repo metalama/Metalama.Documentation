@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0244",
+  "symbol": "BaseTypeScopeConflict",
+  "verdict": "correct",
+  "message": "Execution scope mismatch: the type '{0}' is {1}, but its base type or interface '{2}' is {3}.",
+  "title": "Execution scope mismatch between a type and its base type or interface.",
+  "rationale": "The title mentions type arguments, but the only report site (TemplatingCodeValidator.Visitor.VerifyTypeDeclaration) compares the scope of the type with the scope of each entry of its base list. The message calls an implemented interface a 'base type', which is imprecise because the most common case is an interface.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

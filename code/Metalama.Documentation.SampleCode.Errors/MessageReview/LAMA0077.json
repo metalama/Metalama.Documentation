@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0077",
+  "symbol": "DuplicateAspectWeaver",
+  "verdict": "correct",
+  "message": "The aspect weaver '{0}' is provided by two different assemblies: '{1}' and '{2}'. This typically happens when two versions of the same aspect library are referenced, for instance through a package and through a project reference. Remove one of the conflicting references.",
+  "title": null,
+  "rationale": "The diagnostic is an error, so the build fails; the sentence 'Metalama will use the weaver from '{1}'' suggests that the situation is harmless. The added example of two routes (package and project reference) is the typical cause named at the report site in AspectDriverFactory (issue #1743).",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

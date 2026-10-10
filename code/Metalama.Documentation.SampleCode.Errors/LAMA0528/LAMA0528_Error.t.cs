@@ -1,0 +1,1 @@
+// Error LAMA0528 on `FileLogger`: `The aspect 'Disposable' cannot override the member 'FileLogger.Dispose()' because it is not public.`

@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0278",
+  "symbol": "AspectCantBeStruct",
+  "verdict": "correct",
+  "message": "The aspect '{0}' cannot be a value type. Declare it as a class.",
+  "title": "An aspect cannot be a value type.",
+  "rationale": "The title contains a stray word ('An aspect or can't'), and both texts use a contraction. The message now gives the obvious fix.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

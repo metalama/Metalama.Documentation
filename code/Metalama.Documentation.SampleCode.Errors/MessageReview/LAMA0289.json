@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0289",
+  "symbol": "CannotUseConditionalAccessWithCompileTimeToRunTimeMember",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message names the expression, the compile-time operand, and the member that returns a run-time value, explains why the pattern is unsupported, and gives a working fix. It matches the condition in TemplateCompilerRewriter.TransformConditionalAccessExpression.",
+  "codeChange": null,
+  "engineBug": "The check in TemplateCompilerRewriter.TransformConditionalAccessExpression (around line 1029) only inspects WhenNotNull when it is a MemberBindingExpression or a nested ConditionalAccessExpression. A form like 'compileTimeExpr?.Value.ToLower()' (WhenNotNull is an InvocationExpression wrapping the member binding) is not detected and falls through to the generic transformation. Not verified whether this produces a different error or wrong code."
+}

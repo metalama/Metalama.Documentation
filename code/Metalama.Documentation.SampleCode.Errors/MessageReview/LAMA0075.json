@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0075",
+  "symbol": "InvalidRepositoryConfiguration",
+  "verdict": "correct",
+  "message": "A Metalama repository configuration file (metalama.json) has been ignored. {0}",
+  "title": "A repository configuration file (metalama.json) has been ignored.",
+  "rationale": "'Not fully applied' suggests a partial application, but every warning produced by RepositoryConfigurationService (a metalama.json below the repository root, or a root file that cannot be read or deserialized) means that a whole file is ignored. The placeholder {0} is a complete sentence that starts with a capital letter, so it follows a period rather than a colon.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

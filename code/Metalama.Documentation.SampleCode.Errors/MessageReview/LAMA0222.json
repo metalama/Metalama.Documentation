@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0222",
+  "symbol": "CannotEmitCompileTimeAssembly",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message correctly says that the compile-time project failed to compile, points to the other reported errors, and gives the troubleshooting directory written by CompileTimeCompilationBuilder.TryEmit.",
+  "codeChange": null,
+  "engineBug": null
+}

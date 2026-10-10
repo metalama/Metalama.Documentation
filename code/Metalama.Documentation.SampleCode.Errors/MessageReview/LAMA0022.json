@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0022",
+  "symbol": "CannotAddChildAspectToPreviousPipelineStep",
+  "verdict": "correct",
+  "message": "The aspect '{0}' cannot add a child aspect of type '{1}' because the '{1}' aspect is processed before '{0}'. Use the [AspectOrder] assembly attribute to process '{0}' before '{1}'.",
+  "title": null,
+  "rationale": "The current message contains the stray word 'to' ('add a child aspect to of type') and gives no way forward, although both report sites in PipelineStepsState.AddAspectSources are resolved by ordering the parent aspect before the child aspect.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

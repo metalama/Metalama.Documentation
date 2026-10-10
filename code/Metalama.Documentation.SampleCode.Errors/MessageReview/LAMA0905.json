@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0905",
+  "symbol": "OnlyAccessibleFrom",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "ReferencePredicateValidator.ValidateReferences passes the referenced declaration and its kind, 'referenced' or 'assigned', the referencing declaration and its kind, and the optional user description; the rendered text names both ends of the forbidden reference and is grammatical.",
+  "codeChange": "When the referenced declaration is an assembly reference (ExternalAssembly test), the text reads 'The '...' assembly reference cannot be referenced by ...', which is awkward; the report site could pass 'assembly' as the kind in that case.",
+  "engineBug": null
+}

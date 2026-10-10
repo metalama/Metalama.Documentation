@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0099",
+  "symbol": "UnsupportedFeature",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The definition is never reported, so the message is not reviewed further.",
+  "codeChange": "GeneralDiagnosticDescriptors.UnsupportedFeature (GeneralDiagnosticDescriptors.cs:601) has no report site in Metalama or Metalama.Premium. Remove the definition, or keep the ID reserved.",
+  "engineBug": null
+}

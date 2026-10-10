@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0231",
+  "symbol": "RunTimeTypesCannotHaveCompileTimeTypesExceptTypeFabrics",
+  "verdict": "correct",
+  "message": "The compile-time type '{0}' cannot be nested in a run-time type. The only compile-time types that can be nested in a run-time type are classes derived from '{1}'. Move '{0}' out of the containing type.",
+  "title": null,
+  "rationale": "The second sentence misses an article ('in run-time type'), and the message gives no way forward when the type is not meant to be a type fabric. Report sites: PopulateNestedCompileTimeTypes, for classes that do not derive from TypeFabric and for any compile-time struct, record, interface, enum or delegate.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

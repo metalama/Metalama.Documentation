@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0281",
+  "symbol": "AttributeNotAllowedOnCompileTimeCode",
+  "verdict": "correct",
+  "message": "The attribute '{0}' is not allowed on the compile-time declaration '{1}', because it would not have the expected effect.",
+  "title": null,
+  "rationale": "The message uses the contraction 'wouldn't', which Metalama messages do not allow.",
+  "codeChange": "The diagnostic has no report site since commit 4138107a6c (#2025, released in 2026.1.28): its only use, for [InlineArray] in compile-time code in CompileTimeCompilationBuilder.ProduceCompileTimeCodeRewriter.VisitAttributeList, was replaced by LAMA0294 (LanguageFeatureNotSupportedInCompileTimeCode). Consider removing the definition from TemplatingDiagnosticDescriptors.cs or marking it obsolete.",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

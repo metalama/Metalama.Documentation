@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0287",
+  "symbol": "NoReceiverInCurrentContext",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "InstanceUserReceiver.TryCreate reports the diagnostic when meta.Receiver or ExpressionFactory.Receiver is used for a declaration that has no receiver, and the message names the target and the reason. The message is consistent with LAMA0114. The title only lacks its final period.",
+  "codeChange": "In InstanceUserReceiver.TryCreate, when GetClosestMemberOrNamedType returns a named type, the reason 'the target NamedType is static and is not an extension method' is false (the type is not necessarily static); a reason such as 'the target is a type, not a member' would be accurate (same issue as LAMA0114). Also, the 'the target {kind} is static' branch of the extension-block case is unreachable because the case pattern already requires IsStatic: false, so static extension-block members fall into the default branch.",
+  "engineBug": null
+}

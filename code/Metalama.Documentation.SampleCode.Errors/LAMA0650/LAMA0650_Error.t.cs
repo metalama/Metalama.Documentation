@@ -1,0 +1,1 @@
+// Error LAMA0650 on ``: `Can't invoke member 'Vehicle.Describe()', because correct invocation would require a base call on an instance other than this.`

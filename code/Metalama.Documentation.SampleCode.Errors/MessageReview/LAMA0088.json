@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0088",
+  "symbol": "IntroducedDeclaringTypeNotFound",
+  "verdict": "correct",
+  "message": "The declaring type '{0}' of the declaration '{1}', which was introduced by an aspect, cannot be resolved in the compilation '{2}'. This is an internal error in Metalama. Please report this issue at https://www.postsharp.net/support.",
+  "title": null,
+  "rationale": "The condition, checked in IntroducedMemberOrNamedType.TryGetDeclaringType, is an internal inconsistency between the compilation that produced an introduced member and the compilation in which it is read (#2048), which user code cannot cause or fix. The message does not say so and gives no way forward; 'introduced declaration' is also unclear to users who do not know that the declaration comes from an aspect.",
+  "codeChange": null,
+  "engineBug": "The diagnostic itself documents an engine inconsistency (#2048): a facade of an introduced member is read in a compilation that does not contain its declaring type, during the enumeration of derived declarations for aspect inheritance (PipelineStepsState.cs:358, TransitivePipelineContributorSource.InheritedAspectSourceImpl.cs:58). It is reported with no location.",
+  "applied": "2026-10-10"
+}

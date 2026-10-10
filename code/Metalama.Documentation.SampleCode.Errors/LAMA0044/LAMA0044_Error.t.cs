@@ -1,0 +1,1 @@
+// Error LAMA0044 on `Fabric`: `The type fabric on 'Doc.LAMA0044.Error.OrderService' cannot set options for 'Doc.LAMA0044.Error' because it is not contained in 'OrderService'.`

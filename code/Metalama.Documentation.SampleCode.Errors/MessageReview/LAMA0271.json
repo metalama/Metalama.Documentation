@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0271",
+  "symbol": "ExtensionMethodTemplateNotSupported",
+  "verdict": "correct",
+  "message": "The template '{0}' cannot be an extension method. To introduce an extension method, mark the first parameter of the template with the [This] attribute, or set the IParameterBuilder.IsThis property programmatically.",
+  "title": "A template cannot be an extension method.",
+  "rationale": "Both texts use the contraction 'can't', which Metalama messages do not use, and 'the method' is ambiguous between the template and the introduced method. The condition matches TemplatingCodeValidator.Visitor (line 945), which checks IMethodSymbol.IsExtensionMethod on template declarations. Note that C# only allows extension methods in a top-level static class, which cannot be an aspect, a fabric, or an ITemplateProvider, so LAMA0274 is always reported on the same template too.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

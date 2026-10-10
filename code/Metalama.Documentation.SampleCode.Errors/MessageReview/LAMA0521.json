@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0521",
+  "symbol": "AttributeAlreadyPresent",
+  "verdict": "correct",
+  "message": "The aspect '{0}' cannot introduce the custom attribute '{1}' into '{2}' because this attribute is already present on the declaration. To keep or replace the existing attribute, set the 'whenExists' parameter to 'Ignore' or 'Override'.",
+  "title": null,
+  "rationale": "The message contains the typo 'it this', and 'WhenExists is set to Fail' names a parameter that is actually called 'whenExists' and is usually left at its default value (OverrideStrategy.Default, which equals Fail), so the user does not recognize the setting; the corrected text gives the actual fix (AddAttributeAdvice.Implement).",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "LAMA5102",
+  "symbol": "ErrorMissingParameterInInvalidatingMethod",
+  "verdict": "correct",
+  "message": "The [InvalidateCache] aspect applied to '{0}' cannot invalidate '{1}': the invalidating method does not contain a parameter named '{2}'. Make sure '{0}' contains a parameter named '{2}' or add the [NotCacheKey] attribute to the '{2}' parameter in '{1}'.",
+  "title": null,
+  "rationale": "The message refers to a [NotCachedKey] attribute, which does not exist; the attribute is NotCacheKeyAttribute, so the advice cannot be followed as written.",
+  "codeChange": "In InvalidateCacheAttribute.ValidateAndFindInvalidatedMethods (Metalama.Patterns.Caching.Aspects/InvalidateCacheAttribute.cs, line 411), pass invalidatingMethod instead of invalidatedMethod as the first argument: (invalidatingMethod, invalidatedMethod, invalidatedMethodParameter.Name).",
+  "engineBug": "InvalidateCacheAttribute.cs line 411 passes (invalidatedMethod, invalidatedMethod, ...) to ErrorMissingParameterInInvalidatingMethod, so '{0}' shows the cached method instead of the invalidating method, and the rendered message says the aspect is applied to the cached method and asks the user to add the parameter to the cached method.",
+  "applied": "2026-10-10"
+}

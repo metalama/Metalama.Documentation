@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0025",
+  "symbol": "AspectMustHaveExactlyOneTemplateMember",
+  "verdict": "correct",
+  "message": "The type '{0}' does not contain any template member named '{1}'. Check the template name, for instance by using the 'nameof' operator.",
+  "title": "The type does not contain a template member of the given name.",
+  "rationale": "TemplateNameValidator.ValidateTemplateName reports the diagnostic only when no member of the given name exists; duplicate names are reported earlier by LAMA0032, so 'must have exactly one member' is misleading. The title refers to the obsolete term 'dynamic advice' and is not a short sentence.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

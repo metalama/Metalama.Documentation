@@ -1,0 +1,1 @@
+// Error LAMA0254 on `this.ContinueOnCapturedContext`: `The argument of ConfigureAwait after ProceedAsync can only be 'true' or 'false', it can't be 'this.ContinueOnCapturedContext'.`

@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0702",
+  "symbol": "NoSuitableDependencyInjectionFramework",
+  "verdict": "correct",
+  "message": "None of the registered dependency injection frameworks can handle the dependency '{0}' in type '{1}'. Note that the default framework does not support static dependencies.",
+  "title": null,
+  "rationale": "The message gives no hint about why the frameworks refused the dependency. With the built-in registrations, the only case is a static dependency: DefaultDependencyInjectionFramework.CanHandleDependency returns !properties.IsStatic, and LoggerDependencyInjectionFramework only accepts Microsoft.Extensions.Logging.ILogger.",
+  "codeChange": "Optionally, frameworks could report the reason for refusing a dependency through the ScopedDiagnosticSink passed to IDependencyInjectionFramework.CanHandleDependency, for example the default framework for static dependencies.",
+  "engineBug": "Possible bug: LoggerDependencyInjectionFramework.CanHandleDependency (Implementation/LoggerDependencyInjectionFramework.cs:32) overrides the default check without testing IsStatic, so a static ILogger dependency is accepted (not verified what code it then generates). Documentation defect: the XML docs of DependencyInjectionOptionsBuilder.RegisterFramework and SetFrameworkPriority say that frameworks with higher priority are consulted first, but DependencyInjectionOptions.TryGetFramework orders by ascending Priority and picks the first eligible framework, so lower values win (as the conceptual article states).",
+  "applied": "2026-10-10"
+}

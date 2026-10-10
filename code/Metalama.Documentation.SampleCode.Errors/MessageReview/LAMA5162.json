@@ -1,0 +1,11 @@
+{
+  "id": "LAMA5162",
+  "symbol": "WarningMethodOrPropertyIsNotSupportedForDependencyAnalysis",
+  "verdict": "correct",
+  "message": "The '{1}' {0} cannot be observed because it is not known to be constant: it is an instance method of a type that is not immutable, or it has a parameter of a type that is not immutable. If the {0} always returns the same value for the same arguments, mark it with [Constant] or call ConfigureObservability via a fabric.",
+  "title": "Method is not supported for dependency analysis.",
+  "rationale": "The message renders the attribute as [ConstantAttribute] (built with nameof), which is not how it is written in C#, and it does not say why the method is rejected; the report site in DependencyGraphBuilder.Visitor.ValidatePathElement reports it only for methods that return a value and are either instance methods of a non-immutable type or have a non-immutable parameter. The title mentions properties, but the only report site is for SymbolKind.Method.",
+  "codeChange": "In DiagnosticDescriptors.cs, replace [{nameof(ConstantAttribute)}] with the literal [Constant].",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

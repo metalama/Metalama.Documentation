@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0033",
+  "symbol": "MemberDoesNotHaveTemplateAttribute",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message names the aspect class and the member, and states the missing [Template] attribute, which matches the only report site (TemplateNameValidator.ValidateTemplateName, reached when an advice method such as Override or IntroduceMethod receives the name of a member that has no template attribute). The title is correct.",
+  "codeChange": null,
+  "engineBug": null
+}

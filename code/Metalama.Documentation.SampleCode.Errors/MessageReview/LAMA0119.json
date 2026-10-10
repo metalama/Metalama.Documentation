@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0119",
+  "symbol": "CompileTimeCodeNeedsNamespaceImport",
+  "verdict": "correct",
+  "message": "The compile-time declaration '{0}' is in a file that does not have a using directive for the '{1}' namespace or one of its main child namespaces. This may cause an inconsistent design-time experience. Add a using directive such as 'using {1}.Aspects;' to the file.",
+  "title": "A file that contains compile-time code does not import a Metalama.Framework namespace.",
+  "rationale": "The message duplicates 'the the', and it speaks of 'the Metalama.Framework namespaces' although the check in TemplatingCodeValidator.Visitor.cs (via CompileTimeCodeFastDetector) is about the file's using directives, not the declaration. The advice to add the [{2}] attribute is misleading: the declaration may already have it (or be compile-time by inheritance), and only the using directive matters. The title also wrongly attributes the problem to the declaration instead of the file.",
+  "codeChange": "The {2} argument (attribute name) is no longer used by the corrected message and can be removed from the report site in TemplatingCodeValidator.Visitor.cs.",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

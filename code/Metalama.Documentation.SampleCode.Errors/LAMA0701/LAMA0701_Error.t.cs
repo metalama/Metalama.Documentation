@@ -1,0 +1,1 @@
+// Error LAMA0701 on `_clock`: `No dependency injection framework can handle the dependency 'IClock' in type 'InvoiceService'.`

@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0229",
+  "symbol": "NeutralTypesForbiddenInNestedRunTimeTypes",
+  "verdict": "correct",
+  "message": "The type '{0}' cannot be both run-time and compile-time, like an aspect class or a [RunTimeOrCompileTime] class, because it is nested in a run-time-only type. Move it out of the containing type.",
+  "title": null,
+  "rationale": "The message names a non-existent attribute '[CompileOrRunTime]' (the attribute is [RunTimeOrCompileTime]), does not mention that aspect classes have this scope implicitly, which is the most common cause, and gives no way forward. Report site: CompileTimeCompilationBuilder.ProduceCompileTimeCodeRewriter.PopulateNestedCompileTimeTypes.",
+  "codeChange": null,
+  "engineBug": "PopulateNestedCompileTimeTypes (CompileTimeCompilationBuilder.ProduceCompileTimeCodeRewriter.cs, around line 340) reports LAMA0229 only for nested class declarations. A nested run-time-or-compile-time struct, record, interface, enum or delegate is neither reported nor copied to the compile-time compilation, so compile-time code that uses it probably fails with a less clear error. Unverified by a test.",
+  "applied": "2026-10-10"
+}

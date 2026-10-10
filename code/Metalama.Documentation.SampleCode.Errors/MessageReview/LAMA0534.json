@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0534",
+  "symbol": "CannotIntroduceFieldIntoInterface",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The report site in IntroduceFieldAdvice.ValidateBuilder fires whenever the target type of a field introduction is an interface, which is exactly what the message and title state.",
+  "codeChange": null,
+  "engineBug": null
+}

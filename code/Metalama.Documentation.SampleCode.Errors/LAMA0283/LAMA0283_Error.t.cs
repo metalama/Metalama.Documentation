@@ -1,0 +1,1 @@
+// Error LAMA0283 on `LogAttribute`: `Compile-time type 'LogAttribute' uses non-record primary constructors which is not currently supported. You should remove the parameter list from the type and use explicitly defined constructors instead.`

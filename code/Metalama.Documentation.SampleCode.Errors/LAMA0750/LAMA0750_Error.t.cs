@@ -1,0 +1,1 @@
+// Error LAMA0750 on `OrderStatus`: `The aspect 'TypeName' cannot introduce a method because Enum is not a supported target type.`

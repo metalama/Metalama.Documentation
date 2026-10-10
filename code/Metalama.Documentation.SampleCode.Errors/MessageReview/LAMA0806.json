@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0806",
+  "symbol": null,
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "LAMA0806 has no DiagnosticDefinition: the VerifyMetalamaLicense MSBuild task (Metalama.Licensing.BuildTasks) logs it with Log.LogError, and the text is the LicensingMessage produced by Metalama.Backstage licensing (typically LicenseConsumer.TryConsume: 'The component ... is not licensed. It requires one of the following products: ...'). There is no message in the Metalama.Premium repository to review.",
+  "codeChange": null,
+  "engineBug": "Minor text defects in Metalama.Backstage/Licensing/Consumption/LicenseConsumer.cs (TryConsume): the toast text concatenates messageText + \"Open to start a trial...\" without a space; the namespace-bound warning (LAMA0807) reads 'but current project name is' (missing 'the'); and the error message says 'N license keys were considered' and quotes the full LicenseString of each key in the build log."
+}

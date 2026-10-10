@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0225",
+  "symbol": "CannotUseDynamicWithTargetTypedExpression",
+  "verdict": "correct",
+  "message": "The 'dynamic' keyword cannot be used in the local variable '{0}' because it is initialized with a target-typed expression (such as 'default' or 'null'). Initialize the variable with an expression of type 'dynamic', for example 'meta.Default( type )'.",
+  "title": null,
+  "rationale": "The advice to use an explicit cast does not work: a cast to 'dynamic' reports LAMA0250 (TemplateAnnotator.VisitCastExpression), and a cast to any other type makes the initializer non-dynamic, which reports LAMA0251 (TemplateAnnotator.VisitVariableDeclaration).",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

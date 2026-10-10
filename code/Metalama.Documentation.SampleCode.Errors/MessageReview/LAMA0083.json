@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0083",
+  "symbol": "ReferenceAssemblyBuildTimedOut",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message names the project, the elapsed timeout, the MSBuild property that controls it (MetalamaReferenceAssemblyRestoreTimeout, in milliseconds) and the binary log, which matches the report site in CompileTimeAssemblyLocator.ReportReferenceAssemblyBuildFailure.",
+  "codeChange": null,
+  "engineBug": null
+}

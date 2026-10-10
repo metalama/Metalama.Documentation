@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0041",
+  "symbol": "ExceptionInUserCode",
+  "verdict": "correct",
+  "message": "An exception of type '{1}' was thrown while {0}: {2}. Exception details are in '{3}'. To attach a debugger to the compiler, use the '-p:MetalamaDebugCompiler=True' command-line option.",
+  "title": "An exception was thrown by user code.",
+  "rationale": "The message starts with a stray quote (''Exception of type'), lacks an article and verb ('Exception of type ... thrown while'), and contains a double space before the command-line option (the C# concatenation adds a space twice). The title is a noun phrase, not a sentence.",
+  "codeChange": "When no crash report is written (UserCodeInvoker.OnException, line 123), the report site passes '(none)' as {3}, which renders as 'Exception details are in '(none)''. Consider passing a complete sentence fragment, or a separate message variant, when there is no report file.",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

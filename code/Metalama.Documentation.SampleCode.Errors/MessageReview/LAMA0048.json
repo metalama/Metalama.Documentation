@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0048",
+  "symbol": "TypeNotPartial",
+  "verdict": "correct",
+  "message": "Aspects add members to '{0}', but it is not marked as 'partial'. Make the type 'partial' to make it possible to reference aspect-generated members from source code.",
+  "title": null,
+  "rationale": "Language defects only: the comma before 'but' joining two independent clauses is missing, and 'artefacts' is a British spelling of a vague word, while the report site in DesignTimeSyntaxTreeGenerator.ProcessTransformationsOnType reports the warning for introduced declarations. The meaning is otherwise correct.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

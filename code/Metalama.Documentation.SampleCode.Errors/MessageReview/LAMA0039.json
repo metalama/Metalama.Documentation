@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0039",
+  "symbol": "IneligibleChildAspect",
+  "verdict": "correct",
+  "message": null,
+  "title": "A parent aspect or fabric cannot add a child aspect to a declaration that is not eligible for this aspect.",
+  "rationale": "The title is copied from LAMA0038 (CanAddChildAspectOnlyUnderParent) and is incorrect: both report sites (AspectQuerySource.CollectAspectInstancesAsync and AdviceFactory.ReportChildAspectIneligibility) report LAMA0039 when the child aspect is not eligible for the target declaration, not when the target is outside the parent's target. The message itself is accurate.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

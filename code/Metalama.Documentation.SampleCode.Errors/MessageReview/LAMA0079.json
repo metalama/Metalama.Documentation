@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0079",
+  "symbol": "DuplicateCompileTimeAssemblyName",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message matches CompileTimeProjectRepository.Builder.TryReserveCompileTimeAssemblyName: two references with the same simple name but different identities both provide untransformed compile-time code ([assembly: CompileTime] without an embedded compile-time project). It names the assembly and both references and gives actionable advice.",
+  "codeChange": null,
+  "engineBug": null
+}

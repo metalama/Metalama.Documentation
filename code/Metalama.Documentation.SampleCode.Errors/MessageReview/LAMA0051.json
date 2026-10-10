@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0051",
+  "symbol": "PreviewCSharpVersionNotSupported",
+  "verdict": "correct",
+  "message": "Metalama does not support the 'preview' language version. Change the LangVersion property of your project file to one of the following supported values: {0}. If you want to use preview features at your own risk, set the MSBuild property 'MetalamaAllowPreviewLanguageFeatures' to 'true'. This may work if you do not use preview features in templates.",
+  "title": null,
+  "rationale": "The message contains a contraction ('don't') and the incorrect idiom 'at your own risks'. 'csproj file' is replaced by 'project file', consistent with LAMA0052, because the property can also be set in Directory.Build.props.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

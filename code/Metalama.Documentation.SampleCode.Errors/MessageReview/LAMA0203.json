@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0203",
+  "symbol": "UnsupportedDictionaryComparer",
+  "verdict": "correct",
+  "message": "Cannot serialize the compile-time dictionary to a run-time value because it has an unsupported equality comparer '{0}'. Only the default comparer and, for string keys, the predefined StringComparer comparers such as StringComparer.OrdinalIgnoreCase are supported.",
+  "title": null,
+  "rationale": "Language defect: the two string fragments are concatenated with a double space between the sentences, and 'serialize ... into a run-time value' differs from the 'to a run-time value' of LAMA0201. Imprecise: DictionarySerializer.Serialize accepts the six static StringComparer instances (Ordinal, OrdinalIgnoreCase, InvariantCulture, InvariantCultureIgnoreCase, CurrentCulture, CurrentCultureIgnoreCase) only for string keys; for other keys only the default comparer is accepted.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

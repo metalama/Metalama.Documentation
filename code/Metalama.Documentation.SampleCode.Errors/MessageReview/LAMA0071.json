@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0071",
+  "symbol": "CannotInferTypeArguments",
+  "verdict": "correct",
+  "message": "Cannot infer the type arguments for method '{0}'. Supply the type arguments explicitly using IMethod.MakeGenericInstance.",
+  "title": null,
+  "rationale": "The advice is misleading: the IMethod overloads of GenericExtensions.WithTypeArguments are marked [Obsolete( \"Use MakeGenericInstance instead.\" )], so following the message produces warning CS0618. IMethod.MakeGenericInstance is the current API.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

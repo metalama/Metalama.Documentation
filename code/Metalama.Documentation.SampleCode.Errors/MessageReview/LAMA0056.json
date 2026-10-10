@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0056",
+  "symbol": "CannotFindCodeFix",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "Both report sites (CodeFixRunner.ExecuteCodeFixAsync in Metalama.Extensions.CodeFixes.Engine) fire when the pipeline that runs again at the moment the code fix is applied produces no code fix, or none with the selected title. The message names the code fix by its title and states the likely cause, and the text is grammatical and has no contraction.",
+  "codeChange": null,
+  "engineBug": null
+}

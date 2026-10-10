@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0201",
+  "symbol": "CycleInSerialization",
+  "verdict": "correct",
+  "message": "Cannot serialize the compile-time value of type '{0}' to a run-time value because it contains a cyclic reference or is nested more than 32 levels deep.",
+  "title": "A compile-time value contains a cyclic reference or is nested too deeply.",
+  "rationale": "Incorrect: SyntaxSerializationContext.WithSerializeObject does not detect cycles; it throws when the serialization recursion exceeds 32 levels, so a deeply nested value without any cycle also triggers the error. The title 'A collection contains itself.' is also too narrow for the same reason.",
+  "codeChange": "SyntaxSerializationContext.WithSerializeObject (SyntaxSerializationContext.cs, line 74) passes typeof(T), the static type of the nested call, which is 'Object' for any element of a collection (ListSerializer, ArraySerializer and DictionarySerializer call Serialize<object>). Pass o?.GetType() instead, or better, the type of the root value being converted.",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0061",
+  "symbol": "DependencyMustBeRecompiled",
+  "verdict": "correct",
+  "message": "The referenced assembly '{0}' has been compiled with Metalama {1}, which stores compile-time code in a format that is incompatible with the current version of Metalama. Use the same version of Metalama to compile '{0}' and the current project.",
+  "title": "The referenced assembly has been compiled with an incompatible version of Metalama.",
+  "rationale": "CompileTimeProjectRepository.Builder.TryDeserializeCompileTimeProject reports the diagnostic when the manifest version differs from CompileTimeProjectManifest.CurrentManifestVersion, in either direction. Since manifests without a version are read as the current version (1), the error can currently only occur for an assembly compiled with a newer Metalama, so the title ('a more recent version') is incorrect, and 'backward compatibility has been broken' is imprecise and gives no way forward when the reference is a package that cannot be recompiled.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

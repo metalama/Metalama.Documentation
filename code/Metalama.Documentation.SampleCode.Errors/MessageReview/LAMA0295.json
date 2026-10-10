@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0295",
+  "symbol": "CantResolveDeclarativeAdvice",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message matches the report site in TemplateClass.GetDeclarativeAdvice (the declaration id of a declarative advice member does not resolve in the template reflection compilation), names the identifier, states the consequence, and lists the two known causes.",
+  "codeChange": null,
+  "engineBug": null
+}

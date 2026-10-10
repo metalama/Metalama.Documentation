@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0073",
+  "symbol": "GeneratedCodeParseFailed",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message correctly states what SyntaxTreeVerifier.VerifySyntaxTree reports when CSharpSyntaxTree.ParseText throws while re-parsing the text of a transformed syntax tree (only when MetalamaVerifyOutputCode is enabled), names the file and gives the exception type and message. The title is accurate.",
+  "codeChange": null,
+  "engineBug": null
+}

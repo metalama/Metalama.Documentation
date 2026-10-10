@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0055",
+  "symbol": "CannotAddAspectToPreviousPipelineStep",
+  "verdict": "correct",
+  "message": "The aspect '{0}' applied to {2} '{1}' cannot add an aspect of the same type to {4} '{3}' because this {4} has already been processed by aspects of this type. An aspect can add an aspect of its own type only to a declaration that is processed later, such as a member or a parameter of its target.",
+  "title": null,
+  "rationale": "The current message misses a word ('is not contained the'). It is also inaccurate: PipelineStepsState.AddAspectInstances compares pipeline steps, which are ordered by the depth of the target declaration, not by containment, so a declaration that is not contained in the target (for instance a derived type) is accepted. The new text states the actual rule and gives the way forward.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

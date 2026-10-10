@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0252",
+  "symbol": "PartialTemplatesForbidden",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message is accurate for the only report site, TemplatingCodeValidator.Visitor.VerifyModifiers, which reports the 'partial' modifier of any part of a method or property that is a template, and it names the declaration.",
+  "codeChange": null,
+  "engineBug": null
+}

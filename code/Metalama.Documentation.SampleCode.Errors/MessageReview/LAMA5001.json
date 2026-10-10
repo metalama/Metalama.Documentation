@@ -1,0 +1,10 @@
+{
+  "id": "LAMA5001",
+  "symbol": "RangeCannotBeApplied",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message names the contract, the target, the resolved range, and the type, and matches the report site in RangeAttribute.BuildAspect, which reports it when NumericRange.IsTypeSupported returns NotSupported (a bound lies entirely outside the values of the type). The title is accurate.",
+  "codeChange": null,
+  "engineBug": null
+}

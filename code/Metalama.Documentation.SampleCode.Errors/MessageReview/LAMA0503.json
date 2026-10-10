@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0503",
+  "symbol": "CannotIntroduceDifferentExistingReturnType",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message correctly states the condition checked at the report sites: the type or return type of the introduced member is not reference-convertible to the type of the existing member, whose type is shown in '{4}'.",
+  "codeChange": null,
+  "engineBug": null
+}

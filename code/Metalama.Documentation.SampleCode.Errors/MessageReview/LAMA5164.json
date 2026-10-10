@@ -1,0 +1,11 @@
+{
+  "id": "LAMA5164",
+  "symbol": "NonPrivateFieldsNonSupported",
+  "verdict": "correct",
+  "message": "The '{0}' field cannot be observed: only private instance fields, constants, and read-only fields of immutable types are supported. Consider replacing the field with a property, or making it private.",
+  "title": "Only private instance fields, constants, and read-only fields of immutable types are supported.",
+  "rationale": "The report site (DependencyGraphBuilder.Visitor.ValidatePathElement, Field case) accepts const fields, non-static private fields, and read-only fields of a type whose immutability kind is not None. 'Fields belonging to primitive types' matches no condition, and 'fields configured with an observability contract' is false because the check does not consult the contract. The advice is wrong: [Constant] cannot be applied to a field (AttributeUsage is Method, Struct, Class), and ConfigureObservability has no effect on this check.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

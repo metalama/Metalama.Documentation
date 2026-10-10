@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0530",
+  "symbol": "CannotIntroduceParameterAlreadyExists",
+  "verdict": "correct",
+  "message": "The aspect '{0}' cannot introduce the parameter '{1}' into '{2}' because an aspect has already introduced a parameter named '{3}' into this constructor.",
+  "title": "Cannot introduce a constructor parameter when an aspect has already introduced a parameter with the same name.",
+  "rationale": "The only report site (IntroduceConstructorParameterAdvice.Implement) is reached only when the existing parameter with the same name was introduced by an aspect: by the same aspect instance, or by another aspect with an incompatible type. A source-defined parameter with the same name does not cause the error, because Metalama then introduces the parameter under a deduplicated name, so the current title and message are imprecise. 'introduce parameter ... to' is also corrected to 'introduce the parameter ... into', consistent with other messages.",
+  "codeChange": "The placeholders '{1}' and '{3}' always have the same value, because the existing parameter is found by name (p.Name == this._parameterName). The fourth argument could be dropped.",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

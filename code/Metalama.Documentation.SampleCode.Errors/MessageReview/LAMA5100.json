@@ -1,0 +1,10 @@
+{
+  "id": "LAMA5100",
+  "symbol": "ErrorMethodIsNotCached",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The report site (InvalidateCacheAttribute.ValidateAndFindInvalidatedMethods) reports the diagnostic when a method named in [InvalidateCache] has no CachedMethodAnnotation, that is, when the [Cache] aspect is not applied to it. The message names both methods and states this condition accurately.",
+  "codeChange": null,
+  "engineBug": null
+}

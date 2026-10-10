@@ -1,0 +1,1 @@
+// Error LAMA0904 on `Order`: `At least one property of the 'CanOnlyBeUsedFromAttribute' custom attribute must be set.`

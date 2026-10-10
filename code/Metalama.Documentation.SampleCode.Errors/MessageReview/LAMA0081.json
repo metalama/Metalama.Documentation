@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0081",
+  "symbol": "MixedMetalamaVersionsInSolution",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message correctly states the condition checked in CompileTimeProjectRepository.Builder (a project reference compiled with another Metalama version), names both versions, and gives actionable advice. The title is accurate.",
+  "codeChange": null,
+  "engineBug": null
+}

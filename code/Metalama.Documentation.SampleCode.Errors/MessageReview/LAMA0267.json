@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0267",
+  "symbol": "ExtensionMethodMethodGroupConversion",
+  "verdict": "correct",
+  "message": "Converting the extension method '{0}' to a delegate using a method group conversion is not supported in templates. Use a lambda expression that invokes the method instead.",
+  "title": null,
+  "rationale": "The message lacks the article before 'extension method', does not say that the limitation is specific to templates (TemplateCompilerRewriter.VisitMemberAccessExpression), and gives no way forward although a lambda expression works.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

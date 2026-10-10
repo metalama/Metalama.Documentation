@@ -1,0 +1,1 @@
+// Error LAMA0258 on `TrackFinalizationAttribute`: `'TrackFinalizationAttribute.~TrackFinalizationAttribute()' is an invalid declaration to be marked as a template.`

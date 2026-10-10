@@ -1,0 +1,1 @@
+// Error LAMA5107 on `AddProduct`: `Invalid [InvalidateCache] aspect on 'ProductCatalogue.AddProduct(string, string)': there are several suitable overloads of the 'GetProducts' method. Set the AllowMultipleOverloads property to "true" to allow invalidation of all of them.`

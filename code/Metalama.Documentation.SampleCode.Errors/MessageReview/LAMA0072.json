@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0072",
+  "symbol": "UnknownTransitiveAspectClass",
+  "verdict": "correct",
+  "message": "Cannot find the transitive aspect class '{0}'. This can happen when a referenced assembly was compiled with a different version of Metalama. Align the version of Metalama used by the current project with the version used to compile the referenced assembly.",
+  "title": null,
+  "rationale": "The message refers to 'the referenced assembly' without saying which one, and gives no way forward. The report site (TransitiveAspectPipelineExtension.GetPipelineContributorsFromTransitiveManifest) fires when SerializableTransitiveAspectInstance.ToAspectInstance cannot resolve the aspect class name read from a referenced assembly's manifest, which in practice means a Metalama version mismatch, so the corrected message adds the advice to align the versions.",
+  "codeChange": "The diagnostic is reported without a location and without the name of the referenced assembly that contains the transitive aspect instance. Passing the assembly identity (and, if available, the Metalama version recorded in its manifest) as additional arguments would let the message name the offending reference. 'Transitive aspect' is internal terminology: these instances are system aspects (PullConstructorParameterTransitiveAspect, AddConstructorEpilogueTransitiveAspect) that Metalama adds itself, so a future message could say so.",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

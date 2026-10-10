@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0086",
+  "symbol": "UserCodeRetentionAnalysisCompleted",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message correctly reports the two counts computed in UserCodeRetentionAnalyzer.Report, the completeness sentence and the path of the report file. The title is accurate.",
+  "codeChange": "When the report file cannot be written, UserCodeRetentionAnalyzer.Report passes '(the report file could not be written)' as {3}, which renders as \"The full report is in '(the report file could not be written)'.\". The report site should pass a whole sentence instead, for example by moving \"The full report is in '...'.\" out of the format string into the argument, so that the failure case reads \"The report file could not be written.\"",
+  "engineBug": null
+}

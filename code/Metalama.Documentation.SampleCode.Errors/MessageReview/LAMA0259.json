@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0259",
+  "symbol": "ExpressionScopeConflictInConditionalAccess",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message matches TemplateAnnotator.VisitConditionalAccessExpression, which reports a conditional access whose receiver is compile-time and whose accessed member returns a run-time value. It names both parts and gives a working fix.",
+  "codeChange": null,
+  "engineBug": null
+}

@@ -1,0 +1,1 @@
+// Error LAMA0527 on `ProductCatalog`: `The aspect 'Indexer' cannot introduce indexer 'ProductCatalog.this[int]' into type 'ProductCatalog' because it is static.`

@@ -1,0 +1,1 @@
+// Error LAMA0050 on ``: `The weaver type 'Doc.LAMA0050.Error.VirtualizeWeaver' required to weave aspect 'Virtualize' is not found in the project.`

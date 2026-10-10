@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0268",
+  "symbol": "CantResolveDeclaration",
+  "verdict": "correct",
+  "message": "Could not resolve the declaration with id '{0}' when looking for template attributes. This can happen when several referenced assemblies define a type that is part of the declaration signature.",
+  "title": "Could not resolve a declaration when looking for template attributes.",
+  "rationale": "The message uses a contraction ('that's'), and 'multiple references contain a type' is imprecise about the cause: the declaration id fails to resolve (TemplateAttributeFactory.TryGetTemplateAttributeById) typically because the type of the signature is defined by several referenced assemblies; the title lacks an article.",
+  "codeChange": "The diagnostic is reported without a location (CreateRoslynDiagnostic( null, ... )) and only names the serialized declaration id; passing the aspect or template class name would help users find the template.",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

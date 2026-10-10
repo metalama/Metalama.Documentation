@@ -1,0 +1,10 @@
+{
+  "id": "LAMA5106",
+  "symbol": "ErrorCachedMethodNotFound",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The report site in InvalidateCacheAttribute.ValidateAndFindInvalidatedMethods reports it only when no method of the given name exists in the type (AllMethods, including inherited methods); when a method of that name exists but cannot be matched, other diagnostics are reported instead. The message names the method, the name and the searched type, which is accurate.",
+  "codeChange": null,
+  "engineBug": null
+}

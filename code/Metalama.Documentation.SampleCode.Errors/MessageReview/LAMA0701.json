@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0701",
+  "symbol": "NoDependencyInjectionFrameworkRegistered",
+  "verdict": "correct",
+  "message": "The dependency '{0}' in type '{1}' cannot be handled because no dependency injection framework is registered. Register a framework by calling the RegisterFramework method from ConfigureDependencyInjection in a fabric.",
+  "title": null,
+  "rationale": "DependencyInjectionOptions.TryGetFramework reports LAMA0701 only when the list of registered frameworks is empty, but the message does not say so: it reads like LAMA0702 and gives no way forward. The title already states the cause correctly.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "LAMA5107",
+  "symbol": "ErrorMultipleOverloadsFound",
+  "verdict": "correct",
+  "message": "Invalid [InvalidateCache] aspect on '{0}': there are several suitable overloads of the '{1}' method. Set the AllowMultipleOverloads property to true to invalidate all of them.",
+  "title": null,
+  "rationale": "The advice puts true in double quotes, which suggests a string value although AllowMultipleOverloads is a bool property; the end of the sentence is also reworded to the simpler 'to invalidate all of them'.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

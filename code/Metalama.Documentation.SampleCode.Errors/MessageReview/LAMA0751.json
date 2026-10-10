@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0751",
+  "symbol": "InternalImplementConstraint",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The text is correct and clear. The diagnostic is never reported, so its wording has no effect.",
+  "codeChange": "Dead definition: FrameworkDiagnosticDescriptors.InternalImplementConstraint is never referenced. Violations of [InternalImplement] are reported as LAMA0120 (AdditionalDiagnosticDescriptors.CannotImplementBecauseOfInternalImplementAttribute). Consider removing the definition.",
+  "engineBug": null
+}

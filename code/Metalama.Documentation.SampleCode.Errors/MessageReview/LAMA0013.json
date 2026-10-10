@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0013",
+  "symbol": "MemberRequiresAtLeastNArguments",
+  "verdict": "correct",
+  "message": "The member '{0}' requires at least {1} argument(s), but the invocation passes {2}.",
+  "title": "Too few arguments in the invocation of a member with a params parameter.",
+  "rationale": "The diagnostic is reported when the member has a params parameter, so the minimum is often 1 and the message then reads 'at least 1 arguments'; it also misses the comma before 'but' and does not say that the count refers to an invocation through an invoker (MethodInvoker, ConstructorInvoker, DeclarationExtensions.CheckArguments). The title 'Member requires more arguments.' does not mention the params case that distinguishes it from LAMA0012.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0263",
+  "symbol": "DynamicInLambdaUnsupported",
+  "verdict": "correct",
+  "message": "Expression-bodied lambdas whose expression is of type 'dynamic' are not supported. Cast the expression to a non-dynamic type, for example 'object' or 'IExpression'. Alternatively, use a local function, or, for a void expression, a lambda with a block body.",
+  "title": "Expression-bodied lambdas whose expression is of type 'dynamic' are not supported.",
+  "rationale": "The report site in TemplateAnnotator.VisitAnonymousFunctionExpression only checks the expression body of a lambda, so 'anonymous functions' (which always have a block body) and lambdas with a block body are never concerned; the message also omits the simplest fix, a cast to any non-dynamic type, and suggests 'IExpression' as if it were the only possible type.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0807",
+  "symbol": null,
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "LAMA0807 has no DiagnosticDefinition: the VerifyMetalamaLicense MSBuild task (Metalama.Licensing.BuildTasks) logs it with Log.LogWarning for every non-error LicensingMessage, and the text is produced by Metalama.Backstage licensing (LicenseConsumptionService, ExplicitLicenseSource, LicenseSourceBase, LicenseConsumer). There is no message in the Metalama.Premium repository to review.",
+  "codeChange": null,
+  "engineBug": null
+}

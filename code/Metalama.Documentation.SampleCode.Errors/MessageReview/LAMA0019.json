@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0019",
+  "symbol": "CannotPassExpressionToByRefParameter",
+  "verdict": "correct",
+  "message": "Cannot pass the expression '{0}' to the 'out' or 'ref' parameter '{1}' of method '{2}' because the expression is not a variable.",
+  "title": "Cannot pass an expression that is not a variable to an out or ref parameter.",
+  "rationale": "The current text states that the error is caused by the parameter being 'out' or 'ref', which suggests that such parameters can never receive an argument. DeclarationExtensions.GetArguments (DeclarationExtensions.cs:186-194) reports it only when the argument is known not to be referenceable, for instance a property or the result of an invocation, so the message must point at the expression.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

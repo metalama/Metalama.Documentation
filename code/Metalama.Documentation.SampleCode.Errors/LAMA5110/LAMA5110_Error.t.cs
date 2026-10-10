@@ -1,0 +1,1 @@
+// Error LAMA5110 on `GetPrice`: `The method 'PriceCatalog.GetPrice(string)' cannot be cached because it is static and caching is configured to use dependency injection. Disable dependency injection using CacheAttribute.UseDependencyInjection or CacheConfigurationAttribute.UseDependencyInjection or make the method non-static.`

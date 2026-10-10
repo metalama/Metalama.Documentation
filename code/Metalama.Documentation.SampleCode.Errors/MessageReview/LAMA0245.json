@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0245",
+  "symbol": "UnexplainedTemplatingScopeConflict",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "This is the fallback of SymbolClassifier.ReportScopeError when the scope conflict of a symbol cannot be traced to a run-time-only and a compile-time-only element (otherwise LAMA0226 is reported). The message names the symbol and is as precise as the available information allows; the title is correct.",
+  "codeChange": null,
+  "engineBug": null
+}

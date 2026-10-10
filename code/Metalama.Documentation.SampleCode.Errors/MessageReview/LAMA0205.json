@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0205",
+  "symbol": "MissingBaseParameterlessConstructor",
+  "verdict": "correct",
+  "message": "Cannot generate a compile-time serializer for '{0}' because the base type '{1}' is not compile-time serializable and does not have a public or protected parameterless constructor. Make '{1}' implement ICompileTimeSerializable, or add a public or protected parameterless constructor to it.",
+  "title": null,
+  "rationale": "'visible' is imprecise: SerializerGenerator.CreateDeserializingConstructor accepts only a public or protected parameterless constructor, so an internal constructor in the same assembly is visible but still rejected. The message also gives no way forward.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

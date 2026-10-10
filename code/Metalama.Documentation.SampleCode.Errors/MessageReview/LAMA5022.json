@@ -1,0 +1,10 @@
+{
+  "id": "LAMA5022",
+  "symbol": "FieldOrPropertyMustBeOfDeeplyImmutableType",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message matches the report site in ImmutableAttribute.BuildAspect (CheckDeepImmutability: with ImmutabilityKind.Deep, a read-only field or a get-only or init-only automatic property whose type is not deeply immutable), and names the field or property and its kind.",
+  "codeChange": null,
+  "engineBug": null
+}

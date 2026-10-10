@@ -1,0 +1,1 @@
+// Error LAMA0115 on `get`: `The advice 'LogReadAttribute.OverrideProperty.get' cannot use 'meta.Target.Field' in an advice applied to method 'Customer.Name.get' because there is no 'IField'. Consider using meta.Target.FieldOrProperty instead.`

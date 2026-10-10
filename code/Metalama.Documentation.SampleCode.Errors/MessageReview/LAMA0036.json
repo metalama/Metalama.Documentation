@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0036",
+  "symbol": "TemplateWithSameNameAlreadyDefinedInBaseClass",
+  "verdict": "correct",
+  "message": "The class '{1}' defines a new template named '{0}', but the base class '{2}' already defines a template of the same name. Rename the template, or make the template of the base class virtual and override it.",
+  "title": null,
+  "rationale": "The sentence 'Template names must be unique.' is incomplete and gives no way forward: the report site (TemplateClassMemberBuilder.TryGetMembers) accepts a template with the same name when it overrides the base template (memberSymbol.IsOverride), so overriding is a valid fix besides renaming.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

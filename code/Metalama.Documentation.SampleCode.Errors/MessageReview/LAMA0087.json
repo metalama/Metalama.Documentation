@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0087",
+  "symbol": "CannotReadTransitiveAspectManifest",
+  "verdict": "correct",
+  "message": "Metalama cannot read the transitive aspect manifest of the reference '{0}', therefore no aspect is inherited from that reference. The rest of the project is analyzed normally. The reason is: {1} Rebuild the referenced project or restore its package again. If the problem persists, report it at https://www.postsharp.net/support.",
+  "title": null,
+  "rationale": "The message is an error that fails the build but gives no way forward. The causes handled by TransitivePipelineContributorSource.ReadManifest are a damaged manifest (InvalidDataException, #2049) and a Metalama defect in the deserializer (#2050), so rebuilding the reference and reporting the issue are the obvious steps.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

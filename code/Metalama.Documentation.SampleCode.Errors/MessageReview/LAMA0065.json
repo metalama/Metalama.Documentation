@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0065",
+  "symbol": "OptionNotEligibleOnTarget",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message names the options type, the declaration kind, the target and the failed eligibility condition, which matches the single report site (HierarchicalOptionsManager.OptionTypeNode.AddOptionsInstance). It is consistent with the aspect counterpart LAMA0037.",
+  "codeChange": null,
+  "engineBug": "Unrelated to LAMA0065 but found while researching: EligibilityExtensions.MustNotBeInterface (Metalama.Framework/Eligibility/EligibilityExtensions.cs, line 778) produces the justification '{member} must not an interface', missing the word 'be'."
+}
