@@ -1,0 +1,1 @@
+// Error LAMA0505 on `MathHelper`: `The aspect 'Describe' cannot introduce instance member 'MathHelper.Describe()' into a type 'MathHelper' because it is static.`

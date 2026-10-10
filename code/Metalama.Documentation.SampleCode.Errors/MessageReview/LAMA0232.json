@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0232",
+  "symbol": "TemplateUsesUnsupportedLanguageVersion",
+  "verdict": "correct",
+  "message": "Template code must be compatible with C# {0}, but this syntax requires a later version of C#.",
+  "title": "Template code uses a feature of a C# version later than the template language version.",
+  "rationale": "The report site (RoslynVersionSyntaxVerifier.OnForbiddenSyntaxUsed) fires on a syntax node that requires a C# version greater than the template language version; the current text does not say that the reported syntax is the problem, and 'must be written in C# 12.0' suggests that exactly this version is required.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

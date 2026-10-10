@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0517",
+  "symbol": "InterfacePropertyIsMissingAccessor",
+  "verdict": "correct",
+  "message": "The aspect '{0}' cannot implement the interface property '{1}' in the type '{2}' because the template '{3}' does not have the '{4}' accessor required by the interface property.",
+  "title": "Cannot implement an interface property because the template is missing an accessor.",
+  "rationale": "With {4}='init', the current text renders 'is missing a 'init' accessor' (wrong article); the title is a comma splice. The new text also covers the report-site case where the template has an init accessor but the interface requires set (or the reverse), where 'missing' is imprecise.",
+  "codeChange": null,
+  "engineBug": "Unverified, from reading the code: for an implicit implementation (IsExplicit = false) whose template lacks the setter required by the interface, TemplateMember.SetAccessorAccessibility stays Accessibility.Undefined (TemplateMember.cs line ~205 only sets it when the template has a setter), so the public check in ImplementInterfaceAdvice.Initialize (line ~159-163) reports LAMA0519 ('not public') instead of LAMA0517. The documentation sample uses an explicit implementation to avoid it.",
+  "applied": "2026-10-10"
+}

@@ -1,0 +1,1 @@
+// Error LAMA0225 on `result`: `The 'dynamic' keyword cannot be used in the local variable 'result' because it is initialized with a target-typed expression (such as 'default' or 'null'). Use an explicit cast or a different initializer.`

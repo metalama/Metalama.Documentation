@@ -1,0 +1,1 @@
+// Error LAMA0033 on `Calculator`: `The class 'Doc.LAMA0033.Error.DescribeAttribute' defines a member named 'Describe', but the member is not annotated with the [Template] custom attribute.`

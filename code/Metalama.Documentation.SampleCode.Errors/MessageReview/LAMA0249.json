@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0249",
+  "symbol": "UnsafeCodeForbiddenInTemplate",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message correctly names the template member whose declaration has the 'unsafe' modifier (TemplatingCodeValidator.Visitor.VerifyModifiers) and states the reason. The title only lacks the final period.",
+  "codeChange": null,
+  "engineBug": null
+}

@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0405",
+  "symbol": "PropertyHasNoSetter",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message is grammatical and names the property. It does not name the attribute type, but no such value is passed by the report site.",
+  "codeChange": "AttributeDeserializer.cs:209 could also pass the attribute type (constructorSymbol.ContainingType) so that the message names it.",
+  "engineBug": "AttributeDeserializer.cs:204-216 looks up the setter with type.GetProperty( arg.Key ) and property.SetMethod ?? property.GetSetMethod( true ). When the attribute class overrides a virtual read-write property of its base class with only a getter, C# accepts the named argument (the setter is inherited), but the PropertyInfo returned by reflection for the derived type has no setter, so LAMA0405 is reported on valid code. The setter should be searched on the overridden base properties (for example via GetBaseDefinition or by walking the base types). Since C# rejects named arguments for properties without an accessible setter (CS0617), this bug is the only known way to reach the diagnostic."
+}

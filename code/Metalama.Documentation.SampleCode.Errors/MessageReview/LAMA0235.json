@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0235",
+  "symbol": "PartiallyUnresolvedSymbolInTemplate",
+  "verdict": "correct",
+  "message": "The type or member '{0}' refers to a type that cannot be resolved. Fix this error first, otherwise Metalama may report irrelevant errors in the current template.",
+  "title": "A type or member used in a template refers to a type that cannot be resolved.",
+  "rationale": "The report site (SyntaxTreeAnnotationMap.AnnotatingRewriter.IsPartiallyError) checks for unresolved types in the type arguments, return type, parameter types, or member type of the referenced symbol, including constructed types such as 'List<Missing>' written in the template itself, so 'the definition is invalid' is imprecise and sometimes wrong; the message also gives no way forward.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

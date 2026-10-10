@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0020",
+  "symbol": "CannotFindType",
+  "verdict": "correct",
+  "message": "Cannot find the type '{0}' of assembly '{1}' in the project or its references. Use the reflection name of the type: separate nested types with '+', and write generic types with a backtick followed by the number of type parameters, for example 'System.Collections.Generic.List`1'.",
+  "title": null,
+  "rationale": "The message gives no way forward although the most common cause is an incorrect type name passed to TypeFactory.GetType(string), which expects a reflection (metadata) name. The assembly placeholder is empty on that path.",
+  "codeChange": "ReflectionMapper.GetNamedTypeSymbolByMetadataName (ReflectionMapper.cs:79) passes assemblyName?.ToString(), which is null when the call comes from DeclarationFactory.GetTypeByReflectionName (TypeFactory.GetType(string)), so the message reads \"of assembly ''\". Use a separate message without the assembly in that case, or pass a value such as 'any referenced assembly'.",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

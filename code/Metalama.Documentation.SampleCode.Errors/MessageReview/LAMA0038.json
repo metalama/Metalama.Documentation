@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0038",
+  "symbol": "CanAddChildAspectOnlyUnderParent",
+  "verdict": "correct",
+  "message": null,
+  "title": "An aspect or fabric can add child aspects only to declarations contained in its target type or namespace.",
+  "rationale": "The title says 'only under its target declaration', which is incorrect for member-level aspects: Query.InvokeAsync compares the child with the closest named type of the originating declaration (or its namespace), so an aspect on a method can add child aspects to other members of the same type. The message is correct because '{2}' is that computed container. Note: LAMA0039 (IneligibleChildAspect) reuses this title although it is about eligibility; it should get its own title.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

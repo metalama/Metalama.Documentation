@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0118",
+  "symbol": "CompileTimeTypeNeedsRebuild",
+  "verdict": "correct",
+  "message": "The compile-time type '{0}' has been modified since the last build. Metalama will stop analyzing this solution until the next build, and you may get errors caused by the absence of generated code. To resume analysis, finish the work on all compile-time logic, then build the project (even if the run-time code still has issues).",
+  "title": "The compile-time type must be rebuilt.",
+  "rationale": "The title 'needs rebuild' is ungrammatical. The message lacks a comma before 'and' joining two independent clauses, and 'generated source' is less clear than 'generated code'.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

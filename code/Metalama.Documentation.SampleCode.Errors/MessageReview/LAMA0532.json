@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0532",
+  "symbol": "CannotIntroduceAbstractMemberToNonAbstractType",
+  "verdict": "correct",
+  "message": "The aspect '{0}' cannot introduce the abstract member '{1}' into the type '{2}' because '{2}' is not abstract.",
+  "title": null,
+  "rationale": "In the current message, 'it' can refer either to the member or to the type; the report site (IntroduceMemberAdvice.ValidateBuilder) checks that the target type is not abstract.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

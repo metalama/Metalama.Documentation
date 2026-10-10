@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0027",
+  "symbol": "CannotFindCompileTimeAssembly",
+  "verdict": "correct",
+  "message": "The assembly '{0}' is required by the compile-time code of a referenced assembly, but it cannot be found among the references of the current project. Add a reference to '{0}'.",
+  "title": null,
+  "rationale": "The current message does not say why the assembly is required or where Metalama looked for it, and gives no way forward. CompileTimeProjectRepository.Builder.TryGetCompileTimeProject reports it when an assembly listed in the compile-time manifest of a referenced assembly is not among the references of the current compilation.",
+  "codeChange": "The diagnostic is reported with Location.None and does not name the referenced assembly whose compile-time code requires '{0}'. Passing the identity of that assembly (runTimeAssemblyIdentity in TryDeserializeCompileTimeProject) as a second argument would let the message name it.",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

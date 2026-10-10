@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0200",
+  "symbol": "UnsupportedSerialization",
+  "verdict": "correct",
+  "message": "A compile-time value cannot be converted to a run-time value because the type '{0}' is not supported. Use a supported type or a type that implements the IExpressionBuilder interface.",
+  "title": null,
+  "rationale": "Imprecise and missing advice: SerializableTypes.IsSerializable reports the first unsupported type it finds, which can be a type argument or an array element type rather than the type of the value (for a Dictionary<string, MethodOverloadCount>, '{0}' is 'MethodOverloadCount'), so 'a value of type {0}' is inaccurate; the message also does not say that the type is unsupported or how to make it convertible. The same constant is used by SyntaxSerializationService.Serialize, where '{0}' is the concrete type of the value; the new text fits both sites.",
+  "codeChange": null,
+  "engineBug": "SyntaxSerializationService.Serialize (SyntaxSerializationService.cs, around line 280) throws an InvalidOperationException with this message when a weakly-typed (object) compile-time value cannot be serialized at expansion time, so the user gets LAMA0041 (exception thrown while executing the template, with a crash report) instead of LAMA0200. It should throw UnsupportedSerialization.CreateException( o.GetType() ) so that UserCodeInvoker reports LAMA0200 (see tests Aspects/Diagnostics/SerializationErrorLocation and Dynamic/SerializationErrorWeaklyTyped).",
+  "applied": "2026-10-10"
+}

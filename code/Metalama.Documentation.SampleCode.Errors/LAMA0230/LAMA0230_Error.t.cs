@@ -1,0 +1,1 @@
+// Error LAMA0230 on `Fabric`: `The compile-time type 'OrderService.Fabric' must have private visibility because it is nested in a run-time-type.`

@@ -1,0 +1,1 @@
+// Error LAMA0265 on `T.Zero`: `Accessing the static interface member 'Zero' is not supported on compile-time template type parameter 'T'.`

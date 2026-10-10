@@ -1,0 +1,1 @@
+// Error LAMA0506 on `Document`: `The aspect 'Versioned' cannot introduce member 'Document.Version' into type 'Document' because there is already a field of the same name declared in the type or in a base type.`

@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0052",
+  "symbol": "CSharpVersionNotSupported",
+  "verdict": "correct",
+  "message": "The C# language version '{0}' is not supported. Change the <{1}> property of your project file to one of the following supported values: {2}. Do not use 'latest' or 'latestMajor' because these values are interpreted inconsistently when you use a .NET SDK or IDE that is more recent than Metalama.",
+  "title": null,
+  "rationale": "'latestMajor' is quoted with backticks instead of single quotes like 'latest', and 'it will be inconsistently interpreted' uses a singular pronoun for two values and an awkward comparison ('a more recent .NET SDK or IDE than Metalama').",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

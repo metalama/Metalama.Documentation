@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0256",
+  "symbol": "DynamicArgumentMustBeCastToIExpression",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message matches the report site in TemplateAnnotator.VisitInvocationExpression: a dynamic-typed argument passed to a dynamic parameter of a compile-time method whose return value is compile-time, outside an expression statement. It names the expression and gives the fix.",
+  "codeChange": null,
+  "engineBug": null
+}

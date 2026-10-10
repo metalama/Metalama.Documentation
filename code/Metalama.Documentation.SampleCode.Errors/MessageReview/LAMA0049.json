@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0049",
+  "symbol": "IgnorableUnhandledException",
+  "verdict": "correct",
+  "message": "Unexpected exception occurred in Metalama: {0} Exception details are in '{1}'. Please report this issue at https://www.postsharp.net/support and attach this file to the ticket. You may want to remove sensitive data from the report.",
+  "title": null,
+  "rationale": "The string concatenation in GeneralDiagnosticDescriptors.cs produces a double space before 'Please' (\"'{1}'. \" + \" Please\"). The crash report written by CompileTimeExceptionHandler.ReportException can contain the full text of a source file, so the privacy advice that LAMA0001 gives for the same report is missing here.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

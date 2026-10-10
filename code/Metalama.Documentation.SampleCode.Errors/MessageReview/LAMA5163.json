@@ -1,0 +1,11 @@
+{
+  "id": "LAMA5163",
+  "symbol": "DeclaringTypeDoesNotImplementInpcStem",
+  "verdict": "correct",
+  "message": "Changes to the children of the '{0}' property cannot be observed because '{0}' is not an auto-property. Access the child through an auto-property or a field of '{1}' instead.",
+  "title": "Changes to children of non-auto properties of the current type cannot be observed.",
+  "rationale": "The report site (DependencyGraphBuilder.Visitor.ValidatePathElement, Stem branch) fires when a non-auto property of the current type is used as the parent of a member access and its type DOES implement INotifyPropertyChanged, so 'unless the property type implements INotifyPropertyChanged' is false. The advice is also wrong: '{1}' is the current type, which already implements INotifyPropertyChanged; [Constant] cannot be applied to a property (AttributeUsage is Method, Struct, Class); and the Stem check does not consult the observability contract, so ConfigureObservability has no effect.",
+  "codeChange": "LAMA5163 has a second definition, DeclaringTypeDoesNotImplementInpcLeaf (reported for a property of a base type that does not implement INotifyPropertyChanged, see Bug1003 test). Give one of them a distinct ID. The Leaf message suggests 'marking '{0}' with [Constant]', but [Constant] cannot be applied to a property; it should say 'marking '{1}' with [Constant]' (the type), since IsConstantMember honors the options of the containing type.",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

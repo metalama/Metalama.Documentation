@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0270",
+  "symbol": "SubtemplateCallCantBeSubexpression",
+  "verdict": "correct",
+  "message": "The template call '{0}' cannot be part of another expression or statement. A template can only be called as a stand-alone statement.",
+  "title": null,
+  "rationale": "The message is a comma splice and lacks an article before 'Template call'; 'it can only be done' is vague. The meaning matches TemplateAnnotator.VisitInvocationExpression (line 1106), which reports when the parent of the invocation is not an ExpressionStatementSyntax.",
+  "codeChange": "For a conditional access such as 'templates?.CalledTemplate()', the placeholder is the text of the inner invocation, '.CalledTemplate()' (see the Subtemplates/Conditional test). Pass the text of the enclosing ConditionalAccessExpressionSyntax instead.",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

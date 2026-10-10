@@ -1,0 +1,10 @@
+{
+  "id": "LAMA5155",
+  "symbol": "ErrorNewMemberIsNotSupported",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message matches the report site in ClassicObservabilityStrategyImpl.ValidateFieldOrPropertyIntrinsicCharacteristics (fp.IsNew), names the field or property and its kind, and states the limitation clearly.",
+  "codeChange": null,
+  "engineBug": null
+}

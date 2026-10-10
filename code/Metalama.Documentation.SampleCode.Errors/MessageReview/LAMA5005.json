@@ -1,0 +1,11 @@
+{
+  "id": "LAMA5005",
+  "symbol": "SuspensionRedundant",
+  "verdict": "correct",
+  "message": "The [SuspendInvariantsAttribute] aspect on method '{0}' is redundant because the type '{1}' does not contain any invariants.",
+  "title": "The [SuspendInvariantsAttribute] aspect is redundant because the type does not contain any invariants.",
+  "rationale": "The message lacks the word 'because' ('is redundant the type'). The title is an interpolated string containing '[${nameof(...)}]', so it renders as '[$SuspendInvariantsAttribute]' with a stray dollar sign.",
+  "codeChange": "The definition in ContractDiagnostics.cs passes no category, unlike the other contract diagnostics; add \"Metalama.Patterns.Contracts\" as the category argument.",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

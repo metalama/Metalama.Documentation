@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0284",
+  "symbol": "UnknownScopedAnonymousMethod",
+  "verdict": "correct",
+  "message": "The scope of the anonymous method or lambda expression with a block body cannot be determined. Use 'meta.RunTime' or 'meta.CompileTime' to resolve the ambiguity.",
+  "title": "The scope of an anonymous method or lambda expression with a block body cannot be determined.",
+  "rationale": "The title repeats the whole message, including the advice, instead of being one short sentence. 'Lambda block' is imprecise: the report site (TemplateAnnotator.VisitAnonymousFunctionExpression) fires only for lambda expressions with a block body, because expression-bodied lambdas take the scope of their expression.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

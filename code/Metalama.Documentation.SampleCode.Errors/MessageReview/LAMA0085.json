@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0085",
+  "symbol": "UserCodePinsCompilation",
+  "verdict": "correct",
+  "message": "The compile-time type '{0}' holds a reference to a '{1}', which pins the Roslyn compilation. At design time, the objects that hold this reference outlive the compilation, therefore the reference prevents that version of the project from being released while the solution is open. The chain of references is: {2}. Store a durable reference, obtained with ToDurableRef() or IRef.ToDurable(), instead, and resolve it against the current compilation with GetTarget().",
+  "title": null,
+  "rationale": "The message claims that one reference prevents 'every version of the project' from being released, whereas a single finding pins the version in which it was set (only an accumulating field pins many). The advice recommends ToSerializableId/GetDeclarationFromId, while the public API (IDurableRef, RefExtensions.ToDurableRef, IRef.ToDurable) and the diagnosing-memory-leaks article make a durable reference the primary fix; UserCodeRetentionPolicy.IsPinning does not report durable references in this analysis, because AspectPipeline.ChooseDurableRefFactory selects the serialized factory when MetalamaDiagnoseMemoryLeaks is set.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

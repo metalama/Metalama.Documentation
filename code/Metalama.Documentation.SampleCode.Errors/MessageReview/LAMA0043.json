@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0043",
+  "symbol": "SuggestionDiagnostic",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "LAMA0043 is a hidden carrier diagnostic reported by the Suggest methods of Metalama.Extensions.CodeFixes (CodeFixExtensions, CodeFixQueryExtensions) only to attach a code fix to a location; users never see its text in the error list. The short message 'Code fix' is accurate for this purpose, and the title defaults to it.",
+  "codeChange": null,
+  "engineBug": null
+}

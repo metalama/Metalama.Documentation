@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0063",
+  "symbol": "CantInvokeBaseOrCurrentOutsideTargetType",
+  "verdict": "correct",
+  "message": "Cannot invoke the member '{0}' with InvokerOptions.{2} on an explicit object or type, because '{0}' is not a member of the template target type '{1}', of its base types, or of its interfaces. Use InvokerOptions.Default or InvokerOptions.Final instead.",
+  "title": null,
+  "rationale": "Invoker.CheckInvocationOptionsAndTarget throws the diagnostic only when an explicit target was given with WithObject and the template target type is not convertible to the declaring type of the member, so members of base types and interfaces are allowed; 'does not belong to the template target type' and the vague 'here' are imprecise, and the message gives no way forward.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

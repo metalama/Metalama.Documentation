@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0528",
+  "symbol": "CannotOverrideNonPublicInterfaceMember",
+  "verdict": "correct",
+  "message": "The aspect '{0}' cannot override the member '{1}' to implement an interface member because '{1}' is not public. Make '{1}' public, or implement the interface member explicitly.",
+  "title": "Cannot implement an interface member by overriding an existing member that is not public.",
+  "rationale": "The report sites in ImplementInterfaceAdvice (methods, properties and events, with OverrideStrategy.Override) check the accessibility of the existing member of the target type, not of the interface member, so the title is incorrect: interface members are public. The message does not say that the override is caused by the interface implementation and gives no way forward, although making the member public or setting InterfaceMember.IsExplicit resolves it.",
+  "codeChange": "Optionally pass the interface member as an additional argument, so that the message can name the interface member that '{1}' would implement.",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

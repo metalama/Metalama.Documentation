@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0901",
+  "symbol": "InternalImplement",
+  "verdict": "correct",
+  "message": "The '{0}' interface can only be implemented by the '{1}' project or by another project that has access to its internals.",
+  "title": "The interface can only be implemented by the project that defines it or by another project that has access to its internals.",
+  "rationale": "The message closes the '{1}' placeholder with a backtick instead of a single quote, and 'implemented ... from another project' does not match 'implemented by'. The title misplaces 'only' ('can be only implemented').",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

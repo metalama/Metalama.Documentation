@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0522",
+  "symbol": "CannotUseNewOverrideStrategyWithFinalizers",
+  "verdict": "correct",
+  "message": "The aspect '{0}' cannot introduce a finalizer into the type '{1}' because the override strategy '{2}' is not supported for finalizers. Use 'Fail', 'Ignore', or 'Override'.",
+  "title": null,
+  "rationale": "The message lacks articles ('introduce finalizer into type'), and 'is not valid' gives no way forward; the only report site (IntroduceFinalizerAdvice.InitializeBuilderCore) reports it for OverrideStrategy.New, and the other strategies are supported.",
+  "codeChange": null,
+  "engineBug": "IntroduceFinalizerAdvice.InitializeBuilderCore (line 49) reports the error but does not fail the advice. When the target type already declares a finalizer, ImplementCore then reaches the default branch of its switch and throws AssertionFailedException ('Unexpected OverrideStrategy: New', line 154). When the type has no finalizer, the finalizer is introduced anyway and the advice outcome is Default instead of Error.",
+  "applied": "2026-10-10"
+}

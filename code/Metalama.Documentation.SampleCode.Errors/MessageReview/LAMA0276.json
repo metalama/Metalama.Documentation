@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0276",
+  "symbol": "SubtemplateCantHaveRunTimeTypeParameter",
+  "verdict": "correct",
+  "message": "The called template '{0}' has a run-time type parameter. The type parameters of a called template must be marked with [CompileTime].",
+  "title": "A called template cannot have run-time type parameters.",
+  "rationale": "The message and title use the contraction 'can't' and lack an article, and the message gives no way forward although the fix is always to mark the type parameters with [CompileTime] (TemplateAnnotator.VisitInvocationExpression checks for type parameters whose scope is RunTimeOnly, including on overrides that omit the attribute).",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

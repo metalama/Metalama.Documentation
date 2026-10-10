@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0699",
+  "symbol": "DeclarationMustBeInlined",
+  "verdict": "correct",
+  "message": "The implementation of '{1}' provided by '{0}' cannot be inlined, but Metalama can only generate inlined code for constructors and indexers. Call meta.Proceed() at most once in the template, in a simple statement such as 'meta.Proceed();' or 'return meta.Proceed();'.",
+  "title": "The implementation of a constructor or indexer cannot be inlined.",
+  "rationale": "The message lacks the closing quote after '{1}', misses the article ('Version of declaration'), does not say which declarations are affected, and gives no advice. The report site (LinkerAnalysisStep.VerifyUnsupportedInlineability) only checks constructors, static constructors and indexers, whose implementations become non-inlineable when meta.Proceed() is referenced more than once or in an unsupported expression.",
+  "codeChange": "When the non-inlined implementation is the source code, the report site passes the literal \"source code\" as {0}, which renders as \"provided by 'source code'\" as if it were an aspect name. Consider passing the quoted aspect name for aspects and the unquoted text 'the source code' otherwise, and removing the quotes around {0} from the message.",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

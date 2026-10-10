@@ -1,0 +1,1 @@
+// Error LAMA5106 on `UpdatePrice`: `Invalid [InvalidateCache] aspect on 'ProductCatalogue.UpdatePrice(string, decimal)': there is no method named 'GetPrices' in type 'ProductCatalogue'.`

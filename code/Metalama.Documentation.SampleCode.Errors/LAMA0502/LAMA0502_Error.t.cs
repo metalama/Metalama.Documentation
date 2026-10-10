@@ -1,0 +1,1 @@
+// Error LAMA0502 on `ShoppingCart`: `The aspect 'Resettable' cannot introduce member 'ShoppingCart.Reset()' into type 'ShoppingCart' because it is already defined in type 'Cart' and is static, non-virtual or sealed.`

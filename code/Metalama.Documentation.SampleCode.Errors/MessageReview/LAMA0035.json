@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0035",
+  "symbol": "UnorderedLayers",
+  "verdict": "correct",
+  "message": "The aspect layers '{0}' and '{1}' are not strongly ordered. Add an [assembly: AspectOrder(...)] attribute to specify the order of these two layers, or set the MetalamaRequireOrderedAspects MSBuild property to False.",
+  "title": null,
+  "rationale": "The advice calls MetalamaRequireOrderedAspects a 'build option' without saying that it is an MSBuild property or which value disables it, so the reader cannot easily act on it. The attribute is better shown as it is written in C#, 'AspectOrder(...)', rather than 'AspectOrderAttribute(...)' produced by nameof (report site: PipelineStepsState.DetectUnorderedSteps).",
+  "codeChange": "In GeneralDiagnosticDescriptors.UnorderedLayers, replace nameof(AspectOrderAttribute) by the literal 'AspectOrder', or keep nameof and strip the 'Attribute' suffix.",
+  "engineBug": "MetalamaRequireOrderedAspects is read by MSBuildProjectOptions.RequireOrderedAspects, but it is not listed in Metalama.Framework.Package/build/Metalama.CompilerVisibleProperties.props, so setting the MSBuild property has no effect unless the user also adds a CompilerVisibleProperty item for it. Either list the property there or document the option as internal. Also, the check in PipelineStepsState.DetectUnorderedSteps runs on the EvaluateAspectSources steps of every aspect layer known to the project, including unused aspect classes of referenced libraries, so enabling the option can report pairs of library aspects that the user cannot order.",
+  "applied": "2026-10-10"
+}

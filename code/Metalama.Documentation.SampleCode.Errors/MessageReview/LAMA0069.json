@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0069",
+  "symbol": "CanReportDiagnosticOnlyUnderParent",
+  "verdict": "correct",
+  "message": "The {0} cannot report or suppress a diagnostic on '{1}' because it is not contained in '{2}'.",
+  "title": "An aspect or fabric can report or suppress diagnostics only on declarations contained in its target type or namespace.",
+  "rationale": "The message is ungrammatical ('cannot add a report or suppress a diagnostic to or from'). The title has a double space and is incorrect for member-level aspects: Query.InvokeAsync (Metalama.Framework.Engine/Queries/Query.cs) compares the selected declaration with the closest named type of the originating declaration, or with its namespace, not with the target declaration itself. Aligned with the corrected titles of LAMA0038 and LAMA0044.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

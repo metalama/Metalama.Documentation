@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0114",
+  "symbol": "CannotUseThisInStaticContext",
+  "verdict": "correct",
+  "message": null,
+  "title": "Cannot reference 'this' from a static context.",
+  "rationale": "The message correctly names the target and the reason supplied by ThisInstanceUserReceiver.TryCreate. The title lacks the final period that Metalama titles use.",
+  "codeChange": "In ThisInstanceUserReceiver.TryCreate (and InstanceUserReceiver.TryCreate for LAMA0287), when GetClosestMemberOrNamedType returns a named type, the reason 'the target class is static' can be false because the type is not necessarily static; a reason such as 'the target is a type, not an instance member' would be accurate.",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

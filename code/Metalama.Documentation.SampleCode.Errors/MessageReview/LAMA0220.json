@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0220",
+  "symbol": "OnlyMethodsCanBeSubtemplates",
+  "verdict": "correct",
+  "message": "The template '{0}' cannot be referenced from the template '{1}' because it is not a method. A template can only call other templates that are methods.",
+  "title": null,
+  "rationale": "The current wording 'because it is a template, but not a method' is awkward and gives no way forward; the report site in TemplateAnnotator.VisitIdentifierName fires for any non-method [Template] member (property, field, event) referenced from a template, and the fix is to turn it into a template method.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

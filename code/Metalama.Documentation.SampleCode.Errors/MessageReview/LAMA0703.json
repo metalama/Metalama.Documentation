@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0703",
+  "symbol": "AdviceUsedInNonTypeContext",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "IntroduceDependencyAttribute.BuildAdvice reports LAMA0703 when builder.Target.GetClosestNamedType() returns null, that is when the aspect targets the compilation or a namespace. The message names the target declaration and states the condition accurately.",
+  "codeChange": null,
+  "engineBug": null
+}

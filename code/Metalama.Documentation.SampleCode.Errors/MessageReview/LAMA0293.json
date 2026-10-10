@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0293",
+  "symbol": "CannotUseNormalTemplateWithTryCatchOnAsyncIterator",
+  "verdict": "correct",
+  "message": null,
+  "title": "Cannot apply a template that contains a try-catch block to an async iterator method.",
+  "rationale": "The title restricts the error to 'normal' templates, but TemplateExpansionContext.CheckYieldInTryCatch reports it whenever MustInterpretAsAsyncIteratorTemplate is true, which also includes an async OverrideAsyncMethod template selected for an async iterator (TemplateExtensions.cs, line 117). The message itself is accurate and gives a way forward.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

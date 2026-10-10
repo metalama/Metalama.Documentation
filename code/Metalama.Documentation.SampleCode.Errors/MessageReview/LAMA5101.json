@@ -1,0 +1,11 @@
+{
+  "id": "LAMA5101",
+  "symbol": "ErrorThisParameterCannotBeMapped",
+  "verdict": "correct",
+  "message": "The [InvalidateCache] aspect applied to '{0}' cannot invalidate '{1}': the 'this' parameter cannot be mapped because '{1}' is an instance method, the IgnoreThisParameter option is not enabled for '{1}', and '{0}' is either static or declared in the type '{2}', which is neither '{3}' nor derived from '{3}'.",
+  "title": null,
+  "rationale": "Condition (c) is incorrect: the report site (InvalidateCacheAttribute.cs, line 372) checks whether the invalidating method is static, not whether its declaring type is static, and it accepts the same type as well as derived types. The current text also says 'the IgnoreThisParameter is not enabled' without the noun 'option' and leaves '{2}' unquoted.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

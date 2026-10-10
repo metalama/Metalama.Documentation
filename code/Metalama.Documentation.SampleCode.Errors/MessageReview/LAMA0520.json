@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0520",
+  "symbol": "CannotIntroduceParameterIntoStaticConstructor",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message names the aspect and the constructor and states the reason correctly, without language defects.",
+  "codeChange": "The only report site (IntroduceConstructorParameterAdvice.Implement, constructor.IsStatic check) is unreachable: AdviceFactory.IntroduceParameterCore first calls Validate( constructor, AdviceKind.IntroduceParameter ), whose eligibility rule (_introduceParameterRule in EligibilityRuleFactory.cs) includes MustNotBeStatic() and throws an InvalidOperationException for a static constructor. The diagnostic is therefore never reported; either remove it or make Validate report it instead of throwing.",
+  "engineBug": null
+}

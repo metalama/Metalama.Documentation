@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0265",
+  "symbol": "StaticInterfaceMembersNotSupportedOnCompileTimeTemplateTypeParameters",
+  "verdict": "correct",
+  "message": "Accessing the static interface member '{0}' is not supported on the compile-time template type parameter '{1}'. Call a run-time generic method that accesses the member instead, or make the type parameter run-time.",
+  "title": null,
+  "rationale": "The message lacks the article before 'compile-time template type parameter' and gives no way forward, although the member can be accessed from a run-time generic helper method or through a run-time type parameter (TemplateAnnotator.VisitMemberAccessExpression).",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

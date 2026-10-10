@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0246",
+  "symbol": "CannotUseDynamicTypingInLocalFunction",
+  "verdict": "correct",
+  "message": "The return type or a parameter type of a local function in a template cannot be dynamic. Use a specific type, for instance 'object', instead.",
+  "title": "The signature of a local function in a template cannot use dynamic typing.",
+  "rationale": "The title has a wrongly capitalized 'Local', a plural 'Signatures' that does not agree with 'Local function', and no final period. The message gives no way forward although the fix is obvious: TemplateAnnotator.VisitLocalFunctionStatement forbids 'dynamic' only in the return type and parameter list, so a specific type works.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

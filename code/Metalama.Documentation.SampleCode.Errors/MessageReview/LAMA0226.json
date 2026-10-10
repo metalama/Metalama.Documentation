@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0226",
+  "symbol": "TemplatingScopeConflict",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message names the offending declaration or type and the two conflicting elements, which is accurate for all report sites of SymbolClassifier.ReportScopeError (template expressions, type declarations, base types).",
+  "codeChange": null,
+  "engineBug": null
+}

@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0540",
+  "symbol": "ExtensionBlockTargetMustBeStaticClass",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message correctly states the condition checked in IntroduceExtensionBlockAdvice.ImplementCore (the target type is not static) and names the aspect, the receiver type and the target type. The title is correct.",
+  "codeChange": "Dead definition: the diagnostic is never reported in practice. AdviceFactory.IntroduceExtensionBlock first calls Validate with EligibilityRuleFactory._introduceExtensionBlockRule ('must be a top-level static class'), which throws an InvalidOperationException reported as LAMA0041 before the advice reaches ImplementCore (see the ErrorTargetNotStaticClass and ErrorTargetIsStruct aspect tests). Consider reporting LAMA0540 instead of throwing for this eligibility failure, or remove the check in ImplementCore.",
+  "engineBug": null
+}

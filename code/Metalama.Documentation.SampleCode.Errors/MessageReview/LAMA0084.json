@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0084",
+  "symbol": "InvalidCompileTimeTargetFrameworks",
+  "verdict": "correct",
+  "message": "The '{0}' MSBuild property has the value '{1}', which is not valid because {2}. Set this property to a list of target frameworks, separated by semicolons or commas, that meets this requirement.",
+  "title": null,
+  "rationale": "The final sentence 'Separate the target frameworks with a semicolon or with a comma.' reads as the remedy in every case, but the report sites in CompileTimeAssemblyLocator.cs fire when the list lacks netstandard2.0 or a target framework matching the host (.NET 6+ or .NET Framework 4.x), where the separator is usually not the problem. The corrected advice covers both the requirement and the separator.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

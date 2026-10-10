@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0320",
+  "symbol": "_aspectAppliedToGeneratedCode",
+  "verdict": "correct",
+  "message": "The aspect '{0}' cannot be applied to '{1}' because it is in source-generated code.{2}",
+  "title": "An aspect cannot be applied to source-generated code.",
+  "rationale": "The message and the title use contractions ('can't', 'it's'), which Metalama messages avoid, and 'source generated' needs a hyphen as a compound adjective. The comma before 'because' is unnecessary.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

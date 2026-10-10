@@ -1,0 +1,1 @@
+// Error LAMA0223 on `GetPrice`: `Cannot use the ProceedAsync method in 'PriceCalculator.GetPrice(int)' because the return type of the method is not compatible with the ProceedAsync method.`

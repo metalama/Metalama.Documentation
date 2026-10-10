@@ -1,0 +1,1 @@
+// Error LAMA0536 on `Order`: `The aspect 'AddTimestamp' cannot pull parameter 'Order.Order(int)@creationTime' into the forwarding constructor 'Order.Order(int)' because the pull strategy returned 'DoNotPull'. For forwarding constructors, DoNotPull and ReplaceParameterTypeAndPull are not valid.`

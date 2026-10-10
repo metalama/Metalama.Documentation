@@ -1,0 +1,11 @@
+{
+  "id": "LAMA5202",
+  "symbol": "CommandNotifiableCanExecutePropertyIsNotPublic",
+  "verdict": "correct",
+  "message": "The can-execute property of the command method '{0}' is not public, but INotifyPropertyChanged integration is enabled. Because INotifyPropertyChanged implementations usually raise the PropertyChanged event only for public properties, the CanExecuteChanged event of the command might not be raised. Make the property public or disable INotifyPropertyChanged integration.",
+  "title": null,
+  "rationale": "The placeholder is not quoted, unlike other Metalama messages, the phrase 'enabled and applicable' is vague, the message does not say which consequence matters (CanExecuteChanged not raised), and it gives no way forward.",
+  "codeChange": null,
+  "engineBug": "CommandAttribute.EnableINotifyPropertyChangedIntegration is never read: CommandAttribute does not implement IHierarchicalOptionsProvider and BuildAspect (CommandAttribute.cs, around line 250) only reads CommandOptions.EnableINotifyPropertyChangedIntegration, so setting the attribute property has no effect; only ConfigureCommand in a fabric works.",
+  "applied": "2026-10-10"
+}

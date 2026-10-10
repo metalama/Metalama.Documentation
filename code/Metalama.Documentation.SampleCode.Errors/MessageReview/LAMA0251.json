@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0251",
+  "symbol": "DynamicVariableSetToNonDynamic",
+  "verdict": "correct",
+  "message": "The variable '{0}' is declared as 'dynamic', so it must be initialized with an expression of type 'dynamic'. Declare the variable with 'var' or with a non-dynamic type.",
+  "title": "A 'dynamic' variable must be initialized with a 'dynamic' expression.",
+  "rationale": "The message says the variable cannot be 'set', but TemplateAnnotator only checks the initializer of a local declaration (VisitVariableDeclaration) and the collection of a foreach statement (VisitForEachStatement), not later assignments; it also lacks an article and gives no way forward.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

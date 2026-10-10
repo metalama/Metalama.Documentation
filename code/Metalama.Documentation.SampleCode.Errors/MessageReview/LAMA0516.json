@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0516",
+  "symbol": "InterfaceUnsupportedOverrideStrategy",
+  "verdict": "correct",
+  "message": "The aspect '{0}' cannot implement the interface '{1}' in the type '{2}' because the strategy 'whenExists={3}' is not supported for interfaces. Use Fail, Ignore, or Override. To handle conflicts with individual members, use the WhenExists property of the [InterfaceMember] attribute.",
+  "title": "The override strategy is not supported when implementing an interface.",
+  "rationale": "The message says that only Ignore and Fail are supported, but ImplementInterfaceAdvice.Initialize (line 66) also accepts Override, which Implement handles; only New (or an undefined value) reaches the report site. The title is not a sentence and the suggestion 'use whenExists on individual members' does not name the actual API (InterfaceMemberAttribute.WhenExists).",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

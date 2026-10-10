@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0285",
+  "symbol": "TemplateAttributeOnLocalFunction",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "TemplateAnnotator.VisitLocalFunctionStatement reports the diagnostic for each attribute of a template local function whose type implements ITemplateAttribute or derives from ScopeAttribute. The message names the attribute type and the title covers both kinds of attributes, so both are correct and clear.",
+  "codeChange": null,
+  "engineBug": null
+}

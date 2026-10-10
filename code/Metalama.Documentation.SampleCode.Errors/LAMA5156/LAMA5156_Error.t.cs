@@ -1,0 +1,1 @@
+// Error LAMA5156 on `CustomerViewModel`: `Class 'CustomerViewModel' implements INotifyPropertyChanged but does not define an OnPropertyChanged method with the following signature: `protected void OnPropertyChanged(string)`. The method name can also be NotifyOfPropertyChange or RaisePropertyChanged.`

@@ -1,0 +1,11 @@
+{
+  "id": "LAMA5156",
+  "symbol": "ErrorClassImplementsInpcButDoesNotDefineOnInvocablePropertyChanged",
+  "verdict": "correct",
+  "message": "Class '{0}' implements INotifyPropertyChanged but neither defines nor inherits a method with the signature 'protected void OnPropertyChanged(string)', which the [Observable] aspect requires to raise notifications. The method name can also be NotifyOfPropertyChange or RaisePropertyChanged.",
+  "title": "The OnPropertyChanged(string) method is not defined.",
+  "rationale": "The title is identical to the title of LAMA5150, so the two diagnostics cannot be told apart from their titles. The message says 'does not define', but the method is searched in AllMethods (ClassicObservabilityStrategyImpl.GetOnPropertyChangedMethods), so an inherited method is accepted, and the message does not say why the method is needed.",
+  "codeChange": null,
+  "engineBug": "ClassicObservabilityStrategyImpl.GetOnPropertyChangedMethods (Metalama.Patterns.Observability/Implementation/ClassicStrategy/ClassicObservabilityStrategyImpl.cs, around line 890) selects the overridable method by reading m.Method.Parameters[0] without checking the parameter count: a virtual OnPropertyChanged(string, int) is accepted as overridable (test Diagnostics/InheritsExistingInpcImplWithOpcMethodWithWrongParamCount reports LAMA5156 instead of LAMA5150), and a parameterless virtual OnPropertyChanged() in a base class would likely throw an index-out-of-range exception instead of reporting LAMA5150. The filter should require exactly one parameter.",
+  "applied": "2026-10-10"
+}

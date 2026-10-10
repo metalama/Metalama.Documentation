@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0037",
+  "symbol": "AspectNotEligibleOnTarget",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message names the aspect, the declaration kind, the target, and the failed eligibility condition, which matches both report sites (AspectBuilder.VerifyEligibility and CompilationAspectSource). The title is correct and grammatical.",
+  "codeChange": null,
+  "engineBug": null
+}

@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0074",
+  "symbol": "GeneratedCodeSyntaxError",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message correctly describes what SyntaxTreeVerifier.VerifySyntaxTree reports for each error-severity diagnostic found when re-parsing the text of a transformed syntax tree (only when MetalamaVerifyOutputCode is enabled): the file, the C# compiler message, the line and column in the transformed code, and the offending code. The title is accurate.",
+  "codeChange": null,
+  "engineBug": null
+}

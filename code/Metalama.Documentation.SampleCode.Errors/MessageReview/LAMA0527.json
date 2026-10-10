@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0527",
+  "symbol": "CannotIntroduceStaticIndexer",
+  "verdict": "correct",
+  "message": "The aspect '{0}' cannot introduce the indexer '{1}' into the type '{2}' because the indexer is static. C# does not support static indexers.",
+  "title": null,
+  "rationale": "In 'because it is static', the pronoun can refer to the type '{2}', which is misleading because a static target type is a different problem (LAMA0505, CannotIntroduceInstanceMember); the report site in IntroduceIndexerAdvice.ValidateBuilder checks IsStatic on the indexer builder. The message also lacks the articles before 'indexer' and 'type'.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

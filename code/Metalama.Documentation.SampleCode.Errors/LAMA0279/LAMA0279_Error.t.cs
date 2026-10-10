@@ -1,0 +1,1 @@
+// Error LAMA0279 on `this.LogEntry()`: `The abstract or empty template 'LogAttributeBase.LogEntry()' can't be called.`

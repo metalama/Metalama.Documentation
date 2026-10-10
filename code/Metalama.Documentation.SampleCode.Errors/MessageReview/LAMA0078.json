@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0078",
+  "symbol": "ReferenceNotSupportedAtDesignTime",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message matches CompileTimeProjectRepository.Builder.ReportMixedVersionWarnings: a project reference compiled with a Metalama version below DesignTimeCompatibility.MinimumSupportedVersion (2026.1). It correctly states that only the IDE is affected and gives actionable advice. The title is accurate.",
+  "codeChange": null,
+  "engineBug": null
+}

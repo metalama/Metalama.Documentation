@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0257",
+  "symbol": "CannotSetTemplateMemberFromAttribute",
+  "verdict": "correct",
+  "message": "The template member '{0}' cannot be set from an aspect custom attribute. Add a separate aspect property that is not a template and set this property instead.",
+  "title": "A template member cannot be set from an aspect custom attribute.",
+  "rationale": "The placeholder is not quoted, unlike other messages, the title lacks an article, and the message gives no way forward. The report site (TemplatingCodeValidator.Visitor.VerifyAttribute) checks a named argument of an aspect attribute that sets a member carrying an ITemplateAttribute, such as [Introduce] or [Template].",
+  "codeChange": null,
+  "engineBug": "AttributeDeserializer.TryCreateAttribute (CompileTime/AttributeDeserializer.cs:252), called from CompilationAspectSource.CollectAspectInstancesAsync (Aspects/CompilationAspectSource.cs:105), throws AssertionFailedException 'Cannot find a FieldInfo or PropertyInfo named ...' instead of letting LAMA0257 stop the pipeline. The [Introduce] property is removed from the compile-time aspect type, but the attribute that sets it is still deserialized. Trigger (observed in a build): [Introduce] public string Category { get; set; } in a TypeAspect, and [Categorized( Category = \"Orders\" )] on a target type, with or without a Metalama using directive in the target file. Fix: stop the pipeline after LAMA0257, or report the error in AttributeDeserializer instead of asserting.",
+  "applied": "2026-10-10"
+}

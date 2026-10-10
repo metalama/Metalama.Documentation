@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0264",
+  "symbol": "CompileTimeTemplateParameterWithRunTimeType",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The report site in TemplateAnnotator.VisitParameter reports exactly when a compile-time template parameter has a type whose value scope is run-time-only, which the message and title state correctly, naming both the parameter and the type.",
+  "codeChange": null,
+  "engineBug": null
+}

@@ -1,0 +1,1 @@
+// Error LAMA0250 on `dynamic`: `This use of 'dynamic' is not allowed in a template.`

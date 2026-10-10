@@ -1,0 +1,11 @@
+{
+  "id": "LAMA5111",
+  "symbol": "ParameterClassifiedAsIneligible",
+  "verdict": "correct",
+  "message": "The [Cache] aspect cannot be applied to the method '{0}' because the classifier '{1}' marked the parameter '{2}' as ineligible.",
+  "title": null,
+  "rationale": "The message says the aspect 'can be applied', which inverts its meaning (the report site in CacheAttribute.BuildAspect reports the error and skips the aspect). It also contains a double space before 'parameter'.",
+  "codeChange": "The report site (CacheParameterClassification.Ineligible, line 79) passes classifier.ToString() as '{1}', which is the full type name of the classifier unless it overrides ToString. Passing the name given to CachingOptionsBuilder.AddParameterClassifier would be clearer.",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

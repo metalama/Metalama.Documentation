@@ -1,0 +1,1 @@
+// Error LAMA0503 on `Contract`: `The aspect 'Versioned' cannot introduce member 'Contract.GetVersion()' into type 'Contract' because it is already defined in type 'Document' and has a different type or return type 'long'.`

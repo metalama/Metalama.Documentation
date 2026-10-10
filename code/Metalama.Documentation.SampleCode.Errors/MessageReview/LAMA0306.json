@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0306",
+  "symbol": "UnregisteredSuppression",
+  "verdict": "correct",
+  "message": "An aspect suppressed the diagnostic '{0}' on '{1}', but this suppression is not yet registered in the current IDE session due to an IDE limitation. Restart your IDE to apply the suppression.",
+  "title": "A diagnostic suppression defined by an aspect is not yet registered in the IDE.",
+  "rationale": "The report site in TheDiagnosticAnalyzer.AnalyzeSemanticModel checks whether the suppression of '{0}' is missing from SupportedSuppressionDescriptors, not whether the diagnostic '{0}' is registered; the suppressed diagnostic is often a C# compiler warning, which is always registered. The message and the title therefore state the wrong thing as unregistered.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

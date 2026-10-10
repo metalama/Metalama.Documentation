@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0529",
+  "symbol": "CannotOverrideNonVirtualInterfaceMember",
+  "verdict": "correct",
+  "message": "The aspect '{0}' cannot override the member '{1}' to implement an interface member because '{1}' is inherited from a base type and is either not virtual or sealed. Make '{1}' virtual and not sealed.",
+  "title": "Cannot implement an interface member by overriding an inherited member that is not virtual or is sealed.",
+  "rationale": "The three report sites in ImplementInterfaceAdvice (methods, properties, events, with OverrideStrategy.Override) check an existing member declared in a base type of the target type, and report it when the member is not virtual or is sealed (!IsVirtual || IsSealed). The title wrongly says the interface member is not virtual, and the message omits the sealed case, the link with the interface implementation, and the way forward.",
+  "codeChange": null,
+  "engineBug": "ImplementInterfaceAdvice.cs lines 438, 587 and 848 test '!existing.IsVirtual || existing.IsSealed', but IMember.IsVirtual maps to ISymbol.IsVirtual (SourceMember.cs line 35), which is false for 'override' and 'abstract' members. LAMA0529 is therefore probably also reported, wrongly, when the inherited member is a non-sealed override or an abstract member, although overriding it is legal. The condition should be '!(IsVirtual || IsAbstract || IsOverride) || IsSealed'. Not verified by a test.",
+  "applied": "2026-10-10"
+}

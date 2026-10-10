@@ -1,0 +1,1 @@
+// Error LAMA0269 on `new { Name = meta.Target.Method.Name }`: `The anonymous type '<anonymous type: string Name>' can't can't be used as both run-time and compile-time in the same template.`

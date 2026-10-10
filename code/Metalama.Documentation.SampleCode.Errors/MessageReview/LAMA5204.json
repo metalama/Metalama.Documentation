@@ -1,0 +1,10 @@
+{
+  "id": "LAMA5204",
+  "symbol": "InvalidCandidateDeclarationSignature",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The rendered message names the invalid member, its kind, the role it was considered for, the target declaration and the naming convention, and appends the reason (for example 'The property must be of type bool and have a getter.'), which matches IsValidCanExecuteMethod/IsValidCanExecuteProperty and the dependency-property signature checks.",
+  "codeChange": null,
+  "engineBug": null
+}

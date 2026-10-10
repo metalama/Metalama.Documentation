@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0064",
+  "symbol": "CantGetMemberInitializer",
+  "verdict": "correct",
+  "message": "Cannot generate the initializer of '{0}': {1}",
+  "title": "Cannot generate the initializer of a member.",
+  "rationale": "The message and the title use the contraction 'Couldn't', which the Metalama message style forbids, and 'get initializer' is imprecise: the report site (AdviceSyntaxGenerator.GetInitializerExpressionOrMethod) reports it when generating the syntax of the InitializerExpression of an introduced field, property or event throws. The message keeps no final period because {1} is the exception message, which normally ends with one.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

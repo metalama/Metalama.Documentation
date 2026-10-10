@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0304",
+  "symbol": "UserHidden",
+  "verdict": "correct",
+  "message": null,
+  "title": "A hidden diagnostic is not yet registered in the current IDE session.",
+  "rationale": "The message is accurate, but the title does not describe the condition: the report site in TheDiagnosticAnalyzer.ReportDiagnostics wraps any diagnostic whose ID is missing from the IDE session's list of supported diagnostics, including diagnostics defined by referenced aspect libraries, so 'user' is imprecise and the title says nothing about the missing registration.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

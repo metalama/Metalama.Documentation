@@ -1,0 +1,10 @@
+{
+  "id": "LAMA5104",
+  "symbol": "ErrorInvalidAspectConstructorNullOrWhitespaceString",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message names the invalidating method and matches the report site in InvalidateCacheAttribute.ValidateAndFindInvalidatedMethods, which checks the method names with string.IsNullOrWhiteSpace. The title is correct and grammatical.",
+  "codeChange": null,
+  "engineBug": null
+}

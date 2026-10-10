@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0070",
+  "symbol": "CannotLoadExtensionAssembly",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message names the assembly and gives the exception message, which is what the user needs. At the third report site (ExtensionLoaderBase.DiscoverExtensionTypes), '{0}' is the assembly full name instead of a path, which the wording 'extension assembly' still covers.",
+  "codeChange": null,
+  "engineBug": null
+}

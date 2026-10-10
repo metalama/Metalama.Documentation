@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0012",
+  "symbol": "MemberRequiresNArguments",
+  "verdict": "correct",
+  "message": "The member '{0}' requires {1} argument(s), but the invocation passes {2}.",
+  "title": "Wrong number of arguments in the invocation of a member.",
+  "rationale": "The message produces '1 arguments' when the member has one parameter, misses the comma before 'but', and does not say that the count refers to an invocation through an invoker (MethodInvoker, ConstructorInvoker, EventInvoker via DeclarationExtensions.CheckArguments). The title 'Member requires number of arguments.' is ungrammatical and does not state the problem.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

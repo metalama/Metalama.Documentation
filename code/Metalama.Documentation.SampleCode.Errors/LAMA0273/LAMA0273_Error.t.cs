@@ -1,0 +1,1 @@
+// Error LAMA0273 on `LogEntry`: `The template 'LogAttribute.LogEntry()' has to be directly invoked.`

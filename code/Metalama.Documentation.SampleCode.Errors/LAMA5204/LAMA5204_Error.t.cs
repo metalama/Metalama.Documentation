@@ -1,0 +1,1 @@
+// Error LAMA5204 on `CanSave`: `The 'DocumentViewModel.CanSave()' method has an invalid signature and cannot be used as a can-execute method for [Command] method 'DocumentViewModel.Save()' by the 'default' naming convention. The method must not be generic, must return bool and may optionally have a single parameter of any type, but which must not be a ref or out parameter.`

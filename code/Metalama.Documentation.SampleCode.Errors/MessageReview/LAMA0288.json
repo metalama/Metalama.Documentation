@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0288",
+  "symbol": "CannotCallCompileTimeMethodWithSideEffectsInRunTimeConditionalBlock",
+  "verdict": "correct",
+  "message": "The compile-time expression '{0}' cannot be used as a statement here because the statement is in a block whose execution depends on a run-time condition ('{1}'). A compile-time expression used as a statement is assumed to have side effects, and these side effects cannot depend on a run-time condition. Move the statement out of this block, or make the condition compile-time.",
+  "title": "A compile-time expression with side effects cannot be used as a statement in a block that depends on a run-time condition.",
+  "rationale": "'{1}' is not always a condition: TemplateAnnotator passes 'catch', 'finally', 'local function 'X'', or a run-time loop as the reason, so 'the run-time condition '{1}'' is misleading (same fix as LAMA0108). An expression is not 'called', the CompileTimeSideEffectDetector also flags non-invocation statements, so the title's 'method' is imprecise, and the message gives no way forward.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

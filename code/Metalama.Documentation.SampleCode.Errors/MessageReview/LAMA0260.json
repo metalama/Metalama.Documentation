@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0260",
+  "symbol": "CompileTimeTypesCannotHaveTypeFabrics",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message is accurate and names the fabric. The report site in TemplatingCodeValidator.Visitor.WithDeclaration also fires for run-time-or-compile-time types, which Metalama treats as compile-time code, so 'compile-time type' remains correct.",
+  "codeChange": null,
+  "engineBug": null
+}

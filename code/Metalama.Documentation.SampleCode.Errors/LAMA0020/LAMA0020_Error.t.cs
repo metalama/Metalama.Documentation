@@ -1,0 +1,1 @@
+// Error LAMA0020 on `Add`: `Cannot find the type 'Doc.LAMA0020.Error.Logging.ConsoleLogger' of assembly ''.`

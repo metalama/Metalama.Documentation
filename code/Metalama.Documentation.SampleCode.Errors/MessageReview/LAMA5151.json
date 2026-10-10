@@ -1,0 +1,11 @@
+{
+  "id": "LAMA5151",
+  "symbol": "WarningInvalidProjectPropertyValueWillBeIgnored",
+  "verdict": "correct",
+  "message": null,
+  "title": null,
+  "rationale": "The message text is correct, but the only report site (ObservabilityOptions.GetDefaultOptions) passes the reason 'be an integer between 0 and 3 inclusive.' with a final period, so the rendered message ends with two periods.",
+  "codeChange": "In ObservabilityOptions.GetDefaultOptions (Configuration/ObservabilityOptions.cs, around line 66), remove the final period from the reason argument: 'be an integer between 0 and 3 inclusive'.",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

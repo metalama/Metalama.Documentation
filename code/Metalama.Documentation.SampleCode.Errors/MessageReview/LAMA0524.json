@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0524",
+  "symbol": "CannotAddInitializerToRecord",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The text is grammatical and would be accurate if the diagnostic were reported, but no report site exists: the definition in AdviceDiagnosticDescriptors.cs is never used.",
+  "codeChange": "Dead definition. ConstructorInitializeAdvice.cs (line 72) silently skips the record copy constructor when adding a BeforeInstanceConstructor initializer to a type, so the condition described by LAMA0524 can no longer occur. Consider removing the definition and leaving a comment, as was done for LAMA0525.",
+  "engineBug": null
+}

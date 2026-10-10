@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0505",
+  "symbol": "CannotIntroduceInstanceMember",
+  "verdict": "correct",
+  "message": "The aspect '{0}' cannot introduce instance member '{1}' into type '{2}' because the type is static.",
+  "title": null,
+  "rationale": "In the current message, 'it' is ambiguous because the sentence names both the member and the type, while the condition in IntroduceMemberAdvice.ValidateBuilder is that the target type is static. The article 'a' before 'type' is also inconsistent with LAMA0506 ('into type').",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

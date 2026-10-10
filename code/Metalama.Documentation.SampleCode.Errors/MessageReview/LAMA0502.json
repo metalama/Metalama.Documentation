@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0502",
+  "symbol": "CannotIntroduceOverrideOfSealed",
+  "verdict": "correct",
+  "message": "The aspect '{0}' cannot introduce member '{1}' into type '{2}' because it is already defined in type '{3}' and is static, non-virtual or sealed, so it cannot be overridden. Use OverrideStrategy.New to hide the existing member, or OverrideStrategy.Ignore to keep it.",
+  "title": "Cannot introduce a member into a type because the existing member of the base class cannot be overridden.",
+  "rationale": "The title only mentions a sealed member, but the report sites (IntroduceMethodAdvice, IntroducePropertyAdvice, IntroduceEventAdvice, IntroduceIndexerAdvice, OverrideStrategy.Override branch) also fire for non-virtual and static base members (!IsOverridable()). The message gives no way forward although OverrideStrategy.New and OverrideStrategy.Ignore both succeed when the existing member is in a base type.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

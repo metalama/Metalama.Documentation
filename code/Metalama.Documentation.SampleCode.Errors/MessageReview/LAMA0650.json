@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0650",
+  "symbol": "CannotInvokeAnotherInstanceBaseRequired",
+  "verdict": "correct",
+  "message": "Cannot invoke the base implementation of '{0}' on an instance other than 'this', because C# allows base calls only on the current instance. Use InvokerOptions.Final to invoke the member on another instance.",
+  "title": "Cannot invoke the base implementation of a member on an instance other than 'this'.",
+  "rationale": "The text uses the contraction 'Can't', does not quote 'this', and gives no way forward. The report site (AspectReferenceBaseSubstitution constructor) throws when an invoker with InvokerOptions.Base has a custom receiver and the base semantic must be emitted as a 'base.' access, so the corrected text names the base implementation and suggests InvokerOptions.Final.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0506",
+  "symbol": "CannotIntroduceWithDifferentKind",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message matches all report sites (ImplementCore of the field, property, event, indexer, method, and finalizer introduction advice), which call FindClosestUniquelyNamedMember and therefore look in the type and its base types. The {3} placeholder renders the kind of the existing member in lowercase, for example 'property'.",
+  "codeChange": null,
+  "engineBug": null
+}

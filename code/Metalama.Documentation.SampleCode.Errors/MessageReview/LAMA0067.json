@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0067",
+  "symbol": "CannotInvokeStaticConstructor",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message names the constructor and states the reason, which matches the single report site (ConstructorInvoker.Invoke throws when the constructor is static). The title is correct.",
+  "codeChange": null,
+  "engineBug": null
+}

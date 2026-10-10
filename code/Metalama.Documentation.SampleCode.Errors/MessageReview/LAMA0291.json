@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0291",
+  "symbol": "CannotReferenceCompileTimeOnlyRoslyn",
+  "verdict": "correct",
+  "message": "Cannot reference '{1}' in '{0}' because '{1}' is compile-time-only but '{0}' is {2}. Roslyn types are compile-time-only because the MSBuild property 'MetalamaRoslynIsCompileTimeOnly' is set to true, which is the default when the project references the Metalama.Framework.Sdk package. Consider adding [CompileTime] to '{0}', or set <MetalamaRoslynIsCompileTimeOnly>false</MetalamaRoslynIsCompileTimeOnly> in your project file.",
+  "title": null,
+  "rationale": "The message only suggests changing the MSBuild property and omits the most common fix, adding [CompileTime] to the referencing declaration, which its sibling LAMA0117 offers. The text is also tightened so that the role of Metalama.Framework.Sdk is stated in one sentence.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

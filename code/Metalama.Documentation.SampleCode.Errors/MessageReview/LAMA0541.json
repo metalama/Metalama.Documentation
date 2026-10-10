@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0541",
+  "symbol": "CannotIntroduceExtensionBlockIntoExtensionBlock",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message correctly states the condition and gives the way forward (introduce extension blocks into static classes). The title is correct.",
+  "codeChange": "Dead definition: the diagnostic is never reported. AdviceFactory.Validate rejects an extension block target first because the eligibility rule requires DeclaringType == null, and throws an InvalidOperationException reported as LAMA0041 (see the ErrorExtensionBlockIntoExtensionBlock aspect test). Even inside ImplementCore, the preceding IsStatic check (LAMA0540) would fire first. Consider reporting LAMA0541 instead of throwing, or remove the check.",
+  "engineBug": null
+}

@@ -1,0 +1,1 @@
+// Error LAMA0040 on ``: `The  type 'Fabric' must have a default constructor.`

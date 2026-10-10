@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0526",
+  "symbol": "CannotIntroduceIndexerWithoutParameters",
+  "verdict": "correct",
+  "message": "The aspect '{0}' cannot introduce the indexer '{1}' into the type '{2}' because the indexer has no parameter. An indexer must have at least one parameter.",
+  "title": null,
+  "rationale": "In 'because it has no parameter', the pronoun can refer to the type '{2}' as well as to the indexer; the report site in IntroduceIndexerAdvice.ValidateBuilder checks the parameters of the indexer builder. The message also lacks the articles before 'indexer' and 'type'.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

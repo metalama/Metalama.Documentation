@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0032",
+  "symbol": "TemplateWithSameNameAlreadyDefined",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message names the class and the duplicated template name and states the rule, which matches the condition checked by ProduceCompileTimeCodeRewriter.CheckTemplateName.",
+  "codeChange": null,
+  "engineBug": null
+}

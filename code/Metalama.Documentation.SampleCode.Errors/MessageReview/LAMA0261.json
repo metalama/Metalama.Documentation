@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0261",
+  "symbol": "MultipleAdviceAttributes",
+  "verdict": "correct",
+  "message": "Only one template or advice attribute is allowed on a declaration, the member it overrides, and its containing property or event, but '{1}' is applied to '{0}' and '{3}' is applied to '{2}'.",
+  "title": null,
+  "rationale": "The message says 'on the same declaration', which is incorrect when the second attribute comes from the overridden member or from the containing property of an accessor (GetAdviceAttributes in TemplatingCodeValidator.Visitor.WithDeclaration walks both); the placeholders are also not quoted, unlike other Metalama messages.",
+  "codeChange": null,
+  "engineBug": "Crash instead of stopping at LAMA0261: when a template member carries two advice/template attributes itself (e.g. [Introduce] and [Template] on the same method of an aspect that is applied to a target), TemplateAttributeFactory.TryGetTemplateAttributeBySymbol (Metalama.Framework.Engine/CompileTime/TemplateAttributeFactory.cs:106, called from TryGetTemplateAttributeById at lines 84-88) calls SingleOrDefault over the advice attributes and throws InvalidOperationException 'Sequence contains more than one element'. The pipeline should not reach template attribute resolution after LAMA0261, or the lookup should tolerate several attributes.",
+  "applied": "2026-10-10"
+}

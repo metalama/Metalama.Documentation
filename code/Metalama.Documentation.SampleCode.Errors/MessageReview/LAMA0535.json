@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0535",
+  "symbol": "CannotIntroducePartialMemberToNonPartialType",
+  "verdict": "correct",
+  "message": "The aspect '{0}' cannot introduce the partial member '{1}' into the type '{2}' because the type is not partial. Add the partial modifier to the type.",
+  "title": null,
+  "rationale": "In the current message, 'it' can refer to the member or to the type; the report site in IntroduceMemberAdvice.ValidateBuilder checks the target type. The message also gives no way forward, although adding the partial modifier resolves it.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

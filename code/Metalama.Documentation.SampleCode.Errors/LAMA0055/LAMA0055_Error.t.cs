@@ -1,0 +1,1 @@
+// Error LAMA0055 on `LogAttribute`: `The aspect 'Log' applied to method 'Calculator.Add(int, int)' cannot add an aspect of the same type to type 'Calculator' because the type is not contained the method.`

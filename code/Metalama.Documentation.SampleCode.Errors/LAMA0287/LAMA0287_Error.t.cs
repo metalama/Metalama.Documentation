@@ -1,0 +1,1 @@
+// Error LAMA0287 on `Multiply`: `Cannot get a receiver in an advice applied to method 'Calculator.Multiply(int, int)' because the target method is static and is not an extension method.`
