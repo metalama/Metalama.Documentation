@@ -1,0 +1,1 @@
+// Error LAMA0532 on `Entity`: `The aspect 'Validatable' cannot introduce the abstract member 'Entity.Validate()' into type 'Entity' because it is not abstract.`

@@ -1,0 +1,1 @@
+// Error LAMA0202 on `Calculator`: `Cannot serialize the compile-time array of type 'Int32[,]' because it has more than one dimension.`

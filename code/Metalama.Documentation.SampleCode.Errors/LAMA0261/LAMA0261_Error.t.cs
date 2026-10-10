@@ -1,0 +1,1 @@
+// Error LAMA0261 on `OverrideMethod`: `Multiple template or advice attributes found on the same declaration: TemplateAttribute on LogAttribute.OverrideMethod() and TemplateAttribute on OverrideMethodAspect.OverrideMethod().`

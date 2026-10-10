@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0238",
+  "symbol": "OnlyNamedTemplatesCanHaveDynamicSignature",
+  "verdict": "correct",
+  "message": "'{0}' cannot use the 'dynamic' type because it is not a template and its declaring type '{1}' is {2}. Only templates and members of run-time-only types can use the 'dynamic' type.",
+  "title": "Only templates and members of run-time-only types can use the 'dynamic' type.",
+  "rationale": "The title restricts the rule to members with the [Template] attribute, but the report site (TemplatingCodeValidator.Visitor.VisitDeclaration) accepts any template, including members with an [Introduce] attribute, and also accepts members of run-time-only types. 'cannot be of 'dynamic' type' is imprecise because the diagnostic is also reported for types built from dynamic, such as 'dynamic[]' or 'List<dynamic>' (DynamicTypeConstruction scope), and the message gives no way forward.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

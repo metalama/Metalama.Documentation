@@ -1,0 +1,1 @@
+// Error LAMA0032 on `Log`: `The class 'LogAttribute' defines several templates named 'Log'. Template names must be unique.`

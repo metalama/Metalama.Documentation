@@ -1,0 +1,1 @@
+// Error LAMA0037 on `Log`: `The aspect 'Log' cannot be applied to the method 'Calculator.Add(int, int)' because 'Calculator.Add(int, int)' must not be static.`

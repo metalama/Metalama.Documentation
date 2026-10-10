@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0269",
+  "symbol": "AnonymousTypeDifferentScopes",
+  "verdict": "correct",
+  "message": "The anonymous type '{0}' cannot be used in both run-time and compile-time code in the same template. Change the property names or types of one of the anonymous objects, or use a named type instead.",
+  "title": "An anonymous type cannot be used in both run-time and compile-time code in the same template.",
+  "rationale": "Both texts duplicate 'can't' and use a contraction, and 'used as both run-time and compile-time' lacks a noun. The message gives no way forward although the fix is obvious: anonymous objects with the same property names and types share one type, which TemplateAnnotator.VisitAnonymousObjectCreationExpression (line 725) requires to have a single scope.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

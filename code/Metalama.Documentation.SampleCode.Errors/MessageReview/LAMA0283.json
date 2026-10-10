@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0283",
+  "symbol": "NonRecordPrimaryConstructorsNotSupported",
+  "verdict": "correct",
+  "message": "The compile-time type '{0}' has a primary constructor, which is not supported in compile-time code. Remove the parameter list from the type and declare an explicit constructor instead.",
+  "title": null,
+  "rationale": "The current message has a grammar defect ('uses non-record primary constructors which is not', plural subject with a singular verb and no comma before the relative clause), and a type has at most one primary constructor. The report site (TemplatingCodeValidator.Visitor, VisitTypeDeclaration) only checks classes and structs, so 'non-record' is implied and can be dropped from the message.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

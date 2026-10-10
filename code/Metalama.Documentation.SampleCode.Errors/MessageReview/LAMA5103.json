@@ -1,0 +1,10 @@
+{
+  "id": "LAMA5103",
+  "symbol": "ErrorParameterTypeIsNotCompatible",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The report site (InvalidateCacheAttribute.cs, line 419) reports the diagnostic when the type of the invalidating method's parameter is not convertible (with the default conversion kind, which matches the C# is operator) to the type of the cached method's parameter of the same name. The message names both methods and the parameter and states the incompatibility correctly; the types are not available as placeholders.",
+  "codeChange": null,
+  "engineBug": null
+}

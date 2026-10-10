@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0307",
+  "symbol": "DuplicateSyntaxTreePath",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message matches the report site in TheDiagnosticAnalyzer.ReportDuplicateSyntaxTreePath (several syntax trees of the IDE compilation share the path of the analyzed tree, and Metalama keeps only the first), names the path, explains the consequence, and lists the usual causes. The title is accurate.",
+  "codeChange": null,
+  "engineBug": null
+}

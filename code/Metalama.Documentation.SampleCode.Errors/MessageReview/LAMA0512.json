@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0512",
+  "symbol": "InterfaceIsAlreadyImplemented",
+  "verdict": "correct",
+  "message": "The aspect '{0}' cannot implement interface '{1}' in the type '{2}' because the type already implements it. To skip or override the existing implementation, set the whenExists parameter of ImplementInterface to OverrideStrategy.Ignore or OverrideStrategy.Override.",
+  "title": null,
+  "rationale": "The message says 'WhenExists is set to Fail', but the diagnostic is mostly reported when the user did not pass any strategy (OverrideStrategy.Default, which equals Fail), and ImplementInterface has a 'whenExists' parameter, not a 'WhenExists' property, so the reader does not know what to change. The correction states the available options (ImplementInterfaceAdvice.Implement, line 305).",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

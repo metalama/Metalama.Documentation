@@ -1,0 +1,1 @@
+// Error LAMA0534 on `IDocument`: `The aspect 'Versioned' cannot introduce the field 'IDocument._version' into interface type 'IDocument'.`

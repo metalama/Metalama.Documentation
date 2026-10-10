@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0514",
+  "symbol": "ImplicitInterfaceMemberAlreadyExists",
+  "verdict": "correct",
+  "message": "The aspect '{0}' cannot implement the interface member '{1}' in the type '{2}' because the type already contains '{3}', which has the same signature. Set the WhenExists property of the [InterfaceMember] attribute to Ignore or MakeExplicit, or pass OverrideStrategy.Override to ImplementInterface.",
+  "title": null,
+  "rationale": "The three report sites in ImplementInterfaceAdvice.Implement (methods, properties, events) report the error not only when [InterfaceMember(WhenExists)] is Fail, but also when it is Default and the interface-level strategy is not Override (Fail or Ignore), which is the most common case; the claim that WhenExists 'is set to Fail' is therefore false in that case, and the message gives no way forward although the fixes are well defined.",
+  "codeChange": null,
+  "engineBug": "Possible inconsistency, unverified: the conflict lookup uses targetType.AllMethods for methods (ImplementInterfaceAdvice.cs line 374) but only the declared targetType.Properties and targetType.Events for properties and events (lines 518 and 783), so an inherited property or event with the same signature does not trigger LAMA0514 while an inherited method does.",
+  "applied": "2026-10-10"
+}

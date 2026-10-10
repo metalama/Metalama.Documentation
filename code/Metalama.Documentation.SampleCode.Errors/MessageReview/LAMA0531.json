@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0531",
+  "symbol": "CannotIntroduceNewTypeWhenItAlreadyExists",
+  "verdict": "correct",
+  "message": "The aspect '{0}' cannot introduce the type '{1}' into '{2}' because '{2}' already contains or inherits a type with the same name and the same number of type parameters. Use a different name, or specify another OverrideStrategy.",
+  "title": "Cannot introduce a type because a type with the same name and the same number of type parameters already exists.",
+  "rationale": "The report site (IntroduceNamedTypeAdvice.ImplementCore, with OverrideStrategy.Fail, the default) compares the name and the number of type parameters, not the type parameters themselves, and searches namedType.AllTypes, which includes nested types inherited from base types; 'the type already exists' suggests the same type and does not mention the inherited case. The message also gives no way forward, although renaming the type or passing OverrideStrategy.Ignore or New resolves it.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

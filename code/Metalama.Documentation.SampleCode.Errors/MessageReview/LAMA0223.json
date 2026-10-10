@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0223",
+  "symbol": "CannotUseSpecificProceedInThisContext",
+  "verdict": "correct",
+  "message": "Cannot use 'meta.{0}()' in '{1}' because the return type of '{1}' is not compatible with 'meta.{0}()'. Use 'meta.Proceed()', which supports any return type.",
+  "title": "Cannot use a Proceed variant that is not compatible with the return type of the target method.",
+  "rationale": "The method name placeholder is not quoted, unlike the other declarations, and the message gives no way forward although meta.Proceed() is always valid (TemplateExpansionContext.ProceedUserExpression.Validate accepts nameof(meta.Proceed) unconditionally). The title's 'in the current context' does not say what is incompatible.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

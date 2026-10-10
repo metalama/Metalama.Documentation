@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0003",
+  "symbol": "AspectAppliedToIncorrectDeclaration",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message names the aspect, the declaration kind, the target, and the missing IAspect<T> interface, which is exactly the condition checked in AspectDriver.ExecuteAspectAsync (aspectInstance.Aspect is not IAspect<T>). The title is accurate.",
+  "codeChange": null,
+  "engineBug": null
+}

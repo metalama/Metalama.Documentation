@@ -1,0 +1,1 @@
+// Error LAMA5111 on `CountLines`: `The [Cache] aspect can be applied to the method 'DocumentService.CountLines(Stream)' because the classifier 'Doc.LAMA5111.Error.StreamParameterClassifier' marked the  parameter 'stream' as ineligible.`

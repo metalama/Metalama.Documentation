@@ -1,0 +1,10 @@
+{
+  "id": "LAMA5105",
+  "symbol": "ErrorInvalidAspectConstructorNoMethodName",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message names the invalidating method and matches the report site in InvalidateCacheAttribute.ValidateAndFindInvalidatedMethods, which reports it when the method name array is null or empty. The title is correct.",
+  "codeChange": null,
+  "engineBug": null
+}

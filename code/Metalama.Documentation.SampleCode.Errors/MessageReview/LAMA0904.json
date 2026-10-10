@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0904",
+  "symbol": "AtLeastOnePropertyMustBeSet",
+  "verdict": "correct",
+  "message": "The '{0}' custom attribute does not define any scope. Set at least one of the following properties: Namespaces, NamespaceOfTypes, Types, TypeNames, CurrentNamespace, or CurrentAssembly.",
+  "title": "The custom attribute does not define any scope.",
+  "rationale": "BaseUsageValidationAttribute.TryCreatePredicate reports the error when AddPredicatesFromAttributes adds no predicate, which happens even when other properties such as Description, ReferenceKinds or ExclusionPredicateType are set. 'At least one property must be set' is therefore imprecise and does not tell which properties count.",
+  "codeChange": "The report site passes this.GetType().Name, so the message shows 'CanOnlyBeUsedFromAttribute' with the Attribute suffix; passing the name without the suffix would match the way users write the attribute. A custom subclass that overrides AddPredicatesFromAttributes with its own properties gets an incomplete list, which is acceptable for the built-in attributes.",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

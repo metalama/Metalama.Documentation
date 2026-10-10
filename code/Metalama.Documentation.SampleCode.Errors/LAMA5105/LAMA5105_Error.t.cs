@@ -1,0 +1,1 @@
+// Error LAMA5105 on `UpdatePrice`: `Invalid [InvalidateCache] aspect on 'ProductCatalogue.UpdatePrice(string, decimal)': the constructor parameters must contain at least one method name.`

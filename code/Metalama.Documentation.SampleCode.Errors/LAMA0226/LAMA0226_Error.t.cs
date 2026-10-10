@@ -1,0 +1,1 @@
+// Error LAMA0226 on `Dictionary<IParameter, AuditEntry>`: `'Dictionary<IParameter, AuditEntry>' is invalid because 'AuditEntry' is run-time but 'IParameter' is compile-time.`

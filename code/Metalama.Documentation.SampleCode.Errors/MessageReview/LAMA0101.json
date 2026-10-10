@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0101",
+  "symbol": "LanguageFeatureIsNotSupported",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message and the title are correct and clear. The only defect is a placeholder value: the report site for query expressions passes 'LINQ', which wrongly suggests that LINQ is not supported at all, although the LINQ method syntax is supported in templates.",
+  "codeChange": "In TemplateAnnotator.VisitQueryExpression (Metalama.Framework.Engine/Templating/TemplateAnnotator.cs, around line 2670), pass \"LINQ query syntax\" instead of \"LINQ\" as the feature name, so that the message reads 'LINQ query syntax' is not supported in a template.",
+  "engineBug": null
+}

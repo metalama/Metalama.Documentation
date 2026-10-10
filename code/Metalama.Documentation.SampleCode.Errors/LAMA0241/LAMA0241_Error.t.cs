@@ -1,0 +1,1 @@
+// Error LAMA0241 on `loggerProperty != null && loggerProperty.Value != null`: `Execution scope mismatch in the expression `loggerProperty != null && loggerProperty.Value != null`: the sub-expression `loggerProperty != null` is compile-time, but the other sub-expression `loggerProperty.Value != null` is run-time.`

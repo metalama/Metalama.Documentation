@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0233",
+  "symbol": "CannotUseTemplateOnlyOutOfTemplate",
+  "verdict": "correct",
+  "message": null,
+  "title": "Cannot use a template-only member outside of a template.",
+  "rationale": "The title says 'method', but the report site (TemplatingCodeValidator.Visitor.VisitCore) also fires for template-only properties such as meta.This and IExpression.Value; 'out of a template' is also unidiomatic. The message itself is correct.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0230",
+  "symbol": "NestedCompileTypesMustBePrivate",
+  "verdict": "correct",
+  "message": "The compile-time type '{0}' must be private because it is nested in a run-time type.",
+  "title": null,
+  "rationale": "The message contains the typo 'run-time-type' (extra hyphen) and says 'private visibility' where C# and the title use accessibility; 'must be private' is simpler and exact.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

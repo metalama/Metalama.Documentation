@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0076",
+  "symbol": "CannotWriteCrashReportFile",
+  "verdict": "correct",
+  "message": "Metalama could not write the crash report of an unexpected exception. {0}",
+  "title": null,
+  "rationale": "The value passed by CompileTimeExceptionHandler.TryWriteLocalReport already starts with 'Cannot write the crash report to ...', so the rendered message repeats itself ('could not write the crash report file: Cannot write the crash report to ...'). The message also does not say that the report belongs to an unexpected exception (LAMA0001 or LAMA0049) reported at the same time.",
+  "codeChange": "In CompileTimeExceptionHandler.TryWriteLocalReport (Metalama.Framework.Engine/Pipeline/CompileTime/CompileTimeExceptionHandler.cs, catch block), set errorMessage to $\"The path of the file is '{file}'. {e.Message}\" instead of $\"Cannot write the crash report to '{file}': {e.Message}\". The rendered text then becomes: Metalama could not write the crash report of an unexpected exception. The path of the file is '<path>'. <reason of the I/O failure>",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

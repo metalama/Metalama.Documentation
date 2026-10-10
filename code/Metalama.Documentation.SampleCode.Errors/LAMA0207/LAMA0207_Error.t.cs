@@ -1,0 +1,1 @@
+// Error LAMA0207 on `DatabaseLogCategory`: `Cannot generate a compile-time serializer for 'DatabaseLogCategory' because the base type serializer 'LogCategory.Serializer' must declare a visible parameterless constructor.`

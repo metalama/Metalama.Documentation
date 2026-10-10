@@ -1,0 +1,10 @@
+{
+  "id": "LAMA5020",
+  "symbol": "FieldMustBeReadOnly",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message matches the report site in ImmutableAttribute.BuildAspect (a non-static, non-implicit field that is writable beyond init-only), names the field, and implies the fix.",
+  "codeChange": null,
+  "engineBug": null
+}

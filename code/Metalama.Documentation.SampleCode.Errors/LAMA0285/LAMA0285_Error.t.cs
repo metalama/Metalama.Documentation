@@ -1,0 +1,1 @@
+// Error LAMA0285 on `Template`: `The 'TemplateAttribute' attribute is not allowed on a local function.`

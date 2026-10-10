@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0227",
+  "symbol": "InvalidDynamicTypeConstruction",
+  "verdict": "correct",
+  "message": null,
+  "title": "'dynamic' cannot be used as a generic argument, an array element type, a tuple element type, or a ref type in a template.",
+  "rationale": "The title says 'generic parameter type' although the report sites (TemplateAnnotator.VisitGenericNameCore, VisitArrayType, VisitRefType, SymbolClassifier.ReportScopeError) check generic arguments, and it omits the tuple and ref cases that the message lists. The message itself is correct.",
+  "codeChange": null,
+  "engineBug": "TemplateAnnotator.VisitAccessExpressionCore (Metalama.Framework.Engine/Templating/TemplateAnnotator.cs, line 999) fails Invariant.Assert( rightScope == RunTimeOrCompileTime ) instead of reporting only LAMA0227 when a local of a type built with dynamic is used in a dynamically bound member access. Minimal trigger in an OverrideMethod template: 'var values = new List<dynamic?>(); foreach ( var parameter in meta.Target.Parameters ) { values.Add( parameter.Value ); }'. The exception is a SyntaxProcessingException on the statement 'values.Add( parameter.Value );'. The rightScope of 'Add' is not handled by the switch above the assertion (the switch handles CompileTimeOnly*, Dynamic, LateBound with a dynamic receiver, and RunTimeOnly), and the Conflict check does not cover it; the access should be treated as run-time or skipped because LAMA0227 was already reported.",
+  "applied": "2026-10-10"
+}

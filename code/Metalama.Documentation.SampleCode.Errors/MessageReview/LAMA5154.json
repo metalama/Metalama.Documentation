@@ -1,0 +1,11 @@
+{
+  "id": "LAMA5154",
+  "symbol": "ErrorVirtualMemberIsNotSupported",
+  "verdict": "correct",
+  "message": "The '{1}' {0} is virtual, which is not supported by the [Observable] aspect. Remove the 'virtual' modifier, or exclude the {0} from the aspect with the [NotObservable] attribute.",
+  "title": null,
+  "rationale": "The message gives no way forward although two fixes exist: removing the modifier, or adding [NotObservable], which excludes the member from both report paths (ValidateRootAutoProperties and DependencyGraphBuilder skip members with this attribute, see the NotObservableVirtualProperty test).",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

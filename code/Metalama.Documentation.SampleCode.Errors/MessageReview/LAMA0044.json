@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0044",
+  "symbol": "CanSetOptionsOnlyUnderParent",
+  "verdict": "correct",
+  "message": null,
+  "title": "An aspect or fabric can set options only for declarations contained in the type or namespace it targets.",
+  "rationale": "The title is incorrect: Query.InvokeAsync (Metalama.Framework.Engine/Queries/Query.cs) does not compare with the target declaration itself but with its closest named type, or with the namespace for a namespace fabric, so an aspect on a method can set options for the sibling members of its type. The message is correct, because '{2}' already shows this containing type or namespace.",
+  "codeChange": "The ID LAMA0044 is also used by a second definition, ValidationDiagnosticDescriptors.CanAddValidatorOnlyUnderParent in Metalama.Premium/src/Metalama.Extensions.Validation.Engine/ValidationDiagnosticDescriptors.cs ('The {0} cannot add a validator to '{1}' because it is not contained in '{2}'.'), which has a 'TODO: Renumber' comment. Give that definition its own ID so that a diagnostic ID identifies a single problem; if it keeps LAMA0044, apply the same title correction to it ('...can add validators only for declarations contained in the type or namespace it targets.').",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

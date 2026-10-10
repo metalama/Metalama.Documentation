@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0207",
+  "symbol": "MissingBaseSerializerConstructor",
+  "verdict": "correct",
+  "message": "Cannot generate a compile-time serializer for '{0}' because the serializer '{1}' of its base type does not have a public or protected parameterless constructor. Add such a constructor to '{1}'.",
+  "title": null,
+  "rationale": "The current message states a requirement ('must declare') where it should state the problem ('does not have'), which makes the 'because' clause illogical, and 'base type serializer' reads ambiguously. The message also gives no way forward.",
+  "codeChange": "SerializerGenerator.CreateSerializerType (SerializerGenerator.cs, around line 263) selects the base serializer constructor with `Constructors.SingleOrDefault( c => c.Parameters.Length == 0 )` without checking its accessibility, unlike the other report sites. It should also require a public or protected constructor so that the diagnostic matches the message.",
+  "engineBug": "SerializerGenerator.cs, around line 263: a private parameterless constructor in the base serializer passes the LAMA0207 check, so the generated derived serializer, whose constructor implicitly calls base(), fails to compile in the compile-time compilation with a C# accessibility error instead of LAMA0207.",
+  "applied": "2026-10-10"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0113",
+  "symbol": "CannotFindAspectInCompilation",
+  "verdict": "correct",
+  "message": "The aspect or template provider type '{0}' defined in the assembly '{1}' cannot be found in the current compilation.",
+  "title": "An aspect type defined in a referenced assembly cannot be found in the compilation.",
+  "rationale": "The title says 'reference assembly', which designates a metadata-only assembly, instead of 'referenced assembly'. The report site (TemplateClassFactory.GetClasses) is shared by AspectClassFactory and OtherTemplateClassFactory, so the type can also be a template provider, and '{1}' is the assembly name (RunTimeIdentity.Name), not an 'aspect library'. The word order of the message is also awkward.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

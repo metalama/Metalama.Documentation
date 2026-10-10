@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0082",
+  "symbol": "ReferenceAssemblyBuildFailed",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message names the project, the exit code, the reported errors, the probable cause (ReferenceAssemblyBuildFailureClassifier.GetProbableCause) and the binary log, which matches the report site in CompileTimeAssemblyLocator.ReportReferenceAssemblyBuildFailure.",
+  "codeChange": null,
+  "engineBug": null
+}

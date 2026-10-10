@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0204",
+  "symbol": "MissingBaseConstructor",
+  "verdict": "correct",
+  "message": "Cannot generate a compile-time serializer for '{0}' because the base type '{1}', declared in a referenced assembly, is serializable but has neither an accessible parameterless constructor nor an accessible deserializing constructor with a single parameter of type IArgumentsReader. Add one of these constructors to '{1}'.",
+  "title": null,
+  "rationale": "The current message uses the ungrammatical 'does not have ... nor ...' and gives no way forward although the fix is obvious (SerializerGenerator.CreateDeserializingConstructor, cross-assembly branch).",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

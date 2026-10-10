@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0508",
+  "symbol": "CannotIntroduceStaticSealedMember",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message matches the condition in IntroduceMemberAdvice.ValidateBuilder (a member that is both static and sealed) and names the member. The title is accurate.",
+  "codeChange": null,
+  "engineBug": null
+}

@@ -1,0 +1,1 @@
+// Error LAMA0902 on `ServiceBase`: `The string `*Service` is not a valid regular expression: Invalid pattern '*Service' at offset 1. Quantifier '*' following nothing.`

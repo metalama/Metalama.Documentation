@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0258",
+  "symbol": "CannotMarkDeclarationAsTemplate",
+  "verdict": "correct",
+  "message": "'{0}' cannot be a template because constructors, finalizers, operators, and conversion operators are not supported as templates. Introduce the member programmatically from a template method instead.",
+  "title": "The declaration cannot be a template.",
+  "rationale": "The title is ungrammatical ('Declaration is an invalid declaration'), and the message does not say why the declaration is invalid or how to proceed. IsSupportedTemplateDeclaration in TemplatingCodeValidator.Visitor.cs rejects methods of kind Constructor, Destructor, Conversion, and UserDefinedOperator; the advice API (IntroduceFinalizer, IntroduceUnaryOperator, IntroduceBinaryOperator, IntroduceConversionOperator, IntroduceConstructor) accepts template methods for all of them.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

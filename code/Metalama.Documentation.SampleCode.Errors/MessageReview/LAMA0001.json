@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0001",
+  "symbol": "UnhandledException",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The only report site (CompileTimeExceptionHandler.ReportException) passes the exception message and the path of the crash report, and the message gives both together with a way to report the issue and a privacy warning. The text is grammatical and has no contraction.",
+  "codeChange": null,
+  "engineBug": null
+}

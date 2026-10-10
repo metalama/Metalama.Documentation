@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0253",
+  "symbol": "CompileTimeTypeInInvocationOfRuntimeMethod",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message is accurate for the report site in TemplateAnnotator.VisitInvocationExpression, which reports an argument whose type is compile-time-only in the invocation of a method that evaluates to a run-time value, and it names both the type and the invoked expression.",
+  "codeChange": null,
+  "engineBug": null
+}

@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0104",
+  "symbol": "ScopeMismatch",
+  "verdict": "correct",
+  "message": "The expression '{0}' is {1}, but it is expected to be {2} because the expression appears in {3}.",
+  "title": "The expression is expected to be of a different scope (run-time or compile-time).",
+  "rationale": "Language defects only: the title does not end with a period, and the message lacks the comma before 'but' that joins two independent clauses. The meaning is correct for TemplateAnnotator.RequireScope.",
+  "codeChange": "Some reason strings passed to RequireScope in TemplateAnnotator.cs lack an article, which produces ungrammatical text after 'appears in', for example 'element of the compile-time collection ...', 'variable of a 'for' loop' (line 2488), and 'pattern on the run-time expression ...' (line 1552). Prefix them with 'an' or 'a', like the other reasons ('a 'lock' statement').",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

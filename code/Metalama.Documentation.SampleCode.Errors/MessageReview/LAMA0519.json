@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0519",
+  "symbol": "ImplicitInterfaceImplementationHasToBePublic",
+  "verdict": "correct",
+  "message": "The aspect '{0}' cannot implicitly implement the interface '{1}' with the member '{2}' because this member or one of its accessors is not public. Make the member and its accessors public, or set the IsExplicit property of the [InterfaceMember] attribute to true.",
+  "title": "Cannot implement an interface implicitly with a non-public member.",
+  "rationale": "The report site (ImplementInterfaceAdvice.cs, TryAddMember) also fails when a public property has a non-public accessor, so 'it is not public' is misleading in that case; 'it' is ambiguous, articles are missing, and the message gives no way forward although two obvious fixes exist.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

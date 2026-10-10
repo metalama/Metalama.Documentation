@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0080",
+  "symbol": "MissingMetalamaProjectPreprocessorSymbol",
+  "verdict": "correct",
+  "message": "Metalama is enabled in this project, but no METALAMA_PROJECT_* preprocessor symbol is defined. This symbol is defined by Metalama.Framework.targets and identifies the project uniquely. Without it, the IDE can confuse this project with another project of the solution that produces an assembly of the same name. Verify that the DefineConstants property is appended to and not overwritten.",
+  "title": null,
+  "rationale": "'the design-time experience is silently broken' is figurative and overstated: per the remarks on the definition and CompileTimeAspectPipeline.cs, the missing symbol only matters when two projects of the solution produce the same assembly name and therefore share a ProjectKey. The corrected message states that consequence.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

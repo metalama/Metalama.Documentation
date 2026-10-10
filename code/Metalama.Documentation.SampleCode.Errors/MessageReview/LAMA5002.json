@@ -1,0 +1,10 @@
+{
+  "id": "LAMA5002",
+  "symbol": "NotNullableOnNullable",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message names the contract and the target and states the contradiction checked in CompileTimeHelpers.WarnIfNullable (the target type is nullable and is not a type parameter). The title is accurate.",
+  "codeChange": null,
+  "engineBug": null
+}

@@ -1,0 +1,1 @@
+// Error LAMA0069 on `Fabric`: `The type fabric on 'Doc.LAMA0069.Error.OrderService' cannot add a report or suppress a diagnostic to or from 'ServiceBase.Ping()' because it is not contained in 'OrderService'.`

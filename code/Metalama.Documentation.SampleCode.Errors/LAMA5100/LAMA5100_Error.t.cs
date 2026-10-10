@@ -1,0 +1,1 @@
+// Error LAMA5100 on `UpdatePrice`: `The [InvalidateCache] aspect applied to 'ProductCatalogue.UpdatePrice(string, decimal)' cannot invalidate 'ProductCatalogue.GetPrice(string)': this method is not cached by the [Cache] aspect.`

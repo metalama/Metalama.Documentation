@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0221",
+  "symbol": "CannotUseThisInRunTimeContext",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message names the offending expression, states why 'this' cannot be used where TemplateCompilerRewriter.CreateRunTimeExpression expects a run-time expression, and gives the correct fix (meta.This).",
+  "codeChange": null,
+  "engineBug": null
+}

@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0117",
+  "symbol": "CannotReferenceCompileTimeOnly",
+  "verdict": "correct",
+  "message": "Cannot reference '{1}' in '{0}' because '{1}' is compile-time-only but '{0}' is {2}. Consider adding [CompileTime] to '{0}', or do not use '{1}' in '{0}'.",
+  "title": null,
+  "rationale": "The message ends with a stray single quote after the final period (\".'\"), visible in every snapshot. The rest is accurate for the report site in TemplatingCodeValidator.Visitor.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

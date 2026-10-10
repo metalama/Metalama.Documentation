@@ -1,0 +1,1 @@
+// Error LAMA0071 on `PlaceOrder`: `Cannot infer the type arguments for method 'OrderService.WriteAudit<TCategory>(string)'. Supply the type arguments explicitly using IMethod.WithTypeArguments.`

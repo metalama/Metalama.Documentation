@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0902",
+  "symbol": "InvalidRegex",
+  "verdict": "correct",
+  "message": "The string '{0}' is not a valid regular expression: {1}",
+  "title": null,
+  "rationale": "The message quotes the pattern with backticks instead of the single quotes used by all other Metalama messages. {1} is the message of the .NET regex parsing exception, which already ends with a period, so no period is added.",
+  "codeChange": null,
+  "engineBug": "Only DerivedTypesMustRespectRegexNamingConventionAttribute.BuildAspect validates the pattern. The fabric method ArchitectureExtensions.DerivedTypesMustRespectRegexNamingConvention (ArchitectureExtensions.cs, around line 284) passes the pattern to DerivedTypeNamingConventionValidator.CreateRegexValidator without validation, so an invalid pattern is expected to throw an ArgumentException from DerivedTypeNamingConventionValidator.GetRegex at validation time instead of reporting LAMA0902 (not verified by a test). Similarly, MustRespectRegexNamingConvention (line 305) calls new Regex( pattern ) directly in the fabric, so an invalid pattern fails the fabric with an exception instead of reporting LAMA0902.",
+  "applied": "2026-10-10"
+}

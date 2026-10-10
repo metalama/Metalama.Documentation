@@ -1,0 +1,11 @@
+{
+  "id": "LAMA5150",
+  "symbol": "ErrorClassImplementsInpcButDoesNotDefineOnOverridablePropertyChanged",
+  "verdict": "correct",
+  "message": "The class '{0}' implements the PropertyChanged event, but neither it nor its base classes define an overridable 'void OnPropertyChanged(string)' or 'void OnPropertyChanged(PropertyChangedEventArgs)' method. The method must be public or protected, virtual or override, and not sealed. It can also be named 'NotifyOfPropertyChange' or 'RaisePropertyChanged'.",
+  "title": "The OnPropertyChanged method is not defined or cannot be overridden.",
+  "rationale": "GetOnPropertyChangedMethods (ClassicObservabilityStrategyImpl.cs) searches all methods including inherited ones and accepts public or protected methods that are virtual or override and not sealed, while the message requires 'protected virtual' and says the class itself must define the method. The message also quotes signatures with backticks instead of single quotes. The title is incomplete because the diagnostic is also reported when the method exists but is not virtual.",
+  "codeChange": null,
+  "engineBug": "ClassicObservabilityStrategyImpl.GetOnPropertyChangedMethods (around line 891) reads m.Method.Parameters[0] without checking the parameter count, so a public or protected virtual void method named OnPropertyChanged, NotifyOfPropertyChange or RaisePropertyChanged without parameters throws IndexOutOfRangeException, and one with two parameters whose first is a string is accepted as overridable. The comment above it says PropertyChangedEventArgs has priority, but the OrderBy gives priority to string.",
+  "applied": "2026-10-10"
+}

@@ -1,0 +1,1 @@
+// Error LAMA0703 on ``: `Cannot use the [IntroduceDependency] advice because the target declaration 'test' is not a type or a type member.`

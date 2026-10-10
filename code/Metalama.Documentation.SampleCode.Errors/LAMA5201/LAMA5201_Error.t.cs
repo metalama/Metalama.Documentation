@@ -1,0 +1,1 @@
+// Error LAMA5201 on `Save`: `The CanExecuteMethod and CanExecuteProperty properties cannot both be defined at the same time.`

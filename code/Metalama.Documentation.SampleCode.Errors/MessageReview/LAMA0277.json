@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0277",
+  "symbol": "SubtemplateCantBeCalledWithRunTimeTypeParameter",
+  "verdict": "correct",
+  "message": "The template '{0}' cannot be called with the type argument '{1}' because this type argument contains a run-time type parameter of the calling template.",
+  "title": "A template cannot be called with a type argument that contains a run-time type parameter.",
+  "rationale": "The message lacks an article before 'run-time template type parameter' and uses a contraction. The title speaks of 'run-time type parameters' of the called template, whereas the report site in TemplateAnnotator.VisitGenericName checks the type arguments of the call (run-time type parameters of the called template itself are LAMA0276).",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

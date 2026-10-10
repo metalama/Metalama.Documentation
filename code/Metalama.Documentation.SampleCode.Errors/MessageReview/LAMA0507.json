@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0507",
+  "symbol": "CannotIntroduceStaticVirtualMember",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message matches the condition in IntroduceMemberAdvice.ValidateBuilder (a static and virtual member introduced into a type that is not an interface) and names the member. The title is accurate.",
+  "codeChange": null,
+  "engineBug": null
+}

@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0292",
+  "symbol": "MemberScopeIncompatibleWithDeclaringType",
+  "verdict": "correct",
+  "message": "Execution scope mismatch: the member '{0}' is {1}, but the declaring type '{2}' is {3}. Change the scope of the declaring type, for example with the [CompileTime] or [RunTimeOrCompileTime] attribute, or move the member to a type of a compatible scope.",
+  "title": null,
+  "rationale": "The message states the mismatch correctly for both report sites in TemplatingCodeValidator.Visitor (lines 992 and 1012) but gives no way forward, although the fix is always to align the scope of the type and of the member.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0202",
+  "symbol": "MultidimensionalArray",
+  "verdict": "correct",
+  "message": "Cannot serialize the compile-time array of type '{0}' to a run-time value because it has more than one dimension. Use a jagged array instead.",
+  "title": null,
+  "rationale": "Missing advice: ArraySerializer.Serialize rejects any array whose Rank is greater than 1, while jagged arrays (arrays of arrays) are supported, which is the obvious workaround. The added 'to a run-time value' aligns the wording with LAMA0201 and LAMA0203. Because of the engine bug below, LAMA0202 is currently reported only for weakly-typed values.",
+  "codeChange": "Minor: '{0}' is formatted with Type.Name, so the message shows the CLR name ('Int32[,]') rather than the C# name ('int[,]').",
+  "engineBug": "MetaSyntaxRewriter.MetaSyntaxFactoryImpl.Type(ITypeSymbol) (Metalama.Framework.Engine/Templating/MetaSyntaxRewriter.MetaSyntaxFactoryImpl.cs, line 40) maps every IArrayTypeSymbol to ContextualSyntaxGenerator.ArrayTypeExpression (ContextualSyntaxGenerator.cs, line 280), which always emits a rank-1 'T[]' and ignores arrayType.Rank. TemplateCompilerRewriter.CreateRunTimeExpression (TemplateCompilerRewriter.cs, around line 860) uses it for the type argument of Serialize<T>, so converting any compile-time value statically typed as a multidimensional array (for example 'var table = meta.CompileTime( new int[,] { ... } ); return table;') emits 'Serialize<int[]>( table )' and the compiled template fails with CS1503 (cannot convert from 'int[*,*]' to 'int[]') instead of reporting LAMA0202. LAMA0202 is only reachable when the static type is 'object'. Fix: honor arrayType.Rank in Type(ITypeSymbol).",
+  "applied": "2026-10-10"
+}

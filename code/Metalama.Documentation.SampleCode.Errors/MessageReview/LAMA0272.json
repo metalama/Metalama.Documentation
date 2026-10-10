@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0272",
+  "symbol": "RedundantReturnNotAllowed",
+  "verdict": "correct",
+  "message": "Redundant 'return' statements are not allowed in templates. Remove this 'return' statement.",
+  "title": null,
+  "rationale": "The message gives no way forward although the fix is obvious: TemplateAnnotator.RedundantReturnVisitor reports each 'return;' that ends every path of a void [Template] method, and removing it does not change the template. The title is correct.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

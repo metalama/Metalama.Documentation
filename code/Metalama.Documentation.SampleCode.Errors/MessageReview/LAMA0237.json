@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0237",
+  "symbol": "AbstractTemplateCannotHaveRunTimeSignature",
+  "verdict": "correct",
+  "message": "The template property '{0}' cannot be abstract because its type or the type of one of its parameters is run-time-only. Make the template property virtual and give it a default implementation.",
+  "title": "An abstract template property cannot have a run-time-only type.",
+  "rationale": "The message contains the typo 'run-time-ony', and 'run-time-only signature' does not say which part of the signature is at fault. The only report site (CompileTimeCompilationBuilder.ProduceCompileTimeCodeRewriter.TransformPropertyDeclaration) checks abstract template properties and indexers only, testing the property type and the indexer parameter types, so the title, which speaks of templates in general, is imprecise. The message gives no way forward.",
+  "codeChange": null,
+  "engineBug": "CompileTimeCompilationBuilder.ProduceCompileTimeCodeRewriter.cs, around line 1196: after reporting LAMA0237, the rewriter drops the abstract property from the compile-time code but does not set this.Success = false, so the compile-time assembly is still emitted. When a derived aspect overrides the property, the emit then presumably fails with CS0115 in the compile-time code, which gives an additional, confusing error (not verified by a build).",
+  "applied": "2026-10-10"
+}

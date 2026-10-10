@@ -1,0 +1,11 @@
+{
+  "id": "LAMA5110",
+  "symbol": "MethodCannotBeStaticBecauseItUsesDependencyInjection",
+  "verdict": "correct",
+  "message": "The method '{0}' cannot be static because caching is configured to use dependency injection, and a static method cannot access an injected dependency. Make the method non-static, or disable dependency injection by setting the UseDependencyInjection property of the [Cache] or [CachingConfiguration] attribute to false.",
+  "title": "A static method cannot use caching with dependency injection.",
+  "rationale": "The message names a non-existent type, 'CacheConfigurationAttribute' (the class is CachingConfigurationAttribute). It also says the method 'cannot be cached', which is wrong for the second report site, InvalidateCacheAttribute.BuildAspect (line 138), where '{0}' is a static [InvalidateCache] method that invalidates a cached method using dependency injection; [InvalidateCache] has no UseDependencyInjection property. The first report site is CacheAttribute.BuildAspect (line 145).",
+  "codeChange": "LAMA5110 is defined twice in CachingDiagnosticDescriptors.cs: this definition and CachingDiagnosticDescriptors.Cache.ErrorMultipleInstancesOfCachedAttribute ('The [Cache] aspect can be applied at most once to a method.'), reported by CacheAttribute.BuildAspect (line 61) when the method has secondary [Cache] instances, for example an attribute plus a fabric. Assign a free ID of the reserved range 5100-5120 (for example LAMA5112) to ErrorMultipleInstancesOfCachedAttribute; its own text is fine. Also, MethodCannotBeStaticBecauseItUsesDependencyInjection does not pass _category, unlike the other definitions of the file.",
+  "engineBug": "Duplicate diagnostic ID LAMA5110 for two unrelated errors in Metalama.Patterns.Caching.Aspects/CachingDiagnosticDescriptors.cs (lines 23 and 163).",
+  "applied": "2026-10-10"
+}

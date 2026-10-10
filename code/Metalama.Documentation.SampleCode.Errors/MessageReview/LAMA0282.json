@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0282",
+  "symbol": "AspectUsesHigherCSharpVersion",
+  "verdict": "correct",
+  "message": null,
+  "title": "The aspect uses a higher C# version than the project allows.",
+  "rationale": "The title lacks articles ('Aspect uses higher C# version') and uses the awkward 'than what is allowed'. The message correctly describes the check in TemplateExpansionContext.CheckTemplateLanguageVersion and stays as it is.",
+  "codeChange": null,
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

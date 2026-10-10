@@ -1,0 +1,1 @@
+// Error LAMA0238 on `_category`: `'LogAttribute._category' cannot be of 'dynamic' type because the type 'LogAttribute' is run-time-or-compile-time and 'LogAttribute._category' is not a template.`

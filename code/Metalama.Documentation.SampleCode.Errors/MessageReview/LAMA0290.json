@@ -1,0 +1,11 @@
+{
+  "id": "LAMA0290",
+  "symbol": "DuplicateAspectTypeInCompilation",
+  "verdict": "correct",
+  "message": "The aspect type '{0}' was found in two different versions of the same referenced assembly. Make sure that all references to this assembly use the same version.",
+  "title": null,
+  "rationale": "In TemplateClassFactory (line 107), the diagnostic is reported only when two compile-time projects have the same assembly name and different versions, so 'multiple referenced assemblies' and 'typically' are imprecise. The advice to remove a reference is often impossible when the second version comes transitively; aligning the versions is the actual fix.",
+  "codeChange": "Pass the assembly name and the two conflicting versions (existingEntry.Project.RunTimeIdentity and aspectType.Project.RunTimeIdentity) to the diagnostic so that the message can name them. The second report site, TemplateClassFactory.GetClasses for tests (line 153), reports a duplicate reflection name within one project and is only used by tests.",
+  "engineBug": null,
+  "applied": "2026-10-10"
+}

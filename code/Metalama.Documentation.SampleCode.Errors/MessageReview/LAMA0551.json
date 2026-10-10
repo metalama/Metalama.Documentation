@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0551",
+  "symbol": "OnConstructedBaseWithoutContextConstructor",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The message matches the report site in OnConstructedMethodAdvice.Implement (a base type declares an overridable OnConstructed(InitializationContext) method but none of its constructors has an InitializationContext parameter), names the three declarations, and describes the required constructor. The title is understandable.",
+  "codeChange": null,
+  "engineBug": null
+}

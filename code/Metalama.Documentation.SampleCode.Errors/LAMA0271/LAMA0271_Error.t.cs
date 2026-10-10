@@ -1,0 +1,2 @@
+// Error LAMA0271 on `PrintDetails`: `The template 'ObjectExtensions.PrintDetails(object)' can't be an extension method. To introduce an extension method, mark the first parameter of the method with the [This] attribute or programmatically set its IParameterBuilder.IsThis property.`
+// Error LAMA0274 on `PrintDetails`: `The template 'ObjectExtensions.PrintDetails(object)' is contained in 'ObjectExtensions', which is not an aspect, a fabric, or a type implementing ITemplateProvider.`

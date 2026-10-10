@@ -1,0 +1,1 @@
+// Error LAMA0294 on `ParameterIndexes`: `The declaration 'ParameterIndexes' cannot use the C# feature 'inline arrays', because compile-time code is compiled for netstandard2.0, which does not support this feature.`

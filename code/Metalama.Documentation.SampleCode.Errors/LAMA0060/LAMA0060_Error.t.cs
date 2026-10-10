@@ -1,0 +1,1 @@
+// Error LAMA0060 on `Count`: `'CounterAttribute.Count' cannot be used as a template because it returns 'ref'. This feature is not yet supported.`

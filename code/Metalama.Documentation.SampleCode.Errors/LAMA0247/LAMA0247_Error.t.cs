@@ -1,0 +1,1 @@
+// Error LAMA0247 on `Clear`: `Cannot apply the aspect 'RetryOnFailure' to 'FileStore.Clear()': cannot convert the result of 'meta.Proceed()', of type 'void', to the desired type 'bool'.`

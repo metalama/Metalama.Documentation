@@ -1,0 +1,10 @@
+{
+  "id": "LAMA0906",
+  "symbol": "NamingConventionViolation",
+  "verdict": "ok",
+  "message": null,
+  "title": null,
+  "rationale": "The only report site, ArchitectureExtensions.MustRespectRegexNamingConvention, reports the declaration, its kind and the pattern for each declaration of the selection whose name does not match; the message states this accurately and gives the expected pattern.",
+  "codeChange": "MustRespectNamingConvention converts its star pattern to a regular expression before calling MustRespectRegexNamingConvention, so the message shows '^.*Reader$' when the user wrote '*Reader'. Passing the original display pattern, as DerivedTypesMustRespectRegexNamingConventionAttribute does with DisplayPattern for LAMA0903, would make the message match the source code. Also, the XML documentation of MustRespectRegexNamingConvention contains the typo 'fails  not respect'.",
+  "engineBug": null
+}

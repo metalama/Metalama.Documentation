@@ -1,0 +1,1 @@
+// Error LAMA0529 on `FileLogger`: `The aspect 'Disposable' cannot override the member 'LoggerBase.Dispose()' because it is not virtual.`
