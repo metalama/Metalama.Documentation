@@ -1,0 +1,1 @@
+// Error LAMA1017 on `Process`: `The generated interceptor method 'OrderService_Process_Interceptor' must be internal, but its signature contains the type 'OrderService.Order', which is less accessible. Choose a placement in a type that can access this type. The call sites are left unchanged.`

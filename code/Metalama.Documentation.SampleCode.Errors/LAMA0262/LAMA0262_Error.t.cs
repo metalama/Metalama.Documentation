@@ -1,0 +1,1 @@
+// Error LAMA0262 on `get`: `Accessor 'VersionedAttribute.SchemaVersion.get' cannot have the 'IntroduceAttribute' attribute. Add the attribute to the containing property instead.`

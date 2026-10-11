@@ -1,0 +1,1 @@
+// Error LAMA0065 on `MathHelper`: `The option 'LoggingOptions' cannot be applied to the type 'MathHelper' because 'MathHelper' must not be static.`

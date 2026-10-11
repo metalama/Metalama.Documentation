@@ -45,7 +45,7 @@ The Configuration Manager displays the following dialog:
 You're now ready to debug your aspect-transformed code.
 
 > [!NOTE]
-> Builds in the `LamaDebug` configuration report warning `LAMA0066` ("Formatting of generated code is enabled. Build performance could be significantly affected."). This warning is expected and doesn't indicate a problem.
+> Builds in the `LamaDebug` configuration report warning <xref:lama0066?text=LAMA0066> ("Formatting of generated code is enabled. Build performance could be significantly affected."). This warning is expected and doesn't indicate a problem.
 
 ## Breakpoints and step-into
 

@@ -1,0 +1,1 @@
+// Error LAMA0531 on `Document`: `The aspect 'Memento' cannot introduce the type 'Document.Snapshot' into 'Document' because 'Document' already contains or inherits a type with the same name and the same number of type parameters. Use a different name, or specify another OverrideStrategy.`

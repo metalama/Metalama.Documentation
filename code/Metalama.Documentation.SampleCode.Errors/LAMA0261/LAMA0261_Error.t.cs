@@ -1,0 +1,1 @@
+// Error LAMA0261 on `OverrideMethod`: `Only one template or advice attribute is allowed on a declaration, the member it overrides, and its containing property or event, but 'TemplateAttribute' is applied to 'LogAttribute.OverrideMethod()' and 'TemplateAttribute' is applied to 'OverrideMethodAspect.OverrideMethod()'.`

@@ -1,0 +1,1 @@
+// Error LAMA0535 on `OrderService`: `The aspect 'InitializationHook' cannot introduce the partial member 'OrderService.OnInitialized()' into the type 'OrderService' because the type is not partial. Add the partial modifier to the type.`

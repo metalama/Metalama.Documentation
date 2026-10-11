@@ -16,6 +16,7 @@
     <PackageVersion Include="Metalama.Documentation.QuickStart" Version="$(MetalamaSamplesVersion)" />
     <PackageVersion Include="Metalama.Extensions.Architecture" Version="$(MetalamaPremiumVersion)" />
     <PackageVersion Include="Metalama.Extensions.CodeFixes" Version="$(MetalamaPremiumVersion)" />
+    <PackageVersion Include="Metalama.Extensions.Interceptors" Version="$(MetalamaPremiumVersion)" />
     <PackageVersion Include="Metalama.Extensions.DependencyInjection" Version="$(MetalamaVersion)" />
     <PackageVersion Include="Metalama.Extensions.DependencyInjection.ServiceLocator" Version="$(MetalamaVersion)" />
     <PackageVersion Include="Metalama.Extensions.Metrics" Version="$(MetalamaVersion)" />

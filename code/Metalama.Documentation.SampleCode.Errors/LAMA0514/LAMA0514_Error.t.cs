@@ -1,0 +1,1 @@
+// Error LAMA0514 on `Order`: `The aspect 'Describable' cannot implement the interface member 'IDescribable.Describe()' in the type 'Order' because the type already contains 'Order.Describe()', which has the same signature. Set the WhenExists property of the [InterfaceMember] attribute to Ignore or MakeExplicit, or pass OverrideStrategy.Override to ImplementInterface.`

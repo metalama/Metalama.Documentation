@@ -4,7 +4,7 @@ level: 100
 summary: "Guidance on navigating the documentation of Metalama, an open-source patterns and architecture toolkit for C# that implements design patterns at compile time and enforces architecture as you type."
 keywords: "patterns and architecture toolkit, C# design patterns, code generation, architecture verification, Metalama documentation, aspects, develop aspects, getting started, API documentation, tutorial videos, Claude Code, OpenAI Codex, AI plugin"
 created-date: 2023-02-17
-modified-date: 2026-07-03
+modified-date: 2026-10-11
 ---
 
 # Metalama Documentation
@@ -31,6 +31,7 @@ Each article has a _complexity level_: 100, 200, or 300, following the U.S. scho
 | <xref:conceptual> | Comprehensive reference documentation. |
 | <xref:samples> | Commented examples with varying complexity. |
 | <xref:api> | API documentation generated from source code. |
+| <xref:errors> | One article per `LAMA` error and warning: its cause, how to resolve it, and examples. |
 
 ## Getting help
 

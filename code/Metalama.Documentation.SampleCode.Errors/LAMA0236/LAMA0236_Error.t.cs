@@ -1,0 +1,1 @@
+// Error LAMA0236 on `Logger`: `Cannot reference 'Logger' in 'LogAttribute' because 'Logger' is run-time-only but 'LogAttribute' is run-time-or-compile-time. Run-time-only declarations can be referenced only in templates and in run-time code.`

@@ -1,0 +1,2 @@
+// Error LAMA0252 on `partial`: `'DescribeAttribute.Describe()' cannot be partial because it is a template.`
+// Error LAMA0252 on `partial`: `'DescribeAttribute.Describe()' cannot be partial because it is a template.`

@@ -1,0 +1,1 @@
+// Error LAMA0229 on `LogAttribute`: `The type 'OrderService.LogAttribute' cannot be both run-time and compile-time, like an aspect class or a [RunTimeOrCompileTime] class, because it is nested in a run-time-only type. Move it out of the containing type.`

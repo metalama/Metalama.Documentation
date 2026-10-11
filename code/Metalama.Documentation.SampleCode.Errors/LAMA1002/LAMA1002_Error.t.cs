@@ -1,0 +1,1 @@
+// Error LAMA1002 on `OrderService`: `The interceptor method 'Logger.Write(string)' registered by the aspect [FlushLogAttribute] applied to 'OrderService' cannot use 'OrderService.Flush()' as an interception scope because 'OrderService.Flush()' is introduced by an aspect. Interceptors apply only to call sites that exist in the source code.`

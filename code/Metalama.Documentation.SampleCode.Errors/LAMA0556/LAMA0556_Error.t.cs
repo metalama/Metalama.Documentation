@@ -1,0 +1,1 @@
+// Error LAMA0556 on `OrderService`: `The aspect 'GenerateRecord' cannot introduce a custom attribute on 'OrderService.OrderLine.PrintMembers(StringBuilder)' because the compiler synthesizes that member and there is no declaration on which to write the attribute.`

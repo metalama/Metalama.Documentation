@@ -1,0 +1,1 @@
+// Error LAMA0552 on `Order`: `The aspect 'TraceEquals' cannot override 'Order.Equals(object?)' because the C# compiler adds this member to record 'Order' unconditionally, so it cannot be declared explicitly. Override the strongly typed 'Equals' overload instead. The equality operators and 'Equals(object)' both call it.`

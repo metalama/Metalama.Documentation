@@ -1,0 +1,1 @@
+// Error LAMA1014 on `Write`: `The interceptor template 'Intercept' registered by the aspect [InterceptLoggingAttribute] applied to 'Checkout' returned an invalid result for the call to 'Logger.Write(object)'. The type parameter 'TValue' of the interceptor method has no type argument.`

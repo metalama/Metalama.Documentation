@@ -1,0 +1,1 @@
+// Error LAMA0500 on `ShoppingCart`: `The aspect 'Resettable' cannot introduce member 'ShoppingCart.Reset()' into type 'ShoppingCart' because it is already defined in type 'ShoppingCart'. Use a different OverrideStrategy or skip the member.`

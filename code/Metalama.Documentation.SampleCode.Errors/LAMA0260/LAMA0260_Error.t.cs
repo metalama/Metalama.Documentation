@@ -1,0 +1,1 @@
+// Error LAMA0260 on `Fabric`: `The type fabric 'PriceCalculator.Fabric' cannot be nested in a compile-time type.`

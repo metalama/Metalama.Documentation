@@ -12,4 +12,4 @@ level: 300
 This documentation maps the PostSharp API to its Metalama equivalent. This isn't the PostSharp API documentation—if you're using PostSharp, see the [PostSharp API reference](https://doc.postsharp.net/r_project_postsharp).
 
 > [!div class="see-also"]
-> <xref:migrating-from-postsharp>
+> <xref:migration>
