@@ -18,7 +18,7 @@ Every diagnostic gets:
 | Example that reports the diagnostic | `code/Metalama.Documentation.SampleCode.Errors/LAMA####/LAMA####_Error.cs` (+ `LAMA####_Error.*.cs` auxiliaries) |
 | Example where the problem is fixed | `code/Metalama.Documentation.SampleCode.Errors/LAMA####/LAMA####_Fixed.cs` (+ `LAMA####_Fixed.*.cs` auxiliaries) |
 | Snapshots (generated, then committed) | `LAMA####_Error.t.cs`, `LAMA####_Fixed.t.cs` |
-| Message review (committed) | `code/Metalama.Documentation.SampleCode.Errors/MessageReview/LAMA####.json`: verdict `ok` or `correct`, corrected message and title, rationale, Metalama bug if any |
+| Message review (git-ignored working files) | `code/Metalama.Documentation.SampleCode.Errors/MessageReview/LAMA####.json`: verdict `ok` or `correct`, corrected message and title, rationale, Metalama bug if any |
 
 Articles are grouped by **category** (templates, advising, caching, and so on), defined in `scripts/Categories.psd1`. The table of contents is `Errors and warnings > <category> > LAMA####`, and each category has a generated landing page `content/errors/errors-<key>.md` that lists its diagnostics. The inventory computes each diagnostic's category (`DocCategory`) from its definition, and the article stores it in its `diagnostic-category` front matter. To add or split a category, edit `Categories.psd1` and rerun `Update-ErrorIndex.ps1`.
 
