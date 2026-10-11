@@ -22,7 +22,7 @@ dry_run = '--dry-run' in sys.argv
 token = re.compile(
     r'(?P<xref><xref:[^>]*>)'
     r'|(?P<link>\[[^\]]*\]\([^)]*\))'
-    r'|(?P<code>(`+)(?P<codetext>.+?)\5)'
+    r'|(?P<code>(?P<ticks>`+)(?P<codetext>.+?)(?P=ticks))'
     r'|(?P<id>\bLAMA\d{4}\b)')
 
 

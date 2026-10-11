@@ -154,8 +154,8 @@ reports an error of its own and quotes what the build said:
 
 | Diagnostic | Meaning |
 |------------|---------|
-| `<xref:lama0082?text=LAMA0082>` | The build of the generated project completed with an error. The diagnostic quotes the errors that this build reported and, when the cause is recognizable, names it and the way to resolve it. |
-| `<xref:lama0083?text=LAMA0083>` | The build didn't complete within its time budget and was stopped. Raise the budget with the `MetalamaReferenceAssemblyRestoreTimeout` property, expressed in milliseconds, whose default value is `120000`. |
+| <xref:lama0082?text=LAMA0082> | The build of the generated project completed with an error. The diagnostic quotes the errors that this build reported and, when the cause is recognizable, names it and the way to resolve it. |
+| <xref:lama0083?text=LAMA0083> | The build didn't complete within its time budget and was stopped. Raise the budget with the `MetalamaReferenceAssemblyRestoreTimeout` property, expressed in milliseconds, whose default value is `120000`. |
 
 Both diagnostics give the path of an MSBuild binary log of the failed build. Open it with the MSBuild Structured Log
 Viewer to see exactly what happened.
