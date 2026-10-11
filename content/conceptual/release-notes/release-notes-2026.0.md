@@ -136,7 +136,7 @@ This metric complements the existing <xref:Metalama.Extensions.Metrics.Statement
 
 ### Workspaces API metrics support
 
-The <xref:Metalama.Framework.Workspaces> API now officially supports metrics consumption without requiring internal APIs ([#1209](https://github.com/metalama/Metalama/issues/1209)). The <xref:Metalama.Framework.Workspaces.ServiceProviderBuilder`1> class is now part of the public SDK namespace, enabling extension packages to provide clean integration methods:
+The <xref:Metalama.Framework.Workspaces> API now officially supports metrics consumption without requiring internal APIs ([#1209](https://github.com/metalama/Metalama/issues/1209)). The <xref:Metalama.Framework.Engine.Services.ServiceProviderBuilder`1> class is now part of the public SDK namespace, enabling extension packages to provide clean integration methods:
 
 ```csharp
 WorkspaceCollection.Default.ServiceBuilder.AddMetrics();
@@ -200,7 +200,7 @@ Visual Studio Tools for Metalama includes refactored components that dramaticall
 - **ServiceLocator self-registration removed**: The <xref:Metalama.Extensions.DependencyInjection.ServiceLocator> adapter no longer automatically registers itself via a <xref:Metalama.Framework.Fabrics.TransitiveProjectFabric>. Projects using this adapter must now explicitly configure the framework by creating a <xref:Metalama.Framework.Fabrics.ProjectFabric> class that calls `RegisterFramework<ServiceLocatorDependencyInjectionFramework>()` within the `ConfigureDependencyInjection` method.
 - **Elvis operator behavior change in templates**: The null-conditional operator (`?.`) is no longer simplified for non-nullable reference types in templates. It is still simplified for non-nullable value types. This may result in different generated code compared to previous versions.
 - **Test framework changes**: The `@AcceptInvalidInput` and `@ReportOutputWarnings` directives have been removed; both behaviors are now enabled by default. A new `@SkipDiffTool` annotation has been introduced to replace the previous mechanism for suppressing diff tool execution during tests.
-- **Field pseudo-accessor behavior change** ([#828](https://github.com/metalama/Metalama/issues/828)): The <xref:Metalama.Framework.Code.IDeclaration.IsImplicitlyDeclared?text=IsImplicitlyDeclared> property for field pseudo-accessors now returns `false` instead of `true`, since they represent explicitly declared fields. This may affect aspects that rely on `IsImplicitlyDeclared` for eligibility rules. Use the new <xref:Metalama.Framework.Code.IDeclaration.ImplementationKind> property or <xref:Metalama.Framework.Eligibility.EligibilityExtensions.MustNotBePseudoMember*> method to explicitly filter pseudo members.
+- **Field pseudo-accessor behavior change** ([#828](https://github.com/metalama/Metalama/issues/828)): The <xref:Metalama.Framework.Code.IDeclaration.IsImplicitlyDeclared?text=IsImplicitlyDeclared> property for field pseudo-accessors now returns `false` instead of `true`, since they represent explicitly declared fields. This may affect aspects that rely on `IsImplicitlyDeclared` for eligibility rules. Use the new `IDeclaration.ImplementationKind` property or `MustNotBePseudoMember` method to explicitly filter pseudo members. These two APIs were later moved to the internal API ([#1253](https://github.com/metalama/Metalama/issues/1253)).
 
 > [!div class="see-also"]
 > <xref:release-notes>
