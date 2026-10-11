@@ -35,7 +35,7 @@ Diagnostics about T# templates: compile-time and run-time scopes, unsupported C#
 | <xref:lama0225> | A template initializes a dynamic local variable with null, default, or another target-typed expression. |
 | <xref:lama0226> | A type, member, or expression combines run-time-only and compile-time-only elements. |
 | <xref:lama0227> | A template uses dynamic as a generic argument, an array element type, a tuple element type, or a ref type. |
-| <xref:lama0229> | A class that is both run-time and compile-time, such as an aspect, is nested in a run-time class. |
+| <xref:lama0229> | A type that is both run-time and compile-time, such as an aspect, is nested in a run-time class. |
 | <xref:lama0230> | A compile-time class nested in a run-time type, such as a type fabric, isn't private. |
 | <xref:lama0231> | A compile-time type other than a type fabric is nested in a run-time type. |
 | <xref:lama0232> | A template uses a C# feature that's newer than the C# version allowed in templates. |

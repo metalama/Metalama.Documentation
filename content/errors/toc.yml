@@ -490,6 +490,8 @@ items:
           topicUid: lama0906
         - name: LAMA0907
           topicUid: lama0907
+        - name: LAMA0908
+          topicUid: lama0908
     - name: Durability and immutability
       topicUid: errors-compile-time-contracts
       items:
@@ -602,6 +604,8 @@ items:
           topicUid: lama5110
         - name: LAMA5111
           topicUid: lama5111
+        - name: LAMA5112
+          topicUid: lama5112
     - name: Contracts
       topicUid: errors-contracts
       items:
@@ -653,6 +657,8 @@ items:
           topicUid: lama5164
         - name: LAMA5165
           topicUid: lama5165
+        - name: LAMA5166
+          topicUid: lama5166
     - name: WPF
       topicUid: errors-wpf
       items:

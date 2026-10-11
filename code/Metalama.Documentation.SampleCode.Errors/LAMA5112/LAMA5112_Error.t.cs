@@ -1,0 +1,1 @@
+// Error LAMA5112 on `GetPrice`: `The [Cache] aspect can be applied at most once to a method.`

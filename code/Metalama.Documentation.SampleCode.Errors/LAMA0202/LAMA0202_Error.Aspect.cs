@@ -10,7 +10,7 @@ public class MultiplicationTableAttribute : TypeAspect
     [Introduce]
     public object GetMultiplicationTable()
     {
-        object table = TableBuilder.Build( 3 );
+        var table = TableBuilder.Build( 3 );
 
         // Error: a multidimensional array can't be converted to a run-time value.
         return meta.RunTime( table );

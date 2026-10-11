@@ -18,6 +18,6 @@ public class TrackableAttribute : TypeAspect
     }
 
     // Fixed: the template has both accessors of the interface property.
-    [InterfaceMember( IsExplicit = true )]
+    [InterfaceMember]
     public bool IsChanged { get; set; }
 }

@@ -3,5 +3,5 @@ namespace Doc.LAMA0517.Fixed;
 internal partial class Order : ITrackable
 {
   public int Id { get; set; }
-  bool ITrackable.IsChanged { get; set; }
+  public bool IsChanged { get; set; }
 }

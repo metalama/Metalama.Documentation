@@ -10,7 +10,7 @@ public class MultiplicationTableAttribute : TypeAspect
     [Introduce]
     public object GetMultiplicationTable()
     {
-        object table = TableBuilder.Build( 3 );
+        var table = TableBuilder.Build( 3 );
 
         // Fixed: a jagged array can be converted to a run-time value.
         return meta.RunTime( table );

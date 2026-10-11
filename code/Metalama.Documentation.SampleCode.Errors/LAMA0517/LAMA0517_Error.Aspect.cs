@@ -18,6 +18,6 @@ public class TrackableAttribute : TypeAspect
     }
 
     // Error: the interface property has a setter, but the template does not.
-    [InterfaceMember( IsExplicit = true )]
+    [InterfaceMember]
     public bool IsChanged { get => false; }
 }

@@ -150,7 +150,6 @@ The test framework can't set arbitrary MSBuild properties: `IProject.TryGetPrope
 Options that don't work in this project:
 
 * `@RequireOrderedAspects` reports every unordered pair of aspect classes, including those of the referenced pattern libraries, so it produces dozens of unrelated errors.
-* `@EnableLogging` makes the test runner fail ("An element with the same key but a different value already exists. Key: 'Metalama.Backstage.Diagnostics.ILoggerFactory'").
 * The default order of aspects, and therefore anything that depends on it (such as LAMA0042), differs from Metalama's own tests, because the referenced libraries contribute aspect classes.
 
 Because the project uses WPF, `Accessibility.dll` would hide `Metalama.Framework.Code.Accessibility`. The csproj removes that reference, so samples can write `Accessibility.Public` as usual.
