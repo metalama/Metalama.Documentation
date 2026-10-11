@@ -222,7 +222,8 @@ Rules:
 * The H1 is `LAMA####: ` followed by a short title, in sentence case, stating the problem (`The field of an immutable type must be read-only`), not a copy of the message.
 * Don't write inline C# code blocks. Code belongs in the samples. MSBuild or JSON snippets are allowed in doc-only articles.
 * Follow the Microsoft Writing Style Guide: second person, active voice, present tense, contractions (`can't`, `doesn't`). Use `run-time` (adjective, at program execution) and `compile-time`; `runtime` only means the CLR.
-* Refer to API members with `<xref:Full.Uid>` the first time when you're sure of the UID, otherwise in backticks. For overload groups, append `*`. For inherited members, use the declaring type's UID.
+* Link API types, members and attributes with xrefs, once per `##` section. Look up the UID in `artifacts/api/*.yml` (`artifacts/diagnostics/api-uids.txt` lists them); for .NET types, the full name is the UID. For overload groups, append `*`. For inherited members, use the declaring type's UID. When the default text isn't what you'd write, use `?text=`: `<xref:Metalama.Framework.Aspects.IntroduceAttribute?text=[Introduce]>`, `<xref:Metalama.Framework.Aspects.meta.Proceed*?text=meta.Proceed()>`. Keep code spans for expressions, keywords, MSBuild properties, and names from the samples.
+* Link other diagnostics as `<xref:lama0208?text=LAMA0208>`: a plain `<xref:lama0208>` renders the whole title. `scripts/Update-ErrorCodeLinks.py` adds these links across the documentation.
 * Link only to `lama####` articles that already exist. The coordinator removes others.
 * Don't promise behaviors you haven't verified in the sources or the snapshot.
 
