@@ -3,7 +3,7 @@ items:
 - name: Errors and warnings
   topicUid: errors
   items:
-    - name: General errors and warnings
+    - name: General
       topicUid: errors-general
       items:
         - name: LAMA0001
@@ -148,7 +148,7 @@ items:
           topicUid: lama0401
         - name: LAMA0405
           topicUid: lama0405
-    - name: Template errors and warnings
+    - name: Templates
       topicUid: errors-templates
       items:
         - name: LAMA0101
@@ -317,7 +317,7 @@ items:
           topicUid: lama0295
         - name: LAMA0297
           topicUid: lama0297
-    - name: Advising errors and warnings
+    - name: Advising
       topicUid: errors-advising
       items:
         - name: LAMA0500
@@ -426,7 +426,7 @@ items:
           topicUid: lama0750
         - name: LAMA0751
           topicUid: lama0751
-    - name: Serialization errors and warnings
+    - name: Serialization
       topicUid: errors-serialization
       items:
         - name: LAMA0200
@@ -449,7 +449,7 @@ items:
           topicUid: lama0209
         - name: LAMA0210
           topicUid: lama0210
-    - name: Design-time errors and warnings
+    - name: Design time
       topicUid: errors-design-time
       items:
         - name: LAMA0301
@@ -464,14 +464,14 @@ items:
           topicUid: lama0306
         - name: LAMA0307
           topicUid: lama0307
-    - name: Licensing errors and warnings
+    - name: Licensing
       topicUid: errors-licensing
       items:
         - name: LAMA0806
           topicUid: lama0806
         - name: LAMA0807
           topicUid: lama0807
-    - name: Architecture verification errors and warnings
+    - name: Architecture verification
       topicUid: errors-architecture
       items:
         - name: LAMA0900
@@ -490,7 +490,7 @@ items:
           topicUid: lama0906
         - name: LAMA0907
           topicUid: lama0907
-    - name: Durability and immutability errors and warnings
+    - name: Durability and immutability
       topicUid: errors-compile-time-contracts
       items:
         - name: LAMA0870
@@ -531,7 +531,7 @@ items:
           topicUid: lama0887
         - name: LAMA0888
           topicUid: lama0888
-    - name: Interceptor errors and warnings
+    - name: Interceptors
       topicUid: errors-interceptors
       items:
         - name: LAMA1000
@@ -564,7 +564,7 @@ items:
           topicUid: lama1017
         - name: LAMA1024
           topicUid: lama1024
-    - name: Dependency injection errors and warnings
+    - name: Dependency injection
       topicUid: errors-dependency-injection
       items:
         - name: LAMA0701
@@ -575,7 +575,7 @@ items:
           topicUid: lama0703
         - name: LAMA0704
           topicUid: lama0704
-    - name: Caching errors and warnings
+    - name: Caching
       topicUid: errors-caching
       items:
         - name: LAMA5100
@@ -602,7 +602,7 @@ items:
           topicUid: lama5110
         - name: LAMA5111
           topicUid: lama5111
-    - name: Contracts errors and warnings
+    - name: Contracts
       topicUid: errors-contracts
       items:
         - name: LAMA5001
@@ -619,7 +619,7 @@ items:
           topicUid: lama5006
         - name: LAMA5007
           topicUid: lama5007
-    - name: Immutability errors and warnings
+    - name: Immutability
       topicUid: errors-immutability
       items:
         - name: LAMA5020
@@ -628,7 +628,7 @@ items:
           topicUid: lama5021
         - name: LAMA5022
           topicUid: lama5022
-    - name: Observability errors and warnings
+    - name: Observability
       topicUid: errors-observability
       items:
         - name: LAMA5150
@@ -653,7 +653,7 @@ items:
           topicUid: lama5164
         - name: LAMA5165
           topicUid: lama5165
-    - name: WPF errors and warnings
+    - name: WPF
       topicUid: errors-wpf
       items:
         - name: LAMA5201

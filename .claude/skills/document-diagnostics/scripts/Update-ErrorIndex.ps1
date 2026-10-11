@@ -72,7 +72,8 @@ foreach ($c in $categories) {
     $keptPages += $pageName
     $categoryRows.Add([pscustomobject]@{ Uid = $uid; Description = $c.Description })
 
-    [void] $toc.AppendLine("    - name: $($c.Title)")
+    $tocTitle = if ($c.TocTitle) { $c.TocTitle } else { $c.Title -replace '\s+errors and warnings$', '' }
+    [void] $toc.AppendLine("    - name: $tocTitle")
     [void] $toc.AppendLine("      topicUid: $uid")
     [void] $toc.AppendLine('      items:')
     foreach ($a in $members) {
