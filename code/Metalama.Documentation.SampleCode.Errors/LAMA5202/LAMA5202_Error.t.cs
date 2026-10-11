@@ -1,4 +1,4 @@
-// Warning LAMA5202 on `IsSaveEnabled`: `The can-execute property for command method DocumentViewModel.Save() is not public, and INotifyPropertyChanged integration is enabled and applicable. Because the can-execute property is not public, INotifyPropertyChanged.PropertyChanged events might not be raised depending on the INotifyPropertyChanged implementation.`
+// Warning LAMA5202 on `IsSaveEnabled`: `The can-execute property of the command method 'DocumentViewModel.Save()' is not public, but INotifyPropertyChanged integration is enabled. Because INotifyPropertyChanged implementations usually raise the PropertyChanged event only for public properties, the CanExecuteChanged event of the command might not be raised. Make the property public or disable INotifyPropertyChanged integration.`
 using Metalama.Patterns.Wpf;
 using System.ComponentModel;
 namespace Doc.LAMA5202.Error;

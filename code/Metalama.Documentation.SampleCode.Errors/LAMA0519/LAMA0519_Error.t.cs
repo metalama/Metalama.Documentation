@@ -1,1 +1,1 @@
-// Error LAMA0519 on `Order`: `The aspect 'Describable' cannot implicitly implement interface 'IDescribable' using member 'DescribableAttribute.Describe()', because it is not public.`
+// Error LAMA0519 on `Order`: `The aspect 'Describable' cannot implicitly implement the interface 'IDescribable' with the member 'DescribableAttribute.Describe()' because this member or one of its accessors is not public. Make the member and its accessors public, or set the IsExplicit property of the [InterfaceMember] attribute to true.`

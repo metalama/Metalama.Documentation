@@ -1,1 +1,1 @@
-// Error LAMA0045 on `LogAttribute`: `The class 'LogAttribute' must have a default constructor because of the [EditorExperienceAttribute(SuggestAsLiveTemplate = true)] attribute.`
+// Error LAMA0045 on `LogAttribute`: `The class 'LogAttribute' must be non-abstract and must have a parameterless constructor because of the [EditorExperienceAttribute(SuggestAsLiveTemplate = true)] attribute.`

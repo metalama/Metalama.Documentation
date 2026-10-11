@@ -1,1 +1,1 @@
-// Error LAMA0238 on `_category`: `'LogAttribute._category' cannot be of 'dynamic' type because the type 'LogAttribute' is run-time-or-compile-time and 'LogAttribute._category' is not a template.`
+// Error LAMA0238 on `_category`: `'LogAttribute._category' cannot use the 'dynamic' type because it is not a template and its declaring type 'LogAttribute' is run-time-or-compile-time. Only templates and members of run-time-only types can use the 'dynamic' type.`

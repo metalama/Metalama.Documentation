@@ -1,1 +1,1 @@
-// Error LAMA0254 on `this.ContinueOnCapturedContext`: `The argument of ConfigureAwait after ProceedAsync can only be 'true' or 'false', it can't be 'this.ContinueOnCapturedContext'.`
+// Error LAMA0254 on `this.ContinueOnCapturedContext`: `The argument of 'ConfigureAwait' after 'meta.ProceedAsync()' must be the literal 'true' or 'false', but it is 'this.ContinueOnCapturedContext'. To choose the value at compile time, use a compile-time 'if' statement with a literal argument in each branch.`

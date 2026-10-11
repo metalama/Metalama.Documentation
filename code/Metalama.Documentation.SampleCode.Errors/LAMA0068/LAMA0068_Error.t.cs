@@ -1,0 +1,2 @@
+// Error LAMA0068 on ``: `The compile-time code of the project contains C# errors, so it cannot be compiled. Fix the C# errors reported in the compile-time code.`
+// Error CS1061 on `Overide`: `'IAspectBuilder<IMethod>' does not contain a definition for 'Overide' and no accessible extension method 'Overide' accepting a first argument of type 'IAspectBuilder<IMethod>' could be found (are you missing a using directive or an assembly reference?)`

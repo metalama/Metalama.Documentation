@@ -14,7 +14,7 @@ public class Customer
     }
     set
     {
-      if (value == null !)
+      if (value == null!)
       {
         throw new ArgumentNullException("value", "The 'Email' property must not be null.");
       }

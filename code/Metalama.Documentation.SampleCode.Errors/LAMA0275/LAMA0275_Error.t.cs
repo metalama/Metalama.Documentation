@@ -1,1 +1,1 @@
-// Error LAMA0275 on `LogEntry()`: `Template call 'LogEntry()' currently cannot be virtual and use optional parameters at the same time.`
+// Error LAMA0275 on `LogEntry()`: `The template call 'LogEntry()' omits arguments of optional parameters, which is not supported when the called template is virtual, abstract, or an override. Specify all arguments, or make the template non-virtual.`

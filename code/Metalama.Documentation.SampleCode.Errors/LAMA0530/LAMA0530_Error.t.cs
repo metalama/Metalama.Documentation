@@ -1,1 +1,1 @@
-// Error LAMA0530 on `ReportGenerator`: `The aspect 'InjectDependencies' cannot introduce parameter 'textWriter' to 'ReportGenerator.ReportGenerator(TextWriter?)' because the target declaration already has a parameter 'textWriter'.`
+// Error LAMA0530 on `ReportGenerator`: `The aspect 'InjectDependencies' cannot introduce the parameter 'textWriter' into 'ReportGenerator.ReportGenerator(TextWriter?)' because an aspect has already introduced a parameter named 'textWriter' into this constructor.`

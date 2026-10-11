@@ -26,6 +26,8 @@ The articles are grouped by the feature or library that reports the diagnostic:
 | <xref:errors-design-time> | Diagnostics reported by the IDE integration of Metalama. |
 | <xref:errors-licensing> | Diagnostics about the Metalama license and the features it includes. |
 | <xref:errors-architecture> | Diagnostics reported by Metalama.Extensions.Architecture and Metalama.Extensions.Validation. |
+| <xref:errors-compile-time-contracts> | Diagnostics reported by the analyzers that verify the [Durable] and [ImmutableType] contracts of compile-time code. |
+| <xref:errors-interceptors> | Diagnostics reported by Metalama.Extensions.Interceptors. |
 | <xref:errors-dependency-injection> | Diagnostics reported by Metalama.Extensions.DependencyInjection. |
 | <xref:errors-caching> | Diagnostics reported by Metalama.Patterns.Caching. |
 | <xref:errors-contracts> | Diagnostics reported by Metalama.Patterns.Contracts. |

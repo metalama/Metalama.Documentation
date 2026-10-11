@@ -1,4 +1,4 @@
-// Warning LAMA5005 on `Reset`: `The [SuspendInvariantsAttribute] aspect on method 'Account.Reset(decimal, decimal)' is redundant the type 'Account' does not contain any invariants.`
+// Warning LAMA5005 on `Reset`: `The [SuspendInvariantsAttribute] aspect on method 'Account.Reset(decimal, decimal)' is redundant because the type 'Account' does not contain any invariants.`
 using Metalama.Patterns.Contracts;
 namespace Doc.LAMA5005.Error;
 public partial class Account

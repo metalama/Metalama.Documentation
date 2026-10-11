@@ -1,1 +1,1 @@
-// Error LAMA0250 on `dynamic`: `This use of 'dynamic' is not allowed in a template.`
+// Error LAMA0250 on `dynamic`: `In a template, 'dynamic' cannot be used as the type of a cast, 'as', 'is', or 'default' expression, as the type of a lambda parameter or return value, or as a type argument of a method.`

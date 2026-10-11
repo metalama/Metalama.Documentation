@@ -7,7 +7,7 @@ internal class OrderService
 {
   public void PlaceOrder([NotNull] string customerId)
   {
-    if (customerId == null !)
+    if (customerId == null!)
     {
       throw new ArgumentNullException("customerId", "The 'customerId' parameter must not be null.");
     }

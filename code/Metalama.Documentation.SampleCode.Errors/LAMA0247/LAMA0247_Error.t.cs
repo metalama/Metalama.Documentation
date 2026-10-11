@@ -1,1 +1,1 @@
-// Error LAMA0247 on `Clear`: `Cannot apply the aspect 'RetryOnFailure' to 'FileStore.Clear()': cannot convert the result of 'meta.Proceed()', of type 'void', to the desired type 'bool'.`
+// Error LAMA0247 on `Clear`: `Cannot apply the aspect 'RetryOnFailure' to 'FileStore.Clear()': the template returns 'meta.Proceed()', of type 'void', from a method or local function whose return type is 'bool'.`

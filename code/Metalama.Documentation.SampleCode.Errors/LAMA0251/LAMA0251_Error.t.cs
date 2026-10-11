@@ -1,1 +1,1 @@
-// Error LAMA0251 on `methodName`: `Dynamic variable 'methodName' cannot be set to a non-dynamic value.`
+// Error LAMA0251 on `methodName`: `The variable 'methodName' is declared as 'dynamic', so it must be initialized with an expression of type 'dynamic'. Declare the variable with 'var' or with a non-dynamic type.`

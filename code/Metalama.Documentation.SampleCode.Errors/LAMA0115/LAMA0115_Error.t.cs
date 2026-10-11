@@ -1,1 +1,1 @@
-// Error LAMA0115 on `get`: `The advice 'LogReadAttribute.OverrideProperty.get' cannot use 'meta.Target.Field' in an advice applied to method 'Customer.Name.get' because there is no 'IField'. Consider using meta.Target.FieldOrProperty instead.`
+// Error LAMA0115 on `get`: `The template 'LogReadAttribute.OverrideProperty.get' cannot use 'meta.Target.Field' when applied to the method 'Customer.Name.get' because no 'IField' is available in this context. Consider using meta.Target.FieldOrProperty instead.`

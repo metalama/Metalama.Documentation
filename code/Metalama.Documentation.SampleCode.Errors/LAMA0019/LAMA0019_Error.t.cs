@@ -1,1 +1,1 @@
-// Error LAMA0019 on `Configure`: `Cannot pass the expression 'this.MaxAttempts' to the 'result' parameter of method 'int.TryParse(string?, out int)' because the parameter is 'out' or 'ref'.`
+// Error LAMA0019 on `Configure`: `Cannot pass the expression 'this.MaxAttempts' to the 'out' or 'ref' parameter 'result' of method 'int.TryParse(string?, out int)' because the expression is not a variable.`

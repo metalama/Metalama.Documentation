@@ -1,4 +1,4 @@
-// Warning LAMA5164 on `UnitPrice`: `The 'OrderLine.UnitPrice' field cannot be observed: only private instance fields of the current type, fields belonging to primitive types, readonly fields of primitive types, and fields configured with an observability contract are supported. Consider accessing the field through a property, marking 'OrderLine.UnitPrice' with [Constant], or using ConfigureObservability via a fabric.`
+// Warning LAMA5164 on `UnitPrice`: `The 'OrderLine.UnitPrice' field cannot be observed: only private instance fields, constants, and read-only fields of immutable types are supported. Consider replacing the field with a property, or making it private.`
 using System.ComponentModel;
 using Metalama.Patterns.Observability;
 namespace Doc.LAMA5164.Error;

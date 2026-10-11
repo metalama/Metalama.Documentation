@@ -132,6 +132,12 @@ items:
           topicUid: lama0087
         - name: LAMA0088
           topicUid: lama0088
+        - name: LAMA0089
+          topicUid: lama0089
+        - name: LAMA0090
+          topicUid: lama0090
+        - name: LAMA0091
+          topicUid: lama0091
         - name: LAMA0099
           topicUid: lama0099
         - name: LAMA0120
@@ -309,6 +315,8 @@ items:
           topicUid: lama0294
         - name: LAMA0295
           topicUid: lama0295
+        - name: LAMA0297
+          topicUid: lama0297
     - name: Advising errors and warnings
       topicUid: errors-advising
       items:
@@ -380,14 +388,36 @@ items:
           topicUid: lama0540
         - name: LAMA0541
           topicUid: lama0541
+        - name: LAMA0542
+          topicUid: lama0542
+        - name: LAMA0543
+          topicUid: lama0543
         - name: LAMA0550
           topicUid: lama0550
         - name: LAMA0551
           topicUid: lama0551
+        - name: LAMA0552
+          topicUid: lama0552
+        - name: LAMA0554
+          topicUid: lama0554
+        - name: LAMA0555
+          topicUid: lama0555
+        - name: LAMA0556
+          topicUid: lama0556
         - name: LAMA0650
           topicUid: lama0650
-        - name: LAMA0651
-          topicUid: lama0651
+        - name: LAMA0652
+          topicUid: lama0652
+        - name: LAMA0653
+          topicUid: lama0653
+        - name: LAMA0654
+          topicUid: lama0654
+        - name: LAMA0655
+          topicUid: lama0655
+        - name: LAMA0660
+          topicUid: lama0660
+        - name: LAMA0661
+          topicUid: lama0661
         - name: LAMA0699
           topicUid: lama0699
         - name: LAMA0700
@@ -460,6 +490,80 @@ items:
           topicUid: lama0906
         - name: LAMA0907
           topicUid: lama0907
+    - name: Durability and immutability errors and warnings
+      topicUid: errors-compile-time-contracts
+      items:
+        - name: LAMA0870
+          topicUid: lama0870
+        - name: LAMA0871
+          topicUid: lama0871
+        - name: LAMA0872
+          topicUid: lama0872
+        - name: LAMA0873
+          topicUid: lama0873
+        - name: LAMA0874
+          topicUid: lama0874
+        - name: LAMA0875
+          topicUid: lama0875
+        - name: LAMA0876
+          topicUid: lama0876
+        - name: LAMA0877
+          topicUid: lama0877
+        - name: LAMA0878
+          topicUid: lama0878
+        - name: LAMA0879
+          topicUid: lama0879
+        - name: LAMA0880
+          topicUid: lama0880
+        - name: LAMA0881
+          topicUid: lama0881
+        - name: LAMA0882
+          topicUid: lama0882
+        - name: LAMA0883
+          topicUid: lama0883
+        - name: LAMA0884
+          topicUid: lama0884
+        - name: LAMA0885
+          topicUid: lama0885
+        - name: LAMA0886
+          topicUid: lama0886
+        - name: LAMA0887
+          topicUid: lama0887
+        - name: LAMA0888
+          topicUid: lama0888
+    - name: Interceptor errors and warnings
+      topicUid: errors-interceptors
+      items:
+        - name: LAMA1000
+          topicUid: lama1000
+        - name: LAMA1001
+          topicUid: lama1001
+        - name: LAMA1002
+          topicUid: lama1002
+        - name: LAMA1003
+          topicUid: lama1003
+        - name: LAMA1004
+          topicUid: lama1004
+        - name: LAMA1008
+          topicUid: lama1008
+        - name: LAMA1010
+          topicUid: lama1010
+        - name: LAMA1011
+          topicUid: lama1011
+        - name: LAMA1012
+          topicUid: lama1012
+        - name: LAMA1013
+          topicUid: lama1013
+        - name: LAMA1014
+          topicUid: lama1014
+        - name: LAMA1015
+          topicUid: lama1015
+        - name: LAMA1016
+          topicUid: lama1016
+        - name: LAMA1017
+          topicUid: lama1017
+        - name: LAMA1024
+          topicUid: lama1024
     - name: Dependency injection errors and warnings
       topicUid: errors-dependency-injection
       items:

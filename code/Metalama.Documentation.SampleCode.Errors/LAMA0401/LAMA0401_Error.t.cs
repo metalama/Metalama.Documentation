@@ -1,1 +1,1 @@
-// Error LAMA0401 on `LogCategory( "Billing" )`: `Cannot instantiate a custom attribute: cannot find the build-time type 'LogCategoryAttribute'. Make sure that the type exists and is annotated with [CompileTime] or [RunTimeOrCompileTime].`
+// Error LAMA0401 on `LogCategory( "Billing" )`: `Cannot instantiate a custom attribute: cannot find the compile-time type 'LogCategoryAttribute'. Make sure that the type exists and is annotated with [CompileTime] or [RunTimeOrCompileTime].`

@@ -74,17 +74,30 @@ function Get-StringValue([string] $expr) {
         if ($l.Groups[3].Success) { $l.Groups[3].Value; continue }
         $value = $l.Groups[2].Value
         if ($l.Groups[1].Value -eq '$') {
-            $value = [regex]::Replace($value, '\{nameof\(\s*(?:[\w]+\.)*(\w+)\s*\)\}', '$1').Replace('{{', '{').Replace('}}', '}')
+            # {nameof(A.B)} and {A.B} (a constant) both render as B, the name of the member.
+            $value = [regex]::Replace($value, '\{nameof\(\s*(?:[\w]+\.)*(\w+)\s*\)\}', '$1')
+            $value = [regex]::Replace($value, '(?<!\{)\{(?:[A-Za-z_]\w*\.)*([A-Za-z_]\w*)\}(?!\})', '$1').Replace('{{', '{').Replace('}}', '}')
         }
         $value
     }
     return ($parts -join '') -replace '\\"', '"' -replace '\\n', ' ' -replace '\\\\', '\'
 }
 
+# Replaces the named string constants of a concatenation, such as `_because + "..."`, by their literal value,
+# when the constant is defined in the same file. The argument kind stays 'Other', so the text isn't edited by script.
+function Expand-StringConstants([string] $expr, [string] $text) {
+    return [regex]::Replace($expr, '(?<![\w."$])(\w+)(?=\s*\+)|(?<=\+\s*)(\w+)(?![\w(."])', {
+            param($m)
+            $const = [regex]::Match($text, "const\s+string\s+$($m.Value)\s*=\s*([^;]+);")
+            if ($const.Success -and $null -ne ($value = Get-StringValue $const.Groups[1].Value)) { '"' + $value.Replace('"', '\"') + '"' } else { $m.Value }
+        })
+}
+
 # Returns the LAMA diagnostic definitions and other LAMA ID usages of a C# source text.
 # Each definition has Id, Symbol, Severity, Title, Message, Category, and MessageArg / TitleArg describing the
 # argument that holds the text: Start, Length, Kind (Literal, Interpolated, Constant, Other) and ConstName.
-function Get-DiagnosticDefinitions([string] $text, [string] $defaultCategory) {
+# $constantsText is where named string constants are looked up: the file itself, plus the other parts of a partial class.
+function Get-DiagnosticDefinitions([string] $text, [string] $defaultCategory, [string] $constantsText = $text) {
     foreach ($m in [regex]::Matches($text, '"(LAMA\d{4})"')) {
         $diagId = $m.Groups[1].Value
         $before = $text.Substring(0, $m.Index)
@@ -118,13 +131,13 @@ function Get-DiagnosticDefinitions([string] $text, [string] $defaultCategory) {
                 $category = if ($a.StartsWith('"')) { $a.Trim('"') } else { $defaultCategory }
                 if ($texts.Count -eq 0) { $messageFirst = $true }
             }
-            elseif ($null -ne ($s = Get-StringValue $a)) {
+            elseif ($null -ne ($s = Get-StringValue ($expanded = Expand-StringConstants $a $constantsText))) {
                 $kind = if ($a -match '(^|\+\s*)\$') { 'Interpolated' } elseif ($a -match '^("([^"\\]|\\.)*"\s*\+?\s*)+$') { 'Literal' } else { 'Other' }
                 $texts.Add([pscustomobject]@{ Value = $s; Start = $arg.Start; Length = $arg.Length; Kind = $kind; ConstName = $null })
             }
             elseif ($a -match '^\w+$') {
                 # A named constant defined in the same file.
-                $const = [regex]::Match($text, "const\s+string\s+$a\s*=\s*([^;]+);")
+                $const = [regex]::Match($constantsText, "const\s+string\s+$a\s*=\s*([^;]+);")
                 $value = if ($const.Success) { Get-StringValue $const.Groups[1].Value } else { "<$a>" }
                 $texts.Add([pscustomobject]@{ Value = $value; Start = $arg.Start; Length = $arg.Length; Kind = 'Constant'; ConstName = $a })
             }

@@ -6,8 +6,8 @@ public class Calculator
   [Log]
   public int Add(int a, int b)
   {
-    // Logged by the "Log" aspect.
-    Console.WriteLine("Entering Calculator.Add(int, int).");
+    var message = "Logged by the \"Log\" aspect.";
+    Console.WriteLine(message);
     return a + b;
   }
 }

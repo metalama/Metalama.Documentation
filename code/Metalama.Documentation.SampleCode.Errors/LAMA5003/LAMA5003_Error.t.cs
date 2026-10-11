@@ -1,4 +1,4 @@
-// Warning LAMA5003 on `name`: `The [NotNullAttribute] contract is redundant because the [NotNull] contract is automatically added by a fabric.`
+// Warning LAMA5003 on `name`: `The [NotNullAttribute] contract is redundant because a fabric automatically adds the [NotNull] contract to this declaration.`
 using System;
 using Metalama.Patterns.Contracts;
 namespace Doc.LAMA5003.Error;
@@ -7,7 +7,7 @@ public class GreetingService
   // Warning: the fabric already adds [NotNull] to this parameter.
   public string Greet([NotNull] string name)
   {
-    if (name == null !)
+    if (name == null!)
     {
       throw new ArgumentNullException("name", "The 'name' parameter must not be null.");
     }

@@ -1,1 +1,1 @@
-// Error LAMA0267 on `categories.First`: `Converting extension method 'IReadOnlyList<string>.First<string>()' to a delegate using a method group conversion is currently not supported.`
+// Error LAMA0267 on `categories.First`: `Converting the extension method 'IReadOnlyList<string>.First<string>()' to a delegate using a method group conversion is not supported in templates. Use a lambda expression that invokes the method instead.`

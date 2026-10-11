@@ -14,7 +14,7 @@ internal class ServiceBase
     {
         private static readonly DiagnosticDefinition<IMethod> _legacyMethod = new(
             "DOC001",
-            Severity.Warning,
+            Severity.Info,
             "The method '{0}' is a legacy method and should not be used in new code." );
 
         public override void AmendType( ITypeAmender amender )

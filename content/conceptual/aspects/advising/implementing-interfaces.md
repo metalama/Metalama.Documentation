@@ -107,7 +107,7 @@ If you have an `IMethod` reference, use the invoker API to call it. For details,
 
 You can obtain the `IMethod` from:
 
-* The interface type using `TypeFactory.GetType(typeof(IDisposable)).Methods`
+* The interface type using `typeof(IDisposable).AsIType().Methods`
 * The advice result using `builder.IntroduceMethod(...).Declaration`
 
 ```cs

@@ -18,7 +18,7 @@ public class ParseIntoAttribute : OverrideMethodAspect
 
     public override dynamic? OverrideMethod()
     {
-        var tryParse = ((INamedType) TypeFactory.GetType( typeof(int) ))
+        var tryParse = typeof(int).AsINamedType()
             .Methods.OfName( "TryParse" )
             .Single( m => m.Parameters.Count == 2 && m.Parameters[0].Type.SpecialType == SpecialType.String );
 

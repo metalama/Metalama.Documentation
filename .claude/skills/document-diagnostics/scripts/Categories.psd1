@@ -52,6 +52,20 @@
             FilePatterns     = @('*\Metalama.Extensions.Validation*', '*\Metalama.Extensions.Architecture*')
         }
         @{
+            Key              = 'compile-time-contracts'
+            Title            = 'Durability and immutability errors and warnings'
+            Description      = 'Diagnostics reported by the analyzers that verify the [Durable] and [ImmutableType] contracts of compile-time code.'
+            SourceCategories = @('Metalama')
+            FilePatterns     = @('*\Metalama.Framework.Analyzers\*')
+        }
+        @{
+            Key              = 'interceptors'
+            Title            = 'Interceptor errors and warnings'
+            Description      = 'Diagnostics reported by Metalama.Extensions.Interceptors.'
+            SourceCategories = @('Metalama.Extensions.Interceptors')
+            FilePatterns     = @('*\Metalama.Extensions.Interceptors*')
+        }
+        @{
             Key              = 'dependency-injection'
             Title            = 'Dependency injection errors and warnings'
             Description      = 'Diagnostics reported by Metalama.Extensions.DependencyInjection.'

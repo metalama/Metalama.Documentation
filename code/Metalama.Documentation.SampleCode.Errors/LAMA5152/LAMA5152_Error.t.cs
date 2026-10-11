@@ -1,1 +1,1 @@
-// Error LAMA5152 on `Position`: `The type 'Coordinates' of property 'Vehicle.Position' is a struct implementing INotifyPropertyChanged. Structs implementing INotifyPropertyChanged are not supported.`
+// Error LAMA5152 on `Position`: `The type 'Coordinates' of the property 'Vehicle.Position' is a struct that implements INotifyPropertyChanged. The [Observable] aspect does not support structs that implement INotifyPropertyChanged.`

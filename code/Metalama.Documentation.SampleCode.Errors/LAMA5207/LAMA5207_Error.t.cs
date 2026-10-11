@@ -1,1 +1,1 @@
-// Error LAMA5207 on `ExecuteSave`: `No command naming conventioned matched 'Document.ExecuteSave()'.`
+// Error LAMA5207 on `ExecuteSave`: `No command naming convention matched 'Document.ExecuteSave()'. Add a naming convention that matches this name, or do not remove the default naming convention.`

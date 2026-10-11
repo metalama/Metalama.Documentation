@@ -1,4 +1,4 @@
-// Warning LAMA5165 on `address`: `The 'Address' local variable cannot be observed: variables of types other than primitive types are not supported.`
+// Warning LAMA5165 on `address`: `Local variables of type 'Address' cannot be observed: only local variables of immutable types, such as primitive types, are supported.`
 using System.ComponentModel;
 using Metalama.Patterns.Observability;
 namespace Doc.LAMA5165.Error;

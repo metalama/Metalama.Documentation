@@ -1,4 +1,4 @@
-// Warning LAMA5161 on `Person`: `The children of fields or properties of type 'Person' cannot be observed because the type does not implement INotifyPropertyChanged.`
+// Warning LAMA5161 on `Person`: `The members of 'Person' cannot be observed because 'Person' does not implement INotifyPropertyChanged and is not immutable. Implement INotifyPropertyChanged in 'Person', for example with the [Observable] aspect, or mark 'Person' as immutable.`
 using System.ComponentModel;
 using Metalama.Patterns.Observability;
 namespace Doc.LAMA5161.Error;
@@ -14,7 +14,7 @@ public sealed partial class PersonViewModel : INotifyPropertyChanged
   {
     this.Person = person;
   }
-  private Person _person = default !;
+  private Person _person = default!;
   public Person Person
   {
     get

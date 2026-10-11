@@ -34,7 +34,7 @@ public sealed partial class PersonViewModel : INotifyPropertyChanged
   {
     this.Person = person;
   }
-  private Person _person = default !;
+  private Person _person = default!;
   public Person Person
   {
     get

@@ -1,4 +1,4 @@
-// Warning LAMA5163 on `City`: `The 'Customer.DeliveryAddress' property cannot be observed: changes to children of non-auto properties declared on the current type cannot be observed unless the property type implements INotifyPropertyChanged. Consider implementing the INotifyPropertyChanged interface in 'Customer', marking 'Customer.DeliveryAddress' with [Constant], or using ConfigureObservability via a fabric.`
+// Warning LAMA5163 on `City`: `Changes to the children of the 'Customer.DeliveryAddress' property cannot be observed because 'Customer.DeliveryAddress' is not an auto-property. Access the child through an auto-property or a field of 'Customer' instead.`
 using System.ComponentModel;
 using Metalama.Patterns.Observability;
 namespace Doc.LAMA5163.Error;

@@ -93,7 +93,13 @@ foreach ($file in $files) {
     $relative = [IO.Path]::GetRelativePath((Split-Path $MetalamaRoot), $file.FullName)
     $excluded = [bool]($excludedPathPatterns | Where-Object { $file.FullName -like $_ })
 
-    foreach ($d in Get-DiagnosticDefinitions $text (Get-DefaultCategory $text)) {
+    # A part of a partial class (Foo.Bar.cs) takes its constants and default category from the main file (Foo.cs).
+    $mainText = $text
+    if ($file.Name -match '^(\w+)\.\w+\.cs$' -and (Test-Path ($mainFile = Join-Path $file.DirectoryName "$($Matches[1]).cs"))) {
+        $mainText = Get-Content $mainFile -Raw
+    }
+
+    foreach ($d in Get-DiagnosticDefinitions $text (Get-DefaultCategory $mainText) ($text + "`n" + $mainText)) {
         $d | Add-Member File $relative
         $d | Add-Member Excluded $excluded
         $entries.Add($d)
