@@ -40,7 +40,7 @@ See <xref:interceptors-selecting-calls>.
 
 ## Calls that cannot be intercepted
 
-Some calls match a registration but cannot be intercepted in this version. When the registration returns an interceptor for such a call, Metalama reports the warning LAMA1012 and leaves the call unchanged. In `ForEachSite`, read <xref:Metalama.Extensions.Interceptors.IInterceptionContext.NonInterceptableReason> and skip these call sites to avoid the warning.
+Some calls match a registration but cannot be intercepted in this version. When the registration returns an interceptor for such a call, Metalama reports the warning <xref:lama1012?text=LAMA1012> and leaves the call unchanged. In `ForEachSite`, read <xref:Metalama.Extensions.Interceptors.IInterceptionContext.NonInterceptableReason> and skip these call sites to avoid the warning.
 
 For instance:
 
@@ -62,7 +62,7 @@ Later versions can add values to this enumeration.
 
 ### Example: Calls that cannot be intercepted
 
-In the following example, the call to a method that returns by reference, and the call in a lambda converted to an expression tree, cannot be intercepted. Metalama reports LAMA1012 for each of them. The same call in a lambda converted to a delegate is intercepted.
+In the following example, the call to a method that returns by reference, and the call in a lambda converted to an expression tree, cannot be intercepted. Metalama reports <xref:lama1012?text=LAMA1012> for each of them. The same call in a lambda converted to a delegate is intercepted.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/UnsupportedCalls.cs name="Calls that cannot be intercepted"]
 
@@ -77,12 +77,12 @@ In the following example, the call to a method that returns by reference, and th
 
 | Diagnostic | Severity | Cause |
 |---|---|---|
-| LAMA1012 | Warning | The call cannot be intercepted in this version. The reason is part of the message. The call is left unchanged. |
-| LAMA1013 | Error | The parameters of an existing method cannot be bound to the call. The message gives the parameter and the reason. |
-| LAMA1014 | Error | The interceptor or its `Configure` delegate is invalid for the call, for instance a template for a method group, or an added parameter without a value. |
-| LAMA1016 | Error | The template cannot be found or cannot implement the interceptor. |
-| LAMA1024 | Error | The location of the generated interceptor cannot be used for the call, for instance `PlaceInCallingType` in top-level statements. |
-| LAMA0661 | Warning | A variable that hides a parameter of the calling member passed to the interceptor was renamed. |
+| <xref:lama1012?text=LAMA1012> | Warning | The call cannot be intercepted in this version. The reason is part of the message. The call is left unchanged. |
+| <xref:lama1013?text=LAMA1013> | Error | The parameters of an existing method cannot be bound to the call. The message gives the parameter and the reason. |
+| <xref:lama1014?text=LAMA1014> | Error | The interceptor or its `Configure` delegate is invalid for the call, for instance a template for a method group, or an added parameter without a value. |
+| <xref:lama1016?text=LAMA1016> | Error | The template cannot be found or cannot implement the interceptor. |
+| <xref:lama1024?text=LAMA1024> | Error | The location of the generated interceptor cannot be used for the call, for instance `PlaceInCallingType` in top-level statements. |
+| <xref:lama0661?text=LAMA0661> | Warning | A variable that hides a parameter of the calling member passed to the interceptor was renamed. |
 
 ## Other tools that rewrite calls
 

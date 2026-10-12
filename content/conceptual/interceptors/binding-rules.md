@@ -65,9 +65,17 @@ Each value can be:
 
 A name that matches no parameter and no type parameter is an error. A value that does not convert to the type of the parameter is an error. An argument of the call can be passed to two parameters only when it is passed by value and its evaluation has no side effect.
 
+### Example: Values given by an anonymous object
+
+The following aspect gives the values of the additional parameters of the interceptor with an anonymous object: a string, a number, a type and `null`.
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/BindingWithArgsAnonymous.Aspect.cs marker="WithArgs"]
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/BindingWithArgsAnonymous.cs name="Values given by an anonymous object"]
+
 ### Example: Values given by a dictionary
 
-The following aspect gives the values of the additional parameters of the interceptor with a dictionary: a string, a number, a type and `null`.
+The following aspect gives the same values with a dictionary, which is useful when the names are computed.
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/BindingWithArgs.Aspect.cs marker="WithArgs"]
 
@@ -75,7 +83,7 @@ The following aspect gives the values of the additional parameters of the interc
 
 ### Passing a parameter of the calling member
 
-When a lambda or a local function that contains the call site declares a variable with the name of a parameter of the calling member that you pass, Metalama renames the variable and reports the warning LAMA0661. A parameter cannot be passed from a static lambda, and a parameter passed by reference cannot be passed from a lambda: check <xref:Metalama.Extensions.Interceptors.ICaller.IsInNestedFunction> and <xref:Metalama.Extensions.Interceptors.ICaller.IsInStaticFunction> first, as in the following snippet:
+When a lambda or a local function that contains the call site declares a variable with the name of a parameter of the calling member that you pass, Metalama renames the variable and reports the warning <xref:lama0661?text=LAMA0661>. A parameter cannot be passed from a static lambda, and a parameter passed by reference cannot be passed from a lambda: check <xref:Metalama.Extensions.Interceptors.ICaller.IsInNestedFunction> and <xref:Metalama.Extensions.Interceptors.ICaller.IsInStaticFunction> first, as in the following snippet:
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/PassCallerParameter.Aspect.cs marker="Guard"]
 

@@ -136,7 +136,7 @@ The following aspect logs the calls to `PaymentGateway`, except the calls from t
 
 Some call sites match a registration but cannot be intercepted in this version, for instance a call to a method that returns by reference, or a call in a lambda converted to an expression tree. For these call sites, you have two choices:
 
-* Let Metalama report them. When the registration returns an interceptor for such a call site, Metalama reports the warning LAMA1012, which gives the reason, and leaves the call unchanged. This is the default behavior.
+* Let Metalama report them. When the registration returns an interceptor for such a call site, Metalama reports the warning <xref:lama1012?text=LAMA1012>, which gives the reason, and leaves the call unchanged. This is the default behavior.
 * Skip them silently. In `ForEachSite`, return `site.Skip()` when <xref:Metalama.Extensions.Interceptors.IInterceptionContext.NonInterceptableReason> is not `None`:
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/SkipNonInterceptable.Aspect.cs marker="Skip"]
