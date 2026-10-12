@@ -67,6 +67,10 @@ For example `obj/LamaDebug/net10.0/metalama/`. These are the actual files the co
 - **Do not confuse this with `MetalamaDebugCompiler`** — that property attaches a debugger to the *compiler process* and is unrelated to reading generated code.
 - In this skill's `code/` samples, `Name.t.cs` files are pre-baked expected output. In a real user project you generate fresh output using the commands above.
 
+### Investigating without a debugger
+
+When you investigate a problem and cannot use a debugger, and the project references `Metalama.Extensions.Interceptors`, trace the calls to the suspect API with one temporary fabric file instead of adding log statements to many files. A project fabric registers an interceptor template that writes the caller, the arguments, the result and the exception of each call. Delete the file when you are done; no business code changes. See `code/Metalama.Documentation.SampleCode.Interceptors/TraceCalls.cs` and the conceptual article `generating-interceptors-with-templates`.
+
 ### 3. Build to verify — the compiler is your correctness oracle
 
 Metalama reports eligibility problems, template errors, and transformation issues as **compiler diagnostics** (`LAMAxxxx` and `CS` codes). After writing or changing an aspect, run `dotnet build` and read the diagnostics; treat a clean build as the pass condition, exactly like a test suite.

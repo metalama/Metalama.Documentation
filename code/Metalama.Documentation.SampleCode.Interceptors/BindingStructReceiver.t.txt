@@ -1,0 +1,3 @@
+Counter incremented to 1.
+Counter incremented to 2.
+Visits: 2

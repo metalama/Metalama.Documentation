@@ -1,0 +1,4 @@
+Queued 'Welcome' for alice@example.com.
+Evaluating the recipient.
+Evaluating the priority.
+Queued 'Report' for bob@example.com.

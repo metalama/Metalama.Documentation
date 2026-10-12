@@ -1,0 +1,62 @@
+// This is public domain Metalama sample code.
+
+using Metalama.Extensions.Interceptors;
+using Metalama.Framework.Advising;
+using Metalama.Framework.Aspects;
+using Metalama.Framework.Fabrics;
+using System;
+using System.Threading.Tasks;
+
+namespace Doc.RetryShippingCalls;
+
+internal class Fabric : ProjectFabric
+{
+    public override void AmendProject( IProjectAmender amender )
+        => amender.InterceptMethods(
+            calls => calls
+                .Type( typeof(ShippingClient) )
+                .AllMethods()
+                .Where( m => m.Name.StartsWith( "Get" ) )
+                .RedirectToSynthesizedMethod(
+                    new MethodTemplateSelector(
+                        nameof(RetryTemplates.Retry),
+                        nameof(RetryTemplates.RetryAsync),
+                        useAsyncTemplateForAnyAwaitable: true ) )
+                .WithTemplateProvider( TemplateProvider.FromInstance( new RetryTemplates() ) )
+                .WithArgs( new { maxAttempts = 3 } ) );
+}
+
+internal class RetryTemplates : ITemplateProvider
+{
+    [Template]
+    public dynamic? Retry( [CompileTime] int maxAttempts )
+    {
+        for ( var attempt = 1;; attempt++ )
+        {
+            try
+            {
+                return meta.Proceed();
+            }
+            catch ( TimeoutException e ) when ( attempt < maxAttempts )
+            {
+                Console.WriteLine( $"Attempt {attempt} failed: {e.Message} Retrying." );
+            }
+        }
+    }
+
+    [Template]
+    public async Task<dynamic?> RetryAsync( [CompileTime] int maxAttempts )
+    {
+        for ( var attempt = 1;; attempt++ )
+        {
+            try
+            {
+                return await meta.ProceedAsync();
+            }
+            catch ( TimeoutException e ) when ( attempt < maxAttempts )
+            {
+                Console.WriteLine( $"Attempt {attempt} failed: {e.Message} Retrying." );
+            }
+        }
+    }
+}

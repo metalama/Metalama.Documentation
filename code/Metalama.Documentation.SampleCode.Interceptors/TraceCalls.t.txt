@@ -1,0 +1,3 @@
+SetCountry -> GetCurrency(country: US) returned USD.
+Add -> GetPrice(sku: BOOK, quantity: 2) returned 25.0.
+Add -> GetPrice(sku: PEN, quantity: 1) threw ArgumentException: Unknown SKU 'PEN'.

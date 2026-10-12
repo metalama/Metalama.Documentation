@@ -259,6 +259,24 @@ items:
         - name: Extending the validation API
           topicUid: validation-extending
 
+    - name: Intercepting calls to code you don't own
+      topicUid: intercepting-calls
+      items:
+        - name: When to use interceptors
+          topicUid: interceptors-use-cases
+        - name: Redirecting calls to existing methods
+          topicUid: redirecting-calls-to-existing-methods
+        - name: Generating interceptors with T# templates
+          topicUid: generating-interceptors-with-templates
+        - name: Choosing which calls to intercept
+          topicUid: interceptors-selecting-calls
+        - name: Interceptor binding rules
+          topicUid: interceptor-binding-rules
+        - name: Interceptor deduplication rules
+          topicUid: interceptor-deduplication-rules
+        - name: Interceptor limitations and troubleshooting
+          topicUid: interceptors-troubleshooting
+
     - name: Configuring and troubleshooting
       topicUid: configuration 
       items: 
