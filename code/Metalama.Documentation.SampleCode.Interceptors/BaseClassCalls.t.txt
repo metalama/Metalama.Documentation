@@ -1,0 +1,3 @@
+Repaint requested by OrderGrid.AddRow.
+OrderGrid invalidated.
+OrderGrid focused.

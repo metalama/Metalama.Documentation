@@ -14,11 +14,13 @@ public class LogHttpCallsAttribute : TypeAspect
     {
         var interceptor = typeof(HttpLogging).AsINamedType().Methods.OfName( nameof(HttpLogging.GetStringAsync) ).Single();
 
+        // [<snippet Registration>]
         builder.InterceptMethods(
             calls => calls
                 .Type( typeof(HttpClient) )
                 .Methods( nameof(HttpClient.GetStringAsync) )
                 .Where( m => m.Parameters is [{ Type.SpecialType: SpecialType.String }] )
                 .RedirectToExistingMethod( interceptor ) );
+        // [<endsnippet Registration>]
     }
 }

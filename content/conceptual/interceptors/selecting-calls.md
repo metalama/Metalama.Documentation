@@ -24,6 +24,10 @@ When an aspect calls <xref:Metalama.Extensions.Interceptors.InterceptionAdviserE
 
 An interceptor registration is recorded during <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*>, and the calls are rewritten after all aspects have run. When the aspect reports an error or is skipped, its interceptors are discarded.
 
+For instance, the following aspect intercepts the calls to `HttpClient.GetStringAsync` in the type to which it is applied:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/LogHttpCalls.Aspect.cs marker="Registration"]
+
 ### From a fabric
 
 A fabric calls `InterceptMethods` on its amender or on a query:
@@ -32,6 +36,10 @@ A fabric calls `InterceptMethods` on its amender or on a query:
 * In a <xref:Metalama.Framework.Fabrics.NamespaceFabric>, the scope is the namespace.
 * In a <xref:Metalama.Framework.Fabrics.TypeFabric>, the scope is the type.
 * A query such as `amender.SelectTypes().Where( ... ).InterceptMethods( ... )` makes each selected declaration a scope.
+
+For instance, the following project fabric intercepts the calls to all the methods of `PricingClient` in the whole project:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/TraceCalls.Fabric.cs marker="Registration"]
 
 With a tagged query, the delegate given to `ForEachSite`, described below, can read the tag of the scope through <xref:Metalama.Extensions.Interceptors.IInterceptionContext.ScopeTag>.
 
@@ -54,6 +62,10 @@ In a fabric, the <xref:Metalama.Extensions.Interceptors.InterceptorConfiguration
 
 The exclusion is not inherited by derived types or overriding members.
 
+For instance, the following interceptor calls the method that it intercepts, so its class is excluded from interception:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/AuditFileDelete.Audit.cs marker="Exclude"]
+
 ## Choosing the intercepted methods
 
 The description of the interception selects a type, then methods:
@@ -65,6 +77,14 @@ The description of the interception selects a type, then methods:
 * <xref:Metalama.Extensions.Interceptors.IMethodSelection.Where*> keeps only the methods that a predicate accepts, for instance one overload.
 
 A call bound to an override of a selected method is also intercepted. Call <xref:Metalama.Extensions.Interceptors.IMethodSelection.ExcludingOverrides*> to intercept only the calls bound to the selected method itself. A call bound to an implementation of a selected interface method is intercepted only after <xref:Metalama.Extensions.Interceptors.IMethodSelection.IncludingInterfaceImplementations*>.
+
+For instance, the following registration intercepts the calls to `IOrderRepository.Save`, including the calls bound to its implementation `SqlOrderRepository.Save`:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/InterfaceCalls.Aspect.cs marker="Selection"]
+
+The complete example:
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/InterfaceCalls.cs name="Calls through an interface"]
 
 The predicates and delegates of the description are stored with the registration and can run later, concurrently, and several times. They must not capture a declaration or a compilation.
 
@@ -102,6 +122,21 @@ The delegate can report diagnostics through <xref:Metalama.Extensions.Intercepto
 The following aspect logs the calls to `PaymentGateway`, except the calls from the types that have the `[TestHelper]` attribute.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/SkipTestHelpers.cs name="Skipping calls from test helpers"]
+
+## Handling calls that cannot be intercepted
+
+Some call sites match a registration but cannot be intercepted in this version, for instance a call to a method that returns by reference, or a call in a lambda converted to an expression tree. For these call sites, you have two choices:
+
+* Let Metalama report them. When the registration returns an interceptor for such a call site, Metalama reports the warning LAMA1012, which gives the reason, and leaves the call unchanged. This is the default behavior.
+* Skip them silently. In `ForEachSite`, return `site.Skip()` when <xref:Metalama.Extensions.Interceptors.IInterceptionContext.NonInterceptableReason> is not `None`:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/SkipNonInterceptable.Aspect.cs marker="Skip"]
+
+### Example: Skipping calls that cannot be intercepted
+
+In the following example, the call to a method that returns by reference, and the call in an `IQueryable` lambda, are skipped without a warning. The call in the `IEnumerable` lambda is intercepted. For the list of reasons, see <xref:interceptors-troubleshooting>.
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/SkipNonInterceptable.cs name="Skipping calls that cannot be intercepted"]
 
 ## Intercepting delegates and event handlers
 

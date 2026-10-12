@@ -11,6 +11,7 @@ namespace Doc.TraceCalls;
 // Delete this file to remove the tracing.
 internal class TracingFabric : ProjectFabric
 {
+    // [<snippet Registration>]
     public override void AmendProject( IProjectAmender amender )
         => amender.InterceptMethods(
             calls => calls
@@ -19,6 +20,7 @@ internal class TracingFabric : ProjectFabric
                 .RedirectToSynthesizedMethod( nameof(TracingTemplates.Trace) )
                 .WithTemplateProvider( TemplateProvider.FromInstance( new TracingTemplates() ) )
                 .WithGranularity( InterceptorGranularity.Member ) );
+    // [<endsnippet Registration>]
 }
 
 internal class TracingTemplates : ITemplateProvider

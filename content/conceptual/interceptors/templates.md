@@ -28,15 +28,7 @@ Interceptor templates look like the templates of override aspects, with two diff
 
 By default, the template is a member of the aspect that registers the interception. In a fabric, declare the templates in a separate class that implements <xref:Metalama.Framework.Aspects.ITemplateProvider>, and give an instance of it with <xref:Metalama.Extensions.Interceptors.ITemplateInterception.WithTemplateProvider*>, as the following examples do.
 
-### Example: Timing every call to an SDK
-
-The following project fabric measures the duration of every call to the methods of `PaymentGateway`, a class of another project. <xref:Metalama.Extensions.Interceptors.ITypeSelection.AllMethods*> selects all the methods that the type declares. A <xref:Metalama.Framework.Advising.MethodTemplateSelector> gives a second template for async methods, so that the duration covers the whole asynchronous operation.
-
-[!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/TimeSdkCalls.cs name="Timing SDK calls"]
-
-The interceptors are generated in an internal static class named `MetalamaInterceptors`, which appears in its own tab of the example.
-
-## Reading the intercepted call
+## Accessing the interception context
 
 The `meta.Interception` property describes the interception that the template implements. Its <xref:Metalama.Extensions.Interceptors.IInterceptionInfo.Method> property gives:
 
@@ -56,6 +48,14 @@ By default, a generated interceptor is shared by all the call sites that need th
 * With `InterceptorGranularity.CallSite`, it can also read `meta.Interception.Caller` and `meta.Interception.Source`.
 
 A finer granularity generates more methods. To pass information about the call site without generating more methods, pass it as an added parameter instead. See <xref:interceptor-deduplication-rules>.
+
+### Example: Timing every call to an SDK
+
+The following project fabric measures the duration of every call to the methods of `PaymentGateway`, a class of another project. <xref:Metalama.Extensions.Interceptors.ITypeSelection.AllMethods*> selects all the methods that the type declares. A <xref:Metalama.Framework.Advising.MethodTemplateSelector> gives a second template for async methods, so that the duration covers the whole asynchronous operation.
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/TimeSdkCalls.cs name="Timing SDK calls"]
+
+The interceptors are generated in an internal static class named `MetalamaInterceptors`, which appears in its own tab of the example.
 
 ### Example: Tracing calls to investigate a problem
 
@@ -110,9 +110,26 @@ The following aspect generates the interceptor as an instance method of the call
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/CallerLogger.cs name="Writing to the caller's logger"]
 
+## Intercepting calls to inherited methods
+
+A class that derives from a framework class, such as a Windows Forms or WPF control, often calls the methods that it inherits, for instance `this.Invalidate()`. These calls are bound to the method of the base class, so the registration must select the base class, not the derived class. To limit the interception to the derived classes, use a query that selects them as the scope.
+
+### Example: Intercepting calls to a method of a base class
+
+In the following example, a project fabric selects the types derived from `Control`, and intercepts their calls to `Control.Invalidate`. The `Member` granularity lets the template read the calling member.
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/BaseClassCalls.cs name="Intercepting calls to a base class method"]
+
 ## Limitations
 
 In this version, interceptors generated from templates intercept only calls. A method group converted to a delegate, such as `items.Select( Normalize )`, can be intercepted only by an existing method. See <xref:interceptors-selecting-calls>.
+
+## In this section
+
+| Article | Description |
+|---------|-------------|
+| <xref:generic-interceptor-templates> | Intercept generic methods, and choose between a generic interceptor shared by all type arguments and an interceptor specialized for each type argument. |
+| <xref:interceptor-deduplication-rules> | Reference: when call sites share a generated interceptor, and how granularity, names and accessibility are decided. |
 
 > [!div class="see-also"]
 > <xref:templates>

@@ -7,8 +7,10 @@ using System.Runtime.CompilerServices;
 
 namespace Doc.AuditFileDelete;
 
+// [<snippet Exclude>]
 [ExcludeInterceptors]
 public static class Audit
+// [<endsnippet Exclude>]
 {
     public static void DeleteFile(
         string path,

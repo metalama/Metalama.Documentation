@@ -268,12 +268,15 @@ items:
           topicUid: redirecting-calls-to-existing-methods
         - name: Generating interceptors with T# templates
           topicUid: generating-interceptors-with-templates
+          items:
+            - name: Intercepting generic methods
+              topicUid: generic-interceptor-templates
+            - name: Interceptor deduplication rules
+              topicUid: interceptor-deduplication-rules
         - name: Choosing which calls to intercept
           topicUid: interceptors-selecting-calls
         - name: Interceptor binding rules
           topicUid: interceptor-binding-rules
-        - name: Interceptor deduplication rules
-          topicUid: interceptor-deduplication-rules
         - name: Interceptor limitations and troubleshooting
           topicUid: interceptors-troubleshooting
 

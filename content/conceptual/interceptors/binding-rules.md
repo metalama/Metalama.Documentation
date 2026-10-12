@@ -44,7 +44,14 @@ In the following example, the interceptor declares `subject` and `recipient` in 
 
 ## Values accepted by WithArgs
 
-A property of the object given to `WithArgs` can have these values:
+The argument of `WithArgs` gives values by name. It can be:
+
+* an anonymous object, such as `new { category = "Sales" }`;
+* any other object: its public instance properties and fields are bound by name;
+* an `IReadOnlyDictionary<string, object?>`, such as a `Dictionary<string, object?>`: its entries are bound by key, which is useful when the names are computed;
+* an <xref:Metalama.Framework.Code.IObjectReader>.
+
+Each value can be:
 
 * A literal: `null`, a Boolean, a character, a number, a string, or a value of an enumeration that compile-time code can use.
 * A `Type`, which is written as `typeof`.
@@ -52,9 +59,23 @@ A property of the object given to `WithArgs` can have these values:
 * An expression of the call site: the receiver or an argument. It is evaluated once, in the order of the source code.
 * Another <xref:Metalama.Framework.Code.IExpression>, written at the call site, for instance a parameter of the calling member given by <xref:Metalama.Extensions.Interceptors.ICaller.Parameters>, or the calling object given by <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionFactory.This*> when <xref:Metalama.Extensions.Interceptors.ICaller.CanAccessThis> is `true`.
 
-A property that names no parameter and no type parameter is an error. A value that does not convert to the type of the parameter is an error. An argument of the call can be passed to two parameters only when it is passed by value and its evaluation has no side effect.
+A name that matches no parameter and no type parameter is an error. A value that does not convert to the type of the parameter is an error. An argument of the call can be passed to two parameters only when it is passed by value and its evaluation has no side effect.
 
-When a lambda or a local function that contains the call site declares a variable with the name of a parameter of the calling member that you pass, Metalama renames the variable and reports the warning LAMA0661. A parameter cannot be passed from a static lambda, and a parameter passed by reference cannot be passed from a lambda: check <xref:Metalama.Extensions.Interceptors.ICaller.IsInNestedFunction> and <xref:Metalama.Extensions.Interceptors.ICaller.IsInStaticFunction> first.
+### Example: Values given by a dictionary
+
+The following aspect gives the values of the additional parameters of the interceptor with a dictionary: a string, a number, a type and `null`.
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/BindingWithArgs.Aspect.cs marker="WithArgs"]
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/BindingWithArgs.cs name="Values given by a dictionary"]
+
+### Passing a parameter of the calling member
+
+When a lambda or a local function that contains the call site declares a variable with the name of a parameter of the calling member that you pass, Metalama renames the variable and reports the warning LAMA0661. A parameter cannot be passed from a static lambda, and a parameter passed by reference cannot be passed from a lambda: check <xref:Metalama.Extensions.Interceptors.ICaller.IsInNestedFunction> and <xref:Metalama.Extensions.Interceptors.ICaller.IsInStaticFunction> first, as in the following snippet:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/PassCallerParameter.Aspect.cs marker="Guard"]
+
+For the complete example, see _Passing a parameter of the calling method_ in <xref:redirecting-calls-to-existing-methods>.
 
 ## Evaluation of the arguments
 
@@ -158,17 +179,12 @@ In the following example, `category` is a run-time parameter of the template who
 
 ## Type parameters of a generated method
 
-* When the template has run-time type parameters, they bind to the type parameters of the intercepted method, and the generated method is generic. The call sites with different type arguments share it.
-* Otherwise, the generated method is specialized for the type arguments of the call site. A compile-time type parameter of the template can receive them through `WithArgs`.
-* When the call site uses a type parameter of the calling type that the generated method cannot name, this type parameter becomes a type parameter of the generated method.
-* A `Configure` delegate can add type parameters after the derived ones, and give their type arguments with <xref:Metalama.Extensions.Interceptors.IInterceptorMethodBuilder.SetTypeArgument*>. The type arguments must satisfy the constraints.
-* The derived type parameters cannot be renamed, but they can receive more constraints.
+* When the template has run-time type parameters, they bind to the type parameters of the intercepted method, and the generated method is generic.
+* Otherwise, the generated method is specialized for the type arguments of the call site, which a compile-time type parameter of the template can receive through `WithArgs`.
+* A type parameter of the calling type that the generated method cannot name becomes a type parameter of the generated method.
+* A `Configure` delegate can add type parameters, and give their type arguments with <xref:Metalama.Extensions.Interceptors.IInterceptorMethodBuilder.SetTypeArgument*>.
 
-### Example: A generic template
-
-In the following example, the template has a run-time type parameter `T`. The generated method is generic, and the three call sites share it.
-
-[!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/GenericTemplateShared.cs name="A generic template"]
+For the use cases and examples, see <xref:generic-interceptor-templates>.
 
 ## What a Configure delegate can change
 
