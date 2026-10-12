@@ -49,7 +49,7 @@ The argument of `WithArgs` gives values by name. It can be:
 * an anonymous object, such as `new { category = "Sales" }`;
 * any other object: its public instance properties and fields are bound by name;
 * an `IReadOnlyDictionary<string, object?>`, such as a `Dictionary<string, object?>`: its entries are bound by key, which is useful when the names are computed;
-* an <xref:Metalama.Framework.Code.IObjectReader>.
+* an <xref:Metalama.Framework.Aspects.IObjectReader>.
 
 Each value can be:
 
