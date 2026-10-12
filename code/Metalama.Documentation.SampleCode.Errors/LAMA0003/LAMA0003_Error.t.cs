@@ -1,0 +1,1 @@
+// Error LAMA0003 on `GetTotal`: `Aspect 'Describe' cannot be applied to method 'Invoice.GetTotal(decimal)', because this aspect does not implement the 'IAspect<IMethod>' interface.`

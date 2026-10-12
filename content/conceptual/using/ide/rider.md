@@ -4,7 +4,7 @@ level: 100
 summary: "Configure JetBrains Rider for use with Metalama, including aspect testing and diagnostics."
 keywords: "Metalama Rider, Rider configuration, aspect testing Rider, xUnit Rider, test discovery Rider"
 created-date: 2025-12-04
-modified-date: 2025-12-04
+modified-date: 2026-09-28
 ---
 
 # Configuring Rider
@@ -69,6 +69,7 @@ If aspect tests don't appear in the Unit Tests window:
 2. Rebuild the test project.
 3. Refresh the Unit Tests window.
 4. Ensure the project references `Metalama.Testing.AspectTesting`.
+5. Ensure the project references `xunit.v3` and not `xunit`, and that its `OutputType` property is `Exe`.
 
 ### Build errors in test projects
 

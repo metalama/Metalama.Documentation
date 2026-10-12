@@ -1,0 +1,1 @@
+// Error LAMA0292 on `Format`: `Execution scope mismatch: the member 'LogFormatter.Format(string, string)' is compile-time, but the declaring type 'LogFormatter' is run-time. Change the scope of the declaring type, for example with the [CompileTime] or [RunTimeOrCompileTime] attribute, or move the member to a type of a compatible scope.`

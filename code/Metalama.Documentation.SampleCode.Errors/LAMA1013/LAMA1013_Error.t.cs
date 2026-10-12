@@ -1,0 +1,1 @@
+// Error LAMA1013 on `ApplyDiscount`: `The method 'DiscountedPriceCalculator.ApplyDiscount(decimal)' cannot intercept the call to 'PriceCalculator.ApplyDiscount(decimal)' because it is not static.`

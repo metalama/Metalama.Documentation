@@ -1,0 +1,1 @@
+// Error LAMA0517 on `Order`: `The aspect 'Trackable' cannot implement the interface property 'ITrackable.IsChanged' in the type 'Order' because the template 'TrackableAttribute.IsChanged' does not have the 'set' accessor required by the interface property.`

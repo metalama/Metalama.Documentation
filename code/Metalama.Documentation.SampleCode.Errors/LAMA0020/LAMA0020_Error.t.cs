@@ -1,0 +1,1 @@
+// Error LAMA0020 on `Add`: `Cannot find the type 'Doc.LAMA0020.Error.Logging.ConsoleLogger' in the project or its references. Use the reflection name of the type: separate nested types with '+', and write generic types with a backtick followed by the number of type parameters, for example 'System.Collections.Generic.List`1'.`

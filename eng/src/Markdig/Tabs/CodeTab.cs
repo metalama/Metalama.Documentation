@@ -265,8 +265,9 @@ public class CodeTab : BaseTab
             lines.RemoveAt( lines.Count - 1 );
         }
 
-        return "<pre><code class=\"lang-csharp\">" + string.Join( Environment.NewLine, lines )
-                                                   + "<code></pre>";
+        return "<pre><code class=\"lang-csharp\">"
+               + string.Join( Environment.NewLine, lines.Select( System.Net.WebUtility.HtmlEncode ) )
+               + "</code></pre>";
     }
 
     public string GetCodeForComparison()

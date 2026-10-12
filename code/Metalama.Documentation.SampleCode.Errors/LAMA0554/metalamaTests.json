@@ -1,0 +1,5 @@
+{
+    // The compiler requires System.Runtime.CompilerServices.IUnion and UnionAttribute for a union declaration, and
+    // the reference assemblies of a target framework older than .NET 11 do not declare them.
+    "IncludedPolyfills": [ "IUnion", "UnionAttribute" ]
+}

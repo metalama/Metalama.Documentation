@@ -1,0 +1,1 @@
+// Error LAMA0237 on `Clock`: `The template property 'ClockAttribute.Clock' cannot be abstract because its type or the type of one of its parameters is run-time-only. Make the template property virtual and give it a default implementation.`

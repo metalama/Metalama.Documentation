@@ -1,0 +1,33 @@
+// This is public domain Metalama sample code.
+
+using Metalama.Framework.Aspects;
+using Metalama.Framework.Code;
+using System;
+using System.Linq;
+
+namespace Doc.LAMA0543.Fixed;
+
+public class ItemIndexerAttribute : TypeAspect
+{
+    public override void BuildAspect( IAspectBuilder<INamedType> builder )
+    {
+        var extensionBlock = builder.With( builder.Target.ExtensionBlocks.Single() );
+
+        extensionBlock.IntroduceIndexer( typeof(int), nameof(this.GetItem), nameof(this.SetItem) );
+    }
+
+    [Template]
+    public string GetItem( int index )
+    {
+        Console.WriteLine( "Get." );
+
+        return index.ToString();
+    }
+
+    // The set accessor is public.
+    [Template]
+    public void SetItem( int index, string value )
+    {
+        Console.WriteLine( "Set." );
+    }
+}

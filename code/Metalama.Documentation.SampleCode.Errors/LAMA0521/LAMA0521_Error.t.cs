@@ -1,0 +1,1 @@
+// Error LAMA0521 on `Product`: `The aspect 'DefaultDebuggerDisplay' cannot introduce the custom attribute 'DebuggerDisplayAttribute' into 'Product' because this attribute is already present on the declaration. To keep or replace the existing attribute, set the 'whenExists' parameter to 'Ignore' or 'Override'.`

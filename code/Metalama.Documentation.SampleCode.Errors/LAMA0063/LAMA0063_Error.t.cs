@@ -1,0 +1,1 @@
+// Error LAMA0063 on `Submit`: `Cannot invoke the member 'Order.Validate()' with InvokerOptions.Base on an explicit object or type, because 'Order.Validate()' is not a member of the template target type 'OrderService', of its base types, or of its interfaces. Use InvokerOptions.Default or InvokerOptions.Final instead.`

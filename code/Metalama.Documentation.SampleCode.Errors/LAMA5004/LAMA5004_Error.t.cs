@@ -1,0 +1,1 @@
+// Error LAMA5004 on `Update`: `The [SuspendInvariantsAttribute] aspect cannot be applied to the method 'Invoice.Update(decimal, decimal)' because the IsInvariantSuspensionSupported contract option is not enabled for the type 'Invoice'. Enable this option in ContractOptions using a fabric.`

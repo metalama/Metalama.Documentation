@@ -74,7 +74,7 @@ To add interface implementations to an introduced type, use the <xref:Metalama.F
 
 ## Introducing extension blocks
 
-Starting with Metalama 2026.1, you can introduce C# 14 extension blocks using the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceExtensionBlock*> method. Extension blocks allow you to add extension members (methods, static methods, properties, and operators) to any type. Fields, events, indexers, constructors, and nested types are not supported inside an extension block and are rejected by Metalama with LAMA0041.
+Starting with Metalama 2026.1, you can introduce C# 14 extension blocks using the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceExtensionBlock*> method. Extension blocks allow you to add extension members (methods, static methods, properties, and operators) to any type. Fields, events, indexers, constructors, and nested types are not supported inside an extension block and are rejected by Metalama with <xref:lama0041?text=LAMA0041>.
 
 To introduce an extension block:
 

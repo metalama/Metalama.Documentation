@@ -1,0 +1,1 @@
+// Error LAMA0055 on `LogAttribute`: `The aspect 'Log' applied to method 'Calculator.Add(int, int)' cannot add an aspect of the same type to type 'Calculator' because this type has already been processed by aspects of this type. An aspect can add an aspect of its own type only to a declaration that is processed later, such as a member or a parameter of its target.`

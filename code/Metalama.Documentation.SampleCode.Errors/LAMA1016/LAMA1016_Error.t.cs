@@ -1,0 +1,1 @@
+// Error LAMA1016 on `Print`: `The template 'Intercept' cannot implement the interceptor method for the call to 'Printer.Print(string)' because the added parameter 'line' has no value, because args has no property of this name and the SetArgument method was not called for it. The call site is left unchanged.`

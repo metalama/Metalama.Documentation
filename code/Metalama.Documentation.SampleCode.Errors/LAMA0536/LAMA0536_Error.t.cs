@@ -1,0 +1,1 @@
+// Error LAMA0536 on `Order`: `The aspect 'AddTimestamp' cannot generate the forwarding constructor 'Order.Order(int)' because the pull strategy returned 'PullAction.None' for the parameter 'Order.Order(int)@creationTime'. For a forwarding constructor, the pull strategy must provide a value, for instance with PullAction.UseExpression, and must not return PullAction.None.`

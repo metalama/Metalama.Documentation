@@ -4,7 +4,7 @@ level: 300
 summary: "This article provides a comprehensive guide on snapshot testing of aspects using the Metalama.Testing.AspectTesting package. It details the steps to create a test project, add a test case, run the test case, and copy the test output to the expected output. It also includes advanced features and customizations."
 keywords: "snapshot testing, Metalama.Testing.AspectTesting, aspect testing, .NET, create test project, run test case, verify transformed code, expected output, xUnit test project, Metalama, Metalama.Extensions.HtmlWriter, Metalama.Extensions.DiffEngine, WriteInputHtml, WriteOutputHtml"
 created-date: 2023-02-20
-modified-date: 2026-04-13
+modified-date: 2026-09-28
 ---
 
 # Snapshot testing of aspects
@@ -27,7 +27,7 @@ Follow these steps (detailed below):
 
 ## Step 1. Create an aspect test project with Metalama.Testing.AspectTesting
 
-1. Create an xUnit test project.
+1. Create an xUnit v3 test project. The project must reference the `xunit.v3` package instead of `xunit`, and it must be an executable (`<OutputType>Exe</OutputType>`), as every xUnit v3 test project.
 2. Add the `Metalama.Testing.AspectTesting` package (see <xref:packages> for details).
 
 > [!WARNING]
@@ -39,14 +39,14 @@ Typically, the `csproj` project file of a snapshot test project would have this 
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <OutputType>Library</OutputType>
+        <OutputType>Exe</OutputType>
         <TargetFramework>net10.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
-        <PackageReference Include="xunit" Version="2.4.1" />
-        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+        <PackageReference Include="xunit.v3" Version="4.0.1" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="4.0.0">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
@@ -77,7 +77,7 @@ graph BT
     YourAspectLibrary.AspectTests -- references --> YourAspectLibrary
     YourAspectLibrary.AspectTests -- references --> Metalama.Testing.AspectTesting
     Metalama.Framework -- references --> Metalama.Framework.Redist
-    Metalama.Testing.AspectTesting -- references --> xUnit
+    Metalama.Testing.AspectTesting -- references --> xunit.v3
     Metalama.Testing.AspectTesting -- references --> Metalama.Framework
 
     classDef your fill:yellow;
@@ -96,6 +96,7 @@ When you import the `Metalama.Testing.AspectTesting` package into a project, the
 1. The `MetalamaEnabled` project property is set to `False`, which completely disables Metalama for the project. The `METALAMA` compilation symbol (usable in a directive like `#if METALAMA`) is no longer defined.
 2. Expected test results (`*.t.cs`) are excluded from the compilation.
 3. The Xunit test framework is customized to execute tests from standalone _files_ instead of from methods annotated with `[Fact]` or `[Theory]`.
+4. The entry point that xUnit v3 generates is selected as the entry point of the test executable, so a `Main` method in a test file does not conflict with it.
 
 ## Step 2. Add a test case
 

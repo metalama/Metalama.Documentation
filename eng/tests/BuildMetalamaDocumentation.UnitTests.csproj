@@ -1,19 +1,25 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <OutputType>Exe</OutputType>
         <TargetFramework>net10.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
 
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
+
+        <!-- The tests are written with xunit.v3 and are run by VSTest (xunit.runner.visualstudio), because the build
+             runs 'dotnet test' in its VSTest mode. xunit.v3 declares a test project to be a Microsoft.Testing.Platform
+             application by default, and the .NET 10 SDK refuses such a project in the VSTest mode. -->
+        <IsTestingPlatformApplication>false</IsTestingPlatformApplication>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="coverlet.collector" />
         <PackageReference Include="Docfx.Common" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" />
-        <PackageReference Include="xunit" />
+        <PackageReference Include="xunit.v3" />
         <PackageReference Include="xunit.runner.visualstudio" />
     </ItemGroup>
 

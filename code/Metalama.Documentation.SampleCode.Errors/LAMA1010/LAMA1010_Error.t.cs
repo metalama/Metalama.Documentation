@@ -1,0 +1,1 @@
+// Error LAMA1010 on `Print`: `The call to 'Printer.Print(string)' is intercepted by more than one interceptor: the interceptor method 'Interceptors.Log(string)' registered by the fabric Doc.LAMA1010.Error.Fabric, the interceptor method 'Interceptors.Trace(string)' registered by the fabric Doc.LAMA1010.Error.Fabric. At most one interceptor can apply to a call site.`

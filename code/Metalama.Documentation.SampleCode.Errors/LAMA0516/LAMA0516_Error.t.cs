@@ -1,0 +1,1 @@
+// Error LAMA0516 on `Order`: `The aspect 'Describable' cannot implement the interface 'IDescribable' in the type 'Order' because the strategy 'whenExists=New' is not supported for interfaces. Use Fail, Ignore, or Override. To handle conflicts with individual members, use the WhenExists property of the [InterfaceMember] attribute.`
