@@ -1,0 +1,1 @@
+// Error LAMA0205 on `LogCategory`: `Cannot generate a compile-time serializer for 'LogCategory' because the base type 'NamedItem' is not compile-time serializable and does not have a public or protected parameterless constructor. Make 'NamedItem' implement ICompileTimeSerializable, or add a public or protected parameterless constructor to it.`

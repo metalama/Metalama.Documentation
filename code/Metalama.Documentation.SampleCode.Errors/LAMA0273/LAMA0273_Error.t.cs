@@ -1,0 +1,1 @@
+// Error LAMA0273 on `LogEntry`: `The template 'LogAttribute.LogEntry()' can only be referenced in a direct call. It cannot be assigned to a delegate, passed as an argument, or called with the '?.' operator.`

@@ -119,7 +119,7 @@ Cache keys that exceed a configurable threshold (default: 128 characters) can no
 
 ### Overload detection
 
-<xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackend> now monitors its background task queue and exposes <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackend.IsBackgroundTaskQueueOverloaded> and <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackend.IsBackgroundTaskQueueOverloadedChanged>. The <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCacheDependencyGarbageCollector> automatically pauses real-time notification processing when the backend is overloaded.
+The Redis caching backend now monitors its background task queue and detects when it is overloaded, according to <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.BackgroundTasksOverloadedThreshold>. The <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCacheDependencyGarbageCollector> automatically pauses real-time notification processing when the backend is overloaded.
 
 ### New configuration options
 

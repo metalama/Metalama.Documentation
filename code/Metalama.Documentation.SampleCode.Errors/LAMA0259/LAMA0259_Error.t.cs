@@ -1,0 +1,1 @@
+// Error LAMA0259 on `logField?.Value`: `The null-conditional operator cannot be used in the expression 'logField?.Value', because 'logField' is compile-time, but 'logField.Value' is run-time. Consider using a separate null-checking 'if' statement instead of the null-conditional operator.`

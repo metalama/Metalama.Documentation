@@ -1,0 +1,1 @@
+// Error LAMA0257 on `Category`: `The template member 'Category' cannot be set from an aspect custom attribute. Add a separate aspect property that is not a template and set this property instead.`

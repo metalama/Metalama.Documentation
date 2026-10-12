@@ -1,0 +1,1 @@
+// Error LAMA0701 on `_clock`: `The dependency 'IClock' in type 'InvoiceService' cannot be handled because no dependency injection framework is registered. Register a framework by calling the RegisterFramework method from ConfigureDependencyInjection in a fabric.`

@@ -1,0 +1,1 @@
+// Error LAMA0208 on `RetryPolicy`: `The compile-time serializable type 'RetryPolicy' declares several nested types that implement ISerializer. Only one manual serializer is allowed.`

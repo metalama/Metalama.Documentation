@@ -1,0 +1,1 @@
+// Error LAMA0038 on `Fabric`: `The type fabric on 'Doc.LAMA0038.Error.OrderService' cannot add a child aspect to 'ServiceBase.Ping()' because it is not contained in 'OrderService'.`

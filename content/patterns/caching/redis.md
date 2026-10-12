@@ -153,7 +153,7 @@ Many Redis operations (write-through for L1 caches, invalidation propagation, re
 
 #### Overload detection
 
-The <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackend> exposes an overload detection mechanism through the <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackend.IsBackgroundTaskQueueOverloaded> property and the <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackend.IsBackgroundTaskQueueOverloadedChanged> event. When the number of queued background tasks exceeds the <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.BackgroundTasksOverloadedThreshold>, the backend notifies dependent components. In particular, the <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCacheDependencyGarbageCollector> temporarily stops processing real-time eviction and expiration notifications during overload to prevent further strain on the system.
+The Redis caching backend monitors its queue of background tasks. When the number of queued tasks exceeds <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.BackgroundTasksOverloadedThreshold>, the backend considers itself overloaded and notifies dependent components. In particular, the <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCacheDependencyGarbageCollector> temporarily stops processing real-time eviction and expiration notifications during overload to prevent further strain on the system.
 
 ### Example: configuring resilience and performance
 

@@ -1,0 +1,1 @@
+// Error LAMA0052 on ``: `The C# language version '8.0' is not supported. Change the <LangVersion> property of your project file to one of the following supported values: '10.0', '11.0', '12.0', '13.0', '14.0', '15.0'. Do not use 'latest' or 'latestMajor' because these values are interpreted inconsistently when you use a .NET SDK or IDE that is more recent than Metalama.`

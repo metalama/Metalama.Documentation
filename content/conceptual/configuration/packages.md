@@ -4,7 +4,7 @@ level: 300
 summary: "This article lists NuGet packages for Metalama, detailing their uses and descriptions. It also includes package diagrams for building, executing, testing, introspection, and SDK."
 keywords: "NuGet packages, Metalama, Metalama.Framework, Metalama.Compiler, testing, introspection, Metalama.Extensions.HtmlWriter, Metalama.Extensions.DiffEngine"
 created-date: 2023-01-26
-modified-date: 2025-11-30
+modified-date: 2026-09-28
 ---
 
 # List of NuGet packages
@@ -68,7 +68,7 @@ graph BT
     Metalama.Testing.AspectTesting -- references --> Metalama.Framework.Redist
     Metalama.Testing.AspectTesting -- inhibits --> Metalama.Framework
     Metalama.Testing.AspectTesting -- references--> Metalama.Framework.Engine
-    Metalama.Testing.AspectTesting -- references--> xUnit
+    Metalama.Testing.AspectTesting -- references--> xunit.v3
     Metalama.Framework.Engine -- references --> Metalama.Framework
     YourTests -- references --> Metalama.Testing.AspectTesting
     YourTests -. optional .-> Metalama.Extensions.HtmlWriter

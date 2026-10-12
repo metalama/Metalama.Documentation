@@ -162,8 +162,8 @@ There are several ways to get an `IType` instance from your compile-time code.
 You can use the <xref:Metalama.Framework.Code.TypeFactory.GetType*?text=TypeFactory.GetType> and <xref:Metalama.Framework.Code.TypeFactory.GetNamedType*?text=TypeFactory.GetNamedType> methods to map a `System.Type` to the corresponding <xref:Metalama.Framework.Code.IType> or <xref:Metalama.Framework.Code.INamedType>.
 
 ```csharp
-var stringType = TypeFactory.GetNamedType(typeof(string));
-var stringArrayType = TypeFactory.GetType(typeof(string[]));
+var stringType = typeof(string).AsINamedType();
+var stringArrayType = typeof(string[]).AsIType();
 ```
 
 > [!WARNING]
@@ -214,7 +214,7 @@ Use <xref:Metalama.Framework.Code.INamedType.MakeGenericInstance*> to create a g
 
 ```csharp
 // Get the generic definition of List<T>
-var listDefinition = TypeFactory.GetNamedType(typeof(List<>));
+var listDefinition = typeof(List<>).AsINamedType();
 
 // Create List<string>
 var stringType = TypeFactory.GetType( SpecialType.String );
@@ -224,7 +224,7 @@ var listOfString = listDefinition.MakeGenericInstance( [stringType] );
 You can also use the following, more compact, syntax:
 
 ```csharp
-var listOfString = TypeFactory.GetNamedType( typeof(List<>) ).MakeGenericInstance( [typeof(string)] );
+var listOfString = typeof(List<>).AsINamedType().MakeGenericInstance( [typeof(string)] );
 ```
 
 ## Tuple types
@@ -311,7 +311,7 @@ Use the <xref:Metalama.Framework.Code.IType.MakeArrayType*?text=IType.MakeArrayT
 
 ```csharp
 // Single-dimensional array (rank defaults to 1)
-var intType = TypeFactory.GetType(typeof(int));
+var intType = typeof(int).AsIType();
 var intArrayType = intType.MakeArrayType(); // int[]
 
 // Multi-dimensional array
@@ -332,7 +332,7 @@ var rank = arrayType.Rank; // 2
 Use the <xref:Metalama.Framework.Code.IType.MakePointerType*?text=IType.MakePointerType> method to create a pointer type from an element type. Note that pointers are only valid for unmanaged types:
 
 ```csharp
-var intType = TypeFactory.GetType(typeof(int));
+var intType = typeof(int).AsIType();
 var intPointerType = intType.MakePointerType(); // int*
 
 // Pointer to pointer

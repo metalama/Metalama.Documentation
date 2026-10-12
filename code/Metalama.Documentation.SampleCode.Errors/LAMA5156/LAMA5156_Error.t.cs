@@ -1,0 +1,1 @@
+// Error LAMA5156 on `CustomerViewModel`: `Class 'CustomerViewModel' implements INotifyPropertyChanged but neither defines nor inherits a method with the signature 'protected void OnPropertyChanged(string)', which the [Observable] aspect requires to raise notifications. The method name can also be NotifyOfPropertyChange or RaisePropertyChanged.`

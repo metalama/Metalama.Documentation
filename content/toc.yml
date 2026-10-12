@@ -6,6 +6,8 @@ items:
   topicUid: main-getting-started
 - name: Conceptual documentation
   href: conceptual/toc.yml
+- name: Errors and warnings
+  href: errors/toc.yml
 - name: Commented examples
   href: ../source-dependencies/Metalama.Samples/toc.yml
 - name: API documentation          

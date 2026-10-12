@@ -1,0 +1,1 @@
+// Error LAMA0542 on `IntExtensions`: `The aspect 'ItemIndexer' cannot introduce indexer 'IntExtensions.extension(int).this[int]' into 'IntExtensions.extension(int)' because the indexer has an 'init' accessor, which the language forbids for an extension member.`

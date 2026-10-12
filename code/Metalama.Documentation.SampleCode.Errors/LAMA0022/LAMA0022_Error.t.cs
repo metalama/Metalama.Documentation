@@ -1,0 +1,1 @@
+// Error LAMA0022 on `LogAllMethodsAttribute`: `The aspect 'LogAllMethods' cannot add a child aspect of type 'Log' because the 'Log' aspect is processed before 'LogAllMethods'. Use the [AspectOrder] assembly attribute to process 'LogAllMethods' before 'Log'.`

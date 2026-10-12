@@ -1,0 +1,23 @@
+// Warning LAMA0908 on `Order`: `The type assigned to the ExclusionPredicateType property must have a public constructor accepting a single parameter of type ReferencePredicateBuilder.`
+using Metalama.Extensions.Architecture.Aspects;
+namespace Doc.LAMA0908.Error;
+[CanOnlyBeUsedFrom(Types = [typeof(OrderFactory)], ExclusionPredicateType = typeof(ExcludeTestTypesPredicate))]
+public class Order
+{
+  public decimal Amount { get; set; }
+}
+public class OrderFactory
+{
+  public Order Create(decimal amount) => new Order
+  {
+    Amount = amount
+  };
+}
+public class OrderTests
+{
+  public void CanCreateOrder()
+  {
+    var order = new Order();
+    _ = order;
+  }
+}

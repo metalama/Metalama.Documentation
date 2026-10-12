@@ -17,14 +17,14 @@ internal partial class FactoryLazyDependencyInjectionStrategy : DefaultDependenc
 
     public FactoryLazyDependencyInjectionStrategy( DependencyProperties properties ) : base( properties )
     {
-        _factoryType = TypeFactory.GetNamedType( typeof(IServiceFactory<>) )
+        _factoryType = typeof(IServiceFactory<>).AsINamedType()
             .WithTypeArguments( properties.DependencyType );
     }
 
     public override IntroduceDependencyResult IntroduceDependency( IAdviser<INamedType> adviser )
     {
         // Introduce a field that stores Func<IServiceFactory<T>>.
-        var funcType = TypeFactory.GetNamedType( typeof(Func<>) ).WithTypeArguments( _factoryType );
+        var funcType = typeof(Func<>).AsINamedType().WithTypeArguments( _factoryType );
 
         var funcFieldResult = adviser.IntroduceField(
             this.Properties.Name + "Func",
@@ -97,7 +97,7 @@ internal partial class FactoryLazyDependencyInjectionStrategy : DefaultDependenc
             : base( properties, mainProperty )
         {
             this._funcField = funcField;
-            this._funcType = TypeFactory.GetNamedType( typeof(Func<>) ).WithTypeArguments( factoryType ).ToNullable();
+            this._funcType = typeof(Func<>).AsINamedType().WithTypeArguments( factoryType ).ToNullable();
         }
 
         protected override IFieldOrProperty AssignedFieldOrProperty => this._funcField;

@@ -1,0 +1,1 @@
+// Error LAMA5203 on `Quantity`: `The name of the existing field 'ProductControl.QuantityProperty', defined in or inherited by the type 'ProductControl', conflicts with the registration field name determined by the 'default' naming convention. Rename the existing field or change the naming convention.`

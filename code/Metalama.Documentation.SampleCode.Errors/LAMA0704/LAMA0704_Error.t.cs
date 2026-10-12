@@ -1,0 +1,1 @@
+// Error LAMA0704 on `OrderService`: `The dependency 'IAuditSink' cannot be pulled from the constructor 'OrderService.OrderService()' because 'IAuditSink' has lower accessibility than the constructor.`

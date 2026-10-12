@@ -41,7 +41,7 @@ process is started.
 The generated project is minimal, and isolated from your repository by design:
 
 * It targets the frameworks listed by the `MetalamaCompileTimeTargetFrameworks` property, which are
-  `netstandard2.0;net8.0;net48` by default. These are the frameworks that can host the compiler. `netstandard2.0` is
+  `netstandard2.0;net10.0;net48` by default. These are the frameworks that can host the compiler. `netstandard2.0` is
   always required.
 * It references the version of `Microsoft.CodeAnalysis.CSharp` that your version of Metalama is built against, plus
   whatever you added through the `MetalamaCompileTimePackage` and `MetalamaCompileTimeAssembly` items.
@@ -154,8 +154,8 @@ reports an error of its own and quotes what the build said:
 
 | Diagnostic | Meaning |
 |------------|---------|
-| `LAMA0082` | The build of the generated project completed with an error. The diagnostic quotes the errors that this build reported and, when the cause is recognizable, names it and the way to resolve it. |
-| `LAMA0083` | The build didn't complete within its time budget and was stopped. Raise the budget with the `MetalamaReferenceAssemblyRestoreTimeout` property, expressed in milliseconds, whose default value is `120000`. |
+| <xref:lama0082?text=LAMA0082> | The build of the generated project completed with an error. The diagnostic quotes the errors that this build reported and, when the cause is recognizable, names it and the way to resolve it. |
+| <xref:lama0083?text=LAMA0083> | The build didn't complete within its time budget and was stopped. Raise the budget with the `MetalamaReferenceAssemblyRestoreTimeout` property, expressed in milliseconds, whose default value is `120000`. |
 
 Both diagnostics give the path of an MSBuild binary log of the failed build. Open it with the MSBuild Structured Log
 Viewer to see exactly what happened.

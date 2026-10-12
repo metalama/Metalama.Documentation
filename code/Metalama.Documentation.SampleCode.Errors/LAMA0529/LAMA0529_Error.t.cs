@@ -1,0 +1,1 @@
+// Error LAMA0529 on `FileLogger`: `The aspect 'Disposable' cannot override the member 'LoggerBase.Dispose()' to implement an interface member because 'LoggerBase.Dispose()' is inherited from a base type and is either not virtual or sealed. Make 'LoggerBase.Dispose()' virtual and not sealed.`
