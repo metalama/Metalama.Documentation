@@ -1,3 +1,4 @@
-Repaint requested by OrderGrid.AddRow.
-OrderGrid invalidated.
-OrderGrid focused.
+Updating styles.
+OrderGrid styles updated.
+Updating styles.
+CustomerGrid styles updated.

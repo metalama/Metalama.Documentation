@@ -162,19 +162,22 @@ The following aspect generates the interceptor as an instance method of the call
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/CallerLogger.cs name="Writing to the caller's logger"]
 
-## Intercepting calls to inherited methods
+## Intercepting calls to protected methods of a base class
 
-A class that derives from a framework class, such as a Windows Forms or WPF control, often calls the methods that it inherits, for instance `this.Invalidate()`. These calls are bound to the method of the base class, so the registration must select the base class, not the derived class. To limit the interception to the derived classes, use a query that selects them as the scope.
+A class that derives from a framework class, such as a Windows Forms or WPF control, often calls the protected methods that it inherits, for instance `this.UpdateStyles()`. Two rules apply:
 
-For instance, the following fabric selects the classes derived from `Control` as the scope, and the base class `Control` as the declaring type of the intercepted method:
+* The calls are bound to the method of the framework class, so the registration must select the framework class, not the derived class. To limit the interception to the derived classes, use a query that selects them as the scope.
+* A protected method can be called only from the class hierarchy. The interceptor cannot be in the default `MetalamaInterceptors` class: generate it in a common base class of your project with <xref:Metalama.Extensions.Interceptors.ITemplateInterception.PlaceInType*>. Because C# allows the call of a protected method only through an instance of the calling class, change the type of the receiver parameter to this base class with a `Configure` delegate.
+
+For instance:
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/BaseClassCalls.Fabric.cs marker="Selection"]
 
-### Example: Intercepting calls to a method of a base class
+### Example: Intercepting calls to a protected method of a framework class
 
-In the following example, a project fabric selects the types derived from `Control`, and intercepts their calls to `Control.Invalidate`. The `Member` granularity lets the template read the calling member.
+In the following example, `OrderGrid` and `CustomerGrid` derive from `AppControl`, the base class of the controls of the project, which derives from the framework class `Control`. Their calls to the protected method `Control.UpdateStyles` are redirected to one interceptor, generated as a `private protected` method of `AppControl`.
 
-[!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/BaseClassCalls.cs name="Intercepting calls to a base class method"]
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/BaseClassCalls.cs name="Intercepting calls to a protected method"]
 
 ## Limitations
 
@@ -184,7 +187,7 @@ In this version, interceptors generated from templates intercept only calls. A m
 
 | Article | Description |
 |---------|-------------|
-| <xref:generic-interceptor-templates> | Intercept generic methods, and choose between a generic interceptor shared by all type arguments and an interceptor specialized for each type argument. |
+| <xref:generic-interceptor-templates> | Reuse one template for methods of the same shape, and intercept generic methods with specialized or shared interceptors. |
 | <xref:interceptor-deduplication-rules> | Reference: when call sites share a generated interceptor, and how granularity, names and accessibility are decided. |
 
 > [!div class="see-also"]

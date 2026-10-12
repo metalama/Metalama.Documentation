@@ -2,25 +2,24 @@
 
 namespace Doc.BaseClassCalls;
 
-public class OrderGrid : Control
+// The base class of all the controls of the application.
+public abstract class AppControl : Control;
+
+public class OrderGrid : AppControl
 {
-    private int _rowCount;
+    public void ApplyTheme() => this.UpdateStyles();
+}
 
-    public void AddRow()
-    {
-        this._rowCount++;
-        this.Invalidate();
-    }
-
-    public void Activate() => this.Focus();
+public class CustomerGrid : AppControl
+{
+    public void ApplyTheme() => this.UpdateStyles();
 }
 
 internal class Program
 {
     private static void Main()
     {
-        var grid = new OrderGrid();
-        grid.AddRow();
-        grid.Activate();
+        new OrderGrid().ApplyTheme();
+        new CustomerGrid().ApplyTheme();
     }
 }

@@ -1,20 +1,27 @@
+using System;
 namespace Doc.BaseClassCalls;
-public class OrderGrid : Control
+// The base class of all the controls of the application.
+public abstract class AppControl : Control
 {
-  private int _rowCount;
-  public void AddRow()
+  private protected static void Control_UpdateStyles_Interceptor(AppControl receiver)
   {
-    this._rowCount++;
-    MetalamaInterceptors.Control_Invalidate_Interceptor(this);
+    Console.WriteLine("Updating styles.");
+    receiver.UpdateStyles();
   }
-  public void Activate() => this.Focus();
+}
+public class OrderGrid : AppControl
+{
+  public void ApplyTheme() => Control_UpdateStyles_Interceptor(this);
+}
+public class CustomerGrid : AppControl
+{
+  public void ApplyTheme() => Control_UpdateStyles_Interceptor(this);
 }
 internal class Program
 {
   private static void Main()
   {
-    var grid = new OrderGrid();
-    grid.AddRow();
-    grid.Activate();
+    new OrderGrid().ApplyTheme();
+    new CustomerGrid().ApplyTheme();
   }
 }

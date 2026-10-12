@@ -12,9 +12,9 @@ public class LogHttpCallsAttribute : TypeAspect
 {
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
+        // [<snippet Registration>]
         var interceptor = typeof(HttpLogging).AsINamedType().Methods.OfName( nameof(HttpLogging.GetStringAsync) ).Single();
 
-        // [<snippet Registration>]
         builder.InterceptMethods(
             calls => calls
                 .Type( typeof(HttpClient) )

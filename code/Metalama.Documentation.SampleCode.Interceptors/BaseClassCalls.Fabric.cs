@@ -14,24 +14,28 @@ internal class Fabric : ProjectFabric
         => amender
             // [<snippet Selection>]
             .SelectTypes()
-            .Where( t => t.IsConvertibleTo( typeof(Control) ) )
+            .Where( t => t.IsConvertibleTo( typeof(AppControl) ) )
             .InterceptMethods(
                 calls => calls
-                    // Select the base class that declares the methods, not the derived class.
+                    // Select the framework class that declares the protected method.
                     .Type( typeof(Control) )
-                    .Methods( nameof(Control.Invalidate) )
+                    .Methods( "UpdateStyles" )
+                    .RedirectToSynthesizedMethod( nameof(StyleTemplates.LogStyles) )
+                    .WithTemplateProvider( TemplateProvider.FromInstance( new StyleTemplates() ) )
+                    // A protected method can be called only from the class hierarchy,
+                    // so the interceptor is generated in the common base class of the project.
+                    .PlaceInType( typeof(AppControl) )
+                    // C# allows the call of a protected method only through an instance of the calling class.
+                    .Configure( method => method.Method.Parameters[0].Type = method.Method.DeclaringType ) );
             // [<endsnippet Selection>]
-                    .RedirectToSynthesizedMethod( nameof(RepaintTemplates.LogRepaint) )
-                    .WithTemplateProvider( TemplateProvider.FromInstance( new RepaintTemplates() ) )
-                    .WithGranularity( InterceptorGranularity.Member ) );
 }
 
-internal class RepaintTemplates : ITemplateProvider
+internal class StyleTemplates : ITemplateProvider
 {
     [Template]
-    public dynamic? LogRepaint()
+    public dynamic? LogStyles()
     {
-        Console.WriteLine( $"Repaint requested by {meta.Interception.CallingType.Name}.{meta.Interception.CallingMember.Name}." );
+        Console.WriteLine( "Updating styles." );
 
         return meta.Proceed();
     }

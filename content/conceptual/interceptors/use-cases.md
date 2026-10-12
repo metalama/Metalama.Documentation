@@ -11,13 +11,14 @@ modified-date: 2026-10-12
 
 Interceptors change the behavior of calls without changing the code that makes them. The change is written once, outside the business code, and every build applies it to the matching calls. This article explains when this is the right approach, and when another technique is better.
 
-## What interceptors are good at
+## Benefits of Metalama interceptors
 
 Interceptors combine three properties that other techniques rarely offer together:
 
 * **Interceptors reach any method.** The intercepted method can be static, sealed, non-virtual, an extension method or a struct method, in any assembly. You need neither its source code, nor an interface, nor dependency injection.
 * **Interceptors know the caller.** A registration applies only to the code you select, and the interceptor can receive the calling member, its parameters, or the calling object.
 * **One registration covers many methods.** A T# template generates the interceptor for any signature, so one registration can cover a whole API.
+* **Interceptors are easy to add and to remove.** They are not invasive: the business code does not change, and deleting the registration removes the interceptor.
 
 ## Problems that interceptors solve well
 
@@ -53,10 +54,6 @@ See the examples _Tracing calls to investigate a problem_ in <xref:generating-in
 
 PostSharp can apply a `MethodInterceptionAspect` to the methods of another assembly by rewriting the calls. Metalama aspects cannot modify external methods, but interceptors provide the same capability.
 
-### Generated code checked into the source tree
-
-Calls in generated files that are part of the source code, such as OpenAPI clients or Windows Forms designer files, are intercepted like any other call. Regenerating the files does not remove the interception. The output of Roslyn source generators is not intercepted, because source generators run after Metalama.
-
 ## Problems better solved another way
 
 | Problem | Better solution |
@@ -67,12 +64,11 @@ Calls in generated files that are part of the source code, such as OpenAPI clien
 | Calls that are not in your source code: calls inside libraries, calls made by the framework, calls through reflection or `dynamic`. | Hooks of the library, or run-time instrumentation. |
 | Changing a method that you own for every caller. | An override aspect. See <xref:overriding-methods>. |
 | Logic that differs at each call site, or a handful of call sites. | Write the logic at the call site. |
-| Calls in projects that do not build with Metalama, such as the consumers of a public NuGet package. | A Roslyn source generator. |
 | Property accesses, constructor calls, operators and `await` expressions. | Not supported in this version. |
 
 ## Comparison with other techniques
 
-| Technique | What it does better | What interceptors can do that it cannot |
+| Technique | Technique's strengths | Interceptor's strengths |
 |---|---|---|
 | Override aspects | The behavior is in the method, for every caller. | Change methods of other assemblies; apply only to some callers. |
 | Decorators and dynamic proxies | No build-time tooling. | Intercept static methods and objects not created by a dependency injection container; know the caller; no reflection. |
@@ -82,13 +78,6 @@ Calls in generated files that are part of the source code, such as OpenAPI clien
 | Editing the call sites, by hand or with an AI agent | The change is visible in the source code. | Apply a rule to every call, including the calls written later; keep the business code free of repetitive statements; remove the change by deleting one file. |
 
 An AI agent changes code once, while an interceptor is a rule that every build applies. When you work on legacy code with an agent, let the agent write the fabric and the interceptor, which are small and easy to review, and leave the business code unchanged until tests and production data support the final change.
-
-## Costs and risks
-
-* **The source code does not contain the interceptor.** A reader of the calling code sees the original call. The rewritten call is visible in the diff preview of Visual Studio Tools for Metalama and in the output of the `LamaDebug` build configuration. Keep interceptors in a few well-named files.
-* **Only one interceptor applies to a call site.** Two registrations that intercept the same call cause an error. Decide for each call site which registration handles it.
-* **Only calls written in the source code are intercepted.** See <xref:interceptors-troubleshooting>.
-* **Tests may run a different binary.** When interceptors replace dependencies only in a test build, the tests do not run the release binary. Keep the difference small, and remove the interceptors once the code has real abstractions.
 
 > [!div class="see-also"]
 > <xref:intercepting-calls>

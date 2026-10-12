@@ -12,9 +12,9 @@ internal class Fabric : ProjectFabric
 {
     public override void AmendProject( IProjectAmender amender )
     {
+        // [<snippet Registration>]
         var interceptor = typeof(VirtualClock).AsINamedType().Methods.OfName( nameof(VirtualClock.Sleep) ).Single();
 
-        // [<snippet Registration>]
         amender.InterceptMethods(
             calls => calls
                 .Type( typeof(Thread) )

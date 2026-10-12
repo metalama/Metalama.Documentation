@@ -67,13 +67,25 @@ The following namespace fabric is in the `Billing` namespace. It redirects the c
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/NamespaceScope.cs name="Intercepting calls in one namespace"]
 
-### Avoiding infinite recursion
+### Calling the original method
+
+Your method can call the method that it intercepts, before or after its own logic, or not at all. It can also change the arguments, process the result, or handle exceptions.
+
+For instance, the following interceptor calls the intercepted method, then compares its result with a new implementation:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/CompareTaxCalculators.TaxComparison.cs marker="Compare"]
 
 When your method calls the intercepted method, and your method is in the scope of the registration, the call in your method is intercepted too, and your method calls itself.
 
-To prevent this, add the <xref:Metalama.Extensions.Interceptors.ExcludeInterceptorsAttribute> attribute to the class of your interceptor. The calls in a class with this attribute are never intercepted. Some of the following examples use this attribute. In the previous example, the interceptor is outside the scope of the namespace fabric, so it does not need the attribute.
+To prevent this, add the <xref:Metalama.Extensions.Interceptors.ExcludeInterceptorsAttribute> attribute to the class of your interceptor. The calls in a class with this attribute are never intercepted. The following example and the audit example below use this attribute. In the namespace example above, the interceptor is outside the scope of the namespace fabric, so it does not need the attribute.
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/AuditFileDelete.Audit.cs marker="Exclude"]
+
+#### Example: Comparing a new implementation with the legacy one
+
+The following interceptor runs a new tax calculator next to the legacy one, reports the differences, and returns the result of the legacy calculator. The callers don't change, and the behavior of the program does not change either. When the new calculator has proven itself, you can switch the calls to it. See the example _Switching one module at a time_ in <xref:interceptors-selecting-calls>.
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/CompareTaxCalculators.cs name="Comparing tax calculators" diff-files="\.Program\.cs$"]
 
 ## Matching the parameters of the intercepted method
 
@@ -152,20 +164,6 @@ The following aspect passes the `requestId` parameter of the calling method to t
 The following fabric redirects the calls to `Telemetry.Track` to a method that also receives the calling object. In a static member, there is no calling object, so `null` is passed.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/PassCallerInstance.cs name="Passing the calling object" diff-files="\.Program\.cs$"]
-
-## Calling the original method
-
-Your method can call the method that it intercepts, before or after its own logic, or not at all. It can also change the arguments, process the result, or handle exceptions.
-
-For instance, the following interceptor calls the intercepted method, then compares its result with a new implementation:
-
-[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/CompareTaxCalculators.TaxComparison.cs marker="Compare"]
-
-### Example: Comparing a new implementation with the legacy one
-
-The following interceptor runs a new tax calculator next to the legacy one, reports the differences, and returns the result of the legacy calculator. The callers don't change, and the behavior of the program does not change either. When the new calculator has proven itself, you can switch the calls to it. See the example _Switching one module at a time_ in <xref:interceptors-selecting-calls>.
-
-[!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/CompareTaxCalculators.cs name="Comparing tax calculators" diff-files="\.Program\.cs$"]
 
 > [!div class="see-also"]
 > <xref:interceptor-binding-rules>

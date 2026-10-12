@@ -26,15 +26,9 @@ Interception works on the _calls_, not on the called method. This makes it diffe
 * **Know the caller**: an interceptor can receive the calling member, its parameters, or the calling object.
 * **Keep the business code clean**: the behavior is defined once, outside the code that makes the calls, and applies to calls written in the future.
 * **No run-time overhead of reflection or proxies**: the calls are rewritten at build time.
+* **Synthesize the interceptor methods from T# templates**: one template generates the interceptors of many methods with different signatures.
 
 Before you choose interceptors, read <xref:interceptors-use-cases>, which also describes the problems that interceptors do not solve well.
-
-## What interceptors can do
-
-* Intercept the calls to any method.
-* Limit the interception to a namespace, a type or a member.
-* Pass contextual arguments to the interceptor, such as the calling member or the calling object.
-* Synthesize the interceptor methods from T# templates.
 
 ## How it works
 
@@ -67,7 +61,7 @@ Add a reference to the `Metalama.Extensions.Interceptors` package to the project
 |---------|-------------|
 | <xref:interceptors-use-cases> | When to use interceptors, when not to, and how they compare with other techniques. |
 | <xref:redirecting-calls-to-existing-methods> | Redirect calls to a static method that you write. |
-| <xref:generating-interceptors-with-templates> | Generate interceptors from T# templates, for many methods with different signatures, including generic methods, and understand when call sites share a generated interceptor. |
+| <xref:generating-interceptors-with-templates> | Generate interceptors from T# templates, for many methods with different signatures, write generic templates, and understand when call sites share a generated interceptor. |
 | <xref:interceptors-selecting-calls> | Choose the methods, the calling code and the build configurations where calls are intercepted, and decide for each call site. |
 | <xref:interceptor-binding-rules> | Reference: how the arguments of a call reach the parameters of the interceptor. |
 | <xref:interceptors-troubleshooting> | Calls that are not intercepted, limitations, and diagnostics. |
