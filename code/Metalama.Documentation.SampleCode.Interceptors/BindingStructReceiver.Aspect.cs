@@ -25,7 +25,9 @@ public class TraceCountersAttribute : TypeAspect
 public static class CounterTracing
 {
     // Increment modifies the struct, so the receiver must be passed by reference.
+    // [<snippet Interceptor>]
     public static void Increment( ref Counter counter )
+    // [<endsnippet Interceptor>]
     {
         counter.Add( 1 );
         Console.WriteLine( $"Counter incremented to {counter.Value}." );

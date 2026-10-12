@@ -16,6 +16,7 @@ internal class Fabric : ProjectFabric
             calls => calls
                 .Type( typeof(ShippingClient) )
                 .AllMethods()
+                // [<snippet Registration>]
                 .Where( m => m.Name.StartsWith( "Get" ) )
                 .RedirectToSynthesizedMethod(
                     new MethodTemplateSelector(
@@ -24,11 +25,13 @@ internal class Fabric : ProjectFabric
                         useAsyncTemplateForAnyAwaitable: true ) )
                 .WithTemplateProvider( TemplateProvider.FromInstance( new RetryTemplates() ) )
                 .WithArgs( new { maxAttempts = 3 } ) );
+                // [<endsnippet Registration>]
 }
 
 internal class RetryTemplates : ITemplateProvider
 {
     [Template]
+    // [<snippet Retry>]
     public dynamic? Retry( [CompileTime] int maxAttempts )
     {
         for ( var attempt = 1;; attempt++ )
@@ -43,6 +46,7 @@ internal class RetryTemplates : ITemplateProvider
             }
         }
     }
+    // [<endsnippet Retry>]
 
     [Template]
     public async Task<dynamic?> RetryAsync( [CompileTime] int maxAttempts )

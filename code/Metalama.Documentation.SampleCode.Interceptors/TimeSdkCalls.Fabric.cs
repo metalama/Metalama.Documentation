@@ -17,17 +17,20 @@ internal class Fabric : ProjectFabric
             calls => calls
                 .Type( typeof(PaymentGateway) )
                 .AllMethods()
+                // [<snippet Selector>]
                 .RedirectToSynthesizedMethod(
                     new MethodTemplateSelector(
                         nameof(TimingTemplates.Time),
                         nameof(TimingTemplates.TimeAsync),
                         useAsyncTemplateForAnyAwaitable: true ) )
+                // [<endsnippet Selector>]
                 .WithTemplateProvider( TemplateProvider.FromInstance( new TimingTemplates() ) ) );
 }
 
 internal class TimingTemplates : ITemplateProvider
 {
     [Template]
+    // [<snippet Template>]
     public dynamic? Time()
     {
         var stopwatch = Stopwatch.StartNew();
@@ -41,8 +44,10 @@ internal class TimingTemplates : ITemplateProvider
             Console.WriteLine( $"{meta.Interception.Method.InterceptedMethod.Name} took {stopwatch.ElapsedMilliseconds} ms." );
         }
     }
+    // [<endsnippet Template>]
 
     [Template]
+    // [<snippet AsyncTemplate>]
     public async Task<dynamic?> TimeAsync()
     {
         var stopwatch = Stopwatch.StartNew();
@@ -56,4 +61,5 @@ internal class TimingTemplates : ITemplateProvider
             Console.WriteLine( $"{meta.Interception.Method.InterceptedMethod.Name} took {stopwatch.ElapsedMilliseconds} ms." );
         }
     }
+    // [<endsnippet AsyncTemplate>]
 }

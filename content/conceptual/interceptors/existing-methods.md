@@ -26,6 +26,14 @@ To intercept the calls made by the members of one type, register the interceptor
 
 The scope of the registration is the target of the aspect: only the calls written in the members of this type are intercepted.
 
+For instance, the following interceptor of `HttpClient.GetStringAsync( string )` receives the `HttpClient` as its first parameter:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/LogHttpCalls.HttpLogging.cs marker="Interceptor"]
+
+The aspect registers it:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/LogHttpCalls.Aspect.cs marker="Registration"]
+
 ### Example: Logging calls to HttpClient
 
 The following aspect logs the calls that `OrderService` makes to `HttpClient.GetStringAsync( string )`. The `Where` predicate keeps the overload that takes a `string`, because the interceptor has a `string` parameter.
@@ -40,6 +48,10 @@ To intercept the calls made by many types, register the interceptor from a fabri
 * In a <xref:Metalama.Framework.Fabrics.NamespaceFabric>, the scope is the namespace of the fabric.
 
 To select other scopes, such as the types that a query selects, see <xref:interceptors-selecting-calls>.
+
+For instance, the following project fabric redirects the calls to `Thread.Sleep( int )` in the whole project:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/FakeSleep.Fabric.cs marker="Registration"]
 
 ### Example: Replacing Thread.Sleep in tests
 
@@ -61,6 +73,8 @@ When your method calls the intercepted method, and your method is in the scope o
 
 To prevent this, add the <xref:Metalama.Extensions.Interceptors.ExcludeInterceptorsAttribute> attribute to the class of your interceptor. The calls in a class with this attribute are never intercepted. Some of the following examples use this attribute. In the previous example, the interceptor is outside the scope of the namespace fabric, so it does not need the attribute.
 
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/AuditFileDelete.Audit.cs marker="Exclude"]
+
 ## Matching the parameters of the intercepted method
 
 Metalama binds each parameter of your method to a value of the call site:
@@ -69,6 +83,10 @@ Metalama binds each parameter of your method to a value of the call site:
 * The other parameters are matched with the parameters of the intercepted method _by name_, not by position.
 * A parameter of your method that has no match can receive a value given by `WithArgs`, the caller information requested by an attribute such as `[CallerMemberName]`, or its own default value.
 * An argument of the call that your method does not receive is dropped. It is still evaluated when its evaluation can have a side effect.
+
+For instance, the following interceptor of `LegacyTaxCalculator.ComputeTax( decimal amount, string region )` receives the calculator, then the arguments by name, then caller information:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/CountCalls.CallCounter.cs marker="Signature"]
 
 The types do not have to be identical: each argument must convert implicitly to the type of your parameter, and the return value of your method must convert implicitly to the return type of the intercepted method. Parameters passed by `ref`, `out` or `in` must keep their reference kind and their type.
 
@@ -82,9 +100,17 @@ Your method can receive values that the intercepted method does not have.
 
 <xref:Metalama.Extensions.Interceptors.IExistingMethodInterception.WithArgs*> gives values by name. Pass an anonymous object, another object whose public properties and fields give the values, or an `IReadOnlyDictionary<string, object?>`. A value can be a literal, an enumeration value, a `Type`, which is written as `typeof`, or a <xref:Metalama.Framework.Code.TypedConstant>. See <xref:interceptor-binding-rules>.
 
+For instance:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/AuditFileDelete.Fabric.cs marker="WithArgs"]
+
 ### Passing the location of the call
 
 A parameter with a caller information attribute, such as `[CallerMemberName]`, `[CallerFilePath]` or `[CallerLineNumber]`, receives the location of the intercepted call site, not of the call inside your method.
+
+For instance:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/AuditFileDelete.Audit.cs marker="Signature"]
 
 #### Example: Auditing calls to File.Delete
 
@@ -107,6 +133,14 @@ To pass a value that depends on the call site, decide the interception for each 
 
 The values passed this way are written at the call site.
 
+For instance, the following delegate passes the `requestId` parameter of the calling method, when the call site can read it:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/PassCallerParameter.Aspect.cs marker="Guard"]
+
+The following one passes the calling object, or `null` in a static member:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/PassCallerInstance.Fabric.cs marker="This"]
+
 #### Example: Passing a parameter of the calling method
 
 The following aspect passes the `requestId` parameter of the calling method to the interceptor. It skips the call sites where the calling method has no such parameter, and the call sites in lambdas that cannot read it.
@@ -122,6 +156,10 @@ The following fabric redirects the calls to `Telemetry.Track` to a method that a
 ## Calling the original method
 
 Your method can call the method that it intercepts, before or after its own logic, or not at all. It can also change the arguments, process the result, or handle exceptions.
+
+For instance, the following interceptor calls the intercepted method, then compares its result with a new implementation:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/CompareTaxCalculators.TaxComparison.cs marker="Compare"]
 
 ### Example: Comparing a new implementation with the legacy one
 

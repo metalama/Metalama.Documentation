@@ -58,6 +58,10 @@ The granularity declares what the template depends on, and therefore which call 
 
 The levels `Type`, `Member` and `CallSite` include the coarser ones. Reading a property that requires a finer level than the granularity throws an exception, whose message names the level to set.
 
+For instance, the following registration declares that its template reads the calling member:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/DedupPerMember.Fabric.cs marker="Granularity"]
+
 ### Example: One method per calling member
 
 In the following example, the template reads the calling member, so the granularity is `Member`. Each calling member gets its own method, and the two calls in `PayTwice` share one.
@@ -65,6 +69,10 @@ In the following example, the template reads the calling member, so the granular
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/DedupPerMember.cs name="One method per calling member"]
 
 To pass information about the call site without generating more methods, pass it as an added parameter, as in the example _Added parameters_ of <xref:interceptor-binding-rules>.
+
+For instance, the following registration adds a parameter whose value is the name of the calling member. The call sites still share one generated method:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/TemplateAddedParameter.Aspect.cs marker="Configure"]
 
 ## The representative call site
 

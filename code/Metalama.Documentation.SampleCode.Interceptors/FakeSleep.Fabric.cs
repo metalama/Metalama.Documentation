@@ -14,11 +14,13 @@ internal class Fabric : ProjectFabric
     {
         var interceptor = typeof(VirtualClock).AsINamedType().Methods.OfName( nameof(VirtualClock.Sleep) ).Single();
 
+        // [<snippet Registration>]
         amender.InterceptMethods(
             calls => calls
                 .Type( typeof(Thread) )
                 .Methods( nameof(Thread.Sleep) )
                 .Where( m => m.Parameters is [{ Type.SpecialType: SpecialType.Int32 }] )
                 .RedirectToExistingMethod( interceptor ) );
+        // [<endsnippet Registration>]
     }
 }

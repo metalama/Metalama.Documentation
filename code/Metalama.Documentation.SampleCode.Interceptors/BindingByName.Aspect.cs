@@ -25,6 +25,8 @@ public class RedirectMailAttribute : TypeAspect
 public static class MailOutbox
 {
     // The parameters are in another order, and there is no parameter for the priority.
+    // [<snippet Interceptor>]
     public static void Send( string subject, string recipient )
+    // [<endsnippet Interceptor>]
         => Console.WriteLine( $"Queued '{subject}' for {recipient}." );
 }

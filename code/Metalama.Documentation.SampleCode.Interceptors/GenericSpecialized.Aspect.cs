@@ -21,7 +21,9 @@ public class TraceSerializationAttribute : TypeAspect
     [Template]
     public dynamic? Trace()
     {
+        // [<snippet TypeArgument>]
         var typeArgument = meta.Interception.Method.InterceptedMethod.TypeArguments[0];
+        // [<endsnippet TypeArgument>]
         Console.WriteLine( $"Serializing a value of type {typeArgument.ToDisplayString()}." );
 
         return meta.Proceed();

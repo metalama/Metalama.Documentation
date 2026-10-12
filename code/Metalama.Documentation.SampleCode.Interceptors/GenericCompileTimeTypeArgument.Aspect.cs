@@ -14,13 +14,16 @@ public class ValidateSerializationAttribute : TypeAspect
             calls => calls
                 .Type( typeof(Serializer) )
                 .Methods( nameof(Serializer.Serialize) )
+                // [<snippet WithArgs>]
                 .ForEachSite(
                     site => site
                         .RedirectToSynthesizedMethod( nameof(this.Validate) )
                         .WithArgs( new { T = site.InterceptedMethod.TypeArguments[0] } ) ) );
+                // [<endsnippet WithArgs>]
 
     // T is a compile-time type parameter: the template generates different code for each type argument.
     [Template]
+    // [<snippet Template>]
     public dynamic? Validate<[CompileTime] T>()
     {
         if ( meta.CompileTime( typeof(T).IsValueType ) )
@@ -37,4 +40,5 @@ public class ValidateSerializationAttribute : TypeAspect
 
         return meta.Proceed();
     }
+    // [<endsnippet Template>]
 }

@@ -8,6 +8,7 @@ namespace Doc.LogHttpCalls;
 
 public static class HttpLogging
 {
+    // [<snippet Interceptor>]
     public static async Task<string> GetStringAsync( HttpClient client, string? requestUri )
     {
         Console.WriteLine( $"GET {requestUri}" );
@@ -18,4 +19,5 @@ public static class HttpLogging
 
         return result;
     }
+    // [<endsnippet Interceptor>]
 }

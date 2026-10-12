@@ -12,11 +12,13 @@ namespace Doc.AuditFileDelete;
 public static class Audit
 // [<endsnippet Exclude>]
 {
+    // [<snippet Signature>]
     public static void DeleteFile(
         string path,
         string category,
         [CallerMemberName] string caller = "",
         [CallerLineNumber] int line = 0 )
+    // [<endsnippet Signature>]
     {
         Console.WriteLine( $"[{category}] {caller} (line {line}) deletes {Path.GetFileName( path )}." );
 

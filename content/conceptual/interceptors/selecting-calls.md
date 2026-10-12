@@ -93,8 +93,13 @@ The predicates and delegates of the description are stored with the registration
 A fabric can register interceptors only when a condition on the project is true. The <xref:Metalama.Framework.Project.IProject> object, available as `amender.Project`, gives:
 
 * <xref:Metalama.Framework.Project.IProject.PreprocessorSymbols>: the symbols defined by `DefineConstants`.
+
 * <xref:Metalama.Framework.Project.IProject.Configuration>: the build configuration, such as `Debug` or `Release`.
 * <xref:Metalama.Framework.Project.IProject.TryGetProperty*>: the value of an MSBuild property, which must be declared as a `CompilerVisibleProperty` item. See <xref:reading-msbuild-properties>.
+
+For instance, the following fabric registers its interceptors only when the `TRACE_CALLS` symbol is defined:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/TraceBuildOnly.Fabric.cs marker="Condition"]
 
 ### Example: Tracing only in some builds
 
@@ -116,6 +121,10 @@ The site describes the call:
 * <xref:Metalama.Extensions.Interceptors.IInterceptionContext.NonInterceptableReason>: the reason why the call cannot be intercepted in this version, if any. Skip such call sites to avoid a warning.
 
 The delegate can report diagnostics through <xref:Metalama.Extensions.Interceptors.IInterceptionContext.Diagnostics>. An exception thrown by the delegate is reported as an error, and the call site is left unchanged.
+
+For instance, the following delegate skips the call sites in types that have the `[TestHelper]` attribute:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/SkipTestHelpers.Aspect.cs marker="ForEachSite"]
 
 ### Example: Skipping the calls from test helpers
 
@@ -147,6 +156,14 @@ The kinds of use have these constraints in this version:
 * A method group can be intercepted only by an existing method with exactly the same signature as the intercepted method.
 * Interceptors generated from templates support only calls. Skip the other kinds of use, otherwise an error is reported.
 * Intercepting a method group changes the identity of the delegate. When you intercept an event subscription, intercept the matching unsubscription in the same way, otherwise `-=` does not remove the handler.
+
+For instance, the following interceptor of `TextUtil.Normalize` has exactly the signature of the intercepted method, so it can also intercept the method group:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/MethodGroups.TextLogging.cs marker="Signature"]
+
+The following delegate skips all the uses except calls:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/CallsOnly.Aspect.cs marker="CallsOnly"]
 
 ### Example: Intercepting a method group
 

@@ -19,5 +19,7 @@ internal class Fabric : ProjectFabric
                     site => site
                         .RedirectToExistingMethod(
                             typeof(TelemetryWithSender).AsINamedType().Methods.OfName( nameof(TelemetryWithSender.Track) ).Single() )
+                        // [<snippet This>]
                         .WithArgs( new { sender = site.Caller.CanAccessThis ? ExpressionFactory.This() : null } ) ) );
+                        // [<endsnippet This>]
 }

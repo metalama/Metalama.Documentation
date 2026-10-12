@@ -42,6 +42,10 @@ See <xref:interceptors-selecting-calls>.
 
 Some calls match a registration but cannot be intercepted in this version. When the registration returns an interceptor for such a call, Metalama reports the warning LAMA1012 and leaves the call unchanged. In `ForEachSite`, read <xref:Metalama.Extensions.Interceptors.IInterceptionContext.NonInterceptableReason> and skip these call sites to avoid the warning.
 
+For instance:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/SkipNonInterceptable.Aspect.cs marker="Skip"]
+
 | Reason | Description |
 |---|---|
 | `RefReturn` | The intercepted method returns by reference. |

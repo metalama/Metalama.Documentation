@@ -14,10 +14,12 @@ public class LogTextCallsAttribute : TypeAspect
             calls => calls
                 .Type( typeof(TextUtil) )
                 .AllMethods()
+                // [<snippet CallsOnly>]
                 .ForEachSite(
                     site => site.UseKind == MethodUseKind.Call
                         ? site.RedirectToSynthesizedMethod( nameof(this.LogCall) )
                         : site.Skip() ) );
+                // [<endsnippet CallsOnly>]
 
     [Template]
     public dynamic? LogCall()

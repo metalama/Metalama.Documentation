@@ -14,6 +14,7 @@ public class LogPaymentCallsAttribute : TypeAspect
             calls => calls
                 .Type( typeof(PaymentGateway) )
                 .AllMethods()
+                // [<snippet ForEachSite>]
                 .ForEachSite(
                     site =>
                     {
@@ -26,6 +27,7 @@ public class LogPaymentCallsAttribute : TypeAspect
 
                         return site.RedirectToSynthesizedMethod( nameof(this.LogCall) );
                     } ) );
+                // [<endsnippet ForEachSite>]
 
     [Template]
     public dynamic? LogCall()

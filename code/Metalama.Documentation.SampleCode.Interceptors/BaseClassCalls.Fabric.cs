@@ -12,6 +12,7 @@ internal class Fabric : ProjectFabric
 {
     public override void AmendProject( IProjectAmender amender )
         => amender
+            // [<snippet Selection>]
             .SelectTypes()
             .Where( t => t.IsConvertibleTo( typeof(Control) ) )
             .InterceptMethods(
@@ -19,6 +20,7 @@ internal class Fabric : ProjectFabric
                     // Select the base class that declares the methods, not the derived class.
                     .Type( typeof(Control) )
                     .Methods( nameof(Control.Invalidate) )
+            // [<endsnippet Selection>]
                     .RedirectToSynthesizedMethod( nameof(RepaintTemplates.LogRepaint) )
                     .WithTemplateProvider( TemplateProvider.FromInstance( new RepaintTemplates() ) )
                     .WithGranularity( InterceptorGranularity.Member ) );

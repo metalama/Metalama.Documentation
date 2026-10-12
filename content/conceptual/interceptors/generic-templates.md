@@ -23,6 +23,10 @@ This article assumes that you know how to generate interceptors from templates. 
 
 By default, when the template has no type parameter, Metalama generates one interceptor for each combination of type arguments. The call sites with the same type arguments share it. In the template, `meta.Interception.Method.InterceptedMethod` is constructed with the type arguments of the call sites, so the template can read them at compile time.
 
+For instance, the following template reads the type argument of the call sites:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/GenericSpecialized.Aspect.cs marker="TypeArgument"]
+
 ### Example: One interceptor per type argument
 
 In the following example, the two calls with an `int` share one interceptor, and the call with a `string` gets another one.
@@ -33,6 +37,14 @@ In the following example, the two calls with an `int` share one interceptor, and
 
 To use the type argument as a type in the template, declare a compile-time type parameter, marked with `[CompileTime]`, and give its value with `WithArgs`. Because the type argument differs for each call site, give it in <xref:Metalama.Extensions.Interceptors.IMethodSelection.ForEachSite*>, from <xref:Metalama.Extensions.Interceptors.IMethodInterceptionContext.InterceptedMethod>. The template can then generate different code for each type, for instance a `null` check only for reference types.
 
+For instance, the following registration gives the type argument of each call site:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/GenericCompileTimeTypeArgument.Aspect.cs marker="WithArgs"]
+
+The template generates a `null` check only for reference types:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/GenericCompileTimeTypeArgument.Aspect.cs marker="Template"]
+
 ### Example: Different code for value types and reference types
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/GenericCompileTimeTypeArgument.cs name="Compile-time type argument"]
@@ -40,6 +52,10 @@ To use the type argument as a type in the template, declare a compile-time type 
 ## Sharing one generic interceptor
 
 When the template declares a run-time type parameter, Metalama binds it to the type parameter of the intercepted method, and the generated interceptor is generic. All the call sites share it, whatever their type arguments. The template uses the type parameter as an ordinary type, for instance in `typeof(T)`.
+
+For instance, the following template has a run-time type parameter `T`, which binds to the type parameter of `Serializer.Serialize<T>`:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/GenericTemplateShared.Aspect.cs marker="Template"]
 
 ### Example: One generic interceptor
 
@@ -60,6 +76,10 @@ When the intercepted method is not generic, but its parameter has a general type
 1. In a <xref:Metalama.Extensions.Interceptors.ITemplateInterception.Configure*> delegate, add a type parameter with `AddTypeParameter`.
 2. Use it as the type of the parameter.
 3. Give its type argument for each call site with <xref:Metalama.Extensions.Interceptors.IInterceptorMethodBuilder.SetTypeArgument*>, for instance the type of the argument.
+
+For instance:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/GenericAddedTypeParameter.Aspect.cs marker="Configure"]
 
 The call sites then share one generic interceptor, and the arguments of value types are no longer boxed at the call site. The template reads the added type parameter through `meta.Target.Method.TypeParameters`. The type arguments must satisfy the constraints of the type parameter.
 

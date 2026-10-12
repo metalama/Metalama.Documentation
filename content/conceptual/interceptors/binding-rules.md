@@ -36,6 +36,10 @@ Consequences:
 * `WithArgs` can pass the receiver or an argument of the call to a parameter of another name, through <xref:Metalama.Extensions.Interceptors.IInvocationReceiver.Expression> or <xref:Metalama.Extensions.Interceptors.InvocationArgument.Expression>.
 * An extension method called with the instance syntax, such as `text.Normalize()`, is bound in its static form: its receiver is the first argument.
 
+For instance, the following interceptor of `Mailer.Send( string recipient, string subject, int priority = 1 )` declares its parameters in another order, and has no parameter for `priority`:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/BindingByName.Aspect.cs marker="Interceptor"]
+
 ### Example: Parameters bound by name
 
 In the following example, the interceptor declares `subject` and `recipient` in another order than the intercepted method, and it has no parameter for `priority`. The argument for `priority` is dropped, but it is still evaluated, in the order of the source code, because it can have a side effect.
@@ -92,6 +96,10 @@ When the call passes the elements of a `params` collection:
 * Otherwise, the elements are packed into a collection expression.
 * A collection passed in normal form, or `null`, is passed as it is.
 
+For instance, the following interceptor of `Log.Write( string format, Severity severity = Severity.Info, params object[] args )` has no default value and no `params` modifier:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/BindingDefaultsAndParams.Aspect.cs marker="Interceptor"]
+
 ### Example: Default values and params arrays
 
 In the following example, the interceptor has no default value for `severity`, and its `args` parameter is a plain array. The omitted `severity` argument is written as `Severity.Info`, and the elements of the `params` array are packed into a collection expression.
@@ -113,6 +121,10 @@ In the following example, the interceptor has no default value for `severity`, a
 ## Struct receivers
 
 When the intercepted method is an instance method of a struct, the interceptor must receive the receiver in a way that keeps the behavior of the original call:
+
+For instance, `Counter.Increment()` modifies the struct, so the interceptor receives the counter by reference:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/BindingStructReceiver.Aspect.cs marker="Interceptor"]
 
 | Receiver | Interceptor parameter |
 |---|---|
@@ -145,6 +157,10 @@ Each type parameter of the interceptor, and of the types that declare it, receiv
 
 Pass the definition of a generic method or of a method of a generic type: its type parameters are resolved for each call site. When a type argument cannot be written, such as an anonymous type, the rewritten call omits the type arguments, and the compiler infers them.
 
+For instance, the type parameter `T` of the following interceptor binds to the type parameter `T` of `Cache.Get<T>`:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/BindingGeneric.Aspect.cs marker="Interceptor"]
+
 ### Example: A generic interceptor
 
 In the following example, the type parameter `T` of the interceptor is bound to the type parameter `T` of `Cache.Get<T>`.
@@ -168,6 +184,14 @@ The run-time parameters of the template bind to the parameters of the generated 
 * the values of the parameters that a <xref:Metalama.Extensions.Interceptors.ITemplateInterception.Configure*> delegate adds.
 
 A `Configure` delegate can also add a parameter and give its value at each call site with <xref:Metalama.Extensions.Interceptors.IInterceptorMethodBuilder.SetArgument*>, which can depend on the call site. A parameter cannot receive a value from both `WithArgs` and `SetArgument`.
+
+For instance, the following template has two run-time parameters that the intercepted method does not have:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/TemplateAddedParameter.Aspect.cs marker="Signature"]
+
+`category` receives its value from `WithArgs`, and `caller` from the `Configure` delegate:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/TemplateAddedParameter.Aspect.cs marker="Configure"]
 
 When the delegate widens the type of a parameter, `meta.Proceed()` casts it back to the type of the intercepted method.
 

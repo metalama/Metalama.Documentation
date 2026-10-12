@@ -8,6 +8,7 @@ using System.Linq;
 namespace Doc.SwitchPerModule.Billing;
 
 // A namespace fabric: its scope is the Billing namespace. Add one to each migrated module.
+// [<snippet Fabric>]
 internal class MigrationFabric : NamespaceFabric
 {
     public override void AmendNamespace( INamespaceAmender amender )
@@ -23,3 +24,4 @@ internal class MigrationFabric : NamespaceFabric
                 .RedirectToExistingMethod( adapter ) );
     }
 }
+// [<endsnippet Fabric>]

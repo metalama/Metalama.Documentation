@@ -13,12 +13,14 @@ public static class CallCounter
 {
     private static readonly ConcurrentDictionary<string, int> _counts = new();
 
+    // [<snippet Signature>]
     public static decimal ComputeTax(
         LegacyTaxCalculator calculator,
         decimal amount,
         string region,
         [CallerMemberName] string caller = "",
         [CallerLineNumber] int line = 0 )
+    // [<endsnippet Signature>]
     {
         _counts.AddOrUpdate( $"{caller}, line {line}", 1, ( _, count ) => count + 1 );
 

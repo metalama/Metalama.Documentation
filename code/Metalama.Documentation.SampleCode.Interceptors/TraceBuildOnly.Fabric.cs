@@ -13,10 +13,12 @@ internal class TracingFabric : ProjectFabric
     public override void AmendProject( IProjectAmender amender )
     {
         // Interceptors are registered only when the TRACE_CALLS symbol is defined.
+        // [<snippet Condition>]
         if ( !amender.Project.PreprocessorSymbols.Contains( "TRACE_CALLS" ) )
         {
             return;
         }
+        // [<endsnippet Condition>]
 
         amender.InterceptMethods(
             calls => calls

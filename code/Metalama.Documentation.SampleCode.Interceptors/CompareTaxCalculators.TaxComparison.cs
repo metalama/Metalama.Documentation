@@ -8,6 +8,7 @@ namespace Doc.CompareTaxCalculators;
 [ExcludeInterceptors]
 public static class TaxComparison
 {
+    // [<snippet Compare>]
     public static decimal ComputeTax( LegacyTaxCalculator calculator, decimal amount, string region )
     {
         var legacyResult = calculator.ComputeTax( amount, region );
@@ -28,4 +29,5 @@ public static class TaxComparison
 
         return legacyResult;
     }
+    // [<endsnippet Compare>]
 }

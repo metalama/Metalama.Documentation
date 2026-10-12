@@ -25,6 +25,8 @@ public class RedirectLoggingAttribute : TypeAspect
 public static class StructuredLog
 {
     // The severity has no default value, and the arguments are a plain array.
+    // [<snippet Interceptor>]
     public static void Write( string format, Severity severity, object[] args )
+    // [<endsnippet Interceptor>]
         => Console.WriteLine( $"[{severity}] {format} ({args.Length} arguments)" );
 }

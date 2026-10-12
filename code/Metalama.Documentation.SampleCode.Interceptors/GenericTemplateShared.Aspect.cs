@@ -18,7 +18,9 @@ public class TraceSerializationAttribute : TypeAspect
 
     // T is a run-time type parameter, so the generated method is generic and all call sites share it.
     [Template]
+    // [<snippet Template>]
     public string Trace<T>( T value )
+    // [<endsnippet Template>]
     {
         Console.WriteLine( $"Serializing a {typeof(T).Name}." );
 

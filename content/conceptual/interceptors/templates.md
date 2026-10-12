@@ -26,7 +26,15 @@ Interceptor templates look like the templates of override aspects, with two diff
 * `meta.Target.Method` is the generated interceptor, not the intercepted method.
 * `meta.Proceed()` calls the intercepted method, as the call site did.
 
+For instance, the following template measures the duration of the intercepted call:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/TimeSdkCalls.Fabric.cs marker="Template"]
+
 By default, the template is a member of the aspect that registers the interception. In a fabric, declare the templates in a separate class that implements <xref:Metalama.Framework.Aspects.ITemplateProvider>, and give an instance of it with <xref:Metalama.Extensions.Interceptors.ITemplateInterception.WithTemplateProvider*>, as the following examples do.
+
+For instance, the following fabric gives its templates with a separate class:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/TraceCalls.Fabric.cs marker="Registration"]
 
 ## Accessing the interception context
 
@@ -39,6 +47,10 @@ The `meta.Interception` property describes the interception that the template im
 
 `meta.Interception` is a C# 14 extension property. In a project that uses an earlier version of C#, use `meta.GetExtension<IInterceptionInfo>()`.
 
+For instance, the following template code lists the names and values of the arguments, and the name of the intercepted method:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/TraceCalls.Fabric.cs marker="Arguments"]
+
 ### Reading the calling code
 
 By default, a generated interceptor is shared by all the call sites that need the same code, even when they are in different types. The template therefore cannot read information about one call site, such as the calling member. To read it, declare which information the template depends on with <xref:Metalama.Extensions.Interceptors.ITemplateInterception.WithGranularity*>:
@@ -48,6 +60,14 @@ By default, a generated interceptor is shared by all the call sites that need th
 * With `InterceptorGranularity.CallSite`, it can also read `meta.Interception.Caller` and `meta.Interception.Source`.
 
 A finer granularity generates more methods. To pass information about the call site without generating more methods, pass it as an added parameter instead. See <xref:interceptor-deduplication-rules>.
+
+For instance, the following registration sets the `Member` granularity:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/DedupPerMember.Fabric.cs marker="Granularity"]
+
+so that its template can read the calling member:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/DedupPerMember.Fabric.cs marker="CallingMember"]
 
 ### Example: Timing every call to an SDK
 
@@ -71,9 +91,21 @@ The template controls the call:
 * Store the value of `meta.Proceed()`, process it, and return another value.
 * Surround `meta.Proceed()` with `try`, `catch` and `finally`, or with a loop.
 
+For instance, the following template retries the call when it times out:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/RetryShippingCalls.Fabric.cs marker="Retry"]
+
 ### Async and iterator methods
 
 A template whose return type is `dynamic?` handles async methods as ordinary methods: the generated interceptor returns the task without awaiting it. To run code after the asynchronous operation completes, give a second template with a <xref:Metalama.Framework.Advising.MethodTemplateSelector>, and set `useAsyncTemplateForAnyAwaitable` to `true`. In this template, declared as `async Task<dynamic?>`, call `meta.ProceedAsync()`. The selector works as for override aspects. See <xref:overriding-methods>.
+
+For instance, the following registration gives a template for ordinary methods and a template for async methods:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/TimeSdkCalls.Fabric.cs marker="Selector"]
+
+The async template awaits `meta.ProceedAsync()`:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/TimeSdkCalls.Fabric.cs marker="AsyncTemplate"]
 
 ### Passing arguments to the template
 
@@ -81,6 +113,14 @@ A template whose return type is `dynamic?` handles async methods as ordinary met
 
 * A property whose name is a compile-time parameter of the template gives its value. The value is known when the template is expanded.
 * A property whose name is a run-time parameter of the template adds a parameter of that name to the generated method. Each call site passes the value.
+
+For instance, the following registration gives the value of the compile-time parameter `maxAttempts` of the retry template:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/RetryShippingCalls.Fabric.cs marker="Registration"]
+
+In the following template, `category` and `caller` are run-time parameters, so they become parameters of the generated method:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/TemplateAddedParameter.Aspect.cs marker="Signature"]
 
 <xref:Metalama.Extensions.Interceptors.ITemplateInterception.WithTags*> gives an object that the template reads through `meta.Tags`. For the complete rules, see <xref:interceptor-binding-rules>.
 
@@ -100,9 +140,21 @@ By default, the interceptors are internal static methods of the class `MetalamaI
 
 A call site in top-level statements has no calling type. Use <xref:Metalama.Extensions.Interceptors.IInterceptionContext.CanPlaceInCallingType> in <xref:Metalama.Extensions.Interceptors.IMethodSelection.ForEachSite*> to choose another location for such a call site.
 
+For instance, the following registration generates the interceptor as an instance method of the calling type:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/CallerLogger.Aspect.cs marker="Placement"]
+
+The template can then access the private fields of the caller through `meta.This`:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/CallerLogger.Aspect.cs marker="This"]
+
 ### Shaping the generated method
 
 <xref:Metalama.Extensions.Interceptors.ITemplateInterception.Configure*> gives a delegate that receives an <xref:Metalama.Extensions.Interceptors.IInterceptorMethodBuilder>. The delegate can change the name, the accessibility and the `IsStatic` property of the generated method, widen the types of its parameters, and add parameters, whose value it gives with <xref:Metalama.Extensions.Interceptors.IInterceptorMethodBuilder.SetArgument*>. The reference kinds, the positions and the return type cannot change.
+
+For instance, the following registration gives a template argument, and adds a parameter whose value is the name of the calling member:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/TemplateAddedParameter.Aspect.cs marker="Configure"]
 
 ### Example: Writing to the caller's logger
 
@@ -113,6 +165,10 @@ The following aspect generates the interceptor as an instance method of the call
 ## Intercepting calls to inherited methods
 
 A class that derives from a framework class, such as a Windows Forms or WPF control, often calls the methods that it inherits, for instance `this.Invalidate()`. These calls are bound to the method of the base class, so the registration must select the base class, not the derived class. To limit the interception to the derived classes, use a query that selects them as the scope.
+
+For instance, the following fabric selects the classes derived from `Control` as the scope, and the base class `Control` as the declaring type of the intercepted method:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/BaseClassCalls.Fabric.cs marker="Selection"]
 
 ### Example: Intercepting calls to a method of a base class
 

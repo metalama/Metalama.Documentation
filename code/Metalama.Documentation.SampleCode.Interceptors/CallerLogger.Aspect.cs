@@ -14,14 +14,18 @@ public class LogPaymentCallsAttribute : TypeAspect
                 .Type( typeof(PaymentGateway) )
                 .AllMethods()
                 .RedirectToSynthesizedMethod( nameof(this.LogCall) )
+                // [<snippet Placement>]
                 .PlaceInCallingType()
                 .Configure( method => method.Method.IsStatic = false ) );
+                // [<endsnippet Placement>]
 
     [Template]
     public dynamic? LogCall()
     {
         // The interceptor is a private instance method of the calling type, so it can read the private field _log.
+        // [<snippet This>]
         meta.This._log.WriteLine( $"Calling {meta.Interception.Method.InterceptedMethod.Name}." );
+        // [<endsnippet This>]
 
         return meta.Proceed();
     }

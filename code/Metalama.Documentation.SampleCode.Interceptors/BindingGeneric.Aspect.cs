@@ -25,7 +25,9 @@ public class TraceCacheAttribute : TypeAspect
 public static class CacheTracing
 {
     // The type parameter T is bound by name to the type parameter T of Cache.Get.
+    // [<snippet Interceptor>]
     public static T? Get<T>( string key )
+    // [<endsnippet Interceptor>]
     {
         Console.WriteLine( $"Reading {key} as {typeof(T).Name}." );
 

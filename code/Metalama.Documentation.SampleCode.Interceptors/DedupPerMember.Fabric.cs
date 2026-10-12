@@ -16,7 +16,9 @@ internal class Fabric : ProjectFabric
                 .AllMethods()
                 .RedirectToSynthesizedMethod( nameof(LoggingTemplates.Log) )
                 .WithTemplateProvider( TemplateProvider.FromInstance( new LoggingTemplates() ) )
+                // [<snippet Granularity>]
                 .WithGranularity( InterceptorGranularity.Member ) );
+                // [<endsnippet Granularity>]
 }
 
 internal class LoggingTemplates : ITemplateProvider
@@ -25,7 +27,9 @@ internal class LoggingTemplates : ITemplateProvider
     [Template]
     public dynamic? Log()
     {
+        // [<snippet CallingMember>]
         Console.WriteLine( $"{meta.Interception.CallingMember.Name} calls {meta.Interception.Method.InterceptedMethod.Name}." );
+        // [<endsnippet CallingMember>]
 
         return meta.Proceed();
     }

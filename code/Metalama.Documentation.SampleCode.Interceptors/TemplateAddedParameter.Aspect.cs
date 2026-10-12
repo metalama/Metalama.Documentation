@@ -15,6 +15,7 @@ public class TracePricingAttribute : TypeAspect
                 .Type( typeof(PricingClient) )
                 .AllMethods()
                 .RedirectToSynthesizedMethod( nameof(this.Trace) )
+                // [<snippet Configure>]
                 .WithArgs( new { category = "Pricing" } )
                 .Configure(
                     method =>
@@ -22,11 +23,14 @@ public class TracePricingAttribute : TypeAspect
                         var caller = method.Method.AddParameter( "caller", typeof(string) );
                         method.SetArgument( caller, (TypedConstant) method.Context.Caller.Member.Name );
                     } ) );
+                // [<endsnippet Configure>]
 
     // category is a run-time parameter given by WithArgs; caller is added by the Configure delegate.
     // Both become parameters of the generated method, whose value each call site passes.
     [Template]
+    // [<snippet Signature>]
     public dynamic? Trace( string category, string caller )
+    // [<endsnippet Signature>]
     {
         Console.WriteLine( $"[{category}] {caller} calls {meta.Interception.Method.InterceptedMethod.Name}." );
 

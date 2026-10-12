@@ -9,6 +9,7 @@ using System.Linq;
 namespace Doc.NamespaceScope.Billing
 {
     // A namespace fabric intercepts only the calls in its namespace.
+    // [<snippet Fabric>]
     internal class Fabric : NamespaceFabric
     {
         public override void AmendNamespace( INamespaceAmender amender )
@@ -23,6 +24,7 @@ namespace Doc.NamespaceScope.Billing
                     .RedirectToExistingMethod( interceptor ) );
         }
     }
+    // [<endsnippet Fabric>]
 }
 
 namespace Doc.NamespaceScope

@@ -28,6 +28,7 @@ internal class TracingTemplates : ITemplateProvider
     [Template]
     public dynamic? Trace()
     {
+        // [<snippet Arguments>]
         var arguments = new List<string>();
 
         foreach ( var parameter in meta.Interception.Method.ArgumentParameters )
@@ -37,6 +38,7 @@ internal class TracingTemplates : ITemplateProvider
 
         var call = $"{meta.Interception.CallingMember.Name} -> "
                    + $"{meta.Interception.Method.InterceptedMethod.Name}({string.Join( ", ", arguments )})";
+        // [<endsnippet Arguments>]
 
         try
         {
