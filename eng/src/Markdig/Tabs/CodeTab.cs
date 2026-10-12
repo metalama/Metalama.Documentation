@@ -20,6 +20,17 @@ public class CodeTab : BaseTab
 
     private static readonly Regex _endSnippetRegex =
         new("""\[\&lt;endsnippet\s+(?<name>\w+)\s*\&gt;\]""", RegexOptions.Compiled);
+
+    // A line of the generated HTML whose only content is a snippet marker comment, such as `// [<snippet Name>]`.
+    // The whole line is removed from the full-file view, not only the marker, so that no empty `//` comment remains.
+    private static readonly Regex _snippetMarkerLineRegex =
+        new(
+            """^<span class='line-number'[^>]*>\d+</span>(?:<span[^>]*>\s*</span>|[ \t]*)<span[^>]*>//\s*\[\&lt;(?:end)?snippet\s+\w+\s*\&gt;\]\s*</span>[ \t]*\r?\n""",
+            RegexOptions.Compiled | RegexOptions.Multiline );
+
+    // A snippet marker line in raw source code, used when no HTML file exists.
+    private static readonly Regex _sourceSnippetMarkerLineRegex =
+        new( """^\s*//\s*\[<(?:end)?snippet\s+\w+\s*>\]\s*$""", RegexOptions.Compiled );
     
     private static readonly Regex _memberRegex =
         new("""<span class='line-number' data-member='([^']*)'>""", RegexOptions.Compiled);
@@ -238,7 +249,7 @@ public class CodeTab : BaseTab
             var html = File.ReadAllText( htmlPath );
 
             var cleanHtml = _startSnippetRegex.Replace(
-                _endSnippetRegex.Replace( html, "" ),
+                _endSnippetRegex.Replace( _snippetMarkerLineRegex.Replace( html, "" ), "" ),
                 "" );
 
             return cleanHtml;
@@ -251,7 +262,7 @@ public class CodeTab : BaseTab
 
         var lines = File.ReadAllLines( this.FullPath )
             .SkipWhile( l => l.TrimStart().StartsWith( "//", StringComparison.Ordinal ) )
-            .Where( l => !snippetMarkerRegex.IsMatch( l ) )
+            .Where( l => !snippetMarkerRegex.IsMatch( l ) && !_sourceSnippetMarkerLineRegex.IsMatch( l ) )
             .ToList();
 
         // Trim leading/trailing empty lines.
