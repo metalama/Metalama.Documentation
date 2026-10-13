@@ -4,13 +4,9 @@ namespace Doc.CallerLogger;
 [LogPaymentCalls]
 public class OrderService
 {
-  private readonly TextWriter _log;
-  public OrderService(TextWriter log)
-  {
-    this._log = log;
-  }
-  public string Checkout(decimal amount) => this.PaymentGateway_Charge_Interceptor(amount: amount, currency: "EUR");
-  private string PaymentGateway_Charge_Interceptor(decimal amount, string currency)
+  private static readonly TextWriter _log = Console.Out;
+  public string Checkout(decimal amount) => PaymentGateway_Charge_Interceptor(amount: amount, currency: "EUR");
+  private static string PaymentGateway_Charge_Interceptor(decimal amount, string currency)
   {
     _log.WriteLine("Calling Charge.");
     return PaymentGateway.Charge(amount, currency);
@@ -22,5 +18,5 @@ public static class PaymentGateway
 }
 internal class Program
 {
-  private static void Main() => new OrderService(Console.Out).Checkout(42);
+  private static void Main() => new OrderService().Checkout(42);
 }

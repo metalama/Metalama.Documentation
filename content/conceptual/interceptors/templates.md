@@ -136,17 +136,21 @@ By default, the interceptors are internal static methods of the class `MetalamaI
 
 A call site in top-level statements has no calling type. Use <xref:Metalama.Extensions.Interceptors.IInterceptionContext.CanPlaceInCallingType> in <xref:Metalama.Extensions.Interceptors.IMethodSelection.ForEachSite*> to choose another location for such a call site.
 
-For instance, the following registration generates the interceptor as an instance method of the calling type:
+For instance, the following registration generates the interceptor as a private method of the calling type:
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/CallerLogger.Aspect.cs marker="Placement"]
 
-The template can then access the private fields of the caller through `meta.This`:
+The template can then access the private static members of the caller through `meta.ThisType`:
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/CallerLogger.Aspect.cs marker="This"]
 
 ### Shaping the generated method
 
-<xref:Metalama.Extensions.Interceptors.ITemplateInterception.Configure*> gives a delegate that receives an <xref:Metalama.Extensions.Interceptors.IInterceptorMethodBuilder>. The delegate can change the name, the accessibility and the `IsStatic` property of the generated method, widen the types of its parameters, and add parameters, whose value it gives with <xref:Metalama.Extensions.Interceptors.IInterceptorMethodBuilder.SetArgument*>. The reference kinds, the positions and the return type cannot change.
+<xref:Metalama.Extensions.Interceptors.ITemplateInterception.Configure*> gives a delegate that receives an <xref:Metalama.Extensions.Interceptors.IInterceptorMethodBuilder>. The delegate can change the name and the accessibility of the generated method, widen the types of its parameters, and add parameters, whose value it gives with <xref:Metalama.Extensions.Interceptors.IInterceptorMethodBuilder.SetArgument*>. The reference kinds, the positions and the return type cannot change.
+
+Call `Configure` after the other methods of the registration, such as `WithArgs` and the placement methods, because they determine the signature that the delegate receives. After `Configure`, only more calls of `Configure` are possible.
+
+The generated method is static by default, and its first parameter receives the receiver of the call. The delegate can instead map the receiver to `this`: set <xref:Metalama.Extensions.Interceptors.IInterceptorMethodBuilder.ReceiverMapping> to `InterceptorReceiverMapping.This`. The generated method is then an instance method, which the call site calls on its receiver. This mapping is possible only when <xref:Metalama.Extensions.Interceptors.IInterceptorMethodBuilder.ReceiverEligibility> says so: the interceptor must be in the calling type or in one of its base types, and the receiver must be of the calling type.
 
 For instance, the following registration gives a template argument, and adds a parameter whose value is the name of the calling member:
 
@@ -154,7 +158,7 @@ For instance, the following registration gives a template argument, and adds a p
 
 ### Example: Writing to the caller's logger
 
-The following aspect generates the interceptor as an instance method of the calling type, so that the template can write to the private `_log` field of the caller through `meta.This`. Generated interceptors are static by default, so the `Configure` delegate sets `IsStatic` to `false`.
+The following aspect generates the interceptor as a private static method of the calling type, so that the template can write to the private static `_log` field of the caller through `meta.ThisType`.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/CallerLogger.cs name="Writing to the caller's logger"]
 
@@ -163,7 +167,7 @@ The following aspect generates the interceptor as an instance method of the call
 A class that derives from a framework class, such as a Windows Forms or WPF control, often calls the protected methods that it inherits, for instance `this.UpdateStyles()`. Two rules apply:
 
 * The calls are bound to the method of the framework class, so the registration must select the framework class, not the derived class. To limit the interception to the derived classes, use a query that selects them as the scope.
-* A protected method can be called only from the class hierarchy. The interceptor cannot be in the default `MetalamaInterceptors` class: generate it in a common base class of your project with <xref:Metalama.Extensions.Interceptors.ITemplateInterception.PlaceInType*>. Because C# allows the call of a protected method only through an instance of the calling class, change the type of the receiver parameter to this base class with a `Configure` delegate.
+* A protected method can be called only from the class hierarchy, and only through an instance of the calling class. Metalama therefore generates an instance method: the call site calls it on its receiver, and it calls the intercepted method on `this`. Generate it in the calling type with <xref:Metalama.Extensions.Interceptors.ITemplateInterception.PlaceInCallingType*>, or in a common base class of your project with <xref:Metalama.Extensions.Interceptors.ITemplateInterception.PlaceInType*>, so that all the derived classes share it. With the default `MetalamaInterceptors` class, the call cannot be intercepted, and Metalama reports <xref:lama1012?text=LAMA1012>.
 
 For instance:
 
@@ -171,7 +175,7 @@ For instance:
 
 ### Example: Intercepting calls to a protected method of a framework class
 
-In the following example, `OrderGrid` and `CustomerGrid` derive from `AppControl`, the base class of the controls of the project, which derives from the framework class `Control`. Their calls to the protected method `Control.UpdateStyles` are redirected to one interceptor, generated as a `private protected` method of `AppControl`.
+In the following example, `OrderGrid` and `CustomerGrid` derive from `AppControl`, the base class of the controls of the project, which derives from the framework class `Control`. Their calls to the protected method `Control.UpdateStyles` are redirected to one interceptor, generated as a `private protected` instance method of `AppControl`.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/BaseClassCalls.cs name="Intercepting calls to a protected method"]
 

@@ -23,12 +23,7 @@ internal class Fabric : ProjectFabric
                     .RedirectToSynthesizedMethod( nameof(this.LogStyles) )
                     // A protected method can be called only from the class hierarchy,
                     // so the interceptor is generated in the common base class of the project.
-                    .PlaceInType( typeof(AppControl) )
-                    // C# allows the call of a protected method only through an instance
-                    // of the calling class.
-                    .Configure(
-                        method =>
-                            method.Method.Parameters[0].Type = method.Method.DeclaringType ) );
+                    .PlaceInType( typeof(AppControl) ) );
             // [<endsnippet Selection>]
 
     [Template]

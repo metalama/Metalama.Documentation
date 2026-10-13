@@ -2,8 +2,8 @@ namespace Doc.CountCalls;
 public class InvoiceService
 {
   private readonly LegacyTaxCalculator _calculator = new();
-  public decimal ComputeTotal(decimal amount, string region) => amount + CallCounter.ComputeTax(this._calculator, amount, region, caller: "ComputeTotal", line: 11);
-  public decimal ComputeRefund(decimal amount, string region) => -(amount + CallCounter.ComputeTax(this._calculator, amount, region, caller: "ComputeRefund", line: 14));
+  public decimal ComputeTotal(decimal amount, string region) => amount + CallCounter.ComputeTax(this._calculator, amount, region, caller: "ComputeTotal", line: 10);
+  public decimal ComputeRefund(decimal amount, string region) => -(amount + CallCounter.ComputeTax(this._calculator, amount, region, caller: "ComputeRefund", line: 13));
 }
 public class LegacyTaxCalculator
 {

@@ -179,7 +179,7 @@ In the following example, the type parameter `T` of the interceptor is bound to 
 
 A method generated from a template has this signature, in this order:
 
-1. A receiver parameter, when the intercepted method has a receiver.
+1. A receiver parameter, when the intercepted method has a receiver and the receiver is not mapped to `this`.
 2. One parameter for each parameter of the intercepted method, with the same name and reference kind, without default value and without `params`.
 3. The added parameters.
 
@@ -218,13 +218,30 @@ In the following example, `category` is a run-time parameter of the template who
 
 For the use cases and examples, see <xref:generic-interceptor-templates>.
 
+## Receiver of a generated method
+
+The generated method receives the receiver of the call in one of two ways, given by <xref:Metalama.Extensions.Interceptors.IInterceptorMethodBuilder.ReceiverMapping>:
+
+* `Parameter`, the default: the generated method is static, and its first parameter receives the receiver. It is `None` when the intercepted method is static.
+* `This`: the generated method is an instance method. The call site calls it on its receiver, for instance `grid.Update_Interceptor( 3 )` or `grid?.Update_Interceptor( 3 )`, and `meta.Proceed()` calls the intercepted method on `this`.
+
+The mapping to `this` is possible when all these conditions are true:
+
+* The interceptor is in the calling type or in one of its base types.
+* The intercepted method is an instance method, and not an extension method.
+* The receiver is of the calling type, and it is not `base`.
+
+The mapping to `this` is required for a `protected` or `private protected` method of a base class of the calling type, because a static method cannot call it. When the mapping is required but not possible, the call site is not intercepted, and Metalama reports <xref:lama1012?text=LAMA1012>.
+
+<xref:Metalama.Extensions.Interceptors.IInterceptorMethodBuilder.ReceiverEligibility> tells a `Configure` delegate whether the mapping is possible for the call site, possible for all the call sites that share the generated method, or required.
+
 ## What a Configure delegate can change
 
 | Can change | Cannot change |
 |---|---|
 | The name of the method and of its parameters. The template binds to the new names. | The reference kinds of the parameters. |
 | The accessibility, within the limits of the call sites. | The positions of the receiver and argument parameters. |
-| `IsStatic`. An instance method requires `this` at every call site. | The return type. |
+| The mapping of the receiver, from `Parameter` to `This` and back, when the mapping to `this` is possible and not required. The method is an instance method if and only if the mapping is `This`. | The return type. |
 | The type of a parameter, to a type to which the argument converts implicitly. A parameter passed by reference keeps its type. | The names of the derived type parameters. |
 | The type of the receiver parameter, for instance to an interface of the receiver. | |
 | Attributes, added parameters and added type parameters. | |

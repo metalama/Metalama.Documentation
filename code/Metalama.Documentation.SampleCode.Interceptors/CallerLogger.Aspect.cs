@@ -15,17 +15,17 @@ public class LogPaymentCallsAttribute : TypeAspect
                 .AllMethods()
                 .RedirectToSynthesizedMethod( nameof(this.LogCall) )
                 // [<snippet Placement>]
-                .PlaceInCallingType()
-                .Configure( method => method.Method.IsStatic = false ) );
+                .PlaceInCallingType() );
                 // [<endsnippet Placement>]
 
     [Template]
     public dynamic? LogCall()
     {
-        // The interceptor is a private instance method of the calling type, so it can read
-        // the private field _log.
+        // The interceptor is a private method of the calling type, so it can read
+        // the private static field _log.
         // [<snippet This>]
-        meta.This._log.WriteLine( $"Calling {meta.Interception.Method.InterceptedMethod.Name}." );
+        meta.ThisType._log.WriteLine(
+            $"Calling {meta.Interception.Method.InterceptedMethod.Name}." );
         // [<endsnippet This>]
 
         return meta.Proceed();

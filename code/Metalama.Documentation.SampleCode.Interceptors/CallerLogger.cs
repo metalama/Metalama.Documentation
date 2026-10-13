@@ -8,12 +8,7 @@ namespace Doc.CallerLogger;
 [LogPaymentCalls]
 public class OrderService
 {
-    private readonly TextWriter _log;
-
-    public OrderService( TextWriter log )
-    {
-        this._log = log;
-    }
+    private static readonly TextWriter _log = Console.Out;
 
     public string Checkout( decimal amount ) => PaymentGateway.Charge( amount, "EUR" );
 }
@@ -25,5 +20,5 @@ public static class PaymentGateway
 
 internal class Program
 {
-    private static void Main() => new OrderService( Console.Out ).Checkout( 42 );
+    private static void Main() => new OrderService().Checkout( 42 );
 }
