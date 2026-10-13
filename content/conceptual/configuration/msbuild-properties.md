@@ -4,7 +4,7 @@ level: 300
 summary: "This article lists MSBuild properties and environment variables, including their types, descriptions, and default values, related to the Metalama compiler."
 keywords: "MSBuild properties, Metalama, environment variables, temporary directory, execution order, transformers, debug transformed code, transformed code files, output path, memory leaks"
 created-date: 2023-03-03
-modified-date: 2026-10-10
+modified-date: 2026-10-12
 ---
 
 # MSBuild properties and environment variables
@@ -43,6 +43,7 @@ All environment variables are imported as MSBuild properties by default.
 | `MetalamaAssemblyLocatorHooksDirectory` | Path | Specifies a directory whose `Metalama.AssemblyLocator.Build.props` and `Metalama.AssemblyLocator.Build.targets` files, if they exist, are imported into the internal project that Metalama builds to determine which APIs are available to compile-time code. There is no default value, and no file is imported unless this property is set. See <xref:compile-time-dependencies>. |
 | `MetalamaAssemblyLocatorSalt` | String | Specifies an arbitrary value that is included in the cache key of the project that Metalama builds to resolve the compile-time dependencies. There is no default value. Change it to any other value to have that project restored and built again instead of its cached result being reused. See <xref:compile-time-dependencies>. |
 | `MetalamaDiagnoseMemoryLeaks` | Boolean | Indicates whether the objects that your compile-time code leaves behind should be analyzed for references that keep a project snapshot in memory. The default value is `False`. Pass this property on the command line of a single build while you're investigating a memory leak: the analysis walks a large object graph and is too slow for an ordinary build. See <xref:diagnosing-memory-leaks>. |
+| `MetalamaCheckSupportedPlatform` | Boolean | Indicates whether the build reports a target framework, a .NET SDK or a Visual Studio version outside the configuration matrix that Metalama supports. The default value is `True`. Set it to `False` to turn off every warning of the check. See [The supported platform check](#the-supported-platform-check) below. |
 
 ## MSBuild items
 
@@ -50,8 +51,25 @@ All environment variables are imported as MSBuild properties by default.
 | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `MetalamaTransformedCodeAnalyzer` | Represents a list of analyzers that must execute on the transformed code instead of the source code. Items can be set to a namespace or a full type name.                                                                                                                                |
 | `MetalamaCompileTimePackage`      | Represents a list of packages accessible from the compile-time code. These packages must explicitly target .NET Standard 2.0 and be included in the project as a `ProjectReference`. By default, only the .NET Standard 2.0 API and the Metalama API are available to compile-time code. |
-| `MetalamaExtensionAssembly`       | Loads an assembly as a Metalama extension at compile time. The assembly must contain types exported via <xref:Metalama.Framework.Engine.Extensibility.ExportExtensionAttribute>. Supports `TargetFramework` (e.g., `net472`, `net8.0`) and `TargetRoslynVersion` (e.g., `4.8`, `4.12`, `5.0`) metadata to specify which build of the extension to load. See <xref:sdk-extensions>. |
+| `MetalamaExtensionAssembly`       | Loads an assembly as a Metalama extension at compile time. The assembly must contain types exported via <xref:Metalama.Framework.Engine.Extensibility.ExportExtensionAttribute>. Supports `TargetFramework` (e.g., `net472`, `net10.0`) and `TargetRoslynVersion` (e.g., `4.8`, `4.12`, `5.0`) metadata to specify which build of the extension to load. See <xref:sdk-extensions>. |
 | `MetalamaCompileTimeAssembly`     | Makes an assembly available to compile-time code. Use this when your compile-time code references types from an external assembly that isn't a NuGet package. See <xref:sdk-extensions>. |
+| `MetalamaSupportedPlatformExclusion` | Turns off the supported platform check for the package whose name it gives, and leaves the check of the other packages in place. See [The supported platform check](#the-supported-platform-check) below. |
+
+## The supported platform check
+
+Metalama supports a defined set of target frameworks, .NET SDK versions and Visual Studio versions. When your project falls outside that set, the build reports one of the following warnings. The build continues, but a problem that is specific to an unsupported configuration will not be fixed. When you cannot move to a supported configuration, use an earlier version of Metalama that supports it, typically a long-term support (LTS) version.
+
+| Code | Reported when |
+|------|---------------|
+| `LAMA0600` | The target framework of the project is outside the supported set. |
+| `LAMA0601` | The .NET SDK that drives the build is older or newer than the supported set. |
+| `LAMA0602` | The build runs on `msbuild.exe` from a version of Visual Studio older than the oldest supported one. A build started by `dotnet build` never reports it. |
+
+To turn the warnings off, use one of the following mechanisms, from the broadest to the narrowest:
+
+* Set the `MetalamaCheckSupportedPlatform` property to `False` to turn off the whole check.
+* Add a warning code, in its full `LAMA` form, to the `NoWarn` property to turn off one dimension of the check.
+* Add a `MetalamaSupportedPlatformExclusion` item naming a package, for example `<MetalamaSupportedPlatformExclusion Include="Metalama.Patterns.Wpf" />`, to turn off the check for that package only.
 
 ## MSBuild build configurations
 
