@@ -80,6 +80,6 @@ PostSharp can apply a `MethodInterceptionAspect` to the methods of another assem
 An AI agent changes code once, while an interceptor is a rule that every build applies. When you work on legacy code with an agent, let the agent write the fabric and the interceptor, which are small and easy to review, and leave the business code unchanged until tests and production data support the final change.
 
 > [!div class="see-also"]
-> <xref:intercepting-calls>
+> <xref:interceptors>
 > <xref:overriding-methods>
 > <xref:validation>

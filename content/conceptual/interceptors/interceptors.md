@@ -1,5 +1,5 @@
 ---
-uid: intercepting-calls
+uid: interceptors
 level: 200
 summary: "Intercept calls to methods of any assembly, including the .NET libraries and NuGet packages, and change their behavior in the code you choose, without editing the calling code."
 keywords: "interceptors, call-site interception, Metalama.Extensions.Interceptors, intercept calls, code you don't own, third-party API, InterceptMethods, RedirectToExistingMethod, RedirectToSynthesizedMethod"
@@ -7,7 +7,7 @@ created-date: 2026-10-12
 modified-date: 2026-10-12
 ---
 
-# Intercepting calls to code you don't own
+# Interceptors
 
 > [!NOTE]
 > This feature requires the `Metalama.Extensions.Interceptors` package and a Metalama Community license or higher.

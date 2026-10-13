@@ -8,7 +8,7 @@ This namespace allows you to intercept the calls to methods of any assembly, and
 
 ## Conceptual documentation
 
-Refer to <xref:intercepting-calls>.
+Refer to <xref:interceptors>.
 
 ## Overview
 

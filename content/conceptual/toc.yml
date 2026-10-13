@@ -259,8 +259,8 @@ items:
         - name: Extending the validation API
           topicUid: validation-extending
 
-    - name: Intercepting calls to code you don't own
-      topicUid: intercepting-calls
+    - name: Interceptors
+      topicUid: interceptors
       items:
         - name: When to use interceptors
           topicUid: interceptors-use-cases

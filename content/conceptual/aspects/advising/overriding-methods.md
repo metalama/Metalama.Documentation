@@ -14,7 +14,7 @@ In <xref:simple-override-method>, you learned the basic technique for replacing 
 This article assumes you've read <xref:simple-override-method> and will cover additional techniques related to overriding methods.
 
 > [!NOTE]
-> Overriding requires the source code of the method and changes it for every caller. To change the calls that your code makes to a method of another assembly, such as a .NET or NuGet library, use interceptors instead. See <xref:intercepting-calls>.
+> Overriding requires the source code of the method and changes it for every caller. To change the calls that your code makes to a method of another assembly, such as a .NET or NuGet library, use interceptors instead. See <xref:interceptors>.
 
 ## Accessing method details
 
