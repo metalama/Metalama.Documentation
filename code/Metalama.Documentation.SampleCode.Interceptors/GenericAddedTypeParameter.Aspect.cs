@@ -18,7 +18,8 @@ public class TraceLoggingAttribute : TypeAspect
                 .Configure(
                     method =>
                     {
-                        // Make the parameter generic, and pass the type of the argument of each call site.
+                        // Make the parameter generic, and pass the type of the argument
+                        // of each call site.
                         // [<snippet Configure>]
                         var typeParameter = method.Method.AddTypeParameter( "TValue" );
                         method.Method.Parameters[0].Type = typeParameter;

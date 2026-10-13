@@ -30,9 +30,9 @@ For instance, the following template measures the duration of the intercepted ca
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/TimeSdkCalls.Fabric.cs marker="Template"]
 
-By default, the template is a member of the aspect that registers the interception. In a fabric, declare the templates in a separate class that implements <xref:Metalama.Framework.Aspects.ITemplateProvider>, and give an instance of it with <xref:Metalama.Extensions.Interceptors.ITemplateInterception.WithTemplateProvider*>, as the following examples do.
+By default, the template is a member of the aspect or of the fabric that registers the interception. To declare the templates in another class, implement <xref:Metalama.Framework.Aspects.ITemplateProvider> in this class, and give an instance of it with <xref:Metalama.Extensions.Interceptors.ITemplateInterception.WithTemplateProvider*>.
 
-For instance, the following fabric gives its templates with a separate class:
+For instance, the following fabric registers the interception. Its `Trace` method is the template:
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/TraceCalls.Fabric.cs marker="Registration"]
 
@@ -71,7 +71,7 @@ The template then reads the calling member:
 
 ### Example: Timing every call to an SDK
 
-The following project fabric measures the duration of every call to the methods of `PaymentGateway`, a class of another project. <xref:Metalama.Extensions.Interceptors.ITypeSelection.AllMethods*> selects all the methods that the type declares. A <xref:Metalama.Framework.Advising.MethodTemplateSelector> gives a second template for async methods, so that the duration covers the whole asynchronous operation.
+The following project fabric measures the duration of every call to the methods of `PaymentGateway`, a class of another project. <xref:Metalama.Extensions.Interceptors.ITypeSelection.AllMethods*> selects all the methods that the type declares. The interceptor of the async method `RefundAsync` awaits the call, so the duration covers the whole asynchronous operation.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/TimeSdkCalls.cs name="Timing SDK calls"]
 
@@ -97,15 +97,11 @@ For instance, the following template retries the call when it times out:
 
 ### Async and iterator methods
 
-A template whose return type is `dynamic?` handles async methods as ordinary methods: the generated interceptor returns the task without awaiting it. To run code after the asynchronous operation completes, give a second template with a <xref:Metalama.Framework.Advising.MethodTemplateSelector>, and set `useAsyncTemplateForAnyAwaitable` to `true`. In this template, declared as `async Task<dynamic?>`, call `meta.ProceedAsync()`. The selector works as for override aspects. See <xref:overriding-methods>.
+When the intercepted method returns an awaitable type, such as `Task`, the generated interceptor is an `async` method, and `meta.Proceed()` awaits the call. The code after `meta.Proceed()` therefore runs after the asynchronous operation completes. This rule depends only on the return type, so it also applies when the intercepted method is not declared `async`. In the same way, the interceptor of an async iterator method is an async iterator.
 
-For instance, the following registration gives a template for ordinary methods and a template for async methods:
+For instance, in the timing example above, the tab of the `MetalamaInterceptors` class shows the interceptor of `RefundAsync`, which awaits the call inside the `try` block.
 
-[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/TimeSdkCalls.Fabric.cs marker="Selector"]
-
-The async template awaits `meta.ProceedAsync()`:
-
-[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/TimeSdkCalls.Fabric.cs marker="AsyncTemplate"]
+To give different templates for async or iterator methods, use a <xref:Metalama.Framework.Advising.MethodTemplateSelector>. The selector works as for override aspects. See <xref:overriding-methods>.
 
 ### Passing arguments to the template
 

@@ -18,8 +18,14 @@ internal class Fabric : ProjectFabric
                 .ForEachSite(
                     site => site
                         .RedirectToExistingMethod(
-                            typeof(TelemetryWithSender).AsINamedType().Methods.OfName( nameof(TelemetryWithSender.Track) ).Single() )
+                            typeof(TelemetryWithSender).AsINamedType()
+                                .Methods.OfName( nameof(TelemetryWithSender.Track) )
+                                .Single() )
                         // [<snippet This>]
-                        .WithArgs( new { sender = site.Caller.CanAccessThis ? ExpressionFactory.This() : null } ) ) );
+                        .WithArgs(
+                            new
+                            {
+                                sender = site.Caller.CanAccessThis ? ExpressionFactory.This() : null
+                            } ) ) );
                         // [<endsnippet This>]
 }

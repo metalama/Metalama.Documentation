@@ -12,7 +12,9 @@ public class TraceCountersAttribute : TypeAspect
 {
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
-        var interceptor = typeof(CounterTracing).AsINamedType().Methods.OfName( nameof(CounterTracing.Increment) ).Single();
+        var interceptor = typeof(CounterTracing).AsINamedType()
+            .Methods.OfName( nameof(CounterTracing.Increment) )
+            .Single();
 
         builder.InterceptMethods(
             calls => calls

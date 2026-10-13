@@ -11,7 +11,9 @@ internal class Fabric : ProjectFabric
 {
     public override void AmendProject( IProjectAmender amender )
     {
-        var interceptor = typeof(TaxComparison).AsINamedType().Methods.OfName( nameof(TaxComparison.ComputeTax) ).Single();
+        var interceptor = typeof(TaxComparison).AsINamedType()
+            .Methods.OfName( nameof(TaxComparison.ComputeTax) )
+            .Single();
 
         amender.InterceptMethods(
             calls => calls

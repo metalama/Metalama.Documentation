@@ -6,7 +6,8 @@ public class OrderService
 {
     public string Pay( decimal amount ) => PaymentGateway.Charge( amount );
 
-    public string PayTwice( decimal amount ) => PaymentGateway.Charge( amount ) + PaymentGateway.Charge( amount );
+    public string PayTwice( decimal amount )
+        => PaymentGateway.Charge( amount ) + PaymentGateway.Charge( amount );
 }
 
 public class SubscriptionService

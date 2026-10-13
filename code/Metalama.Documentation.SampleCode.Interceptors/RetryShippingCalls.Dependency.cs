@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace Doc.RetryShippingCalls;
 
-// A third-party SDK, compiled in another project. Its methods fail the first two times they are called.
+// A third-party SDK, compiled in another project. Its methods fail the first two times
+// they are called.
 public class ShippingClient
 {
     private int _failures;

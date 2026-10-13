@@ -21,7 +21,8 @@ public class CheckRepositoryArgumentsAttribute : TypeAspect
                         .WithArgs( new { T = site.InterceptedMethod.Parameters[0].Type } ) ) );
                 // [<endsnippet WithArgs>]
 
-    // The template has a parameter of type T, which receives the type of the parameter of each intercepted method.
+    // The template has a parameter of type T, which receives the type of the parameter of each
+    // intercepted method.
     [Template]
     // [<snippet Template>]
     public void CheckNotNull<[CompileTime] T>( T entity )

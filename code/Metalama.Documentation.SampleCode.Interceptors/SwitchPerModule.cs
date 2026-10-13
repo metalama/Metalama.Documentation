@@ -19,6 +19,7 @@ namespace Doc.SwitchPerModule.Reporting
     {
         private readonly LegacyTaxCalculator _calculator = new();
 
-        public decimal ComputeTax( decimal revenue, string region ) => this._calculator.ComputeTax( revenue, region );
+        public decimal ComputeTax( decimal revenue, string region )
+            => this._calculator.ComputeTax( revenue, region );
     }
 }

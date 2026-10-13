@@ -22,7 +22,8 @@ public class LogPaymentCallsAttribute : TypeAspect
     [Template]
     public dynamic? LogCall()
     {
-        // The interceptor is a private instance method of the calling type, so it can read the private field _log.
+        // The interceptor is a private instance method of the calling type, so it can read
+        // the private field _log.
         // [<snippet This>]
         meta.This._log.WriteLine( $"Calling {meta.Interception.Method.InterceptedMethod.Name}." );
         // [<endsnippet This>]

@@ -9,7 +9,10 @@ namespace Doc.CompareTaxCalculators;
 public static class TaxComparison
 {
     // [<snippet Compare>]
-    public static decimal ComputeTax( LegacyTaxCalculator calculator, decimal amount, string region )
+    public static decimal ComputeTax(
+        LegacyTaxCalculator calculator,
+        decimal amount,
+        string region )
     {
         var legacyResult = calculator.ComputeTax( amount, region );
 
@@ -19,7 +22,8 @@ public static class TaxComparison
 
             if ( newResult != legacyResult )
             {
-                Console.WriteLine( $"Mismatch for {amount} in {region}: legacy {legacyResult}, new {newResult}." );
+                Console.WriteLine(
+                    $"Mismatch for {amount} in {region}: legacy {legacyResult}, new {newResult}." );
             }
         }
         catch ( Exception e )

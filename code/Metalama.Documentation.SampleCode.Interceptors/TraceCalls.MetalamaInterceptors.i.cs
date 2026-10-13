@@ -7,7 +7,7 @@ internal static class MetalamaInterceptors
   {
     var arguments = new List<string>();
     arguments.Add($"country: {country}");
-    var call = "SetCountry -> " + $"GetCurrency({string.Join(", ", arguments)})";
+    var call = $"SetCountry -> GetCurrency({string.Join(", ", arguments)})";
     try
     {
       var result = receiver.GetCurrency(country);
@@ -25,7 +25,7 @@ internal static class MetalamaInterceptors
     var arguments = new List<string>();
     arguments.Add($"sku: {sku}");
     arguments.Add($"quantity: {quantity}");
-    var call = "Add -> " + $"GetPrice({string.Join(", ", arguments)})";
+    var call = $"Add -> GetPrice({string.Join(", ", arguments)})";
     try
     {
       var result = receiver.GetPrice(sku, quantity);

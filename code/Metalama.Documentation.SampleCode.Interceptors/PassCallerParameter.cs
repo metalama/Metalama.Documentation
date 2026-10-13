@@ -9,7 +9,8 @@ namespace Doc.PassCallerParameter;
 public class OrderController
 {
     // The calling method has a requestId parameter, which is passed to the interceptor.
-    public void Get( string requestId, int orderId ) => AuditLog.Write( $"Reading order {orderId}." );
+    public void Get( string requestId, int orderId )
+        => AuditLog.Write( $"Reading order {orderId}." );
 
     // The call is in a lambda, which can also read requestId.
     public void GetMany( string requestId, int[] orderIds )

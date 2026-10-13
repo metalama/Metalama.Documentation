@@ -12,7 +12,9 @@ internal class Fabric : ProjectFabric
 {
     public override void AmendProject( IProjectAmender amender )
     {
-        var interceptor = typeof(Audit).AsINamedType().Methods.OfName( nameof(Audit.DeleteFile) ).Single();
+        var interceptor = typeof(Audit).AsINamedType()
+            .Methods.OfName( nameof(Audit.DeleteFile) )
+            .Single();
 
         amender.InterceptMethods(
             calls => calls

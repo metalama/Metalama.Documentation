@@ -10,7 +10,9 @@ public class Cart
 
     public decimal Total { get; private set; }
 
-    public void SetCountry( string country ) => this.Currency = this._pricing.GetCurrency( country );
+    public void SetCountry( string country )
+        => this.Currency = this._pricing.GetCurrency( country );
 
-    public void Add( string sku, int quantity ) => this.Total += this._pricing.GetPrice( sku, quantity );
+    public void Add( string sku, int quantity )
+        => this.Total += this._pricing.GetPrice( sku, quantity );
 }

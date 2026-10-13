@@ -12,7 +12,9 @@ public class RedirectMailAttribute : TypeAspect
 {
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
-        var interceptor = typeof(MailOutbox).AsINamedType().Methods.OfName( nameof(MailOutbox.Send) ).Single();
+        var interceptor = typeof(MailOutbox).AsINamedType()
+            .Methods.OfName( nameof(MailOutbox.Send) )
+            .Single();
 
         builder.InterceptMethods(
             calls => calls

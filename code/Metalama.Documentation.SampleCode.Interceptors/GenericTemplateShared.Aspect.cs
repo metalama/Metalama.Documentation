@@ -16,7 +16,8 @@ public class TraceSerializationAttribute : TypeAspect
                 .Methods( nameof(Serializer.Serialize) )
                 .RedirectToSynthesizedMethod( nameof(this.Trace) ) );
 
-    // T is a run-time type parameter, so the generated method is generic and all call sites share it.
+    // T is a run-time type parameter, so the generated method is generic and all call sites
+    // share it.
     [Template]
     // [<snippet Template>]
     public string Trace<T>( T value )

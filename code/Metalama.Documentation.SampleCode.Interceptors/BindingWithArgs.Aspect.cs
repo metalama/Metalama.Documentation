@@ -13,7 +13,9 @@ public class AddMetricContextAttribute : TypeAspect
 {
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
-        var interceptor = typeof(MetricsWithContext).AsINamedType().Methods.OfName( nameof(MetricsWithContext.Increment) ).Single();
+        var interceptor = typeof(MetricsWithContext).AsINamedType()
+            .Methods.OfName( nameof(MetricsWithContext.Increment) )
+            .Single();
 
         builder.InterceptMethods(
             calls => calls
@@ -24,10 +26,10 @@ public class AddMetricContextAttribute : TypeAspect
                 .WithArgs(
                     new Dictionary<string, object?>
                     {
-                        ["category"] = "Sales",          // A string literal.
-                        ["weight"] = 2,                  // A number.
-                        ["valueType"] = typeof(decimal),  // A type, written as typeof.
-                        ["unit"] = null                  // null.
+                        ["category"] = "Sales",            // A string literal.
+                        ["weight"] = 2,                    // A number.
+                        ["source"] = typeof(OrderService), // A type, written as typeof.
+                        ["unit"] = null                    // null.
                     } ) );
                 // [<endsnippet WithArgs>]
     }
@@ -35,6 +37,12 @@ public class AddMetricContextAttribute : TypeAspect
 
 public static class MetricsWithContext
 {
-    public static void Increment( string name, string category, int weight, Type valueType, string? unit )
-        => Metrics.Increment( $"{category}.{name} x{weight} ({valueType.Name}{(unit == null ? "" : ", " + unit)})" );
+    public static void Increment(
+        string name,
+        string category,
+        int weight,
+        Type source,
+        string? unit )
+        => Metrics.Increment(
+            $"{category}.{name} x{weight} ({source.Name}{(unit == null ? "" : ", " + unit)})" );
 }

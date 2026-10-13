@@ -24,13 +24,9 @@ internal class TracingFabric : ProjectFabric
             calls => calls
                 .Type( typeof(File) )
                 .Methods( nameof(File.ReadAllText) )
-                .RedirectToSynthesizedMethod( nameof(TracingTemplates.Trace) )
-                .WithTemplateProvider( TemplateProvider.FromInstance( new TracingTemplates() ) ) );
+                .RedirectToSynthesizedMethod( nameof(this.Trace) ) );
     }
-}
 
-internal class TracingTemplates : ITemplateProvider
-{
     [Template]
     public dynamic? Trace()
     {

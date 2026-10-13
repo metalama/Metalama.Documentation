@@ -17,14 +17,10 @@ internal class TracingFabric : ProjectFabric
             calls => calls
                 .Type( typeof(PricingClient) )
                 .AllMethods()
-                .RedirectToSynthesizedMethod( nameof(TracingTemplates.Trace) )
-                .WithTemplateProvider( TemplateProvider.FromInstance( new TracingTemplates() ) )
+                .RedirectToSynthesizedMethod( nameof(this.Trace) )
                 .WithGranularity( InterceptorGranularity.Member ) );
     // [<endsnippet Registration>]
-}
 
-internal class TracingTemplates : ITemplateProvider
-{
     [Template]
     public dynamic? Trace()
     {
@@ -36,8 +32,9 @@ internal class TracingTemplates : ITemplateProvider
             arguments.Add( $"{parameter.Name}: {parameter.Value}" );
         }
 
-        var call = $"{meta.Interception.CallingMember.Name} -> "
-                   + $"{meta.Interception.Method.InterceptedMethod.Name}({string.Join( ", ", arguments )})";
+        var callerName = meta.Interception.CallingMember.Name;
+        var methodName = meta.Interception.Method.InterceptedMethod.Name;
+        var call = $"{callerName} -> {methodName}({string.Join( ", ", arguments )})";
         // [<endsnippet Arguments>]
 
         try

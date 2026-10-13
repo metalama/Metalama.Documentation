@@ -10,7 +10,8 @@ public class ShipmentService
 
     public decimal EstimateCost( string destination ) => this._client.GetQuote( destination );
 
-    public Task<string> GetStatusAsync( string trackingNumber ) => this._client.GetTrackingStatusAsync( trackingNumber );
+    public Task<string> GetStatusAsync( string trackingNumber )
+        => this._client.GetTrackingStatusAsync( trackingNumber );
 
     public string Ship( string destination ) => this._client.CreateShipment( destination );
 }

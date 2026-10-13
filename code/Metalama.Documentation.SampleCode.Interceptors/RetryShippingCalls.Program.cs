@@ -11,6 +11,7 @@ internal class Program
         var service = new ShipmentService();
 
         Console.WriteLine( $"Cost: {service.EstimateCost( "US" )}" );
-        Console.WriteLine( $"Status: {service.GetStatusAsync( "TRK-1" ).GetAwaiter().GetResult()}" );
+        Console.WriteLine(
+            $"Status: {service.GetStatusAsync( "TRK-1" ).GetAwaiter().GetResult()}" );
     }
 }

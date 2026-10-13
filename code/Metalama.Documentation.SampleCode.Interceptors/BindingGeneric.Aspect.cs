@@ -12,7 +12,9 @@ public class TraceCacheAttribute : TypeAspect
 {
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
-        var interceptor = typeof(CacheTracing).AsINamedType().Methods.OfName( nameof(CacheTracing.Get) ).Single();
+        var interceptor = typeof(CacheTracing).AsINamedType()
+            .Methods.OfName( nameof(CacheTracing.Get) )
+            .Single();
 
         builder.InterceptMethods(
             calls => calls

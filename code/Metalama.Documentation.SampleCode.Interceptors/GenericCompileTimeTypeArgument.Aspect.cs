@@ -21,7 +21,8 @@ public class ValidateSerializationAttribute : TypeAspect
                         .WithArgs( new { T = site.InterceptedMethod.TypeArguments[0] } ) ) );
                 // [<endsnippet WithArgs>]
 
-    // T is a compile-time type parameter: the template generates different code for each type argument.
+    // T is a compile-time type parameter: the template generates different code for each
+    // type argument.
     [Template]
     // [<snippet Template>]
     public dynamic? Validate<[CompileTime] T>()

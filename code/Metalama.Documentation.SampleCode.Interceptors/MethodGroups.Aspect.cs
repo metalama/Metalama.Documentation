@@ -11,7 +11,9 @@ public class LogTextCallsAttribute : TypeAspect
 {
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
-        var interceptor = typeof(TextLogging).AsINamedType().Methods.OfName( nameof(TextLogging.Normalize) ).Single();
+        var interceptor = typeof(TextLogging).AsINamedType()
+            .Methods.OfName( nameof(TextLogging.Normalize) )
+            .Single();
 
         builder.InterceptMethods(
             calls => calls

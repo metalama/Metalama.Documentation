@@ -14,21 +14,19 @@ internal class Fabric : ProjectFabric
             calls => calls
                 .Type( typeof(PaymentGateway) )
                 .AllMethods()
-                .RedirectToSynthesizedMethod( nameof(LoggingTemplates.Log) )
-                .WithTemplateProvider( TemplateProvider.FromInstance( new LoggingTemplates() ) )
+                .RedirectToSynthesizedMethod( nameof(this.Log) )
                 // [<snippet Granularity>]
                 .WithGranularity( InterceptorGranularity.Member ) );
                 // [<endsnippet Granularity>]
-}
 
-internal class LoggingTemplates : ITemplateProvider
-{
     // The template reads the calling member, so each calling member gets its own generated method.
     [Template]
     public dynamic? Log()
     {
         // [<snippet CallingMember>]
-        Console.WriteLine( $"{meta.Interception.CallingMember.Name} calls {meta.Interception.Method.InterceptedMethod.Name}." );
+        Console.WriteLine(
+            $"{meta.Interception.CallingMember.Name} calls "
+            + $"{meta.Interception.Method.InterceptedMethod.Name}." );
         // [<endsnippet CallingMember>]
 
         return meta.Proceed();

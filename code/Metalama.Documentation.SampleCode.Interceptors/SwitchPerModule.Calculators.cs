@@ -19,6 +19,9 @@ public static class NewTaxCalculator
         };
 
     // Adapts the calls written for the legacy calculator. The calculator instance is not used.
-    public static decimal ComputeTax( LegacyTaxCalculator calculator, decimal amount, string region )
+    public static decimal ComputeTax(
+        LegacyTaxCalculator calculator,
+        decimal amount,
+        string region )
         => ComputeTax( amount, region );
 }

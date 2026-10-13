@@ -20,7 +20,8 @@ public static class Audit
         [CallerLineNumber] int line = 0 )
     // [<endsnippet Signature>]
     {
-        Console.WriteLine( $"[{category}] {caller} (line {line}) deletes {Path.GetFileName( path )}." );
+        Console.WriteLine(
+            $"[{category}] {caller} (line {line}) deletes {Path.GetFileName( path )}." );
 
         File.Delete( path );
     }

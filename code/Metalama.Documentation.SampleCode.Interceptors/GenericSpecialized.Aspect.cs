@@ -16,7 +16,8 @@ public class TraceSerializationAttribute : TypeAspect
                 .Methods( nameof(Serializer.Serialize) )
                 .RedirectToSynthesizedMethod( nameof(this.Trace) ) );
 
-    // The template has no type parameter, so one method is generated for each type argument of the call sites.
+    // The template has no type parameter, so one method is generated for each type argument
+    // of the call sites.
     // The type argument is known when the template is expanded.
     [Template]
     public dynamic? Trace()

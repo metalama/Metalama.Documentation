@@ -22,7 +22,8 @@ public class LogRepositoryCallsAttribute : TypeAspect
     [Template]
     public dynamic? LogCall()
     {
-        Console.WriteLine( $"Calling {meta.Interception.Method.InterceptedMethod.ToDisplayString()}." );
+        Console.WriteLine(
+            $"Calling {meta.Interception.Method.InterceptedMethod.ToDisplayString()}." );
 
         return meta.Proceed();
     }

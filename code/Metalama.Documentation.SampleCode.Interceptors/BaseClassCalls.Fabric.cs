@@ -20,18 +20,17 @@ internal class Fabric : ProjectFabric
                     // Select the framework class that declares the protected method.
                     .Type( typeof(Control) )
                     .Methods( "UpdateStyles" )
-                    .RedirectToSynthesizedMethod( nameof(StyleTemplates.LogStyles) )
-                    .WithTemplateProvider( TemplateProvider.FromInstance( new StyleTemplates() ) )
+                    .RedirectToSynthesizedMethod( nameof(this.LogStyles) )
                     // A protected method can be called only from the class hierarchy,
                     // so the interceptor is generated in the common base class of the project.
                     .PlaceInType( typeof(AppControl) )
-                    // C# allows the call of a protected method only through an instance of the calling class.
-                    .Configure( method => method.Method.Parameters[0].Type = method.Method.DeclaringType ) );
+                    // C# allows the call of a protected method only through an instance
+                    // of the calling class.
+                    .Configure(
+                        method =>
+                            method.Method.Parameters[0].Type = method.Method.DeclaringType ) );
             // [<endsnippet Selection>]
-}
 
-internal class StyleTemplates : ITemplateProvider
-{
     [Template]
     public dynamic? LogStyles()
     {

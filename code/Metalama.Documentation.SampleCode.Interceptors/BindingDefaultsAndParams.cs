@@ -22,6 +22,9 @@ public enum Severity
 
 public static class Log
 {
-    public static void Write( string format, Severity severity = Severity.Info, params object[] args )
+    public static void Write(
+        string format,
+        Severity severity = Severity.Info,
+        params object[] args )
         => Console.WriteLine( $"{severity}: {string.Format( format, args )}" );
 }

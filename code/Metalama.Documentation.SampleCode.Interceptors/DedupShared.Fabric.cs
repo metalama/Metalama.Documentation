@@ -14,13 +14,10 @@ internal class Fabric : ProjectFabric
             calls => calls
                 .Type( typeof(PaymentGateway) )
                 .AllMethods()
-                .RedirectToSynthesizedMethod( nameof(LoggingTemplates.Log) )
-                .WithTemplateProvider( TemplateProvider.FromInstance( new LoggingTemplates() ) ) );
-}
+                .RedirectToSynthesizedMethod( nameof(this.Log) ) );
 
-internal class LoggingTemplates : ITemplateProvider
-{
-    // The template does not read the calling code, so all the call sites share one generated method.
+    // The template does not read the calling code, so all the call sites share one generated
+    // method.
     [Template]
     public dynamic? Log()
     {

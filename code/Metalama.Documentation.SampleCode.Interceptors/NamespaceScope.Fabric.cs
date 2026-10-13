@@ -14,7 +14,9 @@ namespace Doc.NamespaceScope.Billing
     {
         public override void AmendNamespace( INamespaceAmender amender )
         {
-            var interceptor = typeof(AuditedFile).AsINamedType().Methods.OfName( nameof(AuditedFile.ReadAllText) ).Single();
+            var interceptor = typeof(AuditedFile).AsINamedType()
+                .Methods.OfName( nameof(AuditedFile.ReadAllText) )
+                .Single();
 
             amender.InterceptMethods(
                 calls => calls
@@ -29,7 +31,8 @@ namespace Doc.NamespaceScope.Billing
 
 namespace Doc.NamespaceScope
 {
-    // The interceptor is outside the Billing namespace, so its own call to File.ReadAllText is not intercepted.
+    // The interceptor is outside the Billing namespace, so its own call to File.ReadAllText
+    // is not intercepted.
     public static class AuditedFile
     {
         public static string ReadAllText( string path )

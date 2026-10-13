@@ -12,7 +12,9 @@ public class RedirectLoggingAttribute : TypeAspect
 {
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
-        var interceptor = typeof(StructuredLog).AsINamedType().Methods.OfName( nameof(StructuredLog.Write) ).Single();
+        var interceptor = typeof(StructuredLog).AsINamedType()
+            .Methods.OfName( nameof(StructuredLog.Write) )
+            .Single();
 
         builder.InterceptMethods(
             calls => calls
