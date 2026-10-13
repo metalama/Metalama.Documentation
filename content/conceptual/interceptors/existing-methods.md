@@ -1,0 +1,171 @@
+---
+uid: redirecting-calls-to-existing-methods
+level: 200
+summary: "Redirect the calls to a method of any assembly to a static method that you write, from an aspect or a fabric, and pass additional values such as the caller's name or the calling object."
+keywords: "interceptors, RedirectToExistingMethod, InterceptMethods, existing method, static interceptor, WithArgs, caller information, ExcludeInterceptors, fabric, test seam, audit"
+created-date: 2026-10-12
+modified-date: 2026-10-12
+---
+
+# Redirecting calls to existing methods
+
+The simplest interceptor is an ordinary static method that you write. Metalama rewrites the matching call sites so that they call your method instead of the original one. Your method is plain C#: you can debug it and unit-test it like any other code.
+
+Use an existing method when you intercept a few methods, when the interceptor contains logic that you want to test on its own, or when you route calls to another implementation. When you need the same logic for many methods with different signatures, generate the interceptors from a template instead. See <xref:generating-interceptors-with-templates>.
+
+## Redirecting calls from an aspect
+
+To intercept the calls made by the members of one type, register the interceptor from an aspect:
+
+1. Add a reference to the `Metalama.Extensions.Interceptors` package to the project that contains the aspect.
+2. Write a static method whose parameters match the intercepted method. When the intercepted method is an instance method, the first parameter receives the object on which the method is called, called the _receiver_.
+3. In the <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method of the aspect, call the <xref:Metalama.Extensions.Interceptors.InterceptionAdviserExtensions.InterceptMethods*> extension method. Its argument is a delegate that describes the interception:
+   * <xref:Metalama.Extensions.Interceptors.IMethodInterceptionBuilder.Type*> selects the type that declares the intercepted methods.
+   * <xref:Metalama.Extensions.Interceptors.ITypeFilterSelection.Methods*> selects the methods by name. A name selects every overload of that name, and <xref:Metalama.Extensions.Interceptors.IMethodSelection.Where*> keeps only some of them.
+   * <xref:Metalama.Extensions.Interceptors.IMethodResultFactory.RedirectToExistingMethod*> gives your method.
+
+The scope of the registration is the target of the aspect: only the calls written in the members of this type are intercepted.
+
+For instance, the following interceptor of `HttpClient.GetStringAsync( string )` receives the `HttpClient` as its first parameter:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/LogHttpCalls.HttpLogging.cs marker="Interceptor"]
+
+The aspect registers it:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/LogHttpCalls.Aspect.cs marker="Registration"]
+
+### Example: Logging calls to HttpClient
+
+The following aspect logs the calls that `OrderService` makes to `HttpClient.GetStringAsync( string )`. The `Where` predicate keeps the overload that takes a `string`, because the interceptor has a `string` parameter.
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/LogHttpCalls.cs name="Logging calls to HttpClient"]
+
+## Redirecting calls from a project or namespace fabric
+
+To intercept the calls made by many types, register the interceptor from a fabric, and call `InterceptMethods` on the amender:
+
+* In a <xref:Metalama.Framework.Fabrics.ProjectFabric>, the scope is the whole project.
+* In a <xref:Metalama.Framework.Fabrics.NamespaceFabric>, the scope is the namespace of the fabric.
+
+To select other scopes, such as the types that a query selects, see <xref:interceptors-selecting-calls>.
+
+For instance, the following project fabric redirects the calls to `Thread.Sleep( int )` in the whole project:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/FakeSleep.Fabric.cs marker="Registration"]
+
+### Example: Replacing Thread.Sleep in tests
+
+Code that calls `Thread.Sleep` directly makes tests slow. The following project fabric redirects the calls to `Thread.Sleep( int )` to a virtual clock, which records the time instead of waiting. The program waits 6 seconds in virtual time and completes immediately.
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/FakeSleep.cs name="Replacing Thread.Sleep" diff-files="\.Program\.cs$"]
+
+In a real project, register such an interceptor only in a test build, as described in <xref:interceptors-selecting-calls>. The tests then run a binary that differs from the release build. Keep this difference small. Once the tests are in place, introduce a real abstraction, such as `TimeProvider`.
+
+### Example: Intercepting calls in one namespace
+
+The following namespace fabric is in the `Billing` namespace. It redirects the calls to `File.ReadAllText` in this namespace only. The same call in the `Reporting` namespace is not intercepted.
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/NamespaceScope.cs name="Intercepting calls in one namespace"]
+
+### Calling the original method
+
+Your method can call the method that it intercepts, before or after its own logic, or not at all. It can also change the arguments, process the result, or handle exceptions.
+
+For instance, the following interceptor calls the intercepted method, then compares its result with a new implementation:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/CompareTaxCalculators.TaxComparison.cs marker="Compare"]
+
+If your method is in the scope of the registration, the call to the intercepted method inside your method is intercepted too. Your method then calls itself.
+
+To prevent this, add the <xref:Metalama.Extensions.Interceptors.ExcludeInterceptorsAttribute> attribute to the class of your interceptor. The calls in a class with this attribute are never intercepted. The following example and the audit example below use this attribute. In the namespace example above, the interceptor is outside the scope of the namespace fabric, so it does not need the attribute.
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/AuditFileDelete.Audit.cs marker="Exclude"]
+
+#### Example: Comparing a new implementation with the legacy one
+
+The following interceptor runs a new tax calculator next to the legacy one, reports the differences, and returns the result of the legacy calculator. The callers don't change, and the behavior of the program does not change either. When you trust the new calculator, you can switch the calls to it. See the example _Switching one module at a time_ in <xref:interceptors-selecting-calls>.
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/CompareTaxCalculators.cs name="Comparing tax calculators" diff-files="\.Program\.cs$"]
+
+## Matching the parameters of the intercepted method
+
+Metalama binds each parameter of your method to a value of the call site:
+
+* When the intercepted method has a receiver, the first parameter of your method receives it.
+* The other parameters are matched with the parameters of the intercepted method by name, not by position.
+* A parameter of your method that has no match can receive a value given by `WithArgs`, the caller information requested by an attribute such as `[CallerMemberName]`, or its own default value.
+* An argument of the call that your method does not receive is dropped. It is still evaluated when its evaluation can have a side effect.
+
+For instance, the following interceptor of `LegacyTaxCalculator.ComputeTax( decimal amount, string region )` receives the calculator, then the arguments by name, then caller information:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/CountCalls.CallCounter.cs marker="Signature"]
+
+The types do not have to be identical: each argument must convert implicitly to the type of your parameter, and the return value of your method must convert implicitly to the return type of the intercepted method. Parameters passed by `ref`, `out` or `in` must keep their reference kind and their type.
+
+These rules have many details, for instance for omitted optional arguments, `params` arrays, generic methods and struct receivers. See <xref:interceptor-binding-rules>.
+
+## Passing additional parameter values
+
+Your method can receive values that the intercepted method does not have.
+
+### Passing a constant value
+
+<xref:Metalama.Extensions.Interceptors.IExistingMethodInterception.WithArgs*> gives values by name. Pass an anonymous object, another object whose public properties and fields give the values, or an `IReadOnlyDictionary<string, object?>`. A value can be a literal, an enumeration value, a `Type`, which is written as `typeof`, or a <xref:Metalama.Framework.Code.TypedConstant>. See <xref:interceptor-binding-rules>.
+
+For instance:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/AuditFileDelete.Fabric.cs marker="WithArgs"]
+
+### Passing the location of the call
+
+A parameter with a caller information attribute, such as `[CallerMemberName]`, `[CallerFilePath]` or `[CallerLineNumber]`, receives the location of the intercepted call site, not of the call inside your method.
+
+For instance:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/AuditFileDelete.Audit.cs marker="Signature"]
+
+#### Example: Auditing calls to File.Delete
+
+The following project fabric redirects every call to `File.Delete` to an audit method. `WithArgs` passes a constant category, and the caller information attributes give the name of the calling member and the line of the call.
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/AuditFileDelete.cs name="Auditing calls to File.Delete" diff-files="\.Program\.cs$"]
+
+#### Example: Counting the calls to a legacy API
+
+Before replacing a legacy API, you may want to know which of its call sites actually run in production. The following interceptor counts the calls for each calling member and line, and then calls the legacy implementation.
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/CountCalls.cs name="Counting calls to a legacy API" diff-files="\.Program\.cs$"]
+
+### Passing a parameter of the calling method
+
+To pass a value that depends on the call site, decide the interception for each call site with <xref:Metalama.Extensions.Interceptors.IMethodSelection.ForEachSite*>. The delegate receives the call site, which describes the calling code through its <xref:Metalama.Extensions.Interceptors.IInterceptionContext.Caller> property:
+
+* <xref:Metalama.Extensions.Interceptors.ICaller.Parameters> gives the parameters of the calling member, which you can pass to your method.
+* <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionFactory.This*> gives the calling object, when <xref:Metalama.Extensions.Interceptors.ICaller.CanAccessThis> is `true`.
+
+The values passed this way are written at the call site.
+
+For instance, the following delegate passes the `requestId` parameter of the calling method, when the call site can read it:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/PassCallerParameter.Aspect.cs marker="Guard"]
+
+The following one passes the calling object, or `null` in a static member:
+
+[!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/PassCallerInstance.Fabric.cs marker="This"]
+
+#### Example: Passing a parameter of the calling method
+
+The following aspect passes the `requestId` parameter of the calling method to the interceptor. It skips the call sites where the calling method has no such parameter, and the call sites in lambdas that cannot read it.
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/PassCallerParameter.cs name="Passing a parameter of the calling method" diff-files="\.Program\.cs$"]
+
+#### Example: Passing the calling object
+
+The following fabric redirects the calls to `Telemetry.Track` to a method that also receives the calling object. In a static member, there is no calling object, so `null` is passed.
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/PassCallerInstance.cs name="Passing the calling object" diff-files="\.Program\.cs$"]
+
+> [!div class="see-also"]
+> <xref:interceptor-binding-rules>
+> <xref:interceptors-selecting-calls>
+> <xref:generating-interceptors-with-templates>

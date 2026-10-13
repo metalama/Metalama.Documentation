@@ -1,0 +1,4 @@
+Logging a Int32.
+3
+Logging a String.
+Book

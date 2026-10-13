@@ -1,0 +1,2 @@
+Order placed: Laptop (sender: OrderService)
+Orders reset (sender: static code)

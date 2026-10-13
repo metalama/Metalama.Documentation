@@ -20,6 +20,7 @@
               "Metalama.Extensions.Metrics.dll",
               "Metalama.Extensions.Architecture.dll",
               "Metalama.Extensions.CodeFixes.dll",
+              "Metalama.Extensions.Interceptors.dll",
               "Metalama.Extensions.Validation.dll",
               "Metalama.Patterns.Contracts.dll",
               "Metalama.Patterns.Memoization.dll",

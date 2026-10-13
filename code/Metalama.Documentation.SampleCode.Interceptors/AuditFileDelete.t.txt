@@ -1,0 +1,2 @@
+[FileSystem] DeleteReport (line 10) deletes sales-2026.pdf.
+[FileSystem] DeleteDraft (line 13) deletes sales-2027.draft.
