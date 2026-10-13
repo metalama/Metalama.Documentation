@@ -1,0 +1,1 @@
+// Error LAMA0223 on `GetPrice`: `Cannot use 'meta.ProceedAsync()' in 'PriceCalculator.GetPrice(int)' because the return type of 'PriceCalculator.GetPrice(int)' is not compatible with 'meta.ProceedAsync()'. Use 'meta.Proceed()', which supports any return type.`

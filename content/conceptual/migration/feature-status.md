@@ -12,7 +12,7 @@ modified-date: 2025-11-30
 
 The PostSharp Framework has been entirely ported to Metalama, with a few notable limitations:
 
-* Methods from an external assembly can't be intercepted; only those from the current project can.
+* Aspects can't be applied to methods of an external assembly. To intercept the calls to these methods, use interceptors instead. See <xref:interceptors>.
 * The event of suspending and resuming an `async` state machine can't be advised. Specifically, the `await` keyword can't be advised.
 * Some constructor-related advice types aren't yet implemented:
   * After the last constructor

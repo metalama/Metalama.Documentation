@@ -1,0 +1,1 @@
+// Error LAMA0274 on `LogEntry`: `The template 'LoggingTemplates.LogEntry()' is contained in 'LoggingTemplates', which is not an aspect, a fabric, or a type implementing ITemplateProvider.`

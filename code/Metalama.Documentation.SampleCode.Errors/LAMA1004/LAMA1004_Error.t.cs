@@ -1,0 +1,1 @@
+// Error LAMA1004 on `Program`: `The interceptor method 'Interceptors.Print(string)' registered by the aspect [RedirectPrintsAttribute] applied to 'Program' cannot intercept uses of members of 'Program.Printer' because this type is introduced by an aspect. Uses of its members do not exist in the source code.`

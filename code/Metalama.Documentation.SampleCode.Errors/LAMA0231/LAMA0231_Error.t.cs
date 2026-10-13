@@ -1,0 +1,1 @@
+// Error LAMA0231 on `Fabric`: `The compile-time type 'OrderService.Fabric' cannot be nested in a run-time type. The only compile-time types that can be nested in a run-time type are classes derived from 'TypeFabric'. Move 'OrderService.Fabric' out of the containing type.`

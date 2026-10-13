@@ -1,0 +1,2 @@
+// Error LAMA5205 on `CanSave`: `Several members can be used as the can-execute method for [Command] method 'Document.Save()' by the 'default' naming convention. Rename or remove the members that must not be used, so that only one member matches.`
+// Error LAMA5205 on `CanSave`: `Several members can be used as the can-execute method for [Command] method 'Document.Save()' by the 'default' naming convention. Rename or remove the members that must not be used, so that only one member matches.`

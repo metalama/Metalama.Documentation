@@ -1,0 +1,4 @@
+Total in EU: 120.0
+Total in US: 110.0
+Mismatch for 100 in CH: legacy 10.0, new 8.100.
+Total in CH: 110.0

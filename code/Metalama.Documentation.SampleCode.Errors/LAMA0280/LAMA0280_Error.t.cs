@@ -1,0 +1,1 @@
+// Error LAMA0280 on `statistics.NullCount`: `The compile-time expression 'statistics.NullCount' cannot be set here because the assignment is in a block whose execution depends on a run-time condition ('if ( parameter.Value == null )'). In such a block, only compile-time local variables declared in the block can be set.`

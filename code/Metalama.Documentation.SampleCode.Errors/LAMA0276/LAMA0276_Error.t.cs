@@ -1,0 +1,1 @@
+// Error LAMA0276 on `LogResultType<int>()`: `The called template 'LogAttribute.LogResultType<int>()' has a run-time type parameter. The type parameters of a called template must be marked with [CompileTime].`

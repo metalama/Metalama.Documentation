@@ -1,0 +1,1 @@
+// Error LAMA0220 on `EntryMessage`: `The template 'LogAttribute.EntryMessage' cannot be referenced from the template 'LogAttribute.OverrideMethod()' because it is not a method. A template can only call other templates that are methods.`

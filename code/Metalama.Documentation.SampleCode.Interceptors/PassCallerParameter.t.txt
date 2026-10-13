@@ -1,0 +1,4 @@
+[r1] Reading order 42.
+[r2] Reading order 1.
+[r2] Reading order 2.
+Ping.

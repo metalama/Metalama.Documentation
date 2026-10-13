@@ -1,0 +1,1 @@
+// Error LAMA0522 on `FileHandle`: `The aspect 'TrackFinalization' cannot introduce a finalizer into the type 'FileHandle' because the override strategy 'New' is not supported for finalizers. Use 'Fail', 'Ignore', or 'Override'.`

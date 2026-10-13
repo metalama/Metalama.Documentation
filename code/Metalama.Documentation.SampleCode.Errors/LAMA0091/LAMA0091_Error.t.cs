@@ -1,0 +1,1 @@
+// Error LAMA0091 on `Program`: `The aspect 'InterceptWrite' makes an extension contribution, such as an interceptor registration, but it executes after a low-level aspect weaver, and contributions are processed only before the first low-level aspect weaver. Order the aspect before the aspects that require a low-level weaver.`

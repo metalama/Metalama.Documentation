@@ -4,14 +4,14 @@ summary: "Requirements for using Metalama, including build environment, supporte
 keywords: "Metalama, .NET SDK, Roslyn-based IDEs, Visual Studio, version synchronization, build environment, compatibility issues, C# features, SDK-style projects, target frameworks"
 level: 200
 created-date: 2023-01-26
-modified-date: 2026-06-03
+modified-date: 2026-10-13
 ---
 
 # Requirements
 
 ## Build environment
 
-* Install [.NET SDK](https://dotnet.microsoft.com/download) 8.0 or newer.
+* Install [.NET SDK](https://dotnet.microsoft.com/download) 10.0 or newer. Metalama 2027.0 no longer runs on the .NET 8 or the .NET 9 SDK. If your IDE bundles an older .NET SDK, install the .NET 10 SDK separately.
 * Metalama is tested on Windows (x64), Ubuntu (x64), and macOS (ARM). For a list of tested platforms, see <https://github.com/metalama/Metalama.Tests.DotNetSdk/>.
 
 ## IDEs
@@ -20,10 +20,12 @@ Metalama integrates with Roslyn, making it compatible with any Roslyn-based IDE.
 
 | IDE                                                | Earliest supported version | Design-time correctness | Code fixes | Additional UI features                               |
 | -------------------------------------------------- | -------------------------- | ----------------------- | ---------- | ---------------------------------------------------- |
-| Visual Studio 2022 _with_ Visual Studio tooling    | 17.14                      | Yes                     | Yes        | Transformed code diff, info bar, syntax highlighting |
-| Visual Studio 2022 _without_ Visual Studio tooling | 17.14                      | Yes                     | Yes        |                                                      |
-| Rider                                              |                            | Yes                     | Yes        |                                                      |
-| Visual Studio Code (C# Dev Kit)                    |                            | Yes                     | Yes        |                                                      |
+| Visual Studio 2026 _with_ Visual Studio tooling    | LTSC baseline of November 2026 | Yes                 | Yes        | Transformed code diff, info bar, syntax highlighting |
+| Visual Studio 2026 _without_ Visual Studio tooling | LTSC baseline of November 2026 | Yes                 | Yes        |                                                      |
+| Rider                                              | Current release            | Yes                     | Yes        |                                                      |
+| Visual Studio Code (C# Dev Kit)                    | Current release            | Yes                     | Yes        |                                                      |
+
+Visual Studio 2022 is no longer supported. Version 17.14, the last version of Visual Studio 2022, leaves mainstream support in January 2027. If you can't move to Visual Studio 2026, use Metalama 2026.1, which is a long-term support (LTS) release.
 
 > [!NOTE]
 > Visual Studio Tools for Metalama isn't required but is highly recommended.
@@ -36,13 +38,14 @@ Your projects can target any framework that supports .NET Standard 2.0, includin
 
 | Framework                  | Versions            | Testing status |
 | -------------------------- | ------------------- | -------------- |
-| .NET                       | 8.0, 9.0, 10.0      | Tested         |
-| .NET Framework             | 4.7.2 to 4.8.0      | Tested         |
+| .NET                       | 10.0, 11.0          | Tested         |
+| .NET Framework             | 4.8.1               | Tested         |
+| .NET Framework             | 4.8                 | Untested       |
 | MAUI                       |                     | Tested         |
 | MAUI Blazor                |                     | Tested         |
 | Blazor WebAssembly         |                     | Tested         |
 | .NET Core                  | 2.0 or later        | Untested       |
-| .NET                       | 5.0, 6.0, 7.0       | Untested       |
+| .NET                       | 5.0 to 9.0          | Untested       |
 | Mono                       | 5.4 or later        | Untested       |
 | Xamarin.iOS                | 10.14 or later      | Untested       |
 | Xamarin.Mac                | 3.8 or later        | Untested       |
@@ -50,6 +53,13 @@ Your projects can target any framework that supports .NET Standard 2.0, includin
 | Universal Windows Platform | 10.0.16299 or later | Untested       |
 
 _Untested_ platforms should work because of .NET Standard compatibility, but we don't test them in our continuous integration builds.
+
+> [!WARNING]
+> `Metalama.Patterns.Wpf` is the one exception. It ships a `net472` and a `net10.0-windows` asset and no .NET Standard asset, so a WPF application targeting .NET 8 or .NET 9 has no compatible asset. Such an application must move to .NET 10 to use that package.
+
+Projects targeting .NET Framework 4.7.2 can still use Metalama, because its packages ship a `net472` asset, but .NET Framework 4.7.2 is no longer a supported runtime. Problems that are specific to it won't be fixed. Upgrading the runtime to .NET Framework 4.8 is an in-place update that doesn't require you to change the target framework of your projects.
+
+The build reports a warning when your project, your .NET SDK, or your Visual Studio version is outside the supported set. See _The supported platform check_ in <xref:msbuild-properties>.
 
 For a detailed list of tested target frameworks, <https://github.com/metalama/Metalama.Tests.DotNetSdk/>.
 

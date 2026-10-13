@@ -116,7 +116,7 @@ When working with custom attributes or constants in compile-time code, you may n
 var enumValue = TypedConstant.NamedConstant( typeof(MyEnum), "MyValue" );
 
 // Reference using an INamedType
-var enumType = TypeFactory.GetNamedType( typeof(MyEnum) );
+var enumType = typeof(MyEnum).AsINamedType();
 var enumValue2 = TypedConstant.NamedConstant( enumType, "MyValue" );
 
 // Reference using an IField directly

@@ -1,0 +1,1 @@
+// Error LAMA0555 on `OrderService`: `The aspect 'GenerateResult' cannot introduce the automatic property 'Label' into the union 'OrderService.OrderResult' because a union declaration permits no instance field, no automatic property and no field-like event. Introduce a property whose accessors have a body, or an event whose accessors have a body.`

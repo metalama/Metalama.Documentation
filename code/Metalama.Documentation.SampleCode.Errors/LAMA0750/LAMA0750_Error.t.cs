@@ -1,0 +1,1 @@
+// Error LAMA0750 on `OrderStatus`: `The aspect 'TypeName' cannot introduce a member of kind 'method' because the target type is of kind 'Enum'. Members can be introduced only into a class, a struct, or an interface.`

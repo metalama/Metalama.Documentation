@@ -4,7 +4,7 @@ level: 400
 summary: "The document provides a guide on testing compile-time code using unit tests, outlining the benefits and a step-by-step process to create unit tests for compile-time code in a .NET 6.0 project using the Metalama.Testing.UnitTesting package."
 keywords: "compile-time code testing, unit tests compile-time code, .NET 6.0, Metalama.Testing.UnitTesting, compile-time logic, unit-testing compile-time classes, Xunit test project, MetalamaRemoveCompileTimeOnlyCode, disable Metalama, test methods"
 created-date: 2023-03-03
-modified-date: 2025-11-30
+modified-date: 2026-09-28
 ---
 
 # Testing compile-time helper code
@@ -34,7 +34,22 @@ Failing to follow this step will result in an exception whenever any compile-tim
 
 ### Step 2. Create an xUnit test project
 
-Create an xUnit test project as you normally would.
+Create an xUnit test project as you normally would. The `Metalama.Testing.UnitTesting` package requires xUnit v3. The project must reference the `xunit.v3` package instead of `xunit`, and it must be an executable, as every xUnit v3 test project:
+
+```xml
+<PropertyGroup>
+    <OutputType>Exe</OutputType>
+</PropertyGroup>
+
+<ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit.v3" Version="4.0.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="4.0.0">
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+</ItemGroup>
+```
 
 Target .NET 6.0 or later, as temporary files can't be automatically cleaned up with lower .NET versions.
 
@@ -64,12 +79,12 @@ public class MyTests : UnitTestClass { }
 
 ### Step 5. Create test methods
 
-Each test method _must_ call the <xref:Metalama.Testing.UnitTesting.UnitTestClass.CreateTestContext*> and _must_ dispose of the context at the end of the test method.
+Each test method _must_ call the <xref:Metalama.Testing.UnitTesting.UnitTestClass.CreateTestContext*> and _must_ dispose of the context at the end of the test method. This method returns a <xref:Metalama.Testing.UnitTesting.MetalamaTestContext>. To customize the test context, pass a <xref:Metalama.Testing.UnitTesting.MetalamaTestContextOptions> object to this method.
 
-Your test would typically call the <xref:Metalama.Testing.UnitTesting.TestContext.CreateCompilation*?text=context.CreateCompilation> method to obtain an <xref:Metalama.Framework.Code.ICompilation>.
+Your test would typically call the <xref:Metalama.Testing.UnitTesting.MetalamaTestContext.CreateCompilation*?text=context.CreateCompilation> method to obtain an <xref:Metalama.Framework.Code.ICompilation>.
 
 > [!NOTE]
-> Some APIs (such as <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionFactory>) require the execution context to be set and assigned to your compilation. To set the execution context in a test, use the <xref:Metalama.Testing.UnitTesting.TestContext.WithExecutionContext*?text=testContext.WithExecutionContext> method.
+> Some APIs (such as <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionFactory>) require the execution context to be set and assigned to your compilation. To set the execution context in a test, use the <xref:Metalama.Testing.UnitTesting.MetalamaTestContext.WithExecutionContext*?text=testContext.WithExecutionContext> method.
 
 ```cs
 public class MyTests : UnitTestClass
@@ -120,5 +135,5 @@ public class MyTests : UnitTestClass
 > <xref:aspect-testing>
 > <xref:debugging-aspects>
 > <xref:Metalama.Testing.UnitTesting.UnitTestClass>
-> <xref:Metalama.Testing.UnitTesting.TestContext>
+> <xref:Metalama.Testing.UnitTesting.MetalamaTestContext>
 > <xref:Metalama.Framework.Code.ICompilation>

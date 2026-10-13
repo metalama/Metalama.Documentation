@@ -1,0 +1,1 @@
+// Error LAMA0036 on `LogTemplate`: `The class 'TimedLogAttribute' defines a new template named 'LogTemplate', but the base class 'LogAttribute' already defines a template of the same name. Rename the template, or make the template of the base class virtual and override it.`

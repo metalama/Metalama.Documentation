@@ -1,0 +1,1 @@
+// Error LAMA0263 on `() => meta.Target.Parameters[0].Value`: `Expression-bodied lambdas whose expression is of type 'dynamic' are not supported. Cast the expression to a non-dynamic type, for example 'object' or 'IExpression'. Alternatively, use a local function, or, for a void expression, a lambda with a block body.`

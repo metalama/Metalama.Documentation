@@ -1,0 +1,1 @@
+// Error LAMA0059 on `IdAttribute`: `The type 'IdAttribute<T>' is not a valid aspect type because it is generic and not abstract. Only abstract aspect types can be generic.`

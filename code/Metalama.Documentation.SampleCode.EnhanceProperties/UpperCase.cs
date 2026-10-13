@@ -13,7 +13,7 @@ public class Shipment
     public string? To { get; set; }
 }
 
-public class UpperCase
+public class Program
 {
     public static void Main()
     {

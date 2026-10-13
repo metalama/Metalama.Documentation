@@ -1,0 +1,1 @@
+// Error LAMA0533 on `Entity`: `The aspect 'Validatable' cannot introduce the abstract member 'Entity.Validate()' with the override strategy 'Override' because an introduced abstract member cannot override or hide an existing member. Use the override strategy 'Fail' or 'Ignore'.`

@@ -1,0 +1,1 @@
+// Error LAMA0543 on `IntExtensions`: `The aspect 'ItemIndexer' cannot introduce 'IntExtensions.extension(int).this[int]' into 'IntExtensions.extension(int)' because the member is 'protected', which the language forbids for an extension member.`

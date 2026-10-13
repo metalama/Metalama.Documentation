@@ -39,3 +39,6 @@ OPEN-ISSUES.md
 eng/docker-context/.g/
 *.binlog
 .g/
+
+# Working files of the document-diagnostics skill (message review proposals).
+code/Metalama.Documentation.SampleCode.Errors/MessageReview/

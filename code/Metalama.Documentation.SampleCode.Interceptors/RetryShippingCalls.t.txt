@@ -1,0 +1,6 @@
+Attempt 1 failed: The shipping service did not respond. Retrying.
+Attempt 2 failed: The shipping service did not respond. Retrying.
+Cost: 25
+Attempt 1 failed: The shipping service did not respond. Retrying.
+Attempt 2 failed: The shipping service did not respond. Retrying.
+Status: Delivered

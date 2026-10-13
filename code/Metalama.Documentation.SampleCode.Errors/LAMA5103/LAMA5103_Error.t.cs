@@ -1,0 +1,1 @@
+// Error LAMA5103 on `UpdatePrice`: `The [InvalidateCache] aspect applied to 'ProductCatalogue.UpdatePrice(int, decimal)' cannot invalidate 'ProductCatalogue.GetPrice(string)': the type of the 'productId' parameter of the cached method is not compatible with the type of the 'productId' parameter in the invalidating method.`

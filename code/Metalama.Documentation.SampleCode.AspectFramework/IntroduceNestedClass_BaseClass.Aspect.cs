@@ -17,7 +17,7 @@ public class BuilderAttribute : TypeAspect
             typeBuilder =>
             {
                 typeBuilder.IsSealed = false;
-                typeBuilder.BaseType = (INamedType) TypeFactory.GetType( typeof(BaseFactory) );
+                typeBuilder.BaseType = typeof(BaseFactory).AsINamedType();
             } );
     }
 }

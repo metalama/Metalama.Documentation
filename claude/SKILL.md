@@ -34,7 +34,7 @@ As a last resort, grep the manifest and read the listed `.yml` file:
 grep -i "OverrideMethodAspect" api/.manifest      # find the YML file
 ```
 
-If the user's project references a **different** Metalama version than this skill, prefer the actual referenced version. Its XML docs ship in the NuGet cache (e.g. `~/.nuget/packages/metalama.framework/<version>/lib/**/*.xml`).
+If the user's project references a **different** Metalama version than this skill, prefer the actual referenced version. Its XML docs ship in the NuGet cache (e.g. `~/.nuget/packages/metalama.framework/<package-version>/lib/**/*.xml`).
 
 ### 2. See the generated code — you have no IDE diff preview
 
@@ -67,9 +67,15 @@ For example `obj/LamaDebug/net10.0/metalama/`. These are the actual files the co
 - **Do not confuse this with `MetalamaDebugCompiler`** — that property attaches a debugger to the *compiler process* and is unrelated to reading generated code.
 - In this skill's `code/` samples, `Name.t.cs` files are pre-baked expected output. In a real user project you generate fresh output using the commands above.
 
+### Investigating without a debugger
+
+When you investigate a problem and cannot use a debugger, and the project references `Metalama.Extensions.Interceptors`, trace the calls to the suspect API with one temporary fabric file instead of adding log statements to many files. A project fabric registers an interceptor template that writes the caller, the arguments, the result and the exception of each call. Delete the file when you are done; no business code changes. See `code/Metalama.Documentation.SampleCode.Interceptors/TraceCalls.cs` and the conceptual article `generating-interceptors-with-templates`.
+
 ### 3. Build to verify — the compiler is your correctness oracle
 
 Metalama reports eligibility problems, template errors, and transformation issues as **compiler diagnostics** (`LAMAxxxx` and `CS` codes). After writing or changing an aspect, run `dotnet build` and read the diagnostics; treat a clean build as the pass condition, exactly like a test suite.
+
+When the build reports a `LAMAxxxx` diagnostic, **read its article before changing code**: `content/errors/lama####.md`, for example `content/errors/lama0041.md` for LAMA0041. See [Understanding LAMA diagnostics](#understanding-lama-diagnostics).
 
 A clean build proves the transformation applied; it does not prove behavior. When feasible, also **run the program** (or a quick test) to verify the woven code does what was asked — e.g. that a retry aspect actually retries.
 
@@ -85,11 +91,33 @@ For stronger verification, write an **aspect test** (`Metalama.Testing.AspectTes
 | `content/conceptual/` | Conceptual documentation (aspects, templates, fabrics, validation, etc.) |
 | `content/patterns/` | Pattern libraries (contracts, caching, observability, memoization, DI) |
 | `content/api/` | API documentation overview pages |
+| `content/errors/` | One article per `LAMA####` diagnostic (`lama####.md`): cause, resolution, and examples |
 | `code/` | Sample code (`.cs` = source, `.t.cs` = transformed output, `.Aspect.cs` = aspect implementation) |
 | `api/` | API reference YML files from DocFx (trimmed to the documentation content) |
 | `api/migration/` | Legacy PostSharp API docs — consult **only** when migrating PostSharp code to Metalama |
 | `scripts/` | Helper scripts: `find-api.py`/`.ps1` (API lookup), `find-doc.py`/`.ps1` (article search) |
 | `assets/scratch-project/` | Minimal ready-to-build project for trying aspects in isolation |
+
+## Understanding LAMA diagnostics
+
+Every diagnostic that Metalama and its extensions report (`LAMA0001` to `LAMA1xxx`) has an article in `content/errors/`, named after the lowercase ID: `content/errors/lama0041.md` documents LAMA0041.
+
+Each article contains:
+
+- **Severity**, the **package** that reports it, and the **Message** format. Placeholders are written as names in angle brackets (`'<Method>'`), which tell you what each part of the message you see refers to.
+- **Cause**: when and why Metalama reports the diagnostic.
+- **Resolution**: how to fix it, often with several options.
+- Usually two samples, referenced by `[!metalama-test ...]` directives:
+  - `code/Metalama.Documentation.SampleCode.Errors/LAMA####/LAMA####_Error.cs` reports the diagnostic, and `LAMA####_Error.t.cs` shows the diagnostic as the compiler reports it.
+  - `LAMA####_Fixed.cs` is the same code with the problem fixed, and `LAMA####_Fixed.t.cs` shows the transformed code.
+  - Auxiliary files such as `LAMA####_Error.Aspect.cs` hold the aspect or fabric.
+- Articles marked `diagnostic-sample: none` in their front matter have no samples, because the diagnostic depends on the machine, licensing, MSBuild settings or the IDE, or is only reported by a Roslyn analyzer. They explain the situation in prose.
+
+To browse diagnostics by area (templates, advising, serialization, interceptors, the pattern libraries, and so on), start from `content/errors/errors.md`, which links to one page per category (`content/errors/errors-<category>.md`).
+
+When a build reports several diagnostics, fix the first error in compile-time code first: later errors are often consequences of it. A `LAMA0041` (exception in user code) or `LAMA0001` (exception in Metalama) error includes a path to a report file with the stack trace.
+
+Online, the article of a diagnostic is at `https://doc.metalama.net/errors/lama####`, for example `https://doc.metalama.net/errors/lama0041`.
 
 ## Finding Information
 
@@ -130,6 +158,7 @@ For stronger verification, write an **aspect test** (`Metalama.Testing.AspectTes
 | Observability | `content/patterns/observability/observability.md` | INotifyPropertyChanged implementation |
 | Debugging Aspects | `content/conceptual/aspects/testing/debugging-aspects.md` | Debug compile-time code, breakpoints, `meta.DebugBreak()` |
 | Debugging User Code | `content/conceptual/using/debugging-aspect-oriented-code.md` | Debug run-time transformed code, LamaDebug configuration |
+| Errors and Warnings | `content/errors/errors.md` | Index of all `LAMA####` diagnostics; each has its own article `content/errors/lama####.md` |
 
 ## Common Patterns
 

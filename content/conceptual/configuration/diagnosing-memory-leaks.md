@@ -49,7 +49,7 @@ This is a one-time investigation, so pass the property on the command line rathe
 
 ## Reading the report
 
-Each retention in your own code is reported as warning `LAMA0085`, which names the type that holds the reference, the type of the object being held, and the chain of fields that leads from a long-lived object to it:
+Each retention in your own code is reported as warning <xref:lama0085?text=LAMA0085>, which names the type that holds the reference, the type of the object being held, and the chain of fields that leads from a long-lived object to it:
 
 ```text
 warning LAMA0085: The compile-time type 'MyFabric' holds a reference to a 'SourceNamedType',
@@ -60,7 +60,7 @@ fabric contributor #0 (AspectQuerySource<IDeclaration>) -> _query -> Owner -> _f
 
 Read the chain from left to right. It starts at an object that Metalama keeps for the lifetime of the project and ends at the object that can't be released. The part to act on is the segment inside your own types, here `_seen`, a `List<INamedType>` field of `MyFabric`.
 
-A summary is reported as warning `LAMA0086`:
+A summary is reported as warning <xref:lama0086?text=LAMA0086>:
 
 ```text
 warning LAMA0086: The analysis of the references retained by compile-time code found
@@ -70,10 +70,10 @@ The full report is in '%TEMP%\Metalama\FabricRetentionReports\MyProject-net8.0.t
 
 Findings are split in two:
 
-* Retentions in **code written by you**, which is what `LAMA0085` reports and what you can fix.
+* Retentions in **code written by you**, which is what <xref:lama0085?text=LAMA0085> reports and what you can fix.
 * Retentions in **Metalama itself**, which are only counted. You can report these to us through [GitHub](https://github.com/metalama/Metalama/issues), but they aren't something you can act on, and a non-zero count is normal.
 
-The report file named by `LAMA0086` contains both categories, with the full chain for each, formatted one field per line.
+The report file named by <xref:lama0086?text=LAMA0086> contains both categories, with the full chain for each, formatted one field per line.
 
 ## Durable and non-durable references
 
@@ -100,7 +100,7 @@ Store the durable reference, and resolve it later with `GetTarget( compilation )
 
 **Declare the field as <xref:Metalama.Framework.Code.IDurableRef`1>, not <xref:Metalama.Framework.Code.IRef`1>.** The conversion is then required by the field type, so a later edit can't omit it, and the constraint is stated by the signature rather than by a comment.
 
-This is the retention `LAMA0085` reports:
+This is the retention <xref:lama0085?text=LAMA0085> reports:
 
 [!code-csharp[](~/code/Metalama.Documentation.SampleCode.AspectFramework/RetainedDeclaration_Wrong.Fabric.cs?range=3-999)]
 
