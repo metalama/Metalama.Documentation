@@ -92,7 +92,19 @@ DiffEngineTray provides:
 
 On build servers, you typically want to disable diff tool launching. DiffEngine automatically detects common CI environments (GitHub Actions, Azure DevOps, Jenkins, TeamCity, etc.) and disables itself.
 
-To explicitly disable, use one of these methods:
+When the `ContinuousIntegrationBuild` MSBuild property is `True`, the `Metalama.Extensions.DiffEngine` package does not register its extension with the test framework at all. This avoids loading the DiffEngine assemblies for each test. Test failures are reported in the same way.
+
+To control this behavior, set the `MetalamaEnableDiffEngine` MSBuild property:
+
+| Value | Behavior |
+|---|---|
+| (not set) | The diff tool integration is enabled, except when `ContinuousIntegrationBuild` is `True`. |
+| `True` | The diff tool integration is always enabled. |
+| `False` | The diff tool integration is always disabled. |
+
+For example, set `MetalamaEnableDiffEngine` to `True` if your `Directory.Build.props` sets `ContinuousIntegrationBuild` to `True` for local builds too.
+
+To disable the diff tool without changing the build, use one of these methods:
 
 1. Set the Metalama setting in `testRunner.json`:
 
