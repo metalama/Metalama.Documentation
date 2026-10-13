@@ -93,7 +93,6 @@ The predicates and delegates of the description are stored with the registration
 A fabric can register interceptors only when a condition on the project is true. The <xref:Metalama.Framework.Project.IProject> object, available as `amender.Project`, gives:
 
 * <xref:Metalama.Framework.Project.IProject.PreprocessorSymbols>: the symbols defined by `DefineConstants`.
-
 * <xref:Metalama.Framework.Project.IProject.Configuration>: the build configuration, such as `Debug` or `Release`.
 * <xref:Metalama.Framework.Project.IProject.TryGetProperty*>: the value of an MSBuild property, which must be declared as a `CompilerVisibleProperty` item. See <xref:reading-msbuild-properties>.
 
@@ -154,7 +153,7 @@ A registration intercepts all the uses of the selected methods, not only calls. 
 The kinds of use have these constraints in this version:
 
 * A method group can be intercepted only by an existing method with exactly the same signature as the intercepted method.
-* Interceptors generated from templates support only calls. Skip the other kinds of use, otherwise an error is reported.
+* Interceptors generated from templates support only calls. Skip the other kinds of use. Otherwise, Metalama reports an error.
 * Intercepting a method group changes the identity of the delegate. When you intercept an event subscription, intercept the matching unsubscription in the same way, otherwise `-=` does not remove the handler.
 
 For instance, the following interceptor of `TextUtil.Normalize` has exactly the signature of the intercepted method, so it can also intercept the method group:

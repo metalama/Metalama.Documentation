@@ -13,12 +13,12 @@ Interceptors change the behavior of calls without changing the code that makes t
 
 ## Benefits of Metalama interceptors
 
-Interceptors combine three properties that other techniques rarely offer together:
+Interceptors combine four properties that other techniques rarely offer together:
 
-* **Interceptors reach any method.** The intercepted method can be static, sealed, non-virtual, an extension method or a struct method, in any assembly. You need neither its source code, nor an interface, nor dependency injection.
-* **Interceptors know the caller.** A registration applies only to the code you select, and the interceptor can receive the calling member, its parameters, or the calling object.
-* **One registration covers many methods.** A T# template generates the interceptor for any signature, so one registration can cover a whole API.
-* **Interceptors are easy to add and to remove.** They are not invasive: the business code does not change, and deleting the registration removes the interceptor.
+* Interceptors reach any method. The intercepted method can be static, sealed, non-virtual, an extension method or a struct method, in any assembly. You need neither its source code, nor an interface, nor dependency injection.
+* Interceptors know the caller. A registration applies only to the code you select, and the interceptor can receive the calling member, its parameters, or the calling object.
+* One registration covers many methods. A T# template generates the interceptor for any signature, so one registration can cover a whole API.
+* Interceptors are easy to add and to remove. They are not invasive: the business code does not change, and deleting the registration removes the interceptor.
 
 ## Problems that interceptors solve well
 
@@ -32,11 +32,11 @@ See the examples _Auditing calls to `File.Delete`_ in <xref:redirecting-calls-to
 
 Code without tests is risky to change, and adding tests usually requires changing the code first. An interceptor is a _seam_: a place where you can change the behavior of the program without editing the code at that place. Interceptors create a seam at every call site, which supports a safe workflow:
 
-1. **Understand**: count which calls to an API actually run, and with which arguments.
-2. **Pin the behavior**: replace hard-wired dependencies, such as `Thread.Sleep` or the file system, with fakes, and write tests.
-3. **Replace**: route the calls to a new implementation, one module at a time.
-4. **Verify**: run the old and the new implementation side by side, and compare their results.
-5. **Remove**: once the new implementation is proven, change the call sites in the source code, and delete the interceptors.
+1. Understand: count which calls to an API actually run, and with which arguments.
+2. Pin the behavior: replace hard-wired dependencies, such as `Thread.Sleep` or the file system, with fakes, and write tests.
+3. Replace: route the calls to a new implementation, one module at a time.
+4. Verify: run the old and the new implementation side by side, and compare their results.
+5. Remove: once the new implementation is proven, change the call sites in the source code, and delete the interceptors.
 
 See the examples _Replacing `Thread.Sleep` in tests_, _Counting the calls to a legacy API_ and _Comparing a new implementation with the legacy one_ in <xref:redirecting-calls-to-existing-methods>, and _Switching one module at a time_ in <xref:interceptors-selecting-calls>.
 

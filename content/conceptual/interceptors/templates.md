@@ -65,7 +65,7 @@ For instance, the following registration sets the `Member` granularity:
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/DedupPerMember.Fabric.cs marker="Granularity"]
 
-so that its template can read the calling member:
+The template then reads the calling member:
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/DedupPerMember.Fabric.cs marker="CallingMember"]
 
@@ -132,7 +132,7 @@ The following fabric retries the calls to a third-party shipping client when the
 
 ## Choosing where the interceptor is generated
 
-By default, the interceptors are internal static methods of the class `MetalamaInterceptors` in the global namespace. You can choose another location:
+By default, the interceptors are internal static methods of the class `MetalamaInterceptors` in the global namespace. To choose another location, use one of these methods:
 
 * <xref:Metalama.Extensions.Interceptors.ITemplateInterception.PlaceInStaticClass*> generates the interceptor in a static class of the given full name.
 * <xref:Metalama.Extensions.Interceptors.ITemplateInterception.PlaceInCallingType*> generates the interceptor as a private method of the type that contains the call site. The interceptor can then access the private members of that type. The type does not need to be `partial`.

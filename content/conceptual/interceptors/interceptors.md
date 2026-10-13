@@ -14,19 +14,19 @@ modified-date: 2026-10-12
 
 An _interceptor_ is a method that a call site calls instead of the method written in the source code. When you intercept the calls to a method, Metalama rewrites each matching call site at build time so that it calls your interceptor. The interceptor can run code before and after the call, change the arguments, process the result, handle exceptions, or replace the call entirely.
 
-Interception works on the _calls_, not on the called method. This makes it different from overriding a method with an aspect:
+Interception works on the calls, not on the called method. This makes it different from overriding a method with an aspect:
 
 * Overriding a method changes it for every caller, and requires the source code of the method. See <xref:overriding-methods>.
-* Intercepting the calls to a method changes only the calls that the code you choose makes, and works for methods of any assembly: the .NET libraries, NuGet packages, or the projects of another team. The called method itself does not change.
+* Intercepting the calls to a method changes only the calls made by the code you select, and works for methods of any assembly: the .NET libraries, NuGet packages, or the projects of another team. The called method itself does not change.
 
 ## Benefits
 
-* **Reach any method**: static, sealed, non-virtual, extension and struct methods, from any assembly.
-* **Choose where the change applies**: a type, a namespace, the whole project, or some build configurations only.
-* **Know the caller**: an interceptor can receive the calling member, its parameters, or the calling object.
-* **Keep the business code clean**: the behavior is defined once, outside the code that makes the calls, and applies to calls written in the future.
-* **No run-time overhead of reflection or proxies**: the calls are rewritten at build time.
-* **Synthesize the interceptor methods from T# templates**: one template generates the interceptors of many methods with different signatures.
+* Reach any method: static, sealed, non-virtual, extension and struct methods, from any assembly.
+* Choose where the change applies: a type, a namespace, the whole project, or some build configurations only.
+* Know the caller: an interceptor can receive the calling member, its parameters, or the calling object.
+* Keep the business code clean: the behavior is defined once, outside the code that makes the calls, and applies to calls written in the future.
+* No run-time overhead of reflection or proxies: the calls are rewritten at build time.
+* Generate interceptors from T# templates: one template generates the interceptors of many methods with different signatures.
 
 Before you choose interceptors, read <xref:interceptors-use-cases>, which also describes the problems that interceptors do not solve well.
 
@@ -61,7 +61,7 @@ Add a reference to the `Metalama.Extensions.Interceptors` package to the project
 |---------|-------------|
 | <xref:interceptors-use-cases> | When to use interceptors, when not to, and how they compare with other techniques. |
 | <xref:redirecting-calls-to-existing-methods> | Redirect calls to a static method that you write. |
-| <xref:generating-interceptors-with-templates> | Generate interceptors from T# templates, for many methods with different signatures, write generic templates, and understand when call sites share a generated interceptor. |
+| <xref:generating-interceptors-with-templates> | Generate interceptors from T# templates for many methods with different signatures, write generic templates, and learn when call sites share a generated interceptor. |
 | <xref:interceptors-selecting-calls> | Choose the methods, the calling code and the build configurations where calls are intercepted, and decide for each call site. |
 | <xref:interceptor-binding-rules> | Reference: how the arguments of a call reach the parameters of the interceptor. |
 | <xref:interceptors-troubleshooting> | Calls that are not intercepted, limitations, and diagnostics. |

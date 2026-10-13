@@ -55,11 +55,11 @@ For instance, the following project fabric redirects the calls to `Thread.Sleep(
 
 ### Example: Replacing Thread.Sleep in tests
 
-Code that calls `Thread.Sleep` directly makes tests slow. The following project fabric redirects the calls to `Thread.Sleep( int )` to a virtual clock, which records the time instead of waiting. The program waits 6 seconds in virtual time, and completes immediately.
+Code that calls `Thread.Sleep` directly makes tests slow. The following project fabric redirects the calls to `Thread.Sleep( int )` to a virtual clock, which records the time instead of waiting. The program waits 6 seconds in virtual time and completes immediately.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/FakeSleep.cs name="Replacing Thread.Sleep" diff-files="\.Program\.cs$"]
 
-In a real project, register such an interceptor only in a test build, as described in <xref:interceptors-selecting-calls>. The tests then run a binary that differs from the release build, so keep the difference small, and introduce a real abstraction, such as `TimeProvider`, once the tests are in place.
+In a real project, register such an interceptor only in a test build, as described in <xref:interceptors-selecting-calls>. The tests then run a binary that differs from the release build. Keep this difference small. Once the tests are in place, introduce a real abstraction, such as `TimeProvider`.
 
 ### Example: Intercepting calls in one namespace
 
@@ -75,7 +75,7 @@ For instance, the following interceptor calls the intercepted method, then compa
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/CompareTaxCalculators.TaxComparison.cs marker="Compare"]
 
-When your method calls the intercepted method, and your method is in the scope of the registration, the call in your method is intercepted too, and your method calls itself.
+If your method is in the scope of the registration, the call to the intercepted method inside your method is intercepted too. Your method then calls itself.
 
 To prevent this, add the <xref:Metalama.Extensions.Interceptors.ExcludeInterceptorsAttribute> attribute to the class of your interceptor. The calls in a class with this attribute are never intercepted. The following example and the audit example below use this attribute. In the namespace example above, the interceptor is outside the scope of the namespace fabric, so it does not need the attribute.
 
@@ -83,7 +83,7 @@ To prevent this, add the <xref:Metalama.Extensions.Interceptors.ExcludeIntercept
 
 #### Example: Comparing a new implementation with the legacy one
 
-The following interceptor runs a new tax calculator next to the legacy one, reports the differences, and returns the result of the legacy calculator. The callers don't change, and the behavior of the program does not change either. When the new calculator has proven itself, you can switch the calls to it. See the example _Switching one module at a time_ in <xref:interceptors-selecting-calls>.
+The following interceptor runs a new tax calculator next to the legacy one, reports the differences, and returns the result of the legacy calculator. The callers don't change, and the behavior of the program does not change either. When you trust the new calculator, you can switch the calls to it. See the example _Switching one module at a time_ in <xref:interceptors-selecting-calls>.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/CompareTaxCalculators.cs name="Comparing tax calculators" diff-files="\.Program\.cs$"]
 
@@ -92,7 +92,7 @@ The following interceptor runs a new tax calculator next to the legacy one, repo
 Metalama binds each parameter of your method to a value of the call site:
 
 * When the intercepted method has a receiver, the first parameter of your method receives it.
-* The other parameters are matched with the parameters of the intercepted method _by name_, not by position.
+* The other parameters are matched with the parameters of the intercepted method by name, not by position.
 * A parameter of your method that has no match can receive a value given by `WithArgs`, the caller information requested by an attribute such as `[CallerMemberName]`, or its own default value.
 * An argument of the call that your method does not receive is dropped. It is still evaluated when its evaluation can have a side effect.
 

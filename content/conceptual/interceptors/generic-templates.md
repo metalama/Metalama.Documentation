@@ -2,7 +2,7 @@
 uid: generic-interceptor-templates
 level: 300
 summary: "Write generic T# templates for interceptors: reuse one template for methods of the same shape with different parameter types, and intercept generic methods with specialized or shared interceptors."
-keywords: "interceptors, generic templates, methods of the same shape, interceptors, generic methods, generic templates, type arguments, run-time type parameter, compile-time type parameter, specialized interceptor, shared interceptor, SetTypeArgument, AddTypeParameter, boxing"
+keywords: "interceptors, generic templates, methods of the same shape, generic methods, type arguments, run-time type parameter, compile-time type parameter, specialized interceptor, shared interceptor, SetTypeArgument, AddTypeParameter, boxing"
 created-date: 2026-10-12
 modified-date: 2026-10-12
 ---
@@ -18,7 +18,7 @@ This article assumes that you know how to generate interceptors from templates. 
 
 ## Reusing a template for methods of the same shape
 
-When the template declares a parameter, its type must be compatible with the type of the parameter of each intercepted method. To write one strongly typed template for methods whose parameters have different types, declare a compile-time type parameter, and use it as the type of the template parameter. Give the type of the parameter of each intercepted method in `ForEachSite`:
+When the template declares a parameter, its type must be compatible with the type of the parameter of each intercepted method. To write one strongly typed template for methods whose parameters have different types, declare a compile-time type parameter. Use it as the type of the template parameter. Give the type of the parameter of each intercepted method in `ForEachSite`:
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/GenericSameShape.Aspect.cs marker="WithArgs"]
 
@@ -95,7 +95,7 @@ When a call site uses a type parameter of the calling type, for instance a call 
 
 ## Adding a type parameter
 
-When the intercepted method is not generic, but its parameter has a general type such as `object`, you can make the interceptor generic yourself:
+When the intercepted method is not generic, but its parameter has a general type such as `object`, make the interceptor generic yourself:
 
 1. In a <xref:Metalama.Extensions.Interceptors.ITemplateInterception.Configure*> delegate, add a type parameter with `AddTypeParameter`.
 2. Use it as the type of the parameter.
@@ -111,7 +111,7 @@ The call sites then share one generic interceptor, and the arguments of value ty
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/GenericAddedTypeParameter.cs name="Adding a type parameter" diff-files="\.Program\.cs$"]
 
-## Rules
+## Rules for type parameters
 
 * The type parameters that Metalama derives from the intercepted method or from the calling type cannot be renamed, but a `Configure` delegate can add constraints to them.
 * The type parameters added by a `Configure` delegate come after the derived ones, and each of them must receive a type argument at every call site.

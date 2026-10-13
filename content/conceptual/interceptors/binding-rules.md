@@ -83,7 +83,7 @@ The following aspect gives the same values with a dictionary, which is useful wh
 
 ### Passing a parameter of the calling member
 
-When a lambda or a local function that contains the call site declares a variable with the name of a parameter of the calling member that you pass, Metalama renames the variable and reports the warning <xref:lama0661?text=LAMA0661>. A parameter cannot be passed from a static lambda, and a parameter passed by reference cannot be passed from a lambda: check <xref:Metalama.Extensions.Interceptors.ICaller.IsInNestedFunction> and <xref:Metalama.Extensions.Interceptors.ICaller.IsInStaticFunction> first, as in the following snippet:
+When a lambda or a local function that contains the call site declares a variable with the name of a parameter of the calling member that you pass, Metalama renames the variable and reports the warning <xref:lama0661?text=LAMA0661>. A parameter cannot be passed from a static lambda. A parameter passed by reference cannot be passed from a lambda. Check <xref:Metalama.Extensions.Interceptors.ICaller.IsInNestedFunction> and <xref:Metalama.Extensions.Interceptors.ICaller.IsInStaticFunction> first, as in the following snippet:
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/PassCallerParameter.Aspect.cs marker="Guard"]
 
@@ -128,7 +128,7 @@ In the following example, the interceptor has no default value for `severity`, a
 
 ## Struct receivers
 
-When the intercepted method is an instance method of a struct, the interceptor must receive the receiver in a way that keeps the behavior of the original call:
+When the intercepted method is an instance method of a struct, the interceptor must receive the receiver in a way that keeps the behavior of the original call.
 
 For instance, `Counter.Increment()` modifies the struct, so the interceptor receives the counter by reference:
 
