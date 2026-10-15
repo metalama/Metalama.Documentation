@@ -2,11 +2,13 @@
 
 using BuildMetalamaDocumentation.Markdig.Helpers;
 using BuildMetalamaDocumentation.Markdig.Sandbox;
+using BuildMetalamaDocumentation.SourceBrowser;
 using Markdig.Renderers;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text.Json;
 
 namespace BuildMetalamaDocumentation.Markdig.Tabs;
@@ -23,6 +25,16 @@ internal abstract class TabGroup
     public List<BaseTab> Tabs { get; } = new();
 
     public abstract string GetGitUrl();
+
+    /// <summary>
+    /// Gets the local file or directory that the "Browse source" link opens in the HelpBrowser source browser.
+    /// </summary>
+    public abstract string GetSourceBrowserPath();
+
+    /// <summary>
+    /// Gets the link to <see cref="GetSourceBrowserPath"/> in the source browser, or <c>null</c> if it is not published there.
+    /// </summary>
+    public string? GetSourceBrowserHref() => SourceBrowserLinks.GetHref( this.GetSourceBrowserPath() );
 
     protected TabGroup( string tabGroupId )
     {
@@ -67,6 +79,16 @@ internal abstract class TabGroup
                         $@"  <a class=""try"" onclick=""openSandbox('{sandboxPayload}');"" role=""button"">Open in sandbox</a>" );
                     renderer.WriteLine( "<span class='separator'>|</span>" );
                 }
+            }
+
+            // Source browser.
+            if ( this.GetSourceBrowserHref() is { } sourceBrowserHref )
+            {
+                renderer.WriteLine(
+                    @$"
+    <a class=""browse-source"" href=""{WebUtility.HtmlEncode( sourceBrowserHref )}"">Browse source</a>" );
+
+                renderer.WriteLine( "<span class='separator'>|</span>" );
             }
 
             // Git.

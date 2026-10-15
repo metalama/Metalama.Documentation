@@ -8,6 +8,7 @@ using BuildMetalamaDocumentation.Markdig.MultipleFiles;
 using BuildMetalamaDocumentation.Markdig.ProjectButtons;
 using BuildMetalamaDocumentation.Markdig.SingleFiles;
 using BuildMetalamaDocumentation.Markdig.Vimeo;
+using BuildMetalamaDocumentation.SourceBrowser;
 using PostSharp.Engineering.BuildTools;
 using PostSharp.Engineering.BuildTools.Build.Solutions;
 using PostSharp.Engineering.BuildTools.Build;
@@ -151,4 +152,17 @@ static void OnPrepareCompleted( PrepareCompletedEventArgs args )
         Directory.CreateDirectory( htmlTargetDirectory );
         ZipFile.ExtractToDirectory( htmlSourceZipFile, htmlTargetDirectory, true );
     }
+
+    // Generate the files of the HelpBrowser source browser. They are published by DocFx as the 'source' directory
+    // (see docfx.json), so this must run after the HTML files have been restored and before DocFx.
+    var sourceBrowserGenerator = new SourceBrowserGenerator(
+        args.Context.RepoDirectory,
+        [new SourceBrowserRoot( Path.Combine( "source-dependencies", "Metalama.Samples", "src" ), "samples" )],
+        ["content"],
+        args.Context.Console.WriteWarning );
+
+    var sourceBrowserManifest = sourceBrowserGenerator.Generate();
+
+    args.Context.Console.WriteMessage(
+        $"Generated the source browser with {sourceBrowserManifest.Directories.Count} directories." );
 }

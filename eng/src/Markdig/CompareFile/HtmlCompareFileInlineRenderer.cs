@@ -1,6 +1,7 @@
 ﻿// Copyright (c) SharpCrafters s.r.o. See the LICENSE.md file in the root directory of this repository root for details.
 
 using BuildMetalamaDocumentation.Markdig.Tabs;
+using BuildMetalamaDocumentation.SourceBrowser;
 using Markdig.Renderers;
 using Markdig.Renderers.Html;
 using System.IO;
@@ -17,7 +18,7 @@ internal class HtmlCompareFileInlineRenderer : HtmlObjectRenderer<CompareFileInl
         }
 
         var name = Path.GetFileNameWithoutExtension( obj.Src ).ToLowerInvariant();
-        var compareTab = new CompareTab( name, name, obj.Src );
+        var compareTab = new CompareTab( name, name, obj.Src ) { SourceBrowserHref = SourceBrowserLinks.GetHref( obj.Src ) };
         var content = compareTab.GetTabContent();
 
         renderer.WriteLine( content );

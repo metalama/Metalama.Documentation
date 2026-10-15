@@ -75,6 +75,8 @@ public class TestClass
         public TestTabGroup( string tabGroupId ) : base( tabGroupId ) { }
 
         public override string GetGitUrl() => "https://example.com";
+
+        public override string GetSourceBrowserPath() => Path.GetTempPath();
     }
 
     private class TestTabGroupInline : TabGroupBaseInline { }

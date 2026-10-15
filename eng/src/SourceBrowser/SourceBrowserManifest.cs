@@ -1,0 +1,48 @@
+// Copyright (c) SharpCrafters s.r.o. See the LICENSE.md file in the root directory of this repository root for details.
+
+using System.Collections.Generic;
+
+namespace BuildMetalamaDocumentation.SourceBrowser;
+
+// The manifest of the source browser, published as 'source/manifest.json' in the documentation archive and read by
+// HelpBrowser. All paths are relative and use forward slashes. The manifest contains no local path.
+
+/// <summary>
+/// The root of <c>source/manifest.json</c>.
+/// </summary>
+/// <param name="Version">The version of the manifest format.</param>
+/// <param name="Directories">The browsable source directories.</param>
+internal sealed record SourceBrowserManifest( int Version, IReadOnlyList<SourceBrowserDirectory> Directories );
+
+/// <summary>
+/// A browsable source directory, declared by the <c>browse-source</c> front matter key of one or more articles.
+/// </summary>
+/// <param name="Path">The path of the directory in the site, for instance <c>source/samples/log/log-3</c>.</param>
+/// <param name="Title">The display name of the directory, i.e. the name of its project if it has exactly one.</param>
+/// <param name="Topics">The uids of the articles that declare the directory, in the order of declaration.</param>
+/// <param name="GitHubUrl">The URL of the directory on GitHub.</param>
+/// <param name="Files">The files of the directory.</param>
+internal sealed record SourceBrowserDirectory(
+    string Path,
+    string Title,
+    IReadOnlyList<string> Topics,
+    string? GitHubUrl,
+    IReadOnlyList<SourceBrowserFile> Files );
+
+/// <summary>
+/// A file of a browsable source directory.
+/// </summary>
+/// <param name="Path">The path of the file relative to the directory. The raw file is published at this path.</param>
+/// <param name="Role">The role of the file: <c>aspect</c>, <c>target</c> or <c>other</c>.</param>
+/// <param name="GitHubUrl">The URL of the file on GitHub.</param>
+/// <param name="SourceHtml">The path, relative to the directory, of the syntax-highlighted HTML of the source code, if any.</param>
+/// <param name="TransformedHtml">The path, relative to the directory, of the syntax-highlighted HTML of the transformed code,
+/// if any. It is omitted when the transformed code equals the source code.</param>
+/// <param name="Topics">The uids of the articles that include the file.</param>
+internal sealed record SourceBrowserFile(
+    string Path,
+    string Role,
+    string? GitHubUrl,
+    string? SourceHtml,
+    string? TransformedHtml,
+    IReadOnlyList<string> Topics );

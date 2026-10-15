@@ -82,6 +82,13 @@
           "**.png"
         ],
         "src": "source-dependencies/Metalama.Samples"
+      },
+      {
+        "files": [
+          "**"
+        ],
+        "src": "artifacts/source-browser",
+        "dest": "source"
       }
     ],
     "overwrite": [

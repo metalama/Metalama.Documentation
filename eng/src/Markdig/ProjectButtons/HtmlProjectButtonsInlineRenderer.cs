@@ -8,6 +8,7 @@ using Markdig.Renderers.Html;
 using System;
 using System.IO;
 using System.Linq;
+using System.Net;
 
 namespace BuildMetalamaDocumentation.Markdig.ProjectButtons;
 
@@ -59,6 +60,11 @@ public class HtmlProjectButtonsInlineRenderer : HtmlObjectRenderer<ProjectButton
             @"
 <div class=""project-buttons"">");
         
+        if ( tabGroup.GetSourceBrowserHref() is { } sourceBrowserHref )
+        {
+            renderer.WriteLine( $@"    <a href=""{WebUtility.HtmlEncode( sourceBrowserHref )}"" class=""browse-source"">Browse source</a>" );
+        }
+
         var gitUrl = tabGroup.GetGitUrl();
 
         renderer.WriteLine( $@"    <a href=""{gitUrl}"" class=""github"">See on GitHub</a>" );
