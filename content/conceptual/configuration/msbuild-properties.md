@@ -57,13 +57,16 @@ All environment variables are imported as MSBuild properties by default.
 
 ## The supported platform check
 
-Metalama supports a defined set of target frameworks, .NET SDK versions and Visual Studio versions. When your project falls outside that set, the build reports one of the following warnings. The build continues, but a problem that is specific to an unsupported configuration will not be fixed. When you cannot move to a supported configuration, use an earlier version of Metalama that supports it, typically a long-term support (LTS) version.
+Metalama supports a defined set of target frameworks, .NET SDK versions and Visual Studio versions. When your project falls outside that set, the build reports one of the following warnings. The build continues, but a problem that is specific to an unsupported configuration will not be fixed.
+
+Some target frameworks are older than the oldest supported version but are still accepted, because Metalama packages ship an asset for them. A project that targets one of them builds and runs correctly, and the build reports `LAMA0604`. Under Metalama 2027.0, this applies to .NET Framework 4.7.2: the oldest supported version is .NET Framework 4.8, which is an in-place update that does not require you to change the target framework of your project. When you cannot move to a supported configuration, use an earlier version of Metalama that supports it, typically a long-term support (LTS) version.
 
 | Code | Reported when |
 |------|---------------|
 | `LAMA0600` | The target framework of the project is outside the supported set. |
 | `LAMA0601` | The .NET SDK that drives the build is older or newer than the supported set. |
 | `LAMA0602` | The build runs on `msbuild.exe` from a version of Visual Studio older than the oldest supported one. A build started by `dotnet build` never reports it. |
+| `LAMA0604` | The target framework of the project is accepted, but it is older than the oldest supported version. It is reported once for each affected target framework. |
 
 To turn the warnings off, use one of the following mechanisms, from the broadest to the narrowest:
 

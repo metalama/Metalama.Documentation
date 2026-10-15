@@ -41,6 +41,8 @@ The build now reports a warning when the target framework, the .NET SDK, or the 
 
 Packages built on Metalama can declare stricter requirements with the `MetalamaPlatformRequirement` MSBuild item, and the same check reports them ([#1887](https://github.com/metalama/Metalama/issues/1887)).
 
+A project that targets .NET Framework 4.7.2 builds and runs, but .NET Framework 4.7.2 is no longer supported. The build reports this with the `LAMA0604` warning. The oldest supported version is .NET Framework 4.8, which is an in-place update and does not require you to change the target framework of your project ([#2023](https://github.com/metalama/Metalama/issues/2023)).
+
 ## C# 15 support
 
 Metalama 2027.0 supports the C# 15 features of .NET 11 ([#1926](https://github.com/metalama/Metalama/issues/1926)) in target code, in the code model, and in templates. Compile-time code and templates can also use preview language features when the project enables them ([#1979](https://github.com/metalama/Metalama/issues/1979)).
