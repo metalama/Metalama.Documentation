@@ -53,7 +53,10 @@ public static class GitHelper
               directory != null;
               directory = Path.GetDirectoryName( directory ) )
         {
-            if ( Directory.Exists( Path.Combine( directory, ".git" ) ) )
+            var gitPath = Path.Combine( directory, ".git" );
+
+            // In a git worktree, .git is a file instead of a directory.
+            if ( Directory.Exists( gitPath ) || File.Exists( gitPath ) )
             {
                 return directory;
             }
