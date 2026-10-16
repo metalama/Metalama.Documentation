@@ -20,6 +20,8 @@ using PostSharp.Engineering.BuildTools.Search;
 using PostSharp.Engineering.DocFx;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
+using System.Xml.Linq;
 using MetalamaDependencies = PostSharp.Engineering.BuildTools.Dependencies.Definitions.MetalamaDependencies.V2026_1;
 
 var docPackageFileName = $"Metalama.Doc.{MetalamaDependencies.Metalama.ProductFamily.Version}.zip";
@@ -110,8 +112,15 @@ static void OnPrepareCompleted( PrepareCompletedEventArgs args )
     var htmlSourceZipFile =
         Path.Combine( args.Context.RepoDirectory, "dependencies", "Metalama.Samples", "html-examples.zip" );
 
-    var htmlTargetDirectory =
-        Path.Combine( args.Context.RepoDirectory, "source-dependencies", "Metalama.Samples", "src" );
+    var samplesDirectory = Path.Combine( args.Context.RepoDirectory, "source-dependencies", "Metalama.Samples" );
+    var htmlTargetDirectory = Path.Combine( samplesDirectory, "src" );
+
+    // On a developer machine, the dependencies directory does not exist. When Metalama.Samples is a shallow clone
+    // instead of a link to a locally built repo (typically in a git worktree), use the artifacts downloaded from TeamCity.
+    if ( !File.Exists( htmlSourceZipFile ) && Directory.Exists( samplesDirectory ) && new DirectoryInfo( samplesDirectory ).LinkTarget == null )
+    {
+        htmlSourceZipFile = GetDownloadedSamplesHtmlZipFile( args ) ?? htmlSourceZipFile;
+    }
 
     if ( File.Exists( htmlSourceZipFile ) )
     {
@@ -119,4 +128,33 @@ static void OnPrepareCompleted( PrepareCompletedEventArgs args )
         Directory.CreateDirectory( htmlTargetDirectory );
         ZipFile.ExtractToDirectory( htmlSourceZipFile, htmlTargetDirectory, true );
     }
+}
+
+// Reads the location of the Metalama.Samples artifacts from the generated eng/Versions.<Configuration>.g.props file.
+static string? GetDownloadedSamplesHtmlZipFile( PrepareCompletedEventArgs args )
+{
+    var versionsFile = Path.Combine(
+        args.Context.RepoDirectory,
+        args.Context.Product.EngineeringDirectory,
+        $"Versions.{args.Settings.BuildConfiguration}.g.props" );
+
+    if ( !File.Exists( versionsFile ) )
+    {
+        return null;
+    }
+
+    var versionFile = XDocument.Load( versionsFile )
+        .Descendants( "LocalDependencySource" )
+        .Where( e => (string?) e.Attribute( "Include" ) == "Metalama.Samples" )
+        .Select( e => (string?) e.Element( "VersionFile" ) )
+        .FirstOrDefault();
+
+    if ( string.IsNullOrEmpty( versionFile ) )
+    {
+        return null;
+    }
+
+    var zipFile = Path.Combine( Path.GetDirectoryName( versionFile )!, "html-examples.zip" );
+
+    return File.Exists( zipFile ) ? zipFile : null;
 }
