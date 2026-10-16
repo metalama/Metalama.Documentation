@@ -19,4 +19,6 @@ internal class DirectoryTabGroup : TabGroup
 
         return gitUrl;
     }
+
+    public override string GetSourceBrowserPath() => this._directory;
 }

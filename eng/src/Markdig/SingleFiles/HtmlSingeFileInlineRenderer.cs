@@ -3,10 +3,12 @@
 using BuildMetalamaDocumentation.Markdig.Helpers;
 using BuildMetalamaDocumentation.Markdig.Sandbox;
 using BuildMetalamaDocumentation.Markdig.Tabs;
+using BuildMetalamaDocumentation.SourceBrowser;
 using Markdig.Renderers;
 using Markdig.Renderers.Html;
 using System;
 using System.IO;
+using System.Net;
 using System.Text.Json;
 
 namespace BuildMetalamaDocumentation.Markdig.SingleFiles;
@@ -36,7 +38,15 @@ public class HtmlSingeFileInlineRenderer : HtmlObjectRenderer<SingleFileInline>
             tab = new CodeTab( name, obj.Src, SandboxFileKind.ExtraCode, obj.Marker, obj.Member );
         }
 
-        renderer.WriteLine( "<div class='single-file'>" );
+        // HelpBrowser adds a "Browse source" link to the code block when the file is published in the source browser.
+        if ( SourceBrowserLinks.GetHref( obj.Src ) is { } sourceBrowserHref )
+        {
+            renderer.WriteLine( $"<div class='single-file' data-source-href='{WebUtility.HtmlEncode( sourceBrowserHref )}'>" );
+        }
+        else
+        {
+            renderer.WriteLine( "<div class='single-file'>" );
+        }
         renderer.WriteLine( tab.GetTabContent( false ) );
 
         // Emit JSON-LD block with plain code for AI discoverability.

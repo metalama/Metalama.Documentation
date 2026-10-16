@@ -10,11 +10,12 @@ internal class AspectTestTabGroup : TabGroup
 {
     public override string GetGitUrl()
     {
-        var tab = this.Tabs.OrderBy( t => t.FullPath.Length ).First();
-        var gitUrl = GitHelper.GetOnlineUrl( tab.FullPath );
+        var gitUrl = GitHelper.GetOnlineUrl( this.GetSourceBrowserPath() );
 
         return gitUrl;
     }
+
+    public override string GetSourceBrowserPath() => this.Tabs.OrderBy( t => t.FullPath.Length ).First().FullPath;
 
     public AspectTestTabGroup( string tabGroupId ) : base( tabGroupId ) { }
 }

@@ -3,6 +3,7 @@
 using BuildMetalamaDocumentation.Markdig.Sandbox;
 using System;
 using System.Globalization;
+using System.Net;
 using System.Text;
 
 namespace BuildMetalamaDocumentation.Markdig.Tabs;
@@ -13,6 +14,12 @@ internal class CompareTab : BaseTab
     {
         this.TabHeader = tabHeader;
     }
+
+    /// <summary>
+    /// Gets the link to the file in the HelpBrowser source browser. When it is set, HelpBrowser adds a "Browse source"
+    /// link to the comparison.
+    /// </summary>
+    public string? SourceBrowserHref { get; init; }
 
     private CodeTab GetSourceTab() => new( "source", this.FullPath, SandboxFileKind.TargetCode );
 
@@ -30,7 +37,11 @@ internal class CompareTab : BaseTab
         }
 
         var stringBuilder = new StringBuilder();
-        stringBuilder.AppendLine( CultureInfo.InvariantCulture, $@"<div id=""compare-{this.TabId}"" class=""compare"">" );
+        var sourceBrowserAttribute = this.SourceBrowserHref != null
+            ? $@" data-source-href=""{WebUtility.HtmlEncode( this.SourceBrowserHref )}"""
+            : "";
+
+        stringBuilder.AppendLine( CultureInfo.InvariantCulture, $@"<div id=""compare-{this.TabId}"" class=""compare""{sourceBrowserAttribute}>" );
         stringBuilder.AppendLine( $@"  <div class=""left"">" );
         stringBuilder.AppendLine( $@"    <div class=""compare-header"">Source Code</div>" );
         stringBuilder.AppendLine( sourceTab.GetTabContent( false ) );
