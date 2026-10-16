@@ -215,6 +215,40 @@ public sealed class SourceBrowserTests : IDisposable
     }
 
     [Fact]
+    public void Generate_ExpectedTransformedCode_IsPairedWithItsInput()
+    {
+        this.WriteFile(
+            "samples/src/log/log-5/README.md",
+            """
+            ---
+            uid: sample-log-5
+            browse-source: .
+            ---
+            """ );
+
+        // An aspect test: X.cs is the input, and X.t.cs the expected transformed code. The test writes the HTML of both.
+        this.WriteFile( "samples/src/log/log-5/Sample.Log5.Tests.csproj", "<Project/>" );
+        this.WriteFile( "samples/src/log/log-5/Normal.cs", "class C { void M() {} }" );
+        this.WriteFile( "samples/src/log/log-5/Normal.t.cs", "class C { void M() { Log(); } }" );
+        this.WriteFile( "samples/src/log/log-5/Orphan.t.cs", "class D {}" );
+        this.WriteFile( "samples/src/log/log-5/obj/html/net10.0/Normal.cs.html", "<pre><code>class C { void M() {} }</code></pre>" );
+        this.WriteFile( "samples/src/log/log-5/obj/html/net10.0/Normal.t.cs.html", "<pre><code>class C { void M() { Log(); } }</code></pre>" );
+
+        var directory = this.Generate().Directories.Single( d => d.Path == "source/samples/log/log-5" );
+
+        // X.t.cs is not listed when X.cs exists; a .t.cs file without input is listed.
+        Assert.Equal( ["Sample.Log5.Tests.csproj", "Normal.cs", "Orphan.t.cs"], directory.Files.Select( f => f.Path ) );
+
+        var normal = directory.Files.Single( f => f.Path == "Normal.cs" );
+        Assert.Equal( "Normal.t.cs", normal.TransformedPath );
+        Assert.Equal( "Normal.cs.transformed.html", normal.TransformedHtml );
+        Assert.Equal( "target", normal.Role );
+
+        // The raw file of the expected transformed code is published.
+        Assert.True( File.Exists( Path.Combine( SourceBrowserGenerator.GetOutputDirectory( this._repoDirectory ), "samples", "log", "log-5", "Normal.t.cs" ) ) );
+    }
+
+    [Fact]
     public void Generate_NodeWithoutPath_IsReported()
     {
         this.WriteFile(

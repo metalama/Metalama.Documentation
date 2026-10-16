@@ -366,13 +366,29 @@ internal sealed partial class SourceBrowserGenerator
             .OrderBy( f => IsProjectFile( f ) ? 0 : 1 )
             .ThenBy( f => f, StringComparer.OrdinalIgnoreCase );
 
-        foreach ( var file in sourceFiles )
+        var sourceFileList = sourceFiles.ToList();
+        var sourceFileSet = sourceFileList.ToHashSet( StringComparer.OrdinalIgnoreCase );
+
+        foreach ( var file in sourceFileList )
         {
             var relativePath = Path.GetRelativePath( directory.FullPath, file ).Replace( '\\', '/' );
             var outputFile = Path.Combine( outputDirectory, relativePath );
 
             Directory.CreateDirectory( Path.GetDirectoryName( outputFile )! );
             File.Copy( file, outputFile, true );
+
+            // In an aspect test, X.t.cs is the expected transformed code of X.cs. It is shown as the transformed code of
+            // X.cs, not as a file of its own, but its raw file is published, e.g. for the zip download.
+            if ( GetTransformedCodeInput( file ) is { } input && sourceFileSet.Contains( input ) )
+            {
+                continue;
+            }
+
+            var transformedFile = Path.ChangeExtension( file, ".t.cs" );
+
+            var transformedPath = file.EndsWith( ".cs", StringComparison.OrdinalIgnoreCase ) && sourceFileSet.Contains( transformedFile )
+                ? Path.GetRelativePath( directory.FullPath, transformedFile ).Replace( '\\', '/' )
+                : null;
 
             string? sourceHtml = null;
             string? transformedHtml = null;
@@ -405,7 +421,7 @@ internal sealed partial class SourceBrowserGenerator
                 {
                     role = "aspect";
                 }
-                else if ( transformedHtml != null )
+                else if ( transformedHtml != null || transformedPath != null )
                 {
                     role = "target";
                 }
@@ -413,7 +429,7 @@ internal sealed partial class SourceBrowserGenerator
 
             references.TryGetValue( file, out var topics );
 
-            files.Add( new SourceBrowserFile( relativePath, role, this.GetGitHubUrl( file ), sourceHtml, transformedHtml, topics ?? [] ) );
+            files.Add( new SourceBrowserFile( relativePath, role, this.GetGitHubUrl( file ), sourceHtml, transformedHtml, topics ?? [], transformedPath ) );
         }
 
         return new SourceBrowserDirectory(
@@ -424,6 +440,13 @@ internal sealed partial class SourceBrowserGenerator
     }
 
     private static bool IsProjectFile( string path ) => Path.GetExtension( path ).ToLowerInvariant() is ".csproj" or ".sln" or ".slnx";
+
+    /// <summary>
+    /// Gets the input file of the expected transformed code of an aspect test, i.e. <c>X.cs</c> for <c>X.t.cs</c>, or
+    /// <c>null</c> if the file is not a <c>.t.cs</c> file.
+    /// </summary>
+    private static string? GetTransformedCodeInput( string file )
+        => file.EndsWith( ".t.cs", StringComparison.OrdinalIgnoreCase ) ? file.Substring( 0, file.Length - ".t.cs".Length ) + ".cs" : null;
 
     private static string GetTitle( string directory )
     {

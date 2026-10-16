@@ -56,10 +56,13 @@ internal sealed record SourceBrowserMount(
 /// <param name="TransformedHtml">The path, relative to the directory, of the syntax-highlighted HTML of the transformed code,
 /// if any. It is omitted when the transformed code equals the source code.</param>
 /// <param name="Topics">The uids of the articles that include the file.</param>
+/// <param name="TransformedPath">The path, relative to the directory, of the expected transformed code of an aspect test,
+/// i.e. <c>X.t.cs</c> for <c>X.cs</c>. That file is not listed separately: it is shown as the transformed code of this file.</param>
 internal sealed record SourceBrowserFile(
     string Path,
     string Role,
     string? GitHubUrl,
     string? SourceHtml,
     string? TransformedHtml,
-    IReadOnlyList<string> Topics );
+    IReadOnlyList<string> Topics,
+    string? TransformedPath = null );
