@@ -378,7 +378,7 @@ internal sealed partial class SourceBrowserGenerator
             File.Copy( file, outputFile, true );
 
             // In an aspect test, X.t.cs is the expected transformed code of X.cs. It is shown as the transformed code of
-            // X.cs, not as a file of its own, but its raw file is published, e.g. for the zip download.
+            // X.cs, not as a file of its own, but its raw file is published, to be shown when it has no HTML.
             if ( GetTransformedCodeInput( file ) is { } input && sourceFileSet.Contains( input ) )
             {
                 continue;
