@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using YamlDotNet.RepresentationModel;
 
 namespace BuildMetalamaDocumentation.SourceBrowser;
 
@@ -19,11 +20,12 @@ namespace BuildMetalamaDocumentation.SourceBrowser;
 internal sealed record SourceBrowserRoot( string Path, string Name );
 
 /// <summary>
-/// Generates the files of the HelpBrowser source browser before DocFx runs. An article declares that a source
-/// directory is browsable with the <c>browse-source</c> key of its front matter, whose value is a path, or a list of paths,
-/// relative to the article. For each declared directory, the generator copies the raw files and the syntax-highlighted
-/// HTML files produced by the Metalama HTML writer under <see cref="OutputDirectory"/>, and writes
-/// <c>manifest.json</c>. DocFx publishes <see cref="OutputDirectory"/> as the <c>source</c> directory of the site.
+/// Generates the files of the HelpBrowser source browser before DocFx runs. An article declares the source directories
+/// shown under it in the navigation with the <c>browse-source</c> key of its front matter, whose value is a path, a list
+/// of paths, or a list of nodes with a <c>path</c>, an optional <c>title</c> and optional <c>children</c>, all relative
+/// to the article. For each declared directory, the generator copies the raw files and the syntax-highlighted HTML files
+/// produced by the Metalama HTML writer under <see cref="OutputDirectory"/>, and writes <c>manifest.json</c>, which lists
+/// the directories and the navigation nodes that show them. DocFx publishes <see cref="OutputDirectory"/> as the <c>source</c> directory of the site.
 /// The generator also writes <see cref="IndexFile"/>, which maps local directories to their site path, so that the
 /// Markdig extensions can link code samples to the source browser.
 /// </summary>
@@ -90,15 +92,15 @@ internal sealed partial class SourceBrowserGenerator
 
         Directory.CreateDirectory( this.OutputDirectory );
 
-        var declaredDirectories = this.FindDeclaredDirectories();
+        var (declaredDirectories, mounts) = this.FindMounts();
         var references = this.FindReferences();
 
         var directories = declaredDirectories
             .OrderBy( d => d.SitePath, StringComparer.Ordinal )
-            .Select( d => this.GenerateDirectory( d, references ) )
+            .Select( d => this.GenerateDirectory( d, declaredDirectories, references ) )
             .ToList();
 
-        var manifest = new SourceBrowserManifest( 1, directories );
+        var manifest = new SourceBrowserManifest( 2, directories, mounts );
 
         File.WriteAllText( Path.Combine( this.OutputDirectory, "manifest.json" ), JsonSerializer.Serialize( manifest, _jsonOptions ) );
 
@@ -117,11 +119,22 @@ internal sealed partial class SourceBrowserGenerator
         WriteIndented = true
     };
 
-    private sealed record DeclaredDirectory( string FullPath, string SitePath, List<string> Topics );
+    private sealed record DeclaredDirectory( string FullPath, string SitePath );
 
-    private List<DeclaredDirectory> FindDeclaredDirectories()
+    /// <summary>
+    /// A node declared by the <c>browse-source</c> key, before its path is resolved.
+    /// </summary>
+    private sealed record MountDeclaration( string? Title, string? Path, IReadOnlyList<MountDeclaration> Children );
+
+    /// <summary>
+    /// Finds the source directories and the navigation nodes declared by the <c>browse-source</c> front matter key of the
+    /// articles. The key accepts a path, a list of paths, or a list of nodes with a <c>path</c>, an optional
+    /// <c>title</c> and optional <c>children</c>, all relative to the article.
+    /// </summary>
+    private (List<DeclaredDirectory> Directories, List<SourceBrowserMount> Mounts) FindMounts()
     {
         var directories = new Dictionary<string, DeclaredDirectory>( StringComparer.OrdinalIgnoreCase );
+        var mounts = new List<SourceBrowserMount>();
 
         foreach ( var root in this._roots )
         {
@@ -136,37 +149,59 @@ internal sealed partial class SourceBrowserGenerator
 
             foreach ( var markdownFile in EnumerateFiles( rootDirectory, "*.md" ) )
             {
-                var frontMatter = FrontMatterReader.Read( markdownFile );
+                var frontMatter = FrontMatterReader.ReadMapping( markdownFile );
 
-                if ( frontMatter == null || !frontMatter.TryGetValue( "browse-source", out var sources ) )
+                if ( frontMatter == null || !frontMatter.Children.TryGetValue( new YamlScalarNode( "browse-source" ), out var sourceNode ) )
                 {
                     continue;
                 }
 
-                if ( !frontMatter.TryGetValue( "uid", out var uids ) || uids.Count != 1 )
+                if ( !frontMatter.Children.TryGetValue( new YamlScalarNode( "uid" ), out var uidNode ) || uidNode is not YamlScalarNode { Value: { } uid } )
                 {
                     this._writeWarning( $"'{markdownFile}' declares a source directory but has no uid." );
 
                     continue;
                 }
 
-                foreach ( var source in sources )
+                var declarations = ParseMountDeclarations( sourceNode );
+
+                // A single top-level node is the source code of the article. When there are several, each one is
+                // named after its directory, unless the article gives a title.
+                var defaultTitle = declarations.Count == 1 ? "Source code" : null;
+
+                foreach ( var declaration in declarations )
                 {
-                    var fullPath = Path.GetFullPath( Path.Combine( Path.GetDirectoryName( markdownFile )!, source ) ).TrimEnd( '\\', '/' );
+                    if ( ResolveMount( declaration, uid, defaultTitle ) is { } mount )
+                    {
+                        mounts.Add( mount );
+                    }
+                }
+
+                SourceBrowserMount? ResolveMount( MountDeclaration declaration, string? topic, string? defaultMountTitle )
+                {
+                    if ( string.IsNullOrWhiteSpace( declaration.Path ) )
+                    {
+                        this._writeWarning( $"'{markdownFile}' declares a source node without path." );
+
+                        return null;
+                    }
+
+                    var fullPath = Path.GetFullPath( Path.Combine( Path.GetDirectoryName( markdownFile )!, declaration.Path ) ).TrimEnd( '\\', '/' );
 
                     if ( !Directory.Exists( fullPath ) )
                     {
-                        this._writeWarning( $"'{markdownFile}' declares the source directory '{source}', but '{fullPath}' does not exist." );
+                        this._writeWarning(
+                            $"'{markdownFile}' declares the source directory '{declaration.Path}', but '{fullPath}' does not exist." );
 
-                        continue;
+                        return null;
                     }
 
                     if ( !IsSameOrChildDirectory( rootDirectory, fullPath ) )
                     {
                         this._writeWarning(
-                            $"'{markdownFile}' declares the source directory '{source}', but it is not under the root '{rootDirectory}'." );
+                            $"'{markdownFile}' declares the source directory '{declaration.Path}', but it is not under the root '{rootDirectory}'." );
 
-                        continue;
+                        return null;
                     }
 
                     if ( !directories.TryGetValue( fullPath, out var directory ) )
@@ -174,24 +209,57 @@ internal sealed partial class SourceBrowserGenerator
                         var relativePath = Path.GetRelativePath( rootDirectory, fullPath ).Replace( '\\', '/' );
                         var sitePath = $"{SitePathPrefix}/{root.Name}" + (relativePath == "." ? "" : "/" + relativePath);
 
-                        directory = new DeclaredDirectory( fullPath, sitePath, [] );
+                        directory = new DeclaredDirectory( fullPath, sitePath );
                         directories.Add( fullPath, directory );
                     }
 
-                    if ( !directory.Topics.Contains( uids[0] ) )
-                    {
-                        directory.Topics.Add( uids[0] );
-                    }
+                    var children = declaration.Children
+                        .Select( c => ResolveMount( c, null, null ) )
+                        .OfType<SourceBrowserMount>()
+                        .ToList();
+
+                    return new SourceBrowserMount(
+                        topic,
+                        declaration.Title ?? defaultMountTitle ?? GetTitle( fullPath ),
+                        directory.SitePath,
+                        children );
                 }
             }
         }
 
-        // A directory nested in another declared directory is already published by its parent.
-        var list = directories.Values.ToList();
+        return (directories.Values.ToList(), mounts);
+    }
 
-        return list
-            .Where( d => !list.Any( other => other != d && IsSameOrChildDirectory( other.FullPath, d.FullPath ) ) )
-            .ToList();
+    /// <summary>
+    /// Parses the value of the <c>browse-source</c> key: a path, a list of paths, or a list of nodes.
+    /// </summary>
+    private static IReadOnlyList<MountDeclaration> ParseMountDeclarations( YamlNode node )
+    {
+        switch ( node )
+        {
+            case YamlScalarNode { Value: { } path }:
+                return [new MountDeclaration( null, path, [] )];
+
+            case YamlSequenceNode sequence:
+                return sequence.Children.SelectMany( ParseMountDeclarations ).ToList();
+
+            case YamlMappingNode mapping:
+                {
+                    string? GetString( string key )
+                        => mapping.Children.TryGetValue( new YamlScalarNode( key ), out var value ) && value is YamlScalarNode scalar
+                            ? scalar.Value
+                            : null;
+
+                    var children = mapping.Children.TryGetValue( new YamlScalarNode( "children" ), out var childrenNode )
+                        ? ParseMountDeclarations( childrenNode )
+                        : [];
+
+                    return [new MountDeclaration( GetString( "title" ), GetString( "path" ), children )];
+                }
+
+            default:
+                return [];
+        }
     }
 
     // Matches the code inclusion directives of the Markdig extensions, e.g. [!metalama-file Foo.cs marker="X"].
@@ -276,12 +344,22 @@ internal sealed partial class SourceBrowserGenerator
         }
     }
 
-    private SourceBrowserDirectory GenerateDirectory( DeclaredDirectory directory, Dictionary<string, List<string>> references )
+    private SourceBrowserDirectory GenerateDirectory(
+        DeclaredDirectory directory,
+        IReadOnlyList<DeclaredDirectory> allDirectories,
+        Dictionary<string, List<string>> references )
     {
         var outputDirectory = Path.Combine( this.OutputDirectory, directory.SitePath.Substring( SitePathPrefix.Length + 1 ) );
         var files = new List<SourceBrowserFile>();
 
-        var sourceFiles = EnumerateFiles( directory.FullPath, "*" )
+        // A subdirectory that is declared as a directory of its own, e.g. a 'Tests' child node, is published by itself,
+        // so its files are not listed twice.
+        var nestedDirectories = allDirectories
+            .Where( d => d != directory && IsSameOrChildDirectory( directory.FullPath, d.FullPath ) )
+            .Select( d => d.FullPath )
+            .ToHashSet( StringComparer.OrdinalIgnoreCase );
+
+        var sourceFiles = EnumerateFiles( directory.FullPath, "*", nestedDirectories )
             .Where( f => !_excludedSourceExtensions.Contains( Path.GetExtension( f ) ) )
 
             // Project files are listed first, as in a solution explorer.
@@ -341,7 +419,6 @@ internal sealed partial class SourceBrowserGenerator
         return new SourceBrowserDirectory(
             directory.SitePath,
             GetTitle( directory.FullPath ),
-            directory.Topics,
             this.GetGitHubUrl( directory.FullPath ),
             files );
     }
@@ -435,7 +512,7 @@ internal sealed partial class SourceBrowserGenerator
     /// <summary>
     /// Enumerates the files of a directory recursively, skipping build outputs and hidden files and directories.
     /// </summary>
-    private static IEnumerable<string> EnumerateFiles( string directory, string pattern )
+    private static IEnumerable<string> EnumerateFiles( string directory, string pattern, IReadOnlySet<string>? excludedDirectories = null )
     {
         foreach ( var file in Directory.EnumerateFiles( directory, pattern ) )
         {
@@ -451,7 +528,7 @@ internal sealed partial class SourceBrowserGenerator
         {
             var name = Path.GetFileName( subdirectory );
 
-            if ( name.StartsWith( '.' ) || _excludedDirectoryNames.Contains( name ) )
+            if ( name.StartsWith( '.' ) || _excludedDirectoryNames.Contains( name ) || excludedDirectories?.Contains( subdirectory ) == true )
             {
                 continue;
             }
@@ -462,7 +539,7 @@ internal sealed partial class SourceBrowserGenerator
                 continue;
             }
 
-            foreach ( var file in EnumerateFiles( subdirectory, pattern ) )
+            foreach ( var file in EnumerateFiles( subdirectory, pattern, excludedDirectories ) )
             {
                 yield return file;
             }

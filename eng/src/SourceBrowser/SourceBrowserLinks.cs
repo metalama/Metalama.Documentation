@@ -138,6 +138,9 @@ internal static class SourceBrowserLinks
                   ?.Directories ?? []
                 : [];
 
+            // A directory can be inside another one, e.g. a 'Tests' child node; the most specific directory wins.
+            _entries = _entries.OrderByDescending( e => e.LocalPath.Length ).ToList();
+
             _contentMappings = ReadContentMappings( Path.Combine( repoDirectory, "docfx.json" ) );
         }
     }

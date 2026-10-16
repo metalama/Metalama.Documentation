@@ -89,7 +89,11 @@ public sealed class SourceBrowserTests : IDisposable
         var directory = Assert.Single( manifest.Directories );
         Assert.Equal( "source/samples/log/log-1", directory.Path );
         Assert.Equal( "Sample.Log1", directory.Title );
-        Assert.Equal( ["sample-log-1"], directory.Topics );
+
+        // A path alone declares a single node titled "Source code" under the article.
+        var mount = Assert.Single( manifest.Mounts );
+        Assert.Equal( new SourceBrowserMount( "sample-log-1", "Source code", "source/samples/log/log-1", [] ), mount with { Children = [] } );
+        Assert.Empty( mount.Children );
 
         // Build outputs and Markdown files are skipped, and the project file is first.
         Assert.Equal(
@@ -134,6 +138,99 @@ public sealed class SourceBrowserTests : IDisposable
         this.Generate();
 
         Assert.Contains( this._warnings, w => w.Contains( "missing", StringComparison.Ordinal ) );
+    }
+
+    [Fact]
+    public void Generate_FullForm_DeclaresTitledAndNestedNodes()
+    {
+        this.WriteFile(
+            "samples/src/log/log-2/README.md",
+            """
+            ---
+            uid: sample-log-2
+            browse-source:
+              - path: .
+                children:
+                  - title: Tests
+                    path: ../../tests/Sample.Log2.Tests
+              - title: Shared library
+                path: ../shared
+            ---
+            """ );
+
+        this.WriteFile( "samples/src/log/log-2/Sample.Log2.csproj", "<Project/>" );
+        this.WriteFile( "samples/src/tests/Sample.Log2.Tests/Sample.Log2.Tests.csproj", "<Project/>" );
+        this.WriteFile( "samples/src/tests/Sample.Log2.Tests/CalculatorTests.cs", "class CalculatorTests {}" );
+        this.WriteFile( "samples/src/log/shared/Shared.cs", "class Shared {}" );
+
+        var manifest = this.Generate();
+
+        var mounts = manifest.Mounts.Where( m => m.Topic == "sample-log-2" ).ToList();
+
+        // With several top-level nodes, a node without title is named after its project.
+        Assert.Equal( ["Sample.Log2", "Shared library"], mounts.Select( m => m.Title ) );
+        Assert.Equal( ["source/samples/log/log-2", "source/samples/log/shared"], mounts.Select( m => m.Directory ) );
+
+        // A child node has no topic: it is shown under its parent node.
+        var tests = Assert.Single( mounts[0].Children );
+        Assert.Equal( new SourceBrowserMount( null, "Tests", "source/samples/tests/Sample.Log2.Tests", [] ), tests with { Children = [] } );
+
+        Assert.Contains( manifest.Directories, d => d.Path == "source/samples/tests/Sample.Log2.Tests" && d.Files.Count == 2 );
+    }
+
+    [Fact]
+    public void Generate_ChildInsideItsParent_IsPublishedSeparately()
+    {
+        this.WriteFile(
+            "samples/src/log/log-3/README.md",
+            """
+            ---
+            uid: sample-log-3
+            browse-source:
+              - path: .
+                children:
+                  - title: Tests
+                    path: Tests
+            ---
+            """ );
+
+        this.WriteFile( "samples/src/log/log-3/Calculator.cs", "class Calculator {}" );
+        this.WriteFile( "samples/src/log/log-3/Tests/CalculatorTests.cs", "class CalculatorTests {}" );
+
+        var manifest = this.Generate();
+
+        // The files of the child directory are not listed in the parent directory.
+        var parent = manifest.Directories.Single( d => d.Path == "source/samples/log/log-3" );
+        var child = manifest.Directories.Single( d => d.Path == "source/samples/log/log-3/Tests" );
+
+        Assert.Equal( ["Calculator.cs"], parent.Files.Select( f => f.Path ) );
+        Assert.Equal( ["CalculatorTests.cs"], child.Files.Select( f => f.Path ) );
+
+        // A link to a file of the child directory goes to the child directory.
+        var testFile = Path.Combine( this._repoDirectory, "samples", "src", "log", "log-3", "Tests", "CalculatorTests.cs" );
+
+        Assert.Equal(
+            "source/samples/log/log-3/Tests/CalculatorTests.cs",
+            SourceBrowserLinks.GetHref( this._repoDirectory, "content/logging.md", testFile ) );
+    }
+
+    [Fact]
+    public void Generate_NodeWithoutPath_IsReported()
+    {
+        this.WriteFile(
+            "samples/src/log/log-4/README.md",
+            """
+            ---
+            uid: sample-log-4
+            browse-source:
+              - title: Nothing
+            ---
+            """ );
+
+        var manifest = this.Generate();
+
+        Assert.DoesNotContain( manifest.Mounts, m => m.Topic == "sample-log-4" );
+        Assert.Contains( this._warnings, w => w.Contains( "without path", StringComparison.Ordinal ) );
     }
 
     [Fact]

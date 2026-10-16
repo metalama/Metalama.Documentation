@@ -11,26 +11,43 @@ namespace BuildMetalamaDocumentation.SourceBrowser;
 /// The root of <c>source/manifest.json</c>.
 /// </summary>
 /// <param name="Version">The version of the manifest format.</param>
-/// <param name="Directories">The browsable source directories.</param>
-internal sealed record SourceBrowserManifest( int Version, IReadOnlyList<SourceBrowserDirectory> Directories );
+/// <param name="Directories">The published source directories, each once, whatever the number of articles that show it.</param>
+/// <param name="Mounts">The nodes that show the directories in the navigation, under the articles that declare them.</param>
+internal sealed record SourceBrowserManifest(
+    int Version,
+    IReadOnlyList<SourceBrowserDirectory> Directories,
+    IReadOnlyList<SourceBrowserMount> Mounts );
 
 /// <summary>
-/// A browsable source directory, declared by the <c>browse-source</c> front matter key of one or more articles.
+/// A published source directory.
 /// </summary>
 /// <param name="Path">The path of the directory in the site, for instance <c>source/samples/log/log-3</c>.</param>
 /// <param name="Title">The display name of the directory, i.e. the name of its project if it has exactly one.</param>
-/// <param name="Topics">The uids of the articles that declare the directory, in the order of declaration.</param>
 /// <param name="GitHubUrl">The URL of the directory on GitHub.</param>
-/// <param name="Files">The files of the directory.</param>
+/// <param name="Files">The files of the directory. A subdirectory that is published as a directory of its own is excluded.</param>
 internal sealed record SourceBrowserDirectory(
     string Path,
     string Title,
-    IReadOnlyList<string> Topics,
     string? GitHubUrl,
     IReadOnlyList<SourceBrowserFile> Files );
 
 /// <summary>
-/// A file of a browsable source directory.
+/// A node of the navigation that shows a source directory. It is declared by the <c>browse-source</c> front matter key
+/// of an article.
+/// </summary>
+/// <param name="Topic">The uid of the article under which the node is shown. It is set only for top-level nodes; a child
+/// node is shown under its parent node.</param>
+/// <param name="Title">The title of the node, e.g. <c>Source code</c> or <c>Tests</c>.</param>
+/// <param name="Directory">The path of the directory in the site, i.e. <see cref="SourceBrowserDirectory.Path"/>.</param>
+/// <param name="Children">The child nodes, shown under this node.</param>
+internal sealed record SourceBrowserMount(
+    string? Topic,
+    string Title,
+    string Directory,
+    IReadOnlyList<SourceBrowserMount> Children );
+
+/// <summary>
+/// A file of a published source directory.
 /// </summary>
 /// <param name="Path">The path of the file relative to the directory. The raw file is published at this path.</param>
 /// <param name="Role">The role of the file: <c>aspect</c>, <c>target</c> or <c>other</c>.</param>
