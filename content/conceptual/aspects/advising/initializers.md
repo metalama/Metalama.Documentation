@@ -4,7 +4,7 @@ level: 300
 summary: "The document provides instructions on how to add initializers to fields, properties, object constructors, and type constructors using the Metalama Framework. It includes examples for each case."
 keywords: "initializers, fields, properties, Metalama Framework, initialization, declarative advice, programmatic advice, constructors, object constructors, type constructors, AfterObjectInitializer, AfterLastInstanceConstructor, InitializerPosition, BeforeBase, AfterBase, IInitializable, records, InitializationSlot, slotFields, IsHandled, InitializationContext, Descend"
 created-date: 2023-02-17
-modified-date: 2026-04-16
+modified-date: 2026-10-23
 ---
 
 # Adding initializers
@@ -114,6 +114,9 @@ To inject logic that runs after the constructor _and_ any object initializer or 
 Metalama makes the target type implement the <xref:Metalama.Framework.RunTime.Initialization.IInitializable> interface, which defines an <xref:Metalama.Framework.RunTime.Initialization.IInitializable.Initialize*> method. This method is called automatically after construction and object initialization by the framework's call-site rewriting.
 
 For non-sealed types, the `Initialize` method is `virtual`, allowing derived types to override it and call `base.Initialize(...)` to chain initialization logic.
+
+> [!WARNING]
+> Metalama doesn't rewrite an object creation expression that is in a lambda expression converted to an expression tree (`Expression<TDelegate>`), because an expression tree can't contain the call to `Initialize`. This includes the lambda expressions passed to the methods of `IQueryable<T>` and the implicit lambda expressions of a query expression. `Initialize` isn't called on the objects created in these lambda expressions, and Metalama reports the warning <xref:lama0656?text=LAMA0656>. To avoid this, create the object in a method, and call this method from the lambda expression.
 
 By default, the aspect's statements are appended to `Initialize` after the call to `base.Initialize(...)`, in aspect-application order (i.e. <xref:Metalama.Framework.Aspects.AspectOrderDirection.CompileTime> order). This can be customized through the <xref:Metalama.Framework.Advising.InitializerPosition> argument of <xref:Metalama.Framework.Aspects.AdviserExtensions.AddInitializer*>; see <xref:initializers#ordering-of-initializers> for details.
 
