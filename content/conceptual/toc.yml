@@ -68,7 +68,9 @@ items:
           topicUid: quickstart-adding-aspects
         - name: Understanding your code with aspects
           topicUid: understanding-your-code-with-aspects
-        - name: Debugging aspect oriented code 
+        - name: Previewing transformed code from the command line
+          topicUid: previewing-transformed-code
+        - name: Debugging aspect oriented code
           topicUid: debugging-aspect-oriented-code
         - name: Applying live templates
           topicUid:  applying-live-templates
