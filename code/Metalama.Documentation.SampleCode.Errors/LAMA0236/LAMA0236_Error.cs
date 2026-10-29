@@ -1,10 +1,5 @@
 // This is public domain Metalama sample code.
 
-#if TEST_OPTIONS
-// The LogAttribute._logger field (in LAMA0236_Error.Aspect.cs) also violates the immutability contract, which is not the topic of this sample.
-// @IgnoredDiagnostic(LAMA0882)
-#endif
-
 using System;
 
 namespace Doc.LAMA0236.Error;
