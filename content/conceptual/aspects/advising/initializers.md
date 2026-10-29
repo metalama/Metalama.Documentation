@@ -94,6 +94,21 @@ Metalama introduces an `OnConstructed` helper method on the target type and emit
 
 For non-sealed types, the introduced method is `protected virtual`, allowing derived types to participate in the initialization chain. An <xref:Metalama.Framework.RunTime.Initialization.InitializationContext> parameter is added to each constructor to coordinate initialization across inheritance hierarchies.
 
+### Effect on constructor signatures
+
+Metalama adds the <xref:Metalama.Framework.RunTime.Initialization.InitializationContext> parameter to every instance constructor of the target type, including an implicit constructor. It also adds the parameter to the constructors of derived types, in the same project and in other projects. The signatures of these constructors therefore change in the compiled assembly.
+
+To keep the type constructible, Metalama adds a _forwarding constructor_. A forwarding constructor has the original signature and calls the modified constructor with `: this(...)`, passing `default` for the context. The <xref:Metalama.Framework.Advising.IConstructorOverloadingStrategy> passed to the `overloadingStrategy` parameter of <xref:Metalama.Framework.Aspects.AdviserExtensions.AddInitializer*> decides which constructors receive a forwarding constructor:
+
+* <xref:Metalama.Framework.Advising.ConstructorOverloadingStrategy.ForwardDefaultConstructor> is the default. Only the parameterless constructor receives a forwarding constructor. As a result, `Activator.CreateInstance`, the `new()` generic constraint, and serializers or object-relational mappers that require a parameterless constructor keep working.
+* <xref:Metalama.Framework.Advising.ConstructorOverloadingStrategy.ForwardSourceConstructors> gives a forwarding constructor to every source constructor. Use it when some code creates instances by reflection with the original argument list of a constructor that has parameters, for instance `Activator.CreateInstance(typeof(Report), "Draft")`.
+
+A constructor that receives a forwarding constructor gets a required `InitializationContext` parameter. Therefore, reflection-based activators and dependency injection containers find exactly one constructor with the original parameter list: the forwarding constructor. A constructor that does not receive a forwarding constructor gets an optional parameter whose default value is `default`, so the source code can still call it with its original argument list.
+
+For instance, with the default strategy, a class that declares `Report()` and `Report(string title)` has the following constructors after the transformation: `Report()` (the forwarding constructor), `Report(InitializationContext context)`, and `Report(string title, InitializationContext context = default)`.
+
+At design time, the source constructors remain unchanged in the source code, and Metalama adds the modified constructors as additional overloads. The parameterless constructor is therefore available in the IDE as it is in the compiled assembly.
+
 By default, the aspect's statements are appended to `OnConstructed` after the call to `base.OnConstructed(...)`, in aspect-application order (i.e. <xref:Metalama.Framework.Aspects.AspectOrderDirection.CompileTime> order). This can be customized through the <xref:Metalama.Framework.Advising.InitializerPosition> argument of <xref:Metalama.Framework.Aspects.AdviserExtensions.AddInitializer*>; see <xref:initializers#ordering-of-initializers> for details.
 
 ### Example: Publishing a domain event after construction
