@@ -1,8 +1,10 @@
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Serialization;
+using Metalama.Framework.Utilities;
 using System;
 namespace Doc.LAMA0210.Fixed;
 [RunTimeOrCompileTime]
+[ImmutableType]
 public record RetryPolicy(int MaxAttempts) : ICompileTimeSerializable
 {
   // The record now provides its own serializer.

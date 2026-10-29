@@ -9,7 +9,7 @@ namespace Doc.LAMA0045.Fixed;
 public class LogAttribute : OverrideMethodAspect
 {
     // Fixed: the category is a property, so the aspect has a parameterless constructor.
-    public string Category { get; set; } = "General";
+    public string Category { get; init; } = "General";
 
     public override dynamic? OverrideMethod()
     {

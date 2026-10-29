@@ -9,7 +9,7 @@ namespace Doc.MultipleInstances;
 
 public class LogAttribute : OverrideMethodAspect
 {
-    public string Category { get; set; } = "Monitoring";
+    public string Category { get; init; } = "Monitoring";
 
     public override void BuildAspect( IAspectBuilder<IMethod> builder )
     {

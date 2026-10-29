@@ -8,7 +8,7 @@ namespace Doc.LAMA0041.Error;
 
 public class LogAttribute : OverrideMethodAspect
 {
-    public string? Category { get; set; }
+    public string? Category { get; init; }
 
     public override void BuildAspect( IAspectBuilder<IMethod> builder )
     {

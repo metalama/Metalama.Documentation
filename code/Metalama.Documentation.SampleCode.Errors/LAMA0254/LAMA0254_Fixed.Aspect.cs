@@ -8,7 +8,7 @@ namespace Doc.LAMA0254.Fixed;
 
 public class LogAttribute : OverrideMethodAspect
 {
-    public bool ContinueOnCapturedContext { get; set; }
+    public bool ContinueOnCapturedContext { get; init; }
 
     public override dynamic? OverrideMethod() => meta.Proceed();
 
