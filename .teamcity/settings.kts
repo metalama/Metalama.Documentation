@@ -869,7 +869,7 @@ object PublicUpdateSearch : BuildType({
         text(
             "UpdateSearch.Arguments", 
             "", 
-            label ="Build.ps1 Arguments",
+            label ="DockerBuild.ps1 Arguments",
             description = "Arguments to append to the 'Update search' build step.", allowEmpty = true)
         param("UpdateSearch.Timeout", "30")
     }
@@ -888,17 +888,38 @@ object PublicUpdateSearch : BuildType({
                 path = "eng/CleanUpBuildAgent.ps1"
             }
             noProfile = false
-            scriptArgs = " "
+            scriptArgs = "-DeferToContainer "
+        }
+        powerShell {
+            name = "Prepare Docker image metalamadocumentation-2027.0"
+            id = "PrepareImage"
+            edition = PowerShellStep.Edition.Core
+            scriptMode = file {
+                path = "DockerBuild.ps1"
+            }
+            noProfile = false
+            scriptArgs = "-BuildImage -ImageName metalamadocumentation-2027.0 "
         }
         powerShell {
             name = "Update search"
             id = "UpdateSearch"
             edition = PowerShellStep.Edition.Core
             scriptMode = file {
-                path = "Build.ps1"
+                path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "search update --timeout %UpdateSearch.Timeout% %UpdateSearch.Arguments%"
+            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2027.0 -NoBuildImage -Label %system.teamcity.buildType.id%_%build.number% search update --timeout %UpdateSearch.Timeout% %UpdateSearch.Arguments%"
+        }
+        powerShell {
+            name = "Clean up the build agent"
+            id = "DockerCleanup"
+            executionMode = BuildStep.ExecutionMode.ALWAYS
+            edition = PowerShellStep.Edition.Core
+            scriptMode = file {
+                path = "eng/CleanUpBuildAgent.ps1"
+            }
+            noProfile = false
+            scriptArgs = "-After -BuildLabel %system.teamcity.buildType.id%_%build.number% "
         }
     }
 
@@ -939,7 +960,7 @@ object PublicUpdateSearchNoDependency : BuildType({
         text(
             "UpdateSearch.Arguments", 
             "", 
-            label ="Build.ps1 Arguments",
+            label ="DockerBuild.ps1 Arguments",
             description = "Arguments to append to the 'Update search' build step.", allowEmpty = true)
         param("UpdateSearch.Timeout", "30")
     }
@@ -958,17 +979,38 @@ object PublicUpdateSearchNoDependency : BuildType({
                 path = "eng/CleanUpBuildAgent.ps1"
             }
             noProfile = false
-            scriptArgs = " "
+            scriptArgs = "-DeferToContainer "
+        }
+        powerShell {
+            name = "Prepare Docker image metalamadocumentation-2027.0"
+            id = "PrepareImage"
+            edition = PowerShellStep.Edition.Core
+            scriptMode = file {
+                path = "DockerBuild.ps1"
+            }
+            noProfile = false
+            scriptArgs = "-BuildImage -ImageName metalamadocumentation-2027.0 "
         }
         powerShell {
             name = "Update search"
             id = "UpdateSearch"
             edition = PowerShellStep.Edition.Core
             scriptMode = file {
-                path = "Build.ps1"
+                path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "search update --timeout %UpdateSearch.Timeout% %UpdateSearch.Arguments%"
+            scriptArgs = "-Script Build.ps1 -ImageName metalamadocumentation-2027.0 -NoBuildImage -Label %system.teamcity.buildType.id%_%build.number% search update --timeout %UpdateSearch.Timeout% %UpdateSearch.Arguments%"
+        }
+        powerShell {
+            name = "Clean up the build agent"
+            id = "DockerCleanup"
+            executionMode = BuildStep.ExecutionMode.ALWAYS
+            edition = PowerShellStep.Edition.Core
+            scriptMode = file {
+                path = "eng/CleanUpBuildAgent.ps1"
+            }
+            noProfile = false
+            scriptArgs = "-After -BuildLabel %system.teamcity.buildType.id%_%build.number% "
         }
     }
 
