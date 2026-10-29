@@ -1,7 +1,7 @@
 // This is public domain Metalama sample code.
 
 #if TEST_OPTIONS
-// The dynamic field also violates the immutability contract, which is not the topic of this sample.
+// The LogAttribute._category field (in LAMA0238_Error.Aspect.cs) also violates the immutability contract, which is not the topic of this sample.
 // @IgnoredDiagnostic(LAMA0882)
 #endif
 
