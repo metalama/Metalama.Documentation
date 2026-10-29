@@ -38,9 +38,29 @@ If the user's project references a **different** Metalama version than this skil
 
 ### 2. See the generated code — you have no IDE diff preview
 
-Metalama transforms code at compile time. Unlike a developer using Visual Studio (CodeLens, Metalama Diff), an agent must read the generated C# from disk. **This is your primary way to verify an aspect does what you intended.**
+Metalama transforms code at compile time. Unlike a developer using Visual Studio (CodeLens, Metalama Diff), an agent must read the generated C# itself. **This is your primary way to verify an aspect does what you intended.**
 
-Emit the transformed code with any of these — recipe 1 is the default:
+#### For a few files: `metalama preview` (preferred)
+
+To see the generated code of the files you are working on, **use `metalama preview`** instead of building the whole project. It prints the transformed, formatted code of just those files, in seconds, without compiling the project:
+
+```bash
+metalama preview path/to/OrderService.cs                         # one file
+metalama preview path/to/OrderService.cs path/to/Customer.cs     # several files of the same project
+metalama preview path/to/OrderService.cs -f net8.0 --no-restore  # choose the target framework; skip restore
+```
+
+- Run it after each change to an aspect, a fabric, or a target, on the target files whose output you need to check.
+- Output goes to stdout, one block per file, each starting with `// ===== <path> =====` (`(not transformed)` when no aspect changed it). Diagnostics go to stderr. A non-zero exit code means an error; read stderr.
+- All aspects, fabrics and inherited aspects of the project still run, so aspects applied from other files are included. Only the requested files are linked and formatted.
+- Options: `--project <csproj>`, `-f|--framework <tfm>`, `-c|--configuration <cfg>`, `-o|--output <dir>` (write files instead of printing), `--no-restore`.
+- Requirements: the `metalama` tool (`dotnet tool install -g metalama.tool`), and a project on Metalama 2027.0.5 or later. If `metalama` is not found, or the project is older, fall back to a build (below).
+- Referenced projects must be built first. If the tool reports missing referenced assemblies, run `dotnet build` once on those projects.
+- It does not show files that aspects add to the project, and it is not a compilation check: still run `dotnet build` to get all diagnostics (habit 3).
+
+#### For the whole project: a build that emits transformed files
+
+When you need every file, or `metalama preview` is not available, emit the transformed code with any of these — recipe 1 is the default:
 
 ```bash
 # 1. Simplest: the built-in LamaDebug configuration emits formatted output
@@ -158,6 +178,7 @@ Online, the article of a diagnostic is at `https://doc.metalama.net/errors/lama#
 | Observability | `content/patterns/observability/observability.md` | INotifyPropertyChanged implementation |
 | Debugging Aspects | `content/conceptual/aspects/testing/debugging-aspects.md` | Debug compile-time code, breakpoints, `meta.DebugBreak()` |
 | Debugging User Code | `content/conceptual/using/debugging-aspect-oriented-code.md` | Debug run-time transformed code, LamaDebug configuration |
+| Previewing Transformed Code | `content/conceptual/using/previewing-transformed-code.md` | `metalama preview`: generated code of a few files, without building |
 | Errors and Warnings | `content/errors/errors.md` | Index of all `LAMA####` diagnostics; each has its own article `content/errors/lama####.md` |
 
 ## Common Patterns

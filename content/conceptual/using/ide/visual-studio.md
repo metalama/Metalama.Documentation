@@ -4,7 +4,7 @@ level: 100
 summary: "Configure Visual Studio for optimal use with Metalama, including the Metalama Tools extension."
 keywords: "Metalama Visual Studio, Visual Studio extension, Metalama Tools, CodeLens, diff preview, live templates"
 created-date: 2025-12-04
-modified-date: 2025-12-04
+modified-date: 2026-10-28
 ---
 
 # Configuring Visual Studio
@@ -21,6 +21,8 @@ The Metalama Tools extension adds several IDE features:
 - **Code fixes and refactorings**: Apply aspects through the lightbulb menu
 
 For installation instructions, see <xref:install-vsx>.
+
+The diff preview is also available outside Visual Studio, for instance to AI coding agents, through the `metalama preview` command. See <xref:previewing-transformed-code>.
 
 ## Recommended settings
 

@@ -4,7 +4,7 @@ level: 100
 summary: "Install the Metalama plugin for AI coding agents such as Claude Code and OpenAI Codex to get AI-assisted aspect development."
 keywords: "Claude Code, OpenAI Codex, Metalama AI, AI coding agent, Claude plugin, Codex plugin, aspect development"
 created-date: 2025-12-11
-modified-date: 2026-07-03
+modified-date: 2026-10-28
 ---
 
 # Configuring AI agents
@@ -68,6 +68,22 @@ Once installed, the agent automatically uses the Metalama plugin when you ask qu
 
 If the agent doesn't seem to use Metalama-specific knowledge, explicitly mention "Metalama" in your prompt.
 
+## Letting the agent see the generated code
+
+An agent cannot use the Metalama Diff of Visual Studio. To check the code that an aspect generates, it must read the transformed code. The fastest way is the `metalama preview` command, which prints the transformed and formatted code of one or a few files without building the whole project:
+
+```powershell
+metalama preview src/MyProject/Services/OrderService.cs
+```
+
+The Metalama plugin tells the agent to use this command after it changes an aspect or the code that an aspect targets. The command belongs to the Metalama command line tool, so install the tool on the machine where the agent runs:
+
+```powershell
+dotnet tool install -g metalama.tool
+```
+
+For details, see <xref:previewing-transformed-code>.
+
 ### Example prompts
 
 - "Create a logging aspect that logs method entry and exit"
@@ -77,5 +93,6 @@ If the agent doesn't seem to use Metalama-specific knowledge, explicitly mention
 
 > [!div class="see-also"]
 > <xref:ide-configuration>
+> <xref:previewing-transformed-code>
 > [Claude Code documentation](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview)
 > [OpenAI Codex plugin documentation](https://developers.openai.com/codex/plugins/build)

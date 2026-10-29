@@ -4,7 +4,7 @@ level: 100
 summary: "This document explains how to understand aspect-oriented code using Metalama's tools like CodeLens, Diff Preview, and Debug Transformed Code. It also discusses explicit and implicit aspect applications."
 keywords: "aspect-oriented code, Metalama tools, CodeLens, Metalama Diff, Debug Transformed Code, understand code functionality, aspect explorer"
 created-date: 2023-02-16
-modified-date: 2025-12-07
+modified-date: 2026-10-28
 ---
 
 # Understanding your aspect-oriented code
@@ -61,6 +61,9 @@ To view changes for a specific section of the code, select that section from the
 
 ![Diff_change_selector](images/metalama_diff_change_view_selector.png)
 
+> [!TIP]
+> Outside Visual Studio, the `metalama preview` command shows the same transformed code for one or a few files, in a terminal. AI coding agents can use it to check the code that an aspect generates without building the project. See <xref:previewing-transformed-code>.
+
 ## Aspect Explorer
 
 With CodeLens, you start from a specific piece of code and wonder which aspects influence it.
@@ -75,4 +78,5 @@ To open the Aspect Explorer tool window, use the top-level menu and select _Exte
 > <xref:using-metalama>
 > <xref:quickstart-adding-aspects>
 > <xref:debugging-aspect-oriented-code>
+> <xref:previewing-transformed-code>
 > <xref:install-vsx>
