@@ -8,5 +8,5 @@ public class TrackableAttribute : TypeAspect
 {
     // This property is a template: it describes a property that the aspect introduces into the target type.
     [Introduce]
-    public string Category { get; set; } = "General";
+    public string Category { get; init; } = "General";
 }

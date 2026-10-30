@@ -20,12 +20,15 @@ public class Entity
 [LogConstructed]
 public partial class Order : Entity
 {
-  public Order([AspectGenerated] InitializationContext context = default) : base(context.Descend(InitializationSlot.OnConstructed))
+  public Order([AspectGenerated] InitializationContext context) : base(context.Descend(InitializationSlot.OnConstructed))
   {
     if (!context.IsHandled(InitializationSlot.OnConstructed))
     {
       this.OnConstructed(context);
     }
+  }
+  public Order() : this(context: default)
+  {
   }
   public override void OnConstructed(InitializationContext context = default)
   {

@@ -8,7 +8,7 @@ namespace Doc.LAMA0041.Fixed;
 
 public class LogAttribute : OverrideMethodAspect
 {
-    public string? Category { get; set; }
+    public string? Category { get; init; }
 
     public override void BuildAspect( IAspectBuilder<IMethod> builder )
     {

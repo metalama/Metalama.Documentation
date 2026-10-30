@@ -8,7 +8,7 @@ namespace Doc.Retry;
 
 internal class RetryAttribute : OverrideMethodAspect
 {
-    public int MaxAttempts { get; set; } = 5;
+    public int MaxAttempts { get; init; } = 5;
 
     public override dynamic? OverrideMethod()
     {

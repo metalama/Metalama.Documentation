@@ -1,1 +1,2 @@
 // Error LAMA0236 on `Logger`: `Cannot reference 'Logger' in 'LogAttribute' because 'Logger' is run-time-only but 'LogAttribute' is run-time-or-compile-time. Run-time-only declarations can be referenced only in templates and in run-time code.`
+// Warning LAMA0882 on `_logger`: `'LogAttribute' must be written in an immutable style because it is an aspect, a fabric, a validator, or another type bound by the [ImmutableType] contract, but 'Logger' is not immutable. Path: LogAttribute -> _logger -> Logger (the type is not marked [ImmutableType]).`
