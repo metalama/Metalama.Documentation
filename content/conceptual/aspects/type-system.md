@@ -62,6 +62,46 @@ classDiagram
           Union IUnionFacet?
       }
 
+      class ITypeFacet {
+          FacetKind TypeFacetKind
+          Type INamedType
+      }
+
+      class IDelegateFacet {
+          InvokeMethod IMethod
+          ReturnType IType
+          Parameters IParameterList
+      }
+
+      class IEnumFacet {
+          UnderlyingType INamedType
+          Members IReadOnlyList~IField~
+          IsFlags bool
+      }
+
+      class IRecordFacet {
+          EqualityContractProperty IProperty?
+          PrintMembersMethod IMethod
+          CloneMethod IMethod?
+          CopyConstructor IConstructor?
+          DeconstructMethod IMethod?
+          PositionalProperties IReadOnlyList~IProperty~
+      }
+
+      class IUnionFacet {
+          UnionKind UnionKind
+          Cases IReadOnlyList~IUnionCase~
+          ValueProperty IProperty?
+      }
+
+      IUnionFacet o-- IUnionCase
+
+      class IUnionCase {
+          Type IType
+          Index int
+          CreationMember IMethodBase
+      }
+
     class IArrayType {
         ElementType IType
         Rank int
