@@ -1,10 +1,10 @@
 ---
 uid: type-system
 level: 300
-summary: "Learn how to work with the Metalama type system, including IType, INamedType, generic types, tuple types, array types, pointer types, and nullability handling. Discover how to obtain type references, access type members, construct derived types, and control nullability."
-keywords: "IType, INamedType, TypeFactory, generic types, tuple types, array types, pointer types, type system, Metalama types, compile-time types, nullability, ToNullable, ToNonNullable, nullable reference types"
+summary: "Learn how to work with the Metalama type system, including IType, INamedType, generic types, type facets, tuple types, array types, pointer types, and nullability handling. Discover how to obtain type references, access type members, construct derived types, and control nullability."
+keywords: "IType, INamedType, TypeFactory, generic types, type facets, INamedType.Facets, IDelegateFacet, IEnumFacet, IRecordFacet, IUnionFacet, tuple types, array types, pointer types, type system, Metalama types, compile-time types, nullability, ToNullable, ToNonNullable, nullable reference types"
 created-date: 2025-11-07
-modified-date: 2026-04-13
+modified-date: 2026-11-10
 ---
 
 # Working with types
@@ -45,6 +45,21 @@ classDiagram
           BaseType INamedType
           ImplementedInterfaces
           MakeGenericInstance(...)
+          Facets ITypeFacetCollection
+      }
+
+      INamedType o-- ITypeFacetCollection
+      ITypeFacetCollection o-- ITypeFacet
+      ITypeFacet <|-- IDelegateFacet
+      ITypeFacet <|-- IEnumFacet
+      ITypeFacet <|-- IRecordFacet
+      ITypeFacet <|-- IUnionFacet
+
+      class ITypeFacetCollection {
+          Delegate IDelegateFacet?
+          Enum IEnumFacet?
+          Record IRecordFacet?
+          Union IUnionFacet?
       }
 
     class IArrayType {
@@ -152,6 +167,50 @@ public class Customer
 // Tuple types
 (string Name, int Age)
 ```
+
+## Type facets
+
+Some kinds of named types have a structure that other named types don't have. A delegate has a signature, an enum has an underlying type and a list of members, a record has members that the compiler synthesizes, and a union has cases. The code model calls this structure a _facet_ and exposes it through the <xref:Metalama.Framework.Code.INamedType.Facets?text=INamedType.Facets> property.
+
+### Kinds and facets
+
+The flags of <xref:Metalama.Framework.Code.INamedType>, such as <xref:Metalama.Framework.Code.INamedType.IsEnum>, <xref:Metalama.Framework.Code.INamedType.IsDelegate>, <xref:Metalama.Framework.Code.INamedType.IsRecord>, or <xref:Metalama.Framework.Code.INamedType.IsUnion>, tell you _what kind_ of type you have. The facets tell you _what structure_ the type has because of its kind. Use a flag when you only need to test the kind, and read a facet when you need the structure.
+
+Each facet is a typed property of the <xref:Metalama.Framework.Code.Collections.ITypeFacetCollection> interface. The property is `null` when the type isn't of the corresponding kind, so you can test and read in a single expression, for instance `type.Facets.Enum?.UnderlyingType`. Enumerating the collection yields exactly the facets that aren't `null`. For most types, such as ordinary classes, structs, and interfaces, the collection is empty.
+
+### Available facets
+
+| Facet | Property | Exposes | Relation to other members |
+|-------|----------|---------|---------------------------|
+| <xref:Metalama.Framework.Code.Types.IDelegateFacet> | <xref:Metalama.Framework.Code.Collections.ITypeFacetCollection.Delegate> | The `Invoke` method, the return type, and the parameters of the delegate. | Replaces looking up the `Invoke` method by name. <xref:Metalama.Framework.Code.IEvent.Signature?text=IEvent.Signature> returns the same method, starting from an event instead of a delegate type. |
+| <xref:Metalama.Framework.Code.Types.IEnumFacet> | <xref:Metalama.Framework.Code.Collections.ITypeFacetCollection.Enum> | The underlying integral type, the members in declaration order, and whether the enum has the `[Flags]` attribute. | <xref:Metalama.Framework.Code.INamedType.UnderlyingType?text=INamedType.UnderlyingType> returns the same type for an enum, but it means something different for other kinds of types. <xref:Metalama.Framework.Code.Types.IEnumFacet.UnderlyingType?text=IEnumFacet.UnderlyingType> has a single meaning. |
+| <xref:Metalama.Framework.Code.Types.IRecordFacet> | <xref:Metalama.Framework.Code.Collections.ITypeFacetCollection.Record> | The members that the compiler synthesizes for a record: `EqualityContract`, `PrintMembers`, the clone method, the copy constructor, `Deconstruct`, and the positional properties. | Complements <xref:Metalama.Framework.Code.INamedType.IsRecord?text=INamedType.IsRecord>. The clone method, named `<Clone>$`, isn't a valid C# identifier and can only be reached through the facet. |
+| <xref:Metalama.Framework.Code.Types.IUnionFacet> | <xref:Metalama.Framework.Code.Collections.ITypeFacetCollection.Union> | The authoring form of a C# 15 union, its cases (<xref:Metalama.Framework.Code.Types.IUnionCase>), and its `Value` property. | Complements <xref:Metalama.Framework.Code.INamedType.IsUnion?text=INamedType.IsUnion>. A union isn't a <xref:Metalama.Framework.Code.TypeKind> of its own: the compiler reports it as a struct or keeps the kind of the class or struct that carries the `[Union]` attribute. |
+
+The facets only include structure that is specific to the kind of type. For instance, the `Equals`, `GetHashCode`, and `ToString` methods of a record and its primary constructor aren't part of the record facet: you reach them through the members of <xref:Metalama.Framework.Code.INamedType>, like the members of any other type. A record struct has no equality contract, clone method, or copy constructor, so the corresponding properties of its facet are `null`.
+
+### Types without facets
+
+The following named types have no facet:
+
+- **Tuple types** don't have a facet because they aren't declared: a type expression such as `(int, string)` forms them. Their structure is exposed by the derived interface <xref:Metalama.Framework.Code.ITupleType>, which you get by testing the type. See [Tuple types](#tuple-types).
+- **Extension blocks** don't have a facet because, although they implement <xref:Metalama.Framework.Code.INamedType>, they aren't types that a program can use.
+- **Classes, structs, and interfaces** don't have a facet because they have no structure beyond their ordinary members.
+
+> [!NOTE]
+> <xref:Metalama.Framework.Code.INamedType.Facets> returns an empty collection for a type introduced by an aspect and for a type under construction by a builder. Additionally, a record read from a compiled assembly is reported as non-positional because the assembly doesn't record the parameter list of the record: its <xref:Metalama.Framework.Code.Types.IRecordFacet.DeconstructMethod> is `null` and its <xref:Metalama.Framework.Code.Types.IRecordFacet.PositionalProperties> list is empty.
+
+### Example: validating enum values
+
+The following contract aspect throws an exception when a parameter or property receives a value that the enum doesn't declare. It reads the enum facet at compile time. For a `[Flags]` enum, the aspect computes the mask of all declared bits and accepts any combination of them. For other enums, it generates a pattern listing the declared members.
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/TypeFacets_Enum.cs name="Enum facet"]
+
+### Example: converting a record to a tuple
+
+The following aspect introduces a `ToTuple` method into a positional record. It reads the positional properties from the record facet, creates a tuple type with one element per property, and returns a tuple of the property values. Properties declared outside the parameter list, such as `Description`, aren't positional and aren't included.
+
+[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/TypeFacets_Record.cs name="Record facet"]
 
 ## Getting an IType object
 
