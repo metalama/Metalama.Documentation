@@ -15,22 +15,24 @@ public class DefinedEnumValueAttribute : ContractAspect
     public override void BuildEligibility( IEligibilityBuilder<IParameter> builder )
     {
         base.BuildEligibility( builder );
-        builder.Type().MustSatisfy( t => t is INamedType { Facets.Enum: not null }, t => $"{t} must be an enum" );
+        builder.Type().MustSatisfy( IsNonFlagsEnum, t => $"{t} must be an enum without the [Flags] attribute" );
     }
 
     public override void BuildEligibility( IEligibilityBuilder<IFieldOrPropertyOrIndexer> builder )
     {
         base.BuildEligibility( builder );
-        builder.Type().MustSatisfy( t => t is INamedType { Facets.Enum: not null }, t => $"{t} must be an enum" );
+        builder.Type().MustSatisfy( IsNonFlagsEnum, t => $"{t} must be an enum without the [Flags] attribute" );
     }
+
+    // Reads the enum facet: it is null when the type is not an enum.
+    private static bool IsNonFlagsEnum( IType type ) => type is INamedType { Facets.Enum.IsFlags: false };
 
     public override void Validate( dynamic? value )
     {
-        // Read the enum facet of the target type.
         var enumType = (INamedType) ((IHasType) meta.Target.Declaration).Type;
-        var isInvalid = BuildIsInvalidExpression( (IExpression) value!, enumType.Facets.Enum! );
+        var isUndefined = BuildIsUndefinedExpression( (IExpression) value!, enumType.Facets.Enum! );
 
-        if ( isInvalid.Value )
+        if ( isUndefined.Value )
         {
             throw new ArgumentOutOfRangeException(
                 nameof(value),
@@ -39,47 +41,24 @@ public class DefinedEnumValueAttribute : ContractAspect
         }
     }
 
-    // Builds an expression that is true when the value is not defined in the enum.
-    private static IExpression BuildIsInvalidExpression( IExpression value, IEnumFacet enumFacet )
+    // Builds the expression `value is not (Member1 or Member2 or ...)`.
+    private static IExpression BuildIsUndefinedExpression( IExpression value, IEnumFacet enumFacet )
     {
         var expression = new ExpressionBuilder();
+        expression.AppendExpression( value );
+        expression.AppendVerbatim( " is not (" );
 
-        if ( enumFacet.IsFlags )
+        for ( var i = 0; i < enumFacet.Members.Count; i++ )
         {
-            // For a [Flags] enum, any combination of the declared bits is valid.
-            long allFlags = 0;
-
-            foreach ( var member in enumFacet.Members )
+            if ( i > 0 )
             {
-                allFlags |= Convert.ToInt64( member.ConstantValue!.Value.Value );
+                expression.AppendVerbatim( " or " );
             }
 
-            // Generates `((long) value & ~allFlags) != 0`.
-            expression.AppendVerbatim( "((long) " );
-            expression.AppendExpression( value );
-            expression.AppendVerbatim( " & ~" );
-            expression.AppendLiteral( allFlags, stronglyTyped: true );
-            expression.AppendVerbatim( ") != 0" );
+            expression.AppendExpression( enumFacet.Members[i] );
         }
-        else
-        {
-            // Otherwise, the value must be one of the declared members.
-            // Generates `value is not (Member1 or Member2 or ...)`.
-            expression.AppendExpression( value );
-            expression.AppendVerbatim( " is not (" );
 
-            for ( var i = 0; i < enumFacet.Members.Count; i++ )
-            {
-                if ( i > 0 )
-                {
-                    expression.AppendVerbatim( " or " );
-                }
-
-                expression.AppendExpression( enumFacet.Members[i] );
-            }
-
-            expression.AppendVerbatim( ")" );
-        }
+        expression.AppendVerbatim( ")" );
 
         return expression.ToExpression();
     }

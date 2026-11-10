@@ -1,7 +1,5 @@
 // This is public domain Metalama sample code.
 
-using System;
-
 namespace Doc.TypeFacets_Enum;
 
 public enum Priority : byte
@@ -11,13 +9,11 @@ public enum Priority : byte
     High = 3
 }
 
-[Flags]
-public enum AccessRights
+public enum JobState
 {
-    None = 0,
-    Read = 1,
-    Write = 2,
-    Execute = 4
+    Pending,
+    Running,
+    Completed
 }
 
 public class Job
@@ -25,5 +21,5 @@ public class Job
     [DefinedEnumValue]
     public Priority Priority { get; set; }
 
-    public void Grant( string user, [DefinedEnumValue] AccessRights rights ) { }
+    public void SetState( [DefinedEnumValue] JobState state ) { }
 }

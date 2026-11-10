@@ -6,13 +6,11 @@ public enum Priority : byte
   Normal = 2,
   High = 3
 }
-[Flags]
-public enum AccessRights
+public enum JobState
 {
-  None = 0,
-  Read = 1,
-  Write = 2,
-  Execute = 4
+  Pending,
+  Running,
+  Completed
 }
 public class Job
 {
@@ -33,11 +31,11 @@ public class Job
       _priority = value;
     }
   }
-  public void Grant(string user, [DefinedEnumValue] AccessRights rights)
+  public void SetState([DefinedEnumValue] JobState state)
   {
-    if (((long)rights & ~7L) != 0)
+    if (state is not (JobState.Pending or JobState.Running or JobState.Completed))
     {
-      throw new ArgumentOutOfRangeException(nameof(rights), rights, "The value is not defined in the 'AccessRights' enum.");
+      throw new ArgumentOutOfRangeException(nameof(state), state, "The value is not defined in the 'JobState' enum.");
     }
   }
 }

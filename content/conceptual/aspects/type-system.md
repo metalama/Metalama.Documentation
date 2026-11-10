@@ -202,15 +202,9 @@ The following named types have no facet:
 
 ### Example: validating enum values
 
-The following contract aspect throws an exception when a parameter or property receives a value that the enum doesn't declare. It reads the enum facet at compile time. For a `[Flags]` enum, the aspect computes the mask of all declared bits and accepts any combination of them. For other enums, it generates a pattern listing the declared members.
+The following contract aspect throws an exception when a parameter or property receives a value that the enum doesn't declare. It uses the enum facet twice. In `BuildEligibility`, it reads <xref:Metalama.Framework.Code.Types.IEnumFacet.IsFlags> to report an error when the target type isn't an enum or is a `[Flags]` enum, whose valid values are combinations of members rather than single members. In the template, it reads <xref:Metalama.Framework.Code.Types.IEnumFacet.Members> to generate a pattern that lists the declared members.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/TypeFacets_Enum.cs name="Enum facet"]
-
-### Example: converting a record to a tuple
-
-The following aspect introduces a `ToTuple` method into a positional record. It reads the positional properties from the record facet, creates a tuple type with one element per property, and returns a tuple of the property values. Properties declared outside the parameter list, such as `Description`, aren't positional and aren't included.
-
-[!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/TypeFacets_Record.cs name="Record facet"]
 
 ## Getting an IType object
 
