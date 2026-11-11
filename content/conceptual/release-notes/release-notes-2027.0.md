@@ -100,6 +100,8 @@ A _facet_ is the structure that a named type has because of its kind. The new <x
 - The record facet (<xref:Metalama.Framework.Code.Types.IRecordFacet>) exposes the members that the compiler synthesizes for a record, such as `EqualityContract`, `PrintMembers`, the copy constructor, and `Deconstruct` ([#1997](https://github.com/metalama/Metalama/issues/1997)).
 - The union facet (<xref:Metalama.Framework.Code.Types.IUnionFacet>) exposes the kind and the cases of a union.
 
+For details, see <xref:type-system#type-facets>.
+
 ### Builders
 
 - New <xref:Metalama.Framework.Code.DeclarationBuilders.IMethodBaseBuilder.AddParameter*?text=AddParameter> and <xref:Metalama.Framework.Code.DeclarationBuilders.IMethodBuilder.AddTypeParameter*?text=AddTypeParameter> overloads copy an existing parameter or type parameter into a builder, with its constraints and, optionally, its attributes and default value ([#2140](https://github.com/metalama/Metalama/issues/2140)). This makes it easier to copy a signature without losing information.
