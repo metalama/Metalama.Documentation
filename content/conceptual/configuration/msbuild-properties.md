@@ -4,7 +4,7 @@ level: 300
 summary: "This article lists MSBuild properties and environment variables, including their types, descriptions, and default values, related to the Metalama compiler."
 keywords: "MSBuild properties, Metalama, environment variables, temporary directory, execution order, transformers, debug transformed code, transformed code files, output path, memory leaks"
 created-date: 2023-03-03
-modified-date: 2026-10-12
+modified-date: 2026-11-13
 ---
 
 # MSBuild properties and environment variables
@@ -43,6 +43,8 @@ All environment variables are imported as MSBuild properties by default.
 | `MetalamaAssemblyLocatorHooksDirectory` | Path | Specifies a directory whose `Metalama.AssemblyLocator.Build.props` and `Metalama.AssemblyLocator.Build.targets` files, if they exist, are imported into the internal project that Metalama builds to determine which APIs are available to compile-time code. There is no default value, and no file is imported unless this property is set. See <xref:compile-time-dependencies>. |
 | `MetalamaAssemblyLocatorSalt` | String | Specifies an arbitrary value that is included in the cache key of the project that Metalama builds to resolve the compile-time dependencies. There is no default value. Change it to any other value to have that project restored and built again instead of its cached result being reused. See <xref:compile-time-dependencies>. |
 | `MetalamaDiagnoseMemoryLeaks` | Boolean | Indicates whether the objects that your compile-time code leaves behind should be analyzed for references that keep a project snapshot in memory. The default value is `False`. Pass this property on the command line of a single build while you're investigating a memory leak: the analysis walks a large object graph and is too slow for an ordinary build. See <xref:diagnosing-memory-leaks>. |
+| `MetalamaWriteIntrospectionFile` | Boolean | Indicates whether the build writes the introspection file, which the `metalama introspect` command reads. The default value is `False`. See <xref:introspecting-from-command-line>. |
+| `MetalamaIntrospectionFile` | Path | Specifies the path of the introspection file. The default is the name of the assembly with the `.mlsym` extension, next to the assembly, for example `bin/Debug/net10.0/MyProject.mlsym`. See <xref:introspecting-from-command-line>. |
 | `MetalamaCheckSupportedPlatform` | Boolean | Indicates whether the build reports a target framework, a .NET SDK or a Visual Studio version outside the configuration matrix that Metalama supports. The default value is `True`. Set it to `False` to turn off every warning of the check. See [The supported platform check](#the-supported-platform-check) below. |
 
 ## MSBuild items
