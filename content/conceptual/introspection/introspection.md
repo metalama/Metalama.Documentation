@@ -17,6 +17,8 @@ Metalama provides powerful APIs for querying and analyzing your source code outs
 | <xref:linqpad> | How to use the Metalama driver for LINQPad to interactively query and explore your codebase. |
 | <xref:metrics> | How to consume code metrics like statement counts and syntax node counts. |
 
+To query from the command line which aspects apply to the code and what they change, without writing code, see <xref:introspecting-from-command-line>.
+
 ## Benefits
 
 The introspection APIs allow you to:

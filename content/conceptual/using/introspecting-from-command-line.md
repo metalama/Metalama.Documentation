@@ -24,21 +24,33 @@ The `introspect` command belongs to the Metalama command line tool. To install t
 
 ## Writing the introspection file
 
-The build writes the introspection file only when the `MetalamaWriteIntrospectionFile` MSBuild property is `True`. The property is `False` by default, because the file costs time at every build.
+The build writes the introspection file only when the `MetalamaWriteIntrospectionFile` MSBuild property is `True`. The property is `False` by default. Writing the file costs time at every build, so do not set the property in a project file or in `Directory.Build.props`. Set it for the current session only, with an environment variable. MSBuild reads environment variables as properties.
 
-To write the file for one build, pass the property on the command line:
+To write the file and query it, follow these steps:
 
-```powershell
-dotnet build -p:MetalamaWriteIntrospectionFile=True
-```
+1. Set the environment variable in the current session.
 
-To write it at every build, set the property in the project file or in `Directory.Build.props`:
+   In PowerShell:
 
-```xml
-<PropertyGroup>
-    <MetalamaWriteIntrospectionFile>True</MetalamaWriteIntrospectionFile>
-</PropertyGroup>
-```
+   ```powershell
+   $env:MetalamaWriteIntrospectionFile = "True"
+   ```
+
+   In Bash:
+
+   ```bash
+   export MetalamaWriteIntrospectionFile=True
+   ```
+
+2. Build the project. A rebuild is not necessary: the property is an input of the compiler, so a normal build compiles the project again when the property changes, even when the project is already built.
+
+   ```powershell
+   dotnet build
+   ```
+
+3. Run the `metalama introspect` command, as described below.
+
+Keep the variable set while you work. A build without the property compiles the project again and deletes the file.
 
 The file is named after the assembly, with the `.mlsym` extension, and is written next to the assembly, for instance `bin/Debug/net10.0/MyProject.mlsym`. The `MetalamaIntrospectionFile` property changes its path. A build of each target framework writes its own file. `dotnet clean` deletes the file.
 
@@ -82,19 +94,61 @@ metalama introspect schema aspect-instances
 The `show` command shows one object with what relates to it. The most useful form takes a position in a source file and shows the declaration at this position, with its aspects and their transformations in order:
 
 ```powershell
-metalama introspect show declaration src/MyProject/Services/OrderService.cs:42 --format text
+metalama introspect show declaration Code.cs:40
 ```
 
-The output looks like the following:
+The output is JSON. In the following example, a `[Log]` attribute applies an aspect that overrides the method and reports a warning. The output is abridged: the fields that repeat the project and the target frameworks, and the lists that are empty, are removed.
 
-```text
-Method App.OrderService.PlaceOrder(App.Order) at src/MyProject/Services/OrderService.cs:40:17 (MyProject).
-
-Aspect Log [86e0a5bdd9b3] on method App.OrderService.PlaceOrder(App.Order).
-  Created by the attribute [54951598a8e4] on App.OrderService.PlaceOrder(App.Order) at src/MyProject/Services/OrderService.cs:39:6.
-  Transformations, in order:
-    0. App.OrderService.PlaceOrder(App.Order) (OverrideMember): Override the method 'OrderService.PlaceOrder(Order)'
+```json
+{
+  "declaration": {
+    "id": "M:App.C.Add(System.Int32,System.Int32)~System.Int32",
+    "kind": "Method",
+    "name": "Add",
+    "location": "Code.cs:40:16",
+    "declaringType": { "id": "T:App.C", "kind": "Type" }
+  },
+  "aspectInstances": {
+    "count": 1,
+    "truncated": false,
+    "items": [
+      {
+        "id": "86e0a5bdd9b3",
+        "aspectClass": { "name": "App.LogAttribute", "shortName": "Log" },
+        "predecessors": {
+          "count": 1,
+          "truncated": false,
+          "items": [
+            { "id": "54951598a8e4", "kind": "Attribute", "location": "Code.cs:39:6" }
+          ]
+        },
+        "transformations": {
+          "count": 1,
+          "truncated": false,
+          "items": [
+            {
+              "kind": "OverrideMember",
+              "adviceKind": "OverrideMethod",
+              "description": "Override the method 'C.Add(int, int)'",
+              "order": 0
+            }
+          ]
+        },
+        "diagnostics": {
+          "count": 1,
+          "truncated": false,
+          "items": [
+            { "id": "APP001", "severity": "Warning", "message": "The method 'C.Add(int, int)' is logged.", "location": "Code.cs:40:16" }
+          ]
+        },
+        "isSkipped": false
+      }
+    ]
+  }
+}
 ```
+
+The `--format text` option writes the same information as text, for a person.
 
 A position selects the innermost declaration that contains it and to which an aspect applies. A line in a method without aspects therefore selects the type of the method when an aspect applies to the type.
 
@@ -124,6 +178,7 @@ The command returns the exit code 0 on success, 1 on an error, 2 when no introsp
 ## See also
 
 > [!div class="see-also"]
+> <xref:ai-agents>
 > <xref:previewing-transformed-code>
 > <xref:dotnet-tool>
 > <xref:msbuild-properties>

@@ -86,13 +86,29 @@ For details, see <xref:previewing-transformed-code>.
 
 ## Letting the agent query the aspects
 
-When an agent reads code to which aspects apply, the source code does not show what the aspects do. An agent cannot use the Aspect Explorer of Visual Studio either. The `metalama introspect` command answers these questions from the command line: which aspects apply to a declaration, what created them, which transformations they make and in which order, and which diagnostics they reported. For instance, an agent can check the aspects of a method before it changes the method:
+When an agent reads code to which aspects apply, the source code does not show what the aspects do. An agent cannot use the Aspect Explorer of Visual Studio either. The `metalama introspect` command answers these questions from the command line: which aspects apply to a declaration, what created them, which transformations they make and in which order, and which diagnostics they reported.
 
-```powershell
-metalama introspect show declaration src/MyProject/Services/OrderService.cs:42
-```
+The command reads the introspection file of the last build. The build writes this file only when the `MetalamaWriteIntrospectionFile` MSBuild property is `True`. To query the aspects of a declaration, the agent follows these steps:
 
-The command reads the introspection file of the last build, which the build writes only when the `MetalamaWriteIntrospectionFile` MSBuild property is `True`. Set this property in `Directory.Build.props` so that every build writes the file, and the agent can query it at any time without building. The command belongs to the same command line tool as `metalama preview`.
+1. Set the `MetalamaWriteIntrospectionFile` environment variable to `True` in its session. The variable affects only the builds of this session, so the other builds do not pay for the file.
+
+   ```powershell
+   $env:MetalamaWriteIntrospectionFile = "True"
+   ```
+
+2. Build the project. A normal build is enough: it compiles the project again when the property changes.
+
+   ```powershell
+   dotnet build
+   ```
+
+3. Query the declaration, for instance by its position in the source file:
+
+   ```powershell
+   metalama introspect show declaration src/MyProject/Services/OrderService.cs:42
+   ```
+
+The command belongs to the same command line tool as `metalama preview`.
 
 For details, see <xref:introspecting-from-command-line>.
 
