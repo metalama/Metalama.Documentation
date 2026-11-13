@@ -4,7 +4,7 @@ level: 300
 summary: "This section explains how to query and analyze your source code using Metalama's introspection APIs, including the Workspaces API and LINQPad integration."
 keywords: "introspection, code analysis, Metalama, Workspaces API, LINQPad, code queries, source code analysis"
 created-date: 2025-11-30
-modified-date: 2025-11-30
+modified-date: 2026-11-13
 ---
 
 # Querying and analyzing code
@@ -16,6 +16,8 @@ Metalama provides powerful APIs for querying and analyzing your source code outs
 | <xref:workspaces> | How to use the Workspaces API to query code programmatically from any .NET application. |
 | <xref:linqpad> | How to use the Metalama driver for LINQPad to interactively query and explore your codebase. |
 | <xref:metrics> | How to consume code metrics like statement counts and syntax node counts. |
+
+To query from the command line which aspects apply to the code and what they change, without writing code, see <xref:introspecting-from-command-line>.
 
 ## Benefits
 
@@ -30,5 +32,6 @@ The introspection APIs allow you to:
 ## See also
 
 > [!div class="see-also"]
+> <xref:introspecting-from-command-line>
 > <xref:Metalama.Framework.Workspaces>
 > <xref:Metalama.Framework.Introspection>

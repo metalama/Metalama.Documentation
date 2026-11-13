@@ -4,7 +4,7 @@ level: 100
 summary: "Install the Metalama plugin for AI coding agents such as Claude Code and OpenAI Codex to get AI-assisted aspect development."
 keywords: "Claude Code, OpenAI Codex, Metalama AI, AI coding agent, Claude plugin, Codex plugin, aspect development"
 created-date: 2025-12-11
-modified-date: 2026-10-28
+modified-date: 2026-11-13
 ---
 
 # Configuring AI agents
@@ -84,6 +84,34 @@ dotnet tool install -g metalama.tool
 
 For details, see <xref:previewing-transformed-code>.
 
+## Letting the agent query the aspects
+
+When an agent reads code to which aspects apply, the source code does not show what the aspects do. An agent cannot use the Aspect Explorer of Visual Studio either. The `metalama introspect` command answers these questions from the command line: which aspects apply to a declaration, what created them, which transformations they make and in which order, and which diagnostics they reported.
+
+The command reads the introspection file of the last build. The build writes this file only when the `MetalamaWriteIntrospectionFile` MSBuild property is `True`. To query the aspects of a declaration, the agent follows these steps:
+
+1. Set the `MetalamaWriteIntrospectionFile` environment variable to `True` in its session. The variable affects only the builds of this session, so the other builds do not pay for the file.
+
+   ```powershell
+   $env:MetalamaWriteIntrospectionFile = "True"
+   ```
+
+2. Build the project. A normal build is enough: it compiles the project again when the property changes.
+
+   ```powershell
+   dotnet build
+   ```
+
+3. Query the declaration, for instance by its position in the source file:
+
+   ```powershell
+   metalama introspect show declaration src/MyProject/Services/OrderService.cs:42
+   ```
+
+The command belongs to the same command line tool as `metalama preview`.
+
+For details, see <xref:introspecting-from-command-line>.
+
 ### Example prompts
 
 - "Create a logging aspect that logs method entry and exit"
@@ -94,5 +122,6 @@ For details, see <xref:previewing-transformed-code>.
 > [!div class="see-also"]
 > <xref:ide-configuration>
 > <xref:previewing-transformed-code>
+> <xref:introspecting-from-command-line>
 > [Claude Code documentation](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview)
 > [OpenAI Codex plugin documentation](https://developers.openai.com/codex/plugins/build)
