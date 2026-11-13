@@ -309,6 +309,8 @@ items:
           topicUid: workspaces
         - name: Using LINQPad
           topicUid: linqpad
+        - name: Using the MCP server
+          topicUid: mcp-server
         - name: Consuming code metrics
           topicUid: metrics
 
