@@ -150,7 +150,7 @@ The test framework can't set arbitrary MSBuild properties: `IProject.TryGetPrope
 Options that don't work in this project:
 
 * `@RequireOrderedAspects` reports every unordered pair of aspect classes, including those of the referenced pattern libraries, so it produces dozens of unrelated errors.
-* The default order of aspects, and therefore anything that depends on it (such as LAMA0042), differs from Metalama's own tests, because the referenced libraries contribute aspect classes.
+* The default order of aspects differs from Metalama's own tests, because the referenced libraries contribute aspect classes and `[assembly: AspectOrder]` attributes. To reproduce a diagnostic that depends on the order, such as LAMA0042, specify enough of the order explicitly in the sample (see the LAMA0042 sample).
 
 Because the project uses WPF, `Accessibility.dll` would hide `Metalama.Framework.Code.Accessibility`. The csproj removes that reference, so samples can write `Accessibility.Public` as usual.
 

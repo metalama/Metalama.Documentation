@@ -16,10 +16,6 @@ using System.Threading.Tasks;
     typeof(Doc.LAMA0091.Fixed.InterceptWriteAttribute),
     typeof(Doc.LAMA0091.Fixed.InterceptPrintAttribute) )]
 
-// The weaver of [Audit] must not fall between the layers of the contract aspects of the referenced libraries
-// (LAMA0042), so it is ordered after all of them.
-[assembly: AspectOrder( AspectOrderDirection.RunTime, typeof(Doc.LAMA0091.Fixed.AuditAttribute), typeof(ContractAspect) )]
-
 namespace Doc.LAMA0091.Fixed;
 
 // A low-level aspect, which requires a low-level aspect weaver.
