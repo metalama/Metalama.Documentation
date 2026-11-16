@@ -4,7 +4,7 @@ level: 200
 summary: "Redirect the calls to a method of any assembly to a static method that you write, from an aspect or a fabric, and pass additional values such as the caller's name or the calling object."
 keywords: "interceptors, RedirectToExistingMethod, InterceptMethods, existing method, static interceptor, WithArgs, caller information, ExcludeInterceptors, fabric, test seam, audit"
 created-date: 2026-10-12
-modified-date: 2026-10-12
+modified-date: 2026-11-16
 ---
 
 # Redirecting calls to existing methods
@@ -22,7 +22,7 @@ To intercept the calls made by the members of one type, register the interceptor
 3. In the <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method of the aspect, call the <xref:Metalama.Extensions.Interceptors.InterceptionAdviserExtensions.InterceptMethods*> extension method. Its argument is a delegate that describes the interception:
    * <xref:Metalama.Extensions.Interceptors.IMethodInterceptionBuilder.Type*> selects the type that declares the intercepted methods.
    * <xref:Metalama.Extensions.Interceptors.ITypeFilterSelection.Methods*> selects the methods by name. A name selects every overload of that name, and <xref:Metalama.Extensions.Interceptors.IMethodSelection.Where*> keeps only some of them.
-   * <xref:Metalama.Extensions.Interceptors.IMethodResultFactory.RedirectToExistingMethod*> gives your method.
+   * <xref:Metalama.Extensions.Interceptors.IMethodRegistrationFactory.RedirectToExistingMethod*> gives your method.
 
 The scope of the registration is the target of the aspect: only the calls written in the members of this type are intercepted.
 
@@ -110,7 +110,7 @@ Your method can receive values that the intercepted method does not have.
 
 ### Passing a constant value
 
-<xref:Metalama.Extensions.Interceptors.IExistingMethodInterception.WithArgs*> gives values by name. Pass an anonymous object, another object whose public properties and fields give the values, or an `IReadOnlyDictionary<string, object?>`. A value can be a literal, an enumeration value, a `Type`, which is written as `typeof`, or a <xref:Metalama.Framework.Code.TypedConstant>. See <xref:interceptor-binding-rules>.
+<xref:Metalama.Extensions.Interceptors.IExistingMethodRegistration.WithArgs*> gives values by name. Pass an anonymous object, another object whose public properties and fields give the values, or an `IReadOnlyDictionary<string, object?>`. A value can be a literal, an enumeration value, a `Type`, which is written as `typeof`, or a durable expression, created by <xref:Metalama.Framework.Code.ExpressionExtensions.ToDurable*> from an expression such as a <xref:Metalama.Framework.Code.TypedConstant>. The registration is kept across compilations, so its values must be durable. See <xref:interceptors-selecting-calls#values-kept-by-a-registration> and <xref:interceptor-binding-rules>.
 
 For instance:
 

@@ -97,7 +97,7 @@ When a call site uses a type parameter of the calling type, for instance a call 
 
 When the intercepted method is not generic, but its parameter has a general type such as `object`, make the interceptor generic yourself:
 
-1. In a <xref:Metalama.Extensions.Interceptors.ITemplateInterception.Configure*> delegate, add a type parameter with `AddTypeParameter`.
+1. In a <xref:Metalama.Extensions.Interceptors.ITemplateRegistration.Configure*> delegate, add a type parameter with `AddTypeParameter`.
 2. Use it as the type of the parameter.
 3. Give its type argument for each call site with <xref:Metalama.Extensions.Interceptors.IInterceptorMethodBuilder.SetTypeArgument*>, for instance the type of the argument.
 

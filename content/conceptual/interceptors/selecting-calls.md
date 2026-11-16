@@ -4,7 +4,7 @@ level: 300
 summary: "Choose which calls Metalama intercepts: the intercepted methods, the calling code, the build configurations, and a decision for each call site, including method groups, event handlers and the projects that use your library."
 keywords: "interceptors, scope, fabric, namespace fabric, ProjectFabric, TransitiveProjectFabric, Types, AllMethods, Where, IncludingInterfaceImplementations, ExcludingOverrides, ExcludeInterceptors, ForEachSite, Skip, MethodUseKind, method group, event handler, PreprocessorSymbols"
 created-date: 2026-10-12
-modified-date: 2026-10-12
+modified-date: 2026-11-16
 ---
 
 # Choosing which calls to intercept
@@ -130,6 +130,26 @@ For instance, the following delegate skips the call sites in types that have the
 The following aspect logs the calls to `PaymentGateway`, except the calls from the types that have the `[TestHelper]` attribute.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.Interceptors/SkipTestHelpers.cs name="Skipping calls from test helpers"]
+
+## Values kept by a registration
+
+A result can be created in two places, and the values that it accepts differ:
+
+* A result created on the method selection, for instance `calls.RedirectToSynthesizedMethod( ... )`, is a registration. It implements <xref:Metalama.Extensions.Interceptors.ITemplateRegistration> or <xref:Metalama.Extensions.Interceptors.IExistingMethodRegistration>. The IDE keeps the registration across compilations and evaluates it again when the code changes. Its arguments, its template provider and its `Configure` delegates must therefore be durable: they must not reference a declaration, a type, an expression or a compilation. Metalama reports the warning LAMA0872 otherwise.
+* A result created in the delegate given to `ForEachSite`, for instance `site.RedirectToSynthesizedMethod( ... )`, applies to one call site in one compilation. It implements <xref:Metalama.Extensions.Interceptors.ITemplateInterception> or <xref:Metalama.Extensions.Interceptors.IExistingMethodInterception>. It is not kept, so its values can be any code model object, including the expressions of the call site.
+
+To give a declaration, a type or an expression to a registration, pass a durable form of it:
+
+* For a declaration or a type, call <xref:Metalama.Framework.Code.RefExtensions.ToDurableRef*>, for instance `WithArgs( new { T = type.ToDurableRef() } )`.
+* For an expression, call <xref:Metalama.Framework.Code.ExpressionExtensions.ToDurable*>.
+* For a template invocation, use <xref:Metalama.Framework.Aspects.DurableTemplateInvocation> instead of <xref:Metalama.Framework.Aspects.TemplateInvocation>.
+* For a template provider, call `WithTemplateProvider<T>()` instead of passing a <xref:Metalama.Framework.Aspects.TemplateProvider>.
+
+Metalama resolves the durable references and the durable expressions of the arguments in the compilation of each call site. The template or the existing method then receives the declaration, the type or the expression of that compilation. The tags given by `WithTags` are not resolved. When a durable reference cannot be resolved in the compilation of a call site, Metalama reports a diagnostic at that call site and leaves the call unchanged.
+
+A durable expression is always given as a value. It never binds a parameter to an argument of the call site, because it does not keep the syntax of the call site. To pass an argument of the call site, use `ForEachSite`.
+
+When the warning LAMA0872 reports a value that has a durable form, its message names the method to call, for instance `ToDurableRef()`.
 
 ## Handling calls that cannot be intercepted
 
