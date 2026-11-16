@@ -155,6 +155,7 @@ See <xref:errors>.
 
 ## Tooling
 
+- **`metalama introspect`** answers from the command line which aspects apply to a declaration, what created them, which transformations they make and in which order, and which diagnostics they reported ([#2300](https://github.com/metalama/Metalama/issues/2300)). It reads the introspection file (`.mlsym`) that the build writes when the `MetalamaWriteIntrospectionFile` MSBuild property is `True`, and never builds the project. It is designed for AI coding agents, which cannot use the Aspect Explorer of Visual Studio. See <xref:introspecting-from-command-line>.
 - **`metalama shutdown`** stops the compiler server, the MSBuild nodes, and the background processes of Metalama, so that the files they hold are released, for instance before an upgrade ([#2088](https://github.com/metalama/Metalama/issues/2088)). Running compilations finish first. Use `--force` to cancel them, and `--all` to also end IDE processes. See _Breaking changes_ below for the effect on `metalama kill`.
 - **`MetalamaAssemblyLocatorBinaryLogDirectory`**: when the nested build that resolves the compile-time reference assemblies fails (`LAMA0082`), its binary log is copied to the directory set by this MSBuild property, so it can be collected from a CI agent ([#1920](https://github.com/metalama/Metalama/issues/1920)).
 - **Faster parallel builds.** Usage telemetry now stores one record per project, so parallel builds of large solutions no longer wait on a shared lock ([#2092](https://github.com/metalama/Metalama/issues/2092)).

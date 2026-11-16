@@ -70,6 +70,8 @@ items:
           topicUid: understanding-your-code-with-aspects
         - name: Previewing transformed code from the command line
           topicUid: previewing-transformed-code
+        - name: Querying aspects from the command line
+          topicUid: introspecting-from-command-line
         - name: Debugging aspect oriented code
           topicUid: debugging-aspect-oriented-code
         - name: Applying live templates
