@@ -4,7 +4,7 @@ level: 300
 summary: "This article explains how to let coding agents query your source code with the Metalama MCP server, a local Model Context Protocol server that runs C# queries over the Metalama code model."
 keywords: "MCP, Model Context Protocol, coding agent, AI agent, Claude Code, code queries, introspection, Metalama.Mcp"
 created-date: 2026-11-13
-modified-date: 2026-11-13
+modified-date: 2026-11-16
 ---
 
 # Using the MCP server
@@ -14,7 +14,7 @@ The Metalama MCP server lets coding agents explore your source code the way you 
 The server implements the [Model Context Protocol](https://modelcontextprotocol.io) (MCP), so it works with any agent that supports MCP, such as Claude Code, GitHub Copilot or Cursor.
 
 > [!NOTE]
-> The `Metalama.Mcp` package is [open-source](https://github.com/metalama/Metalama/tree/HEAD/Metalama.LinqPad/src/Metalama.Mcp).
+> The `Metalama.Mcp` package is [open-source](https://github.com/metalama/Metalama/tree/HEAD/Metalama.Introspection/src/Metalama.Mcp).
 
 ## Installing the server
 
