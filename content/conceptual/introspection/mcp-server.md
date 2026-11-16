@@ -38,7 +38,7 @@ The command accepts two options:
 
 | Option | Description |
 |--------|-------------|
-| `--output-dir <directory>` | The directory where HTML results are written. The default is `metalama-mcp` in the temporary directory. |
+| `--output-dir <directory>` | The directory where HTML results are written. The default is `Metalama/Mcp/Results` in the local application data directory of the user, readable by that user only on Unix. |
 | `--timeout <seconds>` | The default soft timeout of a query, 60 seconds by default. See [Timeouts and limits](#timeouts-and-limits). |
 
 > [!WARNING]
@@ -69,12 +69,12 @@ Agents receive the instructions of the server when they connect, so they usually
 The result of `load_workspace` lists the projects of the workspace as _scopes_ of the form `Project@tfm`:
 
 ```text
-workspace: FrogHattery.csproj (loaded in 4.5 s)
+workspace: FrogHattery.csproj (loaded in 4.3 s)
 base: metalama://FrogHattery.csproj/FrogHattery@net10.0/source/
 projects:
   FrogHattery@net10.0    workspace.GetProject("FrogHattery", "net10.0")  Metalama enabled
 load diagnostics: 0 error(s), 0 warning(s)
-fingerprint: 2b7089a175ae
+fingerprint: b3d816ee695f50d6
 ```
 
 ## Writing queries
@@ -107,7 +107,7 @@ IEnumerable<INamedType> — 3 items
 T:FrogHattery.TreeFrog        TreeFrog.cs:6
 T:FrogHattery.PoisonDartFrog  PoisonDartFrog.cs:6
 T:FrogHattery.BullFrog        BullFrog.cs:6
---- 775 ms · fingerprint 2b7089a175ae ---
+--- 687 ms · fingerprint b3d816ee695f50d6 ---
 ```
 
 Each declaration starts with its link and ends with its location, relative to the directory of the project, which the agent can open with its file tools.
@@ -154,7 +154,7 @@ M:FrogHattery.BullFrog.ChallengeFrog(FrogHattery.Frog)  BullFrog.cs:41
 
 Links are relative to the _base_ printed at the top of each result. The absolute form is `metalama://<workspace>/<project>@<tfm>/<source|transformed>/<anchor>/<steps>`.
 
-After the agent edits files and calls `reload_workspace`, links to declarations remain valid as long as the declarations exist. Links that contain an index carry a fingerprint, such as `?v=2b7089a175ae`, and report `stale` after any reload, because the order of some collections of the code model can change between two loads.
+After the agent edits files and calls `reload_workspace`, links to declarations remain valid as long as the declarations exist. Links that contain an index carry a fingerprint, such as `?v=b3d816ee695f50d6`, and report `stale` after any reload, because the order of some collections of the code model can change between two loads.
 
 ## Viewing results in a browser
 
