@@ -175,7 +175,7 @@ The `json` format returns the same tree as JSON, for agents that process results
 ## Timeouts and limits
 
 * A query is canceled through `ct` after its soft timeout, 60 seconds by default. A query that does not observe `ct` is stopped after twice that time: the server restarts its worker process and reloads the workspaces on the next call.
-* A result shows 50 items per collection and one level of properties by default. The agent can change these limits with the `maxItems` and `maxDepth` arguments. The `html` format shows 500 items and three levels by default.
+* A result shows 50 items per collection and one level of properties by default. The agent can change these limits with the `maxItems` and `maxDepth` arguments. The `html` format shows at least 500 items and three levels, so that every declaration in a table can be expanded; the two arguments can only raise these values.
 * A text result is limited to 20,000 characters.
 
 ## See also
