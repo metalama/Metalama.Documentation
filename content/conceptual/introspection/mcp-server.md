@@ -178,7 +178,7 @@ The link works while the agent's session runs. The page loads nothing from the n
 
 If the `html` format reports that the development certificate is missing, run `dotnet dev-certs https --trust`.
 
-Agents that support MCP Apps, such as Claude, show the same view in the conversation. In this view, clicking a link calls the server to open the object.
+Agents that support MCP Apps, such as Claude, show the same view in the conversation. Where the agent lets the view call the server, clicking a link opens the object in place. Otherwise, once the agent has used the `html` format in the session, the view has an **Open in browser** button that shows the same result in your browser, where every value can be expanded.
 
 The `json` format returns the same tree as JSON, for agents that process results further. Its schema is `result.schema.json` in the `Metalama.Mcp` package.
 
