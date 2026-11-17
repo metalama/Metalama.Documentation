@@ -56,7 +56,7 @@ The command accepts these options:
 The server runs arbitrary C# code by design, with the privileges of the user who started it. It is not a sandbox.
 
 * **Only the agent can run code.** The server receives queries only through its standard input and output, so only the agent that started it can run code in it.
-* **The browser view runs no code.** To show results in your browser, the server listens on `localhost` only, on a random port, and only after the agent first asks for the `html` format. This HTTPS server shows results the agent already produced and opens the declarations you click; it never runs a query. Its URLs contain a random secret, so other programs and web pages cannot use it. Use `--no-http` to disable it.
+* **The browser view runs no code.** To show results in your browser, the server listens on `localhost` only, on a random port, and only after the agent first shows a result in your browser. This HTTPS server shows results the agent already produced and opens the declarations you click; it never runs a query. Its URLs contain a random secret, so other programs and web pages cannot use it. Use `--no-http` to disable it.
 * **Loading a project runs its build logic.** Like a build, loading a workspace runs the MSBuild targets of the project and its Metalama aspects and fabrics. Only load code that you trust.
 * **The analyzed code is data.** String literals and comments in the analyzed code can contain text aimed at the agent. This is the same risk as when the agent reads the files with its other tools.
 
@@ -118,24 +118,25 @@ T:FrogHattery.BullFrog        BullFrog.cs:6
 --- 687 ms · fingerprint b3d816ee695f50d6 ---
 ```
 
-Each declaration starts with its link and ends with its location, relative to the directory of the project, which the agent can open with its file tools.
+Each declaration starts with its link and ends with its location, relative to the directory of the loaded project or solution, which the agent can open with its file tools.
 
-A projection to an anonymous type is rendered as a table:
+A projection to an anonymous type is rendered as a table. A column that holds a declaration, rather than its name, keeps its link, so that the agent can open it and you can expand it in the browser:
 
 ```csharp
-workspace.SourceCode.Methods
-    .Where( m => m.Parameters.Count > 1 )
-    .Select( m => new { Type = m.DeclaringType.Name, m.Name, Parameters = m.Parameters.Count } )
+workspace.SourceCode.Types
+    .OrderByDescending( t => t.Methods.Count )
+    .Select( t => new { Type = t, Methods = t.Methods.Count } )
+    .Take( 5 )
 ```
 
 ```text
-IEnumerable<{ Type, Name, Parameters }> — 5 items
-Type                 Name                   Parameters
-FrogPond             CompareFrogs           2
-FrogHatShop          SellHat                2
-FrogHatShop          FindHatsBySize         2
-SeasonalFrogFashion  CalculateFashionScore  2
-SeasonalFrogFashion  RankHatsForFrog        2
+IEnumerable<{ Type, Methods }> — 5 items
+Type                          Methods
+T:FrogHattery.FrogHatShop     15
+T:FrogHattery.FrogPond        13
+T:FrogHattery.PoisonDartFrog  10
+T:FrogHattery.Frog            9
+T:FrogHattery.SeasonHelper    9
 ```
 
 The server shows the same properties as the LINQPad driver: properties marked with <xref:Metalama.Framework.Utilities.HiddenAttribute> or <xref:System.ObsoleteAttribute> are not displayed. A query can still read them.
@@ -166,7 +167,7 @@ After the agent edits files and calls `reload_workspace`, links to declarations 
 
 ## Viewing results in a browser
 
-When you want to look at a result yourself, ask the agent to run the query with the `html` format. The agent receives a link such as `https://localhost:53229/…/r/…` and gives it to you. The page shows the result as LINQPad does:
+When you want to look at a result yourself, ask the agent to show it in your browser, for instance "list the types with the most methods and show them in my browser". The agent runs the query with the `html` format and gives you a link such as `https://localhost:53229/…/r/…`. The page shows the result as LINQPad does:
 
 * Objects are property tables, collapsed to their header until you click them.
 * Collections are grids with one column per property. You can sort them by a column and filter them.
@@ -174,18 +175,22 @@ When you want to look at a result yourself, ask the agent to run the query with 
 * Each declaration has a source icon that opens the file at the line in your editor, and buttons to copy its link or its C# expression.
 * The **Save** button downloads a snapshot of the page, which works without the server but only expands what it holds.
 
-The link works while the agent's session runs. The page loads nothing from the network except the declarations you open.
+The link works while the agent's session runs. The page contacts only the server of that session, on `localhost`, and only to load the values you open.
 
-If the `html` format reports that the development certificate is missing, run `dotnet dev-certs https --trust`.
+If the agent reports that the development certificate is missing, run `dotnet dev-certs https --trust`.
 
-Agents that support MCP Apps, such as Claude, show the same view in the conversation. Where the agent lets the view call the server, clicking a link opens the object in place. Otherwise, once the agent has used the `html` format in the session, the view has an **Open in browser** button that shows the same result in your browser, where every value can be expanded.
+### In the conversation
+
+Agents that support MCP Apps, such as Claude, also show results as a view in the conversation, without being asked. Where the agent lets the view call the server, clicking a value opens it in place. Otherwise, the values of the view cannot be opened, and once a result was shown in your browser in the session, the view has an **Open in browser** button that opens the same result there.
+
+### For other programs
 
 The `json` format returns the same tree as JSON, for agents that process results further. Its schema is `result.schema.json` in the `Metalama.Mcp` package.
 
 ## Timeouts and limits
 
 * A query is canceled through `ct` after its soft timeout, 60 seconds by default. A query that does not observe `ct` is stopped after twice that time: the server restarts its worker process and reloads the workspaces on the next call.
-* A result shows 50 items per collection and one level of properties by default. The agent can change these limits with the `maxItems` and `maxDepth` arguments. The `html` format embeds at least 500 items and three levels in the page and loads the rest on demand; the two arguments can only raise these values.
+* A result for the agent shows 50 items per collection and one level of properties by default. The agent can change these limits with the `maxItems` and `maxDepth` arguments. A page in your browser holds at least 500 items and three levels, and loads the rest when you open it.
 * A text result is limited to 20,000 characters.
 
 ## See also
