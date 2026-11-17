@@ -40,6 +40,7 @@ The command accepts two options:
 |--------|-------------|
 | `--output-dir <directory>` | The directory where HTML results are written. The default is the `McpResults` directory in the temporary directory of Metalama, which belongs to the user. Metalama deletes each page one month after it was written. |
 | `--timeout <seconds>` | The default soft timeout of a query, 60 seconds by default. See [Timeouts and limits](#timeouts-and-limits). |
+| `--editor-link <template>` | The link with which an HTML page opens a source location, shown as an icon next to each declaration. `{path}` is the absolute path in URI form, such as `/C:/src/App.cs`, and `{line}` is the line. The default, `vscode://file{path}:{line}`, opens Visual Studio Code. Use `none` to show locations as text. |
 
 > [!WARNING]
 > The `Metalama.Mcp` version must be **equal to or higher than** the `Metalama.Framework` package version used in your projects.
