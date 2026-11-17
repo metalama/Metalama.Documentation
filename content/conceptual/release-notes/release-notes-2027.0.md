@@ -4,7 +4,7 @@ level: 200
 summary: "Metalama 2027.0 adds C# 15 and .NET 11 support, call-site interceptors, the introduction of structs, records, enums, delegates and unions, type facets in the code model, and analyzers that verify immutable and durable aspect code."
 keywords: "Metalama 2027.0, release notes, C# 15, .NET 11, unions, closed classes, extension indexers, interceptors, type introduction, type facets, immutable aspects"
 created-date: 2026-10-13
-modified-date: 2026-10-13
+modified-date: 2026-11-17
 ---
 
 # Metalama 2027.0
@@ -169,6 +169,7 @@ The 2027.0 preview builds also include many bug fixes, most of them in the repor
 - **Platform baseline**: Visual Studio 2022 is no longer supported, the minimum .NET SDK is 10.0, and the `net8.0` and `net9.0` package assets have been replaced by `net10.0` ([#1876](https://github.com/metalama/Metalama/issues/1876), [#1913](https://github.com/metalama/Metalama/issues/1913), [#1896](https://github.com/metalama/Metalama/issues/1896)). Projects targeting .NET 8 or .NET 9 resolve the `netstandard2.0` assets. `Metalama.Patterns.Wpf` has no `netstandard2.0` asset, so WPF applications that use it must target .NET 10 or later.
 - **xunit.v3 in the testing frameworks** ([#2075](https://github.com/metalama/Metalama/issues/2075)): `Metalama.Testing.UnitTesting` and `Metalama.Testing.AspectTesting` now depend on xunit.v3 instead of xunit 2.x, so your test projects must move to xunit.v3. `TestContext` and `TestContextOptions` are renamed to <xref:Metalama.Testing.UnitTesting.MetalamaTestContext> and <xref:Metalama.Testing.UnitTesting.MetalamaTestContextOptions>, to avoid a conflict with `Xunit.TestContext`. The `ITestOutputHelper` accepted by the constructor of `UnitTestClass` is now `Xunit.ITestOutputHelper`. See <xref:aspect-testing>.
 - **`metalama kill`** is now another name for `metalama shutdown` ([#2088](https://github.com/metalama/Metalama/issues/2088)). It asks the processes to exit instead of ending them immediately, and returns exit code 1 when a process is still running after the timeout. Use `metalama kill --force` to get the previous behavior.
+- **Redis caching: `ReadCommandFlags` is nullable** ([#2070](https://github.com/metalama/Metalama/issues/2070)): the type of the <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.ReadCommandFlags> property is now `CommandFlags?`. Its default value is `null`, which means `PreferMaster` when an in-memory L1 cache is added in front of Redis, and `PreferReplica` otherwise. In earlier versions, the default value was `PreferReplica` in both cases, and an L1 cache could keep an item that a replica returned just after its removal. Set the property to `PreferReplica` to restore the earlier behavior. See <xref:caching-redis#reading-from-redis-replicas>.
 
 > [!div class="see-also"]
 > <xref:release-notes>
