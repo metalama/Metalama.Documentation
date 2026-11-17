@@ -66,7 +66,7 @@ The server exposes five tools to the agent.
 
 | Tool | Description |
 |------|-------------|
-| `load_workspace` | Loads one or more projects or solutions (`.csproj`, `.sln`, `.slnx`) and keeps them loaded for the session. Returns the projects, their target frameworks, and the load diagnostics. |
+| `load_workspace` | Loads one or more projects, solutions or solution filters (`.csproj`, `.sln`, `.slnf`) and keeps them loaded for the session. Returns the projects, their target frameworks, and the load diagnostics. |
 | `reload_workspace` | Reloads a workspace from disk after its files were edited. |
 | `unload_workspace` | Frees the memory used by a workspace. |
 | `query` | Runs a C# query and renders its result. |
