@@ -4,7 +4,7 @@ level: 200
 summary: "Metalama 2026.1 completes C# 14 support, extends initialization advice, brings major Redis caching improvements, reduces third-party dependencies, and closes most of the bug backlog."
 keywords: "Metalama 2026.1, release notes, C# 14, extension blocks, operator introduction, initialization, dependency injection, Redis caching, System.Text.Json"
 created-date: 2026-04-13
-modified-date: 2026-06-03
+modified-date: 2026-11-17
 ---
 
 # Metalama 2026.1
@@ -104,7 +104,7 @@ A cache purge (`FLUSHDB`) is required after upgrading. See _Breaking changes_ be
 
 ### Cluster and multi-node support
 
-The backend now supports sharded Redis clusters through hash tags on cache keys, ensuring that related keys map to the same hash slot. <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.ReadCommandFlags> (default: `PreferReplica`) and <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.WriteCommandFlags> (default: `PreferMaster`) let you steer reads and writes between primary and replica nodes.
+The backend now supports sharded Redis clusters through hash tags on cache keys, ensuring that related keys map to the same hash slot. <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.ReadCommandFlags> (default: `PreferReplica`, or `PreferMaster` when an in-memory L1 cache is added in front of Redis) and <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.WriteCommandFlags> (default: `PreferMaster`) let you steer reads and writes between primary and replica nodes. See <xref:caching-redis#reading-from-redis-replicas> for details.
 
 ### Retry and exception-handling policies
 
@@ -207,6 +207,7 @@ For the full, per-build list of fixes, see the [2026.1 releases on GitHub](https
 
 - **Data schema redesign**: the Redis data schema has been redesigned. A cache purge (`FLUSHDB`) is required after upgrading to 2026.1.
 - **Removed `ExceptionHandlingCachingBackendEnhancer`**: use the <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.ExceptionHandlingPolicy> property instead.
+- **`ReadCommandFlags` is nullable**: the type of the <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.ReadCommandFlags> property is now `CommandFlags?`. Its default value is `null`, which means `PreferMaster` when an in-memory L1 cache is added in front of Redis, and `PreferReplica` otherwise. In earlier versions, the default value was `PreferReplica` in both cases, and an L1 cache could keep an item that a replica returned just after its removal. Set the property to `PreferReplica` to restore the earlier behavior.
 - **`TransactionMaxRetries` is obsolete**: use <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.TransactionRetryPolicy> instead.
 - **`CacheCleanupOptions.Sequential` is obsolete**: use <xref:Metalama.Patterns.Caching.Implementation.CacheCleanupOptions.MaxConcurrency> instead.
 - **`CacheItem.Dependencies`**: now exposes direct dependencies only. Transitive dependencies are resolved at invalidation time rather than flattened into the item.

@@ -3,7 +3,7 @@ uid: caching-redis
 summary: "The document provides a guide on how to use Redis as a distributed server for caching in a Metalama application, including configuration, resilience policies, key compression, and handling dependencies."
 keywords: "Redis caching, distributed caching, in-memory L1 cache, Metalama, StackExchange.Redis, Azure Redis Cache, Redis Pub/Sub, caching backend configuration, retry policy, exception handling, key hashing, resilience"
 created-date: 2024-04-25
-modified-date: 2026-04-13
+modified-date: 2026-11-17
 ---
 
 # Using Redis as a distributed cache
@@ -177,6 +177,29 @@ When you run several nodes of your applications with the same Redis server and t
 
 > [!WARNING]
 > Due to the asynchronous nature of notification-based invalidation, there may be a few milliseconds during which different application nodes may see different values of cache items. However, the application instance initiating the change will have a consistent view of the cache. Short lapses of inconsistencies are generally harmless if the application clients are affinitized to one application node because each application instance has a consistent view. However, if application clients are not affinitized, they may experience cache consistency issues, and the developers who maintain it may lose a few hairs in the troubleshooting process.
+
+## Reading from Redis replicas
+
+In a [master-replica](https://redis.io/docs/latest/operate/oss_and_stack/management/replication/) deployment, two properties of the <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration> class determine which node receives the operations of the caching backend. Both properties accept the `CommandFlags` enumeration of StackExchange.Redis.
+
+| Property | Default value | Description |
+|----------|---------------|-------------|
+| <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.ReadCommandFlags> | `PreferReplica` without an L1 cache, `PreferMaster` with an L1 cache | Flags of the read-only operations. |
+| <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.WriteCommandFlags> | `PreferMaster` | Flags of the write operations. |
+
+When the deployment has no replica, both `PreferReplica` and `PreferMaster` send the operations to the master.
+
+A replica receives the write operations of the master asynchronously. For a short time after an item has been removed or invalidated, a replica can therefore still return this item. The consequence depends on the presence of an L1 cache:
+
+* Without an L1 cache, the inconsistency ends when the replica has received the operation. Read operations are therefore sent to a replica by default.
+* With an L1 cache, an item that is read from Redis is copied into the in-memory cache of the application instance. An item that is read from a replica just after its removal would stay in the in-memory cache until it expires there, or until it is removed or invalidated again. Read operations are therefore sent to the master by default when you call the <xref:Metalama.Patterns.Caching.Building.CachingBackendFactory.WithL1*> method.
+
+The default value applies only when you do not set the <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.ReadCommandFlags> property. A value that you set is always used, with or without an L1 cache.
+
+> [!WARNING]
+> If you set the <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.ReadCommandFlags> property to `PreferReplica` and use an L1 cache, an application instance can return a removed or invalidated item for as long as this item stays in its in-memory cache. Use this combination only if your application tolerates it.
+
+The dependency GC process has no L1 cache, so it reads from a replica unless you set the <xref:Metalama.Patterns.Caching.Backends.Redis.RedisCachingBackendConfiguration.ReadCommandFlags> property in its configuration.
 
 ## Using dependencies with the Redis caching backend
 
