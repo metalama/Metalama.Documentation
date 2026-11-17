@@ -4,7 +4,7 @@ level: 300
 summary: "Choose which calls Metalama intercepts: the intercepted methods, the calling code, the build configurations, and a decision for each call site, including method groups, event handlers and the projects that use your library."
 keywords: "interceptors, scope, fabric, namespace fabric, ProjectFabric, TransitiveProjectFabric, Types, AllMethods, Where, IncludingInterfaceImplementations, ExcludingOverrides, ExcludeInterceptors, ForEachSite, Skip, MethodUseKind, method group, event handler, PreprocessorSymbols"
 created-date: 2026-10-12
-modified-date: 2026-11-16
+modified-date: 2026-11-17
 ---
 
 # Choosing which calls to intercept
@@ -133,9 +133,11 @@ The following aspect logs the calls to `PaymentGateway`, except the calls from t
 
 ## Values kept by a registration
 
+A value is _durable_ when it does not reference a compilation, either directly or through a declaration, a type or an expression of the code model. The IDE creates a new compilation every time the code changes. An object that is kept across compilations must therefore hold only durable values, otherwise it keeps every previous compilation in memory. For details, see <xref:diagnosing-memory-leaks#durable-and-non-durable-references>.
+
 A result can be created in two places, and the values that it accepts differ:
 
-* A result created on the method selection, for instance `calls.RedirectToSynthesizedMethod( ... )`, is a registration. It implements <xref:Metalama.Extensions.Interceptors.ITemplateRegistration> or <xref:Metalama.Extensions.Interceptors.IExistingMethodRegistration>. The IDE keeps the registration across compilations and evaluates it again when the code changes. Its arguments, its template provider and its `Configure` delegates must therefore be durable: they must not reference a declaration, a type, an expression or a compilation. Metalama reports the warning LAMA0872 otherwise.
+* A result created on the method selection, for instance `calls.RedirectToSynthesizedMethod( ... )`, is a registration. It implements <xref:Metalama.Extensions.Interceptors.ITemplateRegistration> or <xref:Metalama.Extensions.Interceptors.IExistingMethodRegistration>. The IDE keeps the registration across compilations and evaluates it again when the code changes. Its arguments, its template provider and its `Configure` delegates must therefore be durable. Metalama reports the warning LAMA0872 otherwise.
 * A result created in the delegate given to `ForEachSite`, for instance `site.RedirectToSynthesizedMethod( ... )`, applies to one call site in one compilation. It implements <xref:Metalama.Extensions.Interceptors.ITemplateInterception> or <xref:Metalama.Extensions.Interceptors.IExistingMethodInterception>. It is not kept, so its values can be any code model object, including the expressions of the call site.
 
 To give a declaration, a type or an expression to a registration, pass a durable form of it:
