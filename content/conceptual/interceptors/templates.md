@@ -19,7 +19,7 @@ To generate interceptors from a template:
 
 1. Write a method with the `[Template]` attribute. Its return type is `dynamic?`, so that the template can implement methods of any return type.
 2. In the template, call `meta.Proceed()` to call the intercepted method with the arguments of the call site.
-3. In the description of the interception, call <xref:Metalama.Extensions.Interceptors.IMethodResultFactory.RedirectToSynthesizedMethod*> with the name of the template.
+3. In the description of the interception, call <xref:Metalama.Extensions.Interceptors.IMethodRegistrationFactory.RedirectToSynthesizedMethod*> with the name of the template.
 
 Interceptor templates look like the templates of override aspects, with two differences:
 
@@ -30,7 +30,7 @@ For instance, the following template measures the duration of the intercepted ca
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/TimeSdkCalls.Fabric.cs marker="Template"]
 
-By default, the template is a member of the aspect or of the fabric that registers the interception. To declare the templates in another class, implement <xref:Metalama.Framework.Aspects.ITemplateProvider> in this class, and give an instance of it with <xref:Metalama.Extensions.Interceptors.ITemplateInterception.WithTemplateProvider*>.
+By default, the template is a member of the aspect or of the fabric that registers the interception. To declare the templates in another class, implement <xref:Metalama.Framework.Aspects.ITemplateProvider> in this class, and give an instance of it with <xref:Metalama.Extensions.Interceptors.ITemplateRegistration.WithTemplateProvider*>.
 
 For instance, the following fabric registers the interception. Its `Trace` method is the template:
 
@@ -53,7 +53,7 @@ For instance, the following template code lists the names and values of the argu
 
 ### Reading the calling code
 
-By default, a generated interceptor is shared by all the call sites that need the same code, even when they are in different types. The template therefore cannot read information about one call site, such as the calling member. To read it, declare which information the template depends on with <xref:Metalama.Extensions.Interceptors.ITemplateInterception.WithGranularity*>:
+By default, a generated interceptor is shared by all the call sites that need the same code, even when they are in different types. The template therefore cannot read information about one call site, such as the calling member. To read it, declare which information the template depends on with <xref:Metalama.Extensions.Interceptors.ITemplateRegistration.WithGranularity*>:
 
 * With `InterceptorGranularity.Type`, the template can read `meta.Interception.CallingType`.
 * With `InterceptorGranularity.Member`, it can also read `meta.Interception.CallingMember`.
@@ -105,7 +105,7 @@ To give different templates for async or iterator methods, use a <xref:Metalama.
 
 ### Passing arguments to the template
 
-<xref:Metalama.Extensions.Interceptors.ITemplateInterception.WithArgs*> gives the arguments of the template, as the properties of an anonymous object:
+<xref:Metalama.Extensions.Interceptors.ITemplateRegistration.WithArgs*> gives the arguments of the template, as the properties of an anonymous object:
 
 * A property whose name is a compile-time parameter of the template gives its value. The value is known when the template is expanded.
 * A property whose name is a run-time parameter of the template adds a parameter of that name to the generated method. Each call site passes the value.
@@ -118,7 +118,7 @@ In the following template, `category` and `caller` are run-time parameters, so t
 
 [!metalama-file ~/code/Metalama.Documentation.SampleCode.Interceptors/TemplateAddedParameter.Aspect.cs marker="Signature"]
 
-<xref:Metalama.Extensions.Interceptors.ITemplateInterception.WithTags*> gives an object that the template reads through `meta.Tags`. For the complete rules, see <xref:interceptor-binding-rules>.
+<xref:Metalama.Extensions.Interceptors.ITemplateRegistration.WithTags*> gives an object that the template reads through `meta.Tags`. For the complete rules, see <xref:interceptor-binding-rules>.
 
 ### Example: Retrying calls to a third-party service
 
@@ -130,9 +130,9 @@ The following fabric retries the calls to a third-party shipping client when the
 
 By default, the interceptors are internal static methods of the class `MetalamaInterceptors` in the global namespace. To choose another location, use one of these methods:
 
-* <xref:Metalama.Extensions.Interceptors.ITemplateInterception.PlaceInStaticClass*> generates the interceptor in a static class of the given full name.
-* <xref:Metalama.Extensions.Interceptors.ITemplateInterception.PlaceInCallingType*> generates the interceptor as a private method of the type that contains the call site. The interceptor can then access the private members of that type. The type does not need to be `partial`.
-* <xref:Metalama.Extensions.Interceptors.ITemplateInterception.PlaceInType*> generates the interceptor in a given type of the current project, for instance a base class of the calling types.
+* <xref:Metalama.Extensions.Interceptors.ITemplateRegistration.PlaceInStaticClass*> generates the interceptor in a static class of the given full name.
+* <xref:Metalama.Extensions.Interceptors.ITemplateRegistration.PlaceInCallingType*> generates the interceptor as a private method of the type that contains the call site. The interceptor can then access the private members of that type. The type does not need to be `partial`.
+* <xref:Metalama.Extensions.Interceptors.ITemplateRegistration.PlaceInType*> generates the interceptor in a given type of the current project, for instance a base class of the calling types.
 
 A call site in top-level statements has no calling type. Use <xref:Metalama.Extensions.Interceptors.IInterceptionContext.CanPlaceInCallingType> in <xref:Metalama.Extensions.Interceptors.IMethodSelection.ForEachSite*> to choose another location for such a call site.
 
@@ -146,7 +146,7 @@ The template can then access the private static members of the caller through `m
 
 ### Shaping the generated method
 
-<xref:Metalama.Extensions.Interceptors.ITemplateInterception.Configure*> gives a delegate that receives an <xref:Metalama.Extensions.Interceptors.IInterceptorMethodBuilder>. The delegate can change the name and the accessibility of the generated method, widen the types of its parameters, and add parameters, whose value it gives with <xref:Metalama.Extensions.Interceptors.IInterceptorMethodBuilder.SetArgument*>. The reference kinds, the positions and the return type cannot change.
+<xref:Metalama.Extensions.Interceptors.ITemplateRegistration.Configure*> gives a delegate that receives an <xref:Metalama.Extensions.Interceptors.IInterceptorMethodBuilder>. The delegate can change the name and the accessibility of the generated method, widen the types of its parameters, and add parameters, whose value it gives with <xref:Metalama.Extensions.Interceptors.IInterceptorMethodBuilder.SetArgument*>. The reference kinds, the positions and the return type cannot change.
 
 Call `Configure` after the other methods of the registration, such as `WithArgs` and the placement methods, because they determine the signature that the delegate receives. After `Configure`, only more calls of `Configure` are possible.
 
@@ -167,7 +167,7 @@ The following aspect generates the interceptor as a private static method of the
 A class that derives from a framework class, such as a Windows Forms or WPF control, often calls the protected methods that it inherits, for instance `this.UpdateStyles()`. Two rules apply:
 
 * The calls are bound to the method of the framework class, so the registration must select the framework class, not the derived class. To limit the interception to the derived classes, use a query that selects them as the scope.
-* A protected method can be called only from the class hierarchy, and only through an instance of the calling class. Metalama therefore generates an instance method: the call site calls it on its receiver, and it calls the intercepted method on `this`. Generate it in the calling type with <xref:Metalama.Extensions.Interceptors.ITemplateInterception.PlaceInCallingType*>, or in a common base class of your project with <xref:Metalama.Extensions.Interceptors.ITemplateInterception.PlaceInType*>, so that all the derived classes share it. With the default `MetalamaInterceptors` class, the call cannot be intercepted, and Metalama reports <xref:lama1012?text=LAMA1012>.
+* A protected method can be called only from the class hierarchy, and only through an instance of the calling class. Metalama therefore generates an instance method: the call site calls it on its receiver, and it calls the intercepted method on `this`. Generate it in the calling type with <xref:Metalama.Extensions.Interceptors.ITemplateRegistration.PlaceInCallingType*>, or in a common base class of your project with <xref:Metalama.Extensions.Interceptors.ITemplateRegistration.PlaceInType*>, so that all the derived classes share it. With the default `MetalamaInterceptors` class, the call cannot be intercepted, and Metalama reports <xref:lama1012?text=LAMA1012>.
 
 For instance:
 

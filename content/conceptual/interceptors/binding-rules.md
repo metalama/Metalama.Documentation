@@ -24,7 +24,7 @@ Each parameter of the interceptor receives the first of these values that exists
 
 | Order | Value |
 |---|---|
-| 1 | The property of the same name of the object given to <xref:Metalama.Extensions.Interceptors.IExistingMethodInterception.WithArgs*>. |
+| 1 | The property of the same name of the object given to <xref:Metalama.Extensions.Interceptors.IExistingMethodRegistration.WithArgs*>. |
 | 2 | The receiver of the call, for the first parameter, when the call has a receiver. |
 | 3 | The argument of the call whose parameter in the intercepted method has the same name. |
 | 4 | The caller information that a `[CallerMemberName]`, `[CallerFilePath]` or `[CallerLineNumber]` attribute requests, for the intercepted call site. |
@@ -185,11 +185,11 @@ A method generated from a template has this signature, in this order:
 
 The run-time parameters of the template bind to the parameters of the generated method by name, or else by position after the receiver parameter. A run-time parameter that binds to no parameter receives its default value. Without a default value, it is an error.
 
-<xref:Metalama.Extensions.Interceptors.ITemplateInterception.WithArgs*> gives:
+<xref:Metalama.Extensions.Interceptors.ITemplateRegistration.WithArgs*> gives:
 
 * the values of the compile-time parameters and type parameters of the template;
 * for a run-time parameter of the template that has no match, a new added parameter, with its value at each call site;
-* the values of the parameters that a <xref:Metalama.Extensions.Interceptors.ITemplateInterception.Configure*> delegate adds.
+* the values of the parameters that a <xref:Metalama.Extensions.Interceptors.ITemplateRegistration.Configure*> delegate adds.
 
 A `Configure` delegate can also add a parameter and give its value at each call site with <xref:Metalama.Extensions.Interceptors.IInterceptorMethodBuilder.SetArgument*>, which can depend on the call site. A parameter cannot receive a value from both `WithArgs` and `SetArgument`.
 
