@@ -38,7 +38,7 @@ The command accepts two options:
 
 | Option | Description |
 |--------|-------------|
-| `--output-dir <directory>` | The directory where HTML results are written. The default is `Metalama/Mcp/Results` in the local application data directory of the user, readable by that user only on Unix. |
+| `--output-dir <directory>` | The directory where HTML results are written. The default is the `McpResults` directory in the temporary directory of Metalama, which belongs to the user. Metalama deletes each page one month after it was written. |
 | `--timeout <seconds>` | The default soft timeout of a query, 60 seconds by default. See [Timeouts and limits](#timeouts-and-limits). |
 
 > [!WARNING]
