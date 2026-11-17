@@ -4,7 +4,7 @@ level: 300
 summary: "This article explains how to let coding agents query your source code with the Metalama MCP server, a local Model Context Protocol server that runs C# queries over the Metalama code model."
 keywords: "MCP, Model Context Protocol, coding agent, AI agent, Claude Code, code queries, introspection, Metalama.Mcp"
 created-date: 2026-11-13
-modified-date: 2026-11-16
+modified-date: 2026-11-17
 ---
 
 # Using the MCP server
@@ -34,11 +34,17 @@ The server is the `metalama-mcp` .NET tool from the `Metalama.Mcp` package. It r
 
     Other agents take the same command in their MCP configuration file. Start the agent from the directory of your repository, because the server resolves relative paths against its working directory.
 
-The command accepts two options:
+3. To view results in your browser, trust the ASP.NET Core development certificate once, if you have not done it already for ASP.NET Core development:
+
+    ```powershell
+    dotnet dev-certs https --trust
+    ```
+
+The command accepts these options:
 
 | Option | Description |
 |--------|-------------|
-| `--output-dir <directory>` | The directory where HTML results are written. The default is the `McpResults` directory in the temporary directory of Metalama, which belongs to the user. Metalama deletes each page one month after it was written. |
+| `--no-http` | Never start the HTTPS server that shows results in your browser. The server then opens no port at all. See [Viewing results in a browser](#viewing-results-in-a-browser). |
 | `--timeout <seconds>` | The default soft timeout of a query, 60 seconds by default. See [Timeouts and limits](#timeouts-and-limits). |
 | `--editor-link <template>` | The link with which an HTML page opens a source location, shown as an icon next to each declaration. `{path}` is the absolute path in URI form, such as `/C:/src/App.cs`, and `{line}` is the line. The default, `vscode://file{path}:{line}`, opens Visual Studio Code. Use `none` to show locations as text. |
 
@@ -49,7 +55,8 @@ The command accepts two options:
 
 The server runs arbitrary C# code by design, with the privileges of the user who started it. It is not a sandbox.
 
-* **The server is local.** It communicates only through its standard input and output, so only the agent that started it can use it. It never opens a network port and has no option to do so.
+* **Only the agent can run code.** The server receives queries only through its standard input and output, so only the agent that started it can run code in it.
+* **The browser view runs no code.** To show results in your browser, the server listens on `localhost` only, on a random port, and only after the agent first asks for the `html` format. This HTTPS server shows results the agent already produced and opens the declarations you click; it never runs a query. Its URLs contain a random secret, so other programs and web pages cannot use it. Use `--no-http` to disable it.
 * **Loading a project runs its build logic.** Like a build, loading a workspace runs the MSBuild targets of the project and its Metalama aspects and fabrics. Only load code that you trust.
 * **The analyzed code is data.** String literals and comments in the analyzed code can contain text aimed at the agent. This is the same risk as when the agent reads the files with its other tools.
 
@@ -159,14 +166,17 @@ After the agent edits files and calls `reload_workspace`, links to declarations 
 
 ## Viewing results in a browser
 
-When you want to look at a result yourself, ask the agent to run the query with the `html` format. The server writes a self-contained HTML file and returns its path. The page shows the result as LINQPad does:
+When you want to look at a result yourself, ask the agent to run the query with the `html` format. The agent receives a link such as `https://localhost:53229/…/r/…` and gives it to you. The page shows the result as LINQPad does:
 
 * Objects are property tables, collapsed to their header until you click them.
 * Collections are grids with one column per property. You can sort them by a column and filter them.
-* Values nested in a table are collapsed and expand in place.
-* Each linked row has buttons to copy its link or its C# expression.
+* Values nested in a table expand in place. Values that the page does not hold yet, such as the properties of a declaration several levels down, are loaded from the server when you click them, so you can browse as deep as you want.
+* Each declaration has a source icon that opens the file at the line in your editor, and buttons to copy its link or its C# expression.
+* The **Save** button downloads a snapshot of the page, which works without the server but only expands what it holds.
 
-The page loads nothing from the network and runs no code from the result.
+The link works while the agent's session runs. The page loads nothing from the network except the declarations you open.
+
+If the `html` format reports that the development certificate is missing, run `dotnet dev-certs https --trust`.
 
 Agents that support MCP Apps, such as Claude, show the same view in the conversation. In this view, clicking a link calls the server to open the object.
 
@@ -175,7 +185,7 @@ The `json` format returns the same tree as JSON, for agents that process results
 ## Timeouts and limits
 
 * A query is canceled through `ct` after its soft timeout, 60 seconds by default. A query that does not observe `ct` is stopped after twice that time: the server restarts its worker process and reloads the workspaces on the next call.
-* A result shows 50 items per collection and one level of properties by default. The agent can change these limits with the `maxItems` and `maxDepth` arguments. The `html` format shows at least 500 items and three levels, so that every declaration in a table can be expanded; the two arguments can only raise these values.
+* A result shows 50 items per collection and one level of properties by default. The agent can change these limits with the `maxItems` and `maxDepth` arguments. The `html` format embeds at least 500 items and three levels in the page and loads the rest on demand; the two arguments can only raise these values.
 * A text result is limited to 20,000 characters.
 
 ## See also
