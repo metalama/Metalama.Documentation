@@ -181,7 +181,7 @@ If the agent reports that the development certificate is missing, run `dotnet de
 
 ### In the conversation
 
-Agents that support MCP Apps, such as Claude, also show results as a view in the conversation, without being asked. Where the agent lets the view call the server, clicking a value opens it in place. Otherwise, the values of the view cannot be opened, and once a result was shown in your browser in the session, the view has an **Open in browser** button that opens the same result there.
+Agents that support MCP Apps, such as Claude, also show results as a view in the conversation, without being asked. Clicking a value in the view opens it in place, loaded from the same local server as the browser page, and the **Open in browser** button opens the same result in your browser. Without a trusted development certificate, or with `--no-http`, the values of the view can be opened only where the agent lets the view call the server.
 
 ### For other programs
 
