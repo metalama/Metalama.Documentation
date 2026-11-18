@@ -173,7 +173,7 @@ When you want to look at a result yourself, ask the agent to show it in your bro
 * Collections are grids with one column per property. You can sort them by a column and filter them.
 * Values nested in a table expand in place. Values that the page does not hold yet, such as the properties of a declaration several levels down, are loaded from the server when you click them, so you can browse as deep as you want.
 * Each declaration has a source icon that opens the file at the line in your editor, and buttons to copy its link or its C# expression.
-* The query is shown in an editable box at the top. Edit it and click **Run**, or press Ctrl+Enter, to see the new result on its own page. Use the browser's Back button to return to the previous result. Errors, such as a compile error, appear under the box.
+* The query is shown in an editor at the top, with completion, tooltips, parameter hints and errors underlined as you type, as in Visual Studio Code. Edit it and click **Run**, or press Ctrl+Enter, to see the new result on its own page. Use the browser's Back button to return to the previous result. Errors that prevent the query from running appear under the editor.
 * The **Save** button downloads a snapshot of the page, which works without the server but only expands what it holds.
 
 The link works while the agent's session runs. The page contacts only the server of that session, on `localhost`, to load the values you open and to run the queries you edit. The agent does not see the queries you run in the page.
