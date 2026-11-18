@@ -58,7 +58,7 @@ The command accepts these options:
 The server runs arbitrary C# code by design, with the privileges of the user who started it. It is not a sandbox.
 
 * **Only the agent and you can run code.** The agent sends queries through the standard input and output of the server. You can edit and run a query in a result page in your browser.
-* **The browser view is private to the session.** To show results in your browser, the server listens on `localhost` only, on a random port, and only after the agent first shows a result in your browser. Its URLs contain a random secret, and it runs a query only when the request comes from one of its own pages, so other programs and web pages cannot use it. Use `--no-http` to disable it.
+* **The browser view is private to the session.** To show results in your browser, the server listens on `localhost` only, on a random port, and only after the agent first shows a result in your browser. Its URLs contain a random secret: treat a link as a password, because any program that has it can run code in the session. Without the secret, other programs get nothing. The server also accepts a query only from its own pages, so a web page in your browser cannot run one, even if it learns a link. Use `--no-http` to disable it.
 * **Loading a project runs its build logic.** Like a build, loading a workspace runs the MSBuild targets of the project and its Metalama aspects and fabrics. Only load code that you trust.
 * **The analyzed code is data.** String literals and comments in the analyzed code can contain text aimed at the agent. This is the same risk as when the agent reads the files with its other tools.
 
@@ -147,7 +147,7 @@ When a query writes to the console, its output is returned in a `--- console ---
 
 ## Links
 
-Every rendered object starts with a _link_: a stable identifier that the agent passes to the `open` tool, or to `Open(…)` or `D<T>(…)` in a query, to continue from that object. The server keeps no table of links: it resolves each link again from its text.
+Every rendered object starts with a _link_: a stable identifier that the agent passes to the `open` tool, or to `Open(…)` or `Open<T>(…)` in a query, to continue from that object. A link that is a declaration identifier, such as `T:MyApp.Customer`, can also be passed to `D(…)` or `D<T>(…)`; other links, such as `T:MyApp.Customer/Methods` or an absolute `metalama://` link, need `Open(…)`. The server keeps no table of links: it resolves each link again from its text.
 
 A link consists of an _anchor_ followed by _steps_:
 
