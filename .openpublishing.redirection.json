@@ -177,6 +177,11 @@
             "redirect_document_id": false
         },
         {
+            "source_path": "content/conceptual/using/introspecting-from-command-line.md",
+            "redirect_url": "/conceptual/introspection/introspecting-from-command-line",
+            "redirect_document_id": false
+        },
+        {
             "source_path": "content/conceptual/aspects/ordering.md",
             "redirect_url": "/conceptual/aspects/multiple-instances/ordering",
             "redirect_document_id": false

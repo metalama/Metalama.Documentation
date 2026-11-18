@@ -70,8 +70,6 @@ items:
           topicUid: understanding-your-code-with-aspects
         - name: Previewing transformed code from the command line
           topicUid: previewing-transformed-code
-        - name: Querying aspects from the command line
-          topicUid: introspecting-from-command-line
         - name: Debugging aspect oriented code
           topicUid: debugging-aspect-oriented-code
         - name: Applying live templates
@@ -307,12 +305,14 @@ items:
     - name: Querying and analyzing code
       topicUid: introspection
       items:
-        - name: Using the Workspaces API
-          topicUid: workspaces
-        - name: Using LINQPad
-          topicUid: linqpad
+        - name: Querying aspects from the command line
+          topicUid: introspecting-from-command-line
         - name: Using the MCP server
           topicUid: mcp-server
+        - name: Using LINQPad
+          topicUid: linqpad
+        - name: Using the Workspaces API
+          topicUid: workspaces
         - name: Consuming code metrics
           topicUid: metrics
 
