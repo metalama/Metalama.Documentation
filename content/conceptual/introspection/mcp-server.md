@@ -169,14 +169,64 @@ After the agent edits files and calls `reload_workspace`, links to declarations 
 
 ## Viewing results in a browser
 
-When you want to look at a result yourself, ask the agent to show it in your browser, for instance "list the types with the most methods and show them in my browser". The agent runs the query with the `html` format and gives you a link such as `https://localhost:53229/…/r/…`. The page shows the result as LINQPad does:
+When you want to look at a result yourself, ask the agent to show it in your browser. The agent runs the query with the `html` format and gives you a link such as `https://localhost:53229/…/r/…`, which you open in your browser.
 
-* Objects are property tables, collapsed to their header until you click them.
-* Collections are grids with one column per property. You can sort them by a column and filter them.
-* Values nested in a table expand in place. Values that the page does not hold yet, such as the properties of a declaration several levels down, are loaded from the server when you click them, so you can browse as deep as you want.
-* Each declaration has a source icon that opens the file at the line in your editor, and buttons to copy its link or its C# expression.
-* The query is shown in an editor at the top, with completion, tooltips, parameter hints and errors underlined as you type, as in Visual Studio Code. Edit it and click **Run**, or press Ctrl+Enter, to see the new result on its own page. Use the browser's Back button to return to the previous result. Errors that prevent the query from running appear under the editor.
-* The **Save** button downloads a snapshot of the page, which works without the server but only expands what it holds.
+### Example: the types with the most methods
+
+Ask the agent:
+
+> List the eight types with the most methods, with their number of methods and properties, and show them in my browser.
+
+The agent writes a query that selects the types themselves, not their names, so that each row of the result links to its declaration:
+
+```csharp
+workspace.SourceCode.Types
+    .Select( t => new { Type = t, MethodCount = t.Methods.Count, PropertyCount = t.Properties.Count } )
+    .OrderByDescending( x => x.MethodCount )
+    .Take( 8 )
+```
+
+The page shows the query at the top and the result as a grid, as LINQPad does:
+
+![The result of the query as a grid in the browser](mcp-html-grid.png)
+
+* Collections are grids with one column per property. Click a column header to sort the grid, and type in the **Filter** box to keep the rows that contain a text.
+* Each declaration is followed by two icons. The first opens the declaration on a page of its own, in a new browser window. The second opens its source file at the line in your editor.
+
+### Exploring a declaration
+
+Click the arrow before a declaration, or the declaration itself, to expand its properties in place:
+
+![A type expanded in a cell of the grid](mcp-html-expanded.png)
+
+* Objects are property tables. Click the header of a table to collapse or expand it.
+* Values that the page does not hold yet, such as the properties of a declaration several levels down, are loaded from the server when you click them, so you can browse as deep as you want.
+* The **link** and **C#** buttons of a declaration copy its link, which the agent accepts, and the C# expression that resolves it in a query, such as `D<INamedType>("T:FrogHattery.FrogHatShop")`.
+
+### Editing the query
+
+The query is shown in an editor, with completion, tooltips, parameter hints and errors underlined as you type, as in Visual Studio Code. For instance, type `t.` in a lambda to list the members of a type:
+
+![Completion in the query editor](mcp-html-completion.png)
+
+Hover over an underlined error to read it:
+
+![A compile error in the query editor](mcp-html-error.png)
+
+Click the run button, or press Ctrl+Enter, to see the result of the edited query on its own page. Use the browser's Back button to return to the previous result. Errors that prevent the query from running appear under the editor.
+
+The download button, under the run button, saves a snapshot of the page. The snapshot works without the server, but only expands what it holds.
+
+### More examples
+
+The following requests also produce pages that are worth exploring in the browser:
+
+* "Show me in my browser the public methods that have more than five parameters."
+* "Which types derive from `Entity`? Show them in my browser with the files they are in."
+* "Show me in my browser the aspect instances of the solution, grouped by aspect class."
+* "Open `T:MyApp.OrderService` in my browser."
+
+### How the page works
 
 The link works while the agent's session runs. The page contacts only the server of that session, on `localhost`, to load the values you open and to run the queries you edit. The agent does not see the queries you run in the page.
 
