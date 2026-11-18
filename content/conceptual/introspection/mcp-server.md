@@ -55,8 +55,8 @@ The command accepts these options:
 
 The server runs arbitrary C# code by design, with the privileges of the user who started it. It is not a sandbox.
 
-* **Only the agent can run code.** The server receives queries only through its standard input and output, so only the agent that started it can run code in it.
-* **The browser view runs no code.** To show results in your browser, the server listens on `localhost` only, on a random port, and only after the agent first shows a result in your browser. This HTTPS server shows results the agent already produced and opens the declarations you click; it never runs a query. Its URLs contain a random secret, so other programs and web pages cannot use it. Use `--no-http` to disable it.
+* **Only the agent and you can run code.** The agent sends queries through the standard input and output of the server. You can edit and run a query in a result page in your browser.
+* **The browser view is private to the session.** To show results in your browser, the server listens on `localhost` only, on a random port, and only after the agent first shows a result in your browser. Its URLs contain a random secret, and it runs a query only when the request comes from one of its own pages, so other programs and web pages cannot use it. Use `--no-http` to disable it.
 * **Loading a project runs its build logic.** Like a build, loading a workspace runs the MSBuild targets of the project and its Metalama aspects and fabrics. Only load code that you trust.
 * **The analyzed code is data.** String literals and comments in the analyzed code can contain text aimed at the agent. This is the same risk as when the agent reads the files with its other tools.
 
@@ -173,9 +173,10 @@ When you want to look at a result yourself, ask the agent to show it in your bro
 * Collections are grids with one column per property. You can sort them by a column and filter them.
 * Values nested in a table expand in place. Values that the page does not hold yet, such as the properties of a declaration several levels down, are loaded from the server when you click them, so you can browse as deep as you want.
 * Each declaration has a source icon that opens the file at the line in your editor, and buttons to copy its link or its C# expression.
+* The query is shown in an editable box at the top. Edit it and click **Run**, or press Ctrl+Enter, to see the new result on its own page. Use the browser's Back button to return to the previous result. Errors, such as a compile error, appear under the box.
 * The **Save** button downloads a snapshot of the page, which works without the server but only expands what it holds.
 
-The link works while the agent's session runs. The page contacts only the server of that session, on `localhost`, and only to load the values you open.
+The link works while the agent's session runs. The page contacts only the server of that session, on `localhost`, to load the values you open and to run the queries you edit. The agent does not see the queries you run in the page.
 
 If the agent reports that the development certificate is missing, run `dotnet dev-certs https --trust`.
 
