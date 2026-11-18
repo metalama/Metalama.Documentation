@@ -4,7 +4,7 @@ level: 200
 summary: "This document explains how to query from the command line which aspects apply to the code and what they change, with the metalama introspect command, which reads the introspection file of the last build. It is designed for AI coding agents and for environments without Visual Studio."
 keywords: "metalama introspect, introspection file, mlsym, aspect instances, transformations, predecessors, command line, AI agent, MetalamaWriteIntrospectionFile"
 created-date: 2026-11-13
-modified-date: 2026-11-13
+modified-date: 2026-11-18
 ---
 
 # Querying aspects from the command line
@@ -12,6 +12,8 @@ modified-date: 2026-11-13
 The `metalama introspect` command answers questions about the aspects of a project: which aspects apply to a declaration, what they change, what created them, and which diagnostics they reported. The command reads a file that the build writes, the _introspection file_. It never builds the project.
 
 The command is designed for AI coding agents and for other tools that cannot use the Aspect Explorer of Visual Studio. It is also useful in other IDEs and in a terminal. When an agent reads code to which aspects apply, the source code does not show the code that runs. The agent can ask the command which aspects apply to a method before it changes the method.
+
+Because it reads the output of the build, the command describes the real build. The MCP server and LINQPad load and compile the project themselves instead, and see the whole code model. For a comparison, see <xref:introspection>.
 
 To see the transformed code itself rather than a description of the aspects, see <xref:previewing-transformed-code>.
 

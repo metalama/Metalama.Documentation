@@ -4,7 +4,7 @@ level: 300
 summary: "This article explains how to use the Metalama driver for LINQPad to interactively inspect and query your source code."
 keywords: "LINQPad, Metalama driver, inspect code, interactive queries, code exploration"
 created-date: 2023-07-11
-modified-date: 2025-11-30
+modified-date: 2026-11-16
 ---
 
 # Using LINQPad
@@ -14,7 +14,7 @@ Metalama's LINQPad driver allows you to interactively query your source code as 
 [LINQPad](https://www.linqpad.net/) is a popular tool for writing and executing LINQ queries against various data sources. With Metalama's driver, you extend this functionality to .NET projects and solutions.
 
 > [!NOTE]
-> The Metalama.LinqPad package is [open-source](https://github.com/metalama/Metalama/tree/HEAD/Metalama.LinqPad).
+> The Metalama.LinqPad package is [open-source](https://github.com/metalama/Metalama/tree/HEAD/Metalama.Introspection/src/Metalama.LinqPad).
 
 ## Installing the Metalama driver
 
