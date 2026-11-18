@@ -18,6 +18,8 @@ Metalama provides powerful APIs for querying and analyzing your source code outs
 | <xref:mcp-server> | How to let coding agents query your codebase with the Metalama MCP server. |
 | <xref:metrics> | How to consume code metrics like statement counts and syntax node counts. |
 
+To query from the command line which aspects apply to the code and what they change, without writing code, see <xref:introspecting-from-command-line>.
+
 ## Benefits
 
 The introspection APIs allow you to:
@@ -31,5 +33,6 @@ The introspection APIs allow you to:
 ## See also
 
 > [!div class="see-also"]
+> <xref:introspecting-from-command-line>
 > <xref:Metalama.Framework.Workspaces>
 > <xref:Metalama.Framework.Introspection>

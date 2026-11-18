@@ -46,7 +46,7 @@ In the following example, the template does not read the calling code. The four 
 
 ## Granularity
 
-The granularity declares what the template depends on, and therefore which call sites can share a method. Set it with <xref:Metalama.Extensions.Interceptors.ITemplateInterception.WithGranularity*>. Metalama does not detect what the template depends on.
+The granularity declares what the template depends on, and therefore which call sites can share a method. Set it with <xref:Metalama.Extensions.Interceptors.ITemplateRegistration.WithGranularity*>. Metalama does not detect what the template depends on.
 
 | Granularity | The template can read | Call sites that share a method |
 |---|---|---|
