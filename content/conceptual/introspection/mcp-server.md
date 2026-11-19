@@ -62,6 +62,10 @@ The server runs arbitrary C# code by design, with the privileges of the user who
 * **Loading a project runs its build logic.** Like a build, loading a workspace runs the MSBuild targets of the project and its Metalama aspects and fabrics. Only load code that you trust.
 * **The analyzed code is data.** String literals and comments in the analyzed code can contain text aimed at the agent. This is the same risk as when the agent reads the files with its other tools.
 
+## Telemetry
+
+The server sends an anonymous usage report at most once a day for each workspace that it loads, and lets you review a report of an unexpected failure before it is sent. The reports never contain paths, names of your code, source code or query text. The server follows the telemetry settings of Metalama, so the same methods disable it. For the content of the reports and the opt-out methods, see <xref:telemetry>.
+
 ## Tools
 
 The server exposes five tools to the agent.

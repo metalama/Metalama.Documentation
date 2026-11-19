@@ -4,7 +4,7 @@ level: 300
 summary: "This article explains how to use the Metalama driver for LINQPad to interactively inspect and query your source code."
 keywords: "LINQPad, Metalama driver, inspect code, interactive queries, code exploration"
 created-date: 2023-07-11
-modified-date: 2026-11-16
+modified-date: 2026-11-19
 ---
 
 # Using LINQPad
@@ -107,6 +107,10 @@ var workspace = WorkspaceCollection.Default
 ```
 
 This gives you the same `workspace` variable as the bound driver.
+
+## Telemetry
+
+The driver sends an anonymous usage report at most once a day for each workspace that it loads, and lets you review a report of an unexpected failure before it is sent. The reports never contain paths, names of your code, source code or query text. The driver follows the telemetry settings of Metalama, so the same methods disable it. For the content of the reports and the opt-out methods, see <xref:telemetry>.
 
 ## See also
 
