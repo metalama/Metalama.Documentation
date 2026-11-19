@@ -1,6 +1,6 @@
 ---
 name: metalama
-description: Complete Metalama documentation for aspect-oriented programming and compile-time code generation in C#, covering aspects, T# templates, fabrics, architecture validation, and the Metalama.Patterns libraries (caching, contracts, observability). Use whenever writing, reviewing, or debugging Metalama code; when a build reports LAMA diagnostics or errors point into transformed/generated code; when asked to eliminate repetitive C# (logging, INotifyPropertyChanged, validation, retry, equality, builders) in a project that references Metalama packages; when configuring Metalama MSBuild properties; when testing aspects; or when migrating from PostSharp.
+description: Complete Metalama documentation for aspect-oriented programming and compile-time code generation in C#, covering aspects, T# templates, fabrics, architecture validation, and the Metalama.Patterns libraries (caching, contracts, observability). Use whenever writing, reviewing, or debugging Metalama code; when a build reports LAMA diagnostics or errors point into transformed/generated code; when you need to see the code that aspects generate or find out which aspects apply to a declaration; when asked to eliminate repetitive C# (logging, INotifyPropertyChanged, validation, retry, equality, builders) in a project that references Metalama packages; when configuring Metalama MSBuild properties; when testing aspects; or when migrating from PostSharp.
 ---
 
 # Metalama Documentation Skill
@@ -12,6 +12,15 @@ This skill pertains to Metalama <version>.
 ## Before you write code (read this first)
 
 Three habits prevent most mistakes when writing Metalama code. Do them in this order.
+
+Metalama ships tools made for agents, because you can't use the Visual Studio tooling (Metalama Diff, Aspect Explorer, CodeLens). Use them instead of guessing what aspects do:
+
+| Question | Tool | Details |
+|----------|------|---------|
+| What code do the aspects generate for this file? | `metalama preview <file.cs>` | [Habit 2](#2-see-the-generated-code--you-have-no-ide-diff-preview) |
+| Which aspects apply to this declaration, what added them, and what do they change? | `metalama introspect` | [Querying the aspects](#querying-the-aspects-of-the-last-build-metalama-introspect) |
+| Which declarations, references, aspects or diagnostics match a condition across the codebase? | Metalama MCP server (`metalama-mcp`) | [Exploring the code model](#exploring-the-code-model-metalama-mcp-server) |
+| What does this `LAMA####` diagnostic mean and how do I fix it? | `content/errors/lama####.md` | [Habit 3](#3-build-to-verify--the-compiler-is-your-correctness-oracle) |
 
 ### 1. Look up the real API — don't guess signatures
 
@@ -86,6 +95,38 @@ For example `obj/LamaDebug/net10.0/metalama/`. These are the actual files the co
 - On Windows, if `dotnet run` fails in a deeply nested directory (the apphost path exceeds the path-length limit), run the built assembly directly: `dotnet bin/<Configuration>/<tfm>/App.dll`.
 - **Do not confuse this with `MetalamaDebugCompiler`** — that property attaches a debugger to the *compiler process* and is unrelated to reading generated code.
 - In this skill's `code/` samples, `Name.t.cs` files are pre-baked expected output. In a real user project you generate fresh output using the commands above.
+
+### Querying the aspects of the last build: `metalama introspect`
+
+The source code doesn't show what aspects do to it. Before you change code that aspects target, or when an aspect doesn't apply where you expect, ask the build:
+
+```bash
+# 1. Make the builds of this shell session write the introspection file (.mlsym). Other builds don't pay for it.
+export MetalamaWriteIntrospectionFile=True            # PowerShell: $env:MetalamaWriteIntrospectionFile = "True"
+
+# 2. Build normally. The project compiles again when the property changes.
+dotnet build
+
+# 3. Query. The output is JSON.
+metalama introspect show declaration path/to/OrderService.cs:42          # aspects, predecessors, transformations in order, diagnostics
+metalama introspect list aspect-instances --where "aspectClass/shortName eq 'Log'" --select id,targetDeclaration/id
+metalama introspect schema aspect-instances                               # fields you can use in --where and --select
+```
+
+- Collections: `aspect-classes`, `aspect-instances`, `predecessors` (what created an aspect instance: attribute, fabric, inheritance, parent aspect), `transformations`, `diagnostics`, `declarations`.
+- Options: `--project`, `--solution`, `-f|--framework`, `-c|--configuration`, `--format json|text|jsonl`, `--order-by`, `--count`, `--limit`, `--all`. `batch` runs several queries, one per line of stdin.
+- Exit codes: 0 success, 1 error, 2 no introspection file (build first with the property set), 3 a selector matches several objects, 4 invalid query.
+- It never builds: it answers about the **last** build. Rebuild after a change.
+- Requires the `metalama` tool (same as `metalama preview`). See `content/conceptual/introspection/introspecting-from-command-line.md`.
+
+### Exploring the code model: Metalama MCP server
+
+If your tools include `load_workspace`, `query` and `open` from a server named `metalama`, the Metalama MCP server is available. It loads a project or solution (`.csproj`, `.sln`, `.slnx`, `.slnf`) and runs **C# queries over the Metalama code model**: declarations and their references, derived types, aspect classes and instances, advice and transformations, diagnostics, metrics, and the code after the aspects ran (`TransformedCode`). Prefer it to grepping when a question spans the codebase, for example "which public methods of the domain layer have more than five parameters?" or "which aspects apply to `OrderService`?".
+
+- Workflow: `load_workspace` once, then `query`, then `open` the links that results return. After you edit files, call `reload_workspace`. The server sends its full instructions when it connects; follow them.
+- It compiles the current source itself, so it describes the code, not the last build. To know what the real build did, use `metalama introspect`.
+- If the server isn't configured and the user wants it: `dotnet tool install -g Metalama.Mcp`, then register `metalama-mcp` with the agent (Claude Code: `claude mcp add metalama -- metalama-mcp`). Its version must be equal to or higher than the `Metalama.Framework` version of the project.
+- See `content/conceptual/introspection/mcp-server.md`.
 
 ### Investigating without a debugger
 
@@ -179,6 +220,10 @@ Online, the article of a diagnostic is at `https://doc.metalama.net/errors/lama#
 | Debugging Aspects | `content/conceptual/aspects/testing/debugging-aspects.md` | Debug compile-time code, breakpoints, `meta.DebugBreak()` |
 | Debugging User Code | `content/conceptual/using/debugging-aspect-oriented-code.md` | Debug run-time transformed code, LamaDebug configuration |
 | Previewing Transformed Code | `content/conceptual/using/previewing-transformed-code.md` | `metalama preview`: generated code of a few files, without building |
+| Querying Aspects | `content/conceptual/introspection/introspecting-from-command-line.md` | `metalama introspect`: which aspects apply, what created them, what they change |
+| MCP Server | `content/conceptual/introspection/mcp-server.md` | C# queries over the code model of a solution, for agents |
+| AI Agents | `content/conceptual/using/ide/ai-agents.md` | How the plugin and the agent tools fit together |
+| Compile-Time Coding Rules | `content/conceptual/aspects/compile-time-rules.md` | Immutability and durability of aspects, fabrics and static fields (LAMA0870–LAMA0892) |
 | Errors and Warnings | `content/errors/errors.md` | Index of all `LAMA####` diagnostics; each has its own article `content/errors/lama####.md` |
 
 ## Common Patterns
@@ -241,6 +286,8 @@ public override dynamic? OverrideMethod()
 | Using `nameof()` for introduced members | Use string literals; `nameof()` resolves at aspect compile-time, not target compile-time |
 | Filtering all types by namespace in fabrics | Use `GlobalNamespace.GetDescendant("Ns")` or a `NamespaceFabric` instead of `SelectTypes().Where(t => t.Namespace...)` |
 | Forgetting `partial` on target classes | Classes receiving introduced members need the `partial` modifier |
+| Keeping state in aspect or fabric fields | Aspects, fabrics and validators are reused across targets and compilations and must be immutable: use `readonly` fields and `init` properties, and keep per-target state in tags or annotations. See `content/conceptual/aspects/compile-time-rules.md` |
+| Storing an `IDeclaration`, `IRef<T>` or symbol in an aspect, a fabric or a static field | Store an `IDurableRef<T>` from `ToDurableRef()` and resolve it with `GetTarget( compilation )`; static fields of compile-time code must be read-only, immutable and durable |
 | Assuming `AspectOrder` lists application order | Application order and run-time execution order are opposite. Prefer `[assembly: AspectOrder(AspectOrderDirection.RunTime, ...)]` and list aspects in run-time order, outermost first — see `content/conceptual/aspects/multiple-instances/ordering.md` |
 
 ## Sample Code Conventions

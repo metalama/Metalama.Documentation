@@ -157,6 +157,8 @@ items:
           - name: Sharing state with advice
             topicUid: sharing-state-with-advice
 
+        - name: Compile-time coding rules
+          topicUid: compile-time-rules
         - name: Reporting and suppressing diagnostics
           topicUid: diagnostics
         - name: Injecting dependencies into aspects

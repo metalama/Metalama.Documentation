@@ -4,7 +4,7 @@ level: 300
 summary: "The document provides a guide on how to report or suppress diagnostics, including errors, warnings, or info messages, from an aspect in C# programming. It also outlines the benefits and provides examples."
 keywords: "diagnostics, errors, warnings, suppress, C# compiler, report diagnostics, suppress diagnostics, Metalama.Framework.Diagnostics, DiagnosticDefinition, SuppressionDefinition"
 created-date: 2023-01-26
-modified-date: 2025-12-04
+modified-date: 2026-11-19
 ---
 
 # Reporting and suppressing diagnostics
@@ -24,11 +24,12 @@ To report a diagnostic:
 
 1. Import the <xref:Metalama.Framework.Diagnostics> namespace.
 
-2. Define a `static` field of type <xref:Metalama.Framework.Diagnostics.DiagnosticDefinition> in your aspect class. <xref:Metalama.Framework.Diagnostics.DiagnosticDefinition> specifies the diagnostic ID, the severity, and the message formatting string.
+2. Define a `static readonly` field of type <xref:Metalama.Framework.Diagnostics.DiagnosticDefinition> in your aspect class. The field must be read-only, like any static field of compile-time code (see <xref:compile-time-rules>). <xref:Metalama.Framework.Diagnostics.DiagnosticDefinition> specifies the diagnostic ID, the severity, and the message formatting string.
 
     * For a message without formatting parameters or with weakly-typed formatting parameters, use the non-generic <xref:Metalama.Framework.Diagnostics.DiagnosticDefinition> class.
     * For a message with a single strongly-typed formatting parameter, use the generic <xref:Metalama.Framework.Diagnostics.DiagnosticDefinition`1> class, e.g., `DiagnosticDefinition<int>`.
     * For a message with several strongly-typed formatting parameters, use the generic <xref:Metalama.Framework.Diagnostics.DiagnosticDefinition`1> with a tuple, e.g., `DiagnosticDefinition<(int,string)>` for a message with two formatting parameters expecting a value of type `int` and `string`.
+    * To display the diagnostic ID as a link to your documentation in the IDE, pass the URL of the documentation page to the `helpLinkUri` parameter of the constructor. It's exposed by the <xref:Metalama.Framework.Diagnostics.IDiagnosticDefinition.HelpLinkUri> property. The diagnostics of Metalama itself link to their articles in the <xref:errors>.
 
     > [!WARNING]
     > The aspect framework relies on diagnostics being defined as static fields of aspect classes. You won't be able to report a diagnostic that hasn't been declared on an aspect class of the current project.
