@@ -4,7 +4,7 @@ level: 300
 summary: "This article explains how to use the Metalama Workspaces API to programmatically query and analyze source code from any .NET application."
 keywords: "Workspaces API, Metalama, code analysis, source code queries, IProjectSet, code introspection, programmatic code analysis"
 created-date: 2025-11-30
-modified-date: 2025-11-30
+modified-date: 2026-11-19
 ---
 
 # Using the Workspaces API
@@ -34,6 +34,8 @@ You can also use <xref:Metalama.Framework.Workspaces.Workspace.Load*> directly:
 ```csharp
 var workspace = Workspace.Load( @"C:\src\MySolution.sln" );
 ```
+
+Both methods accept C# project files (`.csproj`), solution files (`.sln` and `.slnx`), and solution filters (`.slnf`).
 
 ## Step 3. Query the code model
 
