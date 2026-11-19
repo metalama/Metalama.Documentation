@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "metalama": {
+      "command": "metalama-mcp"
+    }
+  }
+}

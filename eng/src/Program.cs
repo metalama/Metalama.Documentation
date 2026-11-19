@@ -80,7 +80,7 @@ var product = new Product( MetalamaDependencies.MetalamaDocumentation )
         new DotNetSolution( "code\\Metalama.Documentation.Snippets.ProjectBased.sln" ) { CanFormatCode = true, BuildMethod = BuildMethod.Build },
         new DocFxApiSolution( "docfx.json" ),
         new DocFxSiteSolution( "docfx.json", docPackageFileName ),
-        new AiSkillSolution( aiSkillOptions )
+        new MetalamaAiSkillSolution( aiSkillOptions )
     ],
     PublicArtifacts = Pattern.Create( docPackageFileName, marketplacePackageFileName ),
     AdditionalDirectoriesToClean = [Path.Combine( "artifacts", "api" ), Path.Combine( "artifacts", "site" ), Path.Combine( "artifacts", "marketplace" )],
