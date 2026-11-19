@@ -103,11 +103,11 @@ Store the durable reference, and resolve it later with `GetTarget( compilation )
 
 **Declare the field as <xref:Metalama.Framework.Code.IDurableRef`1>, not <xref:Metalama.Framework.Code.IRef`1>.** The conversion is then required by the field type, so a later edit can't omit it, and the constraint is stated by the signature rather than by a comment.
 
-This is the retention <xref:lama0085?text=LAMA0085> reports:
+In the following example, a fabric passes a type to the aspects that it adds, and the aspects store it in a field. This is a retention that <xref:lama0085?text=LAMA0085> reports, and that <xref:lama0870?text=LAMA0870> already reports while you type:
 
 [!code-csharp[](~/code/Metalama.Documentation.SampleCode.AspectFramework/RetainedDeclaration_Wrong.Fabric.cs?range=3-999)]
 
-Changing the type of the field is the whole fix:
+The fix is to change the type of the field, and to convert the declaration with `ToDurableRef()` before the lambda captures it:
 
 [!code-csharp[](~/code/Metalama.Documentation.SampleCode.AspectFramework/RetainedDeclaration_Good.Fabric.cs?range=3-999)]
 

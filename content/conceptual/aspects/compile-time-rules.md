@@ -9,7 +9,11 @@ modified-date: 2026-11-19
 
 # Compile-time coding rules
 
-Aspects, fabrics, and validators look like ordinary C# classes, but they don't live like ordinary objects. Metalama creates them once and reuses them, for many target declarations and, in the IDE, for many versions of your project. Compile-time code must therefore follow two rules:
+Aspects, fabrics, and validators look like ordinary C# classes, but they don't live like ordinary objects. Metalama creates them once and reuses them, for many target declarations and, in the IDE, for many versions of your project.
+
+Each version of a project is called a _compilation_, a term that comes from Roslyn, the C# compiler. A compilation is an immutable snapshot of a project: all its source code, its references, and everything the compiler derives from them, such as syntax trees and symbols. A command-line build creates one compilation and exits. In the IDE, every keystroke creates a new compilation.
+
+Compile-time code must therefore follow two rules:
 
 * **Immutability**: an object that Metalama reuses must not change after it has been created.
 * **Durability**: an object that Metalama keeps across compilations must not reference anything that belongs to one compilation.
@@ -18,7 +22,7 @@ Starting with Metalama 2027.0, analyzers verify both rules while you type and re
 
 ## Why compile-time objects need rules
 
-An aspect instance is created once and can be reused for every declaration it applies to. At design time, the IDE produces a new version of the project on essentially every keystroke, and Metalama keeps reusing the same aspect instances, fabrics, and validators, and everything they registered, for as long as the compile-time code doesn't change.
+An aspect instance is created once and can be reused for every declaration it applies to. At design time, the IDE produces a new compilation on essentially every keystroke, and Metalama keeps reusing the same aspect instances, fabrics, and validators, and everything they registered, for as long as the compile-time code doesn't change.
 
 This has two consequences:
 
@@ -69,7 +73,17 @@ The warnings of this rule are <xref:lama0870?text=LAMA0870> to <xref:lama0879?te
 * **Mark your own type `[Durable]`** when it holds only durable members. The analyzer then verifies its members.
 * **Use <xref:Metalama.Framework.Utilities.DurableDangerous`1>** as a last resort, when a value is durable in fact but the analyzer can't establish it. The wrapper states the assertion in the signature of the member, which is better than suppressing the warning.
 
-For an example of a fabric that keeps a declaration alive and of its fix, see <xref:diagnosing-memory-leaks#store-a-durable-reference-instead>.
+### Example: storing a durable reference
+
+The following fabric looks up a type once and passes it to the aspects that it adds, which store it in a field. An <xref:Metalama.Framework.Code.INamedType> belongs to the compilation it came from, and the aspects outlive every compilation, so the field keeps one whole version of the project in memory for as long as the solution is open. Metalama reports <xref:lama0870?text=LAMA0870> on the field:
+
+[!code-csharp[](~/code/Metalama.Documentation.SampleCode.AspectFramework/RetainedDeclaration_Wrong.Fabric.cs?range=3-999)]
+
+The fix is to change the type of the field to <xref:Metalama.Framework.Code.IDurableRef`1>, and to convert the declaration with `ToDurableRef()` before the lambda captures it. A durable reference holds only a string identifier. Because the field type requires a durable reference, a later edit can't omit the conversion. To use the type, resolve the reference with `GetTarget( compilation )`, passing the compilation that you're working on, never a stored one:
+
+[!code-csharp[](~/code/Metalama.Documentation.SampleCode.AspectFramework/RetainedDeclaration_Good.Fabric.cs?range=3-999)]
+
+To find out which objects keep a compilation alive at run time of the IDE, see <xref:diagnosing-memory-leaks>.
 
 ## Static fields and properties
 
