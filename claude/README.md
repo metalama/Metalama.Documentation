@@ -22,6 +22,14 @@ This repository contains the Metalama plugin for [Claude Code](https://docs.anth
    /plugin install metalama
    ```
 
+3. Install the Metalama MCP server, which the plugin registers. It requires the .NET 10 SDK or later:
+
+   ```
+   dotnet tool install -g Metalama.Mcp
+   ```
+
+   If the tool is not installed, the documentation still works, but Claude Code reports that the `metalama` MCP server failed to start.
+
 ### OpenAI Codex
 
 1. Add this marketplace to Codex:
@@ -40,6 +48,7 @@ The plugin provides the coding agent with access to:
 - **API reference**: Full documentation for all Metalama namespaces and types.
 - **Sample code**: Working examples demonstrating common patterns and techniques.
 - **Pattern libraries**: Documentation for Metalama.Patterns.Contracts, Caching, Observability, and more.
+- **MCP server** (Claude Code): the `metalama` MCP server, which runs C# queries over the Metalama code model of a project or solution. See [Using the MCP server](https://doc.postsharp.net/metalama/preview/conceptual/introspection/mcp-server).
 
 ## Usage
 
