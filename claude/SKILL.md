@@ -117,7 +117,7 @@ metalama introspect schema aspect-instances                               # fiel
 - Options: `--project`, `--solution`, `-f|--framework`, `-c|--configuration`, `--format json|text|jsonl`, `--order-by`, `--count`, `--limit`, `--all`. `batch` runs several queries, one per line of stdin.
 - Exit codes: 0 success, 1 error, 2 no introspection file (build first with the property set), 3 a selector matches several objects, 4 invalid query.
 - It never builds: it answers about the **last** build. Rebuild after a change.
-- Requires the `metalama` tool (same as `metalama preview`). See `content/conceptual/introspection/introspecting-from-command-line.md`.
+- Requires the `metalama` tool, the same as `metalama preview` (`dotnet tool install -g metalama.tool`). See `content/conceptual/introspection/introspecting-from-command-line.md`.
 
 ### Exploring the code model: Metalama MCP server
 
@@ -125,7 +125,7 @@ If your tools include `load_workspace`, `query` and `open` from a server named `
 
 - Workflow: `load_workspace` once, then `query`, then `open` the links that results return. After you edit files, call `reload_workspace`. The server sends its full instructions when it connects; follow them.
 - It compiles the current source itself, so it describes the code, not the last build. To know what the real build did, use `metalama introspect`.
-- If the server isn't configured and the user wants it: `dotnet tool install -g Metalama.Mcp`, then register `metalama-mcp` with the agent (Claude Code: `claude mcp add metalama -- metalama-mcp`). Its version must be equal to or higher than the `Metalama.Framework` version of the project.
+- The Metalama plugin registers the server itself, so with the plugin the user only needs to install the tool: `dotnet tool install -g Metalama.Mcp`. If the tools are missing, tell the user to run that command and restart the agent. Without the plugin, also register `metalama-mcp` with the agent (Claude Code: `claude mcp add metalama -- metalama-mcp`). The tool version must be equal to or higher than the `Metalama.Framework` version of the project.
 - See `content/conceptual/introspection/mcp-server.md`.
 
 ### Investigating without a debugger
