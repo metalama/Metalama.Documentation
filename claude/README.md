@@ -22,13 +22,17 @@ This repository contains the Metalama plugin for [Claude Code](https://docs.anth
    /plugin install metalama
    ```
 
-3. Install the Metalama MCP server, which the plugin registers. It requires the .NET 10 SDK or later:
+3. Install the two Metalama tools that the plugin uses. They require the .NET 10 SDK or later:
 
    ```
+   dotnet tool install -g Metalama.Tool
    dotnet tool install -g Metalama.Mcp
    ```
 
-   If the tool is not installed, the documentation still works, but Claude Code reports that the `metalama` MCP server failed to start.
+   - `Metalama.Tool` installs the `metalama` command. The agent runs `metalama preview` to see the code that aspects generate for a file, and `metalama introspect` to find which aspects apply to a declaration in the last build.
+   - `Metalama.Mcp` installs `metalama-mcp`, the MCP server that the plugin registers. It runs C# queries over the code model of a project or solution.
+
+   Without these tools, the documentation still works. Without `Metalama.Mcp`, Claude Code also reports that the `metalama` MCP server failed to start.
 
 ### OpenAI Codex
 
