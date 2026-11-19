@@ -4,7 +4,7 @@ level: 200
 summary: "This article explains what data Metalama collects, how to review exception reports before they are sent, and how to disable telemetry per machine or per repository, reset the device ID, and check the current telemetry status."
 keywords: "telemetry, Metalama, disable telemetry, reset device id, license audit, metalama.json, exception report, performance report, privacy, environment variable, telemetry status, news feed, rss, never report this error"
 created-date: 2023-01-23
-modified-date: 2026-07-30
+modified-date: 2026-11-19
 ---
 
 # Telemetry
@@ -17,6 +17,22 @@ By default, Metalama collects usage and quality reports and sends them to PostSh
 
 - **Usage reports.** Periodically, for each project you build, Metalama gathers data such as a one-way hash of the project name, the target framework version, the project size, the number of aspects used, the amount of code saved by Metalama, and performance metrics. Usage reports are sent automatically unless you opt out.
 - **Exception and performance reports.** When an unexpected _failure_ or _performance degradation_ occurs, Metalama captures a report that includes an anonymized call stack. By default, these reports are _not_ sent automatically. Instead, they're stored on your machine, and you're notified so you can [review their exact content](#reviewing-exception-and-performance-reports) before deciding whether to send them. Source code is never collected, and sensitive data such as exception messages and secrets are stripped from any report that's uploaded.
+
+### Usage reports of the MCP server and the LINQPad driver
+
+The <xref:mcp-server> and the <xref:linqpad> also send usage reports. They follow the same consent, the same opt-out methods and the same automatic opt-out for unattended processes as the rest of Metalama. They send at most one report per day for each workspace that you load. The report contains the following data:
+
+- the component: the MCP server or the LINQPad driver;
+- the name and the version of the MCP client, such as your coding agent, or the version of LINQPad;
+- the extensions of the loaded files, such as `.sln` or `.csproj`;
+- the number of projects, and the number of projects that use Metalama;
+- the target frameworks of the projects;
+- the time that the load took;
+- the number of errors and warnings reported during the load.
+
+These reports never contain file paths, the names of your solutions, projects or types, your source code, or the text of your queries. The MCP server and the LINQPad driver are counted separately from the rest of Metalama, because they can be used on code that does not use Metalama.
+
+An unexpected failure of the MCP server or of the LINQPad driver produces an exception report, which you [review](#reviewing-exception-and-performance-reports) in the same way as other exception reports. An error caused by your query or by your environment, such as a missing .NET SDK, does not produce a report.
 
 All reports include a randomly generated device ID, which you can [reset at any time using Metalama command-line tools](#resetting-your-device-id).
 
