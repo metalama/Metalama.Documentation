@@ -4,7 +4,7 @@ level: 300
 summary: "This article explains how to let coding agents query your source code with the Metalama MCP server, a local Model Context Protocol server that runs C# queries over the Metalama code model."
 keywords: "MCP, Model Context Protocol, coding agent, AI agent, Claude Code, code queries, introspection, Metalama.Mcp"
 created-date: 2026-11-13
-modified-date: 2026-11-18
+modified-date: 2026-11-19
 ---
 
 # Using the MCP server
@@ -68,7 +68,7 @@ The server exposes five tools to the agent.
 
 | Tool | Description |
 |------|-------------|
-| `load_workspace` | Loads one or more projects, solutions or solution filters (`.csproj`, `.sln`, `.slnf`) and keeps them loaded for the session. Returns the projects, their target frameworks, and the load diagnostics. |
+| `load_workspace` | Loads one or more projects, solutions or solution filters (`.csproj`, `.sln`, `.slnx`, `.slnf`) and keeps them loaded for the session. Returns the projects, their target frameworks, and the load diagnostics. |
 | `reload_workspace` | Reloads a workspace from disk after its files were edited. |
 | `unload_workspace` | Frees the memory used by a workspace. |
 | `query` | Runs a C# query and renders its result. |
