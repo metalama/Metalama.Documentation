@@ -1,10 +1,10 @@
 ---
 uid: ai-agents
 level: 100
-summary: "Install the Metalama plugin for AI coding agents such as Claude Code and OpenAI Codex to get AI-assisted aspect development."
-keywords: "Claude Code, OpenAI Codex, Metalama AI, AI coding agent, Claude plugin, Codex plugin, aspect development"
+summary: "Install the Metalama plugin for AI coding agents such as Claude Code and OpenAI Codex, and give the agent the tools to preview generated code, query aspects, and explore the code model through the Metalama MCP server."
+keywords: "Claude Code, OpenAI Codex, MCP server, metalama preview, metalama introspect, Metalama AI, AI coding agent, Claude plugin, Codex plugin, aspect development"
 created-date: 2025-12-11
-modified-date: 2026-11-13
+modified-date: 2026-11-19
 ---
 
 # Configuring AI agents
@@ -112,7 +112,26 @@ The command belongs to the same command line tool as `metalama preview`.
 
 For details, see <xref:introspecting-from-command-line>.
 
-### Example prompts
+## Letting the agent explore the code model
+
+The Metalama MCP server lets the agent run C# queries over the same code model as aspects and fabrics: declarations and their references, aspect instances and transformations, diagnostics, metrics, and the transformed code. The server loads and compiles the project itself, so its answers describe the current source code. Use it for questions that span the codebase, such as "which public methods of the domain layer have more than five parameters?". To ask what the last build did with the aspects, use `metalama introspect` instead.
+
+To install the server and register it with Claude Code:
+
+```powershell
+dotnet tool install -g Metalama.Mcp
+claude mcp add metalama -- metalama-mcp
+```
+
+Other agents take the `metalama-mcp` command in their MCP configuration. The server sends its instructions to the agent when it connects.
+
+For details, see <xref:mcp-server>.
+
+## Following the diagnostics
+
+When the build reports a `LAMA` diagnostic, the agent finds its cause and resolution in the article of the diagnostic. The plugin contains all these articles. Each diagnostic also carries a link to its online article. See <xref:errors>.
+
+## Example prompts
 
 - "Create a logging aspect that logs method entry and exit"
 - "How do I introduce a property to a class using Metalama?"
@@ -123,5 +142,7 @@ For details, see <xref:introspecting-from-command-line>.
 > <xref:ide-configuration>
 > <xref:previewing-transformed-code>
 > <xref:introspecting-from-command-line>
+> <xref:mcp-server>
+> <xref:errors>
 > [Claude Code documentation](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview)
 > [OpenAI Codex plugin documentation](https://developers.openai.com/codex/plugins/build)

@@ -4,7 +4,7 @@ level: 200
 summary: "This article explains how to find out which of your compile-time objects keeps a project snapshot in memory, causing the IDE to grow while you edit, using the MetalamaDiagnoseMemoryLeaks MSBuild property."
 keywords: "memory leak, design time, Visual Studio memory, project snapshot, fabric, inheritable aspect, MetalamaDiagnoseMemoryLeaks, LAMA0085, LAMA0086, durable reference, IDurableRef, ToDurableRef, ToDurable, ToSerializableId"
 created-date: 2026-08-04
-modified-date: 2026-08-04
+modified-date: 2026-11-19
 ---
 
 # Diagnosing memory leaks caused by compile-time code
@@ -31,6 +31,9 @@ The three cases that cause this are:
 * a field of a fabric, or a variable captured by a lambda passed to `Select`, `Where`, or `AddAspect`, that accumulates the declarations the query visits;
 * a static field of a compile-time class used as a cache;
 * a field of an inheritable aspect marked `[NonCompileTimeSerialized]` that holds a declaration.
+
+> [!TIP]
+> Starting with Metalama 2027.0, analyzers report most of these mistakes while you type: a field of an aspect, a fabric, or another type marked `[Durable]` that isn't durable (<xref:lama0870?text=LAMA0870> to <xref:lama0879?text=LAMA0879>), and a static field of compile-time code that isn't read-only, immutable, or durable (<xref:lama0889?text=LAMA0889> to <xref:lama0892?text=LAMA0892>). See <xref:compile-time-rules>. The investigation described below remains useful for the references that the analyzers can't verify, for instance those that pass through a `DurableDangerous<T>` wrapper or a suppressed warning.
 
 ## Investigating the memory leak
 
@@ -100,11 +103,11 @@ Store the durable reference, and resolve it later with `GetTarget( compilation )
 
 **Declare the field as <xref:Metalama.Framework.Code.IDurableRef`1>, not <xref:Metalama.Framework.Code.IRef`1>.** The conversion is then required by the field type, so a later edit can't omit it, and the constraint is stated by the signature rather than by a comment.
 
-This is the retention <xref:lama0085?text=LAMA0085> reports:
+In the following example, a fabric passes a type to the aspects that it adds, and the aspects store it in a field. This is a retention that <xref:lama0085?text=LAMA0085> reports, and that <xref:lama0870?text=LAMA0870> already reports while you type:
 
 [!code-csharp[](~/code/Metalama.Documentation.SampleCode.AspectFramework/RetainedDeclaration_Wrong.Fabric.cs?range=3-999)]
 
-Changing the type of the field is the whole fix:
+The fix is to change the type of the field, and to convert the declaration with `ToDurableRef()` before the lambda captures it:
 
 [!code-csharp[](~/code/Metalama.Documentation.SampleCode.AspectFramework/RetainedDeclaration_Good.Fabric.cs?range=3-999)]
 
@@ -122,6 +125,7 @@ When you only need to recognize a declaration later rather than to use it, stori
 * A field of an inheritable aspect that is **not** marked `[NonCompileTimeSerialized]` is already checked, more strictly, by the compile-time serializer: it reports an error rather than a warning when the field holds a declaration. This diagnostic covers the fields that the serializer skips.
 
 > [!div class="see-also"]
+> <xref:compile-time-rules>
 > <xref:configuration>
 > <xref:msbuild-properties>
 > <xref:fabrics>

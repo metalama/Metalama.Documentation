@@ -31,6 +31,7 @@ This chapter includes the following articles:
 | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | <xref:templates>             | This section provides guidance on how to create dynamic code templates.                                                                                |
 | <xref:advising-code>         | This section explains how to create aspects that perform advanced code modifications using the complete API.                                           |
+| <xref:compile-time-rules>    | This article explains the immutability and durability rules that aspects, fabrics, and validators must follow, and how to fix the warnings that enforce them. |
 | <xref:diagnostics>           | This section outlines how to report errors, warnings, and information messages and suppress warnings. See <xref:diagnostics> for more details.          |
 | <xref:dependency-injection>  | This section describes how an aspect can utilize a dependency and retrieve it from the container.                                                      |
 | <xref:building-ide-interactions> | This article discusses how to create live templates, code fixes, and refactorings.                                                                    |
