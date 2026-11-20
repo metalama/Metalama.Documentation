@@ -7,9 +7,10 @@ using System;
 
 namespace Doc.LAMA0883.Fixed;
 
-// Fixed: the base class is marked [ImmutableType], so Metalama verifies its members.
+// Fixed: the base class is marked [ImmutableType] and [Durable], so Metalama verifies its members.
 [RunTimeOrCompileTime]
 [ImmutableType]
+[Durable]
 public abstract class CategorizedAttribute : Attribute
 {
     // The compile-time serializer of derived aspects requires a parameterless constructor.

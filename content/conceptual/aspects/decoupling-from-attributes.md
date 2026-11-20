@@ -2,9 +2,9 @@
 uid: decoupling-aspects-from-attributes
 level: 400
 summary: "This article explains how to separate the aspect implementation from its custom attribute contract, enabling scenarios like using third-party attributes, preparing for migration away from Metalama, or having different implementations per project."
-keywords: "aspect decoupling, custom attribute, IAspect interface, aspect contract, aspect implementation, fabric binding, IRef, IAttribute, Metalama separation"
+keywords: "aspect decoupling, custom attribute, IAspect interface, aspect contract, aspect implementation, fabric binding, IAttribute, Metalama separation"
 created-date: 2024-09-05
-modified-date: 2025-11-30
+modified-date: 2026-11-20
 ---
 
 # Decoupling aspects from attributes
@@ -38,7 +38,8 @@ We'll first look at the situation where the project that contains the custom att
 3. Add two custom attributes to this class:
     * <xref:System.AttributeUsageAttribute?text=[AttributeUsage]>
     * <xref:Metalama.Framework.Aspects.RunTimeOrCompileTimeAttribute?text=[RunTimeOrCompileTime]>
-4. Add the <xref:Metalama.Framework.Serialization.ICompileTimeSerializable> interface to the type. This is an empty interface, but it will instruct Metalama to generate a serializer for your attribute. This step is only useful if the aspect is expected to have cross-project effects, for instance aspect inheritance or adding reference validation.
+4. Add the <xref:Metalama.Framework.Utilities.ImmutableTypeAttribute?text=[ImmutableType]> and <xref:Metalama.Framework.Utilities.DurableAttribute?text=[Durable]> custom attributes. The aspect stores the attribute object in a field, and an aspect must hold only values that are immutable and that are safe to keep across compilations. These attributes state these contracts for the attribute class, and Metalama verifies its members.
+5. Add the <xref:Metalama.Framework.Serialization.ICompileTimeSerializable> interface to the type. This is an empty interface, but it will instruct Metalama to generate a serializer for your attribute. This step is only useful if the aspect is expected to have cross-project effects, for instance aspect inheritance or adding reference validation.
 
 ### Step 2. Create the aspect implementation class
 
@@ -70,7 +71,7 @@ The attribute can be applied to both methods and properties. It has a `Category`
 
 If you can't or don't want to add a reference to `Metalama.Framework` in the contract project, the process is more difficult. The reason is that the custom attribute is a _run-time only_ class, which means that it _can't_ be constructed at build time. However, the aspect constructor and its `BuildAspect` method all run at _build time_. This means that you can't pass the attribute itself to the aspect.
 
-Instead, your aspect must have a parameter of type `IRef<IAttribute>`. The <xref:Metalama.Framework.Code.IAttribute> interface plays a similar role as the <xref:System.Reflection.CustomAttributeData?text=System.Reflection.CustomAttributeData> class. It exposes attribute data as the <xref:Metalama.Framework.Code.IAttributeData.ConstructorArguments> and <xref:Metalama.Framework.Code.IAttributeData.NamedArguments> properties. However, the <xref:Metalama.Framework.Code.IAttribute> interface is bound to a specific compilation revision. Aspects should generally not store compilation-specific objects but _references_. This is why we will store an <xref:Metalama.Framework.Code.IRef`1>. References, unlike declarations, are serializable and can therefore be used in cross-project scenarios such as aspect inheritance or cross-project validation.
+Instead, your aspect must read the attribute data from the code model, as an <xref:Metalama.Framework.Code.IAttribute>. The <xref:Metalama.Framework.Code.IAttribute> interface plays a similar role as the <xref:System.Reflection.CustomAttributeData?text=System.Reflection.CustomAttributeData> class. It exposes attribute data as the <xref:Metalama.Framework.Code.IAttributeData.ConstructorArguments> and <xref:Metalama.Framework.Code.IAttributeData.NamedArguments> properties. However, the <xref:Metalama.Framework.Code.IAttribute> interface is bound to a specific compilation revision, so the aspect must not store it in a field. Since the aspect is applied to the declaration that carries the attribute, the aspect doesn't need to store anything: it finds the attribute on its target declaration in the `BuildAspect` method and passes the data it needs to the template.
 
 ### Step 1. Create the custom attribute class
 
@@ -81,25 +82,25 @@ This step is very similar to the first step of the first approach, but we won't 
 
 ### Step 2. Create the aspect implementation class
 
-We now create the aspect itself. The only difference compared to the first approach is that our constructor parameter must be of type `IRef<IAttribute>`.
+We now create the aspect itself. The difference compared to the first approach is that the aspect doesn't receive the attribute in its constructor.
 
 1. Create a class that implements the <xref:Metalama.Framework.Aspects.IAspect`1> interface where `T` is any kind of declaration to which the attribute can be added. For instance, if your attribute can be applied to methods and properties, implement <xref:Metalama.Framework.Aspects.IAspect`1> for both <xref:Metalama.Framework.Code.IMethod> and <xref:Metalama.Framework.Code.IProperty>.
 
-2. Add a constructor with a parameter of type `IRef<IAttribute>` and store its value in an instance field of the same type.
-3. Implement your aspect as usual. In any aspect method, to get the <xref:Metalama.Framework.Code.IAttribute>, use the <xref:Metalama.Framework.Code.RefExtensions.GetTarget*?text=IRef.GetTarget()> method. Then use the <xref:Metalama.Framework.Code.IAttributeData.ConstructorArguments> and <xref:Metalama.Framework.Code.IAttributeData.NamedArguments> properties to get access to attribute data.
+2. In the `BuildAspect` method, get the <xref:Metalama.Framework.Code.IAttribute> from the <xref:Metalama.Framework.Code.IDeclaration.Attributes?text=IDeclaration.Attributes> collection of <xref:Metalama.Framework.Aspects.IAspectBuilder`1.Target?text=builder.Target>, using the <xref:Metalama.Framework.Code.Collections.IAttributeCollection.OfAttributeType*> method. Then read the attribute data with the <xref:Metalama.Framework.Code.AttributeExtensions.GetArgumentValue*> method, or with the <xref:Metalama.Framework.Code.IAttributeData.ConstructorArguments> and <xref:Metalama.Framework.Code.IAttributeData.NamedArguments> properties.
+3. Pass this data to the template as a compile-time template parameter, using the `args` parameter of the advice method. See <xref:template-parameters> for details.
 
 ### Step 3. Bind the custom attribute to the aspect using a fabric
 
-The last step is again to add an aspect for each instance of the custom attribute. The main difference is how we pass the attribute to the aspect.
+The last step is again to add an aspect for each instance of the custom attribute. The difference is that we don't pass the attribute to the aspect.
 
 1. Create a <xref:Metalama.Framework.Fabrics.ProjectFabric> (or use an existing one).
 2. Use the <xref:Metalama.Framework.Fabrics.QueryExtensions.SelectDeclarationsWithAttribute*> method to find all declarations that have the attribute created in Step 1.
 3. For declaration types supported by your aspect (i.e., all values of `T` in <xref:Metalama.Framework.Aspects.IAspect`1>), use <xref:Metalama.Framework.Fabrics.IQuery`1.OfType*> to select these declarations.
-4. Call the <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspect*> method. Supply a lambda that instantiates the aspect. To get the attribute data, use the <xref:Metalama.Framework.Code.IDeclaration.Attributes?text=IDeclaration.Attributes> collection and then the <xref:Metalama.Framework.Code.Collections.IAttributeCollection.OfAttributeType*> method. Use the <xref:Metalama.Framework.Code.IAttribute.ToRef*?text=IAttribute.ToRef()> method to get the reference, and pass it to the aspect constructor.
+4. Call the <xref:Metalama.Framework.Aspects.AspectQueryExtensions.AddAspect*> method. Supply a lambda that instantiates the aspect.
 
 ### Example: decoupled logging aspect _without_ any references to Metalama.Framework
 
-We revise the previous example and remove any references to `Metalama.Framework` from the contract attribute. Therefore, the attribute must be handled as an `IRef<IAttribute>`. As you can see in the aspect implementation, the logic to retrieve the `Category` is more complex.
+We revise the previous example and remove any references to `Metalama.Framework` from the contract attribute. Therefore, the attribute must be handled as an <xref:Metalama.Framework.Code.IAttribute>. As you can see in the aspect implementation, the logic to retrieve the `Category` is more complex.
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/Decoupled_Ref.cs name="Decoupled with reference"]
 
@@ -108,5 +109,4 @@ We revise the previous example and remove any references to `Metalama.Framework`
 > <xref:divorcing>
 > <xref:Metalama.Framework.Aspects.IAspect`1>
 > <xref:Metalama.Framework.Code.IAttribute>
-> <xref:Metalama.Framework.Code.IRef`1>
 > <xref:Metalama.Framework.Serialization.ICompileTimeSerializable>

@@ -1,6 +1,7 @@
-﻿// This is public domain Metalama sample code.
+﻿﻿// This is public domain Metalama sample code.
 
 using System;
+using System.Linq;
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 
@@ -8,31 +9,33 @@ namespace Doc.Decoupled_Ref;
 
 internal class LogAspect : IAspect<IMethod>, IAspect<IProperty>
 {
-    private readonly IRef<IAttribute> _attribute;
-
-    public LogAspect( IRef<IAttribute> attribute )
-    {
-        this._attribute = attribute;
-    }
-
     public void BuildAspect( IAspectBuilder<IMethod> builder )
     {
-        builder.Override( nameof(this.MethodTemplate) );
+        builder.Override(
+            nameof(this.MethodTemplate),
+            args: new { category = GetCategory( builder.Target ) } );
     }
 
     public void BuildAspect( IAspectBuilder<IProperty> builder )
     {
-        builder.OverrideAccessors( null, nameof(this.MethodTemplate) );
+        builder.OverrideAccessors(
+            null,
+            nameof(this.MethodTemplate),
+            args: new { category = GetCategory( builder.Target ) } );
+    }
+
+    // Reads the attribute data from the declaration to which the aspect is applied.
+    private static string GetCategory( IDeclaration declaration )
+    {
+        var attribute = declaration.Attributes.OfAttributeType( typeof(LogAttribute) )
+            .Single();
+
+        return attribute.GetArgumentValue( nameof(LogAttribute.Category), "default" )!;
     }
 
     [Template]
-    public dynamic? MethodTemplate()
+    public dynamic? MethodTemplate( [CompileTime] string category )
     {
-        var attribute = this._attribute.GetTarget();
-
-        var category =
-            attribute.GetArgumentValue( nameof(LogAttribute.Category), "default" )!;
-
         Console.WriteLine( $"[{category}] Executing {meta.Target.Method}" );
 
         return meta.Proceed();
