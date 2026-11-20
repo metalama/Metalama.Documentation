@@ -5,7 +5,7 @@ level: 200
 summary: "This document provides detailed information on writing compile-time code using the Metalama Framework, including compile-time expressions, statements, the 'meta' pseudo-keyword, compile-time language constructs, aspect properties, compile-time types and methods, and calling other packages from compile-time code."
 keywords: "compile-time code, Metalama Framework, compile-time expressions, meta pseudo-keyword, aspect properties, compile-time types, compile-time methods, compile-time variables, compile-time statements, compile-time constructs"
 created-date: 2023-02-20
-modified-date: 2026-04-13
+modified-date: 2026-11-20
 ---
 
 # Writing compile-time code
@@ -69,9 +69,9 @@ The following aspect uses a `foreach` loop to print the value of each parameter 
 
 [!metalama-test ~/code/Metalama.Documentation.SampleCode.AspectFramework/CompileTimeForEach.cs name="Compile-Time If"]
 
-### No compile-time for and goto
+### No compile-time for, goto, or labels
 
-Compile-time `for` loops aren't supported. `goto` statements are also not allowed in templates. If you need a compile-time `for`, you can use the following construct:
+Compile-time `for` loops aren't supported. `goto` statements, labeled statements, and the C# 15 labeled `break` and `continue` statements are also not allowed in templates, because Metalama can't decide whether a label belongs to compile-time or run-time code. Metalama reports <xref:lama0101?text=LAMA0101> for them. This restriction applies only to the template: an aspect can still override target code that contains labels and labeled loops. If you need a compile-time `for`, you can use the following construct:
 
 ```cs
 foreach ( int i in meta.CompileTime( Enumerable.Range( 0, n ) ) )

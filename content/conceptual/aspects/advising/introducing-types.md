@@ -4,7 +4,7 @@ level: 300
 summary: "This article explains how to introduce new types (nested or top-level classes, interfaces, and extension blocks) using the Metalama Framework, including how to add members, base types, and implemented interfaces."
 keywords: "IntroduceClass, IntroduceExtensionBlock, Metalama, nested class, non-nested class, extension block, IAdviser, INamespace, BuildAspect, introduce members, Builder pattern, introduce types"
 created-date: 2024-11-06
-modified-date: 2026-07-03
+modified-date: 2026-11-20
 ---
 
 # Introducing types
@@ -12,7 +12,7 @@ modified-date: 2026-07-03
 Many patterns require you to create new types. This is the case, for instance, with the Memento, Enum View-Model, or Builder patterns. You can do this by calling the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceClass*> or <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceInterface*> advice method from your `BuildAspect` implementation.
 
 > [!NOTE]
-> The current version of Metalama allows you to introduce classes, interfaces, and extension blocks. Support for structs, delegates, and enums will be added in a future release.
+> This article describes the introduction of classes, interfaces, and extension blocks. Starting with Metalama 2027.0, you can also introduce structs, records, enums, delegates, and C# 15 unions with the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceStruct*>, <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceRecord*>, <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceEnum*>, <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceDelegate*>, and <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceUnion*> advice methods.
 
 ## Introducing a nested class
 
@@ -45,6 +45,8 @@ In the following example, the aspect introduces a class in the `Builders` child 
 
 By default, the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceClass*> method introduces a non-generic class with no modifiers or custom attributes, derived from `object`. To add modifiers, custom attributes, a base type, or type parameters, you must supply a delegate of type `Action<INamedTypeBuilder>` to the `buildType` parameter of the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceClass*> method. This delegate receives an <xref:Metalama.Framework.Code.DeclarationBuilders.INamedTypeBuilder>, which exposes the required APIs.
 
+To introduce a C# 15 closed class, set the <xref:Metalama.Framework.Code.DeclarationBuilders.INamedTypeBuilder.IsClosed?text=INamedTypeBuilder.IsClosed> property to `true`. A closed class is implicitly abstract, so the generated declaration carries the `closed` keyword instead of the `abstract` keyword. Setting this property throws an exception when the host compiler or IDE doesn't support C# 15.
+
 ### Example: Setting up the type
 
 In the following aspect, we continue the nested type example, make it `public`, and set its base type to the `Builder` nested type of the base class, if any.
@@ -74,7 +76,9 @@ To add interface implementations to an introduced type, use the <xref:Metalama.F
 
 ## Introducing extension blocks
 
-Starting with Metalama 2026.1, you can introduce C# 14 extension blocks using the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceExtensionBlock*> method. Extension blocks allow you to add extension members (methods, static methods, properties, and operators) to any type. Fields, events, indexers, constructors, and nested types are not supported inside an extension block and are rejected by Metalama with <xref:lama0041?text=LAMA0041>.
+Starting with Metalama 2026.1, you can introduce C# 14 extension blocks using the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceExtensionBlock*> method. Extension blocks allow you to add extension members (methods, static methods, properties, indexers, and operators) to any type. Fields, events, constructors, and nested types are not supported inside an extension block and are rejected by Metalama with <xref:lama0041?text=LAMA0041>.
+
+Extension indexers require C# 15. Because an indexer is always an instance member, you can introduce one only into an extension block that names its receiver parameter. Metalama reports <xref:lama0542?text=LAMA0542> when the indexer has an `init` accessor and <xref:lama0543?text=LAMA0543> when it has a modifier that the language forbids for an extension member.
 
 To introduce an extension block:
 
