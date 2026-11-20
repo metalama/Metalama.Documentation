@@ -10,6 +10,7 @@ namespace Doc.Decoupled;
 [AttributeUsage( AttributeTargets.Method | AttributeTargets.Property )]
 [RunTimeOrCompileTime]
 [ImmutableType]
+[Durable]
 public class LogAttribute : Attribute, ICompileTimeSerializable
 {
     public string Category { get; init; } = "default";

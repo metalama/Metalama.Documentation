@@ -10,6 +10,7 @@ namespace Doc.LAMA0210.Error;
 // Metalama cannot generate a serializer for a positional record.
 [RunTimeOrCompileTime]
 [ImmutableType]
+[Durable]
 public record RetryPolicy( int MaxAttempts ) : ICompileTimeSerializable;
 
 public class OrderService

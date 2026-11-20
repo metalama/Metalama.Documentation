@@ -9,6 +9,7 @@ namespace Doc.LAMA0210.Fixed;
 
 [RunTimeOrCompileTime]
 [ImmutableType]
+[Durable]
 public record RetryPolicy( int MaxAttempts ) : ICompileTimeSerializable
 {
     // The record now provides its own serializer.

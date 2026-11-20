@@ -2,11 +2,13 @@
 
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
+using Metalama.Framework.Utilities;
 using System;
 
 namespace Doc.LAMA0883.Error;
 
 [RunTimeOrCompileTime]
+[Durable]
 public abstract class CategorizedAttribute : Attribute
 {
     // The compile-time serializer of derived aspects requires a parameterless constructor.
